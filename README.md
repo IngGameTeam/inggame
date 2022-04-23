@@ -1,16 +1,6 @@
-# Project name 
+# inggame
 
-description
-
-# Dependency
-...
-
-
-# Examples
-
-```kotlin
-//...
-```
+minecraft spigot plugin base framework
 
 # Licence
 
