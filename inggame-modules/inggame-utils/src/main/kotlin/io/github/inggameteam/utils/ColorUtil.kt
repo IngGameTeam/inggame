@@ -5,9 +5,9 @@ import org.bukkit.Color
 
 object ColorUtil {
     @JvmStatic
-    fun String?.color(): String? {
-        return ChatColor.translateAlternateColorCodes('&', this ?: return null)
-    }
+    fun String.color(): String = ChatColor.translateAlternateColorCodes('&', this)
+    @JvmStatic
+    val String.color get(): String = ChatColor.translateAlternateColorCodes('&', this)
 
 
     @JvmStatic
@@ -17,15 +17,14 @@ object ColorUtil {
         val b = hex and 0xFF
         return Color.fromRGB(r, g, b)
     }
-
     @JvmStatic
     fun hex2Rgb(colorStr: String): Color {
         var s = colorStr
-        if (!s.startsWith("#")) s = "#$colorStr"
+        if (!s.startsWith("#")) s = "#" + colorStr
         return Color.fromRGB(
-            Integer.valueOf(s.substring(1, 3), 16),
-            Integer.valueOf(s.substring(3, 5), 16),
-            Integer.valueOf(s.substring(5, 7), 16)
+            Integer.valueOf( s.substring( 1, 3 ), 16 ),
+            Integer.valueOf( s.substring( 3, 5 ), 16 ),
+            Integer.valueOf( s.substring( 5, 7 ), 16 )
         )
     }
 }

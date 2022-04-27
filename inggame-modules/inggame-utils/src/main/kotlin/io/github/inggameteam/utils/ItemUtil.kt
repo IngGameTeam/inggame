@@ -21,7 +21,7 @@ object ItemUtil {
         return ItemStack(type).apply {
             itemMeta = itemMeta(type).apply {
                 if (name != null) setDisplayName(name.color())
-                if (lore.isNotEmpty()) setLore(lore.map { it.color() })
+                if (lore.isNotEmpty()) setLore(lore.map {it.color()})
             }
             this.amount = amount
         }
@@ -29,8 +29,8 @@ object ItemUtil {
     @JvmStatic
     fun appendLore(itemStack: ItemStack, lore: List<String>) {
         val itemMeta = itemMeta(itemStack)
-        if (itemMeta.hasLore()) itemMeta.lore!!.addAll(lore.map { it.color() })
-        else itemMeta.lore = ArrayList(lore.map { it.color() })
+        if (itemMeta.hasLore()) itemMeta.lore!!.addAll(lore.map {it.color()})
+        else itemMeta.lore = ArrayList(lore.map {it.color()})
         itemStack.itemMeta = itemMeta
     }
     @JvmStatic
