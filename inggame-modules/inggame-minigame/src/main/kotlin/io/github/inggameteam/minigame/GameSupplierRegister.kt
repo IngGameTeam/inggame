@@ -1,11 +1,12 @@
 package io.github.inggameteam.minigame
 
+import io.github.inggameteam.utils.Intvector
 import kotlin.collections.HashMap
 
 class GameSupplierRegister(
-    vararg function: (Sector) -> Game
-) : HashMap<String, (Sector) -> Game>() {
+    vararg function: (Intvector) -> Game
+) : HashMap<String, (Intvector) -> Game>() {
     init {
-        function.forEach { put(it(Sector()).name, it) }
+        function.forEach { put(it(Intvector()).name, it) }
     }
 }

@@ -6,7 +6,7 @@ subprojects {
     }
 
 }
+
 dependencies {
     implementation(core)
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:2.1.2")
 }

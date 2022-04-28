@@ -3,6 +3,7 @@ package io.github.inggameteam.minigame
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.scheduler.ITask
+import io.github.inggameteam.utils.Intvector
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.event.Listener
@@ -10,7 +11,7 @@ import org.bukkit.event.Listener
 interface Game : Listener {
 
     val isAllocated: Boolean
-    val point: Sector
+    val point: Intvector
     var gameState: GameState
     val name: String
     val playerData: HashMap<GPlayer, HashMap<String, Any>>

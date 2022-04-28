@@ -10,6 +10,7 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import io.github.inggameteam.minigame.GameAlert.*
+import io.github.inggameteam.utils.Intvector
 
 class GameRegister(val gPlugin: GamePlugin, val hubName: String) : HashSet<Game>(), Listener {
 
@@ -74,19 +75,19 @@ class GameRegister(val gPlugin: GamePlugin, val hubName: String) : HashSet<Game>
         HandlerList.unregisterAll(game)
     }
 
-    fun newAllocatable(): Sector {
+    fun newAllocatable(): Intvector {
         val list = filter(Game::isAllocated).map(Game::point).toSet()
         val line = FastMath.sqrt(list.size.toDouble()).toInt() + 1
         var x = 1
         while (x <= line) {
             var z = 1
             while (z <= line) {
-                if (!list.any { it.equals(x, z) }) return Sector(x, z)
+                if (!list.any { it.equals(x, z) }) return Intvector(x, z)
                 z++
             }
             x++
         }
-        return Sector(1, 1)
+        return Intvector(1, 1)
     }
 
 
