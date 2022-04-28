@@ -2,7 +2,7 @@ package io.github.inggameteam.minigame.world
 
 import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.GamePlugin
-import io.github.inggameteam.utils.Intvector
+import io.github.inggameteam.utils.IntVector
 import io.github.inggameteam.world.Fawe
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
@@ -11,7 +11,7 @@ import java.io.File
 
 class GameFawe(val plugin: GamePlugin) : FaweImpl() {
 
-    fun unloadSector(world: World, sector: Intvector) {
+    fun unloadSector(world: World, sector: IntVector) {
 /*
             val before = System.currentTimeMillis()
             val size = Game.SIZE.toDouble()
@@ -36,7 +36,7 @@ class GameFawe(val plugin: GamePlugin) : FaweImpl() {
         println("$sector Done in ${System.currentTimeMillis() - before}ms")
     }
 
-    fun loadSector(world: World?, sector: Intvector, name: String, gameHeight: Double = Game.HEIGHT.toDouble()) {
+    fun loadSector(world: World?, sector: IntVector, name: String, gameHeight: Double = Game.HEIGHT.toDouble()) {
         val x = Game.SIZE * sector.x
         val z = Game.SIZE * sector.z
         paste(Location(world, x.toDouble(), gameHeight, z.toDouble()), getFile(name))

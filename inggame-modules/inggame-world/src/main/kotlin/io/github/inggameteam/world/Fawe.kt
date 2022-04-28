@@ -1,9 +1,7 @@
 package io.github.inggameteam.world
 
-import io.github.inggameteam.utils.Intvector
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.World
 import java.io.File
 
 interface Fawe {
