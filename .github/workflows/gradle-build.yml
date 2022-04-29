@@ -20,9 +20,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: cd ..
-        run: cd ..
-
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
