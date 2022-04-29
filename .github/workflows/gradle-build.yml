@@ -1,4 +1,4 @@
-runs-on: freedy
+runs-on: self-hosted
 name: Run Gradle on PRs
 on:
   pull_request:
