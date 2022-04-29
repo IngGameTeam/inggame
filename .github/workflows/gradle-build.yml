@@ -7,7 +7,7 @@ jobs:
   gradle:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -20,11 +20,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: cd ..
         run: cd ..
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Execute Gradle build
         run: ./gradlew dist
