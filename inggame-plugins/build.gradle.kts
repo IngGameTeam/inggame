@@ -7,6 +7,13 @@ subprojects {
         archiveFileName.set("${project.name}.jar")
     }
 
+    tasks.register<Copy>("dist") {
+        dependsOn(tasks.jar)
+        val sep = File.separator
+        from("${buildDir.absolutePath}${sep}libs$sep${project.name}.jar")
+        into("${pluginProject.buildDir.absolutePath}${sep}dist")
+    }
+
     tasks.withType<Jar> {
         archiveFileName.set("${project.name}.jar")
     }
@@ -15,12 +22,6 @@ subprojects {
         version = rootProject.version
     }
 
-    tasks.register<Copy>("dist") {
-        dependsOn(tasks.jar)
-        val sep = File.separator
-        from("${buildDir.absolutePath}${sep}libs$sep${project.name}.jar")
-        into("${pluginProject.buildDir.absolutePath}${sep}dist")
-    }
 
     tasks {
         processResources {
