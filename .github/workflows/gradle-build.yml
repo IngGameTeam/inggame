@@ -29,4 +29,5 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "inggame-plugins/build/dist/*.jar"
+          tag: ${{ github.GITHUB_REF_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
