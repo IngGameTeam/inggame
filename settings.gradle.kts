@@ -1,4 +1,6 @@
-assert(JavaVersion.current() == JavaVersion.VERSION_17) { "Java 17 is required" }
+if((JavaVersion.current() != JavaVersion.VERSION_17)) {
+    throw kotlin.NullPointerException("Java 17 is required")
+}
 
 rootProject.name = "inggame"
 
