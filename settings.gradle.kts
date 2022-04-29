@@ -2,8 +2,6 @@ if((JavaVersion.current() != JavaVersion.VERSION_17)) {
     throw kotlin.NullPointerException("Java 17 is required")
 }
 
-println("lkasdjflkajklsdjlkfasdlkasdlksjlksdjkl")
-
 rootProject.name = "inggame"
 
 //val core = "${rootProject.name}-core"
