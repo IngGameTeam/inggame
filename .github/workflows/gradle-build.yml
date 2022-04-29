@@ -23,6 +23,9 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: cd ..
+        run: cd ..
+
       - name: Execute Gradle build
         run: ./gradlew dist
 
