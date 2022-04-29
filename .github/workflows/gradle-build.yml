@@ -1,15 +1,15 @@
 name: Run Gradle on PRs
-on:
-  pull_request:
-    branches:
-      - release
+on: push
+#  pull_request:
+#    branches:
+#      - release
 jobs:
   gradle:
-#    runs-on: self-hosted
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
+#    strategy:
+#      matrix:
+#        os: [ ubuntu-latest ]
+#    runs-on: ${{ matrix.os }}
     steps:
       - name: checkout
         uses: actions/checkout@v2
