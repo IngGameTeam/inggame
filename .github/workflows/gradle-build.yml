@@ -24,7 +24,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Execute Gradle build
-        run: ./gradlew :inggame-plugins:jar dist
+        run: ./gradlew build jar
 
       - name: Create Release
         id: create_release
