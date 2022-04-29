@@ -1,0 +1,3 @@
+[submodule "inggame-plugins"]
+	path = inggame-plugins
+	url = https://github.com/IngGameTeam/inggame-plugins

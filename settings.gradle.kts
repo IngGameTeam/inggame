@@ -2,7 +2,7 @@ rootProject.name = "inggame"
 
 val core = "${rootProject.name}-core"
 val abilities = "${rootProject.name}-modules"
-val plugin = "${rootProject.name}-plugin"
+val plugin = "${rootProject.name}-plugins"
 
 
 listOf(core, abilities, plugin).forEach { sub ->
