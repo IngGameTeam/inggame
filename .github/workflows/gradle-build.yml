@@ -39,5 +39,5 @@ jobs:
           title: "Release #${{ env.workflow }}"
           automatic_release_tag: latest
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          files: inggame-plugins/build/dist/inggame-JoinLeaveMessage.jar
+          files: inggame-plugins/build/dist/*.jar
           prerelease: false
