@@ -19,7 +19,7 @@ class Component(file: File) {
     val array = YamlUtil.getComponent(File(file, "array.yml")) { conf, path -> conf.getStringList(path).toMutableList() }
 
     companion object {
-        fun saveResources(vararg fileNames: String, plugin: Plugin) =
+        fun saveResources(plugin: Plugin, vararg fileNames: String) =
             fileNames
                 .filter { !File(plugin.dataFolder, it).exists() }
                 .forEach {
