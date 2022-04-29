@@ -4,11 +4,24 @@ subprojects {
     apply(plugin = "com.github.johnrengelman.shadow")
 
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
-        archiveFileName.set("${rootProject.name}.jar")
+        archiveFileName.set("${project.name}.jar")
+    }
+
+    tasks.withType<Jar> {
+        archiveFileName.set("${project.name}.jar")
     }
 
     if (version == "unspecified") {
         version = rootProject.version
+    }
+
+
+    tasks {
+        processResources {
+            filesMatching("**/*.yml") {
+                expand(rootProject.properties)
+            }
+        }
     }
 
     dependencies {
@@ -23,3 +36,5 @@ subprojects {
 dependencies {
     implementation(core)
 }
+
+

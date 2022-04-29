@@ -1,7 +1,3 @@
-tasks {
-    processResources {
-        filesMatching("**/*.yml") {
-            expand(rootProject.properties)
-        }
-    }
+dependencies {
+    implementation(project(":inggame-modules"))
 }
