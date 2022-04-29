@@ -11,3 +11,5 @@ listOf(core, abilities, plugin).forEach { sub ->
         include(":${sub}:${file.name}")
     }
 }
+
+include("inggame-publish")
