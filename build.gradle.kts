@@ -28,7 +28,6 @@ allprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     repositories {
-        maven("https://papermc.io/repo/repository/maven-public/")
         mavenLocal()
         mavenCentral()
         maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
@@ -38,8 +37,6 @@ allprojects {
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
-
-
     }
 
     dependencies {
