@@ -24,6 +24,7 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :inggame-plugins:jar
 
+      - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           title: "Release #${{ env.workflow }}"
