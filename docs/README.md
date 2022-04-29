@@ -1,6 +1,6 @@
-![](static/images/og.png)
+[//]: # (![]&#40;static/images/og.png&#41;)
 
-- **깃허브 저장소:** [inggameteam/inggame](https://github.com/inggameteam/inggame)
+**깃허브 저장소:** [inggameteam/inggame](https://github.com/inggameteam/inggame)
 
 <a class="github-button" href="https://github.com/IngGameTeam/inggame" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star chibicode/duo on GitHub">Star</a>
 
