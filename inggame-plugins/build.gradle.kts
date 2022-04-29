@@ -32,7 +32,10 @@ subprojects {
     }
 
     dependencies {
-        implementation(project(":${rootProject.name}-modules"))
+        val modules = rootProject.findProject("${rootProject.name}-modules")!!.projectDir
+        modules.listFiles()?.filter { it.isDirectory && it.name.startsWith("${rootProject.name}-") }?.forEach { file ->
+            implementation(project(":${modules.name}:${file.name}"))
+        }
     }
 
 }
