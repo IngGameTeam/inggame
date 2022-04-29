@@ -6,8 +6,8 @@ import java.util.*
 interface AlertPlugin : Plugin {
 
 
-    val alertComponent: AlertComponent
-    fun alert(name: String) = alertComponent.alert[name]!!
+    val component: Component
+    fun alert(name: String) = component.alert[name]!!
     fun alert(enum: Enum<*>) = alert(enum.name)
     val console: UUID
 

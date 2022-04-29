@@ -13,17 +13,18 @@ import kotlin.collections.HashMap
 class GPlayerRegister(playerPlugin: PlayerPlugin) : HashMap<UUID, GPlayer>(), Listener {
 
     init {
+        Bukkit.getOnlinePlayers().map(Player::getUniqueId).forEach { put(it, GPlayer(it)) }
         Bukkit.getPluginManager().registerEvents(this, playerPlugin)
     }
 
     @EventHandler
-    fun onJoin(event: PlayerJoinEvent) {
+    private fun onJoin(event: PlayerJoinEvent) {
         val uuid = event.player.uniqueId
         this[uuid] = GPlayer(uuid)
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    fun onQuit(event: PlayerQuitEvent) {
+    private fun onQuit(event: PlayerQuitEvent) {
         val uuid = event.player.uniqueId
         this.remove(uuid)
     }
