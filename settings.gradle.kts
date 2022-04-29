@@ -16,4 +16,4 @@ listOf(abilities, plugin).forEach { sub ->
     }
 }
 
-include("inggame-publish")
+include("${rootProject.name}-publish")
