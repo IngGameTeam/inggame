@@ -1,3 +1,4 @@
+runs-on: [self-hosted, linux, x64]
 name: Run Gradle on PRs
 on:
   pull_request:
