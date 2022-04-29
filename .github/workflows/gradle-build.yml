@@ -32,8 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.workflow }}
+          release_name: "Release #${{ env.workflow }}"
 #          body: |
 #            Changes in this Release
 #            - First Change
@@ -49,3 +49,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./inggame-plugins/build/dist/*.jar
           asset_name: "*.jar"
+          asset_content_type: application/java-archive
