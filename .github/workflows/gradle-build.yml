@@ -32,7 +32,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.workflow }}
+          tag_name: ${{ env.GITHUB_REF_NAME }}
           release_name: "Release #${{ env.workflow }}"
 #          body: |
 #            Changes in this Release
