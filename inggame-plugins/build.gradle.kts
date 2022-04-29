@@ -32,7 +32,7 @@ subprojects {
     }
 
     dependencies {
-        implementation(project(":${rootProject.name}-modules"))
+        api(project(":${rootProject.name}-modules"))
     }
 
 }
