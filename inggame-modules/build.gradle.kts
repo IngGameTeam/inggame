@@ -1,5 +1,3 @@
-val core = project(":${rootProject.name}-core")
-
 subprojects {
     if (version == "unspecified") {
         version = rootProject.version
@@ -9,6 +7,6 @@ subprojects {
 
 dependencies {
     file("/").listFiles()?.filter { it.isDirectory && it.name.startsWith("${rootProject.name}-") }?.forEach { file ->
-        implementation(project(":${name}:${file.name}"))
+        api(project(":${name}:${file.name}"))
     }
 }
