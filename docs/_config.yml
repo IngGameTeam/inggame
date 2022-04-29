@@ -48,7 +48,7 @@ lang: "ko"
 num_posts_visible_initially: 5
 
 # Date format: See http://strftime.net/
-date_format: "%Y %m %-d"
+date_format: "%Y-%m-%-d"
 # ----------------------------------------------------------------------------
 
 exclude:
