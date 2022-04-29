@@ -31,7 +31,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Execute Gradle build
-        run: ./gradlew :inggame-plugins:jar
+        run: ./gradlew :inggame-modules:jar :inggame-plugins:jar
 
       - name: release
         uses: marvinpinto/action-automatic-releases@latest

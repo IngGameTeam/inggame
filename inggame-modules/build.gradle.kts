@@ -10,3 +10,7 @@ dependencies {
         api(project(":${project.name}:${file.name}"))
     }
 }
+
+tasks.withType<Jar> {
+    dependsOn(*childProjects.values.map { it.tasks.jar }.toTypedArray())
+}
