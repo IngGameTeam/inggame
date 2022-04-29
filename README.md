@@ -1,6 +1,7 @@
 # inggame
 
-minecraft spigot plugin base framework
+minecraft plugin framework  
+look at [this](https://inggameteam.github.io/inggame/) web page
 
 # Getting Started
 
