@@ -26,10 +26,10 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :inggame-plugins:jar
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          tag_name: "${{ github.GITHUB_REF_TYPE }}"
-          files: |
-            inggame-plugins/build/dist/
-
+          title: "Release #${{ env.workflow }}"
+          automatic_release_tag: latest
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          files: inggame-plugins/build/dist/*.jar
+          prerelease: false
