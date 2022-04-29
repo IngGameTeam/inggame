@@ -26,27 +26,7 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :inggame-plugins:jar
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ env.GITHUB_REF_NAME }}
-          release_name: "Release #${{ env.workflow }}"
-#          body: |
-#            Changes in this Release
-#            - First Change
-#            - Second Change
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./inggame-plugins/build/dist/*.jar
-          asset_name: "*.jar"
-          asset_content_type: application/java-archive
+          artifacts: "inggame-plugins/build/dist/*.jar"
+          token: ${{ secrets.GITHUB_TOKEN }}
