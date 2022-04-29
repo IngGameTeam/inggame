@@ -10,7 +10,7 @@ url: "https://github.com/IngGameTeam/inggame"
 
 # If you're deployging to a subdirectory (https://foo.com/bar/)
 # Then write "/bar/". Otherwise, remove this line.
-baseurl: "/inggame/docs/"
+baseurl: "/inggame/"
 
 # Twitter IDs
 twitter:

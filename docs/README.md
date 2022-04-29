@@ -1,4 +1,4 @@
-![](https://chibicode.github.io/duo/static/images/og.jpg)
+![](static/images/og.png)
 
 **Duo** is a simple [Jekyll](http://jekyllrb.com/) theme. You can use duo for a single-page site or a simple blog.
 
