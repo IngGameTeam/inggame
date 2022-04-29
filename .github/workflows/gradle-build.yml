@@ -26,8 +26,10 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :inggame-plugins:jar
 
-      - uses: ncipollo/release-action@v1
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          artifacts: "inggame-plugins/build/dist/*.jar"
-          tag: ${{ github.GITHUB_REF_NAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            inggame-plugins/build/dist/*.jar
+
