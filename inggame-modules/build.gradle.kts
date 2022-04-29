@@ -7,7 +7,7 @@ subprojects {
 
 dependencies {
     file("/").listFiles()?.filter { it.isDirectory && it.name.startsWith("${rootProject.name}-") }?.forEach { file ->
-        api(project(":${project.name}:${file.name}"))
+        implementation(project(":${project.name}:${file.name}"))
     }
 }
 
