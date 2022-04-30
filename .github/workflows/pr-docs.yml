@@ -13,7 +13,7 @@ jobs:
       - name: master -> docs
         uses: devmasx/merge-branch@v1.3.1
         with:
-          type: rebase
+          type: now
           from_branch: master
           target_branch: docs
           github_token: "${{ secrets.GITHUB_TOKEN }}"
