@@ -18,7 +18,7 @@ jobs:
         id: verify-changed-files
         with:
           files: |
-            docs/*
+            docs
 
       - name: Create Pull Request
         if: steps.verify-changed-files.outputs.files_changed == 'true'
