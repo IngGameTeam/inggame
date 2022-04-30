@@ -1,10 +1,10 @@
-name: Run Gradle on PRs
+name: pr docs
 on:
   push:
     branches:
       - master
     paths:
-      - 'docs/_posts'
+      - 'docs/**'
 jobs:
   pull-request:
     runs-on: ubuntu-latest
