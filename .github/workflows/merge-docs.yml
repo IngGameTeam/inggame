@@ -1,13 +1,10 @@
 name: merge docs
 on:
   pull_request:
-
-env:
-  DEFAULT_BRANCH: docs
-
+    types: [labeled, opened]
 jobs:
   merge-branch:
-    if: ${{ github.event.label.name == 'commit' }}
+    if: ${{ github.event.label.name == 'automerge' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -15,6 +12,6 @@ jobs:
         uses: devmasx/merge-branch@v1.3.1
         with:
           type: now
-          from_branch: feature1
-          target_branch: master
-          github_token: ${{ github.token }}
+          from_branch: master
+          target_branch: docs
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
