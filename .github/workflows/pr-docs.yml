@@ -20,3 +20,10 @@ jobs:
         uses: "pascalgn/automerge-action@v0.15.2"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Merge staging -> docs
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: docs
+          github_token: ${{ github.token }}
