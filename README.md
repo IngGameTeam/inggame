@@ -2,7 +2,7 @@
 
 minecraft plugin framework
 
-You should to set **Java 17+** to gradle project  
+You have to set **Java 17+** to gradle project  
 
 Only support latest version of minecraft server
 
