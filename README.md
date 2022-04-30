@@ -1,11 +1,22 @@
 # inggame
 
-minecraft plugin framework  
-look at [this](https://inggameteam.github.io/inggame/) web page
+minecraft plugin framework
 
-# Getting Started
+You should to set **Java 17+** to gradle project  
 
-You should to set **Java 17+** into gradle and project   
+Only support latest version of minecraft server
+
+# What is inggame?
+
+inggmae is designed for efficient plugin coding.
+- Insanely useful, if you want to develop an open source with my framework
+- release artifact jar automatically, and write your blog include how to use on github pages.  
+
+
+
+# /docs/ directory
+
+Project [blog](https://inggameteam.github.io/inggame/) exists.
 
 # Licence
 
