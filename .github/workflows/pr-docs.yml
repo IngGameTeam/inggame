@@ -13,5 +13,6 @@ jobs:
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
+          pr_label: "automerge"
           destination_branch: "docs"
           github_token: ${{ secrets.GITHUB_TOKEN }}
