@@ -1,0 +1,14 @@
+name: Check PR can be merged
+on:
+  pull_request:
+    types: [labeled]
+    branches:
+      - docs/* # 해당 기능을 사용하고 싶은 브랜치를 정의합니다
+jobs:
+  Run Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automatically Merge PR
+        uses: plm9606/automerge_actions@1.2.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

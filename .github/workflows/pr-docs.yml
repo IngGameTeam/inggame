@@ -3,38 +3,20 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'docs/*'
 jobs:
-  gradle:
-#    runs-on: self-hosted
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-    runs-on: ${{ matrix.os }}
+  pull-request:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v9
-        id: verify-changed-files
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
         with:
-          files: |
-            docs
-
-      - name: Create Pull Request
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.PAT }}
-          commit-message: Update report
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          branch: docs
-          delete-branch: false
-          title: 'update docs'
-          labels: |
-            automated pr
-          draft: false
-
-        # Outputs: "Changed files: new.txt test_directory/new.txt"
+          destination_branch: "docs"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.15.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
