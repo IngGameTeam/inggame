@@ -9,10 +9,18 @@ jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
+#      - uses: actions/checkout@v2
+#      - name: pull-request
+#        uses: repo-sync/pull-request@v2
+#        with:
+#          pr_label: "automerge"
+#          destination_branch: "docs"
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@master
+      - name: master -> docs
+        uses: devmasx/merge-branch@v1.3.1
         with:
-          pr_label: "automerge"
-          destination_branch: "docs"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          type: now
+          from_branch: master
+          target_branch: docs
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
