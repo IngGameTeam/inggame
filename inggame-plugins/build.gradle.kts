@@ -1,13 +1,9 @@
 val pluginProject = project
 
 subprojects {
-    apply(plugin = "com.github.johnrengelman.shadow")
-
-    tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
-        archiveFileName.set("${project.name}.jar")
-    }
 
     tasks.withType<Jar> {
+        dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         doLast {
             copy {
@@ -32,10 +28,7 @@ subprojects {
     }
 
     dependencies {
-        val modules = rootProject.findProject("${rootProject.name}-modules")!!.projectDir
-        modules.listFiles()?.filter { it.isDirectory && it.name.startsWith("${rootProject.name}-") }?.forEach { file ->
-            implementation(project(":${modules.name}:${file.name}"))
-        }
+        implementation("io.github.inggameteam:inggame-modules:+")
     }
 
 }

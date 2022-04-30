@@ -26,9 +26,13 @@ allprojects {
 
 allprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "com.github.johnrengelman.shadow")
+
+    tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+        archiveFileName.set("${project.name}.jar")
+    }
 
     repositories {
-        mavenLocal()
         mavenCentral()
         maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }

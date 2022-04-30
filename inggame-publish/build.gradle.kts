@@ -29,10 +29,15 @@ publishing {
             url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
             credentials {
                 val prop = org.jetbrains.kotlin.konan.properties.Properties()
-                val file = File(rootProject.file("/"), "env.properties")
-                if (file.exists()) prop.load(file.inputStream())
-                username = (prop["gpr.user"] ?: System.getenv("gpr.user"))?.toString()?: ""
-                password = (prop["gpr.key"] ?: System.getenv("gpr.key"))?.toString()?: ""
+                val file = File(rootProject.projectDir, "env.properties")
+                if (file.exists()) {
+                    prop.load(file.inputStream())
+                }
+                username = prop["gpr.user"]?.toString()?: ""
+                password = prop["gpr.key"]?.toString()?: ""
+
+//                username = (prop["gpr.user"] ?: System.getenv("gpr.user"))?.toString()?: ""
+//                password = (prop["gpr.key"] ?: System.getenv("gpr.key"))?.toString()?: ""
             }
         }
     }
