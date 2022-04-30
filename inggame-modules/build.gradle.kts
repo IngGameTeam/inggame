@@ -5,3 +5,6 @@ subprojects {
 
 }
 
+dependencies {
+    childProjects.values.forEach { api(it) }
+}

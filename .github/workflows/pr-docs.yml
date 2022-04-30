@@ -1,0 +1,22 @@
+name: Run Gradle on PRs
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/_posts'
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "docs"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.15.2"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
