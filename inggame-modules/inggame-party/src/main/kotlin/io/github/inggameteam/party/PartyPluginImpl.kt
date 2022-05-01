@@ -6,4 +6,9 @@ abstract class PartyPluginImpl : PartyPlugin, PlayerPluginImpl() {
     override val partyRegister by lazy { PartyRegister(this) }
     override val partyRequestRegister by lazy { PartyRequestRegister(this) }
     override val partyUI by lazy { PartyUI(this) }
+    override fun onEnable() {
+        partyRegister
+        partyRequestRegister
+        partyUI
+    }
 }

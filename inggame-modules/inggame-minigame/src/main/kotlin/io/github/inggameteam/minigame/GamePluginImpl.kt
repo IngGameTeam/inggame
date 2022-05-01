@@ -7,11 +7,13 @@ abstract class GamePluginImpl(
     val hubName: String,
     val worldName: String,
     val worldSize: IntVector,
-    vararg init:  (IntVector) -> Game,
+    vararg init:  (GamePlugin, IntVector) -> Game,
     ) : GamePlugin, PartyPluginImpl() {
-    /*
-
-     */
+    override val gameSupplierRegister by lazy { GameSupplierRegister(this, *init) }
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, worldSize) }
-    override val gameSupplierRegister by lazy { GameSupplierRegister(*init) }
+    override fun onEnable() {
+        super.onEnable()
+        gameSupplierRegister
+        gameRegister
+    }
 }

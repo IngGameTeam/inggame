@@ -8,5 +8,4 @@ interface PartyPlugin : PlayerPlugin, AlertPlugin {
     val partyRegister: PartyRegister
     val partyRequestRegister: PartyRequestRegister
     val partyUI: PartyUI
-
 }

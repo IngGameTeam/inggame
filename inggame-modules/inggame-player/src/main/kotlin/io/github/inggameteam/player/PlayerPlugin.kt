@@ -1,9 +1,8 @@
 package io.github.inggameteam.player
 
-import org.bukkit.plugin.Plugin
+import io.github.inggameteam.api.IngGamePlugin
 
-interface PlayerPlugin : Plugin {
+interface PlayerPlugin : IngGamePlugin {
 
     val playerRegister: GPlayerRegister
-
 }

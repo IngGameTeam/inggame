@@ -12,7 +12,7 @@ import java.util.*
 fun Map<String, String>.format(args: Array<out Any>) = map { it.value.format(*args) }.toTypedArray()
 
 class ChatAlert(map: Map<String, String>) : Alert<Player>(map) {
-    override fun send(sender: UUID, t: Player, args: Array<out Any>) {
+    override fun send(sender: UUID?, t: Player, args: Array<out Any>) {
         t.sendMessage(sender, *map.format(args))
     }
 }
@@ -25,13 +25,13 @@ class TitleAlert(
 ) : Alert<Player>(map) {
 
 
-    override fun send(sender: UUID, t: Player, args: Array<out Any>) {
+    override fun send(sender: UUID?, t: Player, args: Array<out Any>) {
         t.sendTitle(map["title"]!!.format(*args), map["subTitle"]!!.format(*args), fadeIn, stay, fadeOut)
     }
 }
 
 class ActionBarAlert(map: Map<String, String>) : Alert<Player>(map) {
-    override fun send(sender: UUID, t: Player, args: Array<out Any>) {
+    override fun send(sender: UUID?, t: Player, args: Array<out Any>) {
         t.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(map.values.first().format(*args)))
     }
 }
@@ -39,7 +39,7 @@ class ActionBarAlert(map: Map<String, String>) : Alert<Player>(map) {
 abstract class AbstractEventAlert(
     map: Map<String, String>,
 ): Alert<Player>(map) {
-    override fun send(sender: UUID, t: Player, args: Array<out Any>) {
+    override fun send(sender: UUID?, t: Player, args: Array<out Any>) {
         t.spigot().sendMessage(TextComponent(map.values.first().format(*args)).apply {
             val reversedArgs = args.clone().apply { reverse() }
             event(this, reversedArgs)
@@ -61,7 +61,7 @@ class ClickEventAlert(map: Map<String, String>, private val action: ClickEvent.A
 }
 
 class EmptyAlert : Alert<Player>(Collections.emptyMap()) {
-    override fun send(sender: UUID, t: Player, args: Array<out Any>) {
+    override fun send(sender: UUID?, t: Player, args: Array<out Any>) {
 
     }
 }

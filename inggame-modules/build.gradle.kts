@@ -7,4 +7,5 @@ subprojects {
 
 dependencies {
     childProjects.values.forEach { api(it) }
+    implementation(project(":inggame-modules:inggame-api"))
 }

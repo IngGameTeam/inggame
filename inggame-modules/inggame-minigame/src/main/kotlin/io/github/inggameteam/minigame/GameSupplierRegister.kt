@@ -4,10 +4,11 @@ import io.github.inggameteam.utils.IntVector
 import kotlin.collections.HashMap
 
 class GameSupplierRegister(
-    vararg function: (IntVector) -> Game
-) : HashMap<String, (IntVector) -> Game>() {
+    gamePlugin: GamePlugin,
+    vararg function: (GamePlugin, IntVector) -> Game
+) : HashMap<String, (GamePlugin, IntVector) -> Game>() {
     init {
-        function.forEach { put(it(IntVector()).name, it) }
+        function.forEach { put(it(gamePlugin, IntVector()).name, it) }
     }
 
     override fun get(key: String) =

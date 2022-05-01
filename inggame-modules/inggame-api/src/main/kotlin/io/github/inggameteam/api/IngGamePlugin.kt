@@ -5,4 +5,5 @@ import java.util.*
 
 interface IngGamePlugin : Plugin {
     val console: UUID
+    var allowTask: Boolean
 }

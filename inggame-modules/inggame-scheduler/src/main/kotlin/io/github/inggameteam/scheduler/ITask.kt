@@ -1,11 +1,13 @@
 package io.github.inggameteam.scheduler
 
+import io.github.inggameteam.api.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 
 class ITask {
+    constructor()
     constructor(vararg tasks: BukkitTask) {
         this.tasks.addAll(tasks.map { SingleTask(it) })
     }
@@ -21,6 +23,19 @@ class ITask {
         }
     }
     data class SingleTask(val bukkitTask: BukkitTask? = null, val taskId: Int = if(bukkitTask === null) -1 else bukkitTask.taskId)
+    companion object {
+        @JvmStatic
+        fun repeat(plugin: IngGamePlugin, delay: Long, period: Long, vararg functions: () -> Unit): ITask {
+            return if (functions.size == 1)
+                if (!plugin.allowTask) ITask()
+                else ITask(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, functions[0], delay, period))
+            else ITask().apply {
+                functions.mapIndexed { index, runnable ->
+                    tasks.addAll(runnable.delay(plugin, delay + period * index).tasks)
+                }
+            }
+        }
+    }
 }
 
 
@@ -36,3 +51,4 @@ fun (() -> Boolean).repeat(plugin: Plugin, delay: Long, period: Long) =
     }, delay, period))
 fun (() -> Unit).runNow(plugin: Plugin) = ITask(Bukkit.getScheduler().runTask(plugin, this))
 fun (() -> Unit).async(plugin: Plugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, this))
+

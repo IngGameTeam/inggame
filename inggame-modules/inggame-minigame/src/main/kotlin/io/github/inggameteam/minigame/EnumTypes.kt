@@ -4,12 +4,12 @@ enum class JoinType {
     PLAY, SPECTATE;
 }
 
-enum class LeftType(val isJoinHub: Boolean, val ignoreWinner: Boolean) {
-    LEFT_SERVER(false, false),
-    COMMAND(true, false),
-    DUE_TO_MOVE_ANOTHER_GAME(false, false),
-    GAME_STOP(true, false),
-    SERVER_RELOAD(false, true),
+enum class LeftType(val isJoinHub: Boolean) {
+    LEFT_SERVER(false),
+    COMMAND(true),
+    DUE_TO_MOVE_ANOTHER_GAME(false),
+    GAME_STOP(true),
+    SERVER_RELOAD(false),
 }
 
 enum class GameState {
