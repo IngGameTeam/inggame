@@ -9,4 +9,7 @@ class GameSupplierRegister(
     init {
         function.forEach { put(it(IntVector()).name, it) }
     }
+
+    override fun get(key: String) =
+        super.get(key).apply { assert (this === null) { "Game $key doesn't exist" } }!!
 }

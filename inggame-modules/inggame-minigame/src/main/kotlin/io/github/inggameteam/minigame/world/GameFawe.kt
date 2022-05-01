@@ -1,6 +1,5 @@
 package io.github.inggameteam.minigame.world
 
-import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.utils.IntVector
 import io.github.inggameteam.world.Fawe
@@ -11,7 +10,7 @@ import java.io.File
 
 class GameFawe(val plugin: GamePlugin) : FaweImpl() {
 
-    fun unloadSector(world: World, sector: IntVector) {
+    fun unloadSector(world: World, sector: IntVector, gameSize: IntVector) {
 /*
             val before = System.currentTimeMillis()
             val size = Game.SIZE.toDouble()
@@ -27,19 +26,19 @@ class GameFawe(val plugin: GamePlugin) : FaweImpl() {
 */
         val before = System.currentTimeMillis()
         val file = getFile(Fawe.DEFAULT)
-        val sizeAsDouble = Game.SIZE.toDouble()
-        val x = Game.SIZE * sector.x - (sizeAsDouble / 2).toInt()
-        val z = Game.SIZE * sector.z - (sizeAsDouble / 2).toInt()
+        val sizeAsDouble = gameSize.x.toDouble()
+        val x = gameSize.x * sector.x - (sizeAsDouble / 2).toInt()
+        val z = gameSize.x * sector.y - (sizeAsDouble / 2).toInt()
         val d = 50
-        for (dx in x..x+Game.SIZE step d) for (dz in z..z+Game.SIZE step d)
-            paste(Location(world, dx.toDouble(), Game.HEIGHT.toDouble(), dz.toDouble()), file)
+        for (dx in x..x+gameSize.x step d) for (dz in z..z+gameSize.x step d)
+            paste(Location(world, dx.toDouble(), gameSize.y.toDouble(), dz.toDouble()), file)
         println("$sector Done in ${System.currentTimeMillis() - before}ms")
     }
 
-    fun loadSector(world: World?, sector: IntVector, name: String, gameHeight: Double = Game.HEIGHT.toDouble()) {
-        val x = Game.SIZE * sector.x
-        val z = Game.SIZE * sector.z
-        paste(Location(world, x.toDouble(), gameHeight, z.toDouble()), getFile(name))
+    fun loadSector(world: World?, sector: IntVector, name: String, gameSize: IntVector) {
+        val x = gameSize.x * sector.x
+        val z = gameSize.x * sector.y
+        paste(Location(world, x.toDouble(), gameSize.y.toDouble(), z.toDouble()), getFile(name))
     }
 
     fun getFile(name: String): File {

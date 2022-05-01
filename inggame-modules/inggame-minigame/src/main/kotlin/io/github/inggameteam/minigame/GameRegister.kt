@@ -11,13 +11,21 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.utils.IntVector
+import org.bukkit.World
 
-class GameRegister(val gPlugin: GamePlugin, val hubName: String) : HashSet<Game>(), Listener {
+class GameRegister(
+    val plugin: GamePlugin,
+    val hubName: String,
+    val worldName: String,
+    val worldSize: IntVector,
+    ) : HashSet<Game>(), Listener {
 
     //Hub.NAME
     //partyRegister
     //playerRegister
     //gameSupplierRegister
+
+    val world: World? get() = Bukkit.getWorld(worldName)
 
     @Suppress("Deprecated")
     @EventHandler
@@ -26,20 +34,20 @@ class GameRegister(val gPlugin: GamePlugin, val hubName: String) : HashSet<Game>
     }
 
     fun getJoinedGame(player: Player): Game {
-        val gPlayer = gPlugin.playerRegister[player]
+        val gPlayer = plugin.playerRegister[player]
         return stream().filter { game -> game.joined.contains(gPlayer) }.findFirst().orElse(null)!!
     }
 
     fun join(player: Player, name: String, joinType: JoinType = JoinType.PLAY) {
-        val gPlayer = gPlugin.playerRegister[player]
-        if (gPlugin.partyRegister.joinedParty(gPlayer) && name != hubName) {
-            if (gPlugin.partyRegister.hasOwnParty(gPlayer)) {
-                val joined = gPlugin.partyRegister.getJoined(gPlayer)!!.joined
+        val gPlayer = plugin.playerRegister[player]
+        if (plugin.partyRegister.joinedParty(gPlayer) && name != hubName) {
+            if (plugin.partyRegister.hasOwnParty(gPlayer)) {
+                val joined = plugin.partyRegister.getJoined(gPlayer)!!.joined
                 joined.filter { getJoinedGame(it.player).name == hubName }.forEach { join(it.player, hubName) }
                 joined.forEach { left(it.player, LeftType.DUE_TO_MOVE_ANOTHER_GAME) }
                 val game = findOrCreateGame(gPlayer, name)
                 joined.forEach { game.joinGame(it, joinType) }
-            } else gPlugin.alert(ONLY_LEADER_START).send(gPlugin.console, gPlayer.player)
+            } else plugin.alert(ONLY_LEADER_START).send(plugin.console, gPlayer.player)
         } else {
             left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
             findOrCreateGame(gPlayer, name).joinGame(gPlayer, joinType)
@@ -63,9 +71,9 @@ class GameRegister(val gPlugin: GamePlugin, val hubName: String) : HashSet<Game>
     }
 
     fun createGame(name: String,
-                   game: Game = gPlugin.gameSupplierRegister[name]!!(newAllocatable())
+                   game: Game = plugin.gameSupplierRegister[name]!!(newAllocatable())
     ): Game {
-        Bukkit.getPluginManager().registerEvents(game, gPlugin)
+        Bukkit.getPluginManager().registerEvents(game, plugin)
         add(game)
         return game
     }
