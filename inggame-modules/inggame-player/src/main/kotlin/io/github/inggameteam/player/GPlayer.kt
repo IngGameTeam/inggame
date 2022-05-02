@@ -28,5 +28,3 @@ class GPlayer(uuid: UUID) : HashMap<String, Any>(), AlertReceiver<Player>, TagCo
     }
 
 }
-
-val Player.game get() = GPlayer(uniqueId)

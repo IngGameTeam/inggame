@@ -10,7 +10,6 @@ import org.bukkit.Bukkit
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
-import io.github.inggameteam.player.game
 import io.github.inggameteam.scheduler.delay
 import org.bukkit.Particle
 import org.bukkit.event.EventHandler
@@ -149,7 +148,7 @@ open class GameImpl(
 
     @EventHandler(priority = EventPriority.HIGH)
     fun onPlayerQuit(event: PlayerQuitEvent) {
-        val gPlayer = event.player.game
+        val gPlayer = plugin[event.player]
         if (requestLeft(gPlayer, LeftType.LEFT_SERVER)) leftGame(gPlayer, LeftType.LEFT_SERVER)
     }
 

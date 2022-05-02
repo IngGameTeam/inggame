@@ -20,7 +20,7 @@ object ColorUtil {
     @JvmStatic
     fun hex2Rgb(colorStr: String): Color {
         var s = colorStr
-        if (!s.startsWith("#")) s = "#" + colorStr
+        if (!s.startsWith("#")) s = "#$colorStr"
         return Color.fromRGB(
             Integer.valueOf( s.substring( 1, 3 ), 16 ),
             Integer.valueOf( s.substring( 3, 5 ), 16 ),

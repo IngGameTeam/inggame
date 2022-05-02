@@ -19,10 +19,11 @@ class PartyImpl(
     override val joined = GPlayerList()
     override lateinit var name: String
 
+    val comp get() = plugin.component
 
     init {
         joined.addAll(gPlayer)
-        if (isSilent.not()) joined.receiveAll(plugin.console, plugin.alert(PARTY_CREATED), this)
+        if (isSilent.not()) joined.receiveAll(plugin.console, comp.alert(PARTY_CREATED), this)
         resetName()
     }
 
@@ -43,20 +44,20 @@ class PartyImpl(
             plugin.partyRegister.getJoined(player)?.left(player)
         }
         joined.add(player)
-        joined.receiveAll(plugin.console, plugin.alert(JOIN_PARTY), player, this)
+        joined.receiveAll(plugin.console, comp.alert(JOIN_PARTY), player, this)
     }
 
     override fun left(player: GPlayer) {
         if (leader == player) {
 
-            joined.receiveAll(plugin.console, plugin.alert(PARTY_DISBANDED), this)
+            joined.receiveAll(plugin.console, comp.alert(PARTY_DISBANDED), this)
             plugin.partyRegister.remove(this)
             joined.clear()
             plugin.partyUI.updateParty()
             return
         }
         joined.remove(player)
-        joined.receiveAll(plugin.console, plugin.alert(LEFT_PARTY), player, this)
+        joined.receiveAll(plugin.console, comp.alert(LEFT_PARTY), player, this)
 
     }
 

@@ -1,7 +1,6 @@
 package io.github.inggameteam.party
 
 import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.player.game
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.ColorUtil.color
 import io.github.inggameteam.utils.ItemUtil
@@ -27,23 +26,23 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
         if (args.isNotEmpty()) {
             if (args[0].equals("join", ignoreCase = true) && sender is Player && sender.isOp) {
                 val player = Bukkit.getPlayer(args[1])!!
-                val gPlayer = player.game
+                val gPlayer = plugin[player]
                 if (!plugin.partyRegister.joinedParty(gPlayer)) return true
-                plugin.partyRegister.getJoined(gPlayer)?.join((
+                plugin.partyRegister.getJoined(gPlayer)?.join(plugin[
                     if (args.size >= 3) Bukkit.getPlayerExact(args[2])!! else sender
-                ).game)
+                ])
                 updateParty()
                 return true
             }
             if (args[0].equals("create", ignoreCase = true) && sender is Player) {
-                val gPlayer = sender.game
+                val gPlayer = plugin[sender]
                 plugin.partyRegister.createParty(gPlayer)
                 updateParty()
                 return true
             }
             if (args[0].equals("rename", ignoreCase = true) && sender is Player) {
                 val newName = args.copyOfRange(1, args.size).joinToString(" ")
-                val gSender = sender.game
+                val gSender = plugin[sender]
                 val joinedParty = plugin.partyRegister.getJoined(gSender)
                 if (joinedParty == null) {
                     sender.sendMessage("&c참여 중인 파티가 없습니다".color)
@@ -64,12 +63,12 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     joinedParty.name = newName.color
                     joinedParty.renamed = true
                 }
-                joinedParty.joined.receiveAll(plugin.console, plugin.alert(PARTY_RENAMED), gSender, beforeName, joinedParty.name)
+                joinedParty.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_RENAMED), gSender, beforeName, joinedParty.name)
                 updateParty()
                 return true
             }
             if (args[0].equals("visible", ignoreCase = true) && sender is Player) {
-                val gSender = sender.game
+                val gSender = plugin[sender]
                 if (plugin.partyRegister.hasOwnParty(gSender)) {
                     val joinedParty = plugin.partyRegister.getJoined(gSender)!!
                     joinedParty.opened = !joinedParty.opened
@@ -88,8 +87,8 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     sender.sendMessage("&c플레이어가 없습니다".color)
                     return true
                 }
-                val gPlayer = player.game
-                val gSender = sender.game
+                val gPlayer = plugin[player]
+                val gSender = plugin[sender]
                 if (sender == player) {
                     sender.sendMessage("&c당신을 리더로 위임할 수는 없습니다".color)
                     return true
@@ -100,8 +99,8 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                         sender.sendMessage("&c플레이어가 파티에 없습니다".color)
                         return true
                     }
-                    gPlayer.player.sendMessage("&a${party.leader}이(가) 당신을 ${party.name} 방장으로 위임했습니다".color)
-                    party.joined.receiveAll(plugin.console, plugin.alert(PARTY_PROMOTED), gPlayer, party)
+                    gPlayer.sendMessage("&a${party.leader}이(가) 당신을 ${party.name} 방장으로 위임했습니다".color)
+                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_PROMOTED), gPlayer, party)
                     party.joined.remove(gPlayer)
                     party.joined.add(0, gPlayer)
                     updateParty()
@@ -116,8 +115,8 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     sender.sendMessage("&c플레이어가 없습니다".color)
                     return true
                 }
-                val gPlayer = player.game
-                val gSender = sender.game
+                val gPlayer = plugin[player]
+                val gSender = plugin[sender]
                 if (sender == player) {
                     sender.sendMessage("&c자신을 추방할 수는 없습니다".color)
                     return true
@@ -129,8 +128,8 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                         return true
                     }
                     party.joined.remove(gPlayer)
-                    gPlayer.player.sendMessage("&a${party.leader}이(가) 당신을 ${party.name}에서 추방했습니다".color)
-                    party.joined.receiveAll(plugin.console, plugin.alert(PARTY_KICKED), gPlayer, party)
+                    gPlayer.sendMessage("&a${party.leader}이(가) 당신을 ${party.name}에서 추방했습니다".color)
+                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_KICKED), gPlayer, party)
                     plugin.partyRequestRegister.removeIf { it.party == party && it.sender == gPlayer }
                     updateParty()
                 } else if (plugin.partyRegister.joinedParty(gSender)) {
@@ -144,8 +143,8 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     sender.sendMessage("&c플레이어가 없습니다".color)
                     return true
                 }
-                val gPlayer = player.game
-                val gSender = sender.game
+                val gPlayer = plugin[player]
+                val gSender = plugin[sender]
                 if (sender == player) {
                     sender.sendMessage("&c자신을 차단할 수는 없습니다".color)
                     return true
@@ -158,9 +157,9 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     }
 //                    party.left(gPlayer)
                     party.joined.remove(gPlayer)
-                    party.banList.add(gPlayer.player.uniqueId)
-                    gPlayer.player.sendMessage("&a${party.leader}이(가) 당신을 ${party.name}에서 차단했습니다".color)
-                    party.joined.receiveAll(plugin.console, plugin.alert(PARTY_BANNED), gPlayer, party)
+                    party.banList.add(gPlayer.uniqueId)
+                    gPlayer.sendMessage("&a${party.leader}이(가) 당신을 ${party.name}에서 차단했습니다".color)
+                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_BANNED), gPlayer, party)
                     plugin.partyRequestRegister.removeIf { it.party == party && it.sender == gPlayer }
                     updateParty()
                 } else if (plugin.partyRegister.joinedParty(gSender)) {
@@ -174,20 +173,20 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     sender.sendMessage("&c플레이어가 없습니다".color)
                     return true
                 }
-                val gPlayer = player.game
-                val gSender = sender.game
+                val gPlayer = plugin[player]
+                val gSender = plugin[sender]
                 if (sender == player) {
                     sender.sendMessage("&c자신을 차단 해제할 수는 없습니다".color)
                     return true
                 }
                 if (plugin.partyRegister.hasOwnParty(gSender)) {
                     val party = plugin.partyRegister.getJoined(gSender)!!
-                    if (!party.banList.contains(gPlayer.player.uniqueId)) {
+                    if (!party.banList.contains(gPlayer.uniqueId)) {
                         sender.sendMessage("&c플레이어가 차단되어 있지 않습니다".color)
                         return true
                     }
-                    party.banList.remove(gPlayer.player.uniqueId)
-                    party.joined.receiveAll(plugin.console, plugin.alert(PARTY_UNBANNED), gPlayer, party)
+                    party.banList.remove(gPlayer.uniqueId)
+                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_UNBANNED), gPlayer, party)
                 } else if (plugin.partyRegister.joinedParty(gSender)) {
                     sender.sendMessage("&c파티 리더만 차단을 해제할 수 있습니다".color)
                 } else sender.sendMessage("&c참여 중인 파티가 없습니다".color)
@@ -196,7 +195,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
             if (args[0].equals("accept", ignoreCase = true) && sender is Player) {
                 if (args.size == 2) {
                     try {
-                        plugin.partyRequestRegister.accept(sender.game, Integer.parseInt(args[1]))
+                        plugin.partyRequestRegister.accept(plugin[sender], Integer.parseInt(args[1]))
                         return true
                     } catch (_: Exception) {}
                 }
@@ -204,7 +203,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                 return true
             }
             if (args[0].equals("list", ignoreCase = true) && sender is Player) {
-                val gPlayer = sender.game
+                val gPlayer = plugin[sender]
                 if (plugin.partyRegister.joinedParty(gPlayer)) {
                     sender.sendMessage("-------------------------------------")
                     val joined = plugin.partyRegister.getJoined(gPlayer)!!
@@ -216,14 +215,14 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                 return true
             }
             if (args[0].equals("leave", ignoreCase = true) && sender is Player) {
-                val gPlayer = sender.game
+                val gPlayer = plugin[sender]
                 if (plugin.partyRegister.joinedParty(gPlayer)) {
                     plugin.partyRegister.getJoined(gPlayer)!!.left(gPlayer)
                 } else sender.sendMessage("&c참여 중인 파티가 없습니다".color)
                 return true
             }
             if (args[0].equals("all", ignoreCase = true) && sender is Player) {
-                val gPlayer = sender.game
+                val gPlayer = plugin[sender]
                 if (plugin.partyRegister.joinedParty(gPlayer)) {
                     plugin.partyRequestRegister.requestAll(gPlayer)
                 } else sender.sendMessage("&c참여 중인 파티가 없습니다".color)
@@ -243,18 +242,18 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
     }
 
     private fun sendPartyRequest(sender: Player, player: Player) {
-        val gPlayer = sender.game
+        val gPlayer = plugin[sender]
         val partyRegister = plugin.partyRegister
         if (partyRegister.joinedParty(gPlayer)) {
-            plugin.partyRequestRegister.request(gPlayer, player.game)
+            plugin.partyRequestRegister.request(gPlayer, plugin[player])
         } else sender.sendMessage("&c참여 중인 파티가 없습니다".color)
     }
 
         private val GPlayer.openPartyMenu: Player
-            get() { partyMenu(this.player); return this.player }
+            get() { partyMenu(this); return this }
 
         fun partyMenu(player: Player) {
-            val gPlayer = player.game
+            val gPlayer = plugin[player]
             player.openFrame(InvFX.frame(3, Component.text("파티 메뉴")) {
                 list(1, 0, 8, 3, true, { plugin.partyRegister.toList() }) {
                     transform { p ->
@@ -265,11 +264,11 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     }
                     onClickItem { _, _, item, _ ->
                         item.first.apply {
-                            if (banList.contains(gPlayer.player.uniqueId))
-                                gPlayer.player.sendMessage("&c이 파티에서 차단되어 참여할 수 없습니다".color)
+                            if (banList.contains(gPlayer.uniqueId))
+                                gPlayer.sendMessage("&c이 파티에서 차단되어 참여할 수 없습니다".color)
                             else if (opened) join(gPlayer)
                             else if (!joined.contains(gPlayer))
-                                gPlayer.player.sendMessage("&c이 파티에 참여하려면 초대를 받아야 합니다".color)
+                                gPlayer.sendMessage("&c이 파티에 참여하려면 초대를 받아야 합니다".color)
                         }
                         updateParty()
                     }
@@ -323,20 +322,20 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
         args: Array<out String>,
     ): MutableList<String>? {
         if (sender is Player) {
-            val player = sender.game
+            val player = plugin[sender]
             val joinedParty = plugin.partyRegister.getJoined(player) ?: return mutableListOf("create")
             if (args.size >= 2 && listOf("kick", "ban").contains(args[0].lowercase())) {
-                return ArrayList(joinedParty.joined).filter { it != player }.map { it.player.name }.toMutableList()
+                return ArrayList(joinedParty.joined).filter { it != player }.map { it.name }.toMutableList()
             }
             if (args.size >= 2 && args[0].equals("unban", ignoreCase = true)) {
                 return ArrayList(joinedParty.banList)
                     .asSequence()
-                    .filter { it != player.player.uniqueId }
+                    .filter { it != player.uniqueId }
                     .map { Bukkit.getPlayer(it) }.filterNotNull()
-                    .map { it.game.player.name }
+                    .map { it.name }
                     .toMutableList()
             }
-            return Bukkit.getOnlinePlayers().filter { !joinedParty.joined.contains(it.game) }
+            return Bukkit.getOnlinePlayers().filter { !joinedParty.joined.contains(plugin[it]) }
                 .map { it.name }.let { ArrayList(it).apply {
                     if (plugin.partyRegister.hasOwnParty(player))
                         addAll(listOf(
