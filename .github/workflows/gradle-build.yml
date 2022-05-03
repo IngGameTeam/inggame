@@ -1,8 +1,7 @@
 name: Run Gradle on PRs
 on:
-  pull_request:
-    branches:
-      - release
+  release:
+    types: [published]
 jobs:
   gradle:
 #    runs-on: self-hosted
