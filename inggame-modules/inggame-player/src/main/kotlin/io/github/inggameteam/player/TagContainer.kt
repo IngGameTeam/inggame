@@ -1,5 +1,9 @@
 package io.github.inggameteam.player
 
+import io.github.inggameteam.utils.listWithToString
+import java.util.*
+import kotlin.collections.HashSet
+
 interface TagContainer {
     var tags: HashSet<String>
 
@@ -22,3 +26,13 @@ interface TagContainer {
     }
 
 }
+
+
+fun <T : TagContainer> Collection<T>.hasTags(vararg pTags: String) = filter {
+    pTags.isEmpty() || Arrays.stream(pTags).allMatch { tag -> it.hasTag(tag!!) }
+}.listWithToString()
+fun <T : TagContainer> Collection<T>.hasNoTags(vararg pTags: String) = filter {
+    pTags.isEmpty() || Arrays.stream(pTags).noneMatch { tag -> it.hasTag(tag!!) }
+}.listWithToString()
+fun <T : TagContainer> Collection<T>.hasNoTags(vararg pTags: Enum<*>) = hasNoTags(*pTags.map(Enum<*>::name).toTypedArray())
+fun <T : TagContainer> Collection<T>.hasTags(vararg pTags: Enum<*>) = hasTags(*pTags.map(Enum<*>::name).toTypedArray())

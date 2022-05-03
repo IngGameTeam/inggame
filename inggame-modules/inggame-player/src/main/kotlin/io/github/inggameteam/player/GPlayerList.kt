@@ -1,7 +1,7 @@
 package io.github.inggameteam.player
 
+import io.github.inggameteam.utils.ListWithToString
 import java.util.*
 
-open class GPlayerList(c: Collection<GPlayer> = Collections.emptyList()) : ArrayList<GPlayer>(c) {
-    override fun toString() = if (isEmpty()) "empty" else joinToString(", ")
+open class GPlayerList(c: Collection<GPlayer> = Collections.emptyList()) : ListWithToString<GPlayer>(c) {
 }

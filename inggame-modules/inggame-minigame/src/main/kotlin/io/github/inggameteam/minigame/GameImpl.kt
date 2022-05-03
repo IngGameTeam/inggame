@@ -7,6 +7,7 @@ import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.minigame.event.GameTaskCancelEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
+import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.IntVector
@@ -60,7 +61,7 @@ abstract class GameImpl(
             comp(JOIN).send(gPlayer, this)
             if (joinType === JoinType.PLAY) gPlayer.addTag(PTag.PLAY)
             else comp(START_SPECTATING).send(gPlayer, gPlayer, this)
-            if (gameTask === null && gameState === GameState.WAIT && 0 < startPlayersAmount && joined.playerHasTags(
+            if (gameTask === null && gameState === GameState.WAIT && 0 < startPlayersAmount && joined.hasTags(
                     PTag.PLAY).size >= startPlayersAmount
             ) start(false)
             return true
@@ -81,7 +82,7 @@ abstract class GameImpl(
         } else {
             comp(LEFT).send(gPlayer, this)
         }
-        val joinedSize = joined.playerHasTags(PTag.PLAY).size
+        val joinedSize = joined.hasTags(PTag.PLAY).size
         if (gameState === GameState.WAIT && joinedSize < startPlayersAmount && 0 < startPlayersAmount && gameTask != null) {
             comp(START_CANCELLED_DUE_TO_PLAYERLESS).send(joined)
             cancelGameTask()
@@ -152,7 +153,7 @@ abstract class GameImpl(
     }
 
     open fun afterParticle() {
-        joined.playerHasTags(PTag.PLAY).forEach {
+        joined.hasTags(PTag.PLAY).forEach {
             it.world.spawnParticle(Particle.END_ROD, it.eyeLocation.clone(), 20)
         }
     }
