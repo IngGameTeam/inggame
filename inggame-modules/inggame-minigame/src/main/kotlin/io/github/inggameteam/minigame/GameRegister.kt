@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.player.GPlayer
-import net.jafama.FastMath
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -11,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.utils.IntVector
 import org.bukkit.World
+import kotlin.math.sqrt
 
 class GameRegister(
     val plugin: GamePlugin,
@@ -84,7 +84,7 @@ class GameRegister(
 
     fun newAllocatable(): IntVector {
         val list = filter(Game::isAllocated).map(Game::point).toSet()
-        val line = FastMath.sqrt(list.size.toDouble()).toInt() + 1
+        val line = sqrt(list.size.toDouble()).toInt() + 1
         var x = 1
         while (x <= line) {
             var z = 1

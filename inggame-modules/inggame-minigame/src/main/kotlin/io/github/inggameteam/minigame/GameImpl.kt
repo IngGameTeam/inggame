@@ -15,6 +15,7 @@ import org.bukkit.Particle
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerQuitEvent
+import kotlin.test.assertTrue
 
 abstract class GameImpl(
     val plugin: GamePlugin,
@@ -38,7 +39,8 @@ abstract class GameImpl(
     }
 
     protected fun comp(alert: String) =
-        plugin.components[name]?.alert(alert) ?: plugin.components[plugin.gameRegister.hubName]!!.alert(alert)
+        plugin.components[name]?.alert(alert) ?: plugin.components[plugin.gameRegister.hubName]
+            .apply { if (this === null) assertTrue(false, "Component $alert does not exist") }!!.alert(alert)
     protected fun comp(alert: Enum<*>) = comp(alert.name)
 
     override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {

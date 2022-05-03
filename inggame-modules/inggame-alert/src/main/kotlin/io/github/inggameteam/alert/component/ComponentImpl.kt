@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
 import java.io.File
 import java.lang.Exception
+import kotlin.test.assertTrue
 
 typealias Comp<T> = HashMap<String, T>
 
@@ -25,7 +26,7 @@ interface Component {
     val alert: Comp<Alert<Player>>
     val array: Comp<MutableList<String>>
 
-    fun alert(name: String) = alert[name].apply { if (this === null) assert(false) { "alert $name does not exist" } }!!
+    fun alert(name: String) = alert[name].apply { if (this === null) assertTrue(false, "alert $name does not exist") }!!
     fun alert(enum: Enum<*>) = alert(enum.name)
     fun send(alert: String, t: Player, vararg args: Any) = alert(alert).send(plugin.console, t, *args)
     fun send(alert: String, t: List<Player>, vararg args: Any) = t.forEach { alert(alert).send(plugin.console, it, *args) }
