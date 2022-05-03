@@ -23,6 +23,7 @@ subprojects {
         processResources {
             filesMatching("**/*.yml") {
                 expand(rootProject.properties)
+                expand(pluginProject.properties)
             }
         }
     }

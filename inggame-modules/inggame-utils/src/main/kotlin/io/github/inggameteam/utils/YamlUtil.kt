@@ -20,7 +20,6 @@ import java.io.File
 object YamlUtil {
     private fun getSections(file: File): ConfigurationSection = YamlConfiguration.loadConfiguration(file)
 
-
     fun <T> getComponent(file: File, function: (ConfigurationSection, String) -> T): HashMap<String, T> {
         val component = HashMap<String, T>()
         val sections = getSections(file)

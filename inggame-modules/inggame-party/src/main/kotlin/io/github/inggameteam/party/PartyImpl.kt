@@ -3,7 +3,6 @@ package io.github.inggameteam.party
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.party.PartyAlert.*
-import io.github.inggameteam.player.receiveAll
 import java.util.*
 
 class PartyImpl(
@@ -21,7 +20,7 @@ class PartyImpl(
 
     init {
         joined.addAll(gPlayer)
-        if (isSilent.not()) joined.receiveAll(plugin.console, comp.alert(PARTY_CREATED), this)
+        if (!isSilent) comp.send(PARTY_CREATED, joined, this)
         resetName()
     }
 
@@ -42,20 +41,20 @@ class PartyImpl(
             plugin.partyRegister.getJoined(player)?.left(player)
         }
         joined.add(player)
-        joined.receiveAll(plugin.console, comp.alert(JOIN_PARTY), player, this)
+        comp.send(JOIN_PARTY, joined, player, this)
     }
 
     override fun left(player: GPlayer) {
         if (leader == player) {
 
-            joined.receiveAll(plugin.console, comp.alert(PARTY_DISBANDED), this)
+            comp.send(PARTY_DISBANDED, joined, this)
             plugin.partyRegister.remove(this)
             joined.clear()
             plugin.partyUI.updateParty()
             return
         }
         joined.remove(player)
-        joined.receiveAll(plugin.console, comp.alert(LEFT_PARTY), player, this)
+        comp.send(LEFT_PARTY, joined, player, this)
 
     }
 

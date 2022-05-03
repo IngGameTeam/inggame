@@ -39,8 +39,7 @@ abstract class GameImpl(
     }
 
     protected fun comp(alert: String) =
-        plugin.components[name]?.alert(alert) ?: plugin.components[plugin.gameRegister.hubName]
-            .apply { if (this === null) assertTrue(false, "Component $alert does not exist") }!!.alert(alert)
+        plugin.components[name]?.alert(alert, plugin.defaultLanguage) ?: plugin.component.alert(alert, plugin.defaultLanguage)
     protected fun comp(alert: Enum<*>) = comp(alert.name)
 
     override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {

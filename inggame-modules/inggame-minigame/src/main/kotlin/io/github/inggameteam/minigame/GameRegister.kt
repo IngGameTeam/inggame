@@ -46,7 +46,7 @@ class GameRegister(
                 joined.forEach { left(it, LeftType.DUE_TO_MOVE_ANOTHER_GAME) }
                 val game = findOrCreateGame(gPlayer, name)
                 joined.forEach { game.joinGame(it, joinType) }
-            } else plugin.component.alert(ONLY_LEADER_START).send(plugin.console, gPlayer)
+            } else plugin.component.send(ONLY_LEADER_START, gPlayer)
         } else {
             left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
             findOrCreateGame(gPlayer, name).joinGame(gPlayer, joinType)

@@ -17,7 +17,6 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import io.github.inggameteam.party.PartyAlert.*
-import io.github.inggameteam.player.receiveAll
 
 class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
     private fun sendUsage(sender: CommandSender) = sender.sendMessage("&cUsage: /p [player]".color())
@@ -64,7 +63,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     joinedParty.name = newName.color
                     joinedParty.renamed = true
                 }
-                joinedParty.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_RENAMED), gSender, beforeName, joinedParty.name)
+                plugin.component.send(PARTY_RENAMED, joinedParty.joined, gSender, beforeName, joinedParty.name)
                 updateParty()
                 return true
             }
@@ -101,7 +100,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                         return true
                     }
                     gPlayer.sendMessage("&a${party.leader}이(가) 당신을 ${party.name} 방장으로 위임했습니다".color)
-                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_PROMOTED), gPlayer, party)
+                    plugin.component.send(PARTY_PROMOTED, party.joined, gPlayer, party)
                     party.joined.remove(gPlayer)
                     party.joined.add(0, gPlayer)
                     updateParty()
@@ -130,7 +129,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     }
                     party.joined.remove(gPlayer)
                     gPlayer.sendMessage("&a${party.leader}이(가) 당신을 ${party.name}에서 추방했습니다".color)
-                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_KICKED), gPlayer, party)
+                    plugin.component.send(PARTY_KICKED, party.joined, gPlayer, party)
                     plugin.partyRequestRegister.removeIf { it.party == party && it.sender == gPlayer }
                     updateParty()
                 } else if (plugin.partyRegister.joinedParty(gSender)) {
@@ -160,7 +159,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                     party.joined.remove(gPlayer)
                     party.banList.add(gPlayer.uniqueId)
                     gPlayer.sendMessage("&a${party.leader}이(가) 당신을 ${party.name}에서 차단했습니다".color)
-                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_BANNED), gPlayer, party)
+                    plugin.component.send(PARTY_BANNED, party.joined, gPlayer, party)
                     plugin.partyRequestRegister.removeIf { it.party == party && it.sender == gPlayer }
                     updateParty()
                 } else if (plugin.partyRegister.joinedParty(gSender)) {
@@ -187,7 +186,7 @@ class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
                         return true
                     }
                     party.banList.remove(gPlayer.uniqueId)
-                    party.joined.receiveAll(plugin.console, plugin.component.alert(PARTY_UNBANNED), gPlayer, party)
+                    plugin.component.send(PARTY_UNBANNED, party.joined, gPlayer, party)
                 } else if (plugin.partyRegister.joinedParty(gSender)) {
                     sender.sendMessage("&c파티 리더만 차단을 해제할 수 있습니다".color)
                 } else sender.sendMessage("&c참여 중인 파티가 없습니다".color)

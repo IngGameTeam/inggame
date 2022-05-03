@@ -1,15 +1,15 @@
 package io.github.inggameteam.alert
 
 import io.github.inggameteam.alert.api.Alert
+import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.YamlUtil
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.HoverEvent
 import org.bukkit.configuration.ConfigurationSection
-import org.bukkit.entity.Player
 import io.github.inggameteam.utils.YamlUtil.string
 
 object AlertYamlSerialize {
-    fun alert(conf: ConfigurationSection): Alert<Player> {
+    fun alert(conf: ConfigurationSection): Alert<GPlayer> {
         if (conf.isString("chat")) return ChatAlert(mapOf("msg" to YamlUtil.string(conf, "chat")))
         if (conf.isConfigurationSection("title")) {
             val section = conf.getConfigurationSection("title")!!

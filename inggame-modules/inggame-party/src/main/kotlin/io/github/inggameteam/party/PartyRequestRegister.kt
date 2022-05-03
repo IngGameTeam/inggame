@@ -7,8 +7,6 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent
 import io.github.inggameteam.party.PartyAlert.*
-import io.github.inggameteam.player.GPlayerList
-import io.github.inggameteam.player.receiveAll
 import io.github.inggameteam.utils.ColorUtil.color
 
 class PartyRequestRegister(val plugin: PartyPlugin) : HashSet<PartyRequest>(), Listener {
@@ -24,14 +22,13 @@ class PartyRequestRegister(val plugin: PartyPlugin) : HashSet<PartyRequest>(), L
         if (partyRegister.joinedParty(sender)) {
             val party = partyRegister.getJoined(sender)!!
             if (party.banList.contains(receiver.uniqueId)) {
-                plugin.component.alert(CANNOT_REQUEST_PARTY_DUE_TO_BANNED).send(plugin.console, sender, receiver, party)
+                plugin.component.send(CANNOT_REQUEST_PARTY_DUE_TO_BANNED, sender, receiver, party)
                 return
             }
             val request = PartyRequest(sender, receiver, party, Any().hashCode())
-            plugin.component.alert(PARTY_REQUEST).send(plugin.console, receiver, sender, party, request.code)
-            plugin.component.alert(SENT_PARTY_REQUEST).send(plugin.console, sender, receiver, party)
-            GPlayerList(party.joined.filter { sender != it })
-                .receiveAll(plugin.console, plugin.component.alert(SENT_PARTY_REQUEST_RECEIVE_ALL), sender, receiver, party)
+            plugin.component.send(PARTY_REQUEST, receiver, sender, party, request.code)
+            plugin.component.send(SENT_PARTY_REQUEST, sender, receiver, party)
+            plugin.component.send(SENT_PARTY_REQUEST_RECEIVE_ALL, party.joined.filter { sender != it }, sender, receiver, party)
             add(request)
         }
     }
@@ -44,18 +41,18 @@ class PartyRequestRegister(val plugin: PartyPlugin) : HashSet<PartyRequest>(), L
                 sender != it && !party.joined.contains(it) && !party.banList.contains(it.uniqueId)
             }.forEach{ receiver ->
                 val request = PartyRequest(sender, receiver, party, Any().hashCode())
-                plugin.component.alert(PARTY_REQUEST_TO_ALL).send(plugin.console, receiver, sender, party, request.code)
+                plugin.component.send(PARTY_REQUEST_TO_ALL, receiver, sender, party, request.code)
                 add(request)
             }
-            plugin.component.alert(SENT_PARTY_REQUEST_TO_ALL).send(plugin.console, sender, party)
-            GPlayerList(party.joined.filter { sender != it })
-                .receiveAll(plugin.console, plugin.component.alert(SENT_PARTY_REQUEST_TO_ALL_RECEIVE_ALL), sender, party)
+            plugin.component.send(SENT_PARTY_REQUEST_TO_ALL, sender, party)
+
+            plugin.component.send(SENT_PARTY_REQUEST_TO_ALL_RECEIVE_ALL, party.joined.filter { sender != it }, sender, party)
         }
     }
 
     fun accept(acceptor: GPlayer, code: Int) {
         val requests = stream().filter { it.receiver == acceptor && code == it.code }.toList()
-        removeAll(requests)
+        removeAll(requests.toSet())
         if (requests.isEmpty()) acceptor.sendMessage("&c파티 초대가 없습니다".color)
         else requests.last().party.join(acceptor)
     }

@@ -13,5 +13,5 @@ class GameSupplierRegister(
     }
 
     override fun get(key: String) =
-        super.get(key).apply { assertTrue(this === null, "Game $key doesn't exist") }!!
+        super.get(key).apply { assertTrue(this !== null, "Game $key doesn't exist") }!!
 }
