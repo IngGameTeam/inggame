@@ -3,9 +3,7 @@ package io.github.inggameteam.party
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.party.PartyAlert.*
-import io.github.inggameteam.scheduler.ITask
-import io.github.inggameteam.scheduler.delay
-import org.bukkit.entity.Player
+import io.github.inggameteam.player.receiveAll
 import java.util.*
 
 class PartyImpl(

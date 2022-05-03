@@ -17,6 +17,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import io.github.inggameteam.party.PartyAlert.*
+import io.github.inggameteam.player.receiveAll
 
 class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
     private fun sendUsage(sender: CommandSender) = sender.sendMessage("&cUsage: /p [player]".color())

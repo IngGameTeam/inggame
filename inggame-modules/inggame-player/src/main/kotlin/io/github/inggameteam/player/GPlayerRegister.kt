@@ -17,7 +17,7 @@ class GPlayerRegister(playerPlugin: PlayerPlugin) : HashMap<UUID, GPlayer>(), Li
         Bukkit.getPluginManager().registerEvents(this, playerPlugin)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     private fun onJoin(event: PlayerJoinEvent) {
         val uuid = event.player.uniqueId
         this[uuid] = GPlayer(uuid)

@@ -28,7 +28,8 @@ subprojects {
     }
 
     dependencies {
-        implementation("io.github.inggameteam:inggame-modules:+")
+//        implementation("io.github.inggameteam:inggame-modules:+")
+        implementation(project(":inggame-modules"))
     }
 
 }

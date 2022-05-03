@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.player.game
 import net.jafama.FastMath
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -43,11 +42,11 @@ class GameRegister(
         if (plugin.partyRegister.joinedParty(gPlayer) && name != hubName) {
             if (plugin.partyRegister.hasOwnParty(gPlayer)) {
                 val joined = plugin.partyRegister.getJoined(gPlayer)!!.joined
-                joined.filter { getJoinedGame(it.player).name == hubName }.forEach { join(it.player, hubName) }
-                joined.forEach { left(it.player, LeftType.DUE_TO_MOVE_ANOTHER_GAME) }
+                joined.filter { getJoinedGame(it).name == hubName }.forEach { join(it, hubName) }
+                joined.forEach { left(it, LeftType.DUE_TO_MOVE_ANOTHER_GAME) }
                 val game = findOrCreateGame(gPlayer, name)
                 joined.forEach { game.joinGame(it, joinType) }
-            } else plugin.alert(ONLY_LEADER_START).send(plugin.console, gPlayer.player)
+            } else plugin.component.alert(ONLY_LEADER_START).send(plugin.console, gPlayer)
         } else {
             left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
             findOrCreateGame(gPlayer, name).joinGame(gPlayer, joinType)
@@ -63,7 +62,7 @@ class GameRegister(
     }
 
     fun left(player: Player, leftType: LeftType): Boolean {
-        val gPlayer = player.game
+        val gPlayer = plugin[player]
         HashSet(this).stream().filter { game -> game.joined.contains(gPlayer) }.forEach { game ->
             game.leftGame(gPlayer, leftType)
         }
@@ -71,7 +70,7 @@ class GameRegister(
     }
 
     fun createGame(name: String,
-                   game: Game = plugin.gameSupplierRegister[name]!!(newAllocatable())
+                   game: Game = plugin.gameSupplierRegister[name](plugin, newAllocatable())
     ): Game {
         Bukkit.getPluginManager().registerEvents(game, plugin)
         add(game)
