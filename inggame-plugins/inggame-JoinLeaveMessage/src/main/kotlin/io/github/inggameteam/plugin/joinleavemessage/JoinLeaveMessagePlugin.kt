@@ -1,15 +1,14 @@
 package io.github.inggameteam.plugin.joinleavemessage
 
-import io.github.inggameteam.player.PlayerPluginImpl
-import io.github.inggameteam.player.receiveAll
+import io.github.inggameteam.alert.AlertPluginImpl
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
-class JoinLeaveMessagePlugin : PlayerPluginImpl() {
+class JoinLeaveMessagePlugin : AlertPluginImpl() {
 
     fun String.broadcast(vararg args: String) =
-        playerRegister.values.receiveAll(console, component.alert[this]!!, *args)
+        component.send(this, playerRegister.values, *args)
 
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) = "join".broadcast(event.player.name)
