@@ -22,8 +22,7 @@ subprojects {
     tasks {
         processResources {
             filesMatching("**/*.yml") {
-                expand(rootProject.properties)
-                expand(pluginProject.properties)
+                expand(HashMap(rootProject.properties).apply { putAll(pluginProject.properties) })
             }
         }
     }
