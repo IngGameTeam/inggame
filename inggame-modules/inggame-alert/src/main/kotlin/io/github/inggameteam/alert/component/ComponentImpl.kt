@@ -11,8 +11,6 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
 import java.io.File
-import java.lang.Exception
-import kotlin.collections.HashMap
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 

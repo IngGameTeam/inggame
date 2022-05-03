@@ -1,8 +1,8 @@
 package io.github.inggameteam.party
 
+import io.github.inggameteam.party.PartyAlert.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
-import io.github.inggameteam.party.PartyAlert.*
 import java.util.*
 
 class PartyImpl(

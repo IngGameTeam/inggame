@@ -1,15 +1,15 @@
 package io.github.inggameteam.minigame
 
+import io.github.inggameteam.minigame.GameAlert.ONLY_LEADER_START
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.utils.IntVector
 import org.bukkit.Bukkit
+import org.bukkit.World
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
-import io.github.inggameteam.minigame.GameAlert.*
-import io.github.inggameteam.utils.IntVector
-import org.bukkit.World
 import kotlin.math.sqrt
 
 class GameRegister(

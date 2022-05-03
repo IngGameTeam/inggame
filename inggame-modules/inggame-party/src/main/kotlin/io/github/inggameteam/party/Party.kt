@@ -3,7 +3,6 @@ package io.github.inggameteam.party
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import java.util.*
-import kotlin.collections.ArrayList
 
 interface Party {
 

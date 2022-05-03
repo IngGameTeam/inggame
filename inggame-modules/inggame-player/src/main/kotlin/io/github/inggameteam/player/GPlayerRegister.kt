@@ -8,7 +8,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
-import kotlin.collections.HashMap
 
 class GPlayerRegister(playerPlugin: PlayerPlugin) : HashMap<UUID, GPlayer>(), Listener {
 

@@ -1,13 +1,13 @@
 package io.github.inggameteam.party
 
+import io.github.inggameteam.party.PartyAlert.*
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.utils.ColorUtil.color
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent
-import io.github.inggameteam.party.PartyAlert.*
-import io.github.inggameteam.utils.ColorUtil.color
 
 class PartyRequestRegister(val plugin: PartyPlugin) : HashSet<PartyRequest>(), Listener {
 

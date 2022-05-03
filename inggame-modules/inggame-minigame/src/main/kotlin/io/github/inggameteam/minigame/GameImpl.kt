@@ -1,21 +1,20 @@
 package io.github.inggameteam.minigame
 
+import io.github.inggameteam.minigame.GameAlert.*
+import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameJoinEvent
+import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.minigame.event.GameTaskCancelEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.scheduler.ITask
+import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.IntVector
 import org.bukkit.Bukkit
-import io.github.inggameteam.minigame.GameAlert.*
-import io.github.inggameteam.minigame.event.GameBeginEvent
-import io.github.inggameteam.minigame.event.GameLeftEvent
-import io.github.inggameteam.scheduler.delay
 import org.bukkit.Particle
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerQuitEvent
-import kotlin.test.assertTrue
 
 abstract class GameImpl(
     val plugin: GamePlugin,

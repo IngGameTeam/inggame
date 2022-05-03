@@ -1,5 +1,6 @@
 package io.github.inggameteam.party
 
+import io.github.inggameteam.party.PartyAlert.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.ColorUtil.color
@@ -16,7 +17,6 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import io.github.inggameteam.party.PartyAlert.*
 
 class PartyUI(val plugin: PartyPlugin) : CommandExecutor, TabCompleter {
     private fun sendUsage(sender: CommandSender) = sender.sendMessage("&cUsage: /p [player]".color())

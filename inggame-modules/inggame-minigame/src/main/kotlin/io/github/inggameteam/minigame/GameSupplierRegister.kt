@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.utils.IntVector
-import kotlin.collections.HashMap
 import kotlin.test.assertTrue
 
 class GameSupplierRegister(
