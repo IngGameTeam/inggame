@@ -10,11 +10,9 @@ Only support latest version of minecraft server
 
 inggmae is designed for efficient plugin coding.
 - Insanely useful, if you want to develop an open source with my framework
-- release artifact jar automatically, and write your blog include how to use on github pages.  
+- release artifact jar automatically, and write your blog include how-to-use on github pages.  
 
-
-
-# /docs/ directory
+# docs directory
 
 Project [blog](https://inggameteam.github.io/inggame/) exists.
 
