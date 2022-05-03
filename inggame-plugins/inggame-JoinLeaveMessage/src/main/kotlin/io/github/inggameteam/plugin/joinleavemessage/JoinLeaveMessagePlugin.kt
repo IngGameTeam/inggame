@@ -1,4 +1,4 @@
-package io.github.inggameteam.joinleavemessage
+package io.github.inggameteam.plugin.joinleavemessage
 
 import io.github.inggameteam.player.PlayerPluginImpl
 import io.github.inggameteam.player.receiveAll

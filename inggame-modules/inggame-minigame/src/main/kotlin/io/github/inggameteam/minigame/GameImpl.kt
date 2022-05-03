@@ -16,10 +16,9 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerQuitEvent
 
-open class GameImpl(
+abstract class GameImpl(
     val plugin: GamePlugin,
     override val point: IntVector,
-    override val name: String,
     ) : Game {
     override val isAllocated get() = true
     override var gameState = GameState.WAIT
