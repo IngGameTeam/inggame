@@ -31,15 +31,15 @@ class PartyUI(val plugin: PartyPlugin) {
     fun CommandContext<CommandSender>.party(sendMsg: Boolean = true, init: Party.(GPlayer) -> Unit) {
         val gPlayer = player.game
         gPlayer.partyOrNull?.apply { this.init(gPlayer) }
-            ?: if (sendMsg) plugin.component.send(JOINED_PARTY_NOT_EXIST, gPlayer)
+            ?: if (sendMsg) plugin.partyComponent.send(JOINED_PARTY_NOT_EXIST, gPlayer)
     }
 
     fun CommandContext<CommandSender>.args(index: Int = 1, init: (GPlayer) -> Unit) {
-        Bukkit.getPlayerExact(args[1])?.game?.apply { init(this) }
-            ?: plugin.component.send(Alert.NO_PLAYER_EXIST, player.game)
+        Bukkit.getPlayerExact(args[index])?.game?.apply { init(this) }
+            ?: plugin.partyComponent.send(Alert.NO_PLAYER_EXIST, player.game)
     }
 
-    val ArgumentCommandNode<CommandSender>.memberTab
+    private val ArgumentCommandNode<CommandSender>.memberTab
         get() =
             tab {
                 player.game.partyOrNull?.run { joined.filterNot { it == leader }.map { it.name }.toList() } ?: listOf()
@@ -140,7 +140,7 @@ class PartyUI(val plugin: PartyPlugin) {
                     onClick { list.index++ }
                 }
             }
-            onClose { gPlayer.remove(Party.PARTY) }
+            onClose { gPlayer.remove(PARTY) }
             slot(0, 0) {
                 val partyRegister = plugin.partyRegister
                 val isJoinedParty = partyRegister.joinedParty(gPlayer)
@@ -158,12 +158,12 @@ class PartyUI(val plugin: PartyPlugin) {
                 }
             }
         })
-        gPlayer.put(Party.PARTY, true)
+        gPlayer[PARTY] = true
     }
 
     fun updateParty() {
         plugin.playerRegister.values
-            .filter { it[Party.PARTY] != null }
+            .filter { it[PARTY] != null }
             .forEach { { it.openPartyMenu; Unit }.delay(plugin, 1) }
     }
 }

@@ -1,5 +1,6 @@
 package io.github.inggameteam.party
 
+import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.party.PartyAlert.*
 import io.github.inggameteam.party.event.CreatePartyEvent
@@ -10,6 +11,8 @@ import io.github.inggameteam.player.toPlayerList
 import io.github.inggameteam.utils.ColorUtil.color
 import org.bukkit.Bukkit
 import java.util.*
+
+const val PARTY = "party"
 
 class Party(
     override val plugin: PartyPlugin,
@@ -36,14 +39,9 @@ class Party(
         renamed = false
     }
 
-
-    companion object {
-        const val PARTY = "PARTY"
-    }
-
 }
 
-val PluginHolder<PartyPlugin>.comp get() = plugin.component
+val PluginHolder<PartyPlugin>.comp get() = plugin.partyComponent
 fun Party.updateParty() = plugin.partyUI.updateParty()
 
 fun Party.left(player: GPlayer) {
@@ -69,10 +67,11 @@ fun Party.join(player: GPlayer) {
     comp.send(JOIN_PARTY, joined, player, this)
 }
 
-fun PartyRegister.createParty(gPlayer: GPlayer) {
-    getJoined(gPlayer)?.left(gPlayer)
-    add(Party(plugin, joined = listOf(gPlayer).toPlayerList()))
-    Bukkit.getPluginManager().callEvent(CreatePartyEvent(gPlayer))
+fun PartyRegister.createParty(dispatcher: GPlayer) {
+    getJoined(dispatcher)?.left(dispatcher)
+    add(Party(plugin, joined = listOf(dispatcher).toPlayerList()))
+    comp.send(PARTY_CREATED, dispatcher)
+    Bukkit.getPluginManager().callEvent(CreatePartyEvent(dispatcher))
 }
 
 fun Party.rename(dispatcher: GPlayer, newName: String) {
@@ -164,12 +163,12 @@ fun PartyRequestRegister.inviteAll(sender: GPlayer) {
             sender != it && !party.joined.contains(it) && !party.banList.contains(it.uniqueId)
         }.forEach{ receiver ->
             val request = PartyRequest(sender, receiver, party, Any().hashCode())
-            plugin.component.send(PARTY_REQUEST_TO_ALL, receiver, sender, party, request.code)
+            comp.send(PARTY_REQUEST_TO_ALL, receiver, sender, party, request.code)
             add(request)
         }
-        plugin.component.send(SENT_PARTY_REQUEST_TO_ALL, sender, party)
+        comp.send(SENT_PARTY_REQUEST_TO_ALL, sender, party)
 
-        plugin.component.send(SENT_PARTY_REQUEST_TO_ALL_RECEIVE_ALL, party.joined.filter { sender != it }, sender, party)
+        comp.send(SENT_PARTY_REQUEST_TO_ALL_RECEIVE_ALL, party.joined.filter { sender != it }, sender, party)
     }
 }
 
@@ -177,13 +176,13 @@ fun PartyRequestRegister.invitePlayer(sender: GPlayer, receiver: GPlayer) {
     if (plugin.partyRegister.joinedParty(sender)) {
         val party = plugin.partyRegister.getJoined(sender)!!
         if (party.banList.contains(receiver.uniqueId)) {
-            plugin.component.send(CANNOT_REQUEST_PARTY_DUE_TO_BANNED, sender, receiver, party)
+            comp.send(CANNOT_REQUEST_PARTY_DUE_TO_BANNED, sender, receiver, party)
             return
         }
         val request = PartyRequest(sender, receiver, party, Any().hashCode())
-        plugin.component.send(PARTY_REQUEST, receiver, sender, party, request.code)
-        plugin.component.send(SENT_PARTY_REQUEST, sender, receiver, party)
-        plugin.component.send(SENT_PARTY_REQUEST_RECEIVE_ALL, party.joined.filter { sender != it }, sender, receiver, party)
+        comp.send(PARTY_REQUEST, receiver, sender, party, request.code)
+        comp.send(SENT_PARTY_REQUEST, sender, receiver, party)
+        comp.send(SENT_PARTY_REQUEST_RECEIVE_ALL, party.joined.filter { sender != it }, sender, receiver, party)
         add(request)
     }
 }

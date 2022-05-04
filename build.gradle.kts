@@ -49,6 +49,7 @@ allprojects {
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
         testImplementation("org.slf4j:slf4j-api:1.7.36")
         testImplementation("org.slf4j:slf4j-simple:1.7.36")
+        testImplementation("io.github.brucefreedy:mccommand:1.0.1")
         compileOnly(kotlin("test"))
         compileOnly("io.github.brucefreedy:mccommand:1.0.1")
         compileOnly("net.kyori:adventure-api:4.10.1")

@@ -1,0 +1,5 @@
+name: inggame-party
+main: io.github.inggameteam.plugin.party.PartyPlugin
+version: $version
+api-version: 1.18
+libraries: $libraries

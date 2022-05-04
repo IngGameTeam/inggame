@@ -4,6 +4,7 @@ import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.alert.AlertYamlSerialize
 import io.github.inggameteam.alert.api.Alert
 import io.github.inggameteam.alert.component.Lang.lang
+import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.LocationWithoutWorld
 import io.github.inggameteam.utils.YamlUtil
@@ -15,7 +16,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 typealias Comp<T> = HashMap<String, T>
-typealias LangComp<T> = HashMap<String, HashMap<String, T>>
+//typealias LangComp<T> = HashMap<String, HashMap<String, T>>
 
 interface Component {
     val plugin: AlertPlugin
@@ -27,6 +28,7 @@ interface Component {
     val string: LangComp<String>
     val alert: LangComp<Alert<GPlayer>>
     val array: LangComp<MutableList<String>>
+
 
     fun alert(name: String, lang: String) =
         alert[lang].apply { assertNotNull(this, "language $lang does not exist") }!![name]
@@ -60,25 +62,25 @@ class ComponentImpl(override val plugin: AlertPlugin, file: File, ) : Component 
     override val location = YamlUtil.getComponent(File(file, "location.yml"),  YamlUtil::location)
     override val double = YamlUtil.getComponent(File(file, "double.yml")) { conf, path -> conf.getDouble(path)}
     override val int = YamlUtil.getComponent(File(file, "int.yml")) { conf, path -> conf.getInt(path)}
-    override val item = dir(File(file, "item")) { YamlUtil.getComponent(it, YamlUtil::item) }
+    override val item = dir(File(file, "item")) { YamlUtil.getComponent(it, YamlUtil::item) }.langComp(plugin)
     override val inventory = dir(File(file, "inventory"))
-        { YamlUtil.getComponent(it) { conf -> YamlUtil.inventory(conf, item[it.parent]!!) } }
+        { YamlUtil.getComponent(it) { conf -> YamlUtil.inventory(conf, item[it.parent]!!) } }.langComp(plugin)
     override val string = dir(File(file, "string"))
-        { YamlUtil.getComponent(it) { conf, path -> YamlUtil.string(conf, path) } }
+        { YamlUtil.getComponent(it) { conf, path -> YamlUtil.string(conf, path) } }.langComp(plugin)
     override val alert = dir(File(file, "alert"))
-        { YamlUtil.getComponent(it, AlertYamlSerialize::alert) }
+        { YamlUtil.getComponent(it, AlertYamlSerialize::alert) }.langComp(plugin)
     override val array = dir(File(file, "array"))
-        { YamlUtil.getComponent(it) { conf, path -> conf.getStringList(path).toMutableList() } }
+        { YamlUtil.getComponent(it) { conf, path -> conf.getStringList(path).toMutableList() } }.langComp(plugin)
     private fun <T> dir(dir: File, init: (File) -> HashMap<String, T>): HashMap<String, HashMap<String, T>> {
-        val map = LangComp<T>()
+        val map = LangComp<T>(plugin, HashMap())
         dir.listFiles(File::isFile)
             ?.forEach { map[it.nameWithoutExtension] = init(File(dir, it.name)) }
         return map
     }
 }
 
-/*
-fun Collection<GPlayer>.receiveAll(sender: UUID, alert: Alert<GPlayer>, vararg args: Any) {
-    forEach { gGPlayer -> alert.send(sender, gGPlayer, *args)}
-    }
-*/
+fun <T> HashMap<String, HashMap<String, T>>.langComp(plugin: AlertPlugin) = LangComp(plugin, this)
+
+class LangComp<T>(val plugin: AlertPlugin, map: HashMap<String, HashMap<String, T>>) : HashMap<String, HashMap<String, T>>(map) {
+    fun comp(key: String, lang: String = plugin.defaultLanguage) = this[lang]!![key]!!
+}

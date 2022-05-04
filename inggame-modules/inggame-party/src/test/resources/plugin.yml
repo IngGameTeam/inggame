@@ -1,0 +1,4 @@
+name: test-plugin
+main: io.github.inggameteam.party.TestPlugin
+version: test
+api-version: 1.18
