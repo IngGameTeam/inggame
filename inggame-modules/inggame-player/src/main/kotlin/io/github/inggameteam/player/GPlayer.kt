@@ -17,4 +17,7 @@ class GPlayer(uuid: UUID) : HashMap<String, Any>(), TagContainer,
 
     override fun toString(): String = name
 
+
 }
+
+infix fun GPlayer.eq(player: GPlayer?) = player === null || uniqueId == player.uniqueId
