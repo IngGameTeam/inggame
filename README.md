@@ -4,7 +4,7 @@ minecraft plugin framework
 
 You have to set **Java 17+** to gradle project  
 
-Only support latest version of minecraft server
+Only the latest version of Minecraft servers  
 
 # What is inggame?
 
