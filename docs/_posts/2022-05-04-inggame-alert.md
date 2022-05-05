@@ -49,16 +49,4 @@ title: "inggame-alert"
                 en.yml  
                 ko.yml  
 ```
-  
-```java  
-
-//use case  
-import io.github.inggameteam.alert.AlertPluginImpl  
-  
-class PartyPlugin : AlertPluginImpl() {  
-  
-    override fun onEnable() {  
-        super.onEnable()  
-        println(component.string.comp("enable_plugin"))  
-    }  
-}```  
+<script src="https://gist.github.com/Bruce0203/9f191dd29ff48448d4cfd0a5d53e963c.js"></script>
