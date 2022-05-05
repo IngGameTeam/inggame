@@ -22,6 +22,7 @@ open class IngGamePluginImpl : IngGamePlugin, JavaPlugin {
         val extensions = arrayOf(".yml", ".schem", ".md", ".txt")
         ClassUtil.getDirectory(this.javaClass)
             .filter { extensions.any { ext -> it.endsWith(ext) } && it != "plugin.yml" }
+            .filter { !File(dataFolder, it).exists() }
             .forEach { saveResource(it, false) }
         Bukkit.getPluginManager().registerEvents(this, this)
         allowTask = true
