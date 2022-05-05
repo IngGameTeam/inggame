@@ -11,10 +11,23 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
 import java.io.File
-import kotlin.test.assertTrue
+import kotlin.test.assertNotNull
 
 typealias Comp<T> = HashMap<String, T>
 //typealias LangComp<T> = HashMap<String, HashMap<String, T>>
+
+/*
+ *----------------------------------
+ *
+ * 이 코드 발로 짠 거임
+ *
+ *----------------------------------
+ *
+ *
+ *
+ *
+ */
+
 
 interface Component {
     val plugin: AlertPlugin
@@ -28,8 +41,7 @@ interface Component {
     val array: LangComp<MutableList<String>>
 
 
-    fun alert(name: String, lang: String) =
-        alert[lang]?.get(name).apply { if (this === null) assertTrue(false, "language $lang alert $name does not exist") }!!
+    fun alert(name: String, lang: String) = alert.comp(name, lang)
     fun send(alert: String, t: GPlayer, vararg args: Any) =
         alert(alert, t.lang(plugin)).send(plugin.console, t, *args)
     fun send(alert: String, t: Collection<GPlayer>, vararg args: Any) =
@@ -59,26 +71,29 @@ class ComponentImpl(override val plugin: AlertPlugin, file: File, ) : Component 
     override val location = YamlUtil.getComponent(File(file, "location.yml"),  YamlUtil::location)
     override val double = YamlUtil.getComponent(File(file, "double.yml")) { conf, path -> conf.getDouble(path)}
     override val int = YamlUtil.getComponent(File(file, "int.yml")) { conf, path -> conf.getInt(path)}
-    override val item = dir(File(file, "item")) { YamlUtil.getComponent(it, YamlUtil::item) }.langComp(plugin)
-    override val inventory = dir(File(file, "inventory"))
-        { YamlUtil.getComponent(it) { conf -> YamlUtil.inventory(conf, item[it.parent]!!) } }.langComp(plugin)
-    override val string = dir(File(file, "string"))
-        { YamlUtil.getComponent(it) { conf, path -> YamlUtil.string(conf, path) } }.langComp(plugin)
-    override val alert = dir(File(file, "alert"))
-        { YamlUtil.getComponent(it, AlertYamlSerialize::alert) }.langComp(plugin)
-    override val array = dir(File(file, "array"))
-        { YamlUtil.getComponent(it) { conf, path -> conf.getStringList(path).toMutableList() } }.langComp(plugin)
-    private fun <T> dir(dir: File, init: (File) -> HashMap<String, T>): HashMap<String, HashMap<String, T>> {
-        val map = LangComp<T>(plugin, HashMap())
+    override val item = dir(plugin, File(file, "item")) { YamlUtil.getComponent(it, YamlUtil::item) }
+    override val inventory = dir(plugin, File(file, "inventory"))
+        { YamlUtil.getComponent(it) { conf -> YamlUtil.inventory(conf, item[it.parent]!!) } }
+    override val string = dir(plugin, File(file, "string"))
+        { YamlUtil.getComponent(it) { conf, path -> YamlUtil.string(conf, path) } }
+    override val alert = dir(plugin, File(file, "alert"))
+        { YamlUtil.getComponent(it, AlertYamlSerialize::alert) }
+    override val array = dir(plugin, File(file, "array"))
+        { YamlUtil.getComponent(it) { conf, path -> conf.getStringList(path).toMutableList() } }
+    private fun <T> dir(plugin: AlertPlugin, dir: File, init: (File) -> HashMap<String, T>): LangComp<T> {
+        val map = LangComp<T>(dir.name, plugin, HashMap())
         dir.listFiles(File::isFile)
             ?.forEach { map[it.nameWithoutExtension] = init(File(dir, it.name)) }
         return map
     }
 }
 
-fun <T> HashMap<String, HashMap<String, T>>.langComp(plugin: AlertPlugin) = LangComp(plugin, this)
-
-class LangComp<T>(val plugin: AlertPlugin, map: HashMap<String, HashMap<String, T>>) : HashMap<String, HashMap<String, T>>(map) {
-    fun comp(key: String, lang: String = plugin.defaultLanguage) = this[lang]!![key]!!
+class LangComp<T>(
+    private val type: String,
+    val plugin: AlertPlugin, map: HashMap<String, HashMap<String, T>>
+) : HashMap<String, HashMap<String, T>>(map) {
+    fun comp(key: String, lang: String = plugin.defaultLanguage) = get(lang)?.get(key)
+        .apply { assertNotNull(this, "language $lang $type $key does not exist") }!!
     fun comp(key: String, player: GPlayer) = comp(key, plugin[player].lang(plugin))
+
 }

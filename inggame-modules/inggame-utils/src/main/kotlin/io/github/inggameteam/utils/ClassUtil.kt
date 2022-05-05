@@ -3,13 +3,14 @@ package io.github.inggameteam.utils
 import java.io.File
 import java.util.jar.JarFile
 
+
 object ClassUtil {
 
     fun getDirectory(clazz: Class<*>): List<String> {
         val file = File(clazz.protectionDomain.codeSource.location.toURI())
         try {
             return JarFile(file).entries().toList()
-                .filter { !it.isDirectory }.map { it.name }.toList()
+                .filter { !it.isDirectory }.map { it.realName }.toList()
         } catch (_: Exception) { }
         println("MockBukkit detected")
         //MockBukkit testing
@@ -38,4 +39,5 @@ object ClassUtil {
         println(files.map { it.name })
         return files.filter { it.isFile }.map { it.path }.toList()
 */
+
 }
