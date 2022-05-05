@@ -1,6 +1,6 @@
 ---
 name: 버그 제보 
-about: ''
+about: '버그 제보'
 title: ''
 labels: 'bug'
 assignees: ''
