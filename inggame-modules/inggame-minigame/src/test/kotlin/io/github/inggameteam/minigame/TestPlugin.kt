@@ -22,13 +22,6 @@ class TestPlugin(
     loader, description, dataFolder, file
 ) {
 
-
-    override fun onEnable() {
-        super.onEnable()
-        component.string["enable_plugin"]?.apply { logger.info(this) }
-        println("enabled")
-    }
-
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         try {

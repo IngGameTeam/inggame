@@ -1,8 +1,7 @@
-package io.github.inggameteam.party
+package io.github.inggameteam.alert
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
-import be.seeseemelk.mockbukkit.entity.PlayerMock
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -26,16 +25,9 @@ class TestServer {
     }
 
     @Test
-    fun partyJoin() {
+    fun addPlayer() {
         println("addPlayer")
         val player = server.addPlayer()
-        player.performCommand("p create")
-        player.performCommand("p ${server.addPlayer().name}")
-        server.onlinePlayers.forEach { it.throwOutMsg() }
     }
 
-}
-
-fun PlayerMock.throwOutMsg() {
-    while(true) { println("[$name] \n" + nextMessage().apply { if (this === null) return }) }
 }

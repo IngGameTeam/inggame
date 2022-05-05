@@ -4,7 +4,6 @@ import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.alert.AlertYamlSerialize
 import io.github.inggameteam.alert.api.Alert
 import io.github.inggameteam.alert.component.Lang.lang
-import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.LocationWithoutWorld
 import io.github.inggameteam.utils.YamlUtil
@@ -12,7 +11,6 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
 import java.io.File
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 typealias Comp<T> = HashMap<String, T>
@@ -31,8 +29,7 @@ interface Component {
 
 
     fun alert(name: String, lang: String) =
-        alert[lang].apply { assertNotNull(this, "language $lang does not exist") }!![name]
-            .apply { if (this === null) assertTrue(false, "language $lang alert $name does not exist") }!!
+        alert[lang]?.get(name).apply { if (this === null) assertTrue(false, "language $lang alert $name does not exist") }!!
     fun send(alert: String, t: GPlayer, vararg args: Any) =
         alert(alert, t.lang(plugin)).send(plugin.console, t, *args)
     fun send(alert: String, t: Collection<GPlayer>, vararg args: Any) =
@@ -83,4 +80,5 @@ fun <T> HashMap<String, HashMap<String, T>>.langComp(plugin: AlertPlugin) = Lang
 
 class LangComp<T>(val plugin: AlertPlugin, map: HashMap<String, HashMap<String, T>>) : HashMap<String, HashMap<String, T>>(map) {
     fun comp(key: String, lang: String = plugin.defaultLanguage) = this[lang]!![key]!!
+    fun comp(key: String, player: GPlayer) = comp(key, plugin[player].lang(plugin))
 }

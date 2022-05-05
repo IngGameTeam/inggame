@@ -6,6 +6,9 @@ import io.github.inggameteam.player.PlayerPluginImpl
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
+import kotlin.test.assertNotNull
+
+const val DEFAULT_DIR = "default"
 
 open class AlertPluginImpl : AlertPlugin, PlayerPluginImpl {
     constructor()
@@ -14,13 +17,14 @@ open class AlertPluginImpl : AlertPlugin, PlayerPluginImpl {
 
     override val defaultLanguage = "default"
     override val components = HashMap<String, Component>()
-    override val component by lazy { ComponentImpl(this, dataFolder) }
+    override val component get() = components[DEFAULT_DIR]
+        .apply { assertNotNull(this, "component $DEFAULT_DIR does not exist") }!!
     override fun onEnable() {
         super.onEnable()
         components
-        component
-        dataFolder.listFiles { obj -> obj.isDirectory }?.forEach { file ->
+        dataFolder.listFiles(File::isDirectory)?.forEach { file ->
             components[file.name] = ComponentImpl(this, file)
         }
     }
+
 }

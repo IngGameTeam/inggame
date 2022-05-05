@@ -41,7 +41,8 @@ abstract class AbstractEventAlert(
 ): Alert<GPlayer>(map) {
     override fun send(sender: UUID?, t: GPlayer, args: Array<out Any>) {
         t.spigot().sendMessage(TextComponent(map.values.first().format(*args)).apply {
-            val reversedArgs = args.clone().apply { reverse() }
+            val reversedArgs = arrayOf(*args)
+            reversedArgs.reverse()
             event(this, reversedArgs)
         })
     }

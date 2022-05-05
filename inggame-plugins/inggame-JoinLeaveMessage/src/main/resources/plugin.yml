@@ -1,5 +1,5 @@
 name: JoinLeaveMessage
-main: JoinLeaveMessagePlugin
+main: io.github.inggameteam.plugin.joinleavemessage.JoinLeaveMessagePlugin
 version: $version
 api-version: 1.18
 libraries: $libraries
