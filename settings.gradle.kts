@@ -4,16 +4,15 @@ if((JavaVersion.current() != JavaVersion.VERSION_17)) {
 
 rootProject.name = "inggame"
 
-//val core = "${rootProject.name}-core"
-val abilities = "${rootProject.name}-modules"
-val plugin = "${rootProject.name}-plugins"
-
-
-listOf(abilities, plugin).forEach { sub ->
-    include(sub)
-    file(sub).listFiles()?.filter { it.isDirectory && it.name.startsWith("${rootProject.name}-") }?.forEach { file ->
-        include(":${sub}:${file.name}")
+fun circuitDir(dir: File) {
+    dir.listFiles()?.forEach {
+        if (it.isDirectory && it.name.startsWith("${rootProject.name}-")) {
+            println(it.name)
+            val moduleName = ":" + it.relativeTo(rootDir).path.replace(File.separator, ":")
+            println(moduleName)
+            include(moduleName)
+            circuitDir(it)
+        }
     }
 }
-
-include("${rootProject.name}-publish")
+circuitDir(rootDir)

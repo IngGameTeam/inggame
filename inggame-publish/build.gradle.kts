@@ -29,7 +29,7 @@ publishing {
             url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
             credentials {
                 val prop = org.jetbrains.kotlin.konan.properties.Properties()
-                val file = File(rootProject.projectDir, "env.properties")
+                val file = File(project.projectDir, "env.properties")
                 if (file.exists()) {
                     prop.load(file.inputStream())
                 }
