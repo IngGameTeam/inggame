@@ -36,7 +36,7 @@ class PartyUI(val plugin: PartyPlugin) {
 
     fun CommandContext<CommandSender>.args(index: Int = 1, init: (GPlayer) -> Unit) {
         Bukkit.getPlayerExact(args[index])?.game?.apply { init(this) }
-            ?: plugin.partyComponent.send(Alert.NO_PLAYER_EXIST, player.game)
+            ?: plugin.component.send(Alert.NO_PLAYER_EXIST, player.game)
     }
 
     private val ArgumentCommandNode<CommandSender>.memberTab
@@ -48,9 +48,9 @@ class PartyUI(val plugin: PartyPlugin) {
     init {
         MCCommand(plugin as JavaPlugin) {
             command("p", "party") {
-                executeThen("create") { plugin.partyRegister.createParty(player.game) }
-                executeThen("rename") { party { rename(it, argument.subList(2, argument.size).joinToString(" ")) } }
-                executeThen("visible") { party { visible(it) } }
+                thenExecute("create") { plugin.partyRegister.createParty(player.game) }
+                thenExecute("rename") { party { rename(it, argument.subList(2, argument.size).joinToString(" ")) } }
+                thenExecute("visible") { party { visible(it) } }
                 then("promote") {
                     memberTab
                     execute { args { arg -> party { promote(it, arg) } } }
@@ -73,24 +73,30 @@ class PartyUI(val plugin: PartyPlugin) {
                     }
                     execute { args { arg -> party { unban(it, arg) } } }
                 }
-                executeThen("list") { party { listMembers(it) } }
-                executeThen("all") { plugin.partyRequestRegister.inviteAll(player.game) }
+                thenExecute("list") { party { listMembers(it) } }
+                thenExecute("all") { plugin.partyRequestRegister.inviteAll(player.game) }
                 execute { args(0) { plugin.partyRequestRegister.invitePlayer(player.game, it) } }
                 tab {
                     val gamePlayer = player.game
                     if (gamePlayer.isJoinedParty) {
                         val party = gamePlayer.party
+                        val outPlayers = plugin.playerRegister.values
+                            .filter { it.partyOrNull != party }
+                            .map { it.name }
+                            .toTypedArray()
                         if (party.leader eq gamePlayer) {
-                            return@tab arrayListOf(*defTab).apply { removeAll(arrayOf("create")) }
+                            return@tab arrayListOf(*outPlayers, *defTab).apply { removeAll(arrayOf("create")) }
                         } else {
-                            return@tab arrayListOf(*defTab).apply {
+                            return@tab arrayListOf(*outPlayers, *defTab).apply {
                                 removeAll(arrayOf("unban",
                                     "ban",
                                     "kick",
                                     "promote",
                                     "visible",
                                     "rename",
-                                    "create"))
+                                    "create",
+                                ))
+
                             }
                         }
                     } else {
