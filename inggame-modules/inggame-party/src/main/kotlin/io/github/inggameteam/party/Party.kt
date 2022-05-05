@@ -81,6 +81,7 @@ fun Party.rename(dispatcher: GPlayer, newName: String) {
             resetName()
         } else if (newName.length > 20) {
             comp.send(OVER_PARTY_NAME_LENGTH, dispatcher)
+            return
         } else {
             name = newName.color
             renamed = true
