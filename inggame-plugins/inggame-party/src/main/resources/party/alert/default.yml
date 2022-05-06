@@ -42,6 +42,7 @@ PARTY_KICK_IS_LEADER_ONLY.chat: "&c파티 리더만 추방시킬 수 있습니�
 CANNOT_BAN_YOURSELF.chat: "&c자신을 차단할 수는 없습니다"
 LEADER_BANNED_YOU.chat: "&a%s이(가) 당신을 %s에서 차단했습니다"
 PARTY_BAN_IS_LEADER_ONLY.chat: "&c파티 리더만 차단할 수 있습니다"
+YOU_BANNED_THE_PLAYER.chat: "&c%s이(가) %s에서 차단되었습니다"
 CANNOT_UNBAN_YOURSELF.chat: "&c자신을 차단 해제할 수는 없습니다"
 THAT_PLAYER_WAS_NOT_BANNED.chat: "&c플레이어가 차단되어 있지 않습니다"
 PARTY_UNBAN_IS_LEADER_ONLY.chat: "&c파티 리더만 차단을 해제할 수 있습니다"
@@ -51,3 +52,4 @@ PARTY_MEMEBRS.chat: |
   -------------------------------------
 CANNOT_JOIN_DUE_TO_BANNED.chat: "&c이 파티에서 차단되어 참여할 수 없습니다"
 YOU_NEED_TO_BE_INVITED_TO_JOIN_PARTY.chat: "&c이 파티에 참여하려면 초대를 받아야 합니다"
+PLAYER_NOT_EXIST_IN_PARTY.chat: "&c플레이어가 파티에 없습니다"

@@ -1,6 +1,5 @@
 package io.github.inggameteam.alert.api
 
-import io.github.inggameteam.player.GPlayer
 import java.util.*
 
 open class Alert<RECEIVER>(

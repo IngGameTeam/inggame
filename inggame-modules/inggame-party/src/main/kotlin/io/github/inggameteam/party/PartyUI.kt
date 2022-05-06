@@ -49,7 +49,7 @@ class PartyUI(val plugin: PartyPlugin) {
         MCCommand(plugin as JavaPlugin) {
             command("p", "party") {
                 thenExecute("create") { plugin.partyRegister.createParty(player.game) }
-                thenExecute("rename") { party { rename(it, argument.subList(2, argument.size).joinToString(" ")) } }
+                thenExecute("rename") { party { rename(it, args.subList(1, args.size).joinToString(" ")) } }
                 thenExecute("visible") { party { visible(it) } }
                 then("promote") {
                     memberTab
@@ -75,27 +75,40 @@ class PartyUI(val plugin: PartyPlugin) {
                 }
                 thenExecute("list") { party { listMembers(it) } }
                 thenExecute("all") { plugin.partyRequestRegister.inviteAll(player.game) }
-                execute { args(0) { plugin.partyRequestRegister.invitePlayer(player.game, it) } }
+                thenExecute("accept") {
+                    val inviteCode = args[1].toIntOrNull()
+                    if (inviteCode !== null) plugin.partyRequestRegister.acceptInvitation(player.game, inviteCode)
+                }
+                then("join") {
+                    tab { plugin.playerRegister.values.map { it.name }.toList() }
+                    execute { args(1) { arg -> party { join(arg) } } }
+                }
+                execute {
+                    args(0) { plugin.partyRequestRegister.invitePlayer(player.game, it) }
+                }
                 tab {
                     val gamePlayer = player.game
                     if (gamePlayer.isJoinedParty) {
                         val party = gamePlayer.party
                         val outPlayers = plugin.playerRegister.values
-                            .filter { it.partyOrNull != party }
+                            .filter { !party.joined.contains(it) }
                             .map { it.name }
                             .toTypedArray()
+                        val hideTabs = arrayOf("join", "accept")
                         if (party.leader eq gamePlayer) {
-                            return@tab arrayListOf(*outPlayers, *defTab).apply { removeAll(arrayOf("create")) }
+                            return@tab arrayListOf(*outPlayers, *defTab).apply { removeAll(arrayOf("create", *hideTabs)) }
                         } else {
                             return@tab arrayListOf(*outPlayers, *defTab).apply {
-                                removeAll(arrayOf("unban",
+                                removeAll(arrayOf(
+                                    "unban",
                                     "ban",
                                     "kick",
                                     "promote",
                                     "visible",
                                     "rename",
                                     "create",
-                                ))
+                                    *hideTabs,
+                                ).toSet())
 
                             }
                         }

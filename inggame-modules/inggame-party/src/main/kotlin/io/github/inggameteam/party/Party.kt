@@ -1,6 +1,5 @@
 package io.github.inggameteam.party
 
-import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.party.PartyAlert.*
 import io.github.inggameteam.party.event.CreatePartyEvent
@@ -42,7 +41,7 @@ class Party(
 }
 
 val PluginHolder<PartyPlugin>.comp get() = plugin.partyComponent
-fun Party.updateParty() = plugin.partyUI.updateParty()
+fun PluginHolder<PartyPlugin>.updateParty() = plugin.partyUI.updateParty()
 
 fun Party.left(player: GPlayer) {
     if (leader == player) {
@@ -50,7 +49,7 @@ fun Party.left(player: GPlayer) {
         comp.send(PARTY_DISBANDED, joined, this)
         plugin.partyRegister.remove(this)
         plugin.partyRequestRegister.removeIf { it.party == this }
-        plugin.partyUI.updateParty()
+        updateParty()
     } else {
         joined.remove(player)
         comp.send(LEFT_PARTY, joined, player, this)
@@ -65,11 +64,13 @@ fun Party.join(player: GPlayer) {
     }
     joined.add(player)
     comp.send(JOIN_PARTY, joined, player, this)
+    updateParty()
 }
 
 fun PartyRegister.createParty(dispatcher: GPlayer) {
     getJoined(dispatcher)?.left(dispatcher)
     add(Party(plugin, joined = listOf(dispatcher).toPlayerList()))
+
     comp.send(PARTY_CREATED, dispatcher)
     Bukkit.getPluginManager().callEvent(CreatePartyEvent(dispatcher))
 }
@@ -135,6 +136,7 @@ fun Party.ban(dispatcher: GPlayer, banPlayer: GPlayer) {
             joined.remove(banPlayer)
             banList.add(banPlayer.uniqueId)
             comp.send(LEADER_BANNED_YOU, banPlayer, leader, this)
+            comp.send(YOU_BANNED_THE_PLAYER, dispatcher, this, banPlayer)
             plugin.partyRequestRegister.removeIf { it.party == this && it.sender == banPlayer }
             updateParty()
         } else comp.send(PLAYER_NOT_EXIST_IN_PARTY, dispatcher)
