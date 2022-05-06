@@ -1,0 +1,35 @@
+name: doctave
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'site/**'
+jobs:
+  gradle:
+    #    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: --git https://github.com/Doctave/doctave --tag 0.4.2
+      - name: start docative intialize
+        run: doctave init
+      - name: push
+        uses: github-actions-x/commit@v2.9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'gh-pages'
+          commit-message: 'doctave gh pages'
+          force-add: 'true'
+          files: site/
+          name: Github Actions
+          email: no-reply@github.com
