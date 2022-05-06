@@ -61,4 +61,21 @@ allprojects {
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     }
+
+    if (version == "unspecified") {
+        version = rootProject.version
+    }
+
 }
+
+fun childTreeApi(p: Project) {
+    p.childProjects.values.forEach {
+        var parentProj = it.parent
+        while (parentProj !== null && parentProj !== rootProject) {
+            parentProj.dependencies.api(it)
+            parentProj = parentProj.parent
+        }
+        childTreeApi(it)
+    }
+}
+childTreeApi(rootProject)

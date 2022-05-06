@@ -14,10 +14,6 @@ subprojects {
         }
     }
 
-    if (version == "unspecified") {
-        version = rootProject.version
-    }
-
 
     tasks {
         processResources {
@@ -30,7 +26,6 @@ subprojects {
     }
 
     dependencies {
-//        implementation("io.github.inggameteam:inggame-modules:+")
         implementation(project(":inggame-modules"))
     }
 
@@ -39,3 +34,4 @@ subprojects {
 tasks.withType<Jar> {
     dependsOn(*childProjects.values.map { it.tasks.jar }.toTypedArray())
 }
+

@@ -13,13 +13,12 @@ import org.bukkit.plugin.Plugin
 import java.io.File
 import kotlin.test.assertNotNull
 
-typealias Comp<T> = HashMap<String, T>
 //typealias LangComp<T> = HashMap<String, HashMap<String, T>>
 
 /*
  *----------------------------------
  *
- * 이 코드 발로 짠 거임
+ * 이 코드 좀 더러운 이유는 기능을 후딱 만들었기 때문임
  *
  *----------------------------------
  *
@@ -68,12 +67,15 @@ interface Component {
 
 class ComponentImpl(override val plugin: AlertPlugin, file: File, ) : Component {
     init { file.mkdirs() }
-    override val location = YamlUtil.getComponent(File(file, "location.yml"),  YamlUtil::location)
-    override val double = YamlUtil.getComponent(File(file, "double.yml")) { conf, path -> conf.getDouble(path)}
-    override val int = YamlUtil.getComponent(File(file, "int.yml")) { conf, path -> conf.getInt(path)}
+    override val location = Comp("location", plugin,
+        YamlUtil.getComponent(File(file, "location.yml"),  YamlUtil::location))
+    override val double = Comp("double", plugin,
+        YamlUtil.getComponent(File(file, "double.yml")) { conf, path -> conf.getDouble(path)})
+    override val int = Comp("int", plugin,
+        YamlUtil.getComponent(File(file, "int.yml")) { conf, path -> conf.getInt(path)})
     override val item = dir(plugin, File(file, "item")) { YamlUtil.getComponent(it, YamlUtil::item) }
     override val inventory = dir(plugin, File(file, "inventory"))
-        { YamlUtil.getComponent(it) { conf -> YamlUtil.inventory(conf, item[it.parent]!!) } }
+        { YamlUtil.getComponent(it) { conf -> YamlUtil.inventory(conf, item.internalGet(it.parent)!!) } }
     override val string = dir(plugin, File(file, "string"))
         { YamlUtil.getComponent(it) { conf, path -> YamlUtil.string(conf, path) } }
     override val alert = dir(plugin, File(file, "alert"))
@@ -88,12 +90,30 @@ class ComponentImpl(override val plugin: AlertPlugin, file: File, ) : Component 
     }
 }
 
+abstract class DeprecatedGetMethodHashMap<T, V>(map: HashMap<T, V>) : HashMap<T, V>(map) {
+
+    internal fun internalGet(key: T): V? = super.get(key)
+    @Deprecated("use comp method instead", ReplaceWith("super.get(key)", "java.util.HashMap"))
+    override fun get(key: T): V? {
+        return super.get(key)
+    }
+}
+
 class LangComp<T>(
     private val type: String,
     val plugin: AlertPlugin, map: HashMap<String, HashMap<String, T>>
-) : HashMap<String, HashMap<String, T>>(map) {
-    fun comp(key: String, lang: String = plugin.defaultLanguage) = get(lang)?.get(key)
+) : DeprecatedGetMethodHashMap<String, HashMap<String, T>>(map) {
+    fun comp(key: String, lang: String = plugin.defaultLanguage) = internalGet(lang)?.get(key)
         .apply { assertNotNull(this, "language $lang $type $key does not exist") }!!
     fun comp(key: String, player: GPlayer) = comp(key, plugin[player].lang(plugin))
 
+}
+
+class Comp<T>(
+    private val type: String,
+    val plugin: AlertPlugin, map: HashMap<String, T>
+) : DeprecatedGetMethodHashMap<String, T>(map) {
+
+    fun comp(key: String) = internalGet(key)
+        .apply { assertNotNull(this, "$type $key does not exist") }!!
 }

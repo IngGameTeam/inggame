@@ -1,0 +1,4 @@
+name: minigame-module-unit-test
+main: TestPlugin
+version: test
+api-version: 1.18

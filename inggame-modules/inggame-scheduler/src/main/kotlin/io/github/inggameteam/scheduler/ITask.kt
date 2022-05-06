@@ -39,8 +39,8 @@ class ITask {
 }
 
 
-fun (() -> Unit).delay(plugin: Plugin, delay: Long) =
-    ITask(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, delay))
+fun (() -> Any).delay(plugin: Plugin, delay: Long) =
+    ITask(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, { this() }, delay))
 fun (() -> Boolean).repeat(plugin: Plugin, delay: Long, period: Long) =
     ITask(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, object : BukkitRunnable() {
         override fun run() {
@@ -49,6 +49,6 @@ fun (() -> Boolean).repeat(plugin: Plugin, delay: Long, period: Long) =
             }
         }
     }, delay, period))
-fun (() -> Unit).runNow(plugin: Plugin) = ITask(Bukkit.getScheduler().runTask(plugin, this))
-fun (() -> Unit).async(plugin: Plugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, this))
+fun (() -> Any).runNow(plugin: Plugin) = ITask(Bukkit.getScheduler().runTask(plugin, Runnable { this() }))
+fun (() -> Any).async(plugin: Plugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable { this() }))
 
