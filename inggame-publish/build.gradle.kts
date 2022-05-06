@@ -3,7 +3,6 @@ plugins {
 }
 apply(plugin = "com.github.johnrengelman.shadow")
 val rootName = "inggame-modules"
-val repoName = "inggameteam"
 
 dependencies {
     implementation(project(":inggame-modules"))
@@ -18,7 +17,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 publishing {
     publications {
         create<MavenPublication>(rootName) {
-            groupId = "io.github.$repoName"
+            groupId = rootProject.properties["group"]?.toString()!!
             artifactId = rootName
             version = rootProject.version.toString()
             artifact(tasks["shadowJar"])
