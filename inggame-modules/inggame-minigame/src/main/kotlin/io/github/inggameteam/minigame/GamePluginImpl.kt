@@ -12,6 +12,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     lateinit var worldSize: IntVector
     lateinit var init: Array<(GamePlugin, IntVector) -> Game>
 
+    constructor()
     constructor(hubName: String,
                 worldName: String,
                 worldSize: IntVector,
