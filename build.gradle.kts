@@ -62,20 +62,21 @@ allprojects {
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     }
 
-    if (version == "unspecified") {
-        version = rootProject.version
-    }
-
 }
 
-fun childTreeApi(p: Project) {
+fun childTree(p: Project) {
     p.childProjects.values.forEach {
+        it.apply {
+            if (version == "unspecified") {
+                version = rootProject.version
+            }
+        }
         var parentProj = it.parent
         while (parentProj !== null && parentProj !== rootProject) {
             parentProj.dependencies.api(it)
             parentProj = parentProj.parent
         }
-        childTreeApi(it)
+        childTree(it)
     }
 }
-childTreeApi(rootProject)
+childTree(rootProject)

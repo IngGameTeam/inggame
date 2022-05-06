@@ -6,6 +6,6 @@ allprojects {
         implementation(project(":inggame-modules:inggame-alert"))
         implementation(project(":inggame-modules:inggame-party"))
         implementation(project(":inggame-modules:inggame-player"))
-        implementation(project(":inggame-modules:inggame-fawe"))
+        implementation(project(":inggame-modules:inggame-world"))
     }
 }

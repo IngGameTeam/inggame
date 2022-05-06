@@ -1,6 +1,8 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
+import org.bukkit.event.EventHandler
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
@@ -11,6 +13,8 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     var width: Int = 0
     var height: Int = 0
     lateinit var init: Array<(GamePlugin, Sector) -> Game>
+
+    open val autoHubJoin get() = true
 
     constructor()
     constructor(hubName: String,
@@ -44,4 +48,11 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         gameSupplierRegister
         gameRegister
     }
+
+    @EventHandler
+    fun onJoinJoinHub(event: PlayerJoinEvent) {
+        if (autoHubJoin)
+            gameRegister.join(event.player, hubName)
+    }
+
 }

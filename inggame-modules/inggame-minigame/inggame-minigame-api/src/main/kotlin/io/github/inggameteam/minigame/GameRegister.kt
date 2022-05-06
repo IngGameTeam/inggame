@@ -10,6 +10,7 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import kotlin.math.sqrt
+import kotlin.test.assertNotNull
 
 class GameRegister(
     val plugin: GamePlugin,
@@ -25,6 +26,7 @@ class GameRegister(
     //gameSupplierRegister
 
     val world: World? get() = Bukkit.getWorld(worldName)
+        .apply { assertNotNull(this, "world $worldName is not loaded") }!!
 
     @Suppress("Deprecated")
     @EventHandler
@@ -89,12 +91,12 @@ class GameRegister(
         while (x <= line) {
             var z = 1
             while (z <= line) {
-                if (!list.any { it.equals(x, z) }) return Sector(x, z, world!!)
+                if (!list.any { it.equals(x, z) }) return Sector(x, z, world)
                 z++
             }
             x++
         }
-        return Sector(1, 1, world!!)
+        return Sector(1, 1, world)
     }
 
 
