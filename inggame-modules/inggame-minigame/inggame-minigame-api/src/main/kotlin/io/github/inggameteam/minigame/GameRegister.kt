@@ -28,7 +28,11 @@ class GameRegister(
     val world: World? get() = Bukkit.getWorld(worldName)
         .apply { assertNotNull(this, "world $worldName is not loaded") }!!
 
-    @Suppress("Deprecated")
+    init {
+        Bukkit.getPluginManager().registerEvents(this, plugin)
+    }
+
+    @Deprecated("EventHandler")
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         join(event.player, hubName)

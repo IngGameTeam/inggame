@@ -4,6 +4,8 @@ import org.bukkit.*
 
 object WorldGenerator {
     fun generateWorld(name: String) {
+        if (name.isEmpty()) return
+
         if (Bukkit.getWorld(name) == null) {
             val worldCreator = WorldCreator(name)
             worldCreator.environment(World.Environment.NORMAL)
