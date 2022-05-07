@@ -1,5 +1,8 @@
 package io.github.inggameteam.minigame
 
+import io.github.inggameteam.alert.tree.Comp
+import io.github.inggameteam.alert.tree.CompDir
+import io.github.inggameteam.alert.tree.CompFile
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
@@ -36,7 +39,14 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun stop(force: Boolean, leftType: LeftType = LeftType.GAME_STOP)
 //    fun calcWinner()
 
+
     fun isJoined(player: Player) = joined.contains(player)
-    val comp get() = plugin.components[name]!!
+
+
+    fun <T> comp(getter: (CompDir) -> Comp<CompFile<T>>, lang: String = plugin.defaultLanguage, key: String) =
+        plugin.components.langComp(getter, lang, key, name, plugin.gameRegister.hubName)
+
+    fun alert(key: String) = comp(CompDir::alert, key = key)
+    fun alert(key: Enum<*>) = alert(key.name)
 
 }

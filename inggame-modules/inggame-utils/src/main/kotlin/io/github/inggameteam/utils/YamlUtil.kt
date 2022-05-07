@@ -20,21 +20,17 @@ import java.io.File
 object YamlUtil {
     private fun getSections(file: File): ConfigurationSection = YamlConfiguration.loadConfiguration(file)
 
-    fun <T> getComponent(file: File, function: (ConfigurationSection, String) -> T): HashMap<String, T> {
-        val component = HashMap<String, T>()
+    fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSection, String) -> T) {
         val sections = getSections(file)
-        sections.getKeys(false).forEach { s ->
-            component[s] = function.invoke(sections, s!!)!!
-        }
-        return component
+        sections.getKeys(false).forEach { this[it] = function(sections, it!!)!! }
     }
 
-    fun <T> getComponent(file: File, function: (ConfigurationSection) -> T): HashMap<String, T> {
-        val component = HashMap<String, T>()
+
+    fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSection) -> T) {
         val sections = getSections(file)
-        sections.getKeys(false).forEach { s -> component[s] = function(sections.getConfigurationSection(s)!!) }
-        return component
+        sections.getKeys(false).forEach { s -> this[s] = function(sections.getConfigurationSection(s)!!) }
     }
+
     fun item(conf: ConfigurationSection): ItemStack {
         var itemStack = ItemStack(Material.AIR)
         try {

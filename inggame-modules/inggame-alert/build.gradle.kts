@@ -1,5 +1,5 @@
 dependencies {
-    implementation(project(":inggame-modules:inggame-utils"))
-    implementation(project(":inggame-modules:inggame-api"))
-    implementation(project(":inggame-modules:inggame-player"))
+    api(project(":inggame-modules:inggame-utils"))
+    api(project(":inggame-modules:inggame-api"))
+    api(project(":inggame-modules:inggame-player"))
 }

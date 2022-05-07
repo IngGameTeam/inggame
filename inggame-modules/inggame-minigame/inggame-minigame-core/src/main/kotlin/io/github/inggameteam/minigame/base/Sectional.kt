@@ -78,8 +78,13 @@ abstract class Sectional(plugin: GamePlugin, point: Sector) : GameImpl(plugin, p
         return File(plugin.dataFolder, SCHEMATIC_DIR + File.separator + name + ".schem")
     }
 
-    fun getLocation(name: String): Location {
-        return comp.location.comp(name).run { Location(point.world, x, y, z, yaw, pitch) }
+
+    fun getLocation(name: String) = comp.location[name].run {
+        Location(point.world,
+            x + width * point.x,
+            y + height,
+            z + width * point.y,
+            yaw, pitch)
     }
 
     @EventHandler

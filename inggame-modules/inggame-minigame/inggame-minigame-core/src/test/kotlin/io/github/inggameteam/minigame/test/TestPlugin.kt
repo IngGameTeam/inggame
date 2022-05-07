@@ -1,6 +1,7 @@
-package io.github.inggameteam.test
+package io.github.inggameteam.minigame.test
 
 import io.github.inggameteam.minigame.GamePluginImpl
+import io.github.inggameteam.minigame.base.Hub
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.PluginDescriptionFile

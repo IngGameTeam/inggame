@@ -1,11 +1,11 @@
 allprojects {
     dependencies {
-        implementation(project(":inggame-modules:inggame-api"))
-        implementation(project(":inggame-modules:inggame-scheduler"))
-        implementation(project(":inggame-modules:inggame-utils"))
-        implementation(project(":inggame-modules:inggame-alert"))
-        implementation(project(":inggame-modules:inggame-party"))
-        implementation(project(":inggame-modules:inggame-player"))
-        implementation(project(":inggame-modules:inggame-world"))
+        api(project(":inggame-modules:inggame-api"))
+        api(project(":inggame-modules:inggame-scheduler"))
+        api(project(":inggame-modules:inggame-utils"))
+        api(project(":inggame-modules:inggame-alert"))
+        api(project(":inggame-modules:inggame-party"))
+        api(project(":inggame-modules:inggame-player"))
+        api(project(":inggame-modules:inggame-world"))
     }
 }

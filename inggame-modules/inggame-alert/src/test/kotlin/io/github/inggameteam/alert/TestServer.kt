@@ -28,6 +28,13 @@ class TestServer {
     fun addPlayer() {
         println("addPlayer")
         val player = server.addPlayer()
+        repeat(10) {
+            val before = System.currentTimeMillis()
+            plugin.component.send("test", plugin[player], "value")
+            println(player.nextMessage())
+            val after = System.currentTimeMillis()
+            println(after - before)
+        }
     }
 
 }

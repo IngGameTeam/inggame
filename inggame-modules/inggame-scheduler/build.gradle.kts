@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":inggame-modules:inggame-api"))
+    api(project(":inggame-modules:inggame-api"))
 }

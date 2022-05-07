@@ -1,7 +1,6 @@
 package io.github.inggameteam.alert
 
-import io.github.inggameteam.alert.component.Component
-import io.github.inggameteam.alert.component.ComponentImpl
+import io.github.inggameteam.alert.tree.Components
 import io.github.inggameteam.player.PlayerPluginImpl
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
@@ -16,15 +15,12 @@ open class AlertPluginImpl : AlertPlugin, PlayerPluginImpl {
             : super(loader, description, dataFolder, file)
 
     override val defaultLanguage = "default"
-    override val components = HashMap<String, Component>()
+    override val components by lazy { Components(this) }
     override val component get() = components[DEFAULT_DIR]
-        .apply { assertNotNull(this, "component $DEFAULT_DIR does not exist") }!!
+        .apply { assertNotNull(this, "component $DEFAULT_DIR does not exist") }
     override fun onEnable() {
         super.onEnable()
         components
-        dataFolder.listFiles(File::isDirectory)?.forEach { file ->
-            components[file.name] = ComponentImpl(this, file)
-        }
     }
 
 }

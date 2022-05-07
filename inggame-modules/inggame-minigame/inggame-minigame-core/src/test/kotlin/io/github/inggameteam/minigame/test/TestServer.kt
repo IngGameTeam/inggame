@@ -1,4 +1,4 @@
-package io.github.inggameteam.test
+package io.github.inggameteam.minigame.test
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock

@@ -37,15 +37,13 @@ abstract class GameImpl(
         Bukkit.getPluginManager().callEvent(GameTaskCancelEvent(this))
     }
 
-    protected fun comp(alert: String) =
-        plugin.components[name]?.alert(alert, plugin.defaultLanguage) ?: plugin.component.alert(alert, plugin.defaultLanguage)
-    protected fun comp(alert: Enum<*>) = comp(alert.name)
+    protected val comp get() = plugin.components[name]
 
     override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
         if (joined.contains(gPlayer)) {
-            if (sendMessage) comp(ALREADY_JOINED).send(gPlayer, this)
+            if (sendMessage) comp.send(ALREADY_JOINED, gPlayer, this)
         } else if (gameState !== GameState.WAIT && joinType === JoinType.PLAY) {
-            if (sendMessage) comp(CANNOT_JOIN_DUE_TO_STARTED).send(gPlayer, this)
+            if (sendMessage) comp.send(CANNOT_JOIN_DUE_TO_STARTED, gPlayer, this)
         } else {
             return true
         }
@@ -57,9 +55,9 @@ abstract class GameImpl(
             Bukkit.getPluginManager().callEvent(GameJoinEvent(gPlayer, this, joinType))
             joined.add(gPlayer)
             playerData[gPlayer] = HashMap()
-            comp(JOIN).send(gPlayer, this)
+            comp.send(JOIN, gPlayer, this)
             if (joinType === JoinType.PLAY) gPlayer.addTag(PTag.PLAY)
-            else comp(START_SPECTATING).send(gPlayer, gPlayer, this)
+            else comp.send(START_SPECTATING, gPlayer, gPlayer, this)
             if (gameTask === null && gameState === GameState.WAIT && 0 < startPlayersAmount && joined.hasTags(
                     PTag.PLAY).size >= startPlayersAmount
             ) start(false)
@@ -77,13 +75,13 @@ abstract class GameImpl(
         playerData.remove(gPlayer)
         gPlayer.clearTags()
         if (leftType === LeftType.LEFT_SERVER) {
-            comp(LEFT_GAME_DUE_TO_SERVER_LEFT).send(gPlayer, this)
+            comp.send(LEFT_GAME_DUE_TO_SERVER_LEFT, gPlayer, this)
         } else {
-            comp(LEFT).send(gPlayer, this)
+            comp.send(LEFT, gPlayer, this)
         }
         val joinedSize = joined.hasTags(PTag.PLAY).size
         if (gameState === GameState.WAIT && joinedSize < startPlayersAmount && 0 < startPlayersAmount && gameTask != null) {
-            comp(START_CANCELLED_DUE_TO_PLAYERLESS).send(joined)
+            comp.send(START_CANCELLED_DUE_TO_PLAYERLESS, joined)
             cancelGameTask()
             gameTask = null
         }
@@ -106,7 +104,7 @@ abstract class GameImpl(
                 start(true)
             } else {
                 val list = ArrayList<() -> Unit>()
-                for (i in tick downTo  1) list.add { comp(GAME_START_COUNT_DOWN).send(joined, this, i) }
+                for (i in tick downTo  1) list.add { comp.send(GAME_START_COUNT_DOWN, joined, this, i) }
                 list.add { gameTask = null; start(true) }
                 gameTask = ITask.repeat(plugin, 20, 20, *(list.toTypedArray()))
             }
@@ -130,7 +128,7 @@ abstract class GameImpl(
     }
 
     open fun beginGame() {
-        comp(GAME_START).send(joined, this)
+        comp.send(GAME_START, joined, this)
     }
 
 /*
