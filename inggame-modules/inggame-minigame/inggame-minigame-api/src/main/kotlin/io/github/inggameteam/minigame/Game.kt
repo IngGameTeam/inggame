@@ -1,8 +1,8 @@
 package io.github.inggameteam.minigame
 
-import io.github.inggameteam.alert.tree.Comp
-import io.github.inggameteam.alert.tree.CompDir
-import io.github.inggameteam.alert.tree.CompFile
+import io.github.inggameteam.alert.Comp
+import io.github.inggameteam.alert.CompDir
+import io.github.inggameteam.alert.CompFile
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList

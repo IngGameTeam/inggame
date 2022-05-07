@@ -1,6 +1,5 @@
 package io.github.inggameteam.alert
 
-import io.github.inggameteam.alert.tree.Components
 import io.github.inggameteam.player.PlayerPluginImpl
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader

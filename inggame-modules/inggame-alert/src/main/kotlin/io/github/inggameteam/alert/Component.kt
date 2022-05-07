@@ -1,14 +1,11 @@
-package io.github.inggameteam.alert.tree
+package io.github.inggameteam.alert
 
-import io.github.inggameteam.alert.AlertPlugin
-import io.github.inggameteam.alert.AlertYamlSerialize
 import io.github.inggameteam.alert.api.Alert
 import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.LocationWithoutWorld
 import io.github.inggameteam.utils.YamlUtil
-import io.github.inggameteam.utils.YamlUtil.getComponent
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.inventory.Inventory
@@ -133,6 +130,16 @@ class StringListComp(file: File, name: String) : CompFile<MutableList<String>>(n
     init {
         getComponent(file, ConfigurationSection::getStringList)
     }
+}
+
+fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSection, String) -> T) {
+    val sections = YamlUtil.getSections(file)
+    sections.getKeys(false).forEach { this[it] = function(sections, it!!)!! }
+}
+
+fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSection) -> T) {
+    val sections = YamlUtil.getSections(file)
+    sections.getKeys(false).forEach { s -> this[s] = function(sections.getConfigurationSection(s)!!) }
 }
 
 class CompDirImpl(override val plugin: AlertPlugin, file: File, override val parents: List<CompDir>) : CompDir, PluginHolder<AlertPlugin> {

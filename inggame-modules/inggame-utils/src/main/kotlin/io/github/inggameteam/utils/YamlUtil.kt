@@ -18,18 +18,7 @@ import org.bukkit.potion.PotionType
 import java.io.File
 
 object YamlUtil {
-    private fun getSections(file: File): ConfigurationSection = YamlConfiguration.loadConfiguration(file)
-
-    fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSection, String) -> T) {
-        val sections = getSections(file)
-        sections.getKeys(false).forEach { this[it] = function(sections, it!!)!! }
-    }
-
-
-    fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSection) -> T) {
-        val sections = getSections(file)
-        sections.getKeys(false).forEach { s -> this[s] = function(sections.getConfigurationSection(s)!!) }
-    }
+    fun getSections(file: File): ConfigurationSection = YamlConfiguration.loadConfiguration(file)
 
     fun item(conf: ConfigurationSection): ItemStack {
         var itemStack = ItemStack(Material.AIR)
