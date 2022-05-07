@@ -34,4 +34,3 @@ subprojects {
 tasks.withType<Jar> {
     dependsOn(*childProjects.values.map { it.tasks.jar }.toTypedArray())
 }
-
