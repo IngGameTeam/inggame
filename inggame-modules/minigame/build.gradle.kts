@@ -1,4 +1,4 @@
-subprojects {
+allprojects {
     dependencies {
         val prefix = ":inggame-modules"
         listOf(
@@ -10,8 +10,8 @@ subprojects {
             "$prefix:player",
             "$prefix:world",
         ).forEach {
-            compileOnly(project(it))
-            testCompileOnly(project(it))
+            implementation(project(it))
+            testImplementation(project(it))
         }
     }
 }

@@ -1,5 +1,6 @@
 package io.github.inggameteam.minigame.base
 
+import io.github.inggameteam.alert.DEFAULT_DIR
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.async
@@ -12,14 +13,16 @@ import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
 import java.io.File
 
-const val SCHEMATIC_DIR = "schematics"
-const val DEFAULT = "default"
 
 /**
  * 미니게임 중, 구역 할당이 필요한 모든 미니게임의 상위 클래스이다.
  */
 abstract class Sectional(plugin: GamePlugin, point: Sector) : GameImpl(plugin, point) {
 
+    companion object {
+        const val DEFAULT = "default"
+
+    }
 
     /**
      * 할당된 구역 마무리 정리 시간
@@ -53,12 +56,12 @@ abstract class Sectional(plugin: GamePlugin, point: Sector) : GameImpl(plugin, p
             }
         }
 
-    open fun loadSector() = { loadSector(point.world, point, name) }.async(plugin)
-    open fun unloadSector() = {unloadSector(point.world!!, point)}.async(plugin)
+    open fun loadSector() { { loadSector(point.world, point, DEFAULT) }.async(plugin) }
+    open fun unloadSector() { {unloadSector(point.world!!, point)}.async(plugin) }
 
     fun unloadSector(world: World, sector: Sector) {
 //        val before = System.currentTimeMillis()
-        val file = getFile(DEFAULT)
+        val file = getFile(DEFAULT, DEFAULT_DIR)
         val sizeAsDouble = width.toDouble()
         val x = width * sector.x - (sizeAsDouble / 2).toInt()
         val z = width * sector.y - (sizeAsDouble / 2).toInt()
@@ -74,9 +77,8 @@ abstract class Sectional(plugin: GamePlugin, point: Sector) : GameImpl(plugin, p
         FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), getFile(name))
     }
 
-    fun getFile(name: String): File {
-        return File(plugin.dataFolder, SCHEMATIC_DIR + File.separator + name + ".schem")
-    }
+    private fun getFile(name: String, dir: String = this.name) =
+        File(plugin.dataFolder, dir + File.separator + name + ".schem")
 
 
     fun getLocation(name: String) = comp.location[name].run {

@@ -3,8 +3,6 @@ package io.github.inggameteam.minigame
 import io.github.inggameteam.party.PartyPluginImpl
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
-import org.bukkit.event.EventHandler
-import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
@@ -47,8 +45,9 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         super.onEnable()
         gameSupplierRegister
         gameRegister
-        Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
         WorldGenerator.generateWorld(worldName)
+        gameRegister.apply { add(createGame(hubName)) }
+        Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
     }
 
 }

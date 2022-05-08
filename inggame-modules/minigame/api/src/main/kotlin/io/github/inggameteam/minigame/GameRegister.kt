@@ -6,9 +6,11 @@ import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerQuitEvent
 import kotlin.math.sqrt
 import kotlin.test.assertNotNull
 
@@ -20,11 +22,6 @@ class GameRegister(
     val sectorHeight: Int,
     ) : HashSet<Game>(), Listener {
 
-    //Hub.NAME
-    //partyRegister
-    //playerRegister
-    //gameSupplierRegister
-
     val world: World? get() = Bukkit.getWorld(worldName)
         .apply { assertNotNull(this, "world $worldName is not loaded") }!!
 
@@ -33,9 +30,15 @@ class GameRegister(
     }
 
     @Deprecated("EventHandler")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
         join(event.player, hubName)
+    }
+
+    @Deprecated("EventHandler")
+    @EventHandler(priority = EventPriority.HIGH)
+    fun onQuit(event: PlayerQuitEvent) {
+        left(event.player, LeftType.LEFT_SERVER)
     }
 
     fun getJoinedGame(player: Player): Game {
@@ -69,7 +72,7 @@ class GameRegister(
 
     fun left(player: Player, leftType: LeftType): Boolean {
         val gPlayer = plugin[player]
-        HashSet(this).stream().filter { game -> game.joined.contains(gPlayer) }.forEach { game ->
+        HashSet(this).filter { game -> game.joined.contains(gPlayer) }.forEach { game ->
             game.leftGame(gPlayer, leftType)
         }
         return true

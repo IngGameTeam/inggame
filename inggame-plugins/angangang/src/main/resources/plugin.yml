@@ -3,6 +3,8 @@ main: ${group}.plugin.angangang.Plugin
 version: $version
 api-version: 1.18
 libraries: $libraries
+softdepend:
+  - FastAsyncWorldEdit
 commands:
   p:
     aliases:

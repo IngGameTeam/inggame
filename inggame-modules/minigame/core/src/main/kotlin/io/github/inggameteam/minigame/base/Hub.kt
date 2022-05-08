@@ -7,10 +7,14 @@ import org.bukkit.event.EventHandler
 
 class Hub(plugin: GamePlugin, point: Sector) : Sectional(plugin, point), SpawnOnJoin {
 
+    init {
+        loadSector()
+    }
+
     override fun stop(force: Boolean, leftType: LeftType) = Unit
     override var gameState
     get() = GameState.STOP
-    set(_) {GameState.STOP}
+        set(_) {GameState.STOP}
     override val startPlayersAmount = -1
     override val startWaitingTick = -1
     override val name: String get() = plugin.gameRegister.hubName
@@ -21,6 +25,8 @@ class Hub(plugin: GamePlugin, point: Sector) : Sectional(plugin, point), SpawnOn
     fun onSpawn(event: GPlayerSpawnEvent) {
         event.player.teleport(spawn)
     }
+
+    override fun unloadSector() = Unit
 
 
 

@@ -34,7 +34,8 @@ object WorldGenerator {
                 world.setGameRule(GameRule.MAX_ENTITY_CRAMMING, -1)
                 world.setGameRule(GameRule.UNIVERSAL_ANGER, false)
                 world.setGameRule(GameRule.SHOW_DEATH_MESSAGES, false)
-                world.isAutoSave = false
+                try { world.isAutoSave = false }
+                catch(_: Exception) { }
             }
         }
     }

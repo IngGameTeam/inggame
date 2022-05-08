@@ -18,23 +18,23 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             plugin.gameRegister.left(player, LeftType.COMMAND)
         }
         thenExecute("log") {
-            player.sendMessage("-------------------------------------")
+            source.sendMessage("-------------------------------------")
             plugin.gameRegister.forEach { g ->
-                player.sendMessage(
+                source.sendMessage(
                     ("&aname: &6" + g.name + "&7 / &asector: &6" + g.point + "&7 / &astatus: &6" + g.gameState.name).color,
                     ("&bjoined: " + g.joined.map { "${it}(${it.tags.joinToString(", ")})" }).color,
                 )
             }
-            player.sendMessage("-------------------------------------")
+            source.sendMessage("-------------------------------------")
         }
         thenExecute("party") {
-            player.sendMessage("-------------------------------------")
+            source.sendMessage("-------------------------------------")
             plugin.partyRegister.forEach { party ->
-                player.sendMessage(
+                source.sendMessage(
                     ("&ajoined(${party.joined.size}): &6" + party.joined).color,
                 )
             }
-            player.sendMessage("-------------------------------------")
+            source.sendMessage("-------------------------------------")
         }
     }
 

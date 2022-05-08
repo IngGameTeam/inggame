@@ -50,5 +50,6 @@ fun (() -> Boolean).repeat(plugin: Plugin, delay: Long, period: Long) =
         }
     }, delay, period))
 fun (() -> Any).runNow(plugin: Plugin) = ITask(Bukkit.getScheduler().runTask(plugin, Runnable { this() }))
-fun (() -> Any).async(plugin: Plugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable { this() }))
+fun (() -> Any).async(plugin: IngGamePlugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable { this() }))
+
 
