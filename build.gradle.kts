@@ -44,7 +44,7 @@ allprojects {
         testImplementation("org.slf4j:slf4j-simple:1.7.36")
         testImplementation("io.github.brucefreedy:mccommand:1.0.3")
         compileOnly(kotlin("test"))
-        compileOnly("io.github.brucefreedy:mccommand:1.0.2")
+        compileOnly("io.github.brucefreedy:mccommand:1.0.3")
         compileOnly("net.kyori:adventure-api:4.10.1")
         compileOnly("io.github.monun:invfx-api:3.1.0")
         compileOnly("com.mojang:authlib:1.5.21")
