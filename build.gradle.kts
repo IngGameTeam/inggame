@@ -9,18 +9,11 @@ buildscript {
 val kotlin_version = "1.6.10"
 plugins {
     kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.dokka") version "1.6.10" apply false
 }
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
-
-allprojects {
-    repositories {
-        mavenCentral()
     }
 }
 
@@ -49,7 +42,7 @@ allprojects {
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
         testImplementation("org.slf4j:slf4j-api:1.7.36")
         testImplementation("org.slf4j:slf4j-simple:1.7.36")
-        testImplementation("io.github.brucefreedy:mccommand:1.0.2")
+        testImplementation("io.github.brucefreedy:mccommand:1.0.3")
         compileOnly(kotlin("test"))
         compileOnly("io.github.brucefreedy:mccommand:1.0.2")
         compileOnly("net.kyori:adventure-api:4.10.1")
@@ -73,7 +66,10 @@ fun childTree(p: Project) {
         }
         var parentProj = it.parent
         while (parentProj !== null && parentProj !== rootProject) {
-            parentProj.dependencies.api(it)
+            parentProj.dependencies.apply {
+                api(it)
+                testApi(it)
+            }
             parentProj = parentProj.parent
         }
         childTree(it)

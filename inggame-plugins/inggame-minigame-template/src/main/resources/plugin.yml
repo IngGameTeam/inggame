@@ -1,5 +1,0 @@
-name: inggame-minigame
-main: io.github.inggameteam.plugin.minigame.MinigamePlugin
-version: $version
-api-version: 1.18
-libraries: $libraries
