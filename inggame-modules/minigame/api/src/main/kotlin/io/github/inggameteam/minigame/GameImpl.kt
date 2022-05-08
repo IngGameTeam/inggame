@@ -52,12 +52,12 @@ abstract class GameImpl(
 
     override fun joinGame(gPlayer: GPlayer, joinType: JoinType): Boolean {
         if (requestJoin(gPlayer, joinType, true)) {
-            Bukkit.getPluginManager().callEvent(GameJoinEvent(gPlayer, this, joinType))
             joined.add(gPlayer)
             playerData[gPlayer] = HashMap()
             comp.send(JOIN, gPlayer, this)
             if (joinType === JoinType.PLAY) gPlayer.addTag(PTag.PLAY)
             else comp.send(START_SPECTATING, gPlayer, gPlayer, this)
+            Bukkit.getPluginManager().callEvent(GameJoinEvent(gPlayer, this, joinType))
             if (gameTask === null && gameState === GameState.WAIT && 0 < startPlayersAmount && joined.hasTags(
                     PTag.PLAY).size >= startPlayersAmount
             ) start(false)

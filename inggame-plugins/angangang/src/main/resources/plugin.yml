@@ -3,3 +3,8 @@ main: ${group}.plugin.angangang.Plugin
 version: $version
 api-version: 1.18
 libraries: $libraries
+commands:
+  p:
+    aliases:
+      - party
+  mg:

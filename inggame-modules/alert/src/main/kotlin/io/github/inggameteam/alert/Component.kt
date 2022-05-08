@@ -71,7 +71,6 @@ abstract class CompImpl<T> : HashMap<String, T>(), Comp<T> {
 abstract class CompFile<T>(override val name: String) : CompImpl<T>() {
     override operator fun get(key: String) = getOrNull(key)
         .apply { assertNotNull(this, "$name $key does not exist") }!!
-    protected val fileName get() = "$name.yml"
 }
 
 
@@ -82,51 +81,44 @@ class LangDir<T>(file: File, override val name: String, init: (File, String) -> 
     fun comp(key: String, lang: String): T = this[lang][key]
 }
 
-class LocationComp(file: File, name: String) : CompFile<LocationWithoutWorld>(name) {
-    override val name get() = "location"
+
+class LocationComp(file: File, name: String = file.nameWithoutExtension) : CompFile<LocationWithoutWorld>(name) {
     init { getComponent(file,  YamlUtil::location) }
 }
 
-class DoubleComp(file: File, name: String) : CompFile<Double>(name) {
+class DoubleComp(file: File, name: String = file.nameWithoutExtension) : CompFile<Double>(name) {
     init {
         getComponent(file, ConfigurationSection::getDouble)
     }
 }
 
-class IntComp(file: File, name: String) : CompFile<Int>(name) {
-    override val name get() = "int"
+class IntComp(file: File, name: String = file.nameWithoutExtension) : CompFile<Int>(name) {
     init {
         getComponent(file, ConfigurationSection::getInt)
     }
 }
 
-class ItemComp(file: File, name: String) : CompFile<ItemStack>(name) {
-    override val name get() = "item"
+class ItemComp(file: File, name: String = file.nameWithoutExtension) : CompFile<ItemStack>(name) {
     init {getComponent(file, YamlUtil::item)}
 }
 
-class InventoryComp(file: File, name: String, item: CompFile<ItemStack>?) : CompFile<Inventory>(name) {
-    override val name get() = "inventory"
+class InventoryComp(file: File, name: String = file.nameWithoutExtension, item: CompFile<ItemStack>?) : CompFile<Inventory>(name) {
     init { getComponent(file) { conf -> YamlUtil.inventory(conf, item?: HashMap()) } }
 }
 
-class StringComp(file: File, name: String) : CompFile<String>(name) {
-    override val name get() = "string"
+class StringComp(file: File, name: String = file.nameWithoutExtension) : CompFile<String>(name) {
     init {
         getComponent(file, YamlUtil::string)
     }
 }
 
-class AlertComp(file: File, name: String) : CompFile<Alert<GPlayer>>(name) {
-    override val name get() = "alert"
-
+class AlertComp(file: File, name: String = file.nameWithoutExtension) : CompFile<Alert<GPlayer>>(name) {
     init {
         getComponent(file, AlertYamlSerialize::alert)
     }
 }
 
-class StringListComp(file: File, name: String) : CompFile<MutableList<String>>(name) {
-    override val name get() = "stringlist"
+class StringListComp(file: File, name: String = file.nameWithoutExtension) : CompFile<MutableList<String>>(name) {
     init {
         getComponent(file, ConfigurationSection::getStringList)
     }
@@ -144,9 +136,9 @@ fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSect
 
 class CompDirImpl(override val plugin: AlertPlugin, file: File, override val parents: List<CompDir>) : CompDir, PluginHolder<AlertPlugin> {
     override val name: String = file.nameWithoutExtension
-    override val double = DoubleComp(file, "double")
-    override val int = IntComp(file, "int")
-    override val location = LocationComp(file, "location")
+    override val double = DoubleComp(File(file, "double.yml"))
+    override val int = IntComp(File(file, "int.yml"))
+    override val location = LocationComp(File(file, "location.yml"))
     override val item = LangDir(file, "item", ::ItemComp)
     override val inventory = LangDir(file, "inventory") { file, name -> InventoryComp(file, name, item[name]) }
     override val string = LangDir(file, "string", ::StringComp)
