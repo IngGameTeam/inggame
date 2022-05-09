@@ -14,5 +14,7 @@ enum class LeftType(val isJoinHub: Boolean) {
 
 enum class GameState {
     WAIT, PLAY, STOP;
+
+    override fun toString() = name
 }
 

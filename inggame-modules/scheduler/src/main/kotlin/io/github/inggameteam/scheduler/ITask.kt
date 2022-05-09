@@ -39,17 +39,17 @@ class ITask {
 }
 
 
-fun (() -> Any).delay(plugin: Plugin, delay: Long) =
+fun <T> (() -> T).delay(plugin: Plugin, delay: Long) =
     ITask(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, { this() }, delay))
 fun (() -> Boolean).repeat(plugin: Plugin, delay: Long, period: Long) =
-    ITask(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, object : BukkitRunnable() {
+    ITask(object : BukkitRunnable() {
         override fun run() {
             if (!this@repeat()) {
                 cancel()
             }
         }
-    }, delay, period))
-fun (() -> Any).runNow(plugin: Plugin) = ITask(Bukkit.getScheduler().runTask(plugin, Runnable { this() }))
-fun (() -> Any).async(plugin: IngGamePlugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable { this() }))
+    }.runTaskTimer(plugin, delay, period))
+fun <T> (() -> T).runNow(plugin: Plugin) = ITask(Bukkit.getScheduler().runTask(plugin, Runnable { this() }))
+fun <T> (() -> T).async(plugin: IngGamePlugin) = ITask(Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable { this() }))
 
 

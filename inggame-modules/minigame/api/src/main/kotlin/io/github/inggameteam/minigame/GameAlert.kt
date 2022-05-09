@@ -13,6 +13,10 @@ enum class GameAlert {
     GAME_START_COUNT_DOWN,
     GAME_START,
     GAME_DRAW_HAS_WINNER,
+    NEED_PLAYER,
+    PLAYER_DEATH_TO_VOID,
+    RED_TEAM_WIN,
+    BLUE_TEAM_WIN,
 
     ;
 

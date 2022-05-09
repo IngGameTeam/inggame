@@ -30,18 +30,72 @@ interface CompDir {
 
     val parents: List<CompDir>
 
-
     //Components > CompDir > LangComp > CompFile > Value
     //Components > CompDir > CompFile > Value
 
-    fun comp(getter: (CompDir) -> LangDir<Alert<GPlayer>>, key: String, lang: String = plugin.defaultLanguage): CompDir {
-        fun test(comp: LangDir<Alert<GPlayer>>) = comp.getOrNull(lang)?.getOrNull(key)
+    fun <T> langCompOrNull(getter: (CompDir) -> LangDir<T>, key: String, lang: String): CompDir? {
+        fun test(comp: LangDir<T>) = comp.getOrNull(lang)?.getOrNull(key)
         return parents.firstOrNull { test(getter(it)) !== null }
             .run { this?: run { if (test(getter(this@CompDir)) !== null) this@CompDir else this } }
+    }
+
+
+    fun <T> langComp(getter: (CompDir) -> LangDir<T>, key: String, lang: String): CompDir {
+        fun test(comp: LangDir<T>) = comp.getOrNull(lang)?.getOrNull(key)
+        return langCompOrNull(getter, key, lang)
             .apply { assertNotNull(this, "'$name, $parents' comp language $lang ${getter(this@CompDir).name} $key does not exist") }!!
     }
 
-    fun alert(key: String, lang: String) = comp({ it.alert }, key, lang).alert.comp(key, lang)
+    fun <T> getLangComp(getter: (CompDir) -> LangDir<T>, key: String, lang: String) =
+        langComp(getter, key, lang).run(getter).comp(key, lang)
+
+    fun <T> getLangCompOrNull(getter: (CompDir) -> LangDir<T>, key: String, lang: String) =
+        langCompOrNull(getter, key, lang)?.run(getter)?.comp(key, lang)
+
+
+    fun <T> compOrNull(getter: (CompDir) -> CompFile<T>, key: String): CompDir? {
+        fun test(comp: CompFile<T>) = comp.getOrNull(key)
+        return parents.firstOrNull { test(getter(it)) !== null }
+            .run { this?: run { if (test(getter(this@CompDir)) !== null) this@CompDir else this } }
+    }
+
+    fun <T> comp(getter: (CompDir) -> CompFile<T>, key: String): CompDir {
+        fun test(comp: CompFile<T>) = comp.getOrNull(key)
+        return compOrNull(getter, key)
+            .apply { assertNotNull(this, "'$name, $parents' comp ${getter(this@CompDir).name} $key does not exist") }!!
+    }
+
+    fun <T> getComp(getter: (CompDir) -> CompFile<T>, key: String) = comp(getter, key).run(getter)[key]
+    fun <T> getCompOrNull(getter: (CompDir) -> CompFile<T>, key: String) = compOrNull(getter, key)?.run(getter)?.get(key)
+
+
+
+    fun double(key: String): Double = getComp(CompDir::double, key)
+    fun int(key: String): Int = getComp(CompDir::int, key)
+    fun location(key: String): LocationWithoutWorld = getComp(CompDir::location, key)
+    fun string(key: String, lang: String): String = getLangComp(CompDir::string, key, lang)
+    fun item(key: String, lang: String): ItemStack = getLangComp(CompDir::item, key, lang)
+    fun inventory(key: String, lang: String): Inventory = getLangComp(CompDir::inventory, key, lang)
+    fun alert(key: String, lang: String): Alert<GPlayer> = getLangComp(CompDir::alert, key, lang)
+    fun stringList(key: String, lang: String): MutableList<String> = getLangComp(CompDir::stringList, key, lang)
+
+    fun hasDouble(key: String) = compOrNull(CompDir::double, key) !== null
+    fun hasInt(key: String) = compOrNull(CompDir::int, key) !== null
+    fun hasLocation(key: String) = compOrNull(CompDir::location, key) !== null
+    fun hasString(key: String, lang: String) = langCompOrNull(CompDir::string, key, lang) !== null
+    fun hasItem(key: String, lang: String) = langCompOrNull(CompDir::item, key, lang) !== null
+    fun hasInventory(key: String, lang: String) = langCompOrNull(CompDir::inventory, key, lang) !== null
+    fun hasAlert(key: String, lang: String) = langCompOrNull(CompDir::alert, key, lang) !== null
+    fun hasStringList(key: String, lang: String) = langCompOrNull(CompDir::stringList, key, lang) !== null
+
+    fun doubleOrNull(key: String) = getCompOrNull(CompDir::double, key)
+    fun intOrNull(key: String) = getCompOrNull(CompDir::int, key)
+    fun locationOrNull(key: String) = getCompOrNull(CompDir::location, key)
+    fun stringOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::string, key, lang)
+    fun itemOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::item, key, lang)
+    fun inventoryOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::inventory, key, lang)
+    fun alertOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::alert, key, lang)
+    fun stringListOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::stringList, key, lang)
 
     fun send(key: String, t: GPlayer, vararg args: Any) =
         alert(key, t.lang(plugin)).send(t, *args)
@@ -54,6 +108,7 @@ interface CompDir {
         send(alert.name, t, *args)
     fun send(alert: Enum<*>, t: Collection<GPlayer>, vararg args: Any) =
         t.forEach { send(alert.name, it, *args) }
+
 
 }
 
@@ -75,10 +130,11 @@ abstract class CompFile<T>(override val name: String) : CompImpl<T>() {
 
 
 class LangDir<T>(file: File, override val name: String, init: (File, String) -> CompFile<T>) : CompImpl<CompFile<T>>() {
-    init { File(file, name).listFiles()?.forEach { put(it.nameWithoutExtension, init(it, name)) } }
+    init { File(file, name).listFiles()?.forEach { put(it.nameWithoutExtension, init(it, it.nameWithoutExtension)) } }
     override operator fun get(key: String) = getOrNull(key)
-        .apply { assertNotNull(this, "language $key does not exist") }!!
+        .apply { assertNotNull(this, "component $name language $key does not exist") }!!
     fun comp(key: String, lang: String): T = this[lang][key]
+    fun hasComp(key: String, lang: String): Boolean = this.getOrNull(lang)?.getOrNull(key) !== null
 }
 
 
@@ -102,8 +158,8 @@ class ItemComp(file: File, name: String = file.nameWithoutExtension) : CompFile<
     init {getComponent(file, YamlUtil::item)}
 }
 
-class InventoryComp(file: File, name: String = file.nameWithoutExtension, item: CompFile<ItemStack>?) : CompFile<Inventory>(name) {
-    init { getComponent(file) { conf -> YamlUtil.inventory(conf, item?: HashMap()) } }
+class InventoryComp(file: File, name: String = file.nameWithoutExtension, item: (String) -> ItemStack) : CompFile<Inventory>(name) {
+    init { getComponent(file) { conf -> YamlUtil.inventory(conf, item) } }
 }
 
 class StringComp(file: File, name: String = file.nameWithoutExtension) : CompFile<String>(name) {
@@ -140,7 +196,8 @@ class CompDirImpl(override val plugin: AlertPlugin, file: File, override val par
     override val int = IntComp(File(file, "int.yml"))
     override val location = LocationComp(File(file, "location.yml"))
     override val item = LangDir(file, "item", ::ItemComp)
-    override val inventory = LangDir(file, "inventory") { file, name -> InventoryComp(file, name, item[name]) }
+    override val inventory = LangDir(file, "inventory") { file, name -> InventoryComp(file, name)
+    { getLangComp(CompDir::item, it, name) } }
     override val string = LangDir(file, "string", ::StringComp)
     override val alert = LangDir(file, "alert", ::AlertComp)
     override val stringList = LangDir(file, "stringlist", ::StringListComp)
@@ -155,7 +212,7 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
         plugin.dataFolder.listFiles(File::isDirectory)?.forEach {
             val index = orders.size
             val fileName = it.name
-            if (!orders.contains(fileName)) orders.add(fileName)
+            if (!orders.contains(fileName)) orders.add(0, fileName)
             YamlConfiguration.loadConfiguration(File(it, "config.yml")).getStringList("parents")
                 .apply { cacheParentMap[fileName] = this }
                 .forEach { pare -> if (!orders.contains(fileName)) orders.add(index, pare) }

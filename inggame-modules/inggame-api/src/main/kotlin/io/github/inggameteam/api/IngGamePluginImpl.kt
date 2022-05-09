@@ -19,11 +19,13 @@ open class IngGamePluginImpl : IngGamePlugin, JavaPlugin {
 
     override fun onEnable() {
 //        super.onEnable()
-        val extensions = arrayOf(".yml", ".schem", ".md", ".txt")
-        ClassUtil.getDirectory(this.javaClass)
-            .filter { extensions.any { ext -> it.endsWith(ext) } && it != "plugin.yml" }
-            .filter { !File(dataFolder, it).exists() }
-            .forEach { saveResource(it, false) }
+        if (dataFolder.listFiles()?.isNotEmpty() != true) {
+            val extensions = arrayOf(".yml", ".schem", ".md", ".txt")
+            ClassUtil.getDirectory(this.javaClass)
+                .filter { extensions.any { ext -> it.endsWith(ext) } && it != "plugin.yml" }
+                .filter { !File(dataFolder, it).exists() }
+                .forEach { saveResource(it, false) }
+        }
         Bukkit.getPluginManager().registerEvents(this, this)
         allowTask = true
         console

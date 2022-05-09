@@ -73,7 +73,7 @@ object YamlUtil {
             conf.getDouble("PITCH").toFloat()
         )
     fun string(yaml: ConfigurationSection, path: String) = yaml.getString(path)!!.color()
-    fun inventory(yaml: ConfigurationSection, itemComp: HashMap<String, ItemStack>): Inventory {
+    fun inventory(yaml: ConfigurationSection, itemComp: (String) -> ItemStack): Inventory {
         val title = if (yaml.isSet("title")) string(yaml, "title") else null
         val inven = if (yaml.isInt("type")) {
             val size = yaml.getInt("type")
@@ -89,7 +89,7 @@ object YamlUtil {
             getKeys(false)
                 .forEach { k ->
                     items[Integer.parseInt(k)] =
-                        if (isString(k)) itemComp[getString(k)]!!
+                        if (isString(k)) itemComp(getString(k)!!)
                         else item(getConfigurationSection(k)!!)
                 }
             items.forEach { (t, u) -> inven.setItem(t, u) }

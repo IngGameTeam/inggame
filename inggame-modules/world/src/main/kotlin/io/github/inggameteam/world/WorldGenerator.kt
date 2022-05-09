@@ -35,7 +35,7 @@ object WorldGenerator {
                 world.setGameRule(GameRule.UNIVERSAL_ANGER, false)
                 world.setGameRule(GameRule.SHOW_DEATH_MESSAGES, false)
                 try { world.isAutoSave = false }
-                catch(_: Exception) { }
+                catch (e: Exception) { e.printStackTrace() }
             }
         }
     }

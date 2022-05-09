@@ -20,14 +20,14 @@ abstract class GameImpl(
     override val plugin: GamePlugin,
     override val point: Sector,
     ) : Game {
-    override val isAllocated get() = true
+    override val isAllocated: Boolean get() = !point.equals(0, 0)
     override var gameState = GameState.WAIT
     override var gameTask: ITask? = null
     override val playerData = HashMap<GPlayer, HashMap<String, Any>>()
     override val joined = GPlayerList()
 
     override val startPlayersAmount = 1
-    override val startWaitingTick = -1
+    override val startWaitingSecond = 4
     override val stopWaitingTick = -1L
 
     override fun toString() = name
@@ -37,7 +37,11 @@ abstract class GameImpl(
         Bukkit.getPluginManager().callEvent(GameTaskCancelEvent(this))
     }
 
-    protected val comp get() = plugin.components[name]
+    override fun addTask(task: ITask) {
+        gameTask?.tasks?.addAll(task.tasks).apply {
+            if (this === null) gameTask = task
+        }
+    }
 
     override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
         if (joined.contains(gPlayer)) {
@@ -80,7 +84,7 @@ abstract class GameImpl(
             comp.send(LEFT, gPlayer, this)
         }
         val joinedSize = joined.hasTags(PTag.PLAY).size
-        if (gameState === GameState.WAIT && joinedSize < startPlayersAmount && 0 < startPlayersAmount && gameTask != null) {
+        if (gameState === GameState.WAIT && joinedSize < startPlayersAmount && gameTask != null) {
             comp.send(START_CANCELLED_DUE_TO_PLAYERLESS, joined)
             cancelGameTask()
             gameTask = null
@@ -99,7 +103,7 @@ abstract class GameImpl(
             beginGame()
             Bukkit.getPluginManager().callEvent(GameBeginEvent(this))
         } else if (gameState === GameState.WAIT) {
-            val tick = startWaitingTick
+            val tick = startWaitingSecond
             if (tick < 0) {
                 start(true)
             } else {
@@ -137,7 +141,7 @@ abstract class GameImpl(
         val dieToReady = joined.playerHasTags(PTag.DEAD, PTag.PLAY)
         if (winners.isEmpty() && dieToReady.size == 1) comp(GAME_DRAW_HAS_WINNER).send(joined, winners, this)
         else if (winners.isEmpty()) comp(GAME_DRAW_NO_WINNER).send(joined, this)
-        else copm(SINGLE_WINNER).send(joined, winners, this)
+        else comp(SINGLE_WINNER).send(joined, winners, this)
         winners.forEach{ Context.rewardPoint(it.player, rewardPoint)}
         Plugin.callEvent(GPlayerWinEvent(this, winners))
     }

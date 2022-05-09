@@ -1,4 +1,0 @@
-name: minigame-module-unit-test
-main: io.github.inggameteam.minigame.test.TestPlugin
-version: test
-api-version: 1.18
