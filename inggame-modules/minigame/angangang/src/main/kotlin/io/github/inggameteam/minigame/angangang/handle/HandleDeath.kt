@@ -1,5 +1,6 @@
-package io.github.inggameteam.minigame.angangang
+package io.github.inggameteam.minigame.angangang.handle
 
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
@@ -9,7 +10,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 
-class HandleDeath(val plugin: GamePlugin) : Listener {
+class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
 
     @Deprecated("EventHandler")
     @EventHandler

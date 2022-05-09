@@ -192,6 +192,7 @@ fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSect
 
 class CompDirImpl(override val plugin: AlertPlugin, file: File, override val parents: List<CompDir>) : CompDir, PluginHolder<AlertPlugin> {
     override val name: String = file.nameWithoutExtension
+    override fun toString() =  name
     override val double = DoubleComp(File(file, "double.yml"))
     override val int = IntComp(File(file, "int.yml"))
     override val location = LocationComp(File(file, "location.yml"))

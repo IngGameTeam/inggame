@@ -25,7 +25,7 @@ class GPlayerRegister(playerPlugin: PlayerPlugin) : HashMap<UUID, GPlayer>(), Li
     @EventHandler(priority = EventPriority.MONITOR)
     private fun onQuit(event: PlayerQuitEvent) {
         val uuid = event.player.uniqueId
-        this.remove(uuid)
+        this.remove(uuid)?.dispose()
     }
 
     operator fun get(player: Player) = this[player.uniqueId]

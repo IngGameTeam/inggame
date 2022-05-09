@@ -4,10 +4,14 @@ import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.player.GPlayer
+import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 interface SpawnPlayer : Game {
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun spawnPlayer(event: GPlayerSpawnEvent) {
         val player = event.player
@@ -15,9 +19,24 @@ interface SpawnPlayer : Game {
         spawn(player, gameState.toString())
     }
 
-    private fun spawn(player: GPlayer, spawn: String) {
+    fun spawn(player: GPlayer, spawn: String) {
+        defaultGameMode()?.apply { player.gameMode = this }
         getLocationOrNull(spawn)?.apply { player.teleport(this) }
         comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
+        comp.stringListOrNull(spawn, player.lang(plugin))?.forEach {
+            val args = it.split(" ")
+            PotionEffect(PotionEffectType.getByName(args[0])!!, args[1].toInt(), args[2].toInt())
+        }
     }
+
+    fun defaultGameMode() =
+        when(comp.intOrNull("game-mode")) {
+            0 -> GameMode.SURVIVAL
+            1 -> GameMode.CREATIVE
+            2 -> GameMode.ADVENTURE
+            3 -> GameMode.SPECTATOR
+            else -> null
+        }
+
 
 }

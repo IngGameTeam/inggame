@@ -42,7 +42,8 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun getLocationOrNull(key: String): Location? = comp.locationOrNull(key)?.toLocation(point.world)
 
 
-    fun isJoined(player: Player) = joined.contains(player)
+    fun isJoined(player: Player) = isJoined(plugin[player])
+    fun isJoined(player: GPlayer) = joined.contains(player)
 
 
 

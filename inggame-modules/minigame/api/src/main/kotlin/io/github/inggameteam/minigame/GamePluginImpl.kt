@@ -1,6 +1,7 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
+import io.github.inggameteam.scheduler.async
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
 import org.bukkit.plugin.PluginDescriptionFile

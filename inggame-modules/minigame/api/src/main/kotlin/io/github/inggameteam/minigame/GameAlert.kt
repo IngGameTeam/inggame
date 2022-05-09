@@ -17,6 +17,8 @@ enum class GameAlert {
     PLAYER_DEATH_TO_VOID,
     RED_TEAM_WIN,
     BLUE_TEAM_WIN,
+    GAME_DRAW_NO_WINNER,
+    SINGLE_WINNER,
 
     ;
 

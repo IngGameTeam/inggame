@@ -9,6 +9,7 @@ allprojects {
             "$prefix:party",
             "$prefix:player",
             "$prefix:world",
+            "$prefix:bossbar",
         ).forEach {
             implementation(project(it))
             testImplementation(project(it))

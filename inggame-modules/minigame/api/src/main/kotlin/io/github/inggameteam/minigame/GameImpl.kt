@@ -135,18 +135,6 @@ abstract class GameImpl(
         comp.send(GAME_START, joined, this)
     }
 
-/*
-    override fun calcWinner() {
-        val winners = joined.playerHasNoTags(PTag.DEAD).playerHasTags(PTag.PLAY)
-        val dieToReady = joined.playerHasTags(PTag.DEAD, PTag.PLAY)
-        if (winners.isEmpty() && dieToReady.size == 1) comp(GAME_DRAW_HAS_WINNER).send(joined, winners, this)
-        else if (winners.isEmpty()) comp(GAME_DRAW_NO_WINNER).send(joined, this)
-        else comp(SINGLE_WINNER).send(joined, winners, this)
-        winners.forEach{ Context.rewardPoint(it.player, rewardPoint)}
-        Plugin.callEvent(GPlayerWinEvent(this, winners))
-    }
-*/
-
     @EventHandler(priority = EventPriority.HIGH)
     fun onPlayerQuit(event: PlayerQuitEvent) {
         val gPlayer = plugin[event.player]

@@ -1,4 +1,4 @@
-package io.github.inggameteam.minigame.base.competition
+package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.event.GPlayerWinEvent
@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-abstract class TeamCompetition(plugin: GamePlugin, point: Sector) : Competition(plugin, point) {
+abstract class TeamCompetition(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point) {
 
     @Deprecated("EventHandler")
     @EventHandler(priority = EventPriority.LOW)
@@ -43,7 +43,7 @@ abstract class TeamCompetition(plugin: GamePlugin, point: Sector) : Competition(
         }
     }
 
-    open fun calcWinner() {
+    override fun calcWinner() {
         val playPlayers = joined.hasTags(PTag.PLAY).toList()
         val alert = if (playPlayers.firstOrNull()?.hasTag(PTag.RED) == true) GameAlert.RED_TEAM_WIN else GameAlert.BLUE_TEAM_WIN
         comp.send(alert, joined, playPlayers.joinToString(", "))

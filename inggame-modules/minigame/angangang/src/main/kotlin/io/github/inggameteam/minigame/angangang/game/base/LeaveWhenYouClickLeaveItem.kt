@@ -1,7 +1,9 @@
-package io.github.inggameteam.minigame.angangang
+package io.github.inggameteam.minigame.angangang.game.base
 
 import io.github.inggameteam.alert.component.Lang.comp
+import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.minigame.Game
+import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.scheduler.delay
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
@@ -10,8 +12,17 @@ import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 
+const val LEAVE_ITEM = "leave"
 const val CLICK_PAUSED = "clickPaused"
 interface LeaveWhenYouClickLeaveItem : Game {
+
+    @Deprecated("EventHandler")
+    @EventHandler
+    fun giveItemOnJoin(event: GameJoinEvent) {
+        val player = plugin[event.player]
+        if (!isJoined(player)) return
+        player.inventory.setItem(8, comp.item(LEAVE_ITEM, player.lang(plugin)).clone())
+    }
 
     @Deprecated("EventHandler")
     @EventHandler
@@ -23,8 +34,8 @@ interface LeaveWhenYouClickLeaveItem : Game {
 
     private fun click(player: Player, item: ItemStack?, event: Cancellable?) {
         if (!isJoined(player)) return
-        if (item == null) return
-        if (comp.item.comp("leave", plugin[player], plugin).isSimilar(item)) {
+        if (item === null) return
+        if (comp.item(LEAVE_ITEM, player.lang(plugin)).isSimilar(item)) {
             player.inventory.heldItemSlot = 0
             plugin[player].apply {
                 this[CLICK_PAUSED] = true
