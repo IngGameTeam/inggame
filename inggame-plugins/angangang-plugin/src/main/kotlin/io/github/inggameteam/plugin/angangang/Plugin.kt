@@ -1,13 +1,11 @@
 package io.github.inggameteam.plugin.angangang
 
 import io.github.inggameteam.minigame.GamePluginImpl
+import io.github.inggameteam.minigame.angangang.game.impl.*
 import io.github.inggameteam.minigame.angangang.handle.HandleDeath
+import io.github.inggameteam.minigame.ui.Duel
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.plugin.angangang.game.Hub
-import io.github.inggameteam.minigame.angangang.game.impl.HideAndSeek
-import io.github.inggameteam.minigame.angangang.game.impl.RandomWeaponWar
-import io.github.inggameteam.minigame.angangang.game.impl.TNTRun
-import io.github.inggameteam.minigame.angangang.game.impl.TNTTag
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.plugin.angangang.handler.NoHunger
 import io.github.inggameteam.plugin.angangang.handler.ReloadWatchDog
@@ -22,7 +20,7 @@ class Plugin : GamePluginImpl(
         ::TNTRun,
         ::RandomWeaponWar,
         ::HideAndSeek,
-
+        ::UHC,
     ),
 ) {
 
@@ -32,6 +30,7 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
+        Duel(this)
         PartyCacheSerializer.deserialize(this)
     }
 

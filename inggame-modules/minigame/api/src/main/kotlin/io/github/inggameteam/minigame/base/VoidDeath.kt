@@ -16,7 +16,7 @@ interface VoidDeath : Game {
         val gPlayer = plugin[player]
         if (gameState !== GameState.PLAY || !gPlayer.hasTag(PTag.PLAY)) return
         if (player.location.y <= plugin.gameRegister.sectorHeight - 1) {
-            player.damage(Double.MAX_VALUE)
+            player.damage(1000.0)
             return
         }
     }

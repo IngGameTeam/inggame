@@ -24,10 +24,15 @@ class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
                 player.health = player.maxHealth
                 player.fallDistance = 0f
                 player.fireTicks = 0
-                player.velocity = Vector()
                 val spawnEvent = GPlayerSpawnEvent(plugin[player])
                 Bukkit.getPluginManager().callEvent(spawnEvent)
             }
         }
+    }
+
+    @Deprecated("EventHandler")
+    @EventHandler
+    fun onSpawn(event: GPlayerSpawnEvent) {
+        event.player.fallDistance = 0f
     }
 }

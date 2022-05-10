@@ -7,6 +7,7 @@ import io.github.inggameteam.minigame.base.CompetitionImpl
 import io.github.inggameteam.minigame.base.SpawnPlayerRandomKit
 import io.github.inggameteam.minigame.base.SpawnPlayerRandomLocation
 
-class RandomWeaponWar(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point), SpawnPlayerRandomLocation, SimpleGame {
+class RandomWeaponWar(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point),
+    SpawnPlayerRandomLocation, SimpleGame {
     override val name get() = "random-weapon-war"
 }

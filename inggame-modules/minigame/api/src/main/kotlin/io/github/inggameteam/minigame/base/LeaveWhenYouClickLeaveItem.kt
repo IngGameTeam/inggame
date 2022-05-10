@@ -2,7 +2,6 @@ package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.minigame.Game
-import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.scheduler.delay
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
@@ -14,15 +13,6 @@ import org.bukkit.inventory.ItemStack
 const val LEAVE_ITEM = "leave"
 const val CLICK_PAUSED = "clickPaused"
 interface LeaveWhenYouClickLeaveItem : Game {
-
-    @Deprecated("EventHandler")
-    @EventHandler
-    fun giveItemOnJoin(event: GameJoinEvent) {
-        val player = plugin[event.player]
-        if (!isJoined(player)) return
-        player.inventory.clear()
-        player.inventory.setItem(8, comp.item(LEAVE_ITEM, player.lang(plugin)).clone())
-    }
 
     @Deprecated("EventHandler")
     @EventHandler

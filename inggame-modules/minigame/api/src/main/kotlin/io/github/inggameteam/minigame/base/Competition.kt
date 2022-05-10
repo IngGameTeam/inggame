@@ -15,7 +15,7 @@ import org.bukkit.event.EventHandler
 interface Competition : Sectional, Game {
     val stopCheckPlayer: Int get() = 1
     open fun sendDeathMessage(player: GPlayer) {
-        comp.send(GameAlert.PLAYER_DEATH_TO_VOID, player)
+        comp.send(GameAlert.PLAYER_DEATH_TO_VOID, joined, player)
     }
     open fun calcWinner() {
         val winners = joined.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
