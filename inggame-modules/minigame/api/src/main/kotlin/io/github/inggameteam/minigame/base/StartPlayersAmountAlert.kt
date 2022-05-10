@@ -17,7 +17,9 @@ interface StartPlayersAmountAlert : Game {
             && joined.hasTags(PTag.PLAY).size == 1
             && startPlayersAmount != 1
         ) {
-            addTask({ comp.send(GameAlert.NEED_PLAYER, player, startPlayersAmount) }.delay(plugin, 0))
+            addTask({
+                joined.forEach { comp.send(GameAlert.NEED_PLAYER, it, displayName(it), startPlayersAmount) }
+            }.delay(plugin, 0))
         }
     }
 

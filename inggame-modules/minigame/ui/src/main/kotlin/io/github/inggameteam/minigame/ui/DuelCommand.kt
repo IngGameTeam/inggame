@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 data class DuelRequest(val sender: GPlayer, val receiver: GPlayer)
-class Duel(override val plugin: GamePlugin) : HandleListener(plugin), PluginHolder<GamePlugin> {
+class DuelCommand(override val plugin: GamePlugin) : HandleListener(plugin), PluginHolder<GamePlugin> {
 
     val requests = HashSet<DuelRequest>()
 
@@ -24,6 +24,8 @@ class Duel(override val plugin: GamePlugin) : HandleListener(plugin), PluginHold
         requests.removeIf { it.sender == player || it.receiver == player }
     }
 
+    val duelComponent get() = plugin.components["duel"]
+
     init {
         MCCommand(plugin as JavaPlugin) {
             command("duel") {
@@ -32,20 +34,20 @@ class Duel(override val plugin: GamePlugin) : HandleListener(plugin), PluginHold
                     val targetPlayer = Bukkit.getPlayerExact(args[0])?.run { plugin[this] }
                     val gPlayer = plugin[player]
                     if (targetPlayer === null) {
-                        plugin.component.send(Alert.NO_PLAYER_EXIST, gPlayer)
+                        duelComponent.send(Alert.NO_PLAYER_EXIST, gPlayer)
                         return@execute
                     }
                     val request = DuelRequest(gPlayer, targetPlayer)
                     requests.add(request)
-                    plugin.component.send("DUEL_REQUESTED", gPlayer, targetPlayer)
-                    plugin.component.send("DUEL_REQUEST", targetPlayer, gPlayer, request.hashCode())
+                    duelComponent.send("DUEL_REQUESTED", gPlayer, targetPlayer)
+                    duelComponent.send("DUEL_REQUEST", targetPlayer, gPlayer, request.hashCode())
                 }
                 thenExecute("accept") {
                     val requestedCode = args[1].toIntOrNull()
                     val gPlayer = plugin[player]
                     val req = requests.firstOrNull { it.hashCode() == requestedCode }
                     if (requestedCode === null || req === null) {
-                        plugin.component.send("INVALID_DUEL_REQUEST", gPlayer)
+                        duelComponent.send("INVALID_DUEL_REQUEST", gPlayer)
                         return@thenExecute
                     }
                     requests.remove(req)

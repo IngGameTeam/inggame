@@ -4,8 +4,10 @@ import io.github.inggameteam.alert.api.Alert
 import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.utils.ListWithToString
 import io.github.inggameteam.utils.LocationWithoutWorld
 import io.github.inggameteam.utils.YamlUtil
+import io.github.inggameteam.utils.listWithToString
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.inventory.Inventory
@@ -28,7 +30,7 @@ interface CompDir {
     val alert:      LangDir<Alert<GPlayer>>
     val stringList: LangDir<MutableList<String>>
 
-    val parents: List<CompDir>
+    val parents: ListWithToString<CompDir>
 
     //Components > CompDir > LangComp > CompFile > Value
     //Components > CompDir > CompFile > Value
@@ -190,7 +192,7 @@ fun <T> HashMap<String, T>.getComponent(file: File, function: (ConfigurationSect
     sections.getKeys(false).forEach { s -> this[s] = function(sections.getConfigurationSection(s)!!) }
 }
 
-class CompDirImpl(override val plugin: AlertPlugin, file: File, override val parents: List<CompDir>) : CompDir, PluginHolder<AlertPlugin> {
+class CompDirImpl(override val plugin: AlertPlugin, file: File, override val parents: ListWithToString<CompDir>) : CompDir, PluginHolder<AlertPlugin> {
     override val name: String = file.nameWithoutExtension
     override fun toString() =  name
     override val double = DoubleComp(File(file, "double.yml"))
@@ -219,7 +221,7 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
                 .forEach { pare -> if (!orders.contains(fileName)) orders.add(index, pare) }
         }
         orders.forEach {
-            this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] })
+            this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] }.listWithToString())
         }
     }
 

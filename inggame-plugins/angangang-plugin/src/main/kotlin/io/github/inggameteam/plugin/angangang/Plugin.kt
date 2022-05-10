@@ -3,7 +3,7 @@ package io.github.inggameteam.plugin.angangang
 import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.angangang.game.impl.*
 import io.github.inggameteam.minigame.angangang.handle.HandleDeath
-import io.github.inggameteam.minigame.ui.Duel
+import io.github.inggameteam.minigame.ui.DuelCommand
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.plugin.angangang.game.Hub
 import io.github.inggameteam.party.PartyCacheSerializer
@@ -21,6 +21,7 @@ class Plugin : GamePluginImpl(
         ::RandomWeaponWar,
         ::HideAndSeek,
         ::UHC,
+        ::Duel
     ),
 ) {
 
@@ -30,7 +31,7 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
-        Duel(this)
+        DuelCommand(this)
         PartyCacheSerializer.deserialize(this)
     }
 

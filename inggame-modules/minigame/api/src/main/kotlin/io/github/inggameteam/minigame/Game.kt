@@ -1,5 +1,6 @@
 package io.github.inggameteam.minigame
 
+import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
@@ -46,6 +47,9 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun isJoined(player: Player) = isJoined(plugin[player])
     fun isJoined(player: GPlayer) = joined.contains(player)
 
-
+    /**
+     * get name of game of player's language
+     */
+    fun displayName(player: GPlayer) = comp.stringOrNull("alias", player.lang(plugin))?: name
 
 }
