@@ -54,4 +54,9 @@ abstract class CompetitionImpl(plugin: GamePlugin, point: Sector) : SectionalImp
         }
     }
 
+    override fun finishGame() {
+        calcWinner()
+    }
+
+
 }

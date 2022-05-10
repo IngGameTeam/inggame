@@ -26,6 +26,7 @@ interface Game : Listener, PluginHolder<GamePlugin> {
 
 
     val startPlayersAmount: Int
+    val playerLimitAmount: Int
     val startWaitingSecond: Int
     val stopWaitingTick: Long
 
@@ -33,7 +34,7 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun joinGame(gPlayer: GPlayer, joinType: JoinType = JoinType.PLAY): Boolean
     fun requestLeft(gPlayer: GPlayer, leftType: LeftType): Boolean
     fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean
-    fun finishGame(leftType: LeftType)
+    fun finishGame()
     fun start(force: Boolean)
     fun stop(force: Boolean, leftType: LeftType = LeftType.GAME_STOP)
 //    fun calcWinner()

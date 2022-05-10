@@ -3,7 +3,7 @@ package io.github.inggameteam.minigame.base
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.player.GPlayer
 
-open class Hub(plugin: GamePlugin, point: Sector) : SectionalImpl(plugin, point), SpawnOnJoin {
+open class Hub(plugin: GamePlugin, point: Sector) : SectionalImpl(plugin, point) {
 
 
     override fun stop(force: Boolean, leftType: LeftType) = Unit

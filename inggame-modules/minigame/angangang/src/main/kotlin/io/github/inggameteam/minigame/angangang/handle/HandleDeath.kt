@@ -9,6 +9,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.util.Vector
 
 class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
 
@@ -23,6 +24,7 @@ class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
                 player.health = player.maxHealth
                 player.fallDistance = 0f
                 player.fireTicks = 0
+                player.velocity = Vector()
                 val spawnEvent = GPlayerSpawnEvent(plugin[player])
                 Bukkit.getPluginManager().callEvent(spawnEvent)
             }

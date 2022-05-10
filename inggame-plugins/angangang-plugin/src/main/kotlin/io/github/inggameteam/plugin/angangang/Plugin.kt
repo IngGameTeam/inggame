@@ -4,9 +4,11 @@ import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.angangang.handle.HandleDeath
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.plugin.angangang.game.Hub
-import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
+import io.github.inggameteam.minigame.angangang.game.impl.HideAndSeek
+import io.github.inggameteam.minigame.angangang.game.impl.RandomWeaponWar
 import io.github.inggameteam.minigame.angangang.game.impl.TNTRun
 import io.github.inggameteam.minigame.angangang.game.impl.TNTTag
+import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.plugin.angangang.handler.NoHunger
 import io.github.inggameteam.plugin.angangang.handler.ReloadWatchDog
 
@@ -18,6 +20,9 @@ class Plugin : GamePluginImpl(
         ::Hub,
         ::TNTTag,
         ::TNTRun,
+        ::RandomWeaponWar,
+        ::HideAndSeek,
+
     ),
 ) {
 
@@ -27,8 +32,11 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
+        PartyCacheSerializer.deserialize(this)
     }
 
-
-
+    override fun onDisable() {
+        super.onDisable()
+        PartyCacheSerializer.serialize(this)
+    }
 }

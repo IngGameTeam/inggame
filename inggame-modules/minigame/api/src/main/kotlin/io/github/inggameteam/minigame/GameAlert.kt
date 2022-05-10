@@ -19,6 +19,9 @@ enum class GameAlert {
     BLUE_TEAM_WIN,
     GAME_DRAW_NO_WINNER,
     SINGLE_WINNER,
+    CANNOT_JOIN_PLAYER_LIMITED,
+    BLUE_TEAM_DEATH,
+    RED_TEAM_DEATH,
 
     ;
 

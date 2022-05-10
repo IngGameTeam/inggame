@@ -11,23 +11,34 @@ import org.bukkit.potion.PotionEffectType
 
 interface SpawnPlayer : Game {
 
-    @Deprecated("EventHandler")
     @EventHandler
-    fun spawnPlayer(event: GPlayerSpawnEvent) {
+    open fun spawnPlayer(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
-        spawn(player, gameState.toString())
+        spawn(player)
     }
 
-    fun spawn(player: GPlayer, spawn: String) {
-        defaultGameMode()?.apply { player.gameMode = this }
-        getLocationOrNull(spawn)?.apply { player.teleport(this) }
-        comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
+    fun spawn(player: GPlayer, spawn: String = gameState.toString()) {
+        listOf(
+            ::potionSpawn,
+            ::inventorySpawn,
+            ::gameModeSpawn,
+            ::tpSpawn
+        ).forEach { it(player, spawn) }
+    }
+
+    fun potionSpawn(player: GPlayer, spawn: String) =
         comp.stringListOrNull(spawn, player.lang(plugin))?.forEach {
             val args = it.split(" ")
             PotionEffect(PotionEffectType.getByName(args[0])!!, args[1].toInt(), args[2].toInt())
         }
-    }
+
+    fun inventorySpawn(player: GPlayer, spawn: String) =
+        comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
+
+    fun gameModeSpawn(player: GPlayer, spawn: String) = defaultGameMode()?.apply { player.gameMode = this }
+
+    fun tpSpawn(player: GPlayer, spawn: String) = getLocationOrNull(spawn)?.apply { player.teleport(this) }
 
     fun defaultGameMode() =
         when(comp.intOrNull("game-mode")) {

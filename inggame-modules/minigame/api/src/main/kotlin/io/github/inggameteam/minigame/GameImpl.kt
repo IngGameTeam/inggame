@@ -27,6 +27,7 @@ abstract class GameImpl(
     override val joined = GPlayerList()
 
     override val startPlayersAmount = 1
+    override val playerLimitAmount = -1
     override val startWaitingSecond = 4
     override val stopWaitingTick = -1L
 
@@ -48,6 +49,8 @@ abstract class GameImpl(
             if (sendMessage) comp.send(ALREADY_JOINED, gPlayer, this)
         } else if (gameState !== GameState.WAIT && joinType === JoinType.PLAY) {
             if (sendMessage) comp.send(CANNOT_JOIN_DUE_TO_STARTED, gPlayer, this)
+        } else if (playerLimitAmount > 0 && joined.hasTags(PTag.PLAY).size >= playerLimitAmount && joinType === JoinType.PLAY) {
+            if (sendMessage) comp.send(CANNOT_JOIN_PLAYER_LIMITED, gPlayer, this)
         } else {
             return true
         }
@@ -117,19 +120,18 @@ abstract class GameImpl(
 
     override fun stop(force: Boolean, leftType: LeftType) {
         if (gameState !== GameState.STOP) {
-            finishGame(leftType)
+            gameState = GameState.STOP
+            finishGame()
+            ArrayList(joined).forEach { gPlayer ->
+                leftGame(gPlayer, leftType)
+            }
+            gameTask = null
             if (gameState === GameState.STOP)
                 gameTask = { gameTask = null; plugin.gameRegister.removeGame(this) }.delay(plugin, stopWaitingTick)
         }
     }
 
-    override fun finishGame(leftType: LeftType) {
-        gameState = GameState.STOP
-        ArrayList(joined).forEach { gPlayer ->
-            leftGame(gPlayer, leftType)
-        }
-        gameTask = null
-    }
+    override fun finishGame() = Unit
 
     open fun beginGame() {
         comp.send(GAME_START, joined, this)
