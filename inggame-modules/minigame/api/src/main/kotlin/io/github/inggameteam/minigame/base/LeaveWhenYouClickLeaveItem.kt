@@ -1,6 +1,5 @@
-package io.github.inggameteam.minigame.angangang.game.base
+package io.github.inggameteam.minigame.base
 
-import io.github.inggameteam.alert.component.Lang.comp
 import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.event.GameJoinEvent
@@ -21,6 +20,7 @@ interface LeaveWhenYouClickLeaveItem : Game {
     fun giveItemOnJoin(event: GameJoinEvent) {
         val player = plugin[event.player]
         if (!isJoined(player)) return
+        player.inventory.clear()
         player.inventory.setItem(8, comp.item(LEAVE_ITEM, player.lang(plugin)).clone())
     }
 

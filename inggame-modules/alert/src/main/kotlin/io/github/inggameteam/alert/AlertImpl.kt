@@ -11,10 +11,10 @@ import java.util.*
 import kotlin.test.assertFailsWith
 
 fun String.assertFormat(vararg args: Any): String {
-    assertFailsWith(MissingFormatArgumentException::class, "'$this' Format specifier '%s' args=$args") {
+    assertFailsWith<MissingFormatArgumentException>() {
         return format(*args)
     }
-    return ""
+    return "'$this' Format specifier '%s' args=${args.map { it.toString() }}"
 }
 
 fun Map<String, String>.format(args: Array<out Any>) = map { it.value.assertFormat(*args) }.toTypedArray()

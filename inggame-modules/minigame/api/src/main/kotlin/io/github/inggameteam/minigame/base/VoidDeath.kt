@@ -12,16 +12,11 @@ interface VoidDeath : Game {
     @EventHandler
     fun voidDeath(event: PlayerMoveEvent) {
         val player = event.player
-        println("voidDeath #1")
         if (!isJoined(player)) return
-        println("voidDeath #2")
         val gPlayer = plugin[player]
-        println("voidDeath #3")
         if (gameState !== GameState.PLAY || !gPlayer.hasTag(PTag.PLAY)) return
-        println("voidDeath #4")
         if (player.location.y <= plugin.gameRegister.sectorHeight - 1) {
-            println("voidDeath #5")
-            player.damage(10000.0)
+            player.damage(Double.MAX_VALUE)
             return
         }
     }
