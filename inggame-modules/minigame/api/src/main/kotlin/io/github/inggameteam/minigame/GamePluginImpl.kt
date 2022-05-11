@@ -9,31 +9,27 @@ import java.io.File
 
 open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     lateinit var hubName: String
-    lateinit var worldName: List<String>
+    var worldName: List<String> = config.getStringList("worlds")
     var width: Int = 0
     var height: Int = 0
     lateinit var init: Array<(GamePlugin) -> Game>
 
     constructor()
     constructor(hubName: String,
-                worldName: List<String>,
                 width: Int, height: Int,
                 init: Array<(GamePlugin) -> Game>) {
         this.hubName = hubName
-        this.worldName = worldName
         this.width = width
         this.height = height
         this.init = init
     }
 
     constructor(hubName: String,
-                worldName: List<String>,
                 width: Int, height: Int,
                 init: Array<(GamePlugin) -> Game>,
                 loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, dataFolder, file) {
         this.hubName = hubName
-        this.worldName = worldName
         this.width = width
         this.height = height
         this.init = init

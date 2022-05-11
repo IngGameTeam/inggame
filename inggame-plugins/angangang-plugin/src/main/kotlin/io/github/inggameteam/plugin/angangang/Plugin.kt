@@ -10,7 +10,6 @@ import io.github.inggameteam.plugin.angangang.handler.ReloadWatchDog
 
 class Plugin : GamePluginImpl(
     hubName = "hub",
-    worldName = listOf("customized_minigame"),
     width = 300, height = 128,
     init = arrayOf(
         ::Hub,

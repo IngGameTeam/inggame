@@ -9,4 +9,8 @@ commands:
   p:
   party:
   mg:
+    permission: minigame.admin
   duel:
+permissions:
+  minigame.admin:
+    default: op

@@ -71,18 +71,27 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
             }
         }
 
+    val LOCATION get() = "static"
+
     override fun getLocation(key: String): Location =
-        super<Sectional>.getLocation(key).apply {
-            x += width * point.x
-            y += height
-            z += width * point.y
+        comp.location(key).run {
+            toLocation(point.world).apply {
+                if (tag?.contains(LOCATION) == true) return@apply
+                x += width * point.x
+                y += height
+                z += width * point.y
+            }
         }
 
+
     override fun getLocationOrNull(key: String): Location? =
-        super<Sectional>.getLocationOrNull(key)?.apply {
-            x += width * point.x
-            y += height
-            z += width * point.y
+        comp.locationOrNull(key)?.run {
+            toLocation(point.world).apply {
+                if (tag?.contains(LOCATION) == true) return@apply
+                x += width * point.x
+                y += height
+                z += width * point.y
+            }
         }
 
 
@@ -121,5 +130,4 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
         return false
     }
-
 }

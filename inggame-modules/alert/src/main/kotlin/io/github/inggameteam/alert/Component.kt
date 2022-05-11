@@ -37,10 +37,9 @@ interface CompDir {
 
     fun <T> langCompOrNull(getter: (CompDir) -> LangDir<T>, key: String, lang: String): CompDir? {
         fun test(comp: LangDir<T>) = comp.getOrNull(lang)?.getOrNull(key)
-        return parents.firstOrNull { test(getter(it)) !== null }
-            .run { this?: run { if (test(getter(this@CompDir)) !== null) this@CompDir else this } }
+        return run { if (test(getter(this@CompDir)) !== null) this@CompDir else null }
+            .run { this?: parents.firstOrNull { test(getter(it)) !== null } }
     }
-
 
     fun <T> langComp(getter: (CompDir) -> LangDir<T>, key: String, lang: String): CompDir {
         return langCompOrNull(getter, key, lang)
@@ -56,8 +55,8 @@ interface CompDir {
 
     fun <T> compOrNull(getter: (CompDir) -> CompFile<T>, key: String): CompDir? {
         fun test(comp: CompFile<T>) = comp.getOrNull(key)
-        return parents.firstOrNull { test(getter(it)) !== null }
-            .run { this?: run { if (test(getter(this@CompDir)) !== null) this@CompDir else this } }
+        return run { if (test(getter(this@CompDir)) !== null) this@CompDir else null }
+            .run { this?: parents.firstOrNull { test(getter(it)) !== null } }
     }
 
     fun <T> comp(getter: (CompDir) -> CompFile<T>, key: String): CompDir {
