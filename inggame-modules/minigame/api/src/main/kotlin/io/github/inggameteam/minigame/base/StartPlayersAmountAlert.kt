@@ -1,6 +1,9 @@
 package io.github.inggameteam.minigame.base
 
-import io.github.inggameteam.minigame.*
+import io.github.inggameteam.minigame.Game
+import io.github.inggameteam.minigame.GameAlert
+import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.delay

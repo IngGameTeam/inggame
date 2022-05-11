@@ -2,7 +2,6 @@ package io.github.inggameteam.player
 
 import io.github.inggameteam.utils.listWithToString
 import java.util.*
-import kotlin.collections.HashSet
 
 interface TagContainer {
     var tags: HashSet<String>

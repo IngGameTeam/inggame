@@ -1,6 +1,9 @@
 package io.github.inggameteam.minigame.base
 
-import io.github.inggameteam.minigame.*
+import io.github.inggameteam.minigame.GameAlert
+import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.Infection.Companion.ORIGINAL_INFECTED
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent

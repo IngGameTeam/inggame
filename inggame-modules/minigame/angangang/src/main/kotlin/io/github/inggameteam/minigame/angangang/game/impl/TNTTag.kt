@@ -2,7 +2,9 @@ package io.github.inggameteam.minigame.angangang.game.impl
 
 import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.bossbar.GBar
-import io.github.inggameteam.minigame.*
+import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
 import io.github.inggameteam.minigame.base.BarGame
 import io.github.inggameteam.minigame.base.CompetitionImpl

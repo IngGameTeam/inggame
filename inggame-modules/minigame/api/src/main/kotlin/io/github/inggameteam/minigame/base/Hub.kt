@@ -1,6 +1,9 @@
 package io.github.inggameteam.minigame.base
 
-import io.github.inggameteam.minigame.*
+import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.JoinType
+import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.player.GPlayer
 
 open class Hub(plugin: GamePlugin) : SectionalImpl(plugin) {

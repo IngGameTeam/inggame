@@ -4,7 +4,6 @@ import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.player.GPlayer
-import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.potion.PotionEffect
