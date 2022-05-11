@@ -10,6 +10,7 @@ allprojects {
             "$prefix:player",
             "$prefix:world",
             "$prefix:bossbar",
+            "$prefix:command",
         ).forEach {
             implementation(project(it))
             testImplementation(project(it))

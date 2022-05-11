@@ -1,7 +1,7 @@
 package io.github.inggameteam.minigame.ui
 
-import io.github.brucefreedy.mccommand.MCCommand
-import io.github.brucefreedy.mccommand.player
+import io.github.inggameteam.command.MCCommand
+import io.github.inggameteam.command.player
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.utils.ColorUtil.color

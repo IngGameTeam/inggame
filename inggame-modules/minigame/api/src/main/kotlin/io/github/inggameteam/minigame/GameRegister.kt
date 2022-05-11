@@ -55,8 +55,9 @@ class GameRegister(
                 joined.forEach { game.joinGame(it, joinType) }
             } else plugin.component.send(ONLY_LEADER_START, gPlayer)
         } else {
+            val findOrCreateGame = findOrCreateGame(gPlayer, name)
             left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
-            findOrCreateGame(gPlayer, name).joinGame(gPlayer, joinType)
+            findOrCreateGame.joinGame(gPlayer, joinType)
         }
     }
 

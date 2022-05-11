@@ -1,10 +1,10 @@
 package io.github.inggameteam.party
 
-import io.github.brucefreedy.mccommand.MCCommand
-import io.github.brucefreedy.mccommand.api.context.CommandContext
-import io.github.brucefreedy.mccommand.api.tree.ArgumentCommandNode
-import io.github.brucefreedy.mccommand.player
 import io.github.inggameteam.alert.Alert
+import io.github.inggameteam.command.MCCommand
+import io.github.inggameteam.command.context.CommandContext
+import io.github.inggameteam.command.player
+import io.github.inggameteam.command.tree.ArgumentCommandNode
 import io.github.inggameteam.party.PartyAlert.JOINED_PARTY_NOT_EXIST
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.eq
@@ -47,7 +47,7 @@ class PartyUI(val plugin: PartyPlugin) {
 
     init {
         MCCommand(plugin as JavaPlugin) {
-            command("p", "party") {
+            command("party", "p") {
                 thenExecute("create") { plugin.partyRegister.createParty(player.game) }
                 thenExecute("rename") { party { rename(it, args.subList(1, args.size).joinToString(" ")) } }
                 thenExecute("visible") { party { visible(it) } }

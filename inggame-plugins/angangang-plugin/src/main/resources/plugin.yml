@@ -1,4 +1,4 @@
-name: angangang
+name: Uti
 main: ${group}.plugin.angangang.Plugin
 version: $version
 api-version: 1.18

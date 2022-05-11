@@ -68,7 +68,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
                 { unloadSector() }.delay(plugin, 20 * 10)
-
             }
         }
 

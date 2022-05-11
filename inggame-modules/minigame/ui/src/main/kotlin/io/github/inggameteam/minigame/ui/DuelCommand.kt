@@ -1,10 +1,10 @@
 package io.github.inggameteam.minigame.ui
 
-import io.github.brucefreedy.mccommand.MCCommand
-import io.github.brucefreedy.mccommand.player
 import io.github.inggameteam.alert.Alert
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
+import io.github.inggameteam.command.MCCommand
+import io.github.inggameteam.command.player
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.Bukkit
