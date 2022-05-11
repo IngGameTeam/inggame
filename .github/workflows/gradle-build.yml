@@ -38,7 +38,7 @@ jobs:
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: "Release #${{ env.workflow }}"
+          title: "Release #${{ env.RELEASE_VERSION }}"
           automatic_release_tag: "${{ env.RELEASE_VERSION }}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: inggame-plugins/build/dist/*.jar
