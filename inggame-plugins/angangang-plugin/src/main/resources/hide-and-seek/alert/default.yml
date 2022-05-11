@@ -1,0 +1,6 @@
+RED_TEAM_DEATH.chat: "&c%s 술래가 사망했습니다"
+BLUE_TEAM_DEATH.chat: "&c생존자 &c%s이(가) 사망했습니다"
+PLAYER_DEATH_TO_VOID.chat: "&c%s이(가) 술래에게 발각되었습니다~!"
+RED_TEAM_WIN.chat: "&6술래 %s 승리"
+BLUE_TEAM_WIN.chat: "&6생존자 %s 승리"
+seek.chat: "&a%s이(가) 됬습니다"
