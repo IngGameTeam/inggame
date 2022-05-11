@@ -5,6 +5,7 @@ subprojects {
     tasks.withType<Jar> {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
+
         doLast {
             copy {
                 val sep = File.separator
@@ -13,7 +14,6 @@ subprojects {
             }
         }
     }
-
 
     tasks {
         processResources {
