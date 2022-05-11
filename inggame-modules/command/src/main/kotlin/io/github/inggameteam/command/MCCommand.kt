@@ -17,8 +17,10 @@ open class MCCommand(plugin: JavaPlugin, init: Root.() -> Unit)
     init {
         root.getChild().keys.forEach {
             plugin.getCommand(it)?.apply {
-                setTabCompleter(this@MCCommand)
-                setExecutor(this@MCCommand)
+                try {
+                    setTabCompleter(this@MCCommand)
+                    setExecutor(this@MCCommand)
+                } catch(_: Exception) {}
             }
         }
     }

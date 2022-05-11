@@ -49,7 +49,7 @@ class GameRegister(
         if (plugin.partyRegister.joinedParty(gPlayer) && name != hubName) {
             if (plugin.partyRegister.hasOwnParty(gPlayer)) {
                 val joined = plugin.partyRegister.getJoined(gPlayer)!!.joined
-                joined.filter { getJoinedGame(it).name == hubName }.forEach { join(it, hubName) }
+                joined.filterNot { getJoinedGame(it).name == hubName }.forEach { join(it, hubName) }
                 val game = findOrCreateGame(gPlayer, name)
                 joined.forEach { left(it, LeftType.DUE_TO_MOVE_ANOTHER_GAME) }
                 joined.forEach { game.joinGame(it, joinType) }
