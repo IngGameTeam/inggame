@@ -213,13 +213,19 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
         val orders = ArrayList<String>()
         val cacheParentMap = HashMap<String, List<String>>()
         plugin.dataFolder.listFiles(File::isDirectory)?.forEach {
-            val index = orders.size
             val fileName = it.name
-            if (!orders.contains(fileName)) orders.add(0, fileName)
             YamlConfiguration.loadConfiguration(File(it, "config.yml")).getStringList("parents")
-                .apply { cacheParentMap[fileName] = this }
-                .forEach { pare -> if (!orders.contains(fileName)) orders.add(index, pare) }
+                .apply { cacheParentMap[fileName] = this }.apply {
+                    var ind = 0
+                    forEach { pare ->
+                        val indexOf = orders.indexOf(pare)
+                        if (indexOf != -1 && ind < indexOf) ind = indexOf + 1
+                    }
+                    orders.add(ind, fileName)
+                }
         }
+        println(orders)
+        println(cacheParentMap)
         orders.forEach {
             this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] }.listWithToString())
         }
