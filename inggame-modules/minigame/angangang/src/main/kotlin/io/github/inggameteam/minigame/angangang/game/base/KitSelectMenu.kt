@@ -15,12 +15,19 @@ interface KitSelectMenu : Game {
         val items = comp.stringList("kit", lang).map { Pair(it, comp.item(it, lang)) }
         InvFX.frame(3, Component.text(comp.string("kit-inventory-title", lang))) {
             for (x in 0 until 9)
+            {
                 for (y in 0 until 3)
-                    item(x, y, inventory.getItem(x + y * 9))
-            onClick {_, _, event ->
-                items.firstOrNull { it.second.isSimilar(event.currentItem) }?.apply {
-                    playerData[player]!![SELECTED_KIT] = first
-                    comp.send("selected", player, first)
+                {
+                    slot(x, y) {
+                        item = inventory.getItem(x + y * 9)
+                        onClick { event ->
+                            items.firstOrNull { it.second.isSimilar(event.currentItem) }?.apply {
+                                playerData[player]!![SELECTED_KIT] = first
+                                comp.send("selected", player, first)
+                                player.closeInventory()
+                            }
+                        }
+                    }
                 }
             }
         }.apply { player.openFrame(this) }
