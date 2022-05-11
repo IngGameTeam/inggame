@@ -3,7 +3,6 @@ package io.github.inggameteam.minigame.base
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerWinEvent
-import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
@@ -14,15 +13,20 @@ import org.bukkit.event.EventHandler
 
 interface Competition : Sectional, Game {
     val stopCheckPlayer: Int get() = 1
-    open fun sendDeathMessage(player: GPlayer) {
+    fun sendDeathMessage(player: GPlayer) {
         comp.send(GameAlert.PLAYER_DEATH_TO_VOID, joined, player)
     }
-    open fun calcWinner() {
+    fun calcWinner() {
         val winners = joined.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
         val dieToReady = joined.hasTags(PTag.DEAD, PTag.PLAY)
-        if (winners.isEmpty() && dieToReady.size == 1) comp.send(GameAlert.GAME_DRAW_HAS_WINNER, joined, winners, this)
-        else if (winners.isEmpty()) comp.send(GameAlert.GAME_DRAW_NO_WINNER, joined, this)
-        else comp.send(GameAlert.SINGLE_WINNER, joined, winners, this)
+        if (winners.isEmpty() && dieToReady.size == 1)
+            joined.forEach { comp.send(GameAlert.GAME_DRAW_HAS_WINNER, it, winners, displayName(it)) }
+        else if (winners.isEmpty()) {
+            joined.forEach { comp.send(GameAlert.GAME_DRAW_NO_WINNER, it, displayName(it)) }
+        }
+        else {
+            joined.forEach { comp.send(GameAlert.SINGLE_WINNER, it, winners, displayName(it)) }
+        }
 //        winners.forEach{ Context.rewardPoint(it.player, rewardPoint)}
         Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this, winners.toPlayerList()))
     }

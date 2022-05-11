@@ -5,7 +5,7 @@ import io.github.inggameteam.minigame.angangang.game.impl.*
 import io.github.inggameteam.minigame.angangang.handle.HandleDeath
 import io.github.inggameteam.minigame.ui.DuelCommand
 import io.github.inggameteam.minigame.ui.MinigameCommand
-import io.github.inggameteam.plugin.angangang.game.Hub
+import io.github.inggameteam.minigame.angangang.game.impl.Hub
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.plugin.angangang.handler.NoHunger
 import io.github.inggameteam.plugin.angangang.handler.ReloadWatchDog

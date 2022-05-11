@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType
 interface SpawnPlayer : Game {
 
     @EventHandler
-    open fun spawnPlayer(event: GPlayerSpawnEvent) {
+    fun spawnPlayer(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
         spawn(player)
@@ -30,7 +30,9 @@ interface SpawnPlayer : Game {
     fun potionSpawn(player: GPlayer, spawn: String) =
         comp.stringListOrNull(spawn, player.lang(plugin))?.forEach {
             val args = it.split(" ")
-            PotionEffect(PotionEffectType.getByName(args[0])!!, args[1].toInt(), args[2].toInt())
+            player.addPotionEffect(
+                PotionEffect(PotionEffectType.getByName(args[0])!!, args[1].toInt(), args[2].toInt())
+            )
         }
 
     fun inventorySpawn(player: GPlayer, spawn: String) =

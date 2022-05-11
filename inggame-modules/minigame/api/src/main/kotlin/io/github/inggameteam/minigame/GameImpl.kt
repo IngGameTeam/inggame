@@ -65,9 +65,11 @@ abstract class GameImpl(
             if (joinType === JoinType.PLAY) gPlayer.addTag(PTag.PLAY)
             else comp.send(START_SPECTATING, gPlayer, gPlayer, displayName(gPlayer))
             Bukkit.getPluginManager().callEvent(GameJoinEvent(gPlayer, this, joinType))
-            if (gameTask === null && gameState === GameState.WAIT && 0 < startPlayersAmount && joined.hasTags(
-                    PTag.PLAY).size >= startPlayersAmount
-            ) start(false)
+            if (gameTask === null
+                && gameState === GameState.WAIT
+                && 0 < startPlayersAmount
+                && joined.hasTags(PTag.PLAY).size >= startPlayersAmount)
+                start(false)
             return true
         }
         return false
