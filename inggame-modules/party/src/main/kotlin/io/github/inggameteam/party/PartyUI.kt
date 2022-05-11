@@ -79,6 +79,7 @@ class PartyUI(val plugin: PartyPlugin) {
                     val inviteCode = args[1].toIntOrNull()
                     if (inviteCode !== null) plugin.partyRequestRegister.acceptInvitation(player.game, inviteCode)
                 }
+                thenExecute("leave") { party { left(player.game) } }
                 then("join") {
                     tab { plugin.playerRegister.values.map { it.name }.toList() }
                     execute { args(1) { arg -> party { join(arg) } } }
