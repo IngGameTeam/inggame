@@ -33,7 +33,7 @@ interface Competition : Sectional, Game {
 }
 
 abstract class CompetitionImpl(plugin: GamePlugin) : SectionalImpl(plugin), Competition, SpawnHealth {
-
+    override val recommendedStartPlayersAmount get() = 2
     @Deprecated("EventHandler")
     @EventHandler
     open fun death(event: GPlayerDeathEvent) {
