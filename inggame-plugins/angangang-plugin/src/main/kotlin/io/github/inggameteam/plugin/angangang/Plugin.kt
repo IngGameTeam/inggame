@@ -28,7 +28,6 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
 //        NoHunger(this, worldName)
         HandleDeath(this)
-        DuelCommand(this)
         PartyCacheSerializer.deserialize(this)
     }
 
