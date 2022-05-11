@@ -41,7 +41,8 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun start(force: Boolean)
     fun stop(force: Boolean, leftType: LeftType = LeftType.GAME_STOP)
 
-    val worldName get() = comp.string("world", plugin.defaultLanguage)?: plugin.gameRegister.worldName.first()
+    val worldName get() = comp.stringOrNull("world", plugin.defaultLanguage)
+        ?: plugin.gameRegister.worldName.firstOrNull().apply { assertNotNull(this, "world list is empty") }!!
     val world get() = Bukkit.getWorld(worldName).apply { assertNotNull(this, "world $worldName is not loaded") }!!
 
     val comp get() = plugin.components[name]
