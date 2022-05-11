@@ -32,7 +32,7 @@ interface Competition : Sectional, Game {
     }
 }
 
-abstract class CompetitionImpl(plugin: GamePlugin, point: Sector) : SectionalImpl(plugin, point), Competition, SpawnHealth {
+abstract class CompetitionImpl(plugin: GamePlugin) : SectionalImpl(plugin), Competition, SpawnHealth {
     override val startPlayersAmount get() = 2
 
     @Deprecated("EventHandler")

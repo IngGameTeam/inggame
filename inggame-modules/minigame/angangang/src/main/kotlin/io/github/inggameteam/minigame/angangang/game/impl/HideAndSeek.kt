@@ -1,10 +1,8 @@
 package io.github.inggameteam.minigame.angangang.game.impl
 
 import io.github.inggameteam.alert.component.Lang.lang
-import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.Sector
 import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
 import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
@@ -25,12 +23,14 @@ import org.bukkit.event.block.BlockIgniteEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
-class HideAndSeek(plugin: GamePlugin, point: Sector) : InfectionImpl(plugin, point), SpawnTeamPlayer, VoidDeath, SimpleGame {
+class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
+    SpawnTeamPlayer, VoidDeath, SimpleGame {
 
     override val name get() = "hide-and-seek"
 
     val GPlayer.entityKey get() = "${uniqueId.fastToString()}-entity"
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun onBeginHideAndSeek(event: GameBeginEvent) {
         if (this !== event.game) return
@@ -78,6 +78,7 @@ class HideAndSeek(plugin: GamePlugin, point: Sector) : InfectionImpl(plugin, poi
         const val BLOCK = "seekBlock"
     }
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun leftGame(event: GameLeftEvent) {
         val player = event.player
@@ -85,6 +86,7 @@ class HideAndSeek(plugin: GamePlugin, point: Sector) : InfectionImpl(plugin, poi
         (playerData[player]!![player.entityKey] as? FallingBlock)?.remove()
     }
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun hit(event: BlockIgniteEvent) {
         val player = event.player
@@ -94,6 +96,7 @@ class HideAndSeek(plugin: GamePlugin, point: Sector) : InfectionImpl(plugin, poi
         hit(gPlayer, event.block.location)
     }
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun hit(event: EntityDamageByEntityEvent) {
         val player = event.damager
@@ -103,6 +106,7 @@ class HideAndSeek(plugin: GamePlugin, point: Sector) : InfectionImpl(plugin, poi
         hit(gPlayer, event.entity.location.block.location)
     }
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun hit(event: PlayerInteractEvent) {
         val player = event.player

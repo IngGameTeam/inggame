@@ -13,7 +13,8 @@ import org.bukkit.event.EventHandler
 
 interface ClearTheBlocksBelow : VoidDeath {
 
-     val clearBlockBelowDelay get() = 7L
+    val clearBlockBelowDelay get() = 7L
+    val primaryCoolDelay get() = comp.intOrNull("primary-cool-delay")?.toLong()?: 15L
 
     @Deprecated("EventHandler")
     @EventHandler
@@ -27,7 +28,7 @@ interface ClearTheBlocksBelow : VoidDeath {
                 addTask({ list.forEach { it.type = Material.AIR } }.delay(plugin, clearBlockBelowDelay))
             }
             true
-        }.repeat(plugin, 15, 1))
+        }.repeat(plugin, primaryCoolDelay, 1))
     }
 
     fun listClearBlock(location: Location): List<Block> = listOf(

@@ -70,7 +70,8 @@ object YamlUtil {
             conf.getDouble("Y"),
             conf.getDouble("Z"),
             conf.getDouble("YAW").toFloat(),
-            conf.getDouble("PITCH").toFloat()
+            conf.getDouble("PITCH").toFloat(),
+            conf.getString("TAG")
         )
     fun string(yaml: ConfigurationSection, path: String) = yaml.getString(path)!!.color()
     fun inventory(yaml: ConfigurationSection, itemComp: (String) -> ItemStack): Inventory {

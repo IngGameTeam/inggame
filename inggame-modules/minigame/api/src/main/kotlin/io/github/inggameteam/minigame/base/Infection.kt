@@ -20,7 +20,7 @@ interface Infection {
     }
 }
 
-abstract class InfectionImpl(plugin: GamePlugin, point: Sector) : TeamCompetition(plugin, point) {
+abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
 
 
 //    open fun updateBar() = bar.update("생존자 비상 탈출", color = BarColor.PURPLE)
@@ -62,9 +62,9 @@ abstract class InfectionImpl(plugin: GamePlugin, point: Sector) : TeamCompetitio
                 comp.send(GameAlert.BLUE_TEAM_DEATH, joined, player)
             }
             stopCheck()
-            if (gameState !== GameState.STOP) {
+//            if (gameState !== GameState.STOP) {
 //                addTask({ spawn(player) }.runNow(plugin))
-            }
+//            }
         }
     }
 

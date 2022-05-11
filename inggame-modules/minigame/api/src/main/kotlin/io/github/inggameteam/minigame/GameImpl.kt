@@ -17,16 +17,16 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerQuitEvent
 
 abstract class GameImpl(
-    override val plugin: GamePlugin,
-    override val point: Sector,
+    final override val plugin: GamePlugin,
     ) : Game {
+    override val point: Sector by lazy { plugin.gameRegister.newAllocatable(world) }
     override val isAllocated: Boolean get() = !point.equals(0, 0)
     override var gameState = GameState.WAIT
     override var gameTask: ITask? = null
     override val playerData = HashMap<GPlayer, HashMap<String, Any>>()
     override val joined = GPlayerList()
 
-    override val startPlayersAmount = 1
+    override val startPlayersAmount get() = comp.intOrNull("start-players-amount")?: 1
     override val playerLimitAmount = -1
     override val startWaitingSecond = 4
     override val stopWaitingTick = -1L

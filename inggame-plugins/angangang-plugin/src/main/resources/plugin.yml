@@ -7,7 +7,6 @@ softdepend:
   - FastAsyncWorldEdit
 commands:
   p:
-    aliases:
-      - party
+  party:
   mg:
   duel:

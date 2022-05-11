@@ -32,7 +32,7 @@ interface Sectional : Game {
 }
 
 
-abstract class SectionalImpl(plugin: GamePlugin, point: Sector) : GameImpl(plugin, point), Sectional {
+abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
 
     /**
      * 할당된 구역 마무리 정리 시간
@@ -46,10 +46,15 @@ abstract class SectionalImpl(plugin: GamePlugin, point: Sector) : GameImpl(plugi
     final override val minPoint: Vector
     final override val maxPoint: Vector
     init {
-        val vector = Vector(point.x * width, 0, point.y * width)
-        val half = width / 2
-        minPoint = vector.clone().add(Vector(-half, Int.MIN_VALUE, -half))
-        maxPoint = vector.clone().add(Vector(half, height, half))
+        if (isAllocated) {
+            val vector = Vector(point.x * width, 0, point.y * width)
+            val half = width / 2
+            minPoint = vector.clone().add(Vector(-half, Int.MIN_VALUE, -half))
+            maxPoint = vector.clone().add(Vector(half, height, half))
+        } else {
+            minPoint = Vector()
+            maxPoint = Vector()
+        }
     }
 
     override fun joinGame(gPlayer: GPlayer, joinType: JoinType): Boolean {

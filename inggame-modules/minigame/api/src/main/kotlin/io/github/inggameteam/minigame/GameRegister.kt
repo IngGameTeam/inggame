@@ -17,13 +17,10 @@ import kotlin.test.assertNotNull
 class GameRegister(
     val plugin: GamePlugin,
     val hubName: String,
-    val worldName: String,
+    val worldName: List<String>,
     val sectorWidth: Int,
     val sectorHeight: Int,
     ) : HashSet<Game>(), Listener {
-
-    val world: World? get() = Bukkit.getWorld(worldName)
-        .apply { assertNotNull(this, "world $worldName is not loaded") }!!
 
     init {
         Bukkit.getPluginManager().registerEvents(this, plugin)
@@ -77,9 +74,7 @@ class GameRegister(
         return true
     }
 
-    fun createGame(name: String,
-                   game: Game = plugin.gameSupplierRegister[name](plugin, newAllocatable())
-    ): Game {
+    fun createGame(name: String, game: Game = plugin.gameSupplierRegister[name](plugin)): Game {
         Bukkit.getPluginManager().registerEvents(game, plugin)
         add(game)
         return game
@@ -90,8 +85,8 @@ class GameRegister(
         HandlerList.unregisterAll(game)
     }
 
-    fun newAllocatable(): Sector {
-        val list = filter(Game::isAllocated).map(Game::point).toSet()
+    fun newAllocatable(world: World): Sector {
+        val list = filter(Game::isAllocated).map(Game::point).filter { it.worldOrNull == world }.toSet()
         val line = sqrt(list.size.toDouble()).toInt() + 1
         var x = 1
         while (x <= line) {

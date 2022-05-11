@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
-import io.github.inggameteam.scheduler.async
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
 import org.bukkit.plugin.PluginDescriptionFile
@@ -10,16 +9,16 @@ import java.io.File
 
 open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     lateinit var hubName: String
-    lateinit var worldName: String
+    lateinit var worldName: List<String>
     var width: Int = 0
     var height: Int = 0
-    lateinit var init: Array<(GamePlugin, Sector) -> Game>
+    lateinit var init: Array<(GamePlugin) -> Game>
 
     constructor()
     constructor(hubName: String,
-                worldName: String,
+                worldName: List<String>,
                 width: Int, height: Int,
-                init: Array<(GamePlugin, Sector) -> Game>) {
+                init: Array<(GamePlugin) -> Game>) {
         this.hubName = hubName
         this.worldName = worldName
         this.width = width
@@ -28,9 +27,9 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     }
 
     constructor(hubName: String,
-                worldName: String,
+                worldName: List<String>,
                 width: Int, height: Int,
-                init: Array<(GamePlugin, Sector) -> Game>,
+                init: Array<(GamePlugin) -> Game>,
                 loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, dataFolder, file) {
         this.hubName = hubName
@@ -44,9 +43,9 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, width, height) }
     override fun onEnable() {
         super.onEnable()
+        worldName.forEach { WorldGenerator.generateWorld(it) }
         gameSupplierRegister
         gameRegister
-        WorldGenerator.generateWorld(worldName)
         gameRegister.apply { add(createGame(hubName)) }
         Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
     }

@@ -7,12 +7,11 @@ import io.github.inggameteam.minigame.ui.DuelCommand
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.minigame.angangang.game.impl.Hub
 import io.github.inggameteam.party.PartyCacheSerializer
-import io.github.inggameteam.plugin.angangang.handler.NoHunger
 import io.github.inggameteam.plugin.angangang.handler.ReloadWatchDog
 
 class Plugin : GamePluginImpl(
     hubName = "hub",
-    worldName = "customized_minigame",
+    worldName = listOf("customized_minigame"),
     width = 300, height = 128,
     init = arrayOf(
         ::Hub,
@@ -29,7 +28,7 @@ class Plugin : GamePluginImpl(
         super.onEnable()
         MinigameCommand(this)
         ReloadWatchDog(this)
-        NoHunger(this, worldName)
+//        NoHunger(this, worldName)
         HandleDeath(this)
         DuelCommand(this)
         PartyCacheSerializer.deserialize(this)

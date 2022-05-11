@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-abstract class TeamCompetition(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point) {
+abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
 
     @Deprecated("EventHandler")
     @EventHandler(priority = EventPriority.LOW)

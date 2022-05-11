@@ -7,9 +7,7 @@ import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
-import org.bukkit.util.Vector
 
 class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
 
@@ -17,6 +15,7 @@ class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
     @EventHandler
     fun deathManager(event: EntityDamageEvent) {
         val player = event.entity
+        if (!plugin.gameRegister.worldName.contains(player.world.name)) return
         if (player is Player) {
             if (event.finalDamage >= player.health) {
                 Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(plugin[player]))

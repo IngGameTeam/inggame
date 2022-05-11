@@ -43,7 +43,6 @@ interface CompDir {
 
 
     fun <T> langComp(getter: (CompDir) -> LangDir<T>, key: String, lang: String): CompDir {
-        fun test(comp: LangDir<T>) = comp.getOrNull(lang)?.getOrNull(key)
         return langCompOrNull(getter, key, lang)
             .apply { assertNotNull(this, "'$name, $parents' comp language $lang ${getter(this@CompDir).name} $key does not exist") }!!
     }
@@ -62,7 +61,6 @@ interface CompDir {
     }
 
     fun <T> comp(getter: (CompDir) -> CompFile<T>, key: String): CompDir {
-        fun test(comp: CompFile<T>) = comp.getOrNull(key)
         return compOrNull(getter, key)
             .apply { assertNotNull(this, "'$name, $parents' comp ${getter(this@CompDir).name} $key does not exist") }!!
     }
@@ -224,8 +222,6 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
                     orders.add(ind, fileName)
                 }
         }
-        println(orders)
-        println(cacheParentMap)
         orders.forEach {
             this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] }.listWithToString())
         }

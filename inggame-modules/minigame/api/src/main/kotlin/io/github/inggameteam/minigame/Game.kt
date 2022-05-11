@@ -5,9 +5,11 @@ import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.scheduler.ITask
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
+import kotlin.test.assertNotNull
 
 interface Game : Listener, PluginHolder<GamePlugin> {
 
@@ -38,7 +40,10 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun finishGame()
     fun start(force: Boolean)
     fun stop(force: Boolean, leftType: LeftType = LeftType.GAME_STOP)
-//    fun calcWinner()
+
+    val worldName get() = comp.stringOrNull("world", plugin.defaultLanguage)?: plugin.gameRegister.worldName.first()
+    val world get() = Bukkit.getWorld(worldName).apply { assertNotNull(this, "world $worldName is not loaded") }!!
+
     val comp get() = plugin.components[name]
     fun getLocation(key: String): Location = comp.location(key).toLocation(point.world)
     fun getLocationOrNull(key: String): Location? = comp.locationOrNull(key)?.toLocation(point.world)

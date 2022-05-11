@@ -5,10 +5,10 @@ import kotlin.test.assertTrue
 
 class GameSupplierRegister(
     override val plugin: GamePlugin,
-    vararg function: (GamePlugin, Sector) -> Game
-) : HashMap<String, (GamePlugin, Sector) -> Game>(), PluginHolder<GamePlugin> {
+    vararg function: (GamePlugin) -> Game
+) : HashMap<String, (GamePlugin) -> Game>(), PluginHolder<GamePlugin> {
     init {
-        function.forEach { put(it(plugin, Sector()).name, it) }
+        function.forEach { put(it(plugin).name, it) }
     }
 
     override fun get(key: String) =

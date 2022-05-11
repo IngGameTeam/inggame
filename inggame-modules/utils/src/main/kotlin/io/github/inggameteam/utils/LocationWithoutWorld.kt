@@ -4,7 +4,7 @@ import org.bukkit.Location
 import org.bukkit.World
 
 data class LocationWithoutWorld(
-    val x: Double, val y: Double, val z: Double, val yaw: Float, val pitch: Float
+    val x: Double, val y: Double, val z: Double, val yaw: Float, val pitch: Float, val tag: String?
 ) {
     fun toLocation(world: World) = Location(world, x, y, z,yaw, pitch)
 }

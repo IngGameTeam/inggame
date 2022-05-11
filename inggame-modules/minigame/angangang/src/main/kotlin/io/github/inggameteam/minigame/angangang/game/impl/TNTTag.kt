@@ -5,7 +5,6 @@ import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
 import io.github.inggameteam.minigame.base.BarGame
-import io.github.inggameteam.minigame.base.Competition
 import io.github.inggameteam.minigame.base.CompetitionImpl
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
@@ -22,7 +21,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class TNTTag(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point), BarGame, SimpleGame {
+class TNTTag(plugin: GamePlugin) : CompetitionImpl(plugin), BarGame, SimpleGame {
 
     override val bar = GBar(plugin, size = 200.0)
     override val name get() = "tnt-tag"
@@ -82,6 +81,7 @@ class TNTTag(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point)
         updateBarTitle()
     }
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun damageEntity(event: EntityDamageByEntityEvent) {
         if (gameState != GameState.PLAY) return
@@ -101,6 +101,7 @@ class TNTTag(plugin: GamePlugin, point: Sector) : CompetitionImpl(plugin, point)
         }
     }
 
+    @Deprecated("EventHandler")
     @EventHandler
     fun interact(event: PlayerInteractEntityEvent) {
         if (gameState != GameState.PLAY) return
