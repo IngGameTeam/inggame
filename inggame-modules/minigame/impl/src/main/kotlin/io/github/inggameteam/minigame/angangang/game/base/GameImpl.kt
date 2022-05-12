@@ -1,5 +1,6 @@
-package io.github.inggameteam.minigame
+package io.github.inggameteam.minigame.angangang.game.base
 
+import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameJoinEvent

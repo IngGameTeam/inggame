@@ -5,7 +5,8 @@ import io.github.inggameteam.minigame.angangang.game.impl.*
 import io.github.inggameteam.minigame.handle.HandleDeath
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.party.PartyCacheSerializer
-import io.github.inggameteam.plugin.angangang.handler.ReloadWatchDog
+import io.github.inggameteam.minigame.handle.NoHunger
+import io.github.inggameteam.minigame.handle.ReloadWatchDog
 
 class Plugin : GamePluginImpl(
     hubName = "hub",
@@ -25,7 +26,7 @@ class Plugin : GamePluginImpl(
         super.onEnable()
         MinigameCommand(this)
         ReloadWatchDog(this)
-//        NoHunger(this, worldName)
+        NoHunger(this, worldName)
         HandleDeath(this)
         PartyCacheSerializer.deserialize(this)
     }

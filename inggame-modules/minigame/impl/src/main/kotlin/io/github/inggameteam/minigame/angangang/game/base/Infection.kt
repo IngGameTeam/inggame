@@ -1,10 +1,10 @@
-package io.github.inggameteam.minigame.base
+package io.github.inggameteam.minigame.angangang.game.base
 
 import io.github.inggameteam.minigame.GameAlert
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.base.Infection.Companion.ORIGINAL_INFECTED
+import io.github.inggameteam.minigame.angangang.game.base.Infection.Companion.ORIGINAL_INFECTED
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.hasNoTags

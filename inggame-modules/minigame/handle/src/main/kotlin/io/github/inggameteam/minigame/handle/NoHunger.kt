@@ -1,11 +1,11 @@
-package io.github.inggameteam.plugin.angangang.handler
+package io.github.inggameteam.minigame.handle
 
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.player.PlayerPlugin
 import io.github.inggameteam.scheduler.repeat
 import org.bukkit.Bukkit
 
-class NoHunger(plugin: PlayerPlugin, vararg world: String) : HandleListener(plugin) {
+class NoHunger(plugin: PlayerPlugin, val world: List<String>) : HandleListener(plugin) {
 
     init {
         {

@@ -1,4 +1,4 @@
-package io.github.inggameteam.plugin.angangang.handler
+package io.github.inggameteam.minigame.handle
 
 import com.rylinaux.plugman.util.PluginUtil
 import io.github.inggameteam.api.IngGamePlugin

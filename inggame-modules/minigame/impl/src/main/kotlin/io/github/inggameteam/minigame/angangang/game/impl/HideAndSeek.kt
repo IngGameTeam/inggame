@@ -4,9 +4,9 @@ import io.github.inggameteam.alert.component.Lang.lang
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
-import io.github.inggameteam.minigame.base.InfectionImpl
-import io.github.inggameteam.minigame.base.SpawnTeamPlayer
-import io.github.inggameteam.minigame.base.VoidDeath
+import io.github.inggameteam.minigame.angangang.game.base.InfectionImpl
+import io.github.inggameteam.minigame.angangang.game.base.SpawnTeamPlayer
+import io.github.inggameteam.minigame.angangang.game.base.VoidDeath
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
