@@ -15,7 +15,7 @@ interface MinigameMenu : PluginHolder<GamePlugin>, Game {
         InvFX.frame(3, Component.text("미니게임")) {
             list(0, 0, 9, 3, true, { games }) {
                 transform {
-                    plugin.components[it].item("icon", player.lang(plugin))
+                    comp.item(it, player.lang(plugin))
                 }
                 onClickItem { _, _, item, event ->
                     event.isCancelled = true
