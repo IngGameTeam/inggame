@@ -14,6 +14,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -24,9 +28,5 @@ jobs:
       - run: doctave --version
       - run: doctave init --docs-dir docs/
       - run: doctave build --release
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14
       - run: npm install -g gh-pages@3.0.0
       - run: gh-pages -d site
