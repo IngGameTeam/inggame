@@ -34,6 +34,7 @@ allprojects {
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
+        maven { url = uri("https://raw.githubusercontent.com/TheBlackEntity/PlugMan/repository/") }
     }
 
     dependencies {
@@ -43,6 +44,7 @@ allprojects {
         testImplementation("org.slf4j:slf4j-api:1.7.36")
         testImplementation("org.slf4j:slf4j-simple:1.7.36")
         compileOnly(kotlin("test"))
+
         compileOnly("net.kyori:adventure-api:4.10.1")
         compileOnly("io.github.monun:invfx-api:3.1.0")
         compileOnly("com.mojang:authlib:1.5.21")
@@ -51,6 +53,7 @@ allprojects {
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+        compileOnly("com.rylinaux:PlugMan:2.2.9")
     }
 
 }

@@ -13,7 +13,7 @@ open class AlertPluginImpl : AlertPlugin, PlayerPluginImpl {
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, dataFolder, file)
 
-    override val defaultLanguage = "default"
+    override val defaultLanguage by lazy { config.getString("default-language")?: "default" }
     override val components by lazy { Components(this) }
     override val component get() = components[DEFAULT_DIR]
         .apply { assertNotNull(this, "component $DEFAULT_DIR does not exist") }
