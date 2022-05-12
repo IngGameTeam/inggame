@@ -10,8 +10,8 @@ name: docs to gh pages
 jobs:
   build_and_commit:
     name: docs to gh pages
-#    runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+#    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - name: Deploy
