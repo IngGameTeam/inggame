@@ -4,3 +4,4 @@ title: "inggame"
 logo: assets/logo.png
 colors:
   main: "#5f658a"
+docs_dir: docs/
