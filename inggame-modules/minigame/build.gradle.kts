@@ -2,7 +2,7 @@ allprojects {
     dependencies {
         val prefix = ":inggame-modules"
         listOf(
-            "$prefix:inggame-api",
+            "$prefix:module-api",
             "$prefix:scheduler",
             "$prefix:utils",
             "$prefix:alert",
