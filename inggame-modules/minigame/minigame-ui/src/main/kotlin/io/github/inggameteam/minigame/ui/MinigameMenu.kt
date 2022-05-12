@@ -12,7 +12,7 @@ import net.kyori.adventure.text.Component
 interface MinigameMenu : PluginHolder<GamePlugin>, Game {
 
     fun minigameMenu(player: GPlayer, games: List<String> = plugin.gameSupplierRegister.keys.toList()) =
-        InvFX.frame(3, Component.text("미니게임")) {
+        InvFX.frame(3, Component.text(comp.string("minigame-menu-title", player.lang(plugin)))) {
             list(0, 0, 9, 3, true, { games }) {
                 transform {
                     comp.item(it, player.lang(plugin))
