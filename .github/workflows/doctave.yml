@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'website/**'
+
+name: CI
+
+jobs:
+  build_and_commit:
+    name: Rust project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: --git https://github.com/Doctave/doctave --tag 0.4.2
+      - run: doctave --version
+      - run: doctave init
+      - run: doctave init --docs-dir website/
+      - run: doctave serve
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - run: npm install -g gh-pages@3.0.0
+      - run: doctave build --release
+      - run: gh-pages -d site
