@@ -11,12 +11,3 @@
 트리 디렉토리 구조로 모듈이 구성되었습니다.
 
 
-# project document blog
-
-Project [blog](https://inggameteam.github.io/inggame/) exists.
-
-# Licence
-
-This project is licensed under the terms of the GNU GENERAL PUBLIC LICENSE Version 3
-
----
