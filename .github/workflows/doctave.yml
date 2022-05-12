@@ -28,5 +28,6 @@ jobs:
         with:
           node-version: 14
       - run: npm install -g gh-pages@3.0.0
+      - run: echo "$PWD"
       - run: doctave build --release
       - run: gh-pages -d site
