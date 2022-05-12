@@ -1,4 +1,4 @@
-package io.github.inggameteam.minigame.angangang.handle
+package io.github.inggameteam.minigame.handle
 
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.minigame.GamePlugin
