@@ -23,7 +23,6 @@ jobs:
           args: --git https://github.com/Doctave/doctave --tag 0.4.2
       - run: doctave --version
       - run: doctave init
-      - run: doctave serve
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
