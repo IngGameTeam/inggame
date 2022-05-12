@@ -5,10 +5,7 @@ import io.github.inggameteam.minigame.angangang.game.base.*
 
 class UHC(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin),
     DelayedPotion, OpenKitSelectMenuOnJoin, OpenKitSelectMenuOnClickItem, SpawnOnJoin, SpawnPlayer,
-    TimerToEnd, TimerToTpAll
+    TimerToEnd, TimerToTpAll, Broadcast
 {
     override val name get() = "uhc"
-
-
-
 }
