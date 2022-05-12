@@ -1,0 +1,6 @@
+테스트 키트:
+  type: STONE
+  name: "&a테스트 키트"
+kit-select-menu:
+  type: COMPASS
+  name: "&a키트 선택하기"

@@ -1,0 +1,4 @@
+leave:
+  type: OAK_DOOR
+  name: "&d게임 나가기"
+  hide: true

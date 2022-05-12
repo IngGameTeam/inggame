@@ -1,0 +1,4 @@
+WAIT:
+  type: PLAYER
+  item:
+    8: leave
