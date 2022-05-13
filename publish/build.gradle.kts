@@ -5,7 +5,7 @@ apply(plugin = "com.github.johnrengelman.shadow")
 val rootName = "inggame-modules"
 
 dependencies {
-    implementation(project(":inggame-modules"))
+    implementation(project(":modules"))
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {

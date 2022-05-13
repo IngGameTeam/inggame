@@ -18,4 +18,6 @@ fun circuitDir(dir: File) {
         }
     }
 }
-circuitDir(rootDir)
+circuitDir(File(rootDir, "modules"))
+circuitDir(File(rootDir, "plugins"))
+circuitDir(File(rootDir, "publish"))

@@ -26,7 +26,7 @@ subprojects {
     }
 
 /*    dependencies {
-        implementation(project(":inggame-modules"))
+        implementation(project(":modules"))
     }*/
 
 }
