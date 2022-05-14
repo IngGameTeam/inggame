@@ -8,6 +8,7 @@ val srcDir = "src"
 val buildDir = "build"
 val excludeFileNames = listOf(srcDir, buildDir)
 fun circuitDir(dir: File) {
+    include(dir.name)
     dir.listFiles()?.forEach {
         val isRootDir = it.parentFile.equals(rootProject.projectDir)
         if (it.isDirectory &&
