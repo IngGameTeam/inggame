@@ -17,7 +17,7 @@ class HandyGun(override val plugin: AlertPlugin) : Interact {
             world.spawn(eyeLocation.add(location.direction.multiply(1.1)), Arrow::class.java) {
                 it.addScoreboardTag(GUN_TAG)
                 it.velocity = location.direction.multiply(itemComponent.doubleOrNull("$name-power")?: 5.0)
-                it.shooter = player
+                it.shooter = player.bukkit
             }
         }
 
