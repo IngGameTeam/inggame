@@ -1,6 +1,6 @@
 package io.github.inggameteam.minigame
 
-import io.github.inggameteam.alert.component.Lang.lang
+import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList

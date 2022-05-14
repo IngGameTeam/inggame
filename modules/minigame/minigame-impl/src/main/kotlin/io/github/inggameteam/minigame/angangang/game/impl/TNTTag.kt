@@ -1,6 +1,6 @@
 package io.github.inggameteam.minigame.angangang.game.impl
 
-import io.github.inggameteam.alert.component.Lang.lang
+import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState

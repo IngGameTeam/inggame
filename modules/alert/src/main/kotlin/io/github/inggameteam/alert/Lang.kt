@@ -1,7 +1,5 @@
-package io.github.inggameteam.alert.component
+package io.github.inggameteam.alert
 
-import io.github.inggameteam.alert.AlertPlugin
-import io.github.inggameteam.alert.LangDir
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.entity.Player
 

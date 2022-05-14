@@ -1,7 +1,6 @@
 package io.github.inggameteam.alert
 
-import io.github.inggameteam.alert.api.Alert
-import io.github.inggameteam.alert.component.Lang.lang
+import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.ListWithToString
@@ -9,6 +8,7 @@ import io.github.inggameteam.utils.LocationWithoutWorld
 import io.github.inggameteam.utils.YamlUtil
 import io.github.inggameteam.utils.listWithToString
 import org.bukkit.configuration.ConfigurationSection
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
@@ -207,19 +207,32 @@ const val UNKNOWN = "unknown"
 class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(), PluginHolder<AlertPlugin>, Comp<CompDir> {
 
     init {
-        val orders = ArrayList<String>()
-        val cacheParentMap = HashMap<String, List<String>>()
+        val cacheParentMap = HashMap<String, ArrayList<String>>()
+        val cacheConfigMap = HashMap<String, FileConfiguration>()
+
         plugin.dataFolder.listFiles(File::isDirectory)?.forEach {
             val fileName = it.name
-            YamlConfiguration.loadConfiguration(File(it, "config.yml")).getStringList("parents")
-                .apply { cacheParentMap[fileName] = this }.apply {
-                    var ind = 0
-                    forEach { pare ->
-                        val indexOf = orders.indexOf(pare)
-                        if (indexOf != -1 && ind < indexOf) ind = indexOf + 1
-                    }
-                    orders.add(ind, fileName)
+            cacheConfigMap[fileName] = YamlConfiguration.loadConfiguration(File(it, "config.yml")).apply {
+                cacheParentMap[fileName] = ArrayList(getStringList("parents"))
+            }
+        }
+
+        cacheParentMap.forEach { (name, pare) ->
+            ArrayList(pare).forEach {
+                cacheParentMap[name]?.addAll(cacheParentMap[it]!!)
+            }
+        }
+
+        val orders = ArrayList<String>()
+        cacheConfigMap.keys.forEach { fileName ->
+            cacheParentMap[fileName]?.apply {
+                var ind = 0
+                forEach { pare ->
+                    val indexOf = orders.indexOf(pare)
+                    if (indexOf != -1 && ind < indexOf) ind = indexOf + 1
                 }
+                orders.add(ind, fileName)
+            }
         }
         orders.forEach {
             this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] }.listWithToString())

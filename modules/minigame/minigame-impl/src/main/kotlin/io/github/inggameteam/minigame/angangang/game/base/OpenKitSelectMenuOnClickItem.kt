@@ -1,6 +1,6 @@
 package io.github.inggameteam.minigame.angangang.game.base
 
-import io.github.inggameteam.alert.component.Lang.lang
+import io.github.inggameteam.alert.Lang.lang
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.EventHandler

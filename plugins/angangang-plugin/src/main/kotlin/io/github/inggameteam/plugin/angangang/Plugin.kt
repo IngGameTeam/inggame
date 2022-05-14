@@ -21,7 +21,8 @@ class Plugin : GamePluginImpl(
         ::RandomWeaponWar,
         ::HideAndSeek,
         ::UHC,
-        ::Duel
+        ::Duel,
+        ::TeamWars
     ),
 ) {
 

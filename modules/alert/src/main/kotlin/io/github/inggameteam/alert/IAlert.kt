@@ -1,4 +1,4 @@
-package io.github.inggameteam.alert.api
+package io.github.inggameteam.alert
 
 import java.util.*
 

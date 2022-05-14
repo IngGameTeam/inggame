@@ -1,6 +1,5 @@
 package io.github.inggameteam.alert
 
-import io.github.inggameteam.alert.api.Alert
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.YamlUtil.string
 import net.md_5.bungee.api.chat.ClickEvent

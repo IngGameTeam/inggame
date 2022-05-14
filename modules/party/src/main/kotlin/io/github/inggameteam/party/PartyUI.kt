@@ -1,6 +1,6 @@
 package io.github.inggameteam.party
 
-import io.github.inggameteam.alert.Alert
+import io.github.inggameteam.alert.Alerts
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.context.CommandContext
 import io.github.inggameteam.command.player
@@ -36,7 +36,7 @@ class PartyUI(val plugin: PartyPlugin) {
 
     fun CommandContext<CommandSender>.args(index: Int = 1, init: (GPlayer) -> Unit) {
         Bukkit.getPlayerExact(args[index])?.game?.apply { init(this) }
-            ?: plugin.component.send(Alert.NO_PLAYER_EXIST, player.game)
+            ?: plugin.component.send(Alerts.NO_PLAYER_EXIST, player.game)
     }
 
     private val ArgumentCommandNode<CommandSender>.memberTab

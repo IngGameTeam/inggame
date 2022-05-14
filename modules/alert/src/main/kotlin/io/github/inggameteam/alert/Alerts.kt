@@ -1,6 +1,6 @@
 package io.github.inggameteam.alert
 
-enum class Alert {
+enum class Alerts {
     NO_PLAYER_EXIST,
 
     ;

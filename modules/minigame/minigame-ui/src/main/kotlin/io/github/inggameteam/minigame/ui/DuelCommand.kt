@@ -1,6 +1,6 @@
 package io.github.inggameteam.minigame.ui
 
-import io.github.inggameteam.alert.Alert
+import io.github.inggameteam.alert.Alerts
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.command.MCCommand
@@ -41,7 +41,7 @@ class DuelCommand(override val plugin: GamePlugin) : HandleListener(plugin), Plu
                     val targetPlayer = Bukkit.getPlayerExact(args[0])?.run { plugin[this] }
                     val gPlayer = plugin[player]
                     if (targetPlayer === null) {
-                        duelComponent.send(Alert.NO_PLAYER_EXIST, gPlayer)
+                        duelComponent.send(Alerts.NO_PLAYER_EXIST, gPlayer)
                         return@execute
                     }
                     val request = DuelRequest(gPlayer, targetPlayer)
