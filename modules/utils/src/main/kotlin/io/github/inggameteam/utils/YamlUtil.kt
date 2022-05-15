@@ -84,7 +84,7 @@ object YamlUtil {
             val type = InventoryType.valueOf(yaml.getString("type")!!)
             if (title == null) Bukkit.createInventory(null, type)
             else Bukkit.createInventory(null, type, title)
-        } else return defaultInventory()
+        } else defaultInventory()
         yaml.getConfigurationSection("item")?.apply {
             val items: HashMap<Int, ItemStack> = HashMap()
             getKeys(false)
