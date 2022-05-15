@@ -21,7 +21,9 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             source.sendMessage("-------------------------------------")
             plugin.gameRegister.forEach { g ->
                 source.sendMessage(
-                    ("&aname: &6" + g.name + "&7 / &asector: &6" + g.point + "&7 / &astatus: &6" + g.gameState.name.lowercase()).color,
+                    "&aname: &6${g.name}".color,
+                    "&asector: &6${g.point}".color,
+                    "&astatus: &6${g.gameState.name.lowercase()}".color,
                     ("&bjoined: " + g.joined.map { "${it}(${it.tags.joinToString(", ")})" }).color,
                 )
             }
