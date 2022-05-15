@@ -19,10 +19,11 @@ import java.io.File
  * Among games, it is the upper class of all mini-games that require area.
  */
 interface Sectional : Game {
+    val schematicName: String
     val minPoint: Vector
     val maxPoint: Vector
     fun loadSector(key: String = DEFAULT)
-    fun loadDefaultSector() = loadSector(DEFAULT)
+    fun loadDefaultSector() = loadSector(schematicName)
     fun unloadSector()
     fun isInSector(location: Location): Boolean
 
@@ -38,7 +39,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
      * 할당된 구역 마무리 정리 시간
      */
     override val stopWaitingTick = 20 * 60L * 10
-
+    override val schematicName by lazy { comp.stringListOrNull("schems", plugin.defaultLanguage)?.random()?: "default" }
 
     private val height get() = plugin.gameRegister.sectorHeight
     private val width get() = plugin.gameRegister.sectorWidth
