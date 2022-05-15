@@ -53,7 +53,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
             val vector = Vector(point.x * width, 0, point.y * width)
             val half = width / 2
             minPoint = vector.clone().add(Vector(-half, Int.MIN_VALUE, -half))
-            maxPoint = vector.clone().add(Vector(half, height, half))
+            maxPoint = vector.clone().add(Vector(half, Int.MAX_VALUE, half))
         } else {
             minPoint = Vector()
             maxPoint = Vector()
@@ -124,7 +124,9 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     fun outSectionCheck(event: PlayerMoveEvent) {
         val player = event.player
         if (!isJoined(player)) return
-        if (event.to != null && !isInSector(event.to!!) && !player.isOp && gameState === GameState.PLAY) event.isCancelled = true
+        val to = event.to
+        if (to != null && !isInSector(to)
+            && !player.isOp && gameState === GameState.PLAY) event.isCancelled = true
     }
 
     override fun isInSector(location: Location): Boolean {
