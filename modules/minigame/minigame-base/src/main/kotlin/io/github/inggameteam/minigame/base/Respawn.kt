@@ -12,15 +12,26 @@ import org.bukkit.event.EventPriority
 interface Respawn : SpawnPlayer, Competition {
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.HIGH)
-    fun respawnOnDeath(event: GPlayerDeathEvent) {
+    @EventHandler(priority = EventPriority.LOW)
+    override fun competitionDeath(event: GPlayerDeathEvent) {
         if (!isJoined(event.player) || gameState === GameState.WAIT) return
         val gPlayer = event.player
         val isDeadBefore = gPlayer.hasTag(PTag.DEAD)
-        if (!testRespawn(gPlayer)) return
         gPlayer.apply {
-            delayRespawn(this)
+            inventory.clear()
+            gameMode = GameMode.SPECTATOR
+            val isDeadFinally = !testRespawn(gPlayer)
+            if (isDeadFinally)  {
+                gPlayer.apply {
+                    removeTag(PTag.PLAY)
+                    addTag(PTag.DEAD)
+                }
+            } else {
+                delayRespawn(this)
+            }
+            event.isCancelled = true
             if (!isDeadBefore) sendDeathMessage(this)
+            if (isDeadFinally) stopCheck()
         }
     }
 
@@ -28,8 +39,10 @@ interface Respawn : SpawnPlayer, Competition {
 
     fun delayRespawn(player: GPlayer) {
         player.apply {
+            val originGameMode = gameMode
             addTask({
                 addTag(PTag.PLAY)
+                gameMode = originGameMode
                 spawn(this)
             }.delay(plugin, comp.intOrNull("respawn")?.toLong() ?: 50L))
         }

@@ -16,6 +16,29 @@ interface Competition : Sectional, Game {
     fun sendDeathMessage(player: GPlayer) {
         comp.send(GameAlert.PLAYER_DEATH_TO_VOID, joined, player)
     }
+    @Suppress("unused")
+    @EventHandler
+    fun competitionDeath(event: GPlayerDeathEvent) {
+        if (!isJoined(event.player) || gameState === GameState.WAIT) return
+        val gPlayer = event.player
+        val sendDeathMessage = gameState !== GameState.PLAY
+        gPlayer.apply {
+            removeTag(PTag.PLAY)
+            addTag(PTag.DEAD)
+            inventory.clear()
+            gameMode = GameMode.SPECTATOR
+        }
+        event.isCancelled = true
+        if (!sendDeathMessage) sendDeathMessage(gPlayer)
+        stopCheck()
+    }
+    fun stopCheck() {
+        if (gameState !== GameState.PLAY) return
+        val playPlayers = joined.hasTags(PTag.PLAY)
+        if (playPlayers.hasNoTags(PTag.DEAD).size == 0 || playPlayers.size <= stopCheckPlayer) {
+            stop(false)
+        }
+    }
     fun calcWinner() {
         val winners = joined.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
         val dieToReady = joined.hasTags(PTag.DEAD, PTag.PLAY)
@@ -34,29 +57,6 @@ interface Competition : Sectional, Game {
 
 abstract class CompetitionImpl(plugin: GamePlugin) : SectionalImpl(plugin), Competition, SpawnHealth {
     override val recommendedStartPlayersAmount get() = 2
-    @Suppress("unused")
-    @EventHandler
-    open fun death(event: GPlayerDeathEvent) {
-        if (!isJoined(event.player) || gameState === GameState.WAIT) return
-        val gPlayer = plugin[event.player]
-        val sendDeathMessage = gameState !== GameState.PLAY
-        gPlayer.apply {
-            removeTag(PTag.PLAY)
-            addTag(PTag.DEAD)
-            inventory.clear()
-            gameMode = GameMode.SPECTATOR
-        }
-        if (!sendDeathMessage) sendDeathMessage(gPlayer)
-        stopCheck()
-    }
-
-    open fun stopCheck() {
-        if (gameState !== GameState.PLAY) return
-        val playPlayers = joined.hasTags(PTag.PLAY)
-        if (playPlayers.hasTags(PTag.DEAD).size == 0 || playPlayers.size <= stopCheckPlayer) {
-            stop(false)
-        }
-    }
 
     override fun finishGame() {
         calcWinner()

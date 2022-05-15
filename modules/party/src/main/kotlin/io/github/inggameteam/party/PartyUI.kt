@@ -82,7 +82,10 @@ class PartyUI(val plugin: PartyPlugin) {
                 thenExecute("leave") { party { left(player.game) } }
                 then("join") {
                     tab { plugin.playerRegister.values.map { it.name }.toList() }
-                    execute { args(1) { arg -> party { join(arg) } } }
+                    execute {
+                        if (!player.isOp) return@execute
+                        args(1) { arg -> party { join(arg) } }
+                    }
                 }
                 execute {
                     args(0) { plugin.partyRequestRegister.invitePlayer(player.game, it) }

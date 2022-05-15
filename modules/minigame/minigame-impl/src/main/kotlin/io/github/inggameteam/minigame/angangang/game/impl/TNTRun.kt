@@ -1,12 +1,10 @@
 package io.github.inggameteam.minigame.angangang.game.impl
 
 import io.github.inggameteam.minigame.GamePlugin
-import io.github.inggameteam.minigame.base.SimpleGame
-import io.github.inggameteam.minigame.base.ClearTheBlocksBelow
-import io.github.inggameteam.minigame.base.CompetitionImpl
+import io.github.inggameteam.minigame.base.*
 
 class TNTRun(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin),
-    io.github.inggameteam.minigame.base.ClearTheBlocksBelow {
+    ClearTheBlocksBelow, NoBlockBreak, NoBlockPlace {
     override val name get() = "tnt-run"
 
 

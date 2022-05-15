@@ -1,13 +1,11 @@
 package io.github.inggameteam.minigame.angangang.game.impl
 
-import io.github.inggameteam.minigame.base.CompetitionImpl
-import io.github.inggameteam.minigame.base.Recorder
-import io.github.inggameteam.minigame.base.SimpleGame
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.minigame.PTag
+import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.hasNoTags
@@ -21,7 +19,7 @@ import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
-    io.github.inggameteam.minigame.base.BeginPlayersAmount {
+    BeginPlayersAmount, NoBlockBreak, NoBlockPlace {
     override val name get() = "avoid-anvil"
     override val startPlayersAmount get() = 1
     override var beginPlayersAmount = 0
@@ -31,7 +29,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
     }
 
     override fun sendDeathMessage(player: GPlayer) {
-        comp.send(PLAYER_DEATH_TO_VOID, player, recordString(player))
+        comp.send(PLAYER_DEATH_TO_VOID, joined, player, recordString(player))
     }
 
     @Suppress("unused")

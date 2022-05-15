@@ -11,7 +11,7 @@ import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 
-interface ClearTheBlocksBelow : io.github.inggameteam.minigame.base.VoidDeath {
+interface ClearTheBlocksBelow : VoidDeath {
 
     val clearBlockBelowDelay get() = 7L
     val primaryCoolDelay get() = comp.intOrNull("primary-cool-delay")?.toLong()?: 15L

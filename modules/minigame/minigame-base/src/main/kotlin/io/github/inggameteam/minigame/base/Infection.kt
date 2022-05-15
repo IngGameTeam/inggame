@@ -48,7 +48,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
 */
 
     @EventHandler
-    override fun death(event: GPlayerDeathEvent) {
+    override fun competitionDeath(event: GPlayerDeathEvent) {
         if (!isJoined(event.player) || gameState === GameState.WAIT) return
         val player = event.player
         if (player.hasTag(PTag.RED)) {

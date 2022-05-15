@@ -10,6 +10,7 @@ import org.bukkit.Sound
 import org.bukkit.block.Bed
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.PlayerBedEnterEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
@@ -21,6 +22,33 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetition(plugin), Respawn
     private fun isBedAlive(player: GPlayer) = if (player.hasTag(PTag.RED)) redBed else blueBed
 
     fun playBedBrokenSound() = joined.forEach { it.playSound(it.eyeLocation, Sound.ENTITY_WITHER_DEATH, 1f, 1f) }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onBlockBreak(event: BlockBreakEvent) {
+        if (isJoined(event.player)) {
+            val gPlayer = plugin[event.player]
+            if (event.block.type === Material.RED_BED) {
+                event.isCancelled = true
+                if (gPlayer.hasTag(PTag.BLUE)) {
+                    redBed = false
+                    comp.send("RED-bed", joined)
+                    getLocation("RED_BED").block.type = Material.AIR
+                    getLocation("RED_BED2").block.type = Material.AIR
+                    playBedBrokenSound()
+                }
+            } else if (event.block.type === Material.BLUE_BED) {
+                event.isCancelled = true
+                if (gPlayer.hasTag(PTag.RED)) {
+                    blueBed = false
+                    comp.send("BLUE-bed", joined)
+                    getLocation("BLUE_BED").block.type = Material.AIR
+                    getLocation("BLUE_BED2").block.type = Material.AIR
+                    playBedBrokenSound()
+                }
+            }
+        }
+    }
 
     @Suppress("unused")
     @EventHandler
@@ -43,7 +71,7 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetition(plugin), Respawn
     override fun testRespawn(player: GPlayer) = super.testRespawn(player) && isBedAlive(player)
 
     override fun sendDeathMessage(player: GPlayer) {
-        comp.send(getPlayerTeam(player).name + "-death", joined, player)
+        comp.send(getPlayerTeam(player).name + "-death" + if (isBedAlive(player)) "" else "-final", joined, player)
     }
 
 }

@@ -18,11 +18,13 @@ class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
         if (!plugin.gameRegister.worldName.contains(player.world.name)) return
         if (player is Player) {
             if (event.finalDamage >= player.health) {
-                Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(plugin[player]))
+                val deathEvent = GPlayerDeathEvent(plugin[player])
+                Bukkit.getPluginManager().callEvent(deathEvent)
                 event.isCancelled = true
                 player.health = player.maxHealth
                 player.fallDistance = 0f
                 player.fireTicks = 0
+                if (deathEvent.isCancelled === true) return
                 val spawnEvent = GPlayerSpawnEvent(plugin[player])
                 Bukkit.getPluginManager().callEvent(spawnEvent)
             }

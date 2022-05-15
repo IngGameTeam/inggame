@@ -3,10 +3,7 @@ package io.github.inggameteam.minigame.angangang.game.impl
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.base.SimpleGame
-import io.github.inggameteam.minigame.base.InfectionImpl
-import io.github.inggameteam.minigame.base.SpawnTeamPlayer
-import io.github.inggameteam.minigame.base.VoidDeath
+import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
@@ -26,11 +23,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
-    SpawnTeamPlayer, VoidDeath, SimpleGame {
+    SpawnTeamPlayer, VoidDeath, SimpleGame, NoBlockPlace, NoBlockBreak {
 
     override val name get() = "block-hide-and-seek"
 
-    val GPlayer.entityKey get() = "${uniqueId.fastToString()}-entity"
+    private val GPlayer.entityKey get() = "${uniqueId.fastToString()}-entity"
 
     @Suppress("unused")
     @EventHandler
@@ -124,7 +121,8 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
                 if (gPlayer.hasTag(PTag.RED) && it.hasTag(PTag.BLUE)) {
                     (playerData[it]!![gPlayer.uniqueId.fastToString()] as? Location)
                         ?.apply { it.sendBlockChange(this, Material.AIR.createBlockData()) }
-                    Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it, gPlayer.player))
+                    (playerData[it]!![it.entityKey] as? FallingBlock)?.remove()
+                    it.damage(10000.0)
                 }
             }
         }

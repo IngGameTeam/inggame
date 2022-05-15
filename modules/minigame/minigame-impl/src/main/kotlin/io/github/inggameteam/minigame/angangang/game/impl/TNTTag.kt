@@ -5,9 +5,7 @@ import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.base.SimpleGame
-import io.github.inggameteam.minigame.base.BarGame
-import io.github.inggameteam.minigame.base.CompetitionImpl
+import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasTags
@@ -23,28 +21,30 @@ import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class TNTTag(plugin: GamePlugin) : CompetitionImpl(plugin), io.github.inggameteam.minigame.base.BarGame, SimpleGame {
+class TNTTag(plugin: GamePlugin) : CompetitionImpl(plugin), BarGame, SimpleGame, NoBlockPlace, NoBlockBreak {
 
     override val bar = GBar(plugin, size = 200.0)
     override val name get() = "tnt-tag"
     var bomber = GPlayerList()
 
+    fun beginBomber() {
+        pickBomber()
+        bar.tick = 0
+        addTask(bar.startTimer {
+            bomber.forEach { bomber ->
+                bomber.apply { spawnParticle(Particle.EXPLOSION_HUGE, this.eyeLocation, 1) }
+                bomber.eyeLocation.apply {
+                    world!!.getNearbyEntities(this, 1.0, 1.0, 1.0)
+                        .filterIsInstance<LivingEntity>()
+                        .forEach { it.damage(10000.0) }
+                }
+            }
+            if (gameState == GameState.PLAY) beginBomber()
+        })
+    }
+
     override fun beginGame() {
         super.beginGame()
-        fun beginBomber() {
-            pickBomber()
-            addTask(bar.startTimer {
-                bomber.forEach { bomber ->
-                    bomber.apply { spawnParticle(Particle.EXPLOSION_HUGE, this.eyeLocation, 1) }
-                    bomber.eyeLocation.apply {
-                        world!!.getNearbyEntities(this, 1.0, 1.0, 1.0)
-                            .filterIsInstance<LivingEntity>()
-                            .forEach { it.damage(10000.0) }
-                    }
-                }
-                if (gameState == GameState.PLAY) beginBomber()
-            })
-        }
         beginBomber()
     }
 
