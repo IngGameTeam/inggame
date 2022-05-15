@@ -1,8 +1,9 @@
 package io.github.inggameteam.minigame.angangang.game.impl
 
-import io.github.inggameteam.base.InteractingBan
-import io.github.inggameteam.base.Respawn
-import io.github.inggameteam.base.TeamCompetition
+import io.github.inggameteam.minigame.base.InteractingBan
+import io.github.inggameteam.minigame.base.Respawn
+import io.github.inggameteam.minigame.base.SimpleGame
+import io.github.inggameteam.minigame.base.TeamCompetition
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
@@ -15,7 +16,7 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerBedEnterEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
-class BedWars(plugin: GamePlugin) : TeamCompetition(plugin), Respawn, InteractingBan {
+class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetition(plugin), Respawn, InteractingBan {
     override val name get() = "bed-wars"
     override val noInteracts = listOf(Material.BLUE_CONCRETE, Material.RED_CONCRETE)
     private var redBed = true

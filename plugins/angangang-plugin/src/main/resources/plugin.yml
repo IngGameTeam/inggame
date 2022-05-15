@@ -5,6 +5,7 @@ api-version: 1.18
 libraries: $libraries
 softdepend:
   - FastAsyncWorldEdit
+  - PlugManX
 commands:
   p:
   party:

@@ -1,8 +1,8 @@
 package io.github.inggameteam.minigame.angangang.game.impl
 
-import io.github.inggameteam.base.BeginPlayersAmount
-import io.github.inggameteam.base.CompetitionImpl
-import io.github.inggameteam.base.Recorder
+import io.github.inggameteam.minigame.base.CompetitionImpl
+import io.github.inggameteam.minigame.base.Recorder
+import io.github.inggameteam.minigame.base.SimpleGame
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
@@ -20,7 +20,8 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-class AvoidAnvil(plugin: GamePlugin) : CompetitionImpl(plugin), Recorder, BeginPlayersAmount {
+class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
+    io.github.inggameteam.minigame.base.BeginPlayersAmount {
     override val name get() = "avoid-anvil"
     override val startPlayersAmount get() = 1
     override var beginPlayersAmount = 0
@@ -36,12 +37,13 @@ class AvoidAnvil(plugin: GamePlugin) : CompetitionImpl(plugin), Recorder, BeginP
     @Suppress("unused")
     @EventHandler
     fun avoidAnvilBegin(event: GameBeginEvent) {
+        if (event.game !== this) return
         var count = 0.0
-        gameTask = {
+        addTask({
             (0..count.toInt()).forEach { _ -> spawnAnvilRandomly() }
             count += 0.02
             true
-        }.repeat(plugin, 1, 1)
+        }.repeat(plugin, 1, 1))
     }
 
     private fun spawnAnvilRandomly() {
@@ -56,12 +58,12 @@ class AvoidAnvil(plugin: GamePlugin) : CompetitionImpl(plugin), Recorder, BeginP
     }
 
     override fun stop(force: Boolean, leftType: LeftType) {
+        super.stop(force, leftType)
         if (gameState != GameState.STOP) {
             point.world.getNearbyEntities(getLocation("start"), 100.0, 100.0, 100.0).forEach {
                 if (it.type != EntityType.PLAYER) it.remove()
             }
         }
-        super.stop(force, leftType)
     }
 
 
