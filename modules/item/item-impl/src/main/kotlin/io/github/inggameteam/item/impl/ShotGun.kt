@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
+import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.VectorUtil

@@ -12,8 +12,8 @@ allprojects {
             "$prefix:bossbar",
             "$prefix:command",
         ).forEach {
-            implementation(project(it))
-            testImplementation(project(it))
+            api(project(it))
+            testApi(project(it))
         }
     }
 }

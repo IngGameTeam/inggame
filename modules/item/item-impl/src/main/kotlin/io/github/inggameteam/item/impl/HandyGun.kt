@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
+import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.Particle
 import org.bukkit.entity.Arrow

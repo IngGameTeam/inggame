@@ -1,6 +1,5 @@
-package io.github.inggameteam.item.impl
+package io.github.inggameteam.item.api
 
-import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -23,6 +22,5 @@ interface Interact : Item {
         use(name, player)
     }
 
-    fun use(name: String, player: GPlayer)
 
 }

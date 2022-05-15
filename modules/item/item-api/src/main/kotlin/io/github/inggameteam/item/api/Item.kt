@@ -1,4 +1,4 @@
-package io.github.inggameteam.item.impl
+package io.github.inggameteam.item.api
 
 import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.alert.Lang.lang
@@ -7,7 +7,7 @@ import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 
-interface Item : PluginHolder<AlertPlugin>, Listener {
+interface Item : Listener, PluginHolder<AlertPlugin> {
     val name: String
     val itemComponent get() = plugin.components["item"]
 
@@ -17,5 +17,7 @@ interface Item : PluginHolder<AlertPlugin>, Listener {
         val items = itemComponent.stringListOrNull(name, lang)?: return null
         return items.firstOrNull { itemStack.isSimilar(itemComponent.item(it, lang)) }
     }
+
+    fun use(name: String, player: GPlayer)
 
 }
