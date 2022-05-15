@@ -229,7 +229,7 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
                 var ind = 0
                 forEach { pare ->
                     val indexOf = orders.indexOf(pare)
-                    if (indexOf != -1 && ind < indexOf) ind = indexOf + 1
+                    if (indexOf != -1 && ind <= indexOf) ind = indexOf + 1
                 }
                 orders.add(ind, fileName)
             }
