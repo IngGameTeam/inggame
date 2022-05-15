@@ -22,7 +22,7 @@ interface Sectional : Game {
     val schematicName: String
     val minPoint: Vector
     val maxPoint: Vector
-    fun loadSector(key: String = DEFAULT)
+    fun loadSector(key: String = schematicName)
     fun loadDefaultSector() = loadSector(schematicName)
     fun unloadSector()
     fun isInSector(location: Location): Boolean
@@ -111,6 +111,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     }
 
     private fun loadSector(world: World?, sector: Sector, key: String) {
+        println(schematicName)
         val x = width * sector.x
         val z = width * sector.y
         val file = getFile(key)
