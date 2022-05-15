@@ -111,7 +111,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     }
 
     private fun loadSector(world: World?, sector: Sector, key: String) {
-        println(schematicName)
         val x = width * sector.x
         val z = width * sector.y
         val file = getFile(key)
