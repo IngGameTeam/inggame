@@ -22,8 +22,8 @@ interface CompDir {
 
     val double:     CompFile<Double>
     val int:        CompFile<Int>
-    val location:   CompFile<LocationWithoutWorld>
 
+    val location:   LangDir<LocationWithoutWorld>
     val item:       LangDir<ItemStack>
     val inventory:  LangDir<Inventory>
     val string:     LangDir<String>
@@ -71,7 +71,7 @@ interface CompDir {
 
     fun double(key: String): Double = getComp(CompDir::double, key)
     fun int(key: String): Int = getComp(CompDir::int, key)
-    fun location(key: String): LocationWithoutWorld = getComp(CompDir::location, key)
+    fun location(key: String, lang: String): LocationWithoutWorld = getLangComp(CompDir::location, key, lang)
     fun string(key: String, lang: String): String = getLangComp(CompDir::string, key, lang)
     fun item(key: String, lang: String): ItemStack = getLangComp(CompDir::item, key, lang)
     fun inventory(key: String, lang: String): Inventory = getLangComp(CompDir::inventory, key, lang)
@@ -80,7 +80,7 @@ interface CompDir {
 
     fun hasDouble(key: String) = compOrNull(CompDir::double, key) !== null
     fun hasInt(key: String) = compOrNull(CompDir::int, key) !== null
-    fun hasLocation(key: String) = compOrNull(CompDir::location, key) !== null
+    fun hasLocation(key: String, lang: String) = langCompOrNull(CompDir::location, key, lang) !== null
     fun hasString(key: String, lang: String) = langCompOrNull(CompDir::string, key, lang) !== null
     fun hasItem(key: String, lang: String) = langCompOrNull(CompDir::item, key, lang) !== null
     fun hasInventory(key: String, lang: String) = langCompOrNull(CompDir::inventory, key, lang) !== null
@@ -89,7 +89,7 @@ interface CompDir {
 
     fun doubleOrNull(key: String) = getCompOrNull(CompDir::double, key)
     fun intOrNull(key: String) = getCompOrNull(CompDir::int, key)
-    fun locationOrNull(key: String) = getCompOrNull(CompDir::location, key)
+    fun locationOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::location, key, lang)
     fun stringOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::string, key, lang)
     fun itemOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::item, key, lang)
     fun inventoryOrNull(key: String, lang: String) = getLangCompOrNull(CompDir::inventory, key, lang)
@@ -194,7 +194,7 @@ class CompDirImpl(override val plugin: AlertPlugin, file: File, override val par
     override fun toString() =  name
     override val double = DoubleComp(File(file, "double.yml"))
     override val int = IntComp(File(file, "int.yml"))
-    override val location = LocationComp(File(file, "location.yml"))
+    override val location = LangDir(file, "location", ::LocationComp)
     override val item = LangDir(file, "item", ::ItemComp)
     override val inventory = LangDir(file, "inventory") { file, name -> InventoryComp(file, name)
     { getLangComp(CompDir::item, it, name) } }
