@@ -25,10 +25,10 @@ import org.bukkit.event.block.BlockIgniteEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
-class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
+class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
     SpawnTeamPlayer, VoidDeath, SimpleGame {
 
-    override val name get() = "hide-and-seek"
+    override val name get() = "block-hide-and-seek"
 
     val GPlayer.entityKey get() = "${uniqueId.fastToString()}-entity"
 
