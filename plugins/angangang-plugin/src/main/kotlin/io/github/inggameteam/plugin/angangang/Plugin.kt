@@ -1,5 +1,6 @@
 package io.github.inggameteam.plugin.angangang
 
+import io.github.inggameteam.item.game.MinigameMenu
 import io.github.inggameteam.item.impl.HandyGun
 import io.github.inggameteam.item.impl.ShotGun
 import io.github.inggameteam.minigame.GamePluginImpl
@@ -11,6 +12,7 @@ import io.github.inggameteam.minigame.handle.NoHunger
 import io.github.inggameteam.minigame.handle.ReloadWatchDog
 import org.bukkit.Bukkit
 
+@Suppress("unused")
 class Plugin : GamePluginImpl(
     hubName = "hub",
     width = 300, height = 128,
@@ -20,8 +22,6 @@ class Plugin : GamePluginImpl(
         ::TNTRun,
         ::RandomWeaponWar,
         ::HideAndSeek,
-        ::UHC,
-        ::Duel,
         ::TeamWars
     ),
 ) {
@@ -37,6 +37,7 @@ class Plugin : GamePluginImpl(
         listOf(
             ::HandyGun,
             ::ShotGun,
+            ::MinigameMenu,
         ).forEach {
             Bukkit.getPluginManager().registerEvents(it(this), this)
         }
