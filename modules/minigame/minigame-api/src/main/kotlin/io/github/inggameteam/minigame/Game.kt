@@ -46,9 +46,6 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     val world get() = Bukkit.getWorld(worldName).apply { assertNotNull(this, "world $worldName is not loaded") }!!
 
     val comp get() = plugin.components[name]
-    fun getLocation(key: String): Location = comp.location(key).toLocation(point.world)
-    fun getLocationOrNull(key: String): Location? = comp.locationOrNull(key)?.toLocation(point.world)
-
 
     fun isJoined(player: Player) = isJoined(plugin[player])
     fun isJoined(player: GPlayer) = joined.contains(player)

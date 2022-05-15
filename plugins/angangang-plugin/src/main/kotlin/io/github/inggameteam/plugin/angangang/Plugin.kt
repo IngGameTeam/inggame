@@ -21,7 +21,7 @@ class Plugin : GamePluginImpl(
         ::TNTTag,
         ::TNTRun,
         ::RandomWeaponWar,
-        ::HideAndSeek,
+        ::BlockHideAndSeek,
         ::TeamWars,
         ::AvoidAnvil,
         ::BedWars,

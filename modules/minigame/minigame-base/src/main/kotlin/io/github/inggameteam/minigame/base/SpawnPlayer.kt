@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-interface SpawnPlayer : Game {
+interface SpawnPlayer : Game, Sectional {
 
     @EventHandler
     fun spawnPlayer(event: GPlayerSpawnEvent) {

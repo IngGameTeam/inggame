@@ -26,6 +26,8 @@ interface Sectional : Game {
     fun loadDefaultSector() = loadSector(schematicName)
     fun unloadSector()
     fun isInSector(location: Location): Boolean
+    fun getLocation(key: String): Location
+    fun getLocationOrNull(key: String): Location?
 
     companion object {
         const val DEFAULT = "default"

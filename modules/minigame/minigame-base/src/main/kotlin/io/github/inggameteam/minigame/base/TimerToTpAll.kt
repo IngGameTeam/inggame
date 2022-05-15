@@ -7,7 +7,7 @@ import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.delay
 import org.bukkit.event.EventHandler
 
-interface TimerToTpAll : Game {
+interface TimerToTpAll : Game, Sectional {
 
     @Suppress("unused")
     @EventHandler
