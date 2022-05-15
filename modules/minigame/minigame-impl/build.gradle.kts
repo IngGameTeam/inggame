@@ -5,7 +5,7 @@ dependencies {
         project(":modules:minigame:minigame-ui"),
         project(":modules:minigame:minigame-base"),
     ).forEach {
-        compileOnly(it)
-        testCompileOnly(it)
+        api(it)
+        testApi(it)
     }
 }
