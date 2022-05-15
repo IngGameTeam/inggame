@@ -1,12 +1,13 @@
 package io.github.inggameteam.world
 
 import org.bukkit.*
+import java.io.File
 
 object WorldGenerator {
     fun generateWorld(name: String) {
         if (name.isEmpty()) return
-
-        if (Bukkit.getWorld(name) == null) {
+        if (Bukkit.getWorld(name) === null) {
+            File(Bukkit.getWorldContainer(), name).deleteOnExit()
             val worldCreator = WorldCreator(name)
             worldCreator.environment(World.Environment.NORMAL)
             worldCreator.type(WorldType.FLAT)
