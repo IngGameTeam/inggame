@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 interface VoidDeath : Game {
 
-    val voidDeathY get() = comp.intOrNull("void-death-y")?: 1
+    val voidDeathY get() = comp.intOrNull("void-death-y")?: 10
 
     @Suppress("unused")
     @EventHandler
