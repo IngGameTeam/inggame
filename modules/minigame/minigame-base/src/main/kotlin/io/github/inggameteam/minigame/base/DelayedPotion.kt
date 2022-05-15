@@ -16,6 +16,7 @@ interface DelayedPotion : Game {
     @Suppress("unused")
     @EventHandler
     fun delayedPotion(event: GameBeginEvent) {
+        if (event.game !== this) return
         addTask({
             joined.hasTags(PTag.PLAY).forEach {
                 it.addPotionEffect(potionEffect)

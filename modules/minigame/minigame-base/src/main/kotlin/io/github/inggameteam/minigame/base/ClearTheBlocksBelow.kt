@@ -19,6 +19,7 @@ interface ClearTheBlocksBelow : io.github.inggameteam.minigame.base.VoidDeath {
     @Suppress("unused")
     @EventHandler
     fun beginGameClearTheBlocksBelow(event: GameBeginEvent) {
+        if (event.game !== this) return
         addTask({
             joined.hasTags(PTag.PLAY).forEach { player ->
                 val location = player.location.apply { y -= 1 }

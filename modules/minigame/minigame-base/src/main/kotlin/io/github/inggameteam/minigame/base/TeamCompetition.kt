@@ -21,6 +21,7 @@ abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onBeginInitTeamRandomly(event: GameBeginEvent) {
+        if (event.game !== this) return
         randomizeTeam()
     }
 

@@ -68,6 +68,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
 
 
 
+    @Suppress("unused")
     @EventHandler
     fun onFall(event: EntityChangeBlockEvent) {
         if (!isInSector(event.entity.location)) return
@@ -80,6 +81,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
             }.forEach { it.damage(10000.0) }
     }
 
+    @Suppress("unused")
     @EventHandler
     fun damage(event: EntityDamageByEntityEvent) {
         val player = event.entity

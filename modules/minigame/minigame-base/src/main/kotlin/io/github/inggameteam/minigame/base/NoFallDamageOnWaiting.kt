@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 
 interface NoFallDamageOnWaiting : Sectional {
 
+    @Suppress("unused")
     @EventHandler
     fun noDamageOnWaiting(event: EntityDamageEvent) {
         if (gameState === GameState.WAIT && event.entityType === EntityType.PLAYER && isJoined(event.entity as Player)

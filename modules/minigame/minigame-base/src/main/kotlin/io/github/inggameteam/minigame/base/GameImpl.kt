@@ -147,6 +147,7 @@ abstract class GameImpl(
     @EventHandler(priority = EventPriority.HIGH)
     fun onPlayerQuit(event: PlayerQuitEvent) {
         val gPlayer = plugin[event.player]
+        if (!isJoined(gPlayer)) return
         if (requestLeft(gPlayer, LeftType.LEFT_SERVER)) leftGame(gPlayer, LeftType.LEFT_SERVER)
     }
 

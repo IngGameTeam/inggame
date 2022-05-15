@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 interface Infection {
+    @Suppress("unused")
     @EventHandler
     fun onBeginInfection(event: GameBeginEvent) {
         if (event.game !== this) return

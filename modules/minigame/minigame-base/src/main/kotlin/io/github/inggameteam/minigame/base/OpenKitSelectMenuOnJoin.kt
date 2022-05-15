@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler
 
 interface OpenKitSelectMenuOnJoin : KitSelectMenu {
 
+    @Suppress("unused")
     @EventHandler
     fun onJoin(event: GameJoinEvent) {
         val player = event.player
