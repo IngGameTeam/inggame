@@ -5,9 +5,9 @@ import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
-import io.github.inggameteam.minigame.angangang.game.base.BarGame
-import io.github.inggameteam.minigame.angangang.game.base.CompetitionImpl
+import io.github.inggameteam.base.SimpleGame
+import io.github.inggameteam.base.BarGame
+import io.github.inggameteam.base.CompetitionImpl
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasTags

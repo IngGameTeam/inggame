@@ -3,10 +3,10 @@ package io.github.inggameteam.minigame.angangang.game.impl
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.angangang.game.base.SimpleGame
-import io.github.inggameteam.minigame.angangang.game.base.InfectionImpl
-import io.github.inggameteam.minigame.angangang.game.base.SpawnTeamPlayer
-import io.github.inggameteam.minigame.angangang.game.base.VoidDeath
+import io.github.inggameteam.base.SimpleGame
+import io.github.inggameteam.base.InfectionImpl
+import io.github.inggameteam.base.SpawnTeamPlayer
+import io.github.inggameteam.base.VoidDeath
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
