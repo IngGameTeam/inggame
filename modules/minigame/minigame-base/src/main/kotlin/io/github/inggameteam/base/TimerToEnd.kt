@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler
 
 interface TimerToEnd : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun timerToEnd(event: GameBeginEvent) {
         if (this !== event.game) return

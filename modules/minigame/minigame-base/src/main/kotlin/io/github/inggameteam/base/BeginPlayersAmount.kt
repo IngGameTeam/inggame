@@ -10,7 +10,7 @@ interface BeginPlayersAmount : Game {
 
     var beginPlayersAmount: Int
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun beginPlayersAmount(event: GameBeginEvent) {
         if (event.game !== this) return

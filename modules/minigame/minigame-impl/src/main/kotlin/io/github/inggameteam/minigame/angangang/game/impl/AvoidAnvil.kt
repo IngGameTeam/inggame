@@ -33,7 +33,7 @@ class AvoidAnvil(plugin: GamePlugin) : CompetitionImpl(plugin), Recorder, BeginP
         comp.send(PLAYER_DEATH_TO_VOID, player, recordString(player))
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun avoidAnvilBegin(event: GameBeginEvent) {
         var count = 0.0

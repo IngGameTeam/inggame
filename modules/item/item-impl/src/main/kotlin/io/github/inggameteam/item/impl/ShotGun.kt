@@ -45,7 +45,7 @@ class ShotGun(override val plugin: AlertPlugin) : Interact {
 
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun hit(event: EntityDamageByEntityEvent) {
         if (event.damager.scoreboardTags.contains(ANG_WAR_SHOT_GUN)) {

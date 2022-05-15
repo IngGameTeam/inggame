@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler
 
 interface Broadcast : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun beginGame(event: GameBeginEvent) {
         if (this !== event.game) return

@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler
 
 interface ParticleOnJoin : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onJoinParticle(event: GameJoinEvent) {
         val player = event.player

@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler
 
 interface SpawnOnJoin : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onJoinSpawn(event: GameJoinEvent) {
         val player = event.player

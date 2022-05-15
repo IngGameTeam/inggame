@@ -9,7 +9,7 @@ interface ResetMatCoolDownOnLeft : Game {
 
     val coolMats: List<Material>
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun gameLeft(event: GameLeftEvent) {
         if (event.left === this) {

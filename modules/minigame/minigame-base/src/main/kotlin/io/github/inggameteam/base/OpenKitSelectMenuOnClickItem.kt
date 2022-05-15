@@ -10,11 +10,11 @@ import org.bukkit.inventory.ItemStack
 
 interface OpenKitSelectMenuOnClickItem : KitSelectMenu {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) = checkItem(event, event.player, event.item)
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onInteractEntity(event: PlayerInteractEntityEvent) =
         checkItem(event, event.player, event.player.inventory.getItem(event.hand))

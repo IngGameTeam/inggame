@@ -16,19 +16,19 @@ interface InteractingBan : Game {
 
     val noInteracts: List<Material>
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun staticBlock(event: BlockBreakEvent) = staticBreak(event.player, event.block.type, event)
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun staticBlock(event: BlockPlaceEvent) = staticBreak(event.player, event.block.type, event)
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun staticBlock(event: PlayerDropItemEvent) = staticBreak(event.player, event.itemDrop.itemStack.type, event)
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun staticBlock(event: EntityPickupItemEvent) {
         if (event.entityType !== EntityType.PLAYER || gameState === GameState.WAIT) return

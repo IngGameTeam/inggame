@@ -10,7 +10,7 @@ interface VoidDeath : Game {
 
     val voidDeathY get() = comp.intOrNull("void-death-y")?: 1
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun voidDeath(event: PlayerMoveEvent) {
         val player = event.player

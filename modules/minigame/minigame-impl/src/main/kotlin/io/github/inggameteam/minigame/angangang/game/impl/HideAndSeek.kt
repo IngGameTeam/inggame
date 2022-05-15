@@ -32,7 +32,7 @@ class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
 
     val GPlayer.entityKey get() = "${uniqueId.fastToString()}-entity"
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onBeginHideAndSeek(event: GameBeginEvent) {
         if (this !== event.game) return
@@ -80,7 +80,7 @@ class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         const val BLOCK = "seekBlock"
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun leftGame(event: GameLeftEvent) {
         val player = event.player
@@ -88,7 +88,7 @@ class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         (playerData[player]!![player.entityKey] as? FallingBlock)?.remove()
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun hit(event: BlockIgniteEvent) {
         val player = event.player
@@ -98,7 +98,7 @@ class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         hit(gPlayer, event.block.location)
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun hit(event: EntityDamageByEntityEvent) {
         val player = event.damager
@@ -108,7 +108,7 @@ class HideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         hit(gPlayer, event.entity.location.block.location)
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun hit(event: PlayerInteractEvent) {
         val player = event.player

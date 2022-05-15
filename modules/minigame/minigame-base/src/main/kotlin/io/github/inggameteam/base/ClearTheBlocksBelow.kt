@@ -16,7 +16,7 @@ interface ClearTheBlocksBelow : VoidDeath {
     val clearBlockBelowDelay get() = 7L
     val primaryCoolDelay get() = comp.intOrNull("primary-cool-delay")?.toLong()?: 15L
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun beginGameClearTheBlocksBelow(event: GameBeginEvent) {
         addTask({

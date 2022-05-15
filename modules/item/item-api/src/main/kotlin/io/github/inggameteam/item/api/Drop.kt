@@ -5,7 +5,7 @@ import org.bukkit.event.player.PlayerDropItemEvent
 
 interface Drop : Item {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onDrop(event: PlayerDropItemEvent) {
         val player = plugin[event.player]

@@ -22,7 +22,10 @@ class Plugin : GamePluginImpl(
         ::TNTRun,
         ::RandomWeaponWar,
         ::HideAndSeek,
-        ::TeamWars
+        ::TeamWars,
+        ::AvoidAnvil,
+        ::BedWars,
+
     ),
 ) {
 

@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority
 
 interface Respawn : SpawnPlayer, Competition {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun respawnOnDeath(event: GPlayerDeathEvent) {
         if (!isJoined(event.player) || gameState === GameState.WAIT) return

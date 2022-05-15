@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler
 
 interface SpawnHealth : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onSpawnHealth(event: GPlayerSpawnEvent) {
         val player = event.player

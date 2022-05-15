@@ -13,7 +13,7 @@ interface DelayedPotion : Game {
 
     val potionEffect: PotionEffect get() = PotionEffect(PotionEffectType.GLOWING, 55555, 1)
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun delayedPotion(event: GameBeginEvent) {
         addTask({

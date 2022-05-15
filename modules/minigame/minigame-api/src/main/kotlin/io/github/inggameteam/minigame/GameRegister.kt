@@ -26,13 +26,13 @@ class GameRegister(
         Bukkit.getPluginManager().registerEvents(this, plugin)
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
         join(event.player, hubName)
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onQuit(event: PlayerQuitEvent) {
         left(event.player, LeftType.LEFT_SERVER)

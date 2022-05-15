@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 
 class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun deathManager(event: EntityDamageEvent) {
         val player = event.entity
@@ -29,7 +29,7 @@ class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
         }
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onSpawn(event: GPlayerSpawnEvent) {
         event.player.fallDistance = 0f

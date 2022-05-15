@@ -24,7 +24,7 @@ class DuelCommand(override val plugin: GamePlugin) : HandleListener(plugin), Plu
 
     val requests = HashSet<DuelRequest>()
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onLeftServer(event: PlayerQuitEvent) {
         val player = plugin[event.player]

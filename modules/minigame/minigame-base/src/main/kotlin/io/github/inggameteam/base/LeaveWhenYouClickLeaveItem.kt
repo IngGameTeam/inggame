@@ -14,10 +14,10 @@ const val LEAVE_ITEM = "leave"
 const val CLICK_PAUSED = "clickPaused"
 interface LeaveWhenYouClickLeaveItem : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun interact(event: PlayerInteractEvent) = click(event.player, event.item, event)
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun interactEntity(event: PlayerInteractEntityEvent) =
         click(event.player, event.player.inventory.getItem(event.hand), event)

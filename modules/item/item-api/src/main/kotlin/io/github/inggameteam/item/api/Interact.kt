@@ -6,7 +6,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 interface Interact : Item {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) {
         val player = plugin[event.player]
@@ -14,7 +14,7 @@ interface Interact : Item {
         use(name, player)
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onInteractEntity(event: PlayerInteractEntityEvent) {
         val player = plugin[event.player]

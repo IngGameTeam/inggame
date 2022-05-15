@@ -34,6 +34,7 @@ object PartyCacheSerializer {
         val file = getFile(plugin)
         if (!file.exists()) return DeserializeResult()
         val conf = file.toYaml()
+        file.deleteOnExit()
         conf.getConfigurationSection(PARTY)?.getKeys(false)?.forEach { it ->
             val uniqueId = FastUUID.parseUUID(it)
             val player = Bukkit.getPlayer(uniqueId)

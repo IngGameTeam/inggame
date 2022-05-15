@@ -24,7 +24,7 @@ class HandyGun(override val plugin: AlertPlugin) : Interact {
 
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun projectileHit(event: ProjectileHitEvent) {
         val hitBlock = event.hitBlock
@@ -46,7 +46,7 @@ class HandyGun(override val plugin: AlertPlugin) : Interact {
         }
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun pickUpArrow(event: PlayerPickupArrowEvent) {
         if (event.arrow.scoreboardTags.contains(GUN_TAG)) {

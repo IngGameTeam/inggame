@@ -6,7 +6,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 
 interface InventoryClick : Item {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onClickInventory(event: InventoryClickEvent) {
         var whoClicked = event.whoClicked

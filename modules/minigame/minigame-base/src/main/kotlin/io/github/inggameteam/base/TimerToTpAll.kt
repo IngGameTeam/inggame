@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler
 
 interface TimerToTpAll : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun timerToTpAll(event: GameBeginEvent) {
         if (this !== event.game) return

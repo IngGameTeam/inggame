@@ -24,7 +24,7 @@ class BedWars(plugin: GamePlugin) : TeamCompetition(plugin), Respawn, Interactin
 
     fun playBedBrokenSound() = joined.forEach { it.playSound(it.eyeLocation, Sound.ENTITY_WITHER_DEATH, 1f, 1f) }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun interactBed(event: PlayerInteractEvent) {
         if (isJoined(event.player)) {
@@ -36,7 +36,7 @@ class BedWars(plugin: GamePlugin) : TeamCompetition(plugin), Respawn, Interactin
         }
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun bedEnter(event: PlayerBedEnterEvent) {
         if (gameState === GameState.PLAY && isJoined(event.player)) event.isCancelled = true

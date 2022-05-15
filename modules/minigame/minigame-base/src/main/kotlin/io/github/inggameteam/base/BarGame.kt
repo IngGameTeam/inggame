@@ -10,7 +10,7 @@ interface BarGame : Game {
 
     val bar: GBar
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onJoinOrderBar(event: GameJoinEvent) {
         val gPlayer = plugin[event.player]
@@ -18,7 +18,7 @@ interface BarGame : Game {
         bar.addPlayer(gPlayer)
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onLeftOrderBar(event: GameLeftEvent) {
         val gPlayer = plugin[event.player]

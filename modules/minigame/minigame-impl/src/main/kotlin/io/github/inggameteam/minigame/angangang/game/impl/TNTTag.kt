@@ -83,7 +83,7 @@ class TNTTag(plugin: GamePlugin) : CompetitionImpl(plugin), BarGame, SimpleGame 
         updateBarTitle()
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun damageEntity(event: EntityDamageByEntityEvent) {
         if (gameState != GameState.PLAY) return
@@ -103,7 +103,7 @@ class TNTTag(plugin: GamePlugin) : CompetitionImpl(plugin), BarGame, SimpleGame 
         }
     }
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun interact(event: PlayerInteractEntityEvent) {
         if (gameState != GameState.PLAY) return

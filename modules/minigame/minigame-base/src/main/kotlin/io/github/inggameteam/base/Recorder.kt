@@ -9,7 +9,7 @@ import java.lang.System.currentTimeMillis
 
 interface Recorder : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun recordOnBegin(event: GameBeginEvent) {
         if (event.game !== this) return

@@ -18,7 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onBeginInitTeamRandomly(event: GameBeginEvent) {
         randomizeTeam()
@@ -56,7 +56,7 @@ abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
 
 
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     open fun damage(event: EntityDamageByEntityEvent) {
         val player = event.entity

@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler
 
 interface SpawnOnStart : Game {
 
-    @Deprecated("EventHandler")
+    @Suppress("unused")
     @EventHandler
     fun onStartSpawn(event: GameBeginEvent) {
         if (event.game !== this) return
