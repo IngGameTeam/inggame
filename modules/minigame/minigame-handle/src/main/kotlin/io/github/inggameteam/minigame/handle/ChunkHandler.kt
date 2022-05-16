@@ -12,7 +12,7 @@ class ChunkHandler(val plugin: GamePlugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onUnloadChunk(event: ChunkUnloadEvent) {
-        if (plugin.gameRegister.worldName.contains(event.world.name)) return
+        if (!plugin.gameRegister.worldName.contains(event.world.name)) return
         event.isSaveChunk = false
         event.chunk.entities.filter { it.type !== EntityType.PLAYER }.forEach { if (it.isDead.not()) it.remove() }
     }
