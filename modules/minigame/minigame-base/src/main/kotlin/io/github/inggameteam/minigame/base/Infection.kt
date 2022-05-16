@@ -1,6 +1,7 @@
 package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.minigame.GameAlert
+import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
@@ -10,11 +11,12 @@ import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 interface Infection {
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     fun onBeginInfection(event: GameBeginEvent) {
         if (event.game !== this) return
         joined.hasTags(PTag.RED).forEach { playerData[it]!![ORIGINAL_INFECTED] = true }
@@ -34,7 +36,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
         joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)
             .filter { playerData[it]!![ORIGINAL_INFECTED] == true }.apply {
                 if (isEmpty()) super.calcWinner()
-                else comp.send(GameAlert.RED_TEAM_WIN, joined, joinToString(", "))
+                else comp.send(RED_TEAM_WIN, joined, joinToString(", "))
             }
     }
 
@@ -53,7 +55,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
         val player = event.player
         if (player.hasTag(PTag.RED)) {
 //            addTask({ spawn(player) }.runNow(plugin))
-            comp.send(GameAlert.RED_TEAM_DEATH, joined, player)
+            comp.send(RED_TEAM_DEATH, joined, player)
         } else if (player.hasTag(PTag.BLUE)) {
             val killer = event.killer
             if (killer != null && plugin[killer].hasTag(PTag.RED)) {
@@ -61,9 +63,9 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
                     removeTag(PTag.BLUE)
                     addTag(PTag.RED)
                 }
-                comp.send(GameAlert.PLAYER_DEATH_TO_VOID, joined, player)
+                comp.send(PLAYER_DEATH_TO_VOID, joined, player)
             } else {
-                comp.send(GameAlert.BLUE_TEAM_DEATH, joined, player)
+                comp.send(BLUE_TEAM_DEATH, joined, player)
             }
             stopCheck()
 //            if (gameState !== GameState.STOP) {
