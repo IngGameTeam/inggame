@@ -26,7 +26,7 @@ interface Infection {
     }
 }
 
-abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
+abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin), Infection {
 
 
 //    open fun updateBar() = bar.update("생존자 비상 탈출", color = BarColor.PURPLE)
@@ -35,6 +35,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin) {
     override fun calcWinner() {
         joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)
             .filter { playerData[it]!![ORIGINAL_INFECTED] == true }.apply {
+                println(size)
                 if (isEmpty()) super.calcWinner()
                 else comp.send(RED_TEAM_WIN, joined, joinToString(", "))
             }
