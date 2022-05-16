@@ -122,7 +122,7 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
                     (playerData[it]!![gPlayer.uniqueId.fastToString()] as? Location)
                         ?.apply { it.sendBlockChange(this, Material.AIR.createBlockData()) }
                     (playerData[it]!![it.entityKey] as? FallingBlock)?.remove()
-                    it.damage(10000.0)
+                    Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it, gPlayer.bukkit))
                 }
             }
         }
