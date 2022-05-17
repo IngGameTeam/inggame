@@ -5,12 +5,9 @@ import io.github.inggameteam.item.impl.HandyGun
 import io.github.inggameteam.item.impl.ShotGun
 import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.angangang.game.impl.*
-import io.github.inggameteam.minigame.handle.ChunkHandler
-import io.github.inggameteam.minigame.handle.HandleDeath
+import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.party.PartyCacheSerializer
-import io.github.inggameteam.minigame.handle.NoHunger
-import io.github.inggameteam.minigame.handle.ReloadWatchDog
 import org.bukkit.Bukkit
 
 @Suppress("unused")
@@ -38,6 +35,7 @@ class Plugin : GamePluginImpl(
         HandleDeath(this)
         ChunkHandler(this)
         PartyCacheSerializer.deserialize(this)
+        HideJoinLeaveMessage(this)
 
         listOf(
             ::HandyGun,
