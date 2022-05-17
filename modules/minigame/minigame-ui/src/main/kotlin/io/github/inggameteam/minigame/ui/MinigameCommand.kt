@@ -38,6 +38,15 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             }
             source.sendMessage("-------------------------------------")
         }
+/*
+        thenExecute("reload") {
+            source.sendMessage("Reloading...")
+            val before = System.currentTimeMillis()
+            plugin.onEnable()
+            val after = System.currentTimeMillis()
+            source.sendMessage("Reload Done in ${after - before}ms")
+        }
+*/
     }
 
 })
