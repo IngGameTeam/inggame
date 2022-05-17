@@ -25,14 +25,13 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin) {
             spawn(player, i)
             i++
             i %= comp.intOrNull("location-size")?: 1
-
         }
     }
 
-    fun spawn(player: GPlayer, slot: Int = 0) {
+    private fun spawn(player: GPlayer, slot: Int = 0) {
         player.teleport(getLocation("$slot"))
         player.world.spawn(player.location.add(0.0, 0.4, 0.0), getRider()) {
-            it.addPassenger(player)
+            it.addPassenger(player.bukkit)
             it.addScoreboardTag(RIDER_TAG)
         }
     }

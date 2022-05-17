@@ -4,10 +4,10 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.base.NoDamage
 import io.github.inggameteam.minigame.base.NoInteract
 import io.github.inggameteam.minigame.base.Racing
+import io.github.inggameteam.minigame.base.SimpleGame
 import org.bukkit.entity.Boat
-import org.bukkit.entity.Entity
 
-class BoatRider(plugin: GamePlugin) : Racing(plugin), NoDamage, NoInteract {
-    override val name = "boat-rider"
-    override fun getRider(): Class<out Entity> = Boat::class.java
+class BoatRider(plugin: GamePlugin) : Racing(plugin), NoDamage, NoInteract, SimpleGame {
+    override val name get() = "boat-rider"
+    override fun getRider() = Boat::class.java
 }
