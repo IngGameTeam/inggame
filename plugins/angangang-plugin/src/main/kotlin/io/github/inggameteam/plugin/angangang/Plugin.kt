@@ -23,6 +23,7 @@ class Plugin : GamePluginImpl(
         ::TeamWars,
         ::AvoidAnvil,
         ::BedWars,
+        ::BoatRider,
 
     ),
 ) {
