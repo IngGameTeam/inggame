@@ -46,4 +46,15 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
     }
 
+    override fun onDisable() {
+        super.onDisable()
+        worldName.forEach {
+            worldName
+                .forEach { Bukkit.getWorld(it)
+                    ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) } }
+            Bukkit.unloadWorld(it, false)
+            File(Bukkit.getWorldContainer(), it).deleteOnExit()
+        }
+    }
+
 }

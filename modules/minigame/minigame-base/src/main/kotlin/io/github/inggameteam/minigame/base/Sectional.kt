@@ -28,6 +28,7 @@ interface Sectional : Game {
     fun isInSector(location: Location): Boolean
     fun getLocation(key: String): Location
     fun getLocationOrNull(key: String): Location?
+    fun getSchematicFile(name: String, dir: String): File
 
     companion object {
         const val DEFAULT = "default"
@@ -105,7 +106,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val before = System.currentTimeMillis()
         val x = sector.x * width
         val z = sector.y * width
-        val file = getFile(DEFAULT, DEFAULT_DIR)
+        val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
         plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
     }
@@ -113,11 +114,11 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     private fun loadSector(world: World?, sector: Sector, key: String) {
         val x = width * sector.x
         val z = width * sector.y
-        val file = getFile(key)
+        val file = getSchematicFile(key, this.name)
         FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
     }
 
-    private fun getFile(name: String, dir: String = this.name) =
+    override fun getSchematicFile(name: String, dir: String) =
         File(plugin.dataFolder, dir + File.separator + name + ".schem")
 
     @EventHandler

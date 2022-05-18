@@ -24,6 +24,10 @@ class Plugin : GamePluginImpl(
         ::AvoidAnvil,
         ::BedWars,
         ::BoatRider,
+        ::BuildBattle,
+        ::CaptureTheWool,
+
+
 
     ),
 ) {
