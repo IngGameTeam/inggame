@@ -3,13 +3,17 @@ package io.github.inggameteam.minigame.base
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
+import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.delay
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 
 interface Respawn : SpawnPlayer, Competition {
+
+    val recommendedSpawnDelay get() = 50L
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
@@ -38,13 +42,16 @@ interface Respawn : SpawnPlayer, Competition {
     fun testRespawn(player: GPlayer) = true
 
     fun delayRespawn(player: GPlayer) {
+        val delay = comp.intOrNull("respawn")?.toLong() ?: recommendedSpawnDelay
         player.apply {
             val originGameMode = gameMode
-            addTask({
+            val function = {
                 addTag(PTag.PLAY)
                 gameMode = originGameMode
-                spawn(this)
-            }.delay(plugin, comp.intOrNull("respawn")?.toLong() ?: 50L))
+                Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
+            }
+            if (delay >= 0) addTask(function.delay(plugin, delay))
+            else function()
         }
     }
 
