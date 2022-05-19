@@ -13,17 +13,17 @@ import org.bukkit.boss.BarColor
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class HideAndSeek(plugin: GamePlugin) : TeamCompetition(plugin), NoItemDrop, NoItemPickup, BarGame, SpawnTeamPlayer {
+class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame
+    NoItemDrop, NoItemPickup, BarGame, SpawnTeamPlayer, ScaleRedTeam
+{
     override val name get() = "hide-and-seek"
     override val startPlayersAmount get() = 3
     override val bar = GBar(plugin)
     private var timeSize = comp.doubleOrNull("time-size")?:450.0
     var time = timeSize
-    var isVoting = false
-    var lastVoted = 0L
 
     override fun randomizeTeam(redTeamSize: Int) {
-        super.randomizeTeam(redTeamSize)
+        super<TeamCompetitionImpl>.randomizeTeam(redTeamSize)
         val jobDetective = joined.hasTags(PTag.BLUE, PTag.PLAY).random()
         playerData[jobDetective]!![JOB_DETECTIVE] = true
     }
@@ -59,12 +59,10 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetition(plugin), NoItemDrop, NoI
                 joined.hasTags(PTag.PLAY, PTag.RED).forEach { it.damage(10000.0) }
             } else {
                 time--
-                bar.update("시민 비상 탈출", time/timeSize, BarColor.PURPLE)
+                bar.update(comp.string("bar-title", plugin.defaultLanguage), time/timeSize, BarColor.PURPLE)
             }
         })
     }
-
-    override fun generateHalfSize() = (joined.hasTags(PTag.PLAY).size/ 5.0).toInt().plus(1)
 
     enum class MurderGameJob {
         MURDER, CIVIL, DETECTIVE;
