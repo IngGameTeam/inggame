@@ -1,0 +1,16 @@
+name: angangang
+main: ${group}.plugin.angangang.Plugin
+version: $version
+api-version: 1.18
+libraries: $libraries
+softdepend:
+  - FastAsyncWorldEdit
+  - PlugManX
+commands:
+  p:
+  party:
+  mg:
+    permission: minigame.admin
+permissions:
+  minigame.admin:
+    default: op

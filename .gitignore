@@ -8,4 +8,4 @@ hs_err_pid*
 .gradle
 .gradle/*
 
-inggame-publish/env.properties
+**/env.properties
