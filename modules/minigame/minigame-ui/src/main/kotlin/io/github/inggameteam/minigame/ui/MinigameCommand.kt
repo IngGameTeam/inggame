@@ -38,6 +38,21 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             }
             source.sendMessage("-------------------------------------")
         }
+        then("debug") {
+            thenExecute("location") {
+                player.location.apply {
+                    val width = plugin.gameRegister.sectorWidth
+                    val x = x % width
+                    val y = y - plugin.gameRegister.sectorHeight
+                    val z = z % width
+                    player.sendMessage(
+                        "&6x: $x ".color,
+                        "&6y: $y ".color,
+                        "&6z: $z ".color,
+                    )
+                }
+            }
+        }
 /*
         thenExecute("reload") {
             source.sendMessage("Reloading...")
