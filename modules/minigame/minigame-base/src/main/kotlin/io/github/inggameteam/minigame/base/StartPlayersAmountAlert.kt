@@ -19,7 +19,7 @@ interface StartPlayersAmountAlert : Game {
             if (gameState == GameState.WAIT
                 && gameTask === null
                 && joined.hasTags(PTag.PLAY).size == 1
-                && startPlayersAmount != 1
+                && startPlayersAmount > 0
             ) joined.forEach { comp.send(GameAlert.NEED_PLAYER, it, displayName(it), startPlayersAmount) }
         }.delay(plugin, 0)
     }
