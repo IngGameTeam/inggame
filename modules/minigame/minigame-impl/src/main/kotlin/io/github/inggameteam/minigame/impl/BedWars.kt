@@ -14,7 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.PlayerBedEnterEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
-class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetition(plugin), Respawn, InteractingBan, SpawnTeamPlayer {
+class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Respawn, InteractingBan, SpawnTeamPlayer {
     override val name get() = "bed-wars"
     override val noInteracts = listOf(Material.BLUE_CONCRETE, Material.RED_CONCRETE)
     private var redBed = true
