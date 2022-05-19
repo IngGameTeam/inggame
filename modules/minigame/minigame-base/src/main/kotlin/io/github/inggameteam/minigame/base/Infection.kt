@@ -1,6 +1,5 @@
 package io.github.inggameteam.minigame.base
 
-import io.github.inggameteam.minigame.GameAlert
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
@@ -14,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-interface Infection {
+interface Infection : ScaleRedTeam {
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onBeginInfection(event: GameBeginEvent) {
@@ -26,7 +25,7 @@ interface Infection {
     }
 }
 
-abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin), Infection {
+abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), Infection {
 
 
 //    open fun updateBar() = bar.update("생존자 비상 탈출", color = BarColor.PURPLE)
@@ -36,7 +35,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin), Infe
         joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)
             .filter { playerData[it]!![ORIGINAL_INFECTED] == true }.apply {
                 println(size)
-                if (isEmpty()) super.calcWinner()
+                if (isEmpty()) super<Infection>.calcWinner()
                 else comp.send(RED_TEAM_WIN, joined, joinToString(", "))
             }
     }
@@ -76,7 +75,5 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetition(plugin), Infe
     }
 
     override fun damage(event: EntityDamageByEntityEvent) = Unit
-
-    override fun generateHalfSize() = (joined.hasTags(PTag.PLAY).size/ 5.0).toInt().plus(1)
 
 }

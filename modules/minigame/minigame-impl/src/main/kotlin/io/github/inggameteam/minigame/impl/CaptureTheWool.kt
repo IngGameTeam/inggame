@@ -11,7 +11,7 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.boss.BarColor
 
-class CaptureTheWool(plugin: GamePlugin) : TeamCompetition(plugin), BarGame, InteractingBan, Respawn, SimpleGame, SpawnTeamPlayer {
+class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame, InteractingBan, Respawn, SimpleGame, SpawnTeamPlayer {
     override val name get() = "capture-the-wool"
     override val bar by lazy { GBar(plugin) }
     override val noInteracts by lazy { listOf(Material.BLUE_STAINED_GLASS, Material.RED_STAINED_GLASS) }

@@ -27,6 +27,7 @@ class Plugin : GamePluginImpl(
         ::BuildBattle,
         ::CaptureTheWool,
         ::FallJump,
+        ::HideAndSeek
 
     ),
 ) {

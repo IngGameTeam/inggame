@@ -16,7 +16,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
+interface TeamCompetition : Competition {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
@@ -27,12 +27,12 @@ abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
 
     fun getPlayerTeam(player: GPlayer) = if (player.hasTag(PTag.RED)) PTag.RED else PTag.BLUE
 
-    open fun randomizeTeam(redTeamSize: Int = generateHalfSize()) {
+    fun randomizeTeam(redTeamSize: Int = generateHalfSize()) {
         var redTeam = redTeamSize
         joined.hasTags(PTag.PLAY).shuffled().forEach { it.addTag(if (redTeam <= 0) PTag.BLUE else PTag.RED); redTeam-- }
     }
 
-    open fun generateHalfSize(): Int {
+    fun generateHalfSize(): Int {
         val size = joined.hasTags(PTag.PLAY).size
         return if (size % 2 != 0) listOf(1, 0).random() + size / 2 else size / 2
     }
@@ -59,7 +59,7 @@ abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
 
     @Suppress("unused")
     @EventHandler
-    open fun damage(event: EntityDamageByEntityEvent) {
+    fun damage(event: EntityDamageByEntityEvent) {
         val player = event.entity
         if (player is Player && isJoined(player)) {
             val damager = event.damager
@@ -77,3 +77,5 @@ abstract class TeamCompetition(plugin: GamePlugin) : CompetitionImpl(plugin) {
     }
 
 }
+
+abstract class TeamCompetitionImpl(plugin: GamePlugin) : CompetitionImpl(plugin), TeamCompetition
