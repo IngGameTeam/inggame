@@ -1,4 +1,4 @@
-package io.github.inggameteam.minigame.angangang.game.impl
+package io.github.inggameteam.minigame.impl
 
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.bossbar.GBar

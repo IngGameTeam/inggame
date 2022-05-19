@@ -1,4 +1,4 @@
-package io.github.inggameteam.plugin.angangang
+package io.github.inggameteam.plugin.uti
 
 import io.github.inggameteam.item.game.MinigameMenu
 import io.github.inggameteam.item.impl.HandyGun

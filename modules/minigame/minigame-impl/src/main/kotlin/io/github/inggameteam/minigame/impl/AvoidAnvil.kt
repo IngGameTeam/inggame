@@ -1,4 +1,4 @@
-package io.github.inggameteam.minigame.angangang.game.impl
+package io.github.inggameteam.minigame.impl
 
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.GamePlugin
