@@ -50,8 +50,9 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         Material.TNT,
         Material.TNT_MINECART
     )
-    var doneTime = 750.0
-    var voteTime = 100.0
+    val doneTime get() = comp.doubleOrNull("done-time")?: 750.0
+    val voteTime get() = comp.doubleOrNull("vote-time")?: 100.0
+    val areaSize get() = comp.doubleOrNull("area-size")?: 20.0
     var time = doneTime
     var isDone = false
     val vote = HashMap<UUID, Int>()
@@ -82,7 +83,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
                 isX = !isX
                 if (isX) n++
             }
-            val adder = if (n % 2 == 1.0) 20.0 else -20.0
+            val adder = if (n % 2 == 1.0) areaSize else -areaSize
             if (isX) location.add(adder, 0.0, 0.0)
             else location.add(0.0, 0.0, adder)
         }
@@ -202,13 +203,12 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             player.inventory.contents = comp.inventory("VOTED", player.lang(plugin)).contents
         }
     }
-
+    val TOPIC_VOTE_TIME get() = comp.doubleOrNull("topic-vote-time")?.toLong() ?: (20 * 10L)
     companion object {
         const val PLAYER_AREA = "playerArea"
         const val TOPIC_VOTE = "topicVote"
         const val IS_VOTING_TOPIC = "isVotingTopic"
         const val TOPIC_AMOUNT = 3
-        const val TOPIC_VOTE_TIME = 20 * 10L
     }
 
     class CompareableVote(val uuid: UUID, val data: Int) : Comparable<CompareableVote> {
@@ -242,7 +242,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     }
 
     private fun openMenu(player: GPlayer) {
-        player.openFrame(InvFX.frame(TOPIC_AMOUNT, Component.text("주제 투표")) {
+        player.openFrame(InvFX.frame(TOPIC_AMOUNT, Component.text(comp.string("vote-menu-title", player.lang(plugin)))) {
             onClose { if (playerData[player]!![IS_VOTING_TOPIC] != null) addTask({ openMenu(player) }.delay(plugin, 1)) }
             list(0, 0, 9, TOPIC_AMOUNT, true, {
                 val list = ArrayList<String>()
