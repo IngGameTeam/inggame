@@ -30,7 +30,7 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
 
     override fun spawn(player: GPlayer, spawn: String) {
         if (gameState === GameState.WAIT) {
-            super.spawn(player, spawn)
+            super<SpawnTeamPlayer>.spawn(player, spawn)
             return
         }
         val playerJob = getPlayerJob(player)
