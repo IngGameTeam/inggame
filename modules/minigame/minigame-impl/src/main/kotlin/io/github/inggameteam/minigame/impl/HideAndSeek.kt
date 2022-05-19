@@ -13,7 +13,7 @@ import org.bukkit.boss.BarColor
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame
+class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
     NoItemDrop, NoItemPickup, BarGame, SpawnTeamPlayer, ScaleRedTeam
 {
     override val name get() = "hide-and-seek"
