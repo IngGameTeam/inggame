@@ -2,7 +2,7 @@
 name: 기능 제안
 about: 이 프로젝트에 대한 아이디어 제안
 title: ''
-labels: 'feature request'
+labels: feature request
 assignees: ''
 
 ---
@@ -17,4 +17,3 @@ assignees: ''
 
 **고려했던 대안을 설명하십시오.**
 고려했던 대체 솔루션 또는 기능에 대한 명확하고 간결한 설명.
-
