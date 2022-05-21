@@ -24,7 +24,7 @@ abstract class Container<DATA : UUIDUser>(
 
     init { Bukkit.getOnlinePlayers().forEach { pool(it.uniqueId) } }
     init { Bukkit.getPluginManager().registerEvents(this, plugin) }
-    val col get() = mongo.client.getDatabase("user").getCollection("user")
+    val col get() = mongo.client.getDatabase(database).getCollection(collection)
 
     abstract fun pool(uuid: UUID): DATA
 
