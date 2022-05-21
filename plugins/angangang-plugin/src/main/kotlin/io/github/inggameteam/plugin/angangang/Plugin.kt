@@ -7,8 +7,13 @@ import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
+import io.github.inggameteam.mongodb.api.MongoDBCPImpl
+import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
 import org.bukkit.Bukkit
+import org.bukkit.event.EventHandler
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerJoinEvent
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -41,6 +46,8 @@ class Plugin : GamePluginImpl(
         ClearEntityUnloadedChunk(this)
         PartyCacheSerializer.deserialize(this)
         HideJoinLeaveMessage(this)
+        val mongoDBCP = MongoDBCPImpl(this)
+        UserContainer(this, "user", "user", mongoDBCP)
 
         listOf(
             ::HandyGun,
