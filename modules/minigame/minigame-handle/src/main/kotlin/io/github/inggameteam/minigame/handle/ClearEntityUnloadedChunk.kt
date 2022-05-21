@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.world.ChunkUnloadEvent
 
-class ChunkHandler(val plugin: GamePlugin) : HandleListener(plugin) {
+class ClearEntityUnloadedChunk(val plugin: GamePlugin) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)

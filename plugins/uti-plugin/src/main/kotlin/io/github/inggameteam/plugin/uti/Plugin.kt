@@ -37,7 +37,7 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
-        ChunkHandler(this)
+        ClearEntityUnloadedChunk(this)
         PartyCacheSerializer.deserialize(this)
         HideJoinLeaveMessage(this)
 
