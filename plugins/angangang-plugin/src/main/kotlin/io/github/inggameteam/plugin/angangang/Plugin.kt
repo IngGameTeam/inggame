@@ -1,5 +1,6 @@
 package io.github.inggameteam.plugin.angangang
 
+import io.github.inggameteam.item.impl.ItemShopMenu
 import io.github.inggameteam.item.game.MinigameMenu
 import io.github.inggameteam.item.impl.HandyGun
 import io.github.inggameteam.item.impl.ShotGun
@@ -8,12 +9,9 @@ import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.mongodb.api.MongoDBCPImpl
+import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
-import org.bukkit.Bukkit
-import org.bukkit.event.EventHandler
-import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerJoinEvent
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -47,15 +45,13 @@ class Plugin : GamePluginImpl(
         PartyCacheSerializer.deserialize(this)
         HideJoinLeaveMessage(this)
         val mongoDBCP = MongoDBCPImpl(this)
-        UserContainer(this, "user", "user", mongoDBCP)
+        val user = UserContainer(this, mongoDBCP)
+        val purchase = PurchaseContainer(this, mongoDBCP)
+        ItemShopMenu(this, purchase)
+        HandyGun(this)
+        ShotGun(this)
+        MinigameMenu(this)
 
-        listOf(
-            ::HandyGun,
-            ::ShotGun,
-            ::MinigameMenu,
-        ).forEach {
-            Bukkit.getPluginManager().registerEvents(it(this), this)
-        }
     }
 
     override fun onDisable() {

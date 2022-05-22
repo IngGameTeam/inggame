@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.Particle
@@ -10,7 +11,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.player.PlayerPickupArrowEvent
 
-class HandyGun(override val plugin: AlertPlugin) : Interact {
+class HandyGun(override val plugin: AlertPlugin) : Interact, HandleListener(plugin) {
     override val name get() = "handy-gun"
 
     override fun use(name: String, player: GPlayer) {

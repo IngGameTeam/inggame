@@ -27,9 +27,9 @@ object ItemUtil {
         }
     }
     @JvmStatic
-    fun appendLore(itemStack: ItemStack, lore: List<String>) {
+    fun appendLore(itemStack: ItemStack, lore: List<String>, index: Int = -1) {
         val itemMeta = itemMeta(itemStack)
-        if (itemMeta.hasLore()) itemMeta.lore!!.addAll(lore.map {it.color()})
+        if (itemMeta.hasLore()) itemMeta.lore!!.addAll(if (index == -1) itemMeta.lore?.size?: 0 else index, lore.map {it.color()})
         else itemMeta.lore = ArrayList(lore.map {it.color()})
         itemStack.itemMeta = itemMeta
     }

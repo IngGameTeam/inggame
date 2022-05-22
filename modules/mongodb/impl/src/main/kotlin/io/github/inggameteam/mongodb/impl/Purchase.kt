@@ -7,22 +7,22 @@ import org.bson.Document
 import org.bukkit.plugin.Plugin
 import java.util.*
 
-class User(uuid: UUID, var point: Long) : UUIDUser(uuid)
+class Purchase(uuid: UUID, var point: Long) : UUIDUser(uuid)
 
-class UserContainer(plugin: Plugin, mongo: MongoDBCP) :
-    Container<User>(plugin, "user", "user", mongo) {
+class PurchaseContainer(plugin: Plugin, mongo: MongoDBCP) :
+    Container<Purchase>(plugin, "user", "purchase", mongo) {
 
-    override fun pool(uuid: UUID): User {
+    override fun pool(uuid: UUID): Purchase {
         val uuidToString = uuid.fastToString()
         val user = col.find(Document("_id", uuidToString)).first()?.run {
             val point = this["point"] as? Long?: 0L
-            User(uuid, point)
-        }?: User(uuid, 0)
+            Purchase(uuid, point)
+        }?: Purchase(uuid, 0)
         user.point += 1
         return user
     }
 
-    override fun upsert(data: User) {
+    override fun upsert(data: Purchase) {
         val document = Document("_id", data.uuid.fastToString())
         if (col.updateOne(document, Updates.set("point", data.point)).apply { println(modifiedCount) }.matchedCount == 0L)
             col.insertOne(document.append("point", data.point))
