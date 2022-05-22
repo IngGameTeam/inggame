@@ -1,9 +1,8 @@
-package io.github.inggameteam.mongodb.impl
+package io.github.inggameteam.mongodb.api
 
 import com.mongodb.client.MongoCollection
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.IngGamePlugin
-import io.github.inggameteam.mongodb.api.MongoDBCP
 import org.bson.Document
 
 abstract class PoolImpl<DATA>(

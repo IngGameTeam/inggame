@@ -26,9 +26,9 @@ class MinigameMenu(override val plugin: GamePlugin) : Interact, Drop, InventoryC
 
     private fun minigameMenu(player: GPlayer, games: List<String> = this.games): InvFrame {
         val lang = player.lang(plugin)
-        return InvFX.frame(3, Component.text(itemComponent.string("game-menu-title", lang))) {
+        return InvFX.frame(3, Component.text(itemComp.string("game-menu-title", lang))) {
             list(0, 0, 9, 3, true, { games }) {
-                transform { itemComponent.itemOrNull(it, lang)?: ItemUtil.itemStack(Material.STONE, it) }
+                transform { itemComp.itemOrNull(it, lang)?: ItemUtil.itemStack(Material.STONE, it) }
                 onClickItem { _, _, item, event ->
                     event.isCancelled = true
                     player.closeInventory()

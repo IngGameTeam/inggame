@@ -1,4 +1,4 @@
-package io.github.inggameteam.mongodb.impl
+package io.github.inggameteam.mongodb.api
 
 import java.util.*
 

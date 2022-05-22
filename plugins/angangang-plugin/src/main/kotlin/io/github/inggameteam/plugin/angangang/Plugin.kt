@@ -41,30 +41,23 @@ class Plugin : GamePluginImpl(
         ::PigRider,
         ::ColorMatch,
         ::ZombieSurvival
-        /*
-            눈치게임
-            밀치기
-            배드워즈
-            양털매칭
-            양털점령
-
-         */
     ),
 ) {
 
     override fun onEnable() {
         super.onEnable()
+        PartyCacheSerializer.deserialize(this)
         MinigameCommand(this)
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
         ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
-        PartyCacheSerializer.deserialize(this)
         val mongoDBCP = MongoDBCPImpl(this)
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
-        ItemShopMenu(this, user)
+        RewardWinnerThePoint(this, user)
+        ItemShopMenu(this, user, purchase)
         HandyGun(this)
         ShotGun(this)
         MinigameMenu(this)

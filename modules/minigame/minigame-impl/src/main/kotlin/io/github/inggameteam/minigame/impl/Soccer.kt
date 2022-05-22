@@ -22,7 +22,7 @@ class Soccer(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
     var redScore = 0
 
     private fun summonEntity() {
-        val loc = getLocation("start")
+        val loc = getLocation(GameState.PLAY.toString())
         underY = loc.blockY - 0.5
         centerZ = loc.z
         entities.add(loc.world!!.spawn(loc, Cow::class.java) {

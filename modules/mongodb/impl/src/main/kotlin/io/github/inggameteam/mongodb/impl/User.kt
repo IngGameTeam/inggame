@@ -2,7 +2,9 @@ package io.github.inggameteam.mongodb.impl
 
 import com.mongodb.client.model.Updates
 import io.github.inggameteam.api.IngGamePlugin
+import io.github.inggameteam.mongodb.api.Container
 import io.github.inggameteam.mongodb.api.MongoDBCP
+import io.github.inggameteam.mongodb.api.UUIDUser
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
 import java.util.*
@@ -24,7 +26,7 @@ class UserContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
 
     override fun upsert(data: User) {
         val document = Document("_id", data.uuid.fastToString())
-        if (col.updateOne(document, Updates.set("point", data.point)).apply { println(modifiedCount) }.matchedCount == 0L)
+        if (col.updateOne(document, Updates.set("point", data.point)).matchedCount == 0L)
             col.insertOne(document.append("point", data.point))
     }
 

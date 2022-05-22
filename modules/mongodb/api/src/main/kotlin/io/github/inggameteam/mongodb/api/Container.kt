@@ -1,8 +1,7 @@
-package io.github.inggameteam.mongodb.impl
+package io.github.inggameteam.mongodb.api
 
 import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.api.PluginHolder
-import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.utils.fastToString
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -26,15 +25,11 @@ abstract class Container<DATA : UUIDUser>(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
-        val before = System.currentTimeMillis()
         pool.add(pool(event.uniqueId))
-        println("${System.currentTimeMillis() - before} ms")
-        println(pool.size)
     }
 
     private fun upsertAndRemove(uuid: UUID) {
-        pool.firstOrNull { uuid == it.uuid }?.apply { upsert(this) }
-        pool.removeIf { it.uuid == uuid }
+        pool.firstOrNull { uuid == it.uuid }?.apply { upsert(this); pool.remove(this) }
     }
 
     @Suppress("unused")
