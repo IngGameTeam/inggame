@@ -39,6 +39,16 @@ class Plugin : GamePluginImpl(
         ::TakeTheCart,
         ::PushGame,
         ::PigRider,
+        ::ColorMatch,
+        ::ZombieSurvival
+        /*
+            눈치게임
+            밀치기
+            배드워즈
+            양털매칭
+            양털점령
+
+         */
     ),
 ) {
 
@@ -49,8 +59,8 @@ class Plugin : GamePluginImpl(
         NoHunger(this, worldName)
         HandleDeath(this)
         ClearEntityUnloadedChunk(this)
-        PartyCacheSerializer.deserialize(this)
         HideJoinLeaveMessage(this)
+        PartyCacheSerializer.deserialize(this)
         val mongoDBCP = MongoDBCPImpl(this)
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
@@ -63,7 +73,7 @@ class Plugin : GamePluginImpl(
     }
 
     override fun onDisable() {
-        super.onDisable()
         PartyCacheSerializer.serialize(this)
+        super.onDisable()
     }
 }

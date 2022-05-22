@@ -14,7 +14,7 @@ open class IngGamePluginImpl : IngGamePlugin, JavaPlugin {
 
     override val console by lazy { randomUUID() }
     override var allowTask = false
-    val disableEvent = ArrayList<() -> Unit>()
+    private val disableEvent = ArrayList<() -> Unit>()
     override fun addDisableEvent(action: () -> Unit) { disableEvent.add(action) }
 
     constructor()
