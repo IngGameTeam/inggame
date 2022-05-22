@@ -1,15 +1,15 @@
 package io.github.inggameteam.mongodb.impl
 
 import com.mongodb.client.model.Updates
+import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
-import org.bukkit.plugin.Plugin
 import java.util.*
 
 class User(uuid: UUID, var point: Long) : UUIDUser(uuid)
 
-class UserContainer(plugin: Plugin, mongo: MongoDBCP) :
+class UserContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     Container<User>(plugin, "user", "user", mongo) {
 
     override fun pool(uuid: UUID): User {

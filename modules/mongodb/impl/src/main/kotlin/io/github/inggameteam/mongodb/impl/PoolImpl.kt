@@ -1,10 +1,20 @@
 package io.github.inggameteam.mongodb.impl
 
+import com.mongodb.client.MongoCollection
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.IngGamePlugin
+import io.github.inggameteam.mongodb.api.MongoDBCP
+import org.bson.Document
 
-abstract class PoolImpl<DATA>(plugin: IngGamePlugin) : Pool<DATA> {
+abstract class PoolImpl<DATA>(
+    plugin: IngGamePlugin,
+    private val mongo: MongoDBCP,
+    private val database: String,
+    private val collection: String,
+    ) : Pool<DATA>, HandleListener(plugin) {
 
     val pool = ArrayList<DATA>()
+    open val col: MongoCollection<Document> get() = mongo.client.getDatabase(database).getCollection(collection)
 
     init { plugin.addDisableEvent { pool.forEach(::upsert) } }
 }

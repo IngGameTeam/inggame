@@ -18,15 +18,10 @@ import kotlin.test.assertNotNull
 open class UUIDUser(val uuid: UUID)
 
 abstract class Container<DATA : UUIDUser>(
-    final override val plugin: IngGamePlugin,
-    val database: String,
-    val collection: String,
-    val mongo: MongoDBCP,
-) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin) {
+    final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
+) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
 
     init { Bukkit.getOnlinePlayers().forEach { pool(it.uniqueId) } }
-    init { Bukkit.getPluginManager().registerEvents(this, plugin) }
-    val col get() = mongo.client.getDatabase(database).getCollection(collection)
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)

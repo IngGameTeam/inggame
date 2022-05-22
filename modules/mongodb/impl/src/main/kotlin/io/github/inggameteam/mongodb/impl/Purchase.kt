@@ -1,16 +1,16 @@
 package io.github.inggameteam.mongodb.impl
 
 import com.mongodb.client.model.Updates
+import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
-import org.bukkit.plugin.Plugin
 import java.util.*
 
 class Purchase(uuid: UUID, var point: Long) : UUIDUser(uuid)
 
-class PurchaseContainer(plugin: Plugin, mongo: MongoDBCP) :
-    Container<Purchase>(plugin, "user", "purchase", mongo) {
+class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
+    Container<Purchase>(plugin, mongo, "user", "purchase") {
 
     override fun pool(uuid: UUID): Purchase {
         val uuidToString = uuid.fastToString()
