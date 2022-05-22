@@ -41,6 +41,7 @@ interface Competition : Sectional, Game {
     }
     fun calcWinner() {
         val winners = joined.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
+        println(winners)
         val dieToReady = joined.hasTags(PTag.DEAD, PTag.PLAY)
         if (winners.isEmpty() && dieToReady.size == 1)
             joined.forEach { comp.send(GameAlert.GAME_DRAW_HAS_WINNER, it, winners, displayName(it)) }

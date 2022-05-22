@@ -4,14 +4,11 @@ import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.base.BarGame
-import io.github.inggameteam.minigame.base.CompetitionImpl
-import io.github.inggameteam.minigame.base.SimpleGame
-import io.github.inggameteam.minigame.base.SpawnPlayer
+import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
 
-class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlayer, BarGame {
+class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlayer, BarGame, NoDamage {
     override val name get() = "quiz"
     override val bar = GBar(plugin)
     var timeSize = 100.0
@@ -54,13 +51,13 @@ class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlaye
     }
 
     private fun killFailedPlayers() {
-        val int = comp.int("line")
+        val int = comp.int("line") + getLocation("point").x
         val playersToDie = joined.hasTags(PTag.PLAY)
-            .filter { (it.location.x < int) == result }.toList()
+            .filter { ((it.location.x) < int) == result }.toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
         stopCheck()
-        playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
         if (gameState == GameState.PLAY) {
+            playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
             playersToDie.forEach { it.damage(10000.0) }
         }
     }

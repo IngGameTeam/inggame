@@ -25,7 +25,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
     override var beginPlayersAmount = 0
 
     override fun calcWinner() {
-        if (beginPlayersAmount > 1) comp.send(SINGLE_WINNER, joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0], this)
+        if (beginPlayersAmount > 1) comp.send(SINGLE_WINNER, joined, joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0], this)
     }
 
     override fun sendDeathMessage(player: GPlayer) {

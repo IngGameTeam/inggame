@@ -33,7 +33,7 @@ class HunchGame(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin) {
             return
         }
         {
-            comp.send("chat_format", gPlayer, message)
+            comp.send("chat_format", joined, gPlayer, message)
             val checker = {
                 if (!player.isOnline) {
                 } else if (typedNumber != countedNumber + 1) {
