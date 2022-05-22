@@ -225,6 +225,7 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
 
         val orders = ArrayList<String>()
         cacheConfigMap.keys.forEach { fileName ->
+            if (plugin.config.getBoolean("debug")) println("Loading $fileName components...")
             cacheParentMap[fileName]?.apply {
                 var ind = 0
                 forEach { pare ->

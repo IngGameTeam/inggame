@@ -12,6 +12,7 @@ import io.github.inggameteam.mongodb.api.MongoDBCPImpl
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
+import io.github.inggameteam.party.PartyItem
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -30,7 +31,14 @@ class Plugin : GamePluginImpl(
         ::BuildBattle,
         ::CaptureTheWool,
         ::FallJump,
-        ::HideAndSeek
+        ::HideAndSeek,
+        ::HunchGame,
+        ::Quiz,
+        ::Soccer,
+        ::Spleef,
+        ::TakeTheCart,
+        ::PushGame,
+        ::PigRider,
     ),
 ) {
 
@@ -46,10 +54,11 @@ class Plugin : GamePluginImpl(
         val mongoDBCP = MongoDBCPImpl(this)
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
-        ItemShopMenu(this, purchase)
+        ItemShopMenu(this, user)
         HandyGun(this)
         ShotGun(this)
         MinigameMenu(this)
+        PartyItem(this)
 
     }
 

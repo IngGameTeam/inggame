@@ -7,10 +7,10 @@ import io.github.inggameteam.utils.fastToString
 import org.bson.Document
 import java.util.*
 
-class User(uuid: UUID, var point: Long) : UUIDUser(uuid)
+class User(override val uuid: UUID, var point: Long) : UUIDUser
 
 class UserContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
-    Container<User>(plugin, "user", "user", mongo) {
+    Container<User>(plugin, mongo, "user", "user") {
 
     override fun pool(uuid: UUID): User {
         val uuidToString = uuid.fastToString()

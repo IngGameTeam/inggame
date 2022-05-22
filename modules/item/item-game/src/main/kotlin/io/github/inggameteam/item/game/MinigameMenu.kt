@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.game
 
 import io.github.inggameteam.alert.Lang.lang
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Drop
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.item.api.InventoryClick
@@ -14,7 +15,7 @@ import io.github.monun.invfx.openFrame
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 
-class MinigameMenu(override val plugin: GamePlugin) : Interact, Drop, InventoryClick {
+class MinigameMenu(override val plugin: GamePlugin) : Interact, Drop, InventoryClick, HandleListener(plugin) {
     override val name get() = "game-menu"
     override fun use(name: String, player: GPlayer) {
         if (player[CLICK_PAUSED] !== null) return

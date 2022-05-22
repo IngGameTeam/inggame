@@ -15,13 +15,13 @@ import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 import kotlin.test.assertNotNull
 
-open class UUIDUser(val uuid: UUID)
+interface UUIDUser { val uuid: UUID }
 
 abstract class Container<DATA : UUIDUser>(
     final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
 ) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
 
-    init { Bukkit.getOnlinePlayers().forEach { pool(it.uniqueId) } }
+    init { Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) } }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)

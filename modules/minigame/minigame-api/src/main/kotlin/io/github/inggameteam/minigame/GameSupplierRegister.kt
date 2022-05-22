@@ -8,7 +8,11 @@ class GameSupplierRegister(
     vararg function: (GamePlugin) -> Game
 ) : HashMap<String, (GamePlugin) -> Game>(), PluginHolder<GamePlugin> {
     init {
-        function.forEach { put(it(plugin).name, it) }
+        function.forEach {
+            val name = it(plugin).name
+            put(name, it)
+            if (plugin.config.getBoolean("debug")) println("Game $name loaded")
+        }
     }
 
     override fun get(key: String) =

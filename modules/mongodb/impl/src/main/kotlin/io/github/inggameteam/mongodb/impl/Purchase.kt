@@ -6,8 +6,9 @@ import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
 import java.util.*
+import kotlin.collections.HashMap
 
-class Purchase(uuid: UUID, var point: Long) : UUIDUser(uuid)
+class Purchase(override val uuid: UUID, map: Map<String, Int> = mapOf()) : UUIDUser, HashMap<String, Int>(map)
 
 class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     Container<Purchase>(plugin, mongo, "user", "purchase") {
@@ -15,17 +16,16 @@ class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     override fun pool(uuid: UUID): Purchase {
         val uuidToString = uuid.fastToString()
         val user = col.find(Document("_id", uuidToString)).first()?.run {
-            val point = this["point"] as? Long?: 0L
-            Purchase(uuid, point)
-        }?: Purchase(uuid, 0)
-        user.point += 1
+            Purchase(uuid, this.mapValues { it.value as? Int ?: 0 })
+        }?: Purchase(uuid)
         return user
     }
 
     override fun upsert(data: Purchase) {
         val document = Document("_id", data.uuid.fastToString())
-        if (col.updateOne(document, Updates.set("point", data.point)).apply { println(modifiedCount) }.matchedCount == 0L)
-            col.insertOne(document.append("point", data.point))
+        if (col.updateOne(document, data.map { Updates.set(it.key, it.value) }.toMutableList()).matchedCount == 0L)
+            data.forEach { document.append(it.key, it.value) }
+            col.insertOne(document)
     }
 
 }

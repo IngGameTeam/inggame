@@ -5,4 +5,5 @@ dependencies {
     api(project(":modules:alert"))
     api(project(":modules:player"))
     api(project(":modules:command"))
+    api(project(":modules:item:item-api"))
 }

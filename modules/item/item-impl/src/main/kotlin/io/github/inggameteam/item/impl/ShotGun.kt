@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.delay
@@ -12,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import kotlin.random.Random
 
-class ShotGun(override val plugin: AlertPlugin) : Interact {
+class ShotGun(override val plugin: AlertPlugin) : Interact, HandleListener(plugin) {
     override val name get() = "shot-gun"
 
     private fun rand(to: Double) = Random.nextDouble(-to, to)

@@ -21,6 +21,10 @@ interface Respawn : SpawnPlayer, Competition {
         if (!isJoined(event.player) || gameState === GameState.WAIT) return
         val gPlayer = event.player
         val isDeadBefore = gPlayer.hasTag(PTag.DEAD)
+        if (gPlayer.hasTag(PTag.RESPAWN)) {
+            event.isCancelled = true
+            return
+        }
         gPlayer.apply {
             inventory.clear()
             gameMode = GameMode.SPECTATOR
@@ -44,8 +48,10 @@ interface Respawn : SpawnPlayer, Competition {
     fun delayRespawn(player: GPlayer) {
         val delay = comp.intOrNull("respawn")?.toLong() ?: recommendedSpawnDelay
         player.apply {
+            addTag(PTag.RESPAWN)
             val originGameMode = gameMode
             val function = {
+                removeTag(PTag.RESPAWN)
                 addTag(PTag.PLAY)
                 gameMode = originGameMode
                 Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
