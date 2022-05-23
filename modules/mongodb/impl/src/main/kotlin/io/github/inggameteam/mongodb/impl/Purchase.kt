@@ -17,6 +17,9 @@ class PurchaseList(override val uuid: UUID, val purchases: ArrayList<Purchase> =
 
 class Purchase(val name: String, var amount: Int, var lastTime: Long) {
     fun updateLastTime() { lastTime = System.currentTimeMillis() }
+    override fun toString(): String {
+        return "{name=$name, amount=$amount, lastTime=$lastTime}"
+    }
 }
 
 class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
@@ -24,7 +27,7 @@ class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
 
     override fun pool(uuid: UUID): PurchaseList {
         val uuidToString = uuid.fastToString()
-        val user = col.find(Document("_id", uuidToString)).map {
+        val user = col.find(Document("uuid", uuidToString)).map {
             Purchase(it["name"] as String, it["amount"] as Int, it["lastTime"] as Long)
         }.toList()
         return PurchaseList(uuid, ArrayList(user))
@@ -33,7 +36,7 @@ class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     override fun commit(data: PurchaseList) {
         data.purchases.forEach {
             if (it.amount == 0) return@forEach
-            val document = Document("_id", data.uuid.fastToString()).append("name", it.name)
+            val document = Document("uuid", data.uuid.fastToString()).append("name", it.name)
             val updateDoc = mutableListOf(
                 Updates.set("amount", it.amount),
                 Updates.set("lastTime", it.lastTime)

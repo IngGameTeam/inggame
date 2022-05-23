@@ -1,4 +1,4 @@
-package io.github.inggameteam.item.impl
+package io.github.inggameteam.item.game
 
 import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.alert.Lang.lang
@@ -7,6 +7,7 @@ import io.github.inggameteam.item.api.Drop
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.item.api.InventoryClick
 import io.github.inggameteam.item.impl.ItemType.*
+import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.player.GPlayer
@@ -15,6 +16,7 @@ import io.github.inggameteam.utils.ItemUtil.safeClone
 import io.github.monun.invfx.InvFX
 import io.github.monun.invfx.openFrame
 import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 
 class ItemShopMenu(
     override val plugin: AlertPlugin,
@@ -59,10 +61,11 @@ class ItemShopMenu(
                             else appendLore(item, listOf("&7${amount}개 구매함"))
                         }
                         TOGGLE -> {
-                            if (amount < 1) appendLore(item, "&7${itemComp.int(name)} 포인트");
+                            if (amount < 1) appendLore(item, "&7${itemComp.int(name)} 포인트")
                             else if (amount < 2) appendLore(item, "&a착용 중")
                             else if (amount < 3) appendLore(item, "&c착용 중이 아님")
                         }
+                        else -> {}
                     }
                     this@slot.item = item
                     onClick { event ->
@@ -76,21 +79,24 @@ class ItemShopMenu(
                                         if (itemPoint <= point) {
                                             playerPurchase[name].amount = amount + 1
                                             user[player].point -= itemPoint
-                                        } else playerPurchase[name].updateLastTime()
-                                    } else playerPurchase[name].updateLastTime()
+                                        }
+                                    }
                                 }
                                 TOGGLE -> {
                                     if (amount < 1) {
                                         if (itemPoint <= point) {
                                             playerPurchase[name].amount = 1
                                             user[player].point -= itemPoint
-                                        } else playerPurchase[name].updateLastTime()
+                                        }
                                     } else {
                                         if (amount < 2) playerPurchase[name].amount = 2
                                         else playerPurchase[name].amount = 1
                                     }
                                 }
+                                else -> {}
                             }
+                            playerPurchase[name].updateLastTime()
+                            Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
                             shopMenu(player)
                         }
                     }

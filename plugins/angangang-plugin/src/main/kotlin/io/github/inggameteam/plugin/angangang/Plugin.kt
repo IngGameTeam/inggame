@@ -2,6 +2,7 @@ package io.github.inggameteam.plugin.angangang
 
 import io.github.inggameteam.item.game.ApplyShopItem
 import io.github.inggameteam.item.game.FireWorks
+import io.github.inggameteam.item.game.ItemShopMenu
 import io.github.inggameteam.item.game.MinigameMenu
 import io.github.inggameteam.item.impl.*
 import io.github.inggameteam.minigame.GamePluginImpl
