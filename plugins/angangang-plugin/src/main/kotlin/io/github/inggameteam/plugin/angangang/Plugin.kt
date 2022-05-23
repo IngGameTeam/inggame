@@ -47,16 +47,19 @@ class Plugin : GamePluginImpl(
     override fun onEnable() {
         super.onEnable()
         PartyCacheSerializer.deserialize(this)
+
+        val mongoDBCP = MongoDBCPImpl(this)
+        val user = UserContainer(this, mongoDBCP)
+        val purchase = PurchaseContainer(this, mongoDBCP)
+
+        RewardWinnerThePoint(this, user)
         MinigameCommand(this)
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
         ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
-        val mongoDBCP = MongoDBCPImpl(this)
-        val user = UserContainer(this, mongoDBCP)
-        val purchase = PurchaseContainer(this, mongoDBCP)
-        RewardWinnerThePoint(this, user)
+
         ItemShopMenu(this, user, purchase)
         HandyGun(this)
         ShotGun(this)

@@ -7,10 +7,8 @@ import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.mongodb.api.UUIDUser
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
-import org.bukkit.entity.Player
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class PurchaseList(override val uuid: UUID, val purchases: ArrayList<Purchase> = arrayListOf()) : UUIDUser {
     operator fun get(key: String) = purchases.firstOrNull { it.name == key }
@@ -32,7 +30,7 @@ class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
         return PurchaseList(uuid, ArrayList(user))
     }
 
-    override fun upsert(data: PurchaseList) {
+    override fun commit(data: PurchaseList) {
         data.purchases.forEach {
             if (it.amount == 0) return@forEach
             val document = Document("_id", data.uuid.fastToString()).append("name", it.name)

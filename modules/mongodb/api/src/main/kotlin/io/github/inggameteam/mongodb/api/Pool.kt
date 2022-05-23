@@ -4,7 +4,7 @@ import java.util.*
 
 interface Pool<DATA> {
 
-    fun upsert(data: DATA)
+    fun commit(data: DATA)
 
     fun pool(uuid: UUID): DATA
 

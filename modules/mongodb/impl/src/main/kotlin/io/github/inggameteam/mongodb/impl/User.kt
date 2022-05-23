@@ -24,7 +24,7 @@ class UserContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
         return user
     }
 
-    override fun upsert(data: User) {
+    override fun commit(data: User) {
         val document = Document("_id", data.uuid.fastToString())
         if (col.updateOne(document, Updates.set("point", data.point)).matchedCount == 0L)
             col.insertOne(document.append("point", data.point))

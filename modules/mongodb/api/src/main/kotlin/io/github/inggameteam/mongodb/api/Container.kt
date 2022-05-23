@@ -25,20 +25,30 @@ abstract class Container<DATA : UUIDUser>(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
-        pool.add(pool(event.uniqueId))
+        val uniqueId = event.uniqueId
+        if (pool.any { it.uuid == uniqueId })
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+        else {
+            pool.add(pool(uniqueId))
+        }
     }
 
-    private fun upsertAndRemove(uuid: UUID) {
-        pool.firstOrNull { uuid == it.uuid }?.apply { upsert(this); pool.remove(this) }
+    private fun commitAndRemove(uuid: UUID) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin) { _ ->
+            pool.firstOrNull { uuid == it.uuid }?.apply {
+                commit(this)
+                pool.remove(this)
+            }
+        }
     }
 
     @Suppress("unused")
     @EventHandler
-    fun onQuitUploadMongo(event: PlayerQuitEvent) = upsertAndRemove(event.player.uniqueId)
+    fun onQuitUploadMongo(event: PlayerQuitEvent) = commitAndRemove(event.player.uniqueId)
 
     @Suppress("unused")
     @EventHandler
-    fun onKickedUpsert(event: PlayerKickEvent) = upsertAndRemove(event.player.uniqueId)
+    fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemove(event.player.uniqueId)
 
     operator fun get(key: UUID) = pool.firstOrNull { key == it.uuid }
         ?.apply { assertNotNull(this, "${javaClass.simpleName} does not contain ${key.fastToString()}") }!!
