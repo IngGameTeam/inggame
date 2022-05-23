@@ -4,9 +4,13 @@ import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.base.Hub
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
+import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.player.GPlayer
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.player.PlayerJoinEvent
 
 class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath, SpawnHealth,
     ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage {
@@ -17,4 +21,13 @@ class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath
     override fun onJoinParticle(event: GPlayerSpawnEvent) {
         if (isInSector(event.player.location)) super.onJoinParticle(event)
     }
+
+    @Suppress("unused")
+    @EventHandler(priority = EventPriority.HIGHEST)
+    fun onJoinSpawnCall(event: GameJoinEvent) {
+        val player = plugin[event.player]
+        if (event.join !== this) return
+        Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
+    }
+
 }

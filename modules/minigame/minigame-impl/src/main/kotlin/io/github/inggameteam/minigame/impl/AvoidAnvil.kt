@@ -26,7 +26,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
     override val name get() = "avoid-anvil"
     override val startPlayersAmount get() = 1
     override var beginPlayersAmount = 0
-    override fun rewardPoint(player: GPlayer) = 0
+    override fun rewardPoint(player: GPlayer) = if (beginPlayersAmount <= 1) 0 else super.rewardPoint(player)
 
     override fun calcWinner() {
         if (beginPlayersAmount > 1) {

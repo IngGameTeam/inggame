@@ -19,7 +19,7 @@ class Meteor(override val plugin: AlertPlugin, val purchase: PurchaseContainer) 
     override val name get() = "meteor"
 
     override fun use(name: String, player: GPlayer) {
-        val playerPurchase = purchase[player][this.name]
+        val playerPurchase = purchase[player][name]
         playerPurchase.amount -= 1
         player.inventory.itemInMainHand.apply { amount = playerPurchase.amount }
         player.apply {

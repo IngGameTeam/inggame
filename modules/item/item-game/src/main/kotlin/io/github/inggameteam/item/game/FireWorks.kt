@@ -14,7 +14,7 @@ class FireWorks(override val plugin: AlertPlugin, val purchase: PurchaseContaine
     override val name get() = "fire-works"
 
     override fun use(name: String, player: GPlayer) {
-        purchase[player][this.name].amount -= 1
+        purchase[player][name].amount -= 1
     }
 
     @Suppress("unused")
