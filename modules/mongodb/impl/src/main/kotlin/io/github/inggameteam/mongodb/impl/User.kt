@@ -20,7 +20,6 @@ class UserContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
             val point = this["point"] as? Long?: 0L
             User(uuid, point)
         }?: User(uuid, 0)
-        user.point += 1
         return user
     }
 
