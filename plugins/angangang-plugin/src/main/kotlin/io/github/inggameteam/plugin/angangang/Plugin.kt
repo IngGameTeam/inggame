@@ -1,10 +1,9 @@
 package io.github.inggameteam.plugin.angangang
 
 import io.github.inggameteam.item.game.ApplyShopItem
-import io.github.inggameteam.item.impl.ItemShopMenu
+import io.github.inggameteam.item.game.FireWorks
 import io.github.inggameteam.item.game.MinigameMenu
-import io.github.inggameteam.item.impl.HandyGun
-import io.github.inggameteam.item.impl.ShotGun
+import io.github.inggameteam.item.impl.*
 import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.impl.*
@@ -53,6 +52,8 @@ class Plugin : GamePluginImpl(
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
 
+        Meteor(this, purchase)
+        FireWorks(this, purchase)
         ApplyShopItem(this, purchase)
         RewardWinnerThePoint(this, user)
         MinigameCommand(this)
@@ -67,6 +68,7 @@ class Plugin : GamePluginImpl(
         ShotGun(this)
         MinigameMenu(this)
         PartyItem(this)
+        DoubleJump(this)
 
     }
 
