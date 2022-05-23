@@ -62,9 +62,9 @@ class Soccer(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
             entities.forEach { it.target = null }
             entities.filter { it.location.y <= underY }.forEach {
                 if (centerZ < it.location.z) {
-                    addScore(PTag.RED)
-                } else {
                     addScore(PTag.BLUE)
+                } else {
+                    addScore(PTag.RED)
                 }
                 it.remove()
             }
