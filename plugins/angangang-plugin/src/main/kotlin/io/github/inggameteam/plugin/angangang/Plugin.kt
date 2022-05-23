@@ -1,5 +1,6 @@
 package io.github.inggameteam.plugin.angangang
 
+import io.github.inggameteam.item.game.ApplyShopItem
 import io.github.inggameteam.item.impl.ItemShopMenu
 import io.github.inggameteam.item.game.MinigameMenu
 import io.github.inggameteam.item.impl.HandyGun
@@ -52,6 +53,7 @@ class Plugin : GamePluginImpl(
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
 
+        ApplyShopItem(this, purchase)
         RewardWinnerThePoint(this, user)
         MinigameCommand(this)
         ReloadWatchDog(this)

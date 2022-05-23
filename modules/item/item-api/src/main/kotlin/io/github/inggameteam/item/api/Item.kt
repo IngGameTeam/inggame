@@ -7,9 +7,8 @@ import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 
-interface Item : Listener, PluginHolder<AlertPlugin> {
+interface Item : Listener, PluginHolder<AlertPlugin>, ItemComponentGetter {
     val name: String
-    val itemComp get() = plugin.components["item"]
 
     fun nameOrNull(player: GPlayer, itemStack: ItemStack?): String? {
         if (itemStack === null) return null
