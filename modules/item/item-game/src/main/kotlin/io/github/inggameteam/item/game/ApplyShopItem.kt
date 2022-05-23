@@ -23,7 +23,9 @@ class ApplyShopItem(
     fun onSpawn(event: GPlayerSpawnEvent) {
         if (plugin.gameRegister.getJoinedGame(event.player).name != plugin.gameRegister.hubName) return
         val player = event.player
-        val items = ArrayList(purchase[player].purchases).apply { sortBy { it.lastTime } }
+        val shopBlackList = itemComp.stringListOrNull("shop-item-black-list", plugin.defaultLanguage)?: listOf()
+        val items = ArrayList(purchase[player].purchases.filterNot { shopBlackList.contains(it.name) })
+            .apply { sortBy { it.lastTime } }
         val slots = HashMap<ItemSlot, Int>()
         for (item in items) {
             val slot = itemComp.string(item.name, plugin.defaultLanguage).run { ItemSlot.valueOf(this) }
