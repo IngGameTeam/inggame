@@ -44,7 +44,8 @@ class Soccer(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
     private fun addScore(team: PTag, amount: Int = 1) {
         if (team === PTag.RED) redScore += amount else blueScore += amount
         if (redScore >= GOAL_SCORE || blueScore >= GOAL_SCORE) {
-            joined.hasTags(team).forEach { it.addTag(PTag.DEAD); it.removeTag(PTag.PLAY) }
+            joined.hasTags(if (team === PTag.RED) PTag.BLUE else PTag.RED)
+                .forEach { it.addTag(PTag.DEAD); it.removeTag(PTag.PLAY) }
         }
         stopCheck()
         if (gameState !== GameState.STOP) {
