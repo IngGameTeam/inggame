@@ -24,7 +24,7 @@ class FireWorks(override val plugin: AlertPlugin, val purchase: PurchaseContaine
         val name = nameOrNull(player, event.item)?: return
         when(event.action) {
             Action.RIGHT_CLICK_BLOCK -> use(name, player)
-            Action.RIGHT_CLICK_AIR -> if (player.isFlying) use(name, player)
+            Action.RIGHT_CLICK_AIR -> if (player.isGliding) use(name, player)
             else -> {}
         }
     }
