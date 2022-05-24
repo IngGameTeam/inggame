@@ -14,6 +14,7 @@ import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
+import org.checkerframework.common.returnsreceiver.qual.This
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -70,6 +71,8 @@ class Plugin : GamePluginImpl(
         MinigameMenu(this)
         PartyItem(this)
         DoubleJump(this)
+        Bazooka(this)
+        BigBoom(this)
 
     }
 
