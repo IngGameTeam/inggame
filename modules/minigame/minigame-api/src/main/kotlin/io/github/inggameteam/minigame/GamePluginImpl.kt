@@ -42,8 +42,10 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         worldName.forEach { WorldGenerator.generateWorld(it) }
         gameSupplierRegister
         gameRegister
-        gameRegister.apply { add(createGame(hubName)) }
-        Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
+        Bukkit.getScheduler().runTask(this) { _ ->
+            gameRegister.apply { add(createGame(hubName)) }
+            Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
+        }
     }
 
     override fun onDisable() {
