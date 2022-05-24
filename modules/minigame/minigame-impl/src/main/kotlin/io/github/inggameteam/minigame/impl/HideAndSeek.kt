@@ -35,7 +35,7 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
         }
         val playerJob = getPlayerJob(player)
         player.inventory.contents = comp.inventory("$playerJob", player.lang(plugin)).contents
-//        player.player.teleport(getLocation("$playerJob"))
+        player.teleport(getLocation("$playerJob"))
         comp.send(playerJob.toString(), player)
         if (player.hasTag(PTag.RED)) {
             player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 55555, 2))

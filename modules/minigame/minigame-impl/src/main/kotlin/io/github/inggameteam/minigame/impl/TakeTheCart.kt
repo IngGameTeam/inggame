@@ -53,7 +53,7 @@ class TakeTheCart(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Bar
         playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
         if (gameState == GameState.PLAY) {
             playersToDie.forEach { it.damage(10000.0) }
-            point.world.getNearbyEntities(getLocation("start"), 20.0, 20.0, 20.0)
+            point.world.getNearbyEntities(getLocation(GameState.PLAY.toString()), 20.0, 20.0, 20.0)
                 .filter { it.scoreboardTags.contains(CART_TAG) }
                 .forEach {it.remove() }
             setupCart()
