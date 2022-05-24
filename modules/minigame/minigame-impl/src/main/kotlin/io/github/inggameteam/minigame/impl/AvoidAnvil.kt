@@ -31,7 +31,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
     override fun calcWinner() {
         if (beginPlayersAmount > 1) {
             val winner = joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0]
-            comp.send(SINGLE_WINNER, joined, winner, this)
+            joined.forEach { comp.send(SINGLE_WINNER, it, winner, displayName(it)) }
             Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this, GPlayerList(listOf(winner))))
         }
     }
