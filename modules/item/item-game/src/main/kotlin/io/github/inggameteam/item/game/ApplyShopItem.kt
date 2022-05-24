@@ -34,6 +34,7 @@ class ApplyShopItem(
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onSpawn(event: GPlayerSpawnEvent) {
         val player = event.player
+        if (plugin.gameRegister.getJoinedGame(player).name != plugin.gameRegister.hubName) return
         val shopBlackList = itemComp.stringListOrNull("shop-item-black-list", plugin.defaultLanguage)?: listOf()
         val items = ArrayList(purchase[player].purchases.filterNot { shopBlackList.contains(it.name) })
             .apply { sortBy { it.lastTime }; reverse() }
