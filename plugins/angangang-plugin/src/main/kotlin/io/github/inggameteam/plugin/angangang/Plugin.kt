@@ -2,7 +2,7 @@ package io.github.inggameteam.plugin.angangang
 
 import io.github.inggameteam.item.game.ApplyShopItem
 import io.github.inggameteam.item.game.FireWorks
-import io.github.inggameteam.item.game.ItemShopMenu
+import io.github.inggameteam.item.impl.ItemShopMenu
 import io.github.inggameteam.item.game.MinigameMenu
 import io.github.inggameteam.item.impl.*
 import io.github.inggameteam.minigame.GamePluginImpl
@@ -14,7 +14,6 @@ import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
-import org.checkerframework.common.returnsreceiver.qual.This
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -64,6 +63,7 @@ class Plugin : GamePluginImpl(
         HandleDeath(this)
         ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
+        ArrowStuckPreventHandler(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)

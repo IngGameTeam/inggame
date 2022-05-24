@@ -3,6 +3,7 @@ package io.github.inggameteam.item.impl
 import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Interact
+import io.github.inggameteam.item.api.InteractCancel
 import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.player.GPlayer
@@ -15,7 +16,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 
-class Meteor(override val plugin: AlertPlugin, val purchase: PurchaseContainer) : Item, Interact, HandleListener(plugin) {
+class Meteor(override val plugin: AlertPlugin, val purchase: PurchaseContainer) : Item, InteractCancel, HandleListener(plugin) {
     override val name get() = "meteor"
 
     override fun use(name: String, player: GPlayer) {

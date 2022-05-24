@@ -1,4 +1,4 @@
-package io.github.inggameteam.item.game
+package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.alert.Lang.lang
@@ -6,8 +6,8 @@ import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Drop
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.item.api.InventoryClick
+import io.github.inggameteam.item.impl.event.PurchaseEvent
 import io.github.inggameteam.item.impl.ItemType.*
-import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.player.GPlayer
@@ -21,10 +21,10 @@ import org.bukkit.Bukkit
 class ItemShopMenu(
     override val plugin: AlertPlugin,
     private val user: UserContainer,
-    private val purchase: PurchaseContainer
+    private val purchase: PurchaseContainer,
+    override val name: String = "item-shop"
 ) :
     Interact, Drop, InventoryClick, HandleListener(plugin) {
-    override val name get() = "item-shop"
     override fun use(name: String, player: GPlayer) {
         shopMenu(player)
     }
@@ -35,11 +35,11 @@ class ItemShopMenu(
     private fun shopMenu(player: GPlayer) {
         val before = System.currentTimeMillis()
         val lang = player.lang(plugin)
-        val inventory = itemComp.inventory("shop", lang)
+        val inventory = itemComp.inventory(this.name, lang)
         val rowSize = 6
-        InvFX.frame(rowSize, Component.text(itemComp.string("shop-inventory-title", lang))) {
+        InvFX.frame(rowSize, Component.text(itemComp.string("${this@ItemShopMenu.name}-inventory-title", lang))) {
             val contents = inventory.contents
-            val items = itemComp.stringList("shop", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
+            val items = itemComp.stringList(this@ItemShopMenu.name + "-shop-items", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
                 .filter { toItemType(it.first) !== LIMITED }.toMap()
             val pointBalanceItem = safeClone(itemComp.item("point-balance", lang))
             val pointBalanceIndex = contents.indexOf(pointBalanceItem)
@@ -96,7 +96,7 @@ class ItemShopMenu(
                                 else -> {}
                             }
                             playerPurchase[name].updateLastTime()
-                            Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
+                            Bukkit.getPluginManager().callEvent(PurchaseEvent(player))
                             shopMenu(player)
                         }
                     }

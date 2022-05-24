@@ -5,10 +5,13 @@ import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.item.api.ItemComponentGetter
+import io.github.inggameteam.item.impl.event.PurchaseEvent
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.utils.ItemUtil
+import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -20,10 +23,17 @@ class ApplyShopItem(
     ) : PluginHolder<AlertPlugin>, HandleListener(plugin), ItemComponentGetter {
 
     @Suppress("unused")
+    @EventHandler
+    fun onPurchase(event: PurchaseEvent) {
+        val player = event.player
+        if (plugin.gameRegister.getJoinedGame(player).name != plugin.gameRegister.hubName) return
+        Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
+    }
+
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onSpawn(event: GPlayerSpawnEvent) {
         val player = event.player
-        if (plugin.gameRegister.getJoinedGame(player).name != plugin.gameRegister.hubName) return
         val shopBlackList = itemComp.stringListOrNull("shop-item-black-list", plugin.defaultLanguage)?: listOf()
         val items = ArrayList(purchase[player].purchases.filterNot { shopBlackList.contains(it.name) })
             .apply { sortBy { it.lastTime }; reverse() }
@@ -32,6 +42,7 @@ class ApplyShopItem(
             val slot = itemComp.string(item.name + "-slot", plugin.defaultLanguage).run { ItemSlot.valueOf(this) }
             val itemStack = ItemUtil.safeClone(itemComp.item(item.name, player.lang(plugin)))
             itemStack.amount = item.amount
+            if (itemStack.amount == 0);
             slot.setItem(player, itemStack)
         }
     }
@@ -50,7 +61,7 @@ enum class ItemSlot(val size: Int, vararg slot: Int) {
     fun resetSlot(player: Player) = slots.forEach { player.inventory.setItem(it, null) }
     fun setItem(player: Player, itemStack: ItemStack) {
         val inventory = player.inventory
-        val slot = slots.firstOrNull { inventory.getItem(it) === null }?: return
+        val slot = slots.firstOrNull { inventory.getItem(it).run { this === null || this.type === Material.AIR }}?: return
         player.inventory.setItem(slot, itemStack)
     }
 }
