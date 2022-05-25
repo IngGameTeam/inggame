@@ -41,7 +41,8 @@ class Plugin : GamePluginImpl(
         ::PushGame,
         ::PigRider,
         ::ColorMatch,
-        ::ZombieSurvival
+        ::ZombieSurvival,
+        ::Develop,
     ),
 ) {
 

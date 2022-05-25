@@ -13,7 +13,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
 
 class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath, SpawnHealth,
-    ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage {
+    ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage, NoBlockBreak, NoBlockPlace {
     override fun tpSpawn(player: GPlayer, spawn: String): Location? {
         return if (isInSector(player.location)) null else super.tpSpawn(player, spawn)
     }

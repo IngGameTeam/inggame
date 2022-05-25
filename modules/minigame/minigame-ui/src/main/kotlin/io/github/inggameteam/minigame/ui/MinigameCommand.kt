@@ -10,6 +10,10 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin as JavaPlugin, {
 
+    commandExecute("lobby") {
+        plugin.gameRegister.join(player, plugin.gameRegister.hubName)
+    }
+
     command("mg") {
         thenExecute("join") {
             plugin.gameRegister.join(player, args.subList(1, args.size).joinToString(" "))

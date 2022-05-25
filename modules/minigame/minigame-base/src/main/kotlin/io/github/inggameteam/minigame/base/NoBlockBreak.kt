@@ -12,7 +12,7 @@ interface NoBlockBreak : Game {
     @EventHandler
     fun noBlockPlace(event: BlockBreakEvent) {
         val player = event.player
-        if (!isJoined(player) && gameState !== GameState.WAIT)
+        if (isJoined(player) && gameState !== GameState.WAIT)
             event.isCancelled = true
     }
 
