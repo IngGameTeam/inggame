@@ -29,31 +29,29 @@ class ItemShopMenu(
         shopMenu(player)
     }
 
-    private fun toItemType(name: String) = valueOf(itemComp.string(name, plugin.defaultLanguage))
 
 
     private fun shopMenu(player: GPlayer) {
-        val before = System.currentTimeMillis()
         val lang = player.lang(plugin)
         val inventory = itemComp.inventory(this.name, lang)
         val rowSize = 6
         InvFX.frame(rowSize, Component.text(itemComp.string("${this@ItemShopMenu.name}-inventory-title", lang))) {
-            val contents = inventory.contents
             val items = itemComp.stringList(this@ItemShopMenu.name + "-shop-items", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
                 .filter { toItemType(it.first) !== LIMITED }.toMap()
             val pointBalanceItem = safeClone(itemComp.item("point-balance", lang))
-            val pointBalanceIndex = contents.indexOf(pointBalanceItem)
+            val pointBalanceIndex = inventory.indexOf(pointBalanceItem)
             if (pointBalanceIndex != -1) {
-                appendLore(pointBalanceItem,
-                    itemComp.string("point-balance", lang).format(user[player].point), index = 0)
-                contents[pointBalanceIndex] = pointBalanceItem
+                slot (pointBalanceIndex % 9, pointBalanceIndex / 9) {
+                    appendLore(pointBalanceItem,
+                        itemComp.string("point-balance", lang).format(user[player].point), index = 0)
+                    item = pointBalanceItem
+                }
             }
             items.forEach { (name, item) ->
                 val playerPurchase = purchase[player]
-                val index = contents.indexOf(item)
+                val index = inventory.indexOf(item)
                 if (index == -1) return@forEach
                 val amount = playerPurchase[name].amount
-                contents[index] = null
                 slot(index % 9, index / 9) {
                     when(toItemType(name)) {
                         VOLUME -> {
@@ -103,15 +101,9 @@ class ItemShopMenu(
                 }
             }
 
-            for (x in 0 until 9) for (y in 0 until rowSize) {
-                val index = x + y * 9
-                if (contents[index] !== null)
-                    slot(x, y) {
-                        item = contents[index]
-                    }
-            }
+
+
         }.apply { player.openFrame(this) }
-        println("${System.currentTimeMillis() - before}")
     }
 
 }

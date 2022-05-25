@@ -5,7 +5,9 @@ import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.item.api.ItemComponentGetter
+import io.github.inggameteam.item.impl.ItemType
 import io.github.inggameteam.item.impl.event.PurchaseEvent
+import io.github.inggameteam.item.impl.toItemType
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
@@ -40,11 +42,18 @@ class ApplyShopItem(
             .apply { sortBy { it.lastTime }; reverse() }
         ItemSlot.values().forEach { it.resetSlot(player) }
         for (item in items) {
-            val slot = itemComp.string(item.name + "-slot", plugin.defaultLanguage).run { ItemSlot.valueOf(this) }
+            val slot = itemComp.stringOrNull(item.name + "-slot", plugin.defaultLanguage)?.run { ItemSlot.valueOf(this) }
+                ?: continue
             val itemStack = ItemUtil.safeClone(itemComp.item(item.name, player.lang(plugin)))
-            itemStack.amount = item.amount
-            if (itemStack.amount == 0);
-            slot.setItem(player, itemStack)
+            val itemType = toItemType(item.name)
+            if (itemType === ItemType.TOGGLE) {
+                if (item.amount == 1) {
+                    slot.setItem(player, itemStack)
+                }
+            } else if (item.amount > 0) {
+                itemStack.amount = item.amount
+                slot.setItem(player, itemStack)
+            }
         }
     }
 

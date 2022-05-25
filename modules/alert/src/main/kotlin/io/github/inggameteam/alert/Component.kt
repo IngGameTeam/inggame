@@ -224,8 +224,8 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
         }
 
         val orders = ArrayList<String>()
+        val isDebug = plugin.config.getBoolean("debug")
         cacheConfigMap.keys.forEach { fileName ->
-            if (plugin.config.getBoolean("debug")) println("Loading $fileName components...")
             cacheParentMap[fileName]?.apply {
                 var ind = 0
                 forEach { pare ->
@@ -236,7 +236,9 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
             }
         }
         orders.forEach {
+            if (isDebug) println("Loading $it components...")
             this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] }.listWithToString())
+            if (isDebug) println("Components $it Loaded")
         }
     }
 
