@@ -1,10 +1,12 @@
 package io.github.inggameteam.plugin.angangang
 
 import io.github.inggameteam.challenge.impl.GameLife
+import io.github.inggameteam.challenge.impl.LetsHaveFun
 import io.github.inggameteam.item.game.ApplyShopItem
 import io.github.inggameteam.item.game.FireWorks
 import io.github.inggameteam.item.impl.ItemShopMenu
 import io.github.inggameteam.item.game.MinigameMenu
+import io.github.inggameteam.item.game.PoliceHat
 import io.github.inggameteam.item.impl.*
 import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
@@ -60,8 +62,10 @@ class Plugin : GamePluginImpl(
 
         listOf(
             ::GameLife,
+            ::LetsHaveFun,
         ).forEach { it(this, challenge) }
 
+        PoliceHat(this, purchase)
         AnnounceChallengeArchive(this)
         Meteor(this, purchase)
         FireWorks(this, purchase)
