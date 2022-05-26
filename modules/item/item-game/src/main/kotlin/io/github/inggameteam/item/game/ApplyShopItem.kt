@@ -11,8 +11,8 @@ import io.github.inggameteam.item.impl.toItemType
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
+import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.ItemUtil
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -28,14 +28,17 @@ class ApplyShopItem(
     @EventHandler
     fun onPurchase(event: PurchaseEvent) {
         val player = event.player
-        if (plugin.gameRegister.getJoinedGame(player).name != plugin.gameRegister.hubName) return
-        Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
+        applyShopItem(player)
     }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onSpawn(event: GPlayerSpawnEvent) {
         val player = event.player
+        applyShopItem(player)
+    }
+
+    private fun applyShopItem(player: GPlayer) {
         if (plugin.gameRegister.getJoinedGame(player).name != plugin.gameRegister.hubName) return
         val shopBlackList = itemComp.stringListOrNull("shop-item-black-list", plugin.defaultLanguage)?: listOf()
         val items = ArrayList(purchase[player].purchases.filterNot { shopBlackList.contains(it.name) })
@@ -55,6 +58,7 @@ class ApplyShopItem(
                 slot.setItem(player, itemStack)
             }
         }
+
     }
 
 }

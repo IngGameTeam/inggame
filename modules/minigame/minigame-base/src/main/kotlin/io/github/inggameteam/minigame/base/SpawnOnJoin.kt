@@ -5,14 +5,15 @@ import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameJoinEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 
 interface SpawnOnJoin : Game {
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun onJoinSpawn(event: GameJoinEvent) {
         val player = event.player
-        if (isJoined(player)) {
+        if (event.join === this) {
             Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
         }
     }

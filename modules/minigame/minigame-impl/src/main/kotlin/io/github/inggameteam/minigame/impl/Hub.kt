@@ -15,20 +15,9 @@ import org.bukkit.event.player.PlayerJoinEvent
 class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath, SpawnHealth,
     ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage, NoBlockBreak, NoBlockPlace {
 
-    override fun tpSpawn(player: GPlayer, spawn: String): Location? {
-        return if (isInSector(player.location) && !testVoidDeath(player)) null else super.tpSpawn(player, spawn)
-    }
-
+    @EventHandler
     override fun onJoinParticle(event: GPlayerSpawnEvent) {
         if (isInSector(event.player.location)) super.onJoinParticle(event)
-    }
-
-    @Suppress("unused")
-    @EventHandler(priority = EventPriority.HIGHEST)
-    fun onJoinSpawnCall(event: GameJoinEvent) {
-        val player = plugin[event.player]
-        if (event.join !== this) return
-        Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
     }
 
 }

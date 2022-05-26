@@ -9,6 +9,7 @@ import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
+import io.github.inggameteam.minigame.ui.ModeratePointAmountCommand
 import io.github.inggameteam.mongodb.api.MongoDBCPImpl
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
@@ -59,6 +60,7 @@ class Plugin : GamePluginImpl(
         ApplyShopItem(this, purchase)
         RewardWinnerThePoint(this, user)
         MinigameCommand(this)
+//        ModeratePointAmountCommand(this, user)
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)

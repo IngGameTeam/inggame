@@ -7,6 +7,8 @@ softdepend:
   - FastAsyncWorldEdit
   - PlugManX
 commands:
+  point:
+    permission: minigame.moderate.point
   lobby:
     aliases: [ l ]
   p:
@@ -15,4 +17,6 @@ commands:
     permission: minigame.admin
 permissions:
   minigame.admin:
+    default: op
+  minigame.moderate:
     default: op

@@ -6,6 +6,7 @@ import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
@@ -25,11 +26,9 @@ class FireWorks(override val plugin: AlertPlugin, val purchase: PurchaseContaine
         when(event.action) {
             Action.RIGHT_CLICK_BLOCK -> {
                 use(name, player)
-                event.isCancelled = true
             }
             Action.RIGHT_CLICK_AIR -> {
                 if (player.isGliding) use(name, player)
-                event.isCancelled = true
             }
             else -> {}
         }
