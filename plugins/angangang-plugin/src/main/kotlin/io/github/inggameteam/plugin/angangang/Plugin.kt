@@ -1,5 +1,6 @@
 package io.github.inggameteam.plugin.angangang
 
+import io.github.inggameteam.challenge.impl.GameLife
 import io.github.inggameteam.item.game.ApplyShopItem
 import io.github.inggameteam.item.game.FireWorks
 import io.github.inggameteam.item.impl.ItemShopMenu
@@ -11,6 +12,7 @@ import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.minigame.ui.ModeratePointAmountCommand
 import io.github.inggameteam.mongodb.api.MongoDBCPImpl
+import io.github.inggameteam.mongodb.impl.ChallengeContainer
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
@@ -54,7 +56,13 @@ class Plugin : GamePluginImpl(
         val mongoDBCP = MongoDBCPImpl(this)
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
+        val challenge = ChallengeContainer(this, mongoDBCP)
 
+        listOf(
+            ::GameLife,
+        ).forEach { it(this, challenge) }
+
+        AnnounceChallengeArchive(this)
         Meteor(this, purchase)
         FireWorks(this, purchase)
         ApplyShopItem(this, purchase)
