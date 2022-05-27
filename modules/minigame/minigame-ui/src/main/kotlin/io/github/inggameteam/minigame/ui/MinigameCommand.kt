@@ -1,5 +1,6 @@
 package io.github.inggameteam.minigame.ui
 
+import com.rylinaux.plugman.util.PluginUtil
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.minigame.GamePlugin
@@ -57,15 +58,13 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
                 }
             }
         }
-/*
         thenExecute("reload") {
             source.sendMessage("Reloading...")
             val before = System.currentTimeMillis()
-            plugin.onEnable()
+            PluginUtil.reload(plugin)
             val after = System.currentTimeMillis()
             source.sendMessage("Reload Done in ${after - before}ms")
         }
-*/
     }
 
 })
