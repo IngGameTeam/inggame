@@ -101,8 +101,8 @@ class ColorMatch(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin),
         val playersToDie = joined.hasTags(PTag.PLAY).filterNot(::isMatch).toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
         stopCheck()
-        playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
         if (gameState == GameState.PLAY) {
+            playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
             playersToDie.forEach { it.damage(10000.0) }
             updateStageBar()
             updateColor()
