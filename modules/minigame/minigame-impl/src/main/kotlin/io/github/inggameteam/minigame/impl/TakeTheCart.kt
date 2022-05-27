@@ -5,8 +5,10 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
+import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Minecart
 import kotlin.random.Random
@@ -52,7 +54,7 @@ class TakeTheCart(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Bar
         stopCheck()
         playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
         if (gameState == GameState.PLAY) {
-            playersToDie.forEach { it.damage(10000.0) }
+            playersToDie.forEach { Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it)) }
             point.world.getNearbyEntities(getLocation(GameState.PLAY.toString()), 20.0, 20.0, 20.0)
                 .filter { it.scoreboardTags.contains(CART_TAG) }
                 .forEach {it.remove() }
