@@ -33,6 +33,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import java.util.*
 import kotlin.collections.ArrayList
@@ -59,6 +60,17 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     val voteTopic = HashMap<String, Int>()
     val exampleTopic = ArrayList<String>()
     lateinit var current: UUID
+
+    override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
+        return super<SimpleGame>.inventorySpawn(player, if (isDone) "VOTE" else spawn)
+    }
+
+    override fun tpSpawn(player: GPlayer, spawn: String): Location?  {
+        if (!isDone) return null
+        return (playerData[joined.first { current == it.uniqueId }]!![PLAYER_AREA] as Location).apply {
+            player.teleport(this)
+        }
+    }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOWEST)

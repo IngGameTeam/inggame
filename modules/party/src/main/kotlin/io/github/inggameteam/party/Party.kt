@@ -43,13 +43,20 @@ class Party(
 val PluginHolder<PartyPlugin>.comp get() = plugin.partyComponent
 fun PluginHolder<PartyPlugin>.updateParty() = plugin.partyUI.updateParty()
 
-fun Party.left(player: GPlayer) {
+fun Party.disband(player: GPlayer) {
     if (leader == player) {
-
         comp.send(PARTY_DISBANDED, joined, this)
         plugin.partyRegister.remove(this)
         plugin.partyRequestRegister.removeIf { it.party == this }
         updateParty()
+    } else {
+        comp.send(PartyAlert.PARTY_DISBAND_IS_LEADER_ONLY, player)
+    }
+}
+
+fun Party.left(player: GPlayer) {
+    if (leader == player) {
+        disband(player)
     } else {
         joined.remove(player)
         comp.send(LEFT_PARTY, joined, player, this)
@@ -105,10 +112,11 @@ fun Party.promote(dispatcher: GPlayer, newLeader: GPlayer) {
     if (leader eq dispatcher) {
         if (leader eq newLeader) comp.send(CANNOT_PROMOTE_YOURSELF, dispatcher)
         else if (joined.contains(newLeader)) {
-            comp.send(LEADER_PROMOTE_YOU, newLeader)
+            comp.send(LEADER_PROMOTE_YOU, newLeader, dispatcher, this)
             comp.send(PARTY_PROMOTED, joined, newLeader, this)
             joined.remove(newLeader)
             joined.add(0, newLeader)
+            if (!renamed) resetName()
             updateParty()
         } else {
             comp.send(PLAYER_NOT_EXIST_IN_PARTY, dispatcher)

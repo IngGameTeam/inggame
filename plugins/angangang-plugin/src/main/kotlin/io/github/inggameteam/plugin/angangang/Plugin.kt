@@ -2,11 +2,8 @@ package io.github.inggameteam.plugin.angangang
 
 import io.github.inggameteam.challenge.impl.GameLife
 import io.github.inggameteam.challenge.impl.LetsHaveFun
-import io.github.inggameteam.item.game.ApplyShopItem
-import io.github.inggameteam.item.game.FireWorks
+import io.github.inggameteam.item.game.*
 import io.github.inggameteam.item.impl.ItemShopMenu
-import io.github.inggameteam.item.game.MinigameMenu
-import io.github.inggameteam.item.game.PoliceHat
 import io.github.inggameteam.item.impl.*
 import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
@@ -48,6 +45,7 @@ class Plugin : GamePluginImpl(
         ::ColorMatch,
         ::ZombieSurvival,
         ::Develop,
+        ::Tutorial,
     ),
 ) {
 
@@ -65,6 +63,7 @@ class Plugin : GamePluginImpl(
             ::LetsHaveFun,
         ).forEach { it(this, challenge) }
 
+        TutorialBook(this)
         PoliceHat(this, purchase)
         AnnounceChallengeArchive(this)
         Meteor(this, purchase)

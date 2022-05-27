@@ -10,6 +10,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class Spleef(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), PreventFallDamage, SpawnPlayer {
@@ -24,7 +25,15 @@ class Spleef(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), PreventF
             if (attacker.inventory.let { it.getItem(it.heldItemSlot)?.type === Material.DIAMOND_SHOVEL })
                 event.damage = 1.0
         }
+    }
 
+    @Suppress("unused")
+    @EventHandler
+    fun onBreakSnowBlock(event: BlockBreakEvent) {
+        if (!isJoined(event.player)) return
+        if (gameState === GameState.PLAY) {
+            event.isDropItems = false
+        }
     }
 
 }
