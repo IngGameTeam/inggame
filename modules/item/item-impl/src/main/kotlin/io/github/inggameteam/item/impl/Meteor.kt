@@ -21,7 +21,9 @@ class Meteor(override val plugin: AlertPlugin, val purchase: PurchaseContainer) 
 
     override fun use(name: String, player: GPlayer) {
         val playerPurchase = purchase[player][name]
-        playerPurchase.amount -= 1
+        purchase[player][name].apply {
+            if (amount > 0) amount -= 1
+        }
         player.inventory.itemInMainHand.apply { amount = playerPurchase.amount }
         player.apply {
             world.spawn(eyeLocation.add(location.direction.multiply(2)), Fireball::class.java) {

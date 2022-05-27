@@ -46,6 +46,7 @@ class Plugin : GamePluginImpl(
         ::ZombieSurvival,
         ::Develop,
         ::Tutorial,
+        ::JobWars,
     ),
 ) {
 
@@ -63,7 +64,7 @@ class Plugin : GamePluginImpl(
             ::LetsHaveFun,
         ).forEach { it(this, challenge) }
 
-        TutorialBook(this)
+        TutorialBook(this, purchase)
         PoliceHat(this, purchase)
         AnnounceChallengeArchive(this)
         Meteor(this, purchase)

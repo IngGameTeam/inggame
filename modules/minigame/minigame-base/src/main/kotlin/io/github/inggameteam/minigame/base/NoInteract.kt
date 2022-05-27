@@ -12,14 +12,14 @@ interface NoInteract : Game {
     @Suppress("unused")
     @EventHandler
     fun noInteract(event: PlayerInteractEntityEvent) {
-        if (gameState === GameState.PLAY && isJoined(event.player)) event.isCancelled = true
+        if (gameState !== GameState.WAIT && isJoined(event.player)) event.isCancelled = true
     }
 
     @Suppress("unused")
     @EventHandler
     fun noDamageEntity(event: EntityDamageByEntityEvent) {
         val player = event.entity
-        if (player is Player && gameState === GameState.PLAY && isJoined(player)) event.isCancelled = true
+        if (player is Player && gameState !== GameState.WAIT && isJoined(player)) event.isCancelled = true
     }
 
 

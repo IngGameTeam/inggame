@@ -13,7 +13,7 @@ interface NoItemDrop : Game {
     @EventHandler
     fun noBlockPlace(event: PlayerDropItemEvent) {
         val player = event.player
-        if (!isJoined(player) && gameState !== GameState.WAIT)
+        if (isJoined(player) && gameState !== GameState.WAIT)
             event.isCancelled = true
     }
 
