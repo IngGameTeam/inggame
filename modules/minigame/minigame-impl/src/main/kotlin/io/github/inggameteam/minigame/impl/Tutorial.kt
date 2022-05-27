@@ -10,8 +10,6 @@ import io.github.inggameteam.scheduler.ITask
 class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
     override val name get() = "tutorial"
     override val recommendedStartPlayersAmount get() = 1
-    override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean) =
-        joined.isEmpty() && gameState === GameState.WAIT
 
     var count = 1
     var stopTick = 0
