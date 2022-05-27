@@ -5,8 +5,10 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
+import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
+import org.bukkit.Bukkit
 
 class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlayer, BarGame, NoDamage {
     override val name get() = "quiz"
@@ -51,14 +53,14 @@ class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlaye
     }
 
     private fun killFailedPlayers() {
-        val int = comp.int("line") + getLocation("point").x
+        val double = getLocation("point").x
         val playersToDie = joined.hasTags(PTag.PLAY)
-            .filter { ((it.location.x) < int) == result }.toList()
+            .filter { ((it.location.x) < double) == result }.toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
         stopCheck()
         if (gameState == GameState.PLAY) {
             playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
-            playersToDie.forEach { it.damage(10000.0) }
+            playersToDie.forEach { Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it)) }
         }
     }
 
