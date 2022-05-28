@@ -35,7 +35,7 @@ interface SpawnPlayer : Game, Sectional {
             )
         }
 
-    fun inventorySpawn(player: GPlayer, spawn: String) =
+    fun inventorySpawn(player: GPlayer, spawn: String = this.gameState.toString()) =
         comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
 
     fun gameModeSpawn(player: GPlayer, spawn: String) = defaultGameMode()?.apply { player.gameMode = this }

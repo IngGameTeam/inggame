@@ -15,18 +15,22 @@ import io.github.monun.invfx.openFrame
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 
-class MinigameMenu(override val plugin: GamePlugin) : Interact, Drop, InventoryClick, HandleListener(plugin) {
-    override val name get() = "game-menu"
+class MinigameMenu(
+    override val plugin: GamePlugin,
+    override val name: String = "game-menu",
+) : Interact, Drop, InventoryClick, HandleListener(plugin) {
+
     override fun use(name: String, player: GPlayer) {
         if (player[CLICK_PAUSED] !== null) return
-        minigameMenu(player)
+        if (plugin.gameRegister.getJoinedGame(player).name == plugin.gameRegister.hubName) minigameMenu(player)
     }
 
     private val games get() = plugin.gameSupplierRegister.keys.toList().filter { it != plugin.gameRegister.hubName }.toList()
 
-    private fun minigameMenu(player: GPlayer, games: List<String> = this.games): InvFrame {
+    private fun minigameMenu(player: GPlayer): InvFrame {
         val lang = player.lang(plugin)
-        return InvFX.frame(3, Component.text(itemComp.string("game-menu-title", lang))) {
+        val games = itemComp.stringList("$name-games", lang)
+        return InvFX.frame(3, Component.text(itemComp.string("$name-title", lang))) {
             list(0, 0, 9, 3, true, { games }) {
                 transform { itemComp.itemOrNull(it, lang)?: ItemUtil.itemStack(Material.STONE, it) }
                 onClickItem { _, _, item, event ->

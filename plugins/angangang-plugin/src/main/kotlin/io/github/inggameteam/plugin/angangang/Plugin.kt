@@ -84,6 +84,7 @@ class Plugin : GamePluginImpl(
         HandyGun(this)
         ShotGun(this)
         MinigameMenu(this)
+        MinigameMenu(this, "developing-game-menu")
         PartyItem(this)
         DoubleJump(this)
         Bazooka(this)

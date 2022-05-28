@@ -6,8 +6,12 @@ import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
+import io.github.inggameteam.scheduler.delay
+import io.github.inggameteam.utils.ColorUtil.color
+import org.bukkit.Location
+import org.bukkit.entity.EntityType
 
-class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
+class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame, NoDamage {
     override val name get() = "tutorial"
     override val recommendedStartPlayersAmount get() = 1
 
@@ -17,37 +21,52 @@ class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleG
 
     override fun beginGame() {
         super.beginGame()
-        joined.hasTags(PTag.PLAY).forEach { player ->
-            val lang = player.lang(plugin)
-            stopTick = Integer.parseInt(comp.string("stop", lang))
-            gameTask = ITask.repeat(plugin, 1, 1, {
+            stopTick = Integer.parseInt(comp.string("stop", plugin.defaultLanguage))
+            addTask(ITask.repeat(plugin, 1, 1, {
                 if (count >= stopTick) {
                     joined[0].addTag(PTag.DEAD)
                     leftGame(joined[0], LeftType.GAME_STOP)
                     return@repeat
                 }
-                comp.stringOrNull("title${count}", lang)?.split(" ")?.apply {
+                comp.stringOrNull("title${count}", plugin.defaultLanguage)?.split(" ")?.apply {
                     val fadeIn = get(0).toInt()
                     val stay = get(1).toInt()
                     val fadeOut = get(2).toInt()
                     (this.subList(3, this.size).joinToString(" ")).split("-").apply {
-                        val subTitle = if (size != 1) get(1) else get(0)
-                        val title = if (size != 1) get(0).ifEmpty { " " } else " "
-                        player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
+                        val subTitle = if (size != 1) get(1) else "&f".color
+                        val title = get(0).ifEmpty { " " }
+                        joined.forEach { player ->
+                            player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
+                        }
                     }
                 }
-                comp.stringOrNull("sound$count", lang)?.split(" ")?.apply {
-                    player.playSound(player.location,
-                        this[0],
-                        Float.MAX_VALUE,
-                        1f)
+                comp.stringOrNull("sound$count", plugin.defaultLanguage)?.split(" ")?.apply {
+                    joined.forEach { player ->
+                        player.playSound(Location(point.world, 0.0, 0.0, 0.0),
+                            this[0],
+                            Float.MAX_VALUE,
+                            1f)
+                    }
                 }
-                comp.stringOrNull("stopSound$count", lang)?.split(" ")?.apply {
-                    player.stopSound(this[0])
+                comp.stringOrNull("stopSound$count", plugin.defaultLanguage)?.split(" ")?.apply {
+                    joined.forEach { player ->
+                        player.stopSound(this[0])
+                    }
+                }
+                comp.stringOrNull("spawnEntity$count", plugin.defaultLanguage)?.split(" ")?.let { args ->
+                    val entity = world.spawn(
+                        getLocation(args[1]),
+                        EntityType.valueOf(args[0]).entityClass!!,
+                    )?.apply {
+                        isInvulnerable = if (args[3] == "true") true else false
+                        addTask({
+                            this.remove()
+                        }.delay(plugin, args[2].toLong()))
+                    }
                 }
                 count++
-            })
-        }    }
+            }))
+        }
 
 
 }

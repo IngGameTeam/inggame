@@ -35,8 +35,10 @@ class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
 
     override fun commit(data: PurchaseList) {
         data.purchases.forEach {
-            if (it.amount == 0) return@forEach
             val document = Document("uuid", data.uuid.fastToString()).append("name", it.name)
+            if (it.amount <= 0) {
+                col.deleteOne(document)
+            }
             val updateDoc = mutableListOf(
                 Updates.set("amount", it.amount),
                 Updates.set("lastTime", it.lastTime)
