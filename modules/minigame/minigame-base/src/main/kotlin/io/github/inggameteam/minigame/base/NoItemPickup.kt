@@ -17,7 +17,7 @@ interface NoItemPickup : Game {
     fun noBlockPlace(event: EntityPickupItemEvent) {
         if (event.entityType !== EntityType.PLAYER) return
         val player = event.entity as Player
-        if (!isJoined(player) && gameState !== GameState.WAIT)
+        if (isJoined(player) && gameState !== GameState.WAIT)
             event.isCancelled = true
     }
 
