@@ -10,6 +10,7 @@ import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
 import io.github.inggameteam.player.hasTags
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockBreakEvent
 
 class YouKilledIt(override val plugin: GamePlugin,
@@ -20,7 +21,7 @@ class YouKilledIt(override val plugin: GamePlugin,
     override val goal get() = 1
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun onKill(event: GPlayerDeathEvent) {
         val killer = event.killer?: return
         val player = plugin[killer]

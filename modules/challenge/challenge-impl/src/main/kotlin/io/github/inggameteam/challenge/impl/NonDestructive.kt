@@ -16,7 +16,7 @@ class NonDestructive(override val plugin: GamePlugin,
 )
     : CountChallenge<GamePlugin>, HandleListener(plugin) {
     override val name get() = "non-destructive"
-    override val goal get() = 1
+    override val goal get() = Int.MAX_VALUE
 
     @Suppress("unused")
     @EventHandler

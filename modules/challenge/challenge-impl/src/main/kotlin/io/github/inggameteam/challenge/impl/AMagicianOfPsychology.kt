@@ -8,6 +8,7 @@ import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockBreakEvent
 
 class AMagicianOfPsychology(override val plugin: GamePlugin,
@@ -15,7 +16,7 @@ class AMagicianOfPsychology(override val plugin: GamePlugin,
 )
     : CountChallenge<GamePlugin>, HandleListener(plugin) {
     override val name get() = "a-magician-of-psychology"
-    override val goal get() = 1
+    override val goal get() = Int.MAX_VALUE
 
     @Suppress("unused")
     @EventHandler
@@ -33,12 +34,12 @@ class AMagicianOfPsychology(override val plugin: GamePlugin,
     }
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     fun onKill(event: GPlayerDeathEvent) {
         val killer = event.killer?: return
         val player = plugin[killer]
         if (plugin.gameRegister.getJoinedGame(player).name == "spleef") {
-            reset(player)
+            add(player)
         }
     }
 

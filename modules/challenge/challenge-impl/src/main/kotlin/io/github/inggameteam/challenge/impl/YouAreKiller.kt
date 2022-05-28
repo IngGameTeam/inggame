@@ -30,7 +30,7 @@ class YouAreKiller(override val plugin: GamePlugin,
         reset(plugin[player])
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun death(event: GPlayerDeathEvent) {
         val killer = event.killer
         if (killer === null) return

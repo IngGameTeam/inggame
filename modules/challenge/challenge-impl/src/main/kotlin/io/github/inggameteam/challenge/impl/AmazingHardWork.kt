@@ -17,7 +17,7 @@ class AmazingHardWork(override val plugin: GamePlugin,
 )
     : CountChallenge<GamePlugin>, HandleListener(plugin) {
     override val name get() = "amazing-hard-work"
-    override val goal get() = 1
+    override val goal = 32 * 32 * 3
 
     @Suppress("unused")
     @EventHandler

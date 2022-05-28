@@ -78,6 +78,7 @@ class Plugin : GamePluginImpl(
             ::TakeThisBoom,
             ::ThePlayer,
             ::TheThiefAndrew,
+            ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
             ).forEach { it(this, challenge) }

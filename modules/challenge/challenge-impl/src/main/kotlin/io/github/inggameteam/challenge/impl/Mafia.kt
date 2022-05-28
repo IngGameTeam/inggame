@@ -14,8 +14,10 @@ import io.github.inggameteam.player.hasTags
 import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.ProjectileHitEvent
 
 class Mafia(override val plugin: GamePlugin,
             override val item: ChallengeContainer,
@@ -25,14 +27,12 @@ class Mafia(override val plugin: GamePlugin,
     override val goal get() = 1
 
     @Suppress("unused")
-    @EventHandler
-    fun hit(event: EntityDamageByEntityEvent) {
+    @EventHandler(priority = EventPriority.LOWEST)
+    fun hit(event: ProjectileHitEvent) {
         if (event.entity.scoreboardTags.contains(HandyGun.GUN_TAG).not()) return
         val proj = event.entity
-        if (proj !is Projectile) return
         val player = proj.shooter
         if (player !is Player) return
-        if (event.finalDamage < player.health) return
         add(plugin[player])
     }
 

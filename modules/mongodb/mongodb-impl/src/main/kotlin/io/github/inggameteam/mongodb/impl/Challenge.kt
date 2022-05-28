@@ -27,7 +27,7 @@ class ChallengeContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     override fun pool(uuid: UUID): ChallengeList {
         val uuidToString = uuid.fastToString()
         val user = col.find(Document("uuid", uuidToString)).map {
-            Challenge(it["name"] as String, it["data"] as Int, it["lastTime"] as Long)
+            Challenge(it["name"] as String, it["data"] as Int, it["lastTime"] as? Long?: 0L)
         }.toList()
         return ChallengeList(uuid, ArrayList(user))
     }
