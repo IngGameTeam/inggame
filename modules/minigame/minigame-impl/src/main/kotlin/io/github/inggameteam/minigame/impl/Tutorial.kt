@@ -11,7 +11,7 @@ import io.github.inggameteam.utils.ColorUtil.color
 import org.bukkit.Location
 import org.bukkit.entity.EntityType
 
-class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame, NoDamage {
+class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
     override val name get() = "tutorial"
     override val recommendedStartPlayersAmount get() = 1
 

@@ -1,5 +1,6 @@
 package io.github.inggameteam.plugin.angangang
 
+import io.github.inggameteam.challenge.impl.*
 import io.github.inggameteam.challenge.impl.GameLife
 import io.github.inggameteam.challenge.impl.LetsHaveFun
 import io.github.inggameteam.item.game.*
@@ -60,9 +61,26 @@ class Plugin : GamePluginImpl(
         val challenge = ChallengeContainer(this, mongoDBCP)
 
         listOf(
+            ::ADrawIsntBadEither,
+            ::AMagicianOfPsychology,
+            ::AmazingHardWork,
+            ::AnAwkwardVictory,
+            ::FirstBlood,
             ::GameLife,
+            ::GoJongWonMon,
+            ::IDontUseShovels,
+            ::IsItAPerson,
             ::LetsHaveFun,
-        ).forEach { it(this, challenge) }
+            ::Loser,
+            ::Mafia,
+            ::NonDestructive,
+            ::PentaKill,
+            ::TakeThisBoom,
+            ::ThePlayer,
+            ::TheThiefAndrew,
+            ::YouAreKiller,
+            ::YouKilledIt,
+            ).forEach { it(this, challenge) }
 
         TutorialBook(this, purchase)
         PoliceHat(this, purchase)

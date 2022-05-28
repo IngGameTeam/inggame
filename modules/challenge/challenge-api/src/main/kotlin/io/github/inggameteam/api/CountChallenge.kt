@@ -13,9 +13,13 @@ interface CountChallenge<PLUGIN : AlertPlugin> : ChallengeBase<PLUGIN> {
          val challenge = challenge(player)
         if (challenge.data != CHALLENGED) challenge.data += amount
         if (challenge.data >= goal) {
-            challenge.data = CHALLENGED
-            Bukkit.getPluginManager().callEvent(ChallengeArchiveEvent(player, name))
+            goal(player)
         }
+    }
+
+    fun goal(player: GPlayer) {
+        challenge(player).data = CHALLENGED
+        Bukkit.getPluginManager().callEvent(ChallengeArchiveEvent(player, name))
     }
 
     fun reset(player: GPlayer, init: Int = 0) {
