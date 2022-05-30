@@ -73,7 +73,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     }
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     fun onBeginBuildBattle(event: GameBeginEvent) {
         if (event.game !== this) return
         val location = getLocation(GameState.PLAY.toString())
