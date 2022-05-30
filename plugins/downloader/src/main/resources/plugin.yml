@@ -1,0 +1,8 @@
+name: downloader
+version: 1
+main: io.github.inggameteam.downloader.Downloader
+commands:
+  downloader: {}
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
+
