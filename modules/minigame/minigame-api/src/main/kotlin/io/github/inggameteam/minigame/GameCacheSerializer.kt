@@ -1,6 +1,6 @@
 package io.github.inggameteam.minigame
 
-import io.github.inggameteam.utils.YamlUtil
+import io.github.inggameteam.yaml.YamlUtil
 import java.io.File
 
 object GameCacheSerializer {

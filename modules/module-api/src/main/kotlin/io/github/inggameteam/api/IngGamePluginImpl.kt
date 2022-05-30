@@ -1,6 +1,6 @@
 package io.github.inggameteam.api
 
-import io.github.inggameteam.utils.ClassUtil
+import io.github.inggameteam.api.util.ClassUtil
 import io.github.inggameteam.utils.randomUUID
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList

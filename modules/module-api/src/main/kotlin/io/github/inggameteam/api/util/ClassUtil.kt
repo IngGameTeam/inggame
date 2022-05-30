@@ -1,4 +1,4 @@
-package io.github.inggameteam.utils
+package io.github.inggameteam.api.util
 
 import java.io.File
 import java.util.jar.JarFile
