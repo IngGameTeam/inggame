@@ -10,9 +10,9 @@ import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
-import io.github.inggameteam.minigame.ui.ModeratePointAmountCommand
 import io.github.inggameteam.mongodb.api.MongoDBCPImpl
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
+import io.github.inggameteam.mongodb.impl.GameStats
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
@@ -59,6 +59,7 @@ class Plugin : GamePluginImpl(
         val user = UserContainer(this, mongoDBCP)
         val purchase = PurchaseContainer(this, mongoDBCP)
         val challenge = ChallengeContainer(this, mongoDBCP)
+        val gameStats = GameStats(this, mongoDBCP)
 
         listOf(
             ::ADrawIsntBadEither,
@@ -83,6 +84,7 @@ class Plugin : GamePluginImpl(
             ::YouKilledIt,
             ).forEach { it(this, challenge) }
 
+        LogGameStats(this, gameStats)
         TutorialBook(this, purchase)
         PoliceHat(this, purchase)
         AnnounceChallengeArchive(this)
