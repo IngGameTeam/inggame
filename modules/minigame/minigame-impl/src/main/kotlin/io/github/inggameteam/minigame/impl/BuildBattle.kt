@@ -57,6 +57,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     var time = doneTime
     var isDone = false
     val vote = HashMap<UUID, Int>()
+
     val voteTopic = HashMap<String, Int>()
     val exampleTopic = ArrayList<String>()
     lateinit var current: UUID
@@ -73,7 +74,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     }
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun onBeginBuildBattle(event: GameBeginEvent) {
         if (event.game !== this) return
         val location = getLocation(GameState.PLAY.toString())
@@ -143,7 +144,9 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     }
 
     override fun calcWinner() {
-        val firstWin = vote.keys.asSequence().filter { joined.contains(plugin[it]) }
+        val firstWin = vote
+            .filter { val uuid = it.key; joined.hasTags(PTag.PLAY).any { uuid == it.uniqueId } }
+            .keys.asSequence()
             .map { CompareableVote(it, vote[it]!!) }.sorted().toList().lastOrNull()?.data
         if (firstWin === null) return
         val winners = GPlayerList(vote.filterValues { it == firstWin }.keys.map { plugin[it] })
