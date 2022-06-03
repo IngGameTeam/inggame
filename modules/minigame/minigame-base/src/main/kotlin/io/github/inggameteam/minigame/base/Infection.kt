@@ -3,11 +3,13 @@ package io.github.inggameteam.minigame.base
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.Infection.Companion.ORIGINAL_INFECTED
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
+import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
@@ -38,8 +40,10 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
         joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)
             .filter { playerData[it]!![ORIGINAL_INFECTED] == true }.apply {
                 if (isEmpty()) super<Infection>.calcWinner()
-                else comp.send(RED_TEAM_WIN, joined, joinToString(", "))
-                Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this@InfectionImpl, GPlayerList(this)))
+                else {
+                    comp.send(RED_TEAM_WIN, joined, joinToString(", "))
+                    Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this@InfectionImpl, GPlayerList(this)))
+                }
             }
     }
 
@@ -77,6 +81,9 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
         }
     }
 
+
+
     override fun damage(event: EntityDamageByEntityEvent) = Unit
+
 
 }
