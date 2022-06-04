@@ -39,6 +39,7 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun finishGame()
     fun start(force: Boolean)
     fun stop(force: Boolean, leftType: LeftType = LeftType.GAME_STOP)
+    fun requestStop()
 
     val worldName get() = comp.stringOrNull("world", plugin.defaultLanguage)
         ?: plugin.gameRegister.worldName.firstOrNull().apply { assertNotNull(this, "world list is empty") }!!

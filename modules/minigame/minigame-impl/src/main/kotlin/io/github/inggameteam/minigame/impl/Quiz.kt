@@ -57,7 +57,7 @@ class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlaye
         val playersToDie = joined.hasTags(PTag.PLAY)
             .filter { ((it.location.x) < double) == result }.toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
-        stopCheck()
+        requestStop()
         if (gameState == GameState.PLAY) {
             playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
             playersToDie.forEach { Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it)) }

@@ -36,7 +36,7 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
             joined.hasTags(PTag.PLAY, PTag.RED).forEach {
                 it.removeTag(PTag.PLAY)
             }
-            stopCheck()
+            requestStop()
         }
 
     }

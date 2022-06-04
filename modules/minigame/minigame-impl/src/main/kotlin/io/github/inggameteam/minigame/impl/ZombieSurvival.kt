@@ -20,7 +20,7 @@ class ZombieSurvival(plugin: GamePlugin) : InfectionImpl(plugin), SimpleGame, Sp
                 joined.hasTags(PTag.PLAY, PTag.RED).forEach {
                     it.removeTag(PTag.PLAY)
                 }
-                stopCheck()
+                requestStop()
         }
 
     }

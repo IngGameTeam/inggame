@@ -51,7 +51,7 @@ class TakeTheCart(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Bar
     fun workCart() {
         val playersToDie = joined.hasTags(PTag.PLAY).filter { it.vehicle == null }.toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
-        stopCheck()
+        requestStop()
         playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
         if (gameState == GameState.PLAY) {
             playersToDie.forEach { Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it)) }

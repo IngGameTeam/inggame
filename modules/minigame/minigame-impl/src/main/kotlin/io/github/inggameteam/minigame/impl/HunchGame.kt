@@ -43,7 +43,7 @@ class HunchGame(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin) {
                 } else {
                     countedNumber++
                     gPlayerData!![CHATTED] = true
-                    stopCheck()
+                    requestStop()
                 }
             }.runNow(plugin)
             addTask(checker)
@@ -52,7 +52,7 @@ class HunchGame(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin) {
 
 
 
-    override fun stopCheck() {
+    override fun requestStop() {
         if (gameState !== GameState.PLAY) return
         val playPlayers = joined.hasTags(PTag.PLAY)
         if (countedNumber >= playPlayers.size - 1) {

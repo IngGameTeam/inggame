@@ -47,7 +47,7 @@ class Soccer(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
             joined.hasTags(if (team === PTag.RED) PTag.BLUE else PTag.RED)
                 .forEach { it.addTag(PTag.DEAD); it.removeTag(PTag.PLAY) }
         }
-        stopCheck()
+        requestStop()
         if (gameState !== GameState.STOP) {
             summonEntity()
             comp.send("score", joined, blueScore, redScore)

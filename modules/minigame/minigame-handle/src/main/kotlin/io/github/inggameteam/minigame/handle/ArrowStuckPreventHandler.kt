@@ -11,6 +11,8 @@ class ArrowStuckPreventHandler(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onProjectileHit(event: ProjectileHitEvent) {
-        event.entity.remove()
+        event.entity.apply {
+            eject()
+        }
     }
 }

@@ -24,7 +24,7 @@ interface GoalIn : Game, Sectional, Competition {
                     .hasTags(PTag.PLAY)
                     .filter { it != player }
                     .forEach { it.addTag(PTag.DEAD); it.removeTag(PTag.PLAY) }
-                stopCheck()
+                requestStop()
             }
         }
     }

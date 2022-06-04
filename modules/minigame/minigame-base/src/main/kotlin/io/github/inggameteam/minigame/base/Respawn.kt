@@ -39,7 +39,7 @@ interface Respawn : SpawnPlayer, Competition {
             }
             event.isCancelled = true
             if (!isDeadBefore) sendDeathMessage(this)
-            if (isDeadFinally) stopCheck()
+            if (isDeadFinally) requestStop()
         }
     }
 

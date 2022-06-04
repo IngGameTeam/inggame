@@ -30,9 +30,9 @@ interface Competition : Sectional, Game {
         }
         event.isCancelled = true
         if (!sendDeathMessage) sendDeathMessage(gPlayer)
-        stopCheck()
+        requestStop()
     }
-    fun stopCheck() {
+    override fun requestStop() {
         if (gameState !== GameState.PLAY) return
         val playPlayers = joined.hasTags(PTag.PLAY)
         if (playPlayers.hasNoTags(PTag.DEAD).size == 0 || playPlayers.size <= stopCheckPlayer) {

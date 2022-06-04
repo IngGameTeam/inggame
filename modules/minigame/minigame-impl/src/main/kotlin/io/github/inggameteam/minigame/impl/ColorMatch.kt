@@ -101,7 +101,7 @@ class ColorMatch(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin),
     private fun checkColor() {
         val playersToDie = joined.hasTags(PTag.PLAY).filterNot(::isMatch).toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
-        stopCheck()
+        requestStop()
         if (gameState == GameState.PLAY) {
             playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
             playersToDie.forEach { Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it))}
