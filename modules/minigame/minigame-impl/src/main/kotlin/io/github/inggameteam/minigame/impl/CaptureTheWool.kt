@@ -34,6 +34,10 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
             }
             if (redOn && blueOn || !redOn && !blueOn) {
                 fill(Material.WHITE_WOOL)
+                bar.update(
+                    color = BarColor.WHITE,
+                    progress = 0.0
+                )
             } else {
                 if (blueGage >= gage) {
                     joined.hasTags(PTag.PLAY, PTag.RED).forEach {
