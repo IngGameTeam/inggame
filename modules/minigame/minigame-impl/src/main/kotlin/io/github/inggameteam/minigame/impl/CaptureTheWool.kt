@@ -41,7 +41,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
                         it.removeTag(PTag.PLAY)
                         it.addTag(PTag.DEAD)
                     }
-                    stopCheck()
+                    requestStop()
                     return@repeat
                 } else if (redGage >= gage) {
                     joined.hasTags(PTag.PLAY, PTag.BLUE).forEach {
@@ -49,7 +49,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
                         it.removeTag(PTag.PLAY)
                         it.addTag(PTag.DEAD)
                     }
-                    stopCheck()
+                    requestStop()
                     return@repeat
                 }
                 if (blueOn.not() && redOn.not()) {
