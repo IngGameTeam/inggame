@@ -64,6 +64,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
             comp.send(RED_TEAM_DEATH, joined, player)
         } else if (player.hasTag(PTag.BLUE)) {
             val killer = event.killer
+            addTask({ spawn(player) }.runNow(plugin))
             if (killer != null && plugin[killer].hasTag(PTag.RED)) {
                 player.apply {
                     removeTag(PTag.BLUE)
