@@ -129,12 +129,14 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         hit(gPlayer, clickedBlock.location)
     }
 
-    fun hit(gPlayer: GPlayer, location: Location) {
+    private fun hit(gPlayer: GPlayer, location: Location) {
         joined.hasTags(PTag.BLUE).forEach {
             if (it.location.block.location == location) {
                 if (gPlayer.hasTag(PTag.RED) && it.hasTag(PTag.BLUE)) {
                     (playerData[it]!![gPlayer.uniqueId.fastToString()] as? Location)
-                        ?.apply { it.sendBlockChange(this, Material.AIR.createBlockData()) }
+                        ?.apply { joined.hasTags(PTag.PLAY).forEach { p ->
+                            p.sendBlockChange(this, Material.AIR.createBlockData())
+                        } }
                     (playerData[it]!![it.entityKey] as? FallingBlock)?.remove()
                     Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it, gPlayer.bukkit))
                 }
