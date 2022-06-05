@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.minigame.Game
+import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.GameMode
@@ -38,7 +39,9 @@ interface SpawnPlayer : Game, Sectional {
     fun inventorySpawn(player: GPlayer, spawn: String = this.gameState.toString()) =
         comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
 
-    fun gameModeSpawn(player: GPlayer, spawn: String) = defaultGameMode()?.apply { player.gameMode = this }
+    fun gameModeSpawn(player: GPlayer, spawn: String) {
+        if (gameState !== GameState.WAIT) defaultGameMode()?.apply { player.gameMode = this }
+    }
 
     fun tpSpawn(player: GPlayer, spawn: String) = getLocationOrNull(spawn)?.apply { player.teleport(this) }
 
