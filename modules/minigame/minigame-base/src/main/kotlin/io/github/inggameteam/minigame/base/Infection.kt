@@ -11,12 +11,13 @@ import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
+import io.github.inggameteam.scheduler.runNow
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-interface Infection : ScaleRedTeam {
+interface Infection : ScaleRedTeam, SpawnPlayer {
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onBeginInfection(event: GameBeginEvent) {
@@ -59,7 +60,7 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
         if (!isJoined(event.player) || gameState === GameState.WAIT) return
         val player = event.player
         if (player.hasTag(PTag.RED)) {
-//            addTask({ spawn(player) }.runNow(plugin))
+            addTask({ spawn(player) }.runNow(plugin))
             comp.send(RED_TEAM_DEATH, joined, player)
         } else if (player.hasTag(PTag.BLUE)) {
             val killer = event.killer
