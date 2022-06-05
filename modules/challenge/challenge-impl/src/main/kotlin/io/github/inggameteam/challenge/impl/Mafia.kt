@@ -33,7 +33,10 @@ class Mafia(override val plugin: GamePlugin,
         val proj = event.entity
         val player = proj.shooter
         if (player !is Player) return
-        add(plugin[player])
+        val gPlayer = plugin[player]
+        if (plugin.gameRegister.getJoinedGame(gPlayer).name == plugin.gameRegister.hubName) {
+            add(gPlayer)
+        }
     }
 
 }

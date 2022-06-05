@@ -36,7 +36,9 @@ class YouAreKiller(override val plugin: GamePlugin,
         if (killer === null) return
         val gKiller = plugin[killer]
         if (plugin.gameRegister.getJoinedGame(killer).name == plugin.gameRegister.hubName) return
-        add(gKiller)
+        if (plugin.gameRegister.getJoinedGame(gKiller).name == plugin.gameRegister.hubName) {
+            add(gKiller)
+        }
     }
 
 
