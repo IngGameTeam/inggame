@@ -15,11 +15,14 @@ import java.net.URL
 class Downloader : JavaPlugin(), CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
+        sender.sendMessage("Downloading...")
         if (args.size >= 1) {
-            sender.sendMessage("Downloading...")
-            download(Bukkit.getPluginManager().getPlugin(args[0])!!)
-            sender.sendMessage("Downloaded")
+            val plugin = Bukkit.getPluginManager().getPlugin(args[0])
+            if (plugin !== null) download(plugin)
+            else FileUtils.copyURLToFile(URL(args[0]), "plugins/update")
+
         }
+        sender.sendMessage("Downloaded")
         return true
     }
 
