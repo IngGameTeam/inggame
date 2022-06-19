@@ -19,7 +19,7 @@ class Downloader : JavaPlugin(), CommandExecutor {
         if (args.size >= 1) {
             val plugin = Bukkit.getPluginManager().getPlugin(args[0])
             if (plugin !== null) download(plugin)
-            else FileUtils.copyURLToFile(URL(args[0]), "plugins/update")
+            else FileUtils.copyURLToFile(URL(args[0]), File("plugins/update"))
 
         }
         sender.sendMessage("Downloaded")
