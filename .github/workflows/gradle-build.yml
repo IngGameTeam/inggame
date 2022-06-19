@@ -1,4 +1,4 @@
-name: Run Gradle on PRs
+name: Run Gradle
 on:
   release:
     types: [published]
@@ -35,11 +35,22 @@ jobs:
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
+      - name: Read value from Properties-file
+        id: read_property
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: './gradle.properties'
+          property: 'version'
+
+      - name: Do something with your bumped release version
+        run: echo ${{ steps.read_property.outputs.value }}
+        # will print "the value of 'the.key.of.the.property'"
+
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: "Release #${{ env.RELEASE_VERSION }}"
-          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          title: "Release v${{ steps.read_property.outputs.value }}"
+          automatic_release_tag: "${{ steps.read_property.outputs.value }}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: plugins/build/dist/*.jar
           prerelease: false
