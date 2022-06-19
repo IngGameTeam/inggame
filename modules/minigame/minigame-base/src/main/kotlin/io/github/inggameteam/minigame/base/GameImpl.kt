@@ -66,7 +66,7 @@ abstract class GameImpl(
             playerData[gPlayer] = HashMap()
             comp.send(JOIN, gPlayer, displayName(gPlayer))
             if (joinType === JoinType.PLAY) gPlayer.addTag(PTag.PLAY)
-            else comp.send(START_SPECTATING, gPlayer, gPlayer, displayName(gPlayer))
+            else comp.send(START_SPECTATING, gPlayer, displayName(gPlayer))
             Bukkit.getPluginManager().callEvent(GameJoinEvent(gPlayer, this, joinType))
             if (gameTask === null
                 && gameState === GameState.WAIT

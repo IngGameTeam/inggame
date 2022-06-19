@@ -14,7 +14,7 @@ interface SpawnOnStart : Game {
     @EventHandler
     fun onStartSpawn(event: GameBeginEvent) {
         if (event.game !== this) return
-        joined.hasTags(PTag.PLAY).forEach { player ->
+        joined.forEach { player ->
             Bukkit.getPluginManager().callEvent(GPlayerSpawnEvent(player))
         }
     }

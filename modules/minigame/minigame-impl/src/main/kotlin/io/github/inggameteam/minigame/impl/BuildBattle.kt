@@ -105,7 +105,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             if (isX) location.add(adder, 0.0, 0.0)
             else location.add(0.0, 0.0, adder)
         }
-        joined.hasTags(PTag.PLAY).forEach { spawn(it) }
+        joined.forEach { spawn(it) }
         voteTopics()
     }
 
@@ -177,6 +177,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     fun spawn(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
+        if (!player.hasTag(PTag.PLAY)) return
         if (gameState === GameState.WAIT) {
             return
         } else if (isDone) {

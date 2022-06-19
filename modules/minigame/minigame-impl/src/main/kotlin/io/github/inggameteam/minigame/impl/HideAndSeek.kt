@@ -29,6 +29,7 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
     }
 
     override fun spawn(player: GPlayer, spawn: String) {
+        if (!player.hasTag(PTag.PLAY)) return
         if (gameState === GameState.WAIT) {
             super<SpawnTeamPlayer>.spawn(player, spawn)
             return

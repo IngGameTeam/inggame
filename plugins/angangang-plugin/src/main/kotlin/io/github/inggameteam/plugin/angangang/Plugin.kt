@@ -84,6 +84,7 @@ class Plugin : GamePluginImpl(
             ::YouKilledIt,
             ).forEach { it(this, challenge) }
 
+        SpectateOnJoinParty(this)
         LogGameStats(this, gameStats)
         TutorialBook(this, purchase)
         PoliceHat(this, purchase)

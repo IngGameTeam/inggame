@@ -3,6 +3,7 @@ package io.github.inggameteam.party
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.party.PartyAlert.*
 import io.github.inggameteam.party.event.CreatePartyEvent
+import io.github.inggameteam.party.event.JoinPartyEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.eq
@@ -72,6 +73,7 @@ fun Party.join(player: GPlayer) {
     joined.add(player)
     comp.send(JOIN_PARTY, joined, player, this)
     updateParty()
+    Bukkit.getPluginManager().callEvent(JoinPartyEvent(player, this))
 }
 
 fun PartyRegister.createParty(dispatcher: GPlayer) {
