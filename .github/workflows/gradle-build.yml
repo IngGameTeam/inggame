@@ -1,7 +1,5 @@
 name: Run Gradle
-on:
-  release:
-    types: [published]
+on: push
 jobs:
   gradle:
 #    runs-on: self-hosted
