@@ -51,7 +51,6 @@ interface SpawnPlayer : Game, Sectional {
     }
 
     fun gameModeSpawn(player: GPlayer, spawn: String) {
-        println("gameModeSpawn")
         if (!player.hasTag(PTag.PLAY)) {
             player.gameMode = GameMode.SPECTATOR
             return
