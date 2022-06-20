@@ -80,6 +80,7 @@ class PartyUI(val plugin: PartyPlugin) {
                     if (inviteCode !== null) plugin.partyRequestRegister.acceptInvitation(player.game, inviteCode)
                 }
                 thenExecute("leave") { party { left(player.game) } }
+                thenExecute("disband") { party { disband(player.game) } }
                 then("join") {
                     tab { plugin.playerRegister.values.map { it.name }.toList() }
                     execute {
@@ -173,7 +174,7 @@ class PartyUI(val plugin: PartyPlugin) {
                 else ItemUtil.itemStack(Material.LIME_DYE, "&a파티 생성하기")
                 onClick {
                     try {
-                        partyRegister.createParty(gPlayer)
+                        partyRegister.getJoined(gPlayer)?.left(gPlayer)?: partyRegister.createParty(gPlayer)
                         updateParty()
                     } catch (e: Exception) {
                         e.printStackTrace()

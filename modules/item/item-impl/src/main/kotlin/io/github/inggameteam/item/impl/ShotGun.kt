@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.delay
@@ -12,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import kotlin.random.Random
 
-class ShotGun(override val plugin: AlertPlugin) : Interact {
+class ShotGun(override val plugin: AlertPlugin) : Interact, HandleListener(plugin) {
     override val name get() = "shot-gun"
 
     private fun rand(to: Double) = Random.nextDouble(-to, to)
@@ -23,7 +24,7 @@ class ShotGun(override val plugin: AlertPlugin) : Interact {
             setCooldown(Material.IRON_HORSE_ARMOR, 15)
             repeat(10) {
                 world.spawn(eyeLocation.add(location.direction.multiply(2)), Arrow::class.java) {
-                    it.addScoreboardTag(ANG_WAR_SHOT_GUN)
+                    it.addScoreboardTag(SHOT_GUN)
                     it.shooter = player.player
                     it.velocity = location.direction.multiply(1.5)
                     val delay = delay@{
@@ -48,7 +49,7 @@ class ShotGun(override val plugin: AlertPlugin) : Interact {
     @Suppress("unused")
     @EventHandler
     fun hit(event: EntityDamageByEntityEvent) {
-        if (event.damager.scoreboardTags.contains(ANG_WAR_SHOT_GUN)) {
+        if (event.damager.scoreboardTags.contains(SHOT_GUN)) {
             event.damage = 0.5
             val entity = event.entity
             if (entity is Player) entity.noDamageTicks = 0
@@ -56,8 +57,7 @@ class ShotGun(override val plugin: AlertPlugin) : Interact {
     }
 
     companion object {
-        const val ANG_WAR_PROPS = "angWarProps"
-        const val ANG_WAR_SHOT_GUN = "angWarShotGun"
+        const val SHOT_GUN = "inggameShotGun"
     }
 
 }

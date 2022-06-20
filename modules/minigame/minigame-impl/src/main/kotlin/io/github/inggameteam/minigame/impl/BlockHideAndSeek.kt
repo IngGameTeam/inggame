@@ -1,6 +1,7 @@
 package io.github.inggameteam.minigame.impl
 
 import io.github.inggameteam.alert.Lang.lang
+import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
@@ -15,6 +16,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.data.BlockData
+import org.bukkit.boss.BarColor
 import org.bukkit.entity.FallingBlock
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -23,9 +25,21 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
-    SpawnTeamPlayer, VoidDeath, SimpleGame, NoBlockPlace, NoBlockBreak {
+    SpawnTeamPlayer, VoidDeath, SimpleGame, NoBlockPlace, NoBlockBreak, BarGame {
 
     override val name get() = "block-hide-and-seek"
+    override val bar by lazy { GBar(plugin, size = 750.0, reversed = true) }
+    override fun beginGame() {
+        super.beginGame()
+        bar.update("술래에게 남은시간", color = BarColor.GREEN)
+        gameTask = bar.startTimer {
+            joined.hasTags(PTag.PLAY, PTag.RED).forEach {
+                it.removeTag(PTag.PLAY)
+            }
+            requestStop()
+        }
+
+    }
 
     private val GPlayer.entityKey get() = "${uniqueId.fastToString()}-entity"
 
@@ -115,12 +129,14 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         hit(gPlayer, clickedBlock.location)
     }
 
-    fun hit(gPlayer: GPlayer, location: Location) {
+    private fun hit(gPlayer: GPlayer, location: Location) {
         joined.hasTags(PTag.BLUE).forEach {
             if (it.location.block.location == location) {
                 if (gPlayer.hasTag(PTag.RED) && it.hasTag(PTag.BLUE)) {
                     (playerData[it]!![gPlayer.uniqueId.fastToString()] as? Location)
-                        ?.apply { it.sendBlockChange(this, Material.AIR.createBlockData()) }
+                        ?.apply { joined.hasTags(PTag.PLAY).forEach { p ->
+                            p.sendBlockChange(this, Material.AIR.createBlockData())
+                        } }
                     (playerData[it]!![it.entityKey] as? FallingBlock)?.remove()
                     Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it, gPlayer.bukkit))
                 }

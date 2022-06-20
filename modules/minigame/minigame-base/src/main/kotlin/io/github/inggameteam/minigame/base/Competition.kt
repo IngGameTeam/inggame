@@ -30,9 +30,9 @@ interface Competition : Sectional, Game {
         }
         event.isCancelled = true
         if (!sendDeathMessage) sendDeathMessage(gPlayer)
-        stopCheck()
+        requestStop()
     }
-    fun stopCheck() {
+    override fun requestStop() {
         if (gameState !== GameState.PLAY) return
         val playPlayers = joined.hasTags(PTag.PLAY)
         if (playPlayers.hasNoTags(PTag.DEAD).size == 0 || playPlayers.size <= stopCheckPlayer) {
@@ -43,7 +43,7 @@ interface Competition : Sectional, Game {
         val winners = joined.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
         val dieToReady = joined.hasTags(PTag.DEAD, PTag.PLAY)
         if (winners.isEmpty() && dieToReady.size == 1)
-            joined.forEach { comp.send(GameAlert.GAME_DRAW_HAS_WINNER, it, winners, displayName(it)) }
+            joined.forEach { comp.send(GameAlert.GAME_DRAW_HAS_WINNER, it, dieToReady, displayName(it)) }
         else if (winners.isEmpty()) {
             joined.forEach { comp.send(GameAlert.GAME_DRAW_NO_WINNER, it, displayName(it)) }
         }

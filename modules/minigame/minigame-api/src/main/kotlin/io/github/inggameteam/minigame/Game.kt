@@ -6,7 +6,6 @@ import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.scheduler.ITask
 import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import kotlin.test.assertNotNull
@@ -40,6 +39,7 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     fun finishGame()
     fun start(force: Boolean)
     fun stop(force: Boolean, leftType: LeftType = LeftType.GAME_STOP)
+    fun requestStop() = Unit
 
     val worldName get() = comp.stringOrNull("world", plugin.defaultLanguage)
         ?: plugin.gameRegister.worldName.firstOrNull().apply { assertNotNull(this, "world list is empty") }!!
@@ -53,6 +53,8 @@ interface Game : Listener, PluginHolder<GamePlugin> {
     /**
      * get name of game of player's language
      */
-    fun displayName(player: GPlayer) = comp.stringOrNull("alias", player.lang(plugin))?: name
+    fun displayName(player: GPlayer) = displayName(player.lang(plugin))
+
+    fun displayName(lang: String) = comp.stringOrNull("alias", lang)?: name
 
 }

@@ -1,0 +1,57 @@
+package io.github.inggameteam.mongodb.api
+
+import io.github.inggameteam.api.IngGamePlugin
+import io.github.inggameteam.api.PluginHolder
+import io.github.inggameteam.utils.fastToString
+import org.bukkit.Bukkit
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.Listener
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent
+import org.bukkit.event.player.PlayerKickEvent
+import org.bukkit.event.player.PlayerQuitEvent
+import java.util.*
+import kotlin.test.assertNotNull
+
+interface UUIDUser { val uuid: UUID }
+
+abstract class Container<DATA : UUIDUser>(
+    final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
+) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
+
+    init { Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) } }
+
+    @Suppress("unused")
+    @EventHandler(priority = EventPriority.MONITOR)
+    fun onLogin(event: AsyncPlayerPreLoginEvent) {
+        val uniqueId = event.uniqueId
+        if (pool.any { it.uuid == uniqueId })
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+        else {
+            pool.add(pool(uniqueId))
+        }
+    }
+
+    private fun commitAndRemove(uuid: UUID) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin) { _ ->
+            pool.firstOrNull { uuid == it.uuid }?.apply {
+                commit(this)
+                pool.remove(this)
+            }
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onQuitUploadMongo(event: PlayerQuitEvent) = commitAndRemove(event.player.uniqueId)
+
+    @Suppress("unused")
+    @EventHandler
+    fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemove(event.player.uniqueId)
+
+    operator fun get(key: UUID) = pool.firstOrNull { key == it.uuid }
+        ?.apply { assertNotNull(this, "${javaClass.simpleName} does not contain ${key.fastToString()}") }!!
+    operator fun get(key: Player) = get(key.uniqueId)
+
+}

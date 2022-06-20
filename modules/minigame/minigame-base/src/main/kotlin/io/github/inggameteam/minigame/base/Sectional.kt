@@ -75,6 +75,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
             }
         }
 
+
     val LOCATION get() = "static"
 
     override fun getLocation(key: String): Location =

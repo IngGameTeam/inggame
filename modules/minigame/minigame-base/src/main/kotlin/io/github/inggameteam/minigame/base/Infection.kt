@@ -6,14 +6,18 @@ import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.Infection.Companion.ORIGINAL_INFECTED
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
+import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
+import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
+import io.github.inggameteam.scheduler.runNow
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-interface Infection : ScaleRedTeam {
+interface Infection : ScaleRedTeam, SpawnPlayer {
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onBeginInfection(event: GameBeginEvent) {
@@ -34,9 +38,11 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
     override fun calcWinner() {
         joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)
             .filter { playerData[it]!![ORIGINAL_INFECTED] == true }.apply {
-                println(size)
                 if (isEmpty()) super<Infection>.calcWinner()
-                else comp.send(RED_TEAM_WIN, joined, joinToString(", "))
+                else {
+                    comp.send(RED_TEAM_WIN, joined, joinToString(", "))
+                    Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this@InfectionImpl, GPlayerList(this)))
+                }
             }
     }
 
@@ -54,10 +60,11 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
         if (!isJoined(event.player) || gameState === GameState.WAIT) return
         val player = event.player
         if (player.hasTag(PTag.RED)) {
-//            addTask({ spawn(player) }.runNow(plugin))
+            addTask({ spawn(player) }.runNow(plugin))
             comp.send(RED_TEAM_DEATH, joined, player)
         } else if (player.hasTag(PTag.BLUE)) {
             val killer = event.killer
+            addTask({ spawn(player) }.runNow(plugin))
             if (killer != null && plugin[killer].hasTag(PTag.RED)) {
                 player.apply {
                     removeTag(PTag.BLUE)
@@ -67,13 +74,16 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
             } else {
                 comp.send(BLUE_TEAM_DEATH, joined, player)
             }
-            stopCheck()
+            requestStop()
 //            if (gameState !== GameState.STOP) {
 //                addTask({ spawn(player) }.runNow(plugin))
 //            }
         }
     }
 
+
+
     override fun damage(event: EntityDamageByEntityEvent) = Unit
+
 
 }

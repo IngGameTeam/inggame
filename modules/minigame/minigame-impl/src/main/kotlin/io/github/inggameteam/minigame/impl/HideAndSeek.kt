@@ -29,13 +29,14 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
     }
 
     override fun spawn(player: GPlayer, spawn: String) {
+        if (!player.hasTag(PTag.PLAY)) return
         if (gameState === GameState.WAIT) {
             super<SpawnTeamPlayer>.spawn(player, spawn)
             return
         }
         val playerJob = getPlayerJob(player)
         player.inventory.contents = comp.inventory("$playerJob", player.lang(plugin)).contents
-//        player.player.teleport(getLocation("$playerJob"))
+        player.teleport(getLocation("$playerJob"))
         comp.send(playerJob.toString(), player)
         if (player.hasTag(PTag.RED)) {
             player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 55555, 2))

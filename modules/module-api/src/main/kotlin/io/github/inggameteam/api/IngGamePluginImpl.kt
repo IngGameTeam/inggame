@@ -1,6 +1,6 @@
 package io.github.inggameteam.api
 
-import io.github.inggameteam.utils.ClassUtil
+import io.github.inggameteam.api.util.ClassUtil
 import io.github.inggameteam.utils.randomUUID
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList
@@ -14,6 +14,8 @@ open class IngGamePluginImpl : IngGamePlugin, JavaPlugin {
 
     override val console by lazy { randomUUID() }
     override var allowTask = false
+    private val disableEvent = ArrayList<() -> Unit>()
+    override fun addDisableEvent(action: () -> Unit) { disableEvent.add(action) }
 
     constructor()
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
@@ -38,6 +40,7 @@ open class IngGamePluginImpl : IngGamePlugin, JavaPlugin {
     override fun onDisable() {
 //        super.onDisable()
         allowTask = false
+        for (it in disableEvent) it()
     }
 
 }

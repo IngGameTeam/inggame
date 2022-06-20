@@ -7,4 +7,5 @@ import java.util.*
 interface IngGamePlugin : Plugin, Listener {
     val console: UUID
     var allowTask: Boolean
+    fun addDisableEvent(action: () -> Unit)
 }

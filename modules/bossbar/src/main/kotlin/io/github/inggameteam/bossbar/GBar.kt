@@ -15,6 +15,7 @@ class GBar(
     var size: Double = 0.0,
     var tick: Int = 0,
     var adder: Int = 1,
+    var reversed: Boolean = false
     ) {
 
     val bossBar: BossBar = Bukkit.createBossBar("", BarColor.WHITE, BarStyle.SOLID)
@@ -59,7 +60,7 @@ class GBar(
         return {
 
             tick += adder
-            update(progress = 0.0.coerceAtLeast(tick/ size))
+            update(progress = 0.0.coerceAtLeast((tick/ size).run { if (reversed) 1.0 - this else this }))
             (tick < size).apply { if (!this) runnable()}
         }.repeat(plugin, 1, 1)
     }

@@ -13,7 +13,7 @@ interface SpawnHealth : Game {
     fun onSpawnHealth(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
-        joined.hasTags(PTag.PLAY).forEach { it.health = it.maxHealth }
+        joined.forEach { it.health = it.maxHealth }
     }
 
 }

@@ -1,14 +1,19 @@
 buildscript {
     repositories {
         gradlePluginPortal()
+        mavenCentral()
     }
     dependencies {
         classpath("gradle.plugin.com.github.johnrengelman:shadow:7.1.2")
+        val kotlinVersion = "1.6.10"
+        classpath(kotlin("gradle-plugin", version = kotlinVersion))
+        classpath(kotlin("serialization", version = kotlinVersion))
     }
 }
 val kotlin_version = "1.6.10"
 plugins {
     kotlin("jvm") version "1.6.10"
+    kotlin("plugin.serialization") version "1.6.10"
 }
 
 java {
@@ -54,6 +59,9 @@ allprojects {
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
         compileOnly("com.rylinaux:PlugMan:2.2.9")
+        compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
+        compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+
     }
 
 }

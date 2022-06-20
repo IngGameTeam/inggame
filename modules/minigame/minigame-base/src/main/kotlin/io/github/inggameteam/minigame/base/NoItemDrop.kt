@@ -11,10 +11,12 @@ interface NoItemDrop : Game {
 
     @Suppress("unused")
     @EventHandler
-    fun noBlockPlace(event: PlayerDropItemEvent) {
+     fun noDropItem(event: PlayerDropItemEvent) {
         val player = event.player
-        if (!isJoined(player) && gameState !== GameState.WAIT)
+        if (isJoined(player) && gameState !== GameState.WAIT) {
             event.isCancelled = true
+        }
     }
+
 
 }

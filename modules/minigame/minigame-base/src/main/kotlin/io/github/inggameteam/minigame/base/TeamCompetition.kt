@@ -8,6 +8,7 @@ import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
+import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -37,9 +38,9 @@ interface TeamCompetition : Competition {
         return if (size % 2 != 0) listOf(1, 0).random() + size / 2 else size / 2
     }
 
-    override fun stopCheck() {
+    override fun requestStop() {
         if (gameState !== GameState.PLAY) return
-        val playPlayers = joined.hasTags(PTag.PLAY)
+        val playPlayers = joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)
         if (playPlayers.hasTags(PTag.BLUE).size <= 0) {
             stop(false)
         } else if (playPlayers.hasTags(PTag.RED).size <= 0) {

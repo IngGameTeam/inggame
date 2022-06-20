@@ -33,6 +33,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import java.util.*
 import kotlin.collections.ArrayList
@@ -48,7 +49,8 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         Material.PISTON,
         Material.STICKY_PISTON,
         Material.TNT,
-        Material.TNT_MINECART
+        Material.TNT_MINECART,
+        Material.ENDER_CHEST
     )
     val doneTime get() = comp.doubleOrNull("done-time")?: 750.0
     val voteTime get() = comp.doubleOrNull("vote-time")?: 100.0
@@ -56,12 +58,28 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     var time = doneTime
     var isDone = false
     val vote = HashMap<UUID, Int>()
+
     val voteTopic = HashMap<String, Int>()
     val exampleTopic = ArrayList<String>()
     lateinit var current: UUID
 
+    override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
+        return super<SimpleGame>.inventorySpawn(player,
+            if (isDone) "VOTE"
+            else if (::current.isInitialized && current == player.uniqueId) "CANNOT_VOTE_MYSELF";
+            else spawn
+        )
+    }
+
+    override fun tpSpawn(player: GPlayer, spawn: String): Location?  {
+        if (!isDone) return null
+        return (playerData[joined.first { current == it.uniqueId }]!![PLAYER_AREA] as Location).apply {
+            player.teleport(this)
+        }
+    }
+
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     fun onBeginBuildBattle(event: GameBeginEvent) {
         if (event.game !== this) return
         val location = getLocation(GameState.PLAY.toString())
@@ -87,7 +105,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             if (isX) location.add(adder, 0.0, 0.0)
             else location.add(0.0, 0.0, adder)
         }
-        joined.hasTags(PTag.PLAY).forEach { spawn(it) }
+        joined.forEach { spawn(it) }
         voteTopics()
     }
 
@@ -97,7 +115,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
                 if (time <= 0) {
                     time = voteTime
                     nextSpawn()
-                    bar.update("${plugin[current]}")
+                    if (joined.any { it.uniqueId == current }) bar.update("${plugin[current]}")
                 } else {
                     time--
                     bar.update(progress = time / voteTime, color = BarColor.GREEN)
@@ -121,7 +139,10 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         val newCurrent = joined.hasTags(PTag.PLAY)
             .filter { !vote.keys.contains(it.uniqueId) }.randomOrNull()
         if (newCurrent == null) {
-            stop(false)
+            calcWinner()
+            gameTask = {
+                if (gameState !== GameState.STOP) stop(false)
+            }.delay(plugin, 20 * 4)
             return
         }
         current = newCurrent.uniqueId
@@ -131,7 +152,10 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     }
 
     override fun calcWinner() {
-        val firstWin = vote.keys.asSequence().filter { joined.contains(plugin[it]) }
+        if (gameState === GameState.STOP) return
+        val firstWin = vote
+            .filter { val uuid = it.key; joined.hasTags(PTag.PLAY).any { p -> uuid == p.uniqueId } }
+            .keys.asSequence()
             .map { CompareableVote(it, vote[it]!!) }.sorted().toList().lastOrNull()?.data
         if (firstWin === null) return
         val winners = GPlayerList(vote.filterValues { it == firstWin }.keys.map { plugin[it] })
@@ -153,6 +177,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     fun spawn(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
+        if (!player.hasTag(PTag.PLAY)) return
         if (gameState === GameState.WAIT) {
             return
         } else if (isDone) {

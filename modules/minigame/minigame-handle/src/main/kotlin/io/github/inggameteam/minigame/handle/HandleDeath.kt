@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame.handle
 
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import org.bukkit.Bukkit
@@ -17,6 +18,10 @@ class HandleDeath(val plugin: GamePlugin) : HandleListener(plugin) {
         val player = event.entity
         if (!plugin.gameRegister.worldName.contains(player.world.name)) return
         if (player is Player) {
+            if (plugin[player].hasTag(PTag.DEAD)) {
+                event.isCancelled = true
+                return
+            }
             if (event.finalDamage >= player.health) {
                 val deathEvent = GPlayerDeathEvent(plugin[player])
                 Bukkit.getPluginManager().callEvent(deathEvent)

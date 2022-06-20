@@ -5,7 +5,7 @@ import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.utils.ListWithToString
 import io.github.inggameteam.utils.LocationWithoutWorld
-import io.github.inggameteam.utils.YamlUtil
+import io.github.inggameteam.yaml.YamlUtil
 import io.github.inggameteam.utils.listWithToString
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.FileConfiguration
@@ -224,6 +224,7 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
         }
 
         val orders = ArrayList<String>()
+        val isDebug = plugin.config.getBoolean("debug")
         cacheConfigMap.keys.forEach { fileName ->
             cacheParentMap[fileName]?.apply {
                 var ind = 0
@@ -235,7 +236,9 @@ class Components(override val plugin: AlertPlugin) : HashMap<String, CompDir>(),
             }
         }
         orders.forEach {
+            if (isDebug) println("Loading $it components...")
             this[it] = CompDirImpl(plugin, File(plugin.dataFolder, it), cacheParentMap[it]!!.map { pare -> this[pare] }.listWithToString())
+            if (isDebug) println("Components $it Loaded")
         }
     }
 

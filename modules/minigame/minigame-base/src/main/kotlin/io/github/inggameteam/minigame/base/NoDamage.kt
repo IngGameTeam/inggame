@@ -6,7 +6,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageEvent
 
-interface NoDamage : Game {
+interface   NoDamage : Game {
 
     @Suppress("unused")
     @EventHandler

@@ -15,9 +15,9 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
     override val name get() = "capture-the-wool"
     override val bar by lazy { GBar(plugin) }
     override val noInteracts by lazy { listOf(Material.BLUE_STAINED_GLASS, Material.RED_STAINED_GLASS) }
-    private val gage = 275.0
-    var blueGage = 0
-    var redGage = 0
+    private val gage = comp.intOrNull("gage")?.toDouble()?: 275.0
+    var blueGage = 0.0
+    var redGage = 0.0
 
     override fun beginGame() {
         super.beginGame()
@@ -34,6 +34,10 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
             }
             if (redOn && blueOn || !redOn && !blueOn) {
                 fill(Material.WHITE_WOOL)
+                bar.update(
+                    color = BarColor.WHITE,
+                    progress = 0.0
+                )
             } else {
                 if (blueGage >= gage) {
                     joined.hasTags(PTag.PLAY, PTag.RED).forEach {
@@ -41,7 +45,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
                         it.removeTag(PTag.PLAY)
                         it.addTag(PTag.DEAD)
                     }
-                    stopCheck()
+                    requestStop()
                     return@repeat
                 } else if (redGage >= gage) {
                     joined.hasTags(PTag.PLAY, PTag.BLUE).forEach {
@@ -49,7 +53,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin), BarGame,
                         it.removeTag(PTag.PLAY)
                         it.addTag(PTag.DEAD)
                     }
-                    stopCheck()
+                    requestStop()
                     return@repeat
                 }
                 if (blueOn.not() && redOn.not()) {

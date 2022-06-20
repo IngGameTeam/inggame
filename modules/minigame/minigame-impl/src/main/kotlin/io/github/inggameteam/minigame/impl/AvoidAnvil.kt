@@ -6,11 +6,14 @@ import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
+import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasNoTags
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.repeat
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
@@ -23,9 +26,14 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
     override val name get() = "avoid-anvil"
     override val startPlayersAmount get() = 1
     override var beginPlayersAmount = 0
+    override fun rewardPoint(player: GPlayer) = if (beginPlayersAmount <= 1) 0 else super.rewardPoint(player)
 
     override fun calcWinner() {
-        if (beginPlayersAmount > 1) comp.send(SINGLE_WINNER, joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0], this)
+        if (beginPlayersAmount > 1) {
+            val winner = joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0]
+            joined.forEach { comp.send(SINGLE_WINNER, it, winner, displayName(it)) }
+            Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this, GPlayerList(listOf(winner))))
+        }
     }
 
     override fun sendDeathMessage(player: GPlayer) {

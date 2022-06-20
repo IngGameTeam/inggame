@@ -3,6 +3,7 @@ package io.github.inggameteam.minigame.impl
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.base.*
+import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
@@ -100,10 +101,10 @@ class ColorMatch(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin),
     private fun checkColor() {
         val playersToDie = joined.hasTags(PTag.PLAY).filterNot(::isMatch).toList()
         playersToDie.forEach { it.apply { addTag(PTag.DEAD) } }
-        stopCheck()
-        playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
+        requestStop()
         if (gameState == GameState.PLAY) {
-            playersToDie.forEach { it.damage(10000.0) }
+            playersToDie.forEach { it.apply { removeTag(PTag.PLAY) } }
+            playersToDie.forEach { Bukkit.getPluginManager().callEvent(GPlayerDeathEvent(it))}
             updateStageBar()
             updateColor()
         }
