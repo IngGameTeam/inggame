@@ -72,6 +72,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     }
 
     override fun tpSpawn(player: GPlayer, spawn: String): Location?  {
+        if (!player.hasTag(PTag.PLAY)) return super<SimpleGame>.tpSpawn(player, spawn)
         if (!isDone) return null
         return (playerData[joined.first { current == it.uniqueId }]!![PLAYER_AREA] as Location).apply {
             player.teleport(this)
