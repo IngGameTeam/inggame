@@ -25,11 +25,14 @@ abstract class Container<DATA : UUIDUser>(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
+        if (Bukkit.getBannedPlayers().any { it.uniqueId == event.uniqueId }) return
         val uniqueId = event.uniqueId
-        if (pool.any { it.uuid == uniqueId })
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
-        else {
-            pool.add(pool(uniqueId))
+        synchronized(pool) {
+            if (pool.any { it.uuid == uniqueId })
+                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+            else {
+                pool.add(pool(uniqueId))
+            }
         }
     }
 
@@ -42,9 +45,11 @@ abstract class Container<DATA : UUIDUser>(
     }
 
     private fun commitAndRemove(uuid: UUID) {
-        pool.firstOrNull { uuid == it.uuid }?.apply {
-            commit(this)
-            pool.remove(this)
+        synchronized(pool) {
+            pool.firstOrNull { uuid == it.uuid }?.apply {
+                commit(this)
+                pool.remove(this)
+            }
         }
     }
 
