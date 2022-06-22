@@ -33,22 +33,28 @@ abstract class Container<DATA : UUIDUser>(
         }
     }
 
+    private fun commitAndRemoveAsync(uuid: UUID) {
+        if (plugin.allowTask) {
+            Bukkit.getScheduler().runTaskAsynchronously(plugin) { _ -> commitAndRemove(uuid) }
+        } else {
+            commitAndRemove(uuid)
+        }
+    }
+
     private fun commitAndRemove(uuid: UUID) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin) { _ ->
-            pool.firstOrNull { uuid == it.uuid }?.apply {
-                commit(this)
-                pool.remove(this)
-            }
+        pool.firstOrNull { uuid == it.uuid }?.apply {
+            commit(this)
+            pool.remove(this)
         }
     }
 
     @Suppress("unused")
-    @EventHandler
-    fun onQuitUploadMongo(event: PlayerQuitEvent) = commitAndRemove(event.player.uniqueId)
+    @EventHandler(ignoreCancelled = true)
+    fun onQuitUploadMongo(event: PlayerQuitEvent) = commitAndRemoveAsync(event.player.uniqueId)
 
     @Suppress("unused")
     @EventHandler
-    fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemove(event.player.uniqueId)
+    fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemoveAsync(event.player.uniqueId)
 
     operator fun get(key: UUID) = pool.firstOrNull { key == it.uuid }
         ?.apply { assertNotNull(this, "${javaClass.simpleName} does not contain ${key.fastToString()}") }!!
