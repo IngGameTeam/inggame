@@ -164,7 +164,7 @@ fun Party.unban(dispatcher: GPlayer, unbanPlayer: GPlayer) {
 }
 
 fun PartyRequestRegister.acceptInvitation(dispatcher: GPlayer, inviteCode: Int) {
-    val requests = stream().filter { it.receiver == dispatcher && inviteCode == it.code }.toList()
+    val requests = filterNotNull().filter { it.receiver == dispatcher && inviteCode == it.code }.toList()
     removeAll(requests.toSet())
     if (requests.isEmpty()) comp.send(NO_PARTY_INVITATION, dispatcher)
     else requests.last().party.join(dispatcher)
