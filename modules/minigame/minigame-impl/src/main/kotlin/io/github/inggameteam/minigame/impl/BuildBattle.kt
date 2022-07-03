@@ -127,6 +127,8 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
                     isDone = true
                     time = voteTime
                     nextSpawn()
+                    if (joined.any { it.uniqueId == current }) bar.update("${plugin[current]}")
+
                 } else {
                     time--
                     bar.update("투표까지 남은 시간", progress = time / doneTime, color = BarColor.GREEN)
