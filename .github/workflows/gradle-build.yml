@@ -28,7 +28,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Execute Gradle build
-        run: ./gradlew :modules:jar :plugins:jar
+        run: ./gradlew :modules:shadowJar :plugins:shadowJar
 
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
