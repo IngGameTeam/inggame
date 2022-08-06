@@ -6,6 +6,7 @@ import io.github.inggameteam.utils.ItemUtil
 import io.github.inggameteam.utils.LocationWithoutWorld
 import org.bukkit.Bukkit
 import org.bukkit.Color
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
@@ -67,6 +68,15 @@ object YamlUtil {
         } catch (_: Exception) {}
         return itemStack
     }
+
+    fun setLocation(conf: ConfigurationSection, x: Double, y: Double, z: Double, yaw: Double, pitch: Double) {
+        conf.set("X", x)
+        conf.set("Y", y)
+        conf.set("Z", z)
+        conf.set("YAW", yaw)
+        conf.set("PITCH", pitch)
+    }
+
     fun location(conf: ConfigurationSection) =
         LocationWithoutWorld(
             conf.getDouble("X"),
