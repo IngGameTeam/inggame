@@ -39,10 +39,10 @@ allprojects {
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
-        maven { url = uri("https://raw.githubusercontent.com/TheBlackEntity/PlugMan/repository/") }
     }
 
     dependencies {
+        compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
         testImplementation(kotlin("test"))
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
@@ -58,7 +58,6 @@ allprojects {
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
-        compileOnly("com.rylinaux:PlugMan:2.2.9")
         compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
         compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
