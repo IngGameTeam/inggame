@@ -21,7 +21,9 @@ subprojects {
         processResources {
             repeat(2) {
                 filesMatching("**/*.yml") {
-                    expand(HashMap(rootProject.properties).apply { putAll(pluginProject.properties) })
+                    expand(HashMap(rootProject.properties)
+                        .apply { putAll(pluginProject.properties) }
+                        .apply { put("version", rootProject.version)})
                 }
             }
         }

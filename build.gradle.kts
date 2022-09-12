@@ -65,6 +65,23 @@ allprojects {
 
 }
 
+fun String.runCommand(workingDir: File = file("./")): String {
+    val parts = this.split("\\s".toRegex())
+    val proc = ProcessBuilder(*parts.toTypedArray())
+        .directory(workingDir)
+        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+        .redirectError(ProcessBuilder.Redirect.PIPE)
+        .start()
+
+    proc.waitFor(1, TimeUnit.MINUTES)
+    return proc.inputStream.bufferedReader().readText().trim()
+}
+
+val gitTag = "git describe --tags --abbrev=0".runCommand()
+val gitCommitId = "git rev-parse --short=8 HEAD".runCommand()
+
+rootProject.version = "$gitTag (${gitCommitId})"
+println(rootProject.version)
 fun childTree(p: Project) {
     p.childProjects.values.forEach {
         it.apply {
@@ -84,3 +101,4 @@ fun childTree(p: Project) {
     }
 }
 childTree(rootProject)
+
