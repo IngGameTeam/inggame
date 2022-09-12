@@ -1,8 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 val pluginProject = project
 
 subprojects {
 
-    tasks.withType<Jar> {
+    tasks.withType<ShadowJar> {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
 
@@ -33,4 +35,8 @@ subprojects {
 
 tasks.withType<Jar> {
     dependsOn(*childProjects.values.map { it.tasks.jar }.toTypedArray())
+}
+
+tasks.withType<ShadowJar> {
+    dependsOn(*childProjects.values.map { it.tasks.shadowJar }.toTypedArray())
 }
