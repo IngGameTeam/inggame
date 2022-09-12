@@ -42,7 +42,7 @@ allprojects {
     }
 
     dependencies {
-        compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+        compileOnly(rootProject.fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
         testImplementation(kotlin("test"))
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
