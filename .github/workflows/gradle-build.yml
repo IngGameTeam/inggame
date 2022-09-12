@@ -33,19 +33,19 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :modules:shadowJar :plugins:shadowJar
 
-      - name: Set env
+      - name: tag
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - uses: rickstaa/action-create-tag@v1
         with:
-          tag: "${{RELEASE_VERSION}}"
+          tag: "${{ steps.tag.outputs.value }}"
           message: ""
 
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: "Build ${{RELEASE_VERSION}}"
-          automatic_release_tag: "Build ${{RELEASE_VERSION}}"
+          title: "Build ${{ steps.tag.outputs.value }}"
+          automatic_release_tag: "Build ${{ steps.tag.outputs.value }}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: plugins/build/dist/*.jar
           prerelease: false
