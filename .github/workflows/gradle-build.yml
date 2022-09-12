@@ -36,8 +36,8 @@ jobs:
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: "Build ${{github.run_number}}"
-          automatic_release_tag: "Build ${{github.run_number}}"
+          title: "Build#${{github.run_number}}"
+          automatic_release_tag: "Build#${{github.run_number}}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: plugins/build/dist/*.jar
           prerelease: false
