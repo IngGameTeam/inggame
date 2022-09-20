@@ -1,5 +1,5 @@
 name: angangang
-main: ${group}.plugin.angangang.Plugin
+main: io.github.inggameteam.plugin.angangang.Plugin
 version: $version
 api-version: 1.18
 libraries: $libraries

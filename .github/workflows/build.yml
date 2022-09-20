@@ -1,8 +1,9 @@
-name: Run Gradle
+name: Build
 on:
   push:
     branches:
-      - master
+      - main
+      - develop
 jobs:
   gradle:
     strategy:
@@ -19,11 +20,6 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Configure Git
-        run: |
-          git config --global user.email "no-reply@github.com" && git config --global user.name "Github Actions"
-          echo "workflow=$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
@@ -34,6 +30,16 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :modules:shadowJar :plugins:shadowJar
 
+      - id: is-prerelease
+        run: |
+          if [ ${{ github.head_ref }} == 'main' ]
+          then
+          IS_MAIN='true'
+          else
+          IS_MAIN='false'
+          fi
+          echo "::set-output name=value::$IS_MAIN"
+
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
@@ -41,4 +47,4 @@ jobs:
           automatic_release_tag: "${{github.run_number}}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: plugins/build/dist/*.jar
-          prerelease: false
+          prerelease: "${{ steps.is-prerelease.outputs.value }}"
