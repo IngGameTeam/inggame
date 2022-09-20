@@ -2,4 +2,9 @@ name: JoinLeaveMessage
 main: io.github.inggameteam.plugin.joinleavemessage.JoinLeaveMessagePlugin
 version: $version
 api-version: 1.18
-libraries: $libraries
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
+  - org.jetbrains.kotlin:kotlin-reflect:1.6.10
+  - org.jetbrains.kotlin:kotlin-test:1.6.10
+  - com.eatthepath:fast-uuid:0.2.0
+  - io.github.monun:invfx:3.1.0
