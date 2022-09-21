@@ -65,6 +65,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     val voteTopic = HashMap<String, Int>()
     val exampleTopic = ArrayList<String>()
     lateinit var current: UUID
+    lateinit var decidedTopic: String
 
     override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
         return super<SimpleGame>.inventorySpawn(player,
@@ -134,7 +135,10 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
 
                 } else {
                     time--
-                    bar.update("투표까지 남은 시간", progress = time / doneTime, color = BarColor.GREEN)
+                    bar.update(
+                        alert = { comp.string("left-time-title", it.lang(plugin)).format(decidedTopic) },
+                        progress = time / doneTime, color = BarColor.GREEN
+                    )
                 }
             }
         })
@@ -263,9 +267,8 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         gameTask = {
             joined.forEach { playerData[it]!!.remove(IS_VOTING_TOPIC) }
             joined.forEach { it.closeInventory() }
-            var decidedTopic = voteTopic.keys
-                .map { ComparableTopicVote(it, voteTopic[it]!!) }.sorted().toList().lastOrNull()?.name
-            if (decidedTopic == null) decidedTopic = exampleTopic.random()
+            decidedTopic = voteTopic.keys
+                .map { ComparableTopicVote(it, voteTopic[it]!!) }.sorted().toList().lastOrNull()?.name?: exampleTopic.random()
             bar.update(title = decidedTopic)
             comp.send("TOPIC", joined, decidedTopic)
             beginGameTimer()
