@@ -18,7 +18,7 @@ class HandyGun(override val plugin: AlertPlugin) : Interact, HandleListener(plug
     override fun use(name: String, player: GPlayer) {
         player.apply {
             if (getCooldown(Material.IRON_HORSE_ARMOR) > 0) return@apply
-            setCooldown(Material.IRON_HORSE_ARMOR, 15)
+            setCooldown(Material.IRON_HORSE_ARMOR, itemComp.intOrNull("$name-cooldown")?: 15)
             world.spawn(eyeLocation.add(location.direction.multiply(1.1)), Arrow::class.java) {
                 it.addScoreboardTag(GUN_TAG)
                 it.velocity = location.direction.multiply(itemComp.doubleOrNull("$name-power")?: 5.0)
