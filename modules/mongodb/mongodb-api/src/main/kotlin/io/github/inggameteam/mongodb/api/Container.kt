@@ -2,6 +2,7 @@ package io.github.inggameteam.mongodb.api
 
 import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.api.PluginHolder
+import io.github.inggameteam.scheduler.repeat
 import io.github.inggameteam.utils.fastToString
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -14,13 +15,24 @@ import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 import kotlin.test.assertNotNull
 
-interface UUIDUser { val uuid: UUID }
+interface UUIDUser { val uuid: UUID; var isExited: Boolean }
 
 abstract class Container<DATA : UUIDUser>(
     final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
 ) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
 
-    init { Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) } }
+    init {
+        Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
+        ;{
+            val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
+            pool.forEach {user ->
+                if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
+                    commitAndRemoveAsync(user.uuid)
+                }
+            }
+            true
+        }.repeat(plugin, 50L, 50L)
+    }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
@@ -47,7 +59,10 @@ abstract class Container<DATA : UUIDUser>(
     private fun commitAndRemove(uuid: UUID) {
         synchronized(pool) {
             pool.firstOrNull { uuid == it.uuid }?.apply {
-                commit(this)
+                isExited = true
+                try {
+                    commit(this)
+                } catch(e: Exception) { e.printStackTrace() }
                 pool.remove(this)
             }
         }
@@ -58,7 +73,7 @@ abstract class Container<DATA : UUIDUser>(
     fun onQuitUploadMongo(event: PlayerQuitEvent) = commitAndRemoveAsync(event.player.uniqueId)
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemoveAsync(event.player.uniqueId)
 
     operator fun get(key: UUID) = pool.firstOrNull { key == it.uuid }
