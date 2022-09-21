@@ -14,19 +14,19 @@ interface BeQuietOnWait : Game {
 
     @Suppress("unused")
     @EventHandler
-    private fun onBeQuietOnWaitItemDrop(event: PlayerDropItemEvent) = cancelIfWait(event.player, event)
+    fun onBeQuietOnWaitItemDrop(event: PlayerDropItemEvent) = cancelIfWait(event.player, event)
 
     @Suppress("unused")
     @EventHandler
-    private fun onBeQuietOnWaitBlockPlace(event: BlockPlaceEvent) = cancelIfWait(event.player, event)
+    fun onBeQuietOnWaitBlockPlace(event: BlockPlaceEvent) = cancelIfWait(event.player, event)
 
     @Suppress("unused")
     @EventHandler
-    private fun onBeQuietOnWaitBlockBreak(event: BlockBreakEvent) = cancelIfWait(event.player, event)
+    fun onBeQuietOnWaitBlockBreak(event: BlockBreakEvent) = cancelIfWait(event.player, event)
 
     @Suppress("unused")
     @EventHandler
-    private fun onBeQuietOnWaitFallDamage(event: EntityDamageEvent) {
+    fun onBeQuietOnWaitFallDamage(event: EntityDamageEvent) {
         val player = event.entity
         if (event.cause === EntityDamageEvent.DamageCause.FALL && player is Player) {
             cancelIfWait(player, event)
