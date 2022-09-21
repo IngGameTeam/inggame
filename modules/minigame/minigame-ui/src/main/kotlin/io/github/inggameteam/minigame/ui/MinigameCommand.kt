@@ -58,6 +58,9 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
                     )
                 }
             }
+            thenExecute("material") {
+                player.inventory.itemInMainHand.type.name.apply { player.sendMessage(this) }
+            }
         }
         thenExecute("reload") {
             source.sendMessage("Reloading...")
@@ -65,9 +68,6 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             PluginUtil.reload(plugin)
             val after = System.currentTimeMillis()
             source.sendMessage("Reload Done in ${after - before}ms")
-        }
-        thenExecute("material") {
-            player.inventory.itemInMainHand.type.name.apply { player.sendMessage(this) }
         }
         thenExecute("update") {
             download(plugin)
