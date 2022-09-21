@@ -41,6 +41,7 @@ import kotlin.collections.HashMap
 
 class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     BarGame, InteractingBan, SpawnPlayer, Respawn, SimpleGame {
+    override val startPlayersAmount get() = 3
     override val name get() = "build-battle"
     override val bar by lazy { GBar(plugin) }
     override val recommendedSpawnDelay get() = -1L
@@ -66,7 +67,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
         return super<SimpleGame>.inventorySpawn(player,
             if (isDone) "VOTE"
-            else if (::current.isInitialized && current == player.uniqueId) "CANNOT_VOTE_MYSELF";
+            else if (::current.isInitialized && current == player.uniqueId) "CANNOT_VOTE_MYSELF"
             else spawn
         )
     }
