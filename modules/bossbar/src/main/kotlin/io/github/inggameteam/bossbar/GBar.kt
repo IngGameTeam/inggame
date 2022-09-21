@@ -56,7 +56,7 @@ class GBar(
         viewer?.add(player)
     }
 
-    fun startTimer(runnable: () -> Any): ITask {
+    fun startTimer(runnable: () -> Unit): ITask {
         return {
 
             tick += adder
