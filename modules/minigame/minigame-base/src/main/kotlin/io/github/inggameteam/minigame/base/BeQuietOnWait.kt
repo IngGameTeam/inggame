@@ -34,7 +34,6 @@ interface BeQuietOnWait : Game {
     }
 
     fun cancelIfWait(player: Player, event: Cancellable) {
-        println("isJoined: ${isJoined(player)} && isGameStateWait: ${gameState === GameState.WAIT}")
         if (isJoined(player) && gameState === GameState.WAIT) {
             event.isCancelled = true
         }
