@@ -55,7 +55,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         Material.TNT_MINECART,
         Material.ENDER_CHEST
     )
-    val doneTime get() = comp.doubleOrNull("done-time")?: 750.0
+    val doneTime get() = comp.doubleOrNull("done-time")?: 1000.0
     val voteTime get() = comp.doubleOrNull("vote-time")?: 100.0
     val areaSize get() = comp.doubleOrNull("area-size")?: 20.0
     var time = doneTime
