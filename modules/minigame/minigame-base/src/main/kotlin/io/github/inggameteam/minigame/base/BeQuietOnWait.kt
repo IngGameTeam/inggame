@@ -5,7 +5,6 @@ import io.github.inggameteam.minigame.GameState
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityDamageEvent
@@ -22,7 +21,7 @@ interface BeQuietOnWait : Game {
     fun onBeQuietOnWaitBlockPlace(event: BlockPlaceEvent) = cancelIfWait(event.player, event)
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     fun onBeQuietOnWaitBlockBreak(event: BlockBreakEvent) = cancelIfWait(event.player, event)
 
     @Suppress("unused")
