@@ -15,27 +15,46 @@ class GBar(
     var size: Double = 0.0,
     var tick: Int = 0,
     var adder: Int = 1,
-    var reversed: Boolean = false
+    var reversed: Boolean = false,
+    var title: String = "",
+    var progress: Double = size,
+    var color: BarColor = BarColor.WHITE,
+    var style: BarStyle = BarStyle.SOLID,
+    var alert: ((GPlayer) -> String)? = null
     ) {
 
-    val bossBar: BossBar = Bukkit.createBossBar("", BarColor.WHITE, BarStyle.SOLID)
     var viewer: GPlayerList? = null
+    val bossBars = HashMap<GPlayer, BossBar>()
+
+    fun getPersonalTitle(player: GPlayer): String {
+        if (alert !== null) {
+            return alert!!.invoke(player)
+        } else {
+            return title
+        }
+    }
+
+    fun getBossBar(player: GPlayer): BossBar = bossBars.getOrElse(player) { getNewBossBar(player) }
+    private fun getNewBossBar(player: GPlayer) = Bukkit.createBossBar(getPersonalTitle(player), color, style).apply { progress = this@GBar.progress }
 
     fun update(
-        title: String = bossBar.title,
-        progress: Double = bossBar.progress,
-        color: BarColor = bossBar.color,
-        style: BarStyle = bossBar.style
+        title: String = this.title,
+        progress: Double = this.progress,
+        color: BarColor = this.color,
+        style: BarStyle = this.style,
+        alert: ((GPlayer) -> String)? = this.alert
     ) {
-        bossBar.apply {
-            this.progress = progress;this.color = color;this.style = style;setTitle(title)
-        }
+        this.progress = progress
+        this.color = color
+        this.style = style
+        this.title = title
+        this.alert = alert
         putViewers()
     }
 
     fun putViewers() {
-        if (viewer != null) viewer!!.map(GPlayer::bukkit).apply {
-            forEach(bossBar::addPlayer)
+        if (viewer != null) viewer!!.apply {
+            forEach { player -> getBossBar(player).addPlayer(player.bukkit) }
             viewer = null
         }
     }
@@ -45,7 +64,8 @@ class GBar(
             viewer = null
         } else {
             viewer?.remove(player)
-            bossBar.removePlayer(player.bukkit)
+            getBossBar(player).removePlayer(player.bukkit)
+            bossBars.remove(player)
         }
     }
 
