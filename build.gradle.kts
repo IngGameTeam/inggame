@@ -80,7 +80,7 @@ fun String.runCommand(workingDir: File = file("./")): String {
 val gitTag = "git describe --abbrev=0 --tags".runCommand()
 val gitCommitId = "git rev-parse --short=8 HEAD".runCommand()
 
-rootProject.version = "$${gitCommitId}"
+rootProject.version = gitCommitId
 println(rootProject.version)
 fun childTree(p: Project) {
     p.childProjects.values.forEach {
