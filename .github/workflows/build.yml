@@ -34,11 +34,11 @@ jobs:
         run: |
           if [ ${{ github.head_ref }} == 'main' ]
           then
-          IS_MAIN='true'
+          IS_PRE='false'
           else
-          IS_MAIN='false'
+          IS_PRE='true'
           fi
-          echo "::set-output name=value::$IS_MAIN"
+          echo "::set-output name=value::IS_PRE"
 
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
