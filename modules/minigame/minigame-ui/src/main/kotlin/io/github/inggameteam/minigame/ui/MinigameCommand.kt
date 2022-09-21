@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame.ui
 
 import com.rylinaux.plugman.util.PluginUtil
-import io.github.inggameteam.api.IngGamePluginImpl
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.minigame.GamePlugin
@@ -66,8 +65,8 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             val after = System.currentTimeMillis()
             source.sendMessage("Reload Done in ${after - before}ms")
         }
-        thenExecute("fully-re-initialize-completely") {
-            (plugin as IngGamePluginImpl).initializeGameFile(true)
+        thenExecute("material") {
+            player.inventory.itemInMainHand.type.name.apply { player.sendMessage(this) }
         }
     }
 
