@@ -10,6 +10,7 @@ import org.bson.Document
 import java.util.*
 
 class ChallengeList(override val uuid: UUID, val challenges: ArrayList<Challenge> = arrayListOf()) : UUIDUser {
+    override var isExited = false
     operator fun get(key: String) = challenges.firstOrNull { it.name == key }
         ?: Challenge(key, 0, System.currentTimeMillis()).apply { challenges.add(this) }
 }

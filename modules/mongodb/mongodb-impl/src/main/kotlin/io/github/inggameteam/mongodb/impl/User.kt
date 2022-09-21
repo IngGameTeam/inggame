@@ -9,7 +9,7 @@ import io.github.inggameteam.utils.fastToString
 import org.bson.Document
 import java.util.*
 
-class User(override val uuid: UUID, var point: Long) : UUIDUser
+class User(override val uuid: UUID, var point: Long, override var isExited: Boolean = false) : UUIDUser
 
 class UserContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     Container<User>(plugin, mongo, "user", "user") {

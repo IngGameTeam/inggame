@@ -3,6 +3,7 @@ package io.github.inggameteam.minigame.ui
 import com.rylinaux.plugman.util.PluginUtil
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
+import io.github.inggameteam.downloader.download
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.utils.ColorUtil.color
@@ -67,6 +68,9 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
         }
         thenExecute("material") {
             player.inventory.itemInMainHand.type.name.apply { player.sendMessage(this) }
+        }
+        thenExecute("update") {
+            download(plugin)
         }
     }
 

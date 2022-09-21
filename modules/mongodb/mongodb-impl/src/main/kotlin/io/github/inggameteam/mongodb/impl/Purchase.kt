@@ -10,6 +10,7 @@ import org.bson.Document
 import java.util.*
 
 class PurchaseList(override val uuid: UUID, val purchases: ArrayList<Purchase> = arrayListOf()) : UUIDUser {
+    override var isExited = false
     operator fun get(key: String) = purchases.firstOrNull { it.name == key }
         ?: Purchase(key, 0, System.currentTimeMillis()).apply { purchases.add(this) }
 }

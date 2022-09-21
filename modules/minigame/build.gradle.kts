@@ -11,6 +11,7 @@ allprojects {
             "$prefix:world",
             "$prefix:bossbar",
             "$prefix:command",
+            "$prefix:downloader",
         ).forEach {
             api(project(it))
             testApi(project(it))
