@@ -6,6 +6,7 @@ import io.github.inggameteam.item.api.InteractCancel
 import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.player.GPlayer
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.Fireball
@@ -23,6 +24,10 @@ class Meteor(override val plugin: AlertPlugin, val purchase: PurchaseContainer) 
         purchase[player][name].apply {
             if (amount > 0) amount -= 1
         }
+        player.setCooldown(
+            itemComp.stringOrNull("$name-material", plugin.defaultLanguage)?.run(Material::getMaterial)
+                ?: Material.FIRE_CHARGE
+        , 4)
         player.inventory.itemInMainHand.apply { amount = playerPurchase.amount }
         player.apply {
             world.spawn(eyeLocation.add(location.direction.multiply(2)), Fireball::class.java) {
