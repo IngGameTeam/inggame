@@ -30,16 +30,6 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew :modules:shadowJar :plugins:shadowJar
 
-      - id: is-prerelease
-        run: |
-          if [ ${{ github.head_ref }} == 'main' ]
-          then
-          IS_PRE='false'
-          else
-          IS_PRE='true'
-          fi
-          echo "::set-output name=value::IS_PRE"
-
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
@@ -47,4 +37,4 @@ jobs:
           automatic_release_tag: "${{github.run_number}}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: plugins/build/dist/*.jar
-          prerelease: "${{ steps.is-prerelease.outputs.value }}"
+          prerelease: false
