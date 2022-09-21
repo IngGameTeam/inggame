@@ -38,7 +38,7 @@ interface Respawn : SpawnPlayer, Competition {
                 delayRespawn(this)
             }
             event.isCancelled = true
-            if (!isDeadBefore) sendDeathMessage(this)
+            if (!isDeadBefore) sendDeathMessage(this, null)
             if (isDeadFinally) requestStop()
         }
     }

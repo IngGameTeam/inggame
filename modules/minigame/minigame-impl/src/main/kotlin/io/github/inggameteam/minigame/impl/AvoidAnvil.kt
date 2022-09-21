@@ -36,7 +36,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
         }
     }
 
-    override fun sendDeathMessage(player: GPlayer) {
+    override fun sendDeathMessage(player: GPlayer, killer: Player?) {
         comp.send(PLAYER_DEATH_TO_VOID, joined, player, recordString(player))
     }
 

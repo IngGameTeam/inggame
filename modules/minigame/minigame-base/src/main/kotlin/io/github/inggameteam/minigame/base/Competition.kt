@@ -9,11 +9,12 @@ import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.player.toPlayerList
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 
 interface Competition : Sectional, Game {
     val stopCheckPlayer: Int get() = 1
-    fun sendDeathMessage(player: GPlayer) {
+    fun sendDeathMessage(player: GPlayer, killer: Player?) {
         comp.send(GameAlert.PLAYER_DEATH_TO_VOID, joined, player)
     }
     @Suppress("unused")
@@ -29,7 +30,7 @@ interface Competition : Sectional, Game {
             gameMode = GameMode.SPECTATOR
         }
         event.isCancelled = true
-        if (!sendDeathMessage) sendDeathMessage(gPlayer)
+        if (!sendDeathMessage) sendDeathMessage(gPlayer, event.killer)
         requestStop()
     }
     override fun requestStop() {

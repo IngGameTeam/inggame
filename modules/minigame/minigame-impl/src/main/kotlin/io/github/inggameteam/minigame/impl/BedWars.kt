@@ -8,6 +8,7 @@ import io.github.inggameteam.player.GPlayer
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.block.Bed
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.block.Action
@@ -60,7 +61,7 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
         if (isJoined(event.player)) {
             val clickedBlock = event.clickedBlock
             if (event.action !== Action.RIGHT_CLICK_BLOCK) return
-            if(clickedBlock != null && clickedBlock.state is Bed) {
+            if(clickedBlock != null && clickedBlock.state is @Suppress("DEPRECATION") Bed) {
                 event.isCancelled = true
             }
         }
@@ -74,7 +75,7 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
 
     override fun testRespawn(player: GPlayer) = super.testRespawn(player) && isBedAlive(player)
 
-    override fun sendDeathMessage(player: GPlayer) {
+    override fun sendDeathMessage(player: GPlayer, killer: Player?) {
         comp.send(getPlayerTeam(player).name + "-death" + if (isBedAlive(player)) "" else "-final", joined, player)
     }
 
