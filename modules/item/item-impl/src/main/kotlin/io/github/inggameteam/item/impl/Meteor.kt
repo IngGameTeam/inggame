@@ -20,14 +20,14 @@ class Meteor(override val plugin: AlertPlugin, val purchase: PurchaseContainer) 
     override val name get() = "meteor"
 
     override fun use(name: String, player: GPlayer) {
+        val mat = itemComp.stringOrNull("$name-material", plugin.defaultLanguage)?.run(Material::getMaterial)
+            ?: Material.FIRE_CHARGE
         val playerPurchase = purchase[player][name]
+        if (player.getCooldown(mat) > 0) return
         purchase[player][name].apply {
             if (amount > 0) amount -= 1
         }
-        player.setCooldown(
-            itemComp.stringOrNull("$name-material", plugin.defaultLanguage)?.run(Material::getMaterial)
-                ?: Material.FIRE_CHARGE
-        , 4)
+        player.setCooldown(mat, 4)
         player.inventory.itemInMainHand.apply { amount = playerPurchase.amount }
         player.apply {
             world.spawn(eyeLocation.add(location.direction.multiply(2)), Fireball::class.java) {
