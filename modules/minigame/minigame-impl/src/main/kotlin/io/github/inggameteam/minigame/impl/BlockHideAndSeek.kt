@@ -23,15 +23,35 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.block.BlockIgniteEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
     SpawnTeamPlayer, VoidDeath, SimpleGame, NoBlockPlace, NoBlockBreak, BarGame {
 
     override val name get() = "block-hide-and-seek"
     override val bar by lazy { GBar(plugin, size = 750.0, reversed = true) }
+    var isWaiting = true
+
     override fun beginGame() {
         super.beginGame()
-        bar.update("술래에게 남은시간", color = BarColor.GREEN)
+        isWaiting = true
+        joined.hasTags(PTag.PLAY, PTag.RED).forEach {
+            it.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 5555555, 1))
+            it.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 5555555, 1))
+        }
+        bar.size = 300.0
+        bar.update(alert = { comp.string("waiting-title", it.lang(plugin) )}, color = BarColor.GREEN)
+        gameTask = bar.startTimer {
+            isWaiting = false
+            joined.forEach { comp.send("waiting-end", it, displayName(it)) }
+            joined.hasTags(PTag.PLAY, PTag.RED).forEach {
+                it.removePotionEffect(PotionEffectType.BLINDNESS)
+                it.removePotionEffect(PotionEffectType.SLOW)
+            }
+        }
+        bar.size = 750.0
+        bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
         gameTask = bar.startTimer {
             joined.hasTags(PTag.PLAY, PTag.RED).forEach {
                 it.removeTag(PTag.PLAY)
@@ -130,6 +150,7 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
     }
 
     private fun hit(gPlayer: GPlayer, location: Location) {
+        if (isWaiting) return
         joined.hasTags(PTag.BLUE).forEach {
             if (it.location.block.location == location) {
                 if (gPlayer.hasTag(PTag.RED) && it.hasTag(PTag.BLUE)) {
