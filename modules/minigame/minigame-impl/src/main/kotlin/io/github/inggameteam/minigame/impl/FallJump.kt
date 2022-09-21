@@ -9,8 +9,6 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.entity.EntityDamageEvent
 
 class FallJump(plugin: GamePlugin) : ClearTheBlocksBelow, SimpleGame, CompetitionImpl(plugin), NoDamage, NoBlockBreak {
     override val name get() = "fall-jump"

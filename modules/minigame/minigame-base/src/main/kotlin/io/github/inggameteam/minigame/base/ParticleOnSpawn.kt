@@ -2,7 +2,6 @@ package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
-import io.github.inggameteam.minigame.event.GameJoinEvent
 import org.bukkit.Particle
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

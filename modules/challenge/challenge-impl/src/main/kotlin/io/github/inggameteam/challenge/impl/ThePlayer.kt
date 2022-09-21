@@ -5,9 +5,7 @@ import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
-import io.github.inggameteam.scheduler.runNow
 import org.bukkit.event.EventHandler
-import org.bukkit.event.player.AsyncPlayerChatEvent
 
 class ThePlayer(override val plugin: GamePlugin,
                 override val item: ChallengeContainer,

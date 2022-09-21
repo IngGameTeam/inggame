@@ -6,7 +6,6 @@ import io.github.inggameteam.utils.ItemUtil
 import io.github.inggameteam.utils.LocationWithoutWorld
 import org.bukkit.Bukkit
 import org.bukkit.Color
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration

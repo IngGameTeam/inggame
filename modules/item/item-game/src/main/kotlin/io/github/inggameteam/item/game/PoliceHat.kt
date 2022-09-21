@@ -1,9 +1,7 @@
 package io.github.inggameteam.item.game
 
-import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.api.HandleListener
-import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.item.api.ItemComponentGetter
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.mongodb.impl.PurchaseContainer

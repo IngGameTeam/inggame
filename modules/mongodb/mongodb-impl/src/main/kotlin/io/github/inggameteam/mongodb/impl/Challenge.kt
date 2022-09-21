@@ -8,7 +8,6 @@ import io.github.inggameteam.mongodb.api.UUIDUser
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ChallengeList(override val uuid: UUID, val challenges: ArrayList<Challenge> = arrayListOf()) : UUIDUser {
     operator fun get(key: String) = challenges.firstOrNull { it.name == key }

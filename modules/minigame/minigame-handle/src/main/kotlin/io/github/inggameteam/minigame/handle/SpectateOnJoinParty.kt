@@ -2,7 +2,6 @@ package io.github.inggameteam.minigame.handle
 
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.minigame.GamePlugin
-import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.JoinType
 import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.party.event.JoinPartyEvent

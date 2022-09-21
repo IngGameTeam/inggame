@@ -1,10 +1,11 @@
 package io.github.inggameteam.minigame.impl
 
-import io.github.inggameteam.alert.Lang.lang
-import io.github.inggameteam.minigame.*
-import io.github.inggameteam.minigame.base.*
-import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.player.hasTags
+import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.LeftType
+import io.github.inggameteam.minigame.PTag
+import io.github.inggameteam.minigame.base.SectionalImpl
+import io.github.inggameteam.minigame.base.SimpleGame
+import io.github.inggameteam.minigame.base.SpawnPlayer
 import io.github.inggameteam.scheduler.ITask
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.ColorUtil.color

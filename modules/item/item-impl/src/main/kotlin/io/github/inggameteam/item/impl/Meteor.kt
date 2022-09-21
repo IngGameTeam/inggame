@@ -2,7 +2,6 @@ package io.github.inggameteam.item.impl
 
 import io.github.inggameteam.alert.AlertPlugin
 import io.github.inggameteam.api.HandleListener
-import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.item.api.InteractCancel
 import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.mongodb.impl.PurchaseContainer

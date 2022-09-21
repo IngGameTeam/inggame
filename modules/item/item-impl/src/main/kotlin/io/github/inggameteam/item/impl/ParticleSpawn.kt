@@ -5,7 +5,6 @@ import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.ItemComponentGetter
 import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.scheduler.repeat
-import org.bukkit.Bukkit
 import org.bukkit.Particle
 
 class ParticlePurchase(override val plugin: AlertPlugin, val purchase: PurchaseContainer) : HandleListener(plugin),

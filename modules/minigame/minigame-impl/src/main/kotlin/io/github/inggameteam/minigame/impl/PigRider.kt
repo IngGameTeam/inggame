@@ -5,7 +5,6 @@ import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.player.hasTags
 import org.bukkit.entity.Pig
-import org.bukkit.event.EventHandler
 
 class PigRider(plugin: GamePlugin) : Racing(plugin), SimpleGame, NoDamage, NoInteract, GoalIn {
     override val name get() = "pig-rider"

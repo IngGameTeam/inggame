@@ -2,8 +2,12 @@ package io.github.inggameteam.minigame.impl
 
 import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.bossbar.GBar
-import io.github.inggameteam.minigame.*
-import io.github.inggameteam.minigame.GameAlert.*
+import io.github.inggameteam.minigame.Game
+import io.github.inggameteam.minigame.GameAlert.GAME_DRAW_NO_WINNER
+import io.github.inggameteam.minigame.GameAlert.SINGLE_WINNER
+import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GPlayerWinEvent
@@ -36,8 +40,6 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     BarGame, InteractingBan, SpawnPlayer, Respawn, SimpleGame {

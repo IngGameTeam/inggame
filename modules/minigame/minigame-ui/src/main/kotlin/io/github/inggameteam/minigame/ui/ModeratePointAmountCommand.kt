@@ -4,7 +4,6 @@ import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.mongodb.impl.UserContainer
-import io.github.inggameteam.scheduler.async
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandExecutor
 import org.bukkit.plugin.java.JavaPlugin

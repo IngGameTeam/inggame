@@ -1,6 +1,7 @@
 package io.github.inggameteam.minigame.impl
 
-import io.github.inggameteam.minigame.GameAlert.*
+import io.github.inggameteam.minigame.GameAlert.PLAYER_DEATH_TO_VOID
+import io.github.inggameteam.minigame.GameAlert.SINGLE_WINNER
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.LeftType

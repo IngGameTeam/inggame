@@ -1,18 +1,16 @@
 package io.github.inggameteam.minigame.base
 
-import org.bukkit.entity.Entity
-import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.vehicle.VehicleExitEvent
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
-import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.player.GPlayer
-import org.bukkit.Location
+import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.vehicle.VehicleExitEvent
 
 abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer, NoInteract, Respawn {
 
