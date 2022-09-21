@@ -19,20 +19,26 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 class JobWars(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlayer {
 
+    companion object {
+        const val PLAYER_JOB = "playerJob"
+        const val MENU_OPENED = "menuOpened"
+    }
+
     override val name get() = "job-wars"
 
-    enum class Job(val jobName: String, val maxAmount: Int = -1) {
-        destroyer("파괴자"),
-        gandi("간디", 1),
-        gold("금광석"),
-        terrorlist("테러리스트"),
-        god_getter("교주"),
-        guardion("수호자"),
-        game_ct("직업 조작자"),
-        archor("아처"),
-        magic("마법사"),
-        god_saver("성직자"),
-//        engineer("엔지니어"),
+    enum class Job(val jobName: String, val maxAmount: Int = -1, val visible: Boolean = true) {
+        J0("시민"),
+        J1("파괴자"),
+        J2("간디"),
+        J3("금광석"),
+        J4("테러리스트"),
+        J5("교주"),
+        J6("수호자"),
+        J7("게임 조작자"),
+        J8("아처"),
+        J9("마법사"),
+        J10("성직자"),
+        J11("엔지니어")
     }
 
     private fun job(player: GPlayer) = playerData[player]!![PLAYER_JOB] as? Job
@@ -72,6 +78,7 @@ class JobWars(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPl
         gameTask = null
     }
 
+    @Suppress("unused")
     @EventHandler
     fun cannotMoveWhenOpeningMenu(event: PlayerMoveEvent) {
         if (isJoined(event.player) && playerData[plugin[event.player]]!![MENU_OPENED] == true)
@@ -81,10 +88,7 @@ class JobWars(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPl
     private fun choosingMenu(player: GPlayer) {
         player.openFrame(InvFX.frame(6, Component.text("직업 선택")) {
             onClose { if (playerData[player]!![MENU_OPENED] == true) addTask({ choosingMenu(player) }.delay(plugin, 1)) }
-            list(2, 1, 5, 2, true, { listOf(
-                Job.destroyer, Job.gandi, Job.gold, Job.terrorlist, Job.god_getter,
-                Job.game_ct, Job.archor, Job.magic, Job.god_saver
-            ) }) {
+            list(2, 1, 5, 2, true, { Job.values().filter { it.visible } }) {
                 transform { comp.item(it.jobName, player.lang(plugin)).apply {
                     val itemMeta = itemMeta
                     val lore = itemMeta!!.lore
@@ -115,9 +119,5 @@ class JobWars(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPl
             playerData[it]!![MENU_OPENED] = true
         }.delay(plugin, 1)) }
 
-    companion object {
-        const val PLAYER_JOB = "playerJob"
-        const val MENU_OPENED = "menuOpened"
-    }
 
 }
