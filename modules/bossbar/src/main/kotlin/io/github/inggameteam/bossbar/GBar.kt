@@ -35,7 +35,9 @@ class GBar(
     }
 
     fun getBossBar(player: GPlayer): BossBar = bossBars.getOrElse(player) { getNewBossBar(player) }
-    private fun getNewBossBar(player: GPlayer) = Bukkit.createBossBar(getPersonalTitle(player), color, style).apply { progress = this@GBar.progress }
+    private fun getNewBossBar(player: GPlayer) = Bukkit.createBossBar(getPersonalTitle(player), color, style).apply { progress = this@GBar.progress; bossBars[player] =
+        this
+    }
 
     fun update(
         title: String = this.title,
