@@ -52,6 +52,15 @@ class GBar(
         this.title = title
         this.alert = alert
         putViewers()
+        bossBars.forEach {
+            it.value.apply {
+                this.progress = progress
+                this.color = color
+                this.style = style
+                setTitle(title)
+            }
+        }
+
     }
 
     fun putViewers() {
