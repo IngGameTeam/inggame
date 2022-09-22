@@ -99,6 +99,7 @@ class Plugin : GamePluginImpl(
         ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
         ArrowStuckPreventHandler(this)
+        DisableBoatCollision(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)
