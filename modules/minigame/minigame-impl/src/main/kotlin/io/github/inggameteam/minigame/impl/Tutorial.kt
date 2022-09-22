@@ -13,8 +13,12 @@ import org.bukkit.Location
 import org.bukkit.entity.EntityType
 
 class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
-    override val name get() = "tutorial"
+    override val name get() = TUTORIAL_NAME
     override val recommendedStartPlayersAmount get() = 1
+
+    companion object {
+        const val TUTORIAL_NAME = "tutorial"
+    }
 
     var count = 1
     var stopTick = 0

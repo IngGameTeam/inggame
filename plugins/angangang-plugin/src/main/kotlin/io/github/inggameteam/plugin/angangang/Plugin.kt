@@ -79,6 +79,7 @@ class Plugin : GamePluginImpl(
             ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
+            ::FirstJoinTutorial,
             ).forEach { it(this, challenge) }
 
         SpectateOnJoinParty(this)
