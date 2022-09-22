@@ -2,13 +2,12 @@ package io.github.inggameteam.challenge.impl
 
 import io.github.inggameteam.api.CountChallenge
 import io.github.inggameteam.api.HandleListener
-import io.github.inggameteam.api.event.ChallengeArchiveEvent
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.minigame.impl.Tutorial
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
+import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
 
 class FirstJoinTutorial(override val plugin: GamePlugin,
                         override val item: ChallengeContainer,
@@ -23,14 +22,12 @@ class FirstJoinTutorial(override val plugin: GamePlugin,
         if (event.join.name == plugin.gameRegister.hubName) {
             val player = event.player
             add(player)
-            plugin.gameRegister.join(player, Tutorial.TUTORIAL_NAME)
         }
     }
 
-    @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOW)
-    fun onArchive(event: ChallengeArchiveEvent) {
-        if (event.name == name) event.isCancelled = true
+    override fun goal(player: GPlayer) {
+        super.goal(player)
+        plugin.gameRegister.join(player, Tutorial.TUTORIAL_NAME)
     }
 
 }
