@@ -17,7 +17,7 @@ class GBar(
     var adder: Int = 1,
     var reversed: Boolean = false,
     var title: String = "",
-    var progress: Double = size,
+    var progress: Double = 1.0,
     var color: BarColor = BarColor.WHITE,
     var style: BarStyle = BarStyle.SOLID,
     var alert: ((GPlayer) -> String)? = null
