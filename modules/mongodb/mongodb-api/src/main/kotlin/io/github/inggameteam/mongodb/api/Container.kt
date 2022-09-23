@@ -76,8 +76,16 @@ abstract class Container<DATA : UUIDUser>(
     @EventHandler(ignoreCancelled = true)
     fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemoveAsync(event.player.uniqueId)
 
-    operator fun get(key: UUID) = pool.firstOrNull { key == it.uuid }
-        ?.apply { assertNotNull(this, "${javaClass.simpleName} does not contain ${key.fastToString()}") }!!
+    operator fun get(key: UUID): DATA {
+        try {
+            return pool.firstOrNull { key == it.uuid }
+                ?.apply { assertNotNull(this, "${javaClass.simpleName} does not contain ${key.fastToString()}") }!!
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val userName = Bukkit.getOnlinePlayers().firstOrNull { it.uniqueId == key }?.name ?: "notOnline"
+            throw NullPointerException("$userName(${key.fastToString()})")
+        }
+    }
     operator fun get(key: Player) = get(key.uniqueId)
 
 }
