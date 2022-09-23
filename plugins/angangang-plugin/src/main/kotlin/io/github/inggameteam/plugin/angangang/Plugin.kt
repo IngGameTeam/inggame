@@ -100,6 +100,7 @@ class Plugin : GamePluginImpl(
         HideJoinLeaveMessage(this)
         ArrowStuckPreventHandler(this)
         DisableBoatCollision(this)
+        AutoUpdater(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)
