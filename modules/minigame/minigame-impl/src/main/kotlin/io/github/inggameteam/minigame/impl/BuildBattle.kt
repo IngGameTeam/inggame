@@ -67,6 +67,17 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     lateinit var current: UUID
     lateinit var decidedTopic: String
 
+    @Suppress("unused")
+    @EventHandler
+    fun onBreakBlock(event: BlockBreakEvent) {
+        val player = event.player
+        if (isJoined(player)) {
+            if (event.block.y <= comp.int("floor-height")) {
+                event.isCancelled = true
+            }
+        }
+    }
+
     override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
         return super<SimpleGame>.inventorySpawn(player,
             if (isDone) "VOTE"
