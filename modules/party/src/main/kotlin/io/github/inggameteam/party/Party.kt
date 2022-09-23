@@ -115,7 +115,7 @@ fun Party.promote(dispatcher: GPlayer, newLeader: GPlayer) {
         if (leader eq newLeader) comp.send(CANNOT_PROMOTE_YOURSELF, dispatcher)
         else if (joined.contains(newLeader)) {
             comp.send(LEADER_PROMOTE_YOU, newLeader, dispatcher, this)
-            comp.send(PARTY_PROMOTED, joined, newLeader, this)
+            comp.send(PARTY_PROMOTED, joined.filter { it.uniqueId != newLeader.uniqueId }, newLeader, this)
             joined.remove(newLeader)
             joined.add(0, newLeader)
             if (!renamed) resetName()
