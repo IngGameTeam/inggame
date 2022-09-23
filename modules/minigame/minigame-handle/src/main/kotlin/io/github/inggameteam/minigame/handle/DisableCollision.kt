@@ -1,23 +1,24 @@
 package io.github.inggameteam.minigame.handle
 
 import io.github.inggameteam.api.HandleListener
-import org.bukkit.entity.Entity
-import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.vehicle.VehicleEntityCollisionEvent
 import org.bukkit.plugin.Plugin
 
 
-class DisableBoatCollision(val plugin: Plugin) : HandleListener(plugin) {
+class DisableCollision(val plugin: Plugin) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler
     fun onBoatCollision(event: VehicleEntityCollisionEvent) {
-        val vehicle: Entity = event.entity
-        if (vehicle.type == EntityType.BOAT) {
-            event.isCollisionCancelled = true
-            event.isCancelled = true
-        }
+        event.isCollisionCancelled = true
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onPlayerJoin(event: PlayerJoinEvent) {
+        event.player.spigot().collidesWithEntities = false
     }
 
 }
