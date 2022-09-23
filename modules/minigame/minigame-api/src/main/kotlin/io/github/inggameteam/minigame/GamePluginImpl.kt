@@ -1,6 +1,7 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
+import io.github.inggameteam.scheduler.runNow
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
 import org.bukkit.plugin.PluginDescriptionFile
@@ -47,11 +48,12 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
             gameRegister.apply { add(createGame(hubName)) }
             Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
         }
-        if (generate) {
-            initGameAndPlayers.run()
-            worldName.forEach { Bukkit.getWorld(it)?.save() }
-        }
-        else Bukkit.getScheduler().runTask(this, initGameAndPlayers)
+        ;{
+            if (generate) {
+                initGameAndPlayers.run()
+                worldName.forEach { Bukkit.getWorld(it)?.save() }
+            } else Bukkit.getScheduler().runTask(this, initGameAndPlayers)
+        }.runNow(this)
     }
 
     override fun onDisable() {
