@@ -6,14 +6,13 @@ import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.scheduler.delay
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.vehicle.VehicleExitEvent
 
-abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer, NoInteract, Respawn {
+abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer, Respawn {
 
     abstract fun getRider(): Class<out Entity>
     override val recommendedSpawnDelay: Long get() = -1L
@@ -26,9 +25,7 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
         if (gameState === GameState.PLAY) {
             removeRider(player)
             player.world.spawn(player.location.add(0.0, 0.4, 0.0), getRider()) { entity ->
-                {
-                    entity.addPassenger(player.bukkit)
-                }.delay(plugin, 1)
+                entity.addPassenger(player.bukkit)
                 entity.addScoreboardTag(RIDER_TAG)
             }.apply { playerData[player]!![RIDER_KEY] = this }
         }
