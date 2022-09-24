@@ -38,6 +38,7 @@ object WorldGenerator {
                 try { world.isAutoSave = false }
                 catch (e: Exception) { e.printStackTrace() }
                 onGenerate()
+                world.save()
             }
         }
     }

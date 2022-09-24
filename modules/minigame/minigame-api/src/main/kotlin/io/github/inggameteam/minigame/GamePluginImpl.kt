@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
-import io.github.inggameteam.scheduler.runNow
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
 import org.bukkit.plugin.PluginDescriptionFile
@@ -41,19 +40,18 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override fun onEnable() {
         super.onEnable()
         var generate = false
-        worldName.forEach { WorldGenerator.generateWorld(it) { generate = true } }
         gameSupplierRegister
         gameRegister
         val initGameAndPlayers = Runnable {
             gameRegister.apply { add(createGame(hubName)) }
             Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
         }
-        ;{
-            if (generate) {
-                initGameAndPlayers.run()
-                worldName.forEach { Bukkit.getWorld(it)?.save() }
-            } else Bukkit.getScheduler().runTask(this, initGameAndPlayers)
-        }.runNow(this)
+        worldName.forEach { WorldGenerator.generateWorld(it) {
+            if (generate) return@generateWorld
+            generate = true
+            initGameAndPlayers.run()
+        } }
+        Bukkit.getScheduler().runTask(this, initGameAndPlayers)
     }
 
     override fun onDisable() {
