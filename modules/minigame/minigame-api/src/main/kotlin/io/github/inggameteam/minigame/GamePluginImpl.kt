@@ -50,7 +50,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         worldName.forEach { WorldGenerator.generateWorld(it) {
             FaweImpl().paste(
                 Location(Bukkit.getWorld(it), .0, gameRegister.sectorHeight.toDouble(), .0),
-                File(config.getString("init-world-schem.$it")?: return@generateWorld))
+                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
         } }
         Bukkit.getScheduler().runTask(this, initGameAndPlayers)
     }
