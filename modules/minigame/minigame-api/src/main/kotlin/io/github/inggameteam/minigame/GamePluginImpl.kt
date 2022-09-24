@@ -41,10 +41,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, width, height) }
     override fun onEnable() {
         super.onEnable()
-        val initGameAndPlayers = Runnable {
-            gameRegister.apply { add(createGame(hubName)) }
-            Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
-        }
         worldName.forEach { WorldGenerator.generateWorld(it) {
             FaweImpl().paste(
                 Location(Bukkit.getWorld(it), .0, gameRegister.sectorHeight.toDouble(), .0),
@@ -52,7 +48,10 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         } }
         gameSupplierRegister
         gameRegister
-        Bukkit.getScheduler().runTask(this, initGameAndPlayers)
+        Bukkit.getScheduler().runTask(this, Runnable {
+            gameRegister.apply { add(createGame(hubName)) }
+            Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
+        })
     }
 
     override fun onDisable() {
