@@ -44,7 +44,10 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         worldName.forEach { WorldGenerator.generateWorld(it) {
             logger.info("Generating $it world...")
             FaweImpl().paste(
-                Location(Bukkit.getWorld(it), .0, gameRegister.sectorHeight.toDouble(), .0),
+                Location(Bukkit.getWorld(it),
+                    gameRegister.sectorWidth.toDouble(),
+                    gameRegister.sectorHeight.toDouble(),
+                    gameRegister.sectorWidth.toDouble()),
                 File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
             logger.info("Generated $it world ")
         } }
