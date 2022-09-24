@@ -23,10 +23,10 @@ interface SpawnPlayer : Game, Sectional {
 
     fun spawn(player: GPlayer, spawn: String = gameState.toString()) {
         listOf(
+            ::tpSpawn,
             ::potionSpawn,
             ::inventorySpawn,
             ::gameModeSpawn,
-            ::tpSpawn
         ).forEach { it(player, spawn) }
     }
 
