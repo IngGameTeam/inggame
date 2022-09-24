@@ -205,7 +205,11 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             val location =
                 playerData[joined.first { current == it.uniqueId }]!![PLAYER_AREA] as Location
             player.teleport(location)
-            player.inventory.contents = comp.inventory("VOTE", player.lang(plugin)).contents
+            if (current == player.uniqueId) {
+                player.inventory.clear()
+            } else {
+                player.inventory.contents = comp.inventory("VOTE", player.lang(plugin)).contents
+            }
             player.inventory.heldItemSlot = 7
         } else {
             player.teleport(playerData[player]!![PLAYER_AREA] as Location)
