@@ -49,14 +49,14 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
                 it.removePotionEffect(PotionEffectType.BLINDNESS)
                 it.removePotionEffect(PotionEffectType.SLOW)
             }
-        }
-        bar.size = 750.0
-        bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
-        gameTask = bar.startTimer {
-            joined.hasTags(PTag.PLAY, PTag.RED).forEach {
-                it.removeTag(PTag.PLAY)
+            bar.size = 750.0
+            bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
+            gameTask = bar.startTimer {
+                joined.hasTags(PTag.PLAY, PTag.RED).forEach {
+                    it.removeTag(PTag.PLAY)
+                }
+                requestStop()
             }
-            requestStop()
         }
 
     }
