@@ -37,8 +37,8 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         super.beginGame()
         isWaiting = true
         joined.hasTags(PTag.PLAY, PTag.RED).forEach {
-            it.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 5555555, 1))
-            it.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 5555555, 1))
+            it.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 55555, 5))
+            it.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 55555, 5))
         }
         bar.size = 300.0
         bar.update(alert = { comp.string("waiting-title", it.lang(plugin) )}, color = BarColor.GREEN)
