@@ -19,7 +19,7 @@ object WorldGenerator {
                         "\"biome\":\"the_void\"}"
             )
             val world = worldCreator.createWorld()
-            if (world != null) {
+            if (world != null && world.getGameRuleValue(GameRule.DO_MOB_SPAWNING) != false) {
                 world.setGameRule(GameRule.DO_MOB_SPAWNING, false)
                 world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false)
                 world.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
@@ -39,6 +39,8 @@ object WorldGenerator {
                 catch (e: Exception) { e.printStackTrace() }
                 onGenerate()
                 world.save()
+                Bukkit.unloadWorld(world, true)
+                worldCreator.createWorld()
             }
         }
     }
