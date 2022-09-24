@@ -1,8 +1,10 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
+import io.github.inggameteam.world.FaweImpl
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
@@ -39,7 +41,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, width, height) }
     override fun onEnable() {
         super.onEnable()
-        var generate = false
         gameSupplierRegister
         gameRegister
         val initGameAndPlayers = Runnable {
@@ -47,9 +48,9 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
             Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
         }
         worldName.forEach { WorldGenerator.generateWorld(it) {
-            if (generate) return@generateWorld
-            generate = true
-            initGameAndPlayers.run()
+            FaweImpl().paste(
+                Location(Bukkit.getWorld(it), .0, gameRegister.sectorHeight.toDouble(), .0),
+                File(config.getString("init-world-schem")?: return@generateWorld))
         } }
         Bukkit.getScheduler().runTask(this, initGameAndPlayers)
     }
