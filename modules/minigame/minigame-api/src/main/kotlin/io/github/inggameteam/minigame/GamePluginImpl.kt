@@ -41,8 +41,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, width, height) }
     override fun onEnable() {
         super.onEnable()
-        gameSupplierRegister
-        gameRegister
         val initGameAndPlayers = Runnable {
             gameRegister.apply { add(createGame(hubName)) }
             Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
@@ -52,6 +50,8 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                 Location(Bukkit.getWorld(it), .0, gameRegister.sectorHeight.toDouble(), .0),
                 File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
         } }
+        gameSupplierRegister
+        gameRegister
         Bukkit.getScheduler().runTask(this, initGameAndPlayers)
     }
 
