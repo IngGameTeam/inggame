@@ -42,9 +42,11 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override fun onEnable() {
         super.onEnable()
         worldName.forEach { WorldGenerator.generateWorld(it) {
+            logger.info("Generating $it world...")
             FaweImpl().paste(
                 Location(Bukkit.getWorld(it), .0, gameRegister.sectorHeight.toDouble(), .0),
                 File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+            logger.info("Generated $it world ")
         } }
         gameSupplierRegister
         gameRegister
