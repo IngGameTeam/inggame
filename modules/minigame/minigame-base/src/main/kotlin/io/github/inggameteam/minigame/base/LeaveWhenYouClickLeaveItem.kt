@@ -29,7 +29,7 @@ interface LeaveWhenYouClickLeaveItem : Game {
             player.inventory.heldItemSlot = 0
             plugin[player].apply {
                 this[CLICK_PAUSED] = true
-                taskList.add({ this.remove(CLICK_PAUSED) }.delay(plugin, 4))
+                addTask({ this.remove(CLICK_PAUSED) }.delay(plugin, 4))
             }
             plugin.gameRegister.join(player, plugin.gameRegister.hubName)
             if (event != null) event.isCancelled = true

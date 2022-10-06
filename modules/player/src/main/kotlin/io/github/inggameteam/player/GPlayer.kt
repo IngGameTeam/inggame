@@ -6,7 +6,10 @@ import org.bukkit.entity.Player
 import java.util.*
 
 class GPlayer(uuid: UUID) : HashMap<String, Any>(), TagContainer, Player by Bukkit.getPlayer(uuid)!! {
-    val taskList = ArrayList<ITask>()
+    private val taskList = ArrayList<ITask>()
+    fun addTask(task: ITask) {
+        synchronized(taskList) { taskList.add(task) }
+    }
     override var tags = HashSet<String>()
     override fun isEmpty() = super.isEmpty()
     val bukkit: Player get() = Bukkit.getPlayer(uniqueId)!!

@@ -7,6 +7,7 @@ import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.minigame.impl.Tutorial
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.scheduler.runNow
 import org.bukkit.event.EventHandler
 
 class FirstJoinTutorial(override val plugin: GamePlugin,
@@ -18,7 +19,7 @@ class FirstJoinTutorial(override val plugin: GamePlugin,
 
     @Suppress("unused")
     @EventHandler
-    fun onChat(event: GameJoinEvent) {
+    fun onJoin(event: GameJoinEvent) {
         if (event.join.name == plugin.gameRegister.hubName) {
             val player = event.player
             add(player)
@@ -27,7 +28,9 @@ class FirstJoinTutorial(override val plugin: GamePlugin,
 
     override fun goal(player: GPlayer) {
         super.goal(player)
-        plugin.gameRegister.join(player, Tutorial.TUTORIAL_NAME)
+        ;{
+            plugin.gameRegister.join(player, Tutorial.TUTORIAL_NAME)
+        }.runNow(plugin).apply { player.addTask(this) }
     }
 
 }
