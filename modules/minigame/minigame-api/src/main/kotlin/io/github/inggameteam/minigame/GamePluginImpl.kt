@@ -42,14 +42,14 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override fun onEnable() {
         super.onEnable()
         worldName.forEach { WorldGenerator.generateWorld(it) {
-//            logger.info("Generating $it world...")
-//            FaweImpl().paste(
-//                Location(Bukkit.getWorld(it),
-//                    gameRegister.sectorWidth.toDouble(),
-//                    gameRegister.sectorHeight.toDouble(),
-//                    gameRegister.sectorWidth.toDouble()),
-//                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
-//            logger.info("Generated $it world ")
+            logger.info("Generating $it world...")
+            FaweImpl().paste(
+                Location(Bukkit.getWorld(it),
+                    gameRegister.sectorWidth.toDouble(),
+                    gameRegister.sectorHeight.toDouble(),
+                    gameRegister.sectorWidth.toDouble()),
+                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+            logger.info("Generated $it world ")
         } }
         gameSupplierRegister
         gameRegister
