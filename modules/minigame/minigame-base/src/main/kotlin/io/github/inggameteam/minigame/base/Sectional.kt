@@ -5,7 +5,6 @@ import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.base.Sectional.Companion.DEFAULT
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.async
-import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
 import org.bukkit.World
@@ -59,13 +58,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
             minPoint = Vector()
             maxPoint = Vector()
         }
-    }
-
-    override fun joinGame(gPlayer: GPlayer, joinType: JoinType): Boolean {
-        return if (super.joinGame(gPlayer, joinType)) {
-            if (isAllocated && joined.size == 1) loadSector()
-            true
-        } else false
     }
 
     override fun leftGame(gPlayer: GPlayer, leftType: LeftType) =
