@@ -8,7 +8,7 @@ import java.util.*
 class GPlayer(uuid: UUID) : HashMap<String, Any>(), TagContainer, Player by Bukkit.getPlayer(uuid)!! {
     private val taskList = ArrayList<ITask>()
     fun addTask(task: ITask) {
-        synchronized(taskList) { taskList.add(task) }
+       taskList.add(task)
     }
     override var tags = HashSet<String>()
     override fun isEmpty() = super.isEmpty()
