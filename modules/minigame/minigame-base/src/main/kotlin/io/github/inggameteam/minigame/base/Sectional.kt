@@ -61,6 +61,13 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
     }
 
+    override fun joinGame(gPlayer: GPlayer, joinType: JoinType): Boolean {
+        return if (super.joinGame(gPlayer, joinType)) {
+            if (isAllocated && joined.size == 1) loadSector()
+            true
+        } else false
+    }
+
     override fun leftGame(gPlayer: GPlayer, leftType: LeftType) =
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
