@@ -14,9 +14,10 @@ interface NoBlockBreakArea : Game {
         for (keys in comp.stringListOrNull("no-block-break-area", plugin.defaultLanguage)?: return) {
             val pos1 = comp.location("${keys}-pos1", plugin.defaultLanguage).toLocation(world).toVector()
             val pos2 = comp.location("${keys}-pos2", plugin.defaultLanguage).toLocation(world).toVector()
+            val halfPadding = Vector(.5, .5, .5)
             noBlockBreakArea.add(Pair(
-                Vector.getMinimum(pos1, pos2).toLocation(world),
-                Vector.getMaximum(pos1, pos2).toLocation(world)
+                Vector.getMinimum(pos1, pos2).toLocation(world).subtract(halfPadding),
+                Vector.getMaximum(pos1, pos2).toLocation(world).add(halfPadding)
             ))
         }
     }
