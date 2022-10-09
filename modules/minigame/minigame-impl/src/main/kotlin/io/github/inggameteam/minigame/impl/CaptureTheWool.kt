@@ -12,15 +12,15 @@ import org.bukkit.Material
 import org.bukkit.boss.BarColor
 
 class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
-    BarGame, InteractingBan, Respawn, SimpleGame, SpawnTeamPlayer, NoBlockBreakArea {
+    BarGame, InteractingBan, Respawn, SimpleGame, SpawnTeamPlayer {
     override val name get() = "capture-the-wool"
     override val bar by lazy { GBar(plugin) }
-    override val noInteracts by lazy { listOf(Material.BLUE_STAINED_GLASS, Material.RED_STAINED_GLASS) }
+    override val noInteracts by lazy { listOf(Material.BLUE_STAINED_GLASS, Material.RED_STAINED_GLASS,
+        Material.BLUE_WOOL, Material.WHITE_WOOL, Material.RED_WOOL
+    ) }
     private val gage = comp.intOrNull("gage")?.toDouble()?: 275.0
     var blueGage = 0.0
     var redGage = 0.0
-    override val noBlockBreakArea = ArrayList<Pair<Location, Location>>()
-    init { readBlockBreakArea() }
 
     override fun beginGame() {
         super.beginGame()
