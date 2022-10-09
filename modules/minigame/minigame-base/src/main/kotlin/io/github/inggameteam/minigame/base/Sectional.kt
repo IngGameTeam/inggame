@@ -5,6 +5,7 @@ import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.base.Sectional.Companion.DEFAULT
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.async
+import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
 import org.bukkit.World
@@ -63,7 +64,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     override fun leftGame(gPlayer: GPlayer, leftType: LeftType) =
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
-                { unloadSector() }.delay(plugin, 20 * 10)
+                ;{ unloadSector() }.delay(plugin, 20 * 10)
             }
         }
 
