@@ -1,10 +1,8 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
-import io.github.inggameteam.world.FaweImpl
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
@@ -42,14 +40,14 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override fun onEnable() {
         super.onEnable()
         worldName.forEach { WorldGenerator.generateWorld(it) {
-            logger.info("Generating $it world...")
-            FaweImpl().paste(
-                Location(Bukkit.getWorld(it),
-                    gameRegister.sectorWidth.toDouble(),
-                    gameRegister.sectorHeight.toDouble(),
-                    gameRegister.sectorWidth.toDouble()),
-                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
-            logger.info("Generated $it world ")
+//            logger.info("Generating $it world...")
+//            FaweImpl().paste(
+//                Location(Bukkit.getWorld(it),
+//                    gameRegister.sectorWidth.toDouble(),
+//                    gameRegister.sectorHeight.toDouble(),
+//                    gameRegister.sectorWidth.toDouble()),
+//                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+//            logger.info("Generated $it world ")
         } }
         gameSupplierRegister
         gameRegister
