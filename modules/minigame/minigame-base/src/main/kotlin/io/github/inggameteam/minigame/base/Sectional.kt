@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
 import java.io.File
-import kotlin.system.measureTimeMillis
 
 
 /**
@@ -103,21 +102,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
 
 
-    override fun loadSector(key: String) {
-        measureTimeMillis {
-            val world = point.world
-            val minX = minPoint.x.toInt()
-            val maxX = maxPoint.x.toInt()
-            val minY = minPoint.y.toInt()
-            val maxY = maxPoint.y.toInt()
-            for (x in minX..maxX step 16) {
-                for (y in minY..maxY step 16) {
-                    world.getChunkAt(Location(world, x.toDouble(), .0, y.toDouble()))
-                }
-            }
-        }.apply { println("measureChunkLoadTimeMillis: $this") }
-        ;{ loadSector(point.world, point, key) }.async(plugin)
-    }
+    override fun loadSector(key: String) { { loadSector(point.world, point, key) }.async(plugin) }
     override fun unloadSector() {
         if (isUnloaded) return
         isUnloaded = true
