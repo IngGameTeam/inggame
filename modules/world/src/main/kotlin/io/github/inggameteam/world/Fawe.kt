@@ -17,7 +17,6 @@ interface Fawe {
 open class FaweImpl : Fawe {
     override fun paste(location: Location, file: File) {
         try {
-            location.world?.getChunkAt(location)?.load()
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 paste(
