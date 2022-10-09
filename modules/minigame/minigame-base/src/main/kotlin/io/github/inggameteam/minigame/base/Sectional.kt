@@ -22,6 +22,7 @@ interface Sectional : Game {
     val schematicName: String
     val minPoint: Vector
     val maxPoint: Vector
+    var isUnloaded: Boolean
     fun loadSector(key: String = schematicName)
     fun loadDefaultSector() = loadSector(schematicName)
     fun unloadSector()
@@ -49,6 +50,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
 
     final override val minPoint: Vector
     final override val maxPoint: Vector
+    override var isUnloaded = false
     init {
         if (isAllocated) {
             val vector = Vector(point.x * width, 0, point.y * width)
@@ -101,7 +103,11 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
 
 
     override fun loadSector(key: String) { { loadSector(point.world, point, key) }.async(plugin) }
-    override fun unloadSector() { {unloadSector(point.world, point)}.async(plugin) }
+    override fun unloadSector() {
+        if (isUnloaded) return
+        isUnloaded = true
+        ;{unloadSector(point.world, point)}.async(plugin)
+    }
 
     private fun unloadSector(world: World, sector: Sector) {
         val before = System.currentTimeMillis()
