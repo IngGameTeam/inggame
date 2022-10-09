@@ -14,7 +14,7 @@ object WorldGenerator {
             worldCreator.generatorSettings(
                 "{\"structures\": {\"structures\": {}}, " +
                         "\"layers\": [" +
-                        "{\"block\": \"stone\", \"height\": 0}, " +
+                        "{\"block\": \"air\", \"height\": 1}, " +
                         "{\"block\": \"grass\", \"height\": 0}], " +
                         "\"biome\":\"the_void\"}"
             )
