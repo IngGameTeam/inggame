@@ -59,7 +59,6 @@ allprojects {
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
         compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
-        compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
     }
 
