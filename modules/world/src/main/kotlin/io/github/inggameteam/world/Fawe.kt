@@ -45,7 +45,7 @@ open class FaweImpl : Fawe {
                     for (chunk in region.chunks) {
                         world.unloadChunk(chunk.x, chunk.z, false)
                     }
-                }.apply { println("measureChunkLoadTimeMillis: $this") }
+                }.apply { println("measureChunkUnloadTimeMillis: $this") }
             }
         } catch (e: Exception) {
             e.printStackTrace()
