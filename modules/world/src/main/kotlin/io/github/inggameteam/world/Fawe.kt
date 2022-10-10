@@ -6,6 +6,8 @@ import com.sk89q.worldedit.math.BlockVector3
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import java.io.File
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.system.measureTimeMillis
 
 
@@ -30,8 +32,8 @@ open class FaweImpl : Fawe {
                     println(maxX)
                     println(minY)
                     println(maxY)
-                    for (x in minX..maxX step 16) {
-                        for (y in minY..maxY step 16) {
+                    for (x in min(minX, maxX)..max(minX, maxX) step 16) {
+                        for (y in min(minY, maxY)..max(minY, maxY) step 16) {
                             regenerateChunk(x, y, null, null)
                         }
                     }
