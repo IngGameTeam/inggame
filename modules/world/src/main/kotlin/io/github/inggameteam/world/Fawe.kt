@@ -27,7 +27,10 @@ open class FaweImpl : Fawe {
                 measureTimeMillis {
                     val world = location.world!!
                     for (chunk in region.chunks) {
-                        world.loadChunk(chunk.x, chunk.z)
+                        world.getChunkAt(chunk.x, chunk.z).apply {
+                            isForceLoaded = true
+                            load(true)
+                        }
                     }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
@@ -37,7 +40,7 @@ open class FaweImpl : Fawe {
     }
 
     override fun unloadChunk(location: Location, file: File) {
-        try {
+/*        try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
@@ -49,7 +52,7 @@ open class FaweImpl : Fawe {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-        }
+        }*/
     }
 
     override fun paste(location: Location, file: File) {
