@@ -27,6 +27,7 @@ open class FaweImpl : Fawe {
                 measureTimeMillis {
                     val world = location.world!!
                     for (chunk in region.chunks) {
+                        println(chunk.toString())
                         world.getChunkAt(chunk.x, chunk.z).apply {
                             isForceLoaded = true
                             load(true)
