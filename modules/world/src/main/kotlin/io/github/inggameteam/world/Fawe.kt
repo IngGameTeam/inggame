@@ -6,6 +6,7 @@ import com.sk89q.worldedit.math.BlockVector3
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import java.io.File
+import kotlin.system.measureTimeMillis
 
 
 val FAWE get() = Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")
@@ -20,6 +21,19 @@ open class FaweImpl : Fawe {
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
+                measureTimeMillis {
+                    val world = location.world
+                    val minX = this.origin.x
+                    val maxX = minX + region.maximumPoint.x
+                    val minY = this.origin.z
+                    val maxY = minY + region.maximumPoint.z
+                    for (x in minX..maxX step 16) {
+                        for (y in minY..maxY step 16) {
+                            regenerateChunk(x, y, null, null)
+                        }
+                    }
+                }.apply { println("measureChunkLoadTimeMillis: $this") }
+
                 paste(
                     BukkitAdapter.adapt(location.world),
                     BlockVector3.at(location.x, location.y, location.z),
