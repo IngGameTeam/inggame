@@ -29,7 +29,7 @@ open class FaweImpl : Fawe {
                 measureTimeMillis {
                     val world = location.world!!
                     for (chunk in region.chunks) {
-                        world.loadChunk(chunk.x, chunk.z)
+                        world.loadChunk(chunk.x, chunk.z, true)
                     }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
