@@ -116,14 +116,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
-x
-        plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
-    }
-
-    private fun loadSector(world: World?, sector: Sector, key: String) {
-        val x = width * sector.x
-        val z = width * sector.y
-        val file = getSchematicFile(key, this.name)
         measureTimeMillis {
             val world = point.world
             val minX = minPoint.x.toInt()
@@ -132,10 +124,18 @@ x
             val maxY = maxPoint.y.toInt()
             for (x in minX..maxX step 16) {
                 for (y in minY..maxY step 16) {
-                    world.getChunkAt(Location(world, x.toDouble(), .0, y.toDouble())).load()
+                    world.getChunkAt(Location(world, x.toDouble(), .0, y.toDouble())).unload(false)
                 }
             }
         }.apply { println("measureChunkLoadTimeMillis: $this") }
+x
+        plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+    }
+
+    private fun loadSector(world: World?, sector: Sector, key: String) {
+        val x = width * sector.x
+        val z = width * sector.y
+        val file = getSchematicFile(key, this.name)
         FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
     }
 
