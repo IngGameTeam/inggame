@@ -15,10 +15,41 @@ import kotlin.system.measureTimeMillis
 val FAWE get() = Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")
 
 interface Fawe {
+
+    fun genChunk(location: Location, file: File)
     fun paste(location: Location, file: File)
 }
 
 open class FaweImpl : Fawe {
+
+    override fun genChunk(location: Location, file: File) {
+        try {
+            if (file.exists().not()) return
+            FaweAPI.load(file).apply {
+                measureTimeMillis {
+                    val world = location.world!!
+                    val minX = this.origin.x
+                    val maxX = minX + region.maximumPoint.x
+                    val minY = this.origin.z
+                    val maxY = minY + region.maximumPoint.z
+                    println(minX)
+                    println(maxX)
+                    println(minY)
+                    println(maxY)
+                    println((this as Extent).javaClass.simpleName)
+                    for (x in min(minX, maxX)..max(minX, maxX) step 16) {
+                        for (y in min(minY, maxY)..max(minY, maxY) step 16) {
+                            world.loadChunk(x, y)
+                        }
+                    }
+                }.apply { println("measureChunkLoadTimeMillis: $this") }
+
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
 
     override fun paste(location: Location, file: File) {
         try {

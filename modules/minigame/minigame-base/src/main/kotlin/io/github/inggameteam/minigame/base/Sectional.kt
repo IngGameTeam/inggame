@@ -103,11 +103,14 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
 
 
-    override fun loadSector(key: String) { { loadSector(point.world, point, key) }.async(plugin) }
+    override fun loadSector(key: String) {
+
+        loadSector(point.world, point, key)
+    }
     override fun unloadSector() {
         if (isUnloaded) return
         isUnloaded = true
-        ;{unloadSector(point.world, point)}.async(plugin)
+        unloadSector(point.world, point)
     }
 
     private fun unloadSector(world: World, sector: Sector) {
@@ -115,15 +118,24 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val x = sector.x * width
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
-        FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
-        plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+        ;
+        val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
+        FaweImpl().genChunk(location, file)
+        ;{
+            FaweImpl().paste(location, file)
+            plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+        }.async(plugin)
     }
 
     private fun loadSector(world: World?, sector: Sector, key: String) {
         val x = width * sector.x
         val z = width * sector.y
         val file = getSchematicFile(key, this.name)
-        FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
+        val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
+        FaweImpl().genChunk(location, file)
+        ;{
+            FaweImpl().paste(location, file)
+        }.async(plugin)
     }
 
     override fun getSchematicFile(name: String, dir: String) =
