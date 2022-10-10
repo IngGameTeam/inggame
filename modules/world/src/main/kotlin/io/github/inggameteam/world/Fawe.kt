@@ -28,9 +28,10 @@ open class FaweImpl : Fawe {
             FaweAPI.load(file).apply {
                 measureTimeMillis {
                     val world = location.world!!
-                    world.loadChunk(location.x.toInt(), location.z.toInt())
+                    for (chunk in region.chunks) {
+                        world.loadChunk(chunk.x, chunk.z)
+                    }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
-
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -42,22 +43,6 @@ open class FaweImpl : Fawe {
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
-                measureTimeMillis {
-                    val minX = this.origin.x
-                    val maxX = minX + region.maximumPoint.x
-                    val minY = this.origin.z
-                    val maxY = minY + region.maximumPoint.z
-                    println(minX)
-                    println(maxX)
-                    println(minY)
-                    println(maxY)
-                    println((this as Extent).javaClass.simpleName)
-                    for (x in min(minX, maxX)..max(minX, maxX) step 16) {
-                        for (y in min(minY, maxY)..max(minY, maxY) step 16) {
-                            regenerateChunk(x, y, null, null)
-                        }
-                    }
-                }.apply { println("measureChunkLoadTimeMillis: $this") }
 
                 paste(
                     BukkitAdapter.adapt(location.world),
