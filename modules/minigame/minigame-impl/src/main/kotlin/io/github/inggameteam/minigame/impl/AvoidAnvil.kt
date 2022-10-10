@@ -66,10 +66,8 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
 
     override fun stop(force: Boolean, leftType: LeftType) {
         super.stop(force, leftType)
-        if (gameState != GameState.STOP) {
-            point.world.getNearbyEntities(getLocation("start"), 100.0, 100.0, 100.0).forEach {
-                if (it.type != EntityType.PLAYER) it.remove()
-            }
+        point.world.getNearbyEntities(getLocation("start"), 100.0, 100.0, 100.0).forEach {
+            if (it.type != EntityType.PLAYER) it.remove()
         }
     }
 
