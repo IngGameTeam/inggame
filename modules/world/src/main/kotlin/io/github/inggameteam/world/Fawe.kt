@@ -22,11 +22,14 @@ open class FaweImpl : Fawe {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
-                    val world = location.world
                     val minX = this.origin.x
                     val maxX = minX + region.maximumPoint.x
                     val minY = this.origin.z
                     val maxY = minY + region.maximumPoint.z
+                    println(minX)
+                    println(maxX)
+                    println(minY)
+                    println(maxY)
                     for (x in minX..maxX step 16) {
                         for (y in minY..maxY step 16) {
                             regenerateChunk(x, y, null, null)
