@@ -28,20 +28,7 @@ open class FaweImpl : Fawe {
             FaweAPI.load(file).apply {
                 measureTimeMillis {
                     val world = location.world!!
-                    val minX = this.origin.x
-                    val maxX = minX + region.maximumPoint.x
-                    val minY = this.origin.z
-                    val maxY = minY + region.maximumPoint.z
-                    println(minX)
-                    println(maxX)
-                    println(minY)
-                    println(maxY)
-                    println((this as Extent).javaClass.simpleName)
-                    for (x in min(minX, maxX)..max(minX, maxX) step 16) {
-                        for (y in min(minY, maxY)..max(minY, maxY) step 16) {
-                            world.loadChunk(x, y)
-                        }
-                    }
+                    world.loadChunk(location.x.toInt(), location.z.toInt())
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
 
             }
