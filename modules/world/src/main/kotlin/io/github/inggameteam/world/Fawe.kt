@@ -2,6 +2,7 @@ package io.github.inggameteam.world
 
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
+import com.sk89q.worldedit.extent.Extent
 import com.sk89q.worldedit.math.BlockVector3
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -32,6 +33,7 @@ open class FaweImpl : Fawe {
                     println(maxX)
                     println(minY)
                     println(maxY)
+                    println((this as Extent).javaClass.simpleName)
                     for (x in min(minX, maxX)..max(minX, maxX) step 16) {
                         for (y in min(minY, maxY)..max(minY, maxY) step 16) {
                             regenerateChunk(x, y, null, null)
