@@ -2,13 +2,10 @@ package io.github.inggameteam.world
 
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
-import com.sk89q.worldedit.extent.Extent
 import com.sk89q.worldedit.math.BlockVector3
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import java.io.File
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.system.measureTimeMillis
 
 
@@ -16,27 +13,43 @@ val FAWE get() = Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")
 
 interface Fawe {
 
-    fun genChunk(location: Location, file: File)
+    fun loadChunk(location: Location, file: File)
+    fun unloadChunk(location: Location, file: File)
     fun paste(location: Location, file: File)
 }
 
 open class FaweImpl : Fawe {
 
-    override fun genChunk(location: Location, file: File) {
+    override fun loadChunk(location: Location, file: File) {
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
                     val world = location.world!!
                     for (chunk in region.chunks) {
-                        world.loadChunk(chunk.x, chunk.z, true)
+                        world.loadChunk(chunk.x, chunk.z)
                     }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
 
+    override fun unloadChunk(location: Location, file: File) {
+        try {
+            if (file.exists().not()) return
+            FaweAPI.load(file).apply {
+                measureTimeMillis {
+                    val world = location.world!!
+                    for (chunk in region.chunks) {
+                        world.unloadChunk(chunk.x, chunk.z, false)
+                    }
+                }.apply { println("measureChunkLoadTimeMillis: $this") }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun paste(location: Location, file: File) {

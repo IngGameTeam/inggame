@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
 import java.io.File
-import kotlin.system.measureTimeMillis
 
 
 /**
@@ -120,7 +119,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         ;
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl().genChunk(location, file)
+        FaweImpl().unloadChunk(location, file)
         ;{
             FaweImpl().paste(location, file)
             plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
@@ -132,7 +131,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = width * sector.y
         val file = getSchematicFile(key, this.name)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl().genChunk(location, file)
+        FaweImpl().loadChunk(location, file)
         ;{
             FaweImpl().paste(location, file)
         }.async(plugin)
