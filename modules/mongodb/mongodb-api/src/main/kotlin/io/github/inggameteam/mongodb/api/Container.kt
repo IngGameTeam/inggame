@@ -37,7 +37,7 @@ abstract class Container<DATA : UUIDUser>(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
-        if (Bukkit.getBannedPlayers().any { it.uniqueId == event.uniqueId }) return
+        if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
         synchronized(pool) {
             if (pool.any { it.uuid == uniqueId })
