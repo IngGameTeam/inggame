@@ -74,7 +74,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     override fun leftGame(gPlayer: GPlayer, leftType: LeftType) =
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
-                clearEntities()
+                clearEntitiesToUnload()
                 ;{ unloadSector() }.delay(plugin, 20 * 10)
             }
         }
@@ -159,7 +159,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
 
     @Suppress("unused")
     @EventHandler
-    fun clearEntities() {
+    fun clearEntitiesToUnload() {
         point.world.getNearbyEntities(Location(point.world,
             point.x * plugin.gameRegister.sectorWidth.toDouble(),
             plugin.gameRegister.sectorHeight.toDouble(),
