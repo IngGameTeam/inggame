@@ -1,4 +1,4 @@
-package io.github.inggameteam.plugin.angangang
+package io.github.inggameteam.plugin.cheesesand
 
 import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
