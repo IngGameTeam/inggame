@@ -29,7 +29,7 @@ class Plugin : GamePluginImpl(
         ArrowStuckPreventHandler(this)
         DisableCollision(this)
         AutoUpdater(this)
-        JoinServerJoinGame(Tutorial.TUTORIAL_NAME, this)
+        JoinHubJoinGame(Tutorial.TUTORIAL_NAME, this)
     }
 
     override fun onDisable() {
