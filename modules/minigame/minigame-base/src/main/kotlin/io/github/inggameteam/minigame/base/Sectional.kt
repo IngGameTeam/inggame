@@ -9,6 +9,7 @@ import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
 import org.bukkit.World
+import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
@@ -73,6 +74,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     override fun leftGame(gPlayer: GPlayer, leftType: LeftType) =
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
+                clearEntities()
                 ;{ unloadSector() }.delay(plugin, 20 * 10)
             }
         }
@@ -117,7 +119,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val x = sector.x * width
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
-        ;
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         FaweImpl().unloadChunk(location, file)
         ;{
@@ -155,4 +156,17 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
         return false
     }
+
+    @Suppress("unused")
+    @EventHandler
+    fun clearEntities() {
+        point.world.getNearbyEntities(Location(point.world,
+            point.x * plugin.gameRegister.sectorWidth.toDouble(),
+            plugin.gameRegister.sectorHeight.toDouble(),
+            point.y * plugin.gameRegister.sectorWidth.toDouble()
+        ), 150.0, 150.0, 150.0).forEach {
+            if (it.type != EntityType.PLAYER) it.remove()
+        }
+    }
+
 }
