@@ -26,11 +26,10 @@ open class FaweImpl : Fawe {
             FaweAPI.load(file).apply {
                 measureTimeMillis {
                     val world = location.world!!
-                    println(origin.toString())
-//                        world.getChunkAt(chunk.x, chunk.z).apply {
-//                            isForceLoaded = true
-//                            load(true)
-//                        }
+                        world.getChunkAt(location).apply {
+                            isForceLoaded = true
+                            load(true)
+                        }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
         } catch (e: Exception) {
