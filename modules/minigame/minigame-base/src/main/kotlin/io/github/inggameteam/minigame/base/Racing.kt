@@ -16,6 +16,7 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
 
     abstract fun getRider(): Class<out Entity>
     override val recommendedSpawnDelay: Long get() = -1L
+    open fun entityCode(entity: Entity) {}
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -27,6 +28,7 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
             player.world.spawn(player.location.add(0.0, 0.4, 0.0), getRider()) { entity ->
                 entity.addPassenger(player.bukkit)
                 entity.addScoreboardTag(RIDER_TAG)
+                entityCode(entity)
             }.apply { playerData[player]!![RIDER_KEY] = this }
         }
 
