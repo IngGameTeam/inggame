@@ -13,12 +13,14 @@ class DisableCollision(val plugin: Plugin) : HandleListener(plugin) {
     @EventHandler
     fun onBoatCollision(event: VehicleEntityCollisionEvent) {
         event.isCollisionCancelled = true
+        event.isCancelled = true
     }
 
     @Suppress("unused")
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         event.player.spigot().collidesWithEntities = false
+        event.player.isCollidable = false
     }
 
 }
