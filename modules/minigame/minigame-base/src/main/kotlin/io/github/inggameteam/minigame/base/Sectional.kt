@@ -157,9 +157,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         return false
     }
 
-    @Suppress("unused")
-    @EventHandler
-    fun clearEntitiesToUnload() {
+    private fun clearEntitiesToUnload() {
         point.world.getNearbyEntities(Location(point.world,
             point.x * plugin.gameRegister.sectorWidth.toDouble(),
             plugin.gameRegister.sectorHeight.toDouble(),
