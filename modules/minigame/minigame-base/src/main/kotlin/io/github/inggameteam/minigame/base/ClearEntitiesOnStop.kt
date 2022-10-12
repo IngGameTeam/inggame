@@ -11,9 +11,9 @@ interface ClearEntitiesOnStop : Sectional {
     @EventHandler
     fun onGameStop(event: GameUnloadEvent) {
         point.world.getNearbyEntities(Location(point.world,
-            point.x + plugin.gameRegister.sectorWidth.toDouble(),
+            point.x * plugin.gameRegister.sectorWidth.toDouble(),
             plugin.gameRegister.sectorHeight.toDouble(),
-            point.y + plugin.gameRegister.sectorWidth.toDouble()
+            point.y * plugin.gameRegister.sectorWidth.toDouble()
         ), 150.0, 150.0, 150.0).forEach {
             if (it.type != EntityType.PLAYER) it.remove()
         }
