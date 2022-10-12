@@ -6,12 +6,18 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.mongodb.impl.UserContainer
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandExecutor
+import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
 class ModeratePointAmountCommand(plugin: GamePlugin, user: UserContainer) : CommandExecutor by MCCommand(plugin as JavaPlugin, {
 
     command("point") {
         execute {
+            if (source is Player) {
+                source.sendMessage("Only console can execute this command")
+                return@execute
+            }
+            val player = plugin[Bukkit.getPlayer(args[2])!!]
             if (args.size == 0) {
                 val point = user[player].point
                 plugin.component.send("MY_PLAYER_POINT", plugin[player], point)

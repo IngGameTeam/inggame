@@ -11,6 +11,8 @@ libraries:
   - org.mongodb:mongodb-driver-sync:4.6.0
 depend: [ PlugManX ]
 commands:
+  point:
+    permission: minigame.moderate.point
   lobby:
     aliases: [ l ]
   p:
