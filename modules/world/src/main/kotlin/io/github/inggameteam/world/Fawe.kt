@@ -25,10 +25,14 @@ open class FaweImpl : Fawe {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
-                    val world = location.world!!
-                        world.getChunkAt(location).apply {
-                            isForceLoaded = true
-                            load(true)
+                    for (addX in minimumPoint.x..maximumPoint.x)
+                        for (addY in minimumPoint.y..maximumPoint.y)
+                        {
+                            val world = location.world!!
+                            world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+                                isForceLoaded = true
+                                load(true)
+                            }
                         }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
