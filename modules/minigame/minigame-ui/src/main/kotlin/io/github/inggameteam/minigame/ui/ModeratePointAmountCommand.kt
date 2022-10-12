@@ -1,7 +1,6 @@
 package io.github.inggameteam.minigame.ui
 
 import io.github.inggameteam.command.MCCommand
-import io.github.inggameteam.command.player
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.mongodb.impl.UserContainer
 import org.bukkit.Bukkit
@@ -26,10 +25,34 @@ class ModeratePointAmountCommand(plugin: GamePlugin, user: UserContainer) : Comm
                 plugin.component.send("OTHER_PLAYER_POINT", plugin[player], plugin[bukkitPlayer], point)
             }
         }
-        thenExecute("add") { if (player.isOp) args[1].toLongOrNull()?.apply { user[player].point += this } }
-        thenExecute("remove") { if (player.isOp) args[1].toLongOrNull()?.apply { user[player].point -= this } }
-        thenExecute("clear") { if (player.isOp) user[player].point = 0 }
-        thenExecute("set")  { if (player.isOp) args[1].toLongOrNull()?.apply { user[player].point = this } }
+        thenExecute("add") {
+            if (source is Player) {
+                source.sendMessage("Only console can execute this command")
+                return@thenExecute
+            }
+            val player = plugin[Bukkit.getPlayer(args[2])!!]
+            if (player.isOp) args[1].toLongOrNull()?.apply { user[player].point += this } }
+        thenExecute("remove") {
+            if (source is Player) {
+                source.sendMessage("Only console can execute this command")
+                return@thenExecute
+            }
+            val player = plugin[Bukkit.getPlayer(args[2])!!]
+            if (player.isOp) args[1].toLongOrNull()?.apply { user[player].point -= this } }
+        thenExecute("clear") {
+            if (source is Player) {
+                source.sendMessage("Only console can execute this command")
+                return@thenExecute
+            }
+            val player = plugin[Bukkit.getPlayer(args[2])!!]
+            if (player.isOp) user[player].point = 0 }
+        thenExecute("set")  {
+            if (source is Player) {
+                source.sendMessage("Only console can execute this command")
+                return@thenExecute
+            }
+            val player = plugin[Bukkit.getPlayer(args[2])!!]
+             if (player.isOp) args[1].toLongOrNull()?.apply { user[player].point = this } }
     }
 
 })
