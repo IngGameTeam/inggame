@@ -33,7 +33,8 @@ class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleG
         super.beginGame()
         symbolicTable["shakeWitch"] = { args ->
             val witch = entityMap[args[0]] as? Witch
-            witch?.isPatrolLeader = true
+            witch?.swingMainHand()
+            witch?.swingOffHand()
         }
         symbolicTable["entityMessage"] = { args ->
             entityMap[args[0]]?.sendMessage(args.subList(1, args.size).joinToString(" "))
