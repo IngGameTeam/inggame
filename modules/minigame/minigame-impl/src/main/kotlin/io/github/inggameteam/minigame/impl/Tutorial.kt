@@ -10,11 +10,15 @@ import io.github.inggameteam.scheduler.ITask
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.ColorUtil.color
 import org.bukkit.Location
+import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
+import org.bukkit.entity.Witch
 
 class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
     override val name get() = TUTORIAL_NAME
     override val recommendedStartPlayersAmount get() = 1
+    private val entityMap = HashMap<String, Entity>()
+    private val symbolicTable = HashMap<String, (List<String>) -> Unit>()
 
     companion object {
         const val TUTORIAL_NAME = "tutorial"
@@ -26,24 +30,30 @@ class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleG
 
     override fun beginGame() {
         super.beginGame()
+        symbolicTable["shakeWitch"] = { args ->
+            val witch = entityMap[args[0]] as? Witch
+            witch?.isCanJoinRaid = true
+        }
+        symbolicTable["title"] = { args ->
+            val fadeIn = args[0].toInt()
+            val stay = args[1].toInt()
+            val fadeOut = args[2].toInt()
+            (args.subList(3, args.size).joinToString(" ")).split("-").apply {
+                val subTitle = if (size != 1) get(1) else "&f".color
+                val title = get(0).ifEmpty { " " }
+                joined.forEach { player ->
+                    player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
+                }
+            }
+
+        }
+
             stopTick = Integer.parseInt(comp.string("stop", plugin.defaultLanguage))
             addTask(ITask.repeat(plugin, 1, 1, {
                 if (count >= stopTick) {
                     joined[0].addTag(PTag.DEAD)
                     leftGame(joined[0], LeftType.GAME_STOP)
                     return@repeat
-                }
-                comp.stringOrNull("title${count}", plugin.defaultLanguage)?.split(" ")?.apply {
-                    val fadeIn = get(0).toInt()
-                    val stay = get(1).toInt()
-                    val fadeOut = get(2).toInt()
-                    (this.subList(3, this.size).joinToString(" ")).split("-").apply {
-                        val subTitle = if (size != 1) get(1) else "&f".color
-                        val title = get(0).ifEmpty { " " }
-                        joined.forEach { player ->
-                            player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
-                        }
-                    }
                 }
                 comp.stringOrNull("sound$count", plugin.defaultLanguage)?.split(" ")?.apply {
                     joined.forEach { player ->
@@ -59,16 +69,22 @@ class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleG
                     }
                 }
                 comp.stringOrNull("spawnEntity$count", plugin.defaultLanguage)?.split(" ")?.let { args ->
-                    val entity = world.spawn(
-                        getLocation(args[1]),
+                    world.spawn(
+                        getLocation(args[2]),
                         EntityType.valueOf(args[0]).entityClass!!,
                     )?.apply {
-                        isInvulnerable = if (args[3] == "true") true else false
+                        isInvulnerable = if (args[4] == "true") true else false
                         addTask({
                             this.remove()
-                        }.delay(plugin, args[2].toLong()))
+                        }.delay(plugin, args[3].toLong()))
+                        entityMap[args[1]] = this
                     }
                 }
+                symbolicTable
+                    .map {
+                        Pair(comp.stringOrNull("${it.key}$count", plugin.defaultLanguage)?.split(" "), it.value) }
+                    .forEach { it.second.invoke(it.first?: return@forEach) }
+
                 count++
             }))
         }
