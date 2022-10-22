@@ -30,6 +30,7 @@ class ModeratePointAmountCommand(plugin: GamePlugin, user: UserContainer) : Comm
                 source.sendMessage("Only console can execute this command")
                 return@thenExecute
             }
+            println(args)
             val player = plugin[Bukkit.getPlayer(args[1])!!]
             if (player.isOp) args[0].toLongOrNull()?.apply { user[player].point += this } }
         thenExecute("remove") {
