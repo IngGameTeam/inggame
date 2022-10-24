@@ -18,18 +18,22 @@ class YouAreKiller(override val plugin: GamePlugin,
     override val name get() = "you-are-killer"
     override val goal get() = 5
 
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun leftServer(event: PlayerQuitEvent) {
         reset(plugin[event.player])
     }
 
+    @Suppress("unused")
     @EventHandler
     fun damage(event: EntityDamageEvent) {
         val player = event.entity
         if (player !is Player) return
+        if (player.ticksLived <= 0) return
         reset(plugin[player])
     }
 
+    @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun death(event: GPlayerDeathEvent) {
         val killer = event.killer
