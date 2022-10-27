@@ -14,6 +14,8 @@ class AnnounceChallengeArchive(override val plugin: AlertPlugin) : HandleListene
     @Suppress("unused")
     @EventHandler
     fun onChallengeArchive(event: ChallengeArchiveEvent) {
+         val ignore = comp.stringOrNull(event.name + "-ignore", plugin.defaultLanguage)
+        if (ignore !== null) return
         val type = comp.stringOrNull(event.name + "-type", plugin.defaultLanguage)
             ?.run { ChallengeType.valueOf(this) }?: ChallengeType.TARGET
         plugin.playerRegister.values.forEach {

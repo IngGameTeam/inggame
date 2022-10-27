@@ -67,6 +67,17 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     lateinit var current: UUID
     lateinit var decidedTopic: String
 
+    @Suppress("unused")
+    @EventHandler
+    fun onBreakBlock(event: BlockBreakEvent) {
+        val player = event.player
+        if (isJoined(player)) {
+            if (event.block.y <= comp.int("floor-height")) {
+                event.isCancelled = true
+            }
+        }
+    }
+
     override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
         return super<SimpleGame>.inventorySpawn(player,
             if (isDone) "VOTE"
@@ -194,7 +205,11 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             val location =
                 playerData[joined.first { current == it.uniqueId }]!![PLAYER_AREA] as Location
             player.teleport(location)
-            player.inventory.contents = comp.inventory("VOTE", player.lang(plugin)).contents
+            if (current == player.uniqueId) {
+                player.inventory.clear()
+            } else {
+                player.inventory.contents = comp.inventory("VOTE", player.lang(plugin)).contents
+            }
             player.inventory.heldItemSlot = 7
         } else {
             player.teleport(playerData[player]!![PLAYER_AREA] as Location)

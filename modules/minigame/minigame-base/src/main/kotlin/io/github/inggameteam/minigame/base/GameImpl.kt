@@ -2,10 +2,7 @@ package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.GameAlert.*
-import io.github.inggameteam.minigame.event.GameBeginEvent
-import io.github.inggameteam.minigame.event.GameJoinEvent
-import io.github.inggameteam.minigame.event.GameLeftEvent
-import io.github.inggameteam.minigame.event.GameTaskCancelEvent
+import io.github.inggameteam.minigame.event.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasTags
@@ -133,6 +130,7 @@ abstract class GameImpl(
                 leftGame(gPlayer, leftType)
             }
             gameTask = null
+            Bukkit.getPluginManager().callEvent(GameUnloadEvent(this))
             if (gameState === GameState.STOP)
                 gameTask = { gameTask = null; plugin.gameRegister.removeGame(this) }.delay(plugin, stopWaitingTick)
         }

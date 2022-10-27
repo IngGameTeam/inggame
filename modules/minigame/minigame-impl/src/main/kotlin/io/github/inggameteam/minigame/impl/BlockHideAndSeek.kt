@@ -37,8 +37,8 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
         super.beginGame()
         isWaiting = true
         joined.hasTags(PTag.PLAY, PTag.RED).forEach {
-            it.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 5555555, 1))
-            it.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 5555555, 1))
+            it.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 55555, 5))
+            it.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 55555, 5))
         }
         bar.size = 300.0
         bar.update(alert = { comp.string("waiting-title", it.lang(plugin) )}, color = BarColor.GREEN)
@@ -49,14 +49,14 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
                 it.removePotionEffect(PotionEffectType.BLINDNESS)
                 it.removePotionEffect(PotionEffectType.SLOW)
             }
-        }
-        bar.size = 750.0
-        bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
-        gameTask = bar.startTimer {
-            joined.hasTags(PTag.PLAY, PTag.RED).forEach {
-                it.removeTag(PTag.PLAY)
+            bar.size = 750.0
+            bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
+            gameTask = bar.startTimer {
+                joined.hasTags(PTag.PLAY, PTag.RED).forEach {
+                    it.removeTag(PTag.PLAY)
+                }
+                requestStop()
             }
-            requestStop()
         }
 
     }

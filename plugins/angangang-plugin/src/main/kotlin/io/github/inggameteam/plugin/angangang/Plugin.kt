@@ -7,6 +7,7 @@ import io.github.inggameteam.minigame.GamePluginImpl
 import io.github.inggameteam.minigame.handle.*
 import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
+import io.github.inggameteam.minigame.ui.ModeratePointAmountCommand
 import io.github.inggameteam.mongodb.api.MongoDBCPImpl
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
 import io.github.inggameteam.mongodb.impl.GameStats
@@ -14,6 +15,7 @@ import io.github.inggameteam.mongodb.impl.PurchaseContainer
 import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
+import io.github.inggameteam.swear.handle.ChatSwearFilter
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -79,8 +81,9 @@ class Plugin : GamePluginImpl(
             ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
+//            ::FirstJoinTutorial,
             ).forEach { it(this, challenge) }
-
+        ChatSwearFilter(this)
         SpectateOnJoinParty(this)
         LogGameStats(this, gameStats)
         TutorialBook(this, purchase)
@@ -91,13 +94,15 @@ class Plugin : GamePluginImpl(
         ApplyShopItem(this, purchase)
         RewardWinnerThePoint(this, user)
         MinigameCommand(this)
-//        ModeratePointAmountCommand(this, user)
+        ModeratePointAmountCommand(this, user)
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
         ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
         ArrowStuckPreventHandler(this)
+        DisableCollision(this)
+        AutoUpdater(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)

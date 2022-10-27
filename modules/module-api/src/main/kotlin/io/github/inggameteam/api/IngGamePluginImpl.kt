@@ -33,7 +33,7 @@ open class IngGamePluginImpl : IngGamePlugin, JavaPlugin {
 
      fun initializeGameFile(force: Boolean = false) {
         if (dataFolder.listFiles()?.isNotEmpty() != true) {
-            val extensions = arrayOf(".yml", ".schem", ".md", ".txt")
+            val extensions = arrayOf(".yml", ".schem", ".md", ".txt", ".json")
             ClassUtil.getDirectory(this.javaClass)
                 .filter { extensions.any { ext -> it.endsWith(ext) } && it != "plugin.yml" }
                 .filter { force || !File(dataFolder, it).exists() }

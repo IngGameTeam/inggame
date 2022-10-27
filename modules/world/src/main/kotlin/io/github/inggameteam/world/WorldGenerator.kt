@@ -14,12 +14,12 @@ object WorldGenerator {
             worldCreator.generatorSettings(
                 "{\"structures\": {\"structures\": {}}, " +
                         "\"layers\": [" +
-                        "{\"block\": \"stone\", \"height\": 0}, " +
+                        "{\"block\": \"air\", \"height\": 1}, " +
                         "{\"block\": \"grass\", \"height\": 0}], " +
                         "\"biome\":\"the_void\"}"
             )
             val world = worldCreator.createWorld()
-            if (world != null) {
+            if (world != null && world.getGameRuleValue(GameRule.DO_MOB_SPAWNING) != false) {
                 world.setGameRule(GameRule.DO_MOB_SPAWNING, false)
                 world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false)
                 world.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
@@ -38,6 +38,9 @@ object WorldGenerator {
                 try { world.isAutoSave = false }
                 catch (e: Exception) { e.printStackTrace() }
                 onGenerate()
+                world.save()
+                Bukkit.unloadWorld(world, true)
+                worldCreator.createWorld()
             }
         }
     }

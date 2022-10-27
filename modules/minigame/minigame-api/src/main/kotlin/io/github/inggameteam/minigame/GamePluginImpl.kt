@@ -1,8 +1,10 @@
 package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
+import io.github.inggameteam.world.FaweImpl
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
@@ -39,19 +41,22 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, width, height) }
     override fun onEnable() {
         super.onEnable()
-        var generate = false
-        worldName.forEach { WorldGenerator.generateWorld(it) { generate = true } }
+        worldName.forEach { WorldGenerator.generateWorld(it) {
+            logger.info("Generating $it world...")
+            FaweImpl().paste(
+                Location(Bukkit.getWorld(it),
+                    gameRegister.sectorWidth.toDouble(),
+                    gameRegister.sectorHeight.toDouble(),
+                    gameRegister.sectorWidth.toDouble()),
+                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+            logger.info("Generated $it world ")
+        } }
         gameSupplierRegister
         gameRegister
-        val initGameAndPlayers = Runnable {
+        Bukkit.getScheduler().runTask(this, Runnable {
             gameRegister.apply { add(createGame(hubName)) }
             Bukkit.getOnlinePlayers().forEach { gameRegister.join(it, hubName) }
-        }
-        if (generate) {
-            initGameAndPlayers.run()
-            worldName.forEach { Bukkit.getWorld(it)?.save() }
-        }
-        else Bukkit.getScheduler().runTask(this, initGameAndPlayers)
+        })
     }
 
     override fun onDisable() {

@@ -9,6 +9,7 @@ import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
 import org.bukkit.World
+import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
@@ -22,6 +23,7 @@ interface Sectional : Game {
     val schematicName: String
     val minPoint: Vector
     val maxPoint: Vector
+    var isUnloaded: Boolean
     fun loadSector(key: String = schematicName)
     fun loadDefaultSector() = loadSector(schematicName)
     fun unloadSector()
@@ -41,7 +43,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     /**
      * 할당된 구역 마무리 정리 시간
      */
-    override val stopWaitingTick = 20 * 60L * 10
+    override val stopWaitingTick = 20 * 10L * 2
     override val schematicName by lazy { comp.stringListOrNull("schems", plugin.defaultLanguage)?.random()?: "default" }
 
     private val height get() = plugin.gameRegister.sectorHeight
@@ -49,6 +51,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
 
     final override val minPoint: Vector
     final override val maxPoint: Vector
+    override var isUnloaded = false
     init {
         if (isAllocated) {
             val vector = Vector(point.x * width, 0, point.y * width)
@@ -71,7 +74,8 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     override fun leftGame(gPlayer: GPlayer, leftType: LeftType) =
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
-                { unloadSector() }.delay(plugin, 20 * 10)
+                clearEntitiesToUnload()
+                ;{ unloadSector() }.delay(plugin, 20)
             }
         }
 
@@ -100,23 +104,38 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
 
 
-    override fun loadSector(key: String) { { loadSector(point.world, point, key) }.async(plugin) }
-    override fun unloadSector() { {unloadSector(point.world, point)}.async(plugin) }
+    override fun loadSector(key: String) {
+
+        loadSector(point.world, point, key)
+    }
+    override fun unloadSector() {
+        if (isUnloaded) return
+        isUnloaded = true
+        unloadSector(point.world, point)
+    }
 
     private fun unloadSector(world: World, sector: Sector) {
         val before = System.currentTimeMillis()
         val x = sector.x * width
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
-        FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
-        plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+        val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
+        FaweImpl().unloadChunk(location, getSchematicFile(schematicName, this.name))
+        ;{
+            FaweImpl().paste(location, file)
+            plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+        }.async(plugin)
     }
 
     private fun loadSector(world: World?, sector: Sector, key: String) {
         val x = width * sector.x
         val z = width * sector.y
         val file = getSchematicFile(key, this.name)
-        FaweImpl().paste(Location(world, x.toDouble(), height.toDouble(), z.toDouble()), file)
+        val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
+        FaweImpl().loadChunk(location, file)
+        ;{
+            FaweImpl().paste(location, file)
+        }.async(plugin)
     }
 
     override fun getSchematicFile(name: String, dir: String) =
@@ -137,4 +156,15 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         }
         return false
     }
+
+    private fun clearEntitiesToUnload() {
+        point.world.getNearbyEntities(Location(point.world,
+            point.x * plugin.gameRegister.sectorWidth.toDouble(),
+            plugin.gameRegister.sectorHeight.toDouble(),
+            point.y * plugin.gameRegister.sectorWidth.toDouble()
+        ), 150.0, 150.0, 150.0).forEach {
+            if (it.type != EntityType.PLAYER) it.remove()
+        }
+    }
+
 }

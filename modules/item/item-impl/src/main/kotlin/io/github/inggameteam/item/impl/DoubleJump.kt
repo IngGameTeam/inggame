@@ -21,7 +21,7 @@ class DoubleJump(override val plugin: AlertPlugin) : Interact, HandleListener(pl
                 itemComp.send("BAR_COOL_DOWN", player, char.repeat(i), char.repeat(max - i))
             }
             tasks.add { player.remove(COOL_TAG) }
-            player.taskList.add(ITask.repeat(plugin, 1, 1, *tasks.toTypedArray()))
+            player.addTask(ITask.repeat(plugin, 1, 1, *tasks.toTypedArray()))
             velocity = location.direction.multiply(1.25).apply { y = 0.6 }
         }
 

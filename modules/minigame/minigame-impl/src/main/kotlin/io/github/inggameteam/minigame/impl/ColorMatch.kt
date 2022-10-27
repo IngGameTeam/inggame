@@ -93,8 +93,11 @@ class ColorMatch(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin),
 
     private fun isMatch(gPlayer: GPlayer): Boolean {
         val location = gPlayer.location
-        val to = Vector(0, -1, 0)
-        return listOf(location.clone(), location.clone().add(to), location.clone().add(to))
+        return listOf(
+            location.clone(),
+            location.clone().add(Vector(0, -1, 0)),
+            location.clone().add(Vector(0, -2, 0)),
+            location.clone().add(Vector(0, -3, 0)))
             .any { gPlayer.inventory.contains(it.block.type) }
     }
 

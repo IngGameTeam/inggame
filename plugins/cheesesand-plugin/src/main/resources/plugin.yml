@@ -1,0 +1,23 @@
+name: cheesesand
+main: io.github.inggameteam.plugin.cheesesand.Plugin
+version: $version
+api-version: 1.18
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
+  - org.jetbrains.kotlin:kotlin-reflect:1.6.10
+  - org.jetbrains.kotlin:kotlin-test:1.6.10
+  - com.eatthepath:fast-uuid:0.2.0
+  - io.github.monun:invfx:3.1.0
+depend: [ PlugManX ]
+commands:
+  lobby:
+    aliases: [ l ]
+  p:
+  party:
+  mg:
+    permission: minigame.admin
+permissions:
+  minigame.admin:
+    default: op
+  minigame.moderate:
+    default: op

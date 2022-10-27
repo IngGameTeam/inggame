@@ -11,7 +11,7 @@ interface SpawnHealth : Game {
     fun onSpawnHealth(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
-        joined.forEach { it.health = it.maxHealth }
+        player.health = player.maxHealth
     }
 
 }

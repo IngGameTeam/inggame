@@ -9,7 +9,7 @@ libraries:
   - com.eatthepath:fast-uuid:0.2.0
   - io.github.monun:invfx:3.1.0
   - org.mongodb:mongodb-driver-sync:4.6.0
-  - org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3
+  - org.json:json:20220924
 depend: [ PlugManX ]
 commands:
   point:
