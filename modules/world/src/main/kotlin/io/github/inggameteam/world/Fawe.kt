@@ -31,7 +31,7 @@ open class FaweImpl : Fawe {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
                                 isForceLoaded = true
-                                load(true)
+                                if (!isLoaded) load(true)
                             }
                         }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
@@ -42,7 +42,6 @@ open class FaweImpl : Fawe {
     }
 
     override fun unloadChunk(location: Location, file: File) {
-/*
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
@@ -53,7 +52,7 @@ open class FaweImpl : Fawe {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
                                 isForceLoaded = true
-                                unload(false)
+                                if (this.isLoaded) unload(false)
                             }
                         }
                 }.apply { println("measureChunkUnloadTimeMillis: $this") }
@@ -61,7 +60,6 @@ open class FaweImpl : Fawe {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-*/
     }
 
     override fun paste(location: Location, file: File) {
