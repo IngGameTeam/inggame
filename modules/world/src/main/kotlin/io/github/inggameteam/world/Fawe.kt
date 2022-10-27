@@ -42,19 +42,24 @@ open class FaweImpl : Fawe {
     }
 
     override fun unloadChunk(location: Location, file: File) {
-/*        try {
+        try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
-                    val world = location.world!!
-                    for (chunk in region.chunks) {
-                        world.unloadChunk(chunk.x, chunk.z, false)
-                    }
+                    for (addX in minimumPoint.x..maximumPoint.x)
+                        for (addY in minimumPoint.y..maximumPoint.y)
+                        {
+                            val world = location.world!!
+                            world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+                                isForceLoaded = true
+                                unload(false)
+                            }
+                        }
                 }.apply { println("measureChunkUnloadTimeMillis: $this") }
             }
         } catch (e: Exception) {
             e.printStackTrace()
-        }*/
+        }
     }
 
     override fun paste(location: Location, file: File) {
