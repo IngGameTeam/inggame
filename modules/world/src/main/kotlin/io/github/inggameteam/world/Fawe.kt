@@ -42,6 +42,7 @@ open class FaweImpl : Fawe {
     }
 
     override fun unloadChunk(location: Location, file: File) {
+/*
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
@@ -60,6 +61,7 @@ open class FaweImpl : Fawe {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+*/
     }
 
     override fun paste(location: Location, file: File) {
