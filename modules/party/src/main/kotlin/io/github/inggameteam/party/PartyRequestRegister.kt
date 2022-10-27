@@ -1,6 +1,7 @@
 package io.github.inggameteam.party
 
 import io.github.inggameteam.api.PluginHolder
+import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -12,6 +13,10 @@ class PartyRequestRegister(override val plugin: PartyPlugin) : HashSet<PartyRequ
     @EventHandler(priority = EventPriority.LOWEST)
     fun left(event: PlayerQuitEvent) {
         val player = plugin[event.player]
+        removeRequest(player)
+    }
+
+    fun removeRequest(player: GPlayer) {
         removeIf { it.receiver == player || it.sender == player }
     }
 

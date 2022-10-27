@@ -21,7 +21,7 @@ class GPlayer(uuid: UUID) : HashMap<String, Any>(), TagContainer, Player by Bukk
     override fun toString(): String = name
 
     override fun equals(other: Any?): Boolean {
-        return bukkit.hashCode() == other.hashCode()
+        return Bukkit.getPlayer(uniqueId)?.hashCode() == other.hashCode()
     }
 
     override fun hashCode(): Int {

@@ -12,7 +12,7 @@ import org.bukkit.boss.BarColor
 
 class ZombieSurvival(plugin: GamePlugin) : InfectionImpl(plugin), SimpleGame, SpawnTeamPlayer, BarGame {
     override val name get() = "zombie-survival"
-    override val bar by lazy { GBar(plugin, size = 750.0, reversed = true) }
+    override val bar by lazy { GBar(plugin, size = 800.0, reversed = true) }
     override fun beginGame() {
         super.beginGame()
         bar.update("생존자 비상 탈출", color = BarColor.PURPLE)

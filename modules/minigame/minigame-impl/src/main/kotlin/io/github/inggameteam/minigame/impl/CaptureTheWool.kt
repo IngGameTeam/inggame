@@ -16,7 +16,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
     override val name get() = "capture-the-wool"
     override val bar by lazy { GBar(plugin) }
     override val noInteracts by lazy { listOf(Material.BLUE_STAINED_GLASS, Material.RED_STAINED_GLASS,
-        Material.BLUE_WOOL, Material.WHITE_WOOL, Material.RED_WOOL
+        Material.BLUE_WOOL, Material.RED_CONCRETE, Material.BLUE_CONCRETE
     ) }
     private val gage = comp.intOrNull("gage")?.toDouble()?: 275.0
     var blueGage = 0.0
@@ -36,7 +36,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
                 else if (playerTeam === PTag.BLUE) blueOn = true
             }
             if (redOn && blueOn || !redOn && !blueOn) {
-                fill(Material.WHITE_WOOL)
+                fill(Material.WHITE_CONCRETE)
                 bar.update(
                     color = BarColor.WHITE,
                     progress = 0.0
@@ -60,14 +60,14 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
                     return@repeat
                 }
                 if (blueOn.not() && redOn.not()) {
-                    fill(Material.WHITE_WOOL)
+                    fill(Material.WHITE_CONCRETE)
                     bar.update(
                         color = BarColor.WHITE,
                         progress = 1.0
                     )
                     return@repeat
                 }
-                fill(if (blueOn) Material.BLUE_WOOL else Material.RED_WOOL)
+                fill(if (blueOn) Material.BLUE_CONCRETE else Material.RED_CONCRETE)
                 if (blueOn) blueGage++ else redGage++
                 bar.update(
                     color = if (blueOn) BarColor.BLUE else BarColor.RED,

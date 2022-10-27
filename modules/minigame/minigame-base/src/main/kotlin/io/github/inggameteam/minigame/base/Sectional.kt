@@ -75,7 +75,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
                 clearEntitiesToUnload()
-                ;{ unloadSector() }.delay(plugin, 20 * 10)
+                ;{ unloadSector() }.delay(plugin, 20)
             }
         }
 
@@ -120,7 +120,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl().unloadChunk(location, file)
+        FaweImpl().unloadChunk(location, getSchematicFile(schematicName, this.name))
         ;{
             FaweImpl().paste(location, file)
             plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")

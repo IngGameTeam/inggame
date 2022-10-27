@@ -1,5 +1,5 @@
-name: angangang
-main: io.github.inggameteam.plugin.angangang.Plugin
+name: cheesesand
+main: io.github.inggameteam.plugin.cheesesand.Plugin
 version: $version
 api-version: 1.18
 libraries:
@@ -8,12 +8,8 @@ libraries:
   - org.jetbrains.kotlin:kotlin-test:1.6.10
   - com.eatthepath:fast-uuid:0.2.0
   - io.github.monun:invfx:3.1.0
-  - org.mongodb:mongodb-driver-sync:4.6.0
-  - org.json:json:20220924
 depend: [ PlugManX ]
 commands:
-  point:
-    permission: minigame.moderate.point
   lobby:
     aliases: [ l ]
   p:

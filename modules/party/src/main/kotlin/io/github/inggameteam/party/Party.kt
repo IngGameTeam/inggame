@@ -60,6 +60,7 @@ fun Party.left(player: GPlayer) {
         disband(player)
     } else {
         joined.remove(player)
+        plugin.partyRequestRegister.removeRequest(player)
         comp.send(LEFT_PARTY, joined, player, this)
     }
 }
@@ -131,6 +132,7 @@ fun Party.kick(dispatcher: GPlayer, kickPlayer: GPlayer) {
         if (leader eq kickPlayer) comp.send(CANNOT_KICK_YOURSELF, dispatcher)
         else if (joined.contains(kickPlayer)) {
             joined.remove(kickPlayer)
+            plugin.partyRequestRegister.removeRequest(kickPlayer)
             comp.send(LEADER_KICKED_YOU, kickPlayer, leader, this)
             comp.send(PARTY_KICKED, joined, kickPlayer, this)
             plugin.partyRequestRegister.removeIf { it.party == this && it.sender == kickPlayer }
@@ -144,6 +146,7 @@ fun Party.ban(dispatcher: GPlayer, banPlayer: GPlayer) {
         if (leader eq banPlayer) comp.send(CANNOT_BAN_YOURSELF, dispatcher)
         else if (joined.contains(banPlayer)) {
             joined.remove(banPlayer)
+            plugin.partyRequestRegister.removeRequest(banPlayer)
             banList.add(banPlayer.uniqueId)
             comp.send(LEADER_BANNED_YOU, banPlayer, leader, this)
             comp.send(YOU_BANNED_THE_PLAYER, dispatcher, this, banPlayer)
