@@ -72,8 +72,8 @@ open class FaweImpl : Fawe {
                     BlockVector3.at(location.x, location.y, location.z),
                     false, true, null
                 )
-                File(FAWE!!.dataFolder, "clipboard")
-                    .listFiles()?.forEach { it.delete() }
+//                File(FAWE!!.dataFolder, "clipboard")
+//                    .listFiles()?.forEach { it.delete() }
             }
         } catch (e: Exception) {
             e.printStackTrace()
