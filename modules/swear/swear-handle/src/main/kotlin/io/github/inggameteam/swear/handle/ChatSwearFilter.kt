@@ -16,7 +16,7 @@ class ChatSwearFilter(private val plugin: Plugin) : HandleListener(plugin) {
     @EventHandler
     fun onChat(event: AsyncPlayerChatEvent) {
         val input = event.message
-        if (swearFilter.findSwear(input).size != 0) {
+        if (swearFilter.findSwear(input)) {
             ;{
                 event.player.kickPlayer("You were kicked using abusive language\n$input")
             }.runNow(plugin)
