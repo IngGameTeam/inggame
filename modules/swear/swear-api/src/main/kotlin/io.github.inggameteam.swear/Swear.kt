@@ -27,10 +27,9 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
         val allMatches: ArrayList<String> = ArrayList()
         map.forEach { (words, excludes) ->
             words.forEach { word ->
-                val m: Matcher = Pattern.compile("/[$word]/i")
+                val m: Matcher = Pattern.compile(word, Pattern.CASE_INSENSITIVE)
                     .matcher(input)
                 while (m.find()) {
-                    println("asdfasdf")
                     allMatches.add(m.group())
                 }
             }
