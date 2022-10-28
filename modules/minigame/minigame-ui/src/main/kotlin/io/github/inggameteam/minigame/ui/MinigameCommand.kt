@@ -72,9 +72,13 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
         }
         thenExecute("promise-reload") {
             source.sendMessage("Reload promised... while a minutes")
+            val before = System.currentTimeMillis()
             ;
             {
-                if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
+                val after = System.currentTimeMillis()
+                if (after - before > 1000 * 60) {
+                    false
+                } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
                     PluginUtil.reload(plugin)
                     false
                 } else true
