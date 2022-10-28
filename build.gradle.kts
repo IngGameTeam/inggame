@@ -39,6 +39,7 @@ allprojects {
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
+        maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
     }
 
     dependencies {
@@ -61,6 +62,7 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
         compileOnly("org.json:json:20220924")
         testApi("org.json:json:20220924")
+        compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
 
     }
 
