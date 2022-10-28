@@ -10,7 +10,8 @@ import org.bukkit.event.EventHandler
 import org.bukkit.inventory.Inventory
 
 class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath, SpawnHealth,
-    ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage, NoBlockBreak, NoBlockPlace, NoItemDrop {
+    ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage, NoBlockBreak, NoBlockPlace, NoItemDrop,
+    PersonalTimeOnSpawn {
 
     @EventHandler
     override fun onJoinParticle(event: GPlayerSpawnEvent) {
