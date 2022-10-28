@@ -54,13 +54,6 @@ class Plugin : GamePluginImpl(
 
     override fun onEnable() {
         super.onEnable()
-        worldName.forEach {
-            Chunky(
-                Location(Bukkit.getWorld(it),
-                    gameRegister.sectorWidth.toDouble(),
-                    gameRegister.sectorHeight.toDouble(),
-                    gameRegister.sectorWidth.toDouble()))
-        }
         PartyCacheSerializer.deserialize(this)
 
         val mongoDBCP = MongoDBCPImpl(this)
@@ -122,6 +115,14 @@ class Plugin : GamePluginImpl(
         DoubleJump(this)
         Bazooka(this)
         BigBoom(this)
+
+        worldName.forEach {
+            Chunky(
+                Location(Bukkit.getWorld(it),
+                    gameRegister.sectorWidth.toDouble(),
+                    gameRegister.sectorHeight.toDouble(),
+                    gameRegister.sectorWidth.toDouble()))
+        }
 
     }
 
