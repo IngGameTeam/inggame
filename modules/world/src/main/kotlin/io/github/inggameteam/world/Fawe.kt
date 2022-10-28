@@ -3,6 +3,7 @@ package io.github.inggameteam.world
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
+import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.scheduler.runNow
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -35,7 +36,8 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                                 isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
-                                    ;{loadChunk(location, file)}.runNow(plugin)
+                                    ;{loadChunk(location, file)}.delay(plugin, 1)
+                                    return
                                 }
                             }
                         }
@@ -59,7 +61,8 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                                 isForceLoaded = true
                                 if (this.isLoaded) {
                                     unload(false)
-                                    ;{unloadChunk(location, file)}.runNow(plugin)
+                                    ;{unloadChunk(location, file)}.delay(plugin, 1)
+                                    return
                                 }
                             }
                         }
