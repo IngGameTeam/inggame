@@ -84,6 +84,20 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
                 } else true
             }.repeat(plugin, 1, 1)
         }
+        thenExecute("promise-update") {
+            source.sendMessage("Update promised... while a minutes")
+            val before = System.currentTimeMillis()
+            ;
+            {
+                val after = System.currentTimeMillis()
+                if (after - before > 1000 * 60) {
+                    false
+                } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
+                    download(plugin)
+                    false
+                } else true
+            }.repeat(plugin, 1, 1)
+        }
         thenExecute("update") {
             download(plugin)
         }
