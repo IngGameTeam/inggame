@@ -5,6 +5,7 @@ import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.EventHandler
+import org.bukkit.event.player.PlayerTeleportEvent
 
 interface PersonalTimeOnSpawn : Game, Sectional {
 
@@ -19,10 +20,10 @@ interface PersonalTimeOnSpawn : Game, Sectional {
 
     @Suppress("unused")
     @EventHandler
-    fun onSpawnSetPersonalTime(event: GPlayerSpawnEvent) {
+    fun onSpawnSetPersonalTime(event: PlayerTeleportEvent) {
         val player = event.player
-        if (isInSector(player.location)) {
-            setPlayerTime(player)
+        if (isInSector(event.to?: return)) {
+            setPlayerTime(plugin[player])
         } else {
             player.resetPlayerTime()
         }
