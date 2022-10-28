@@ -6,6 +6,7 @@ import io.github.inggameteam.command.player
 import io.github.inggameteam.downloader.download
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.LeftType
+import io.github.inggameteam.scheduler.repeat
 import io.github.inggameteam.utils.ColorUtil.color
 import org.bukkit.command.CommandExecutor
 import org.bukkit.plugin.java.JavaPlugin
@@ -68,6 +69,16 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             PluginUtil.reload(plugin)
             val after = System.currentTimeMillis()
             source.sendMessage("Reload Done in ${after - before}ms")
+        }
+        thenExecute("promise-reload") {
+            source.sendMessage("Reload promised... while a minutes")
+            ;
+            {
+                if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
+                    PluginUtil.reload(plugin)
+                    false
+                } else true
+            }.repeat(plugin, 1, 1)
         }
         thenExecute("update") {
             download(plugin)
