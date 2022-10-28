@@ -3,8 +3,10 @@ package io.github.inggameteam.world
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
+import io.github.inggameteam.scheduler.runNow
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.plugin.Plugin
 import java.io.File
 import kotlin.system.measureTimeMillis
 
@@ -18,7 +20,7 @@ interface Fawe {
     fun paste(location: Location, file: File)
 }
 
-open class FaweImpl : Fawe {
+open class FaweImpl(val plugin: Plugin) : Fawe {
 
     override fun loadChunk(location: Location, file: File) {
         try {
@@ -31,7 +33,10 @@ open class FaweImpl : Fawe {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
                                 isForceLoaded = true
-                                if (!isLoaded) load(true)
+                                if (!isLoaded) {
+                                    load(true)
+                                    ;{loadChunk(location, file)}.runNow(plugin)
+                                }
                             }
                         }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
@@ -52,7 +57,10 @@ open class FaweImpl : Fawe {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
                                 isForceLoaded = true
-                                if (this.isLoaded) unload(false)
+                                if (this.isLoaded) {
+                                    unload(false)
+                                    ;{unloadChunk(location, file)}.runNow(plugin)
+                                }
                             }
                         }
                 }.apply { println("measureChunkUnloadTimeMillis: $this") }
