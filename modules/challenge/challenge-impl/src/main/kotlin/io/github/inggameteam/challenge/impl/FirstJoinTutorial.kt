@@ -7,7 +7,7 @@ import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.minigame.impl.Tutorial
 import io.github.inggameteam.mongodb.impl.ChallengeContainer
 import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.scheduler.runNow
+import io.github.inggameteam.scheduler.delay
 import org.bukkit.event.EventHandler
 
 class FirstJoinTutorial(override val plugin: GamePlugin,
@@ -30,7 +30,7 @@ class FirstJoinTutorial(override val plugin: GamePlugin,
         super.goal(player)
         ;{
             plugin.gameRegister.join(player, Tutorial.TUTORIAL_NAME)
-        }.runNow(plugin).apply { player.addTask(this) }
+        }.delay(plugin, 10).apply { player.addTask(this) }
     }
 
 }
