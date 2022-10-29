@@ -77,6 +77,7 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             {
                 val after = System.currentTimeMillis()
                 if (after - before > 1000 * 60) {
+                    source.sendMessage("Reload-promise timeout!")
                     false
                 } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
                     PluginUtil.reload(plugin)
@@ -91,6 +92,7 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             {
                 val after = System.currentTimeMillis()
                 if (after - before > 1000 * 60) {
+                    source.sendMessage("Update-promise timeout!")
                     false
                 } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
                     download(plugin)
