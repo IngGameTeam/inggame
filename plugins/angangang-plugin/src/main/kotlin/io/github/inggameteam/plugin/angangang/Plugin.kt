@@ -115,14 +115,6 @@ class Plugin : GamePluginImpl(
         Bazooka(this)
         BigBoom(this)
 
-        worldName.forEach {
-            Chunky(
-                Location(Bukkit.getWorld(it),
-                    gameRegister.sectorWidth.toDouble(),
-                    gameRegister.sectorHeight.toDouble(),
-                    gameRegister.sectorWidth.toDouble()))
-        }
-
     }
 
     override fun onDisable() {

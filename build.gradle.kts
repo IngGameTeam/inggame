@@ -62,7 +62,6 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
         compileOnly("org.json:json:20220924")
         testApi("org.json:json:20220924")
-        compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
 
     }
 
