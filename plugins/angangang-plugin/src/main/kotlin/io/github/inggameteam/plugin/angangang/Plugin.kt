@@ -83,7 +83,7 @@ class Plugin : GamePluginImpl(
             ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
-//            ::FirstJoinTutorial,
+            ::FirstJoinTutorial,
             ).forEach { it(this, challenge) }
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
