@@ -33,10 +33,9 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+                                isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
-                                    ;{loadChunk(location, file)}.delay(plugin, 1)
-                                    return
                                 }
                             }
                         }
@@ -57,11 +56,8 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
-                                isForceLoaded = true
                                 if (this.isLoaded) {
                                     unload(false)
-                                    ;{unloadChunk(location, file)}.delay(plugin, 1)
-                                    return
                                 }
                             }
                         }
