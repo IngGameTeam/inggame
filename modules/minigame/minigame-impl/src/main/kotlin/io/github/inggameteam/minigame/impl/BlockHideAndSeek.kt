@@ -51,12 +51,12 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
             }
             bar.size = 750.0
             bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
-            gameTask = bar.startTimer {
+            addTask(bar.startTimer {
                 joined.hasTags(PTag.PLAY, PTag.RED).forEach {
                     it.removeTag(PTag.PLAY)
                 }
                 requestStop()
-            }
+            })
         }
 
     }

@@ -212,3 +212,7 @@ fun Party.listMembers(dispatcher: GPlayer) {
     )
     dispatcher.sendMessage("-------------------------------------")
 }
+
+fun PartyRegister.help(dispatcher: GPlayer) {
+    comp.send(PARTY_HELP, dispatcher)
+}

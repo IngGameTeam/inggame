@@ -49,7 +49,10 @@ enum class PartyAlert {
     NO_PARTY_INVITATION,
 
     CANNOT_JOIN_DUE_TO_BANNED,
-    YOU_NEED_TO_BE_INVITED_TO_JOIN_PARTY
+
+    PARTY_HELP,
+
+
 
 
 

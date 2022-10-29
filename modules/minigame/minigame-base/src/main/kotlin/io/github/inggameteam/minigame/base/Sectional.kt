@@ -43,7 +43,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     /**
      * 할당된 구역 마무리 정리 시간
      */
-    override val stopWaitingTick = 20 * 10L * 2
+    override val stopWaitingTick = 84600 * 20L
     override val schematicName by lazy { comp.stringListOrNull("schems", plugin.defaultLanguage)?.random()?: "default" }
 
     private val height get() = plugin.gameRegister.sectorHeight
@@ -120,11 +120,11 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl().unloadChunk(location, getSchematicFile(schematicName, this.name))
-        ;{
-            FaweImpl().paste(location, file)
-            plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
-        }.async(plugin)
+        FaweImpl(plugin).unloadChunk(location, getSchematicFile(schematicName, this.name))
+//        ;{
+//            FaweImpl(plugin).paste(location, file)
+//            plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+//        }.async(plugin)
     }
 
     private fun loadSector(world: World?, sector: Sector, key: String) {
@@ -132,9 +132,9 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = width * sector.y
         val file = getSchematicFile(key, this.name)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl().loadChunk(location, file)
+        FaweImpl(plugin).loadChunk(location, file)
         ;{
-            FaweImpl().paste(location, file)
+            FaweImpl(plugin).paste(location, file)
         }.async(plugin)
     }
 

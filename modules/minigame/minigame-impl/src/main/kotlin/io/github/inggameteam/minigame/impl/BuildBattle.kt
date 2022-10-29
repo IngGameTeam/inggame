@@ -109,7 +109,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             val finalLocation = location.clone()
             if (playPlayers.size <= count) break
             playerData[playPlayers[count]]!![PLAYER_AREA] = finalLocation
-            { FaweImpl().paste(finalLocation, getSchematicFile("area", name)) }.async(plugin)
+            { FaweImpl(plugin).paste(finalLocation, getSchematicFile("area", name)) }.async(plugin)
             count++
             if (i <= n) i++
             else {

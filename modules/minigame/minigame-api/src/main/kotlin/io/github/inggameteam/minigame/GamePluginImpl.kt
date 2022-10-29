@@ -43,7 +43,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         super.onEnable()
         worldName.forEach { WorldGenerator.generateWorld(it) {
             logger.info("Generating $it world...")
-            FaweImpl().paste(
+            FaweImpl(this).paste(
                 Location(Bukkit.getWorld(it),
                     gameRegister.sectorWidth.toDouble(),
                     gameRegister.sectorHeight.toDouble(),

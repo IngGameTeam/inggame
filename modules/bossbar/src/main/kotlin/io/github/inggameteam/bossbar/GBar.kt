@@ -40,7 +40,7 @@ class GBar(
     }
 
     fun update(
-        title: String = this.title,
+        title: String? = null,
         progress: Double = this.progress,
         color: BarColor = this.color,
         style: BarStyle = this.style,
@@ -49,7 +49,7 @@ class GBar(
         this.progress = progress
         this.color = color
         this.style = style
-        this.title = title
+        if (title !== null) this.title = title
         this.alert = alert
         putViewers()
         bossBars.forEach {
@@ -57,7 +57,7 @@ class GBar(
                 this.progress = progress
                 this.color = color
                 this.style = style
-                setTitle(title)
+                setTitle(getPersonalTitle(it.key))
             }
         }
 

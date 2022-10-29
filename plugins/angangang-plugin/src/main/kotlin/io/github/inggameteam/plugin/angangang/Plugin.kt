@@ -16,6 +16,8 @@ import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
 import io.github.inggameteam.swear.handle.ChatSwearFilter
+import org.bukkit.Bukkit
+import org.bukkit.Location
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -81,7 +83,7 @@ class Plugin : GamePluginImpl(
             ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
-//            ::FirstJoinTutorial,
+            ::FirstJoinTutorial,
             ).forEach { it(this, challenge) }
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
@@ -98,7 +100,6 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
-        ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
         ArrowStuckPreventHandler(this)
         DisableCollision(this)
