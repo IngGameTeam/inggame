@@ -48,6 +48,7 @@ class PartyUI(val plugin: PartyPlugin) {
     init {
         MCCommand(plugin as JavaPlugin) {
             command("party", "p") {
+                thenExecute("help") { plugin.partyRegister.help(player.game) }
                 thenExecute("create") { plugin.partyRegister.createParty(player.game) }
                 thenExecute("rename") { party { rename(it, args.subList(1, args.size).joinToString(" ")) } }
                 thenExecute("visible") { party { visible(it) } }
