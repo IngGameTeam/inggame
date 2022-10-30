@@ -52,7 +52,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     final override val minPoint: Vector
     final override val maxPoint: Vector
     override var isUnloaded = false
-    override val isAllocated = true
     init {
         if (isAllocated) {
             val vector = Vector(point.x * width, 0, point.y * width)

@@ -91,6 +91,7 @@ class GameRegister(
     }
 
     fun newAllocatable(world: World): Sector {
+        if (!plugin.isEnabled) Sector(1, 1, world)
         val newSector = newSector
         val sqrt = sqrt(newSector.toDouble()).toInt()+1
         var i = 0
