@@ -96,9 +96,9 @@ class GameRegister(
         println(atomic)
         val sqrt = sqrt(atomic.toDouble()).toInt() //2
         val line = sqrt + 1  //3
-        var x = 1
+        var x = 0
         while (x <= line) {
-            var z = 1
+            var z = 0
             while (z <= line) {
                 if (x*line+z >= atomic) return Sector(x, z, world)
 //                if (!list.any { it.equals(x, z) }) return Sector(x, z, world)
