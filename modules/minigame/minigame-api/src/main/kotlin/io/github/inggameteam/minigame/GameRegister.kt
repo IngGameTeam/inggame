@@ -91,14 +91,17 @@ class GameRegister(
     }
 
     fun newAllocatable(world: World): Sector {
-//        val list = filter(Game::isAllocated).map(Game::point).filter { it.worldOrNull == world }.toSet()
-        val sqrt = sqrt(newSector.toDouble())
-        println(sqrt)
-        val line = sqrt.toInt()+1
-        val remain = sqrt.toInt()%line
-        return if (sqrt < 0.5)
-            Sector(line, remain)
-        else Sector(remain, line)
+        val sqrt = sqrt(newSector.toDouble()).toInt()+1
+        var i = 0
+        for (x in 1..sqrt)
+            for (z in 1..sqrt) {
+                if (i >= newSector) {
+                    println(i)
+                    return Sector(x, z, world)
+                }
+                i++
+            }
+        return Sector(1, 1, world)
     }
 
 
