@@ -4,6 +4,7 @@ import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
 import io.github.inggameteam.scheduler.delay
+import io.github.inggameteam.scheduler.runNow
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.plugin.Plugin
@@ -27,7 +28,6 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
-                    val before = System.currentTimeMillis()
                     for (addX in minimumPoint.x..maximumPoint.x)
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
@@ -36,12 +36,6 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                                 isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
-                                    val after = System.currentTimeMillis()
-                                    if ((after - before).apply{println(this)} >= 15) {
-                                        println("load chunk spreaded")
-                                        ;{loadChunk(location, file)}.delay(plugin, 1L)
-                                        return@measureTimeMillis
-                                    }
                                 }
                             }
                         }
@@ -78,6 +72,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
+
                 paste(
                     BukkitAdapter.adapt(location.world),
                     BlockVector3.at(location.x, location.y, location.z),
