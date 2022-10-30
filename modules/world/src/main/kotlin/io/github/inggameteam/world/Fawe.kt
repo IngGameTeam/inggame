@@ -33,6 +33,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         {
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+                                isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
                                     val after = System.currentTimeMillis()
