@@ -15,14 +15,15 @@ val FAWE get() = Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")
 
 interface Fawe {
 
-    fun loadChunk(location: Location, file: File)
-    fun unloadChunk(location: Location, file: File)
+    fun loadChunk(location: Location, file: File, skip: Int = -1)
+    fun unloadChunk(location: Location, file: File, skip: Int = -1)
     fun paste(location: Location, file: File)
 }
 
 open class FaweImpl(val plugin: Plugin) : Fawe {
 
-    override fun loadChunk(location: Location, file: File) {
+    override fun loadChunk(location: Location, file: File, skip: Int) {
+        var i = skip
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
@@ -31,16 +32,19 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                     for (addX in minimumPoint.x..maximumPoint.x)
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
+                            if (skip != -1 && i <= skip) continue
+                            i++
+                            val after = System.currentTimeMillis()
+                            if ((after - before).apply{println(this)} >= 15) {
+                                println("load chunk spreaded")
+                                ;{loadChunk(location, file, i)}.delay(plugin, 1L)
+                                return@measureTimeMillis
+                            }
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+
                                 if (!isLoaded) {
                                     load(true)
-                                    val after = System.currentTimeMillis()
-                                    if ((after - before).apply{println(this)} >= 15) {
-                                        println("load chunk spreaded")
-                                        ;{loadChunk(location, file)}.delay(plugin, 1L)
-                                        return@measureTimeMillis
-                                    }
                                 }
                             }
                         }
@@ -51,16 +55,27 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
         }
     }
 
-    override fun unloadChunk(location: Location, file: File) {
+    override fun unloadChunk(location: Location, file: File, skip: Int) {
+        var i = skip
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
+                    val before = System.currentTimeMillis()
                     for (addX in minimumPoint.x..maximumPoint.x)
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
+                            if (skip != -1 && i <= skip) continue
+                            i++
+                            val after = System.currentTimeMillis()
+                            if ((after - before).apply{println(this)} >= 15) {
+                                println("load chunk spreaded")
+                                ;{loadChunk(location, file, i)}.delay(plugin, 1L)
+                                return@measureTimeMillis
+                            }
                             val world = location.world!!
                             world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+
                                 if (this.isLoaded) {
                                     unload(false)
                                 }
