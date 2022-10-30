@@ -94,13 +94,12 @@ class GameRegister(
 //        val list = filter(Game::isAllocated).map(Game::point).filter { it.worldOrNull == world }.toSet()
         val atomic = newSector  //4
         println(atomic)
-        val sqrt = sqrt(atomic.toDouble()).toInt() //2
-        val line = sqrt  //3
-        var x = 0
+        val line = sqrt(atomic.toDouble()).toInt()+1 //2
+        var x = 1
         while (x <= line) {
-            var z = 0
+            var z = 1
             while (z <= line) {
-                if (x*line+z >= atomic) return Sector(x, z, world)
+                if (x*line+z == atomic+1) return Sector(x, z, world)
 //                if (!list.any { it.equals(x, z) }) return Sector(x, z, world)
                 z++
             }
