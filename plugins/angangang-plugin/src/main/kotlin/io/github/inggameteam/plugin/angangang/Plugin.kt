@@ -85,6 +85,7 @@ class Plugin : GamePluginImpl(
             ::YouKilledIt,
             ::FirstJoinTutorial,
             ).forEach { it(this, challenge) }
+        NoSaveChunk(this)
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
         LogGameStats(this, gameStats)
