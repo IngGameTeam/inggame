@@ -91,6 +91,7 @@ class GameRegister(
     }
 
     fun newAllocatable(world: World): Sector {
+        val newSector = newSector
         val sqrt = sqrt(newSector.toDouble()).toInt()+1
         var i = 0
         for (x in 1..sqrt)
