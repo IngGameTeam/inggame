@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame.impl
 
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.JoinType
+import io.github.inggameteam.minigame.Sector
 import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.base.Hub
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
@@ -12,6 +13,8 @@ import org.bukkit.inventory.Inventory
 class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath, SpawnHealth,
     ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage, NoBlockBreak, NoBlockPlace, NoItemDrop,
     PersonalTimeOnSpawn {
+
+    override val point: Sector get() = Sector(1, 1, world)
 
     @EventHandler
     override fun onJoinParticle(event: GPlayerSpawnEvent) {
