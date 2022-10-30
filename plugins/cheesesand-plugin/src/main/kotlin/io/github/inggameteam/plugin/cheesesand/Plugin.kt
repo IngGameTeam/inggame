@@ -24,7 +24,6 @@ class Plugin : GamePluginImpl(
         ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
-        ClearEntityUnloadedChunk(this)
         HideJoinLeaveMessage(this)
         ArrowStuckPreventHandler(this)
         DisableCollision(this)

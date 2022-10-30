@@ -16,8 +16,6 @@ import io.github.inggameteam.mongodb.impl.UserContainer
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
 import io.github.inggameteam.swear.handle.ChatSwearFilter
-import org.bukkit.Bukkit
-import org.bukkit.Location
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -85,6 +83,7 @@ class Plugin : GamePluginImpl(
             ::YouKilledIt,
             ::FirstJoinTutorial,
             ).forEach { it(this, challenge) }
+        NoSaveChunk(this)
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
         LogGameStats(this, gameStats)
