@@ -28,6 +28,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
+                    val before = System.currentTimeMillis()
                     for (addX in minimumPoint.x..maximumPoint.x)
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
@@ -36,6 +37,11 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                                 isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
+                                    val after = System.currentTimeMillis()
+                                    if (after - before >= 15) {
+                                        ;{loadChunk(location, file)}.delay(plugin, 1L)
+                                        return@measureTimeMillis
+                                    }
                                 }
                             }
                         }
@@ -72,7 +78,6 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
         try {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
-
                 paste(
                     BukkitAdapter.adapt(location.world),
                     BlockVector3.at(location.x, location.y, location.z),
