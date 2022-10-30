@@ -4,7 +4,6 @@ import io.github.inggameteam.alert.DEFAULT_DIR
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.base.Sectional.Companion.DEFAULT
 import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.scheduler.async
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
@@ -14,6 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
 import java.io.File
+import kotlin.concurrent.thread
 
 
 /**
@@ -133,9 +133,9 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val file = getSchematicFile(key, this.name)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         FaweImpl(plugin).loadChunk(location, file)
-        ;{
+        thread {
             FaweImpl(plugin).paste(location, file)
-        }.async(plugin)
+        }
     }
 
     override fun getSchematicFile(name: String, dir: String) =
