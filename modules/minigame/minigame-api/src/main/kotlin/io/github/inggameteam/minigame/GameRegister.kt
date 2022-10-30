@@ -95,7 +95,7 @@ class GameRegister(
         val atomic = newSector  //4
         println(atomic)
         val sqrt = sqrt(atomic.toDouble()).toInt() //2
-        val line = sqrt + 1  //3
+        val line = sqrt  //3
         var x = 0
         while (x <= line) {
             var z = 0
