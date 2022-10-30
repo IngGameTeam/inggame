@@ -100,7 +100,7 @@ class GameRegister(
         while (x <= line) {
             var z = 1
             while (z <= line) {
-                if (x >= line && z >= line && x*z >= line*(atomic%line+1)) return Sector(x, z, world)
+                if (x*line+z >= atomic) return Sector(x, z, world)
 //                if (!list.any { it.equals(x, z) }) return Sector(x, z, world)
                 z++
             }
