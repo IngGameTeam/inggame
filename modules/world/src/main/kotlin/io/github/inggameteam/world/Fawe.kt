@@ -39,6 +39,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                                     load(true)
                                     val after = System.currentTimeMillis()
                                     if (after - before >= 15) {
+                                        println("load chunk spreaded")
                                         ;{loadChunk(location, file)}.delay(plugin, 1L)
                                         return@measureTimeMillis
                                     }
