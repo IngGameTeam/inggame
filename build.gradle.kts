@@ -63,7 +63,7 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
         compileOnly("org.json:json:20220924")
         testApi("org.json:json:20220924")
-        compileOnly("io.papermc:paperlib:1.0.7")
+        api("io.papermc:paperlib:1.0.7")
     }
 
 }
