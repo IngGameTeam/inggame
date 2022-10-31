@@ -31,7 +31,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
                             val world = location.world!!
-                            PaperLib.getChunkAtAsyncUrgently(world, location.blockX + addX, location.blockZ + addY, false)
+                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, false)
                         }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
