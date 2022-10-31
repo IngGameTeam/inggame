@@ -136,6 +136,8 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
 
         thread {
             FaweImpl(plugin).loadChunk(location, file)
+        }
+        thread {
             FaweImpl(plugin).paste(location, file)
         }
     }
