@@ -41,25 +41,25 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
     }
 
     override fun unloadChunk(location: Location, file: File) {
-        try {
-            if (file.exists().not()) return
-            FaweAPI.load(file).apply {
-                measureTimeMillis {
-                    for (addX in minimumPoint.x..maximumPoint.x)
-                        for (addY in minimumPoint.y..maximumPoint.y)
-                        {
-                            val world = location.world!!
-                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, false).get().apply {
-                                if (this.isLoaded) {
-                                    unload(false)
-                                }
-                            }
-                        }
-                }.apply { println("measureChunkUnloadTimeMillis: $this") }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        try {
+//            if (file.exists().not()) return
+//            FaweAPI.load(file).apply {
+//                measureTimeMillis {
+//                    for (addX in minimumPoint.x..maximumPoint.x)
+//                        for (addY in minimumPoint.y..maximumPoint.y)
+//                        {
+//                            val world = location.world!!
+//                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, false).get().apply {
+//                                if (this.isLoaded) {
+//                                    unload(false)
+//                                }
+//                            }
+//                        }
+//                }.apply { println("measureChunkUnloadTimeMillis: $this") }
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
     }
 
     override fun paste(location: Location, file: File) {
