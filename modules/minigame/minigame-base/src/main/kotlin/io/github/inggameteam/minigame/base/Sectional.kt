@@ -135,7 +135,6 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
 
         thread {
-            unloadSector(point.world, point)
             FaweImpl(plugin).loadChunk(location, file)
             FaweImpl(plugin).paste(location, file)
         }
