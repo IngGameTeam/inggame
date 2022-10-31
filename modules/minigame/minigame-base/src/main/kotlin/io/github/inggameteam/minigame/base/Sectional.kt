@@ -133,8 +133,8 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = width * sector.y
         val file = getSchematicFile(key, this.name)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
+        FaweImpl(plugin).loadChunk(location, file)
         thread {
-            FaweImpl(plugin).loadChunk(location, file)
             FaweImpl(plugin).paste(location, file)
         }
     }

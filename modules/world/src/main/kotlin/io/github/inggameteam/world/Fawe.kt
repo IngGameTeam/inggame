@@ -33,7 +33,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
                             val world = location.world!!
-                            PaperLib.getChunkAtAsync(location.clone().apply { x += addX; y += addY }).get().apply {
+                            world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
                                 isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
