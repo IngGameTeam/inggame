@@ -132,7 +132,7 @@ abstract class GameImpl(
             gameTask = null
             Bukkit.getPluginManager().callEvent(GameUnloadEvent(this))
             if (gameState === GameState.STOP)
-                gameTask = { gameTask = null; plugin.gameRegister.removeGame(this) }.delay(plugin, stopWaitingTick)
+                gameTask = { if (plugin.gameRegister.contains(this)) gameTask = null; plugin.gameRegister.removeGame(this) }.delay(plugin, stopWaitingTick)
         }
     }
 
