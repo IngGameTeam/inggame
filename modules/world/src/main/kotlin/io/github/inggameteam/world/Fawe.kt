@@ -3,8 +3,6 @@ package io.github.inggameteam.world
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
-import io.github.inggameteam.scheduler.delay
-import io.github.inggameteam.scheduler.runNow
 import io.papermc.lib.PaperLib
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -33,7 +31,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
                             val world = location.world!!
-                            PaperLib.getChunkAtAsyncUrgently(world, location.blockX + addX, location.blockZ + addY, true)
+                            PaperLib.getChunkAtAsyncUrgently(world, location.blockX + addX, location.blockZ + addY, false)
                         }
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
