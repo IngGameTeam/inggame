@@ -122,8 +122,8 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl(plugin).unloadChunk(location, getSchematicFile(schematicName, this.name))
         ;{
+            FaweImpl(plugin).unloadChunk(location, getSchematicFile(schematicName, this.name))
             FaweImpl(plugin).paste(location, file)
             plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
             ;{ if (plugin.gameRegister.contains(this)) gameTask = null; plugin.gameRegister.removeGame(this) }.runNow(plugin)
