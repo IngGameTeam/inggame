@@ -1,10 +1,8 @@
 package io.github.inggameteam.swear
 
 import org.apache.commons.io.IOUtils
-import org.bukkit.Bukkit
-import org.json.*
+import org.json.JSONObject
 import java.io.File
-import java.io.Serializable
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 

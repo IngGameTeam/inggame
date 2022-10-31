@@ -4,7 +4,6 @@ import io.github.inggameteam.minigame.GameAlert.PLAYER_DEATH_TO_VOID
 import io.github.inggameteam.minigame.GameAlert.SINGLE_WINNER
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
-import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GPlayerWinEvent
@@ -16,7 +15,6 @@ import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.repeat
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityChangeBlockEvent
