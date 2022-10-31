@@ -5,6 +5,7 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.scheduler.runNow
+import io.papermc.lib.PaperLib
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.plugin.Plugin
@@ -32,10 +33,11 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
                             val world = location.world!!
-                            world.getChunkAt(location.clone().apply { x += addX; y += addY }).apply {
+                            PaperLib.getChunkAtAsync(location.clone().apply { x += addX; y += addY }).get().apply {
                                 isForceLoaded = true
                                 if (!isLoaded) {
                                     load(true)
+
                                 }
                             }
                         }
