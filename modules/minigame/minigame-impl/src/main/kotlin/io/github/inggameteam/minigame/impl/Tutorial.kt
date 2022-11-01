@@ -13,7 +13,6 @@ import org.bukkit.Location
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Witch
-import java.util.Arrays
 
 class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
     override val name get() = TUTORIAL_NAME

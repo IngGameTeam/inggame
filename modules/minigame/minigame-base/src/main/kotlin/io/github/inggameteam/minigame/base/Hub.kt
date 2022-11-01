@@ -18,9 +18,10 @@ open class Hub(plugin: GamePlugin) : SectionalImpl(plugin), FireTicksOffOnSpawn 
     override val name: String get() = plugin.gameRegister.hubName
     override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean) = true
     override fun unloadSector() = Unit
-    init {
-        if (isAllocated) super.loadDefaultSector()
-    }
+    override fun loadSector(key: String) = Unit
+//    init {
+//        if (isAllocated) super.loadDefaultSector()
+//    }
 
 
 }

@@ -40,6 +40,7 @@ allprojects {
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
         maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
+        maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     }
 
     dependencies {
@@ -62,7 +63,7 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:4.6.0")
         compileOnly("org.json:json:20220924")
         testApi("org.json:json:20220924")
-
+        api("io.papermc:paperlib:1.0.7")
     }
 
 }

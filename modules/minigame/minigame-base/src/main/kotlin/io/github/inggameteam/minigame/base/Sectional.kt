@@ -6,6 +6,7 @@ import io.github.inggameteam.minigame.base.Sectional.Companion.DEFAULT
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.async
 import io.github.inggameteam.scheduler.delay
+import io.github.inggameteam.scheduler.runNow
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
 import org.bukkit.World
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.util.Vector
 import java.io.File
+import kotlin.concurrent.thread
 
 
 /**
@@ -43,7 +45,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     /**
      * 할당된 구역 마무리 정리 시간
      */
-    override val stopWaitingTick = 84600 * 20L
+    override val stopWaitingTick = 84600L * 20L
     override val schematicName by lazy { comp.stringListOrNull("schems", plugin.defaultLanguage)?.random()?: "default" }
 
     private val height get() = plugin.gameRegister.sectorHeight
@@ -75,7 +77,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         super.leftGame(gPlayer, leftType).apply {
             if (isAllocated && joined.size == 0) {
                 clearEntitiesToUnload()
-                ;{ unloadSector() }.delay(plugin, 20)
+                ;{ unloadSector(); }.delay(plugin, 20)
             }
         }
 
@@ -120,11 +122,12 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = sector.y * width
         val file = getSchematicFile(DEFAULT, DEFAULT_DIR)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl(plugin).unloadChunk(location, getSchematicFile(schematicName, this.name))
-//        ;{
-//            FaweImpl(plugin).paste(location, file)
-//            plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
-//        }.async(plugin)
+        ;{
+            FaweImpl(plugin).unloadChunk(location, getSchematicFile(schematicName, this.name))
+            FaweImpl(plugin).paste(location, file)
+            plugin.logger.info("$name unloaded $sector (${System.currentTimeMillis() - before}ms)")
+            ;{ if (plugin.gameRegister.contains(this)) gameTask = null; plugin.gameRegister.removeGame(this) }.runNow(plugin)
+        }.async(plugin)
     }
 
     private fun loadSector(world: World?, sector: Sector, key: String) {
@@ -132,10 +135,10 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         val z = width * sector.y
         val file = getSchematicFile(key, this.name)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        FaweImpl(plugin).loadChunk(location, file)
-        ;{
+        thread {
+            FaweImpl(plugin).loadChunk(location, file)
             FaweImpl(plugin).paste(location, file)
-        }.async(plugin)
+        }
     }
 
     override fun getSchematicFile(name: String, dir: String) =

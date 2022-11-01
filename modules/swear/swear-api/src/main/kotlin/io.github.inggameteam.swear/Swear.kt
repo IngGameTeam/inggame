@@ -1,9 +1,8 @@
 package io.github.inggameteam.swear
 
 import org.apache.commons.io.IOUtils
-import org.json.*
+import org.json.JSONObject
 import java.io.File
-import java.io.Serializable
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -25,14 +24,17 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
     }
 
     fun findSwear(input: String): Boolean {
-        val allMatches: ArrayList<String> = ArrayList()
+        val input = input.replace("_", "")
         map.forEach { (words, excludes) ->
             words.forEach { word ->
-                val m: Matcher = Pattern.compile(word, Pattern.CASE_INSENSITIVE)
+                val m: Matcher = Pattern.compile(word)
                     .matcher(input)
                 while (m.find()) {
-                    if (!excludes.contains(input)) return true
-                    allMatches.add(m.group())
+                    val element = m.group()
+                    println(element)
+                    if (!excludes.contains(element)) {
+                        return true
+                    }
                 }
             }
         }

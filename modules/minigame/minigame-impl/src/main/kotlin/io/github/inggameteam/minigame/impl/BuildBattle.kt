@@ -16,7 +16,6 @@ import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.player.GPlayerList
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
-import io.github.inggameteam.scheduler.async
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.ColorUtil.color
 import io.github.inggameteam.utils.ItemUtil
@@ -40,6 +39,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import java.util.*
+import kotlin.concurrent.thread
 
 class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     BarGame, InteractingBan, SpawnPlayer, Respawn, SimpleGame {
@@ -109,7 +109,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
             val finalLocation = location.clone()
             if (playPlayers.size <= count) break
             playerData[playPlayers[count]]!![PLAYER_AREA] = finalLocation
-            { FaweImpl(plugin).paste(finalLocation, getSchematicFile("area", name)) }.async(plugin)
+            thread { FaweImpl(plugin).paste(finalLocation, getSchematicFile("area", name)) }
             count++
             if (i <= n) i++
             else {
