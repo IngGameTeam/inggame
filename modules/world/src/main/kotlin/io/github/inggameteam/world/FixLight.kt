@@ -84,7 +84,8 @@ class FixLight {
                 }
             }
 """;
-        val method = CompilerUtils::class.java.getDeclaredField("DEFINE_CLASS_METHOD").get(null) as Method
+        val method = CompilerUtils::class.java.getDeclaredField("DEFINE_CLASS_METHOD")
+            .apply { isAccessible = true }.get(null) as Method
         method.isAccessible = true
         val aClass: Class<*> = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode)
         val runner = aClass.newInstance() as Runnable
