@@ -64,6 +64,7 @@ allprojects {
         compileOnly("org.json:json:20220924")
         testApi("org.json:json:20220924")
         api("io.papermc:paperlib:1.0.7")
+        api("net.openhft:compiler:2.4.1")
     }
 
 }
