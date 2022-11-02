@@ -79,6 +79,7 @@ class FixLight {
         val javaCode = """
             package io.github.inggameteam.world;
             public class FixLightClass implements Runnable {
+                @Override
                 public void run() {
                     System.out.println("Hello World");
                 }
