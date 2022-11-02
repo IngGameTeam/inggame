@@ -46,7 +46,7 @@ class AvoidAnvil(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Reco
         var count = 0.0
         addTask({
             (0..count.toInt()).forEach { _ -> spawnAnvilRandomly() }
-            count += 0.02
+            count += 0.08
             true
         }.repeat(plugin, 1, 1))
     }
