@@ -16,7 +16,7 @@ class CaptureTheWool(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
     override val name get() = "capture-the-wool"
     override val bar by lazy { GBar(plugin) }
     override val noInteracts by lazy { listOf(Material.BLUE_STAINED_GLASS, Material.RED_STAINED_GLASS,
-        Material.BLUE_WOOL, Material.RED_CONCRETE, Material.BLUE_CONCRETE
+        Material.RED_CONCRETE, Material.BLUE_CONCRETE
     ) }
     private val gage = comp.intOrNull("gage")?.toDouble()?: 275.0
     var blueGage = 0.0
