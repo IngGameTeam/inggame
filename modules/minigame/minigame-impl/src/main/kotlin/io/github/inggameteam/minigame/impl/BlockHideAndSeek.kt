@@ -40,7 +40,7 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
             it.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 55555, 5))
             it.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 55555, 5))
         }
-        bar.size = 300.0
+        bar.size = comp.doubleOrNull("waiting-time")?: 300.0
         bar.update(alert = { comp.string("waiting-title", it.lang(plugin) )}, color = BarColor.GREEN)
         gameTask = bar.startTimer {
             isWaiting = false
@@ -67,6 +67,9 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
     @EventHandler
     fun onBeginHideAndSeek(event: GameBeginEvent) {
         if (this !== event.game) return
+        joined.hasTags(PTag.RED).forEach {
+            comp.alertOrNull("you-are-red", it.lang(plugin))?.send(it)
+        }
         joined.hasTags(PTag.BLUE).forEach {
             val createBlockData = mats(it).keys.random().createBlockData()
             playerData[it]!![BLOCK] = createBlockData
