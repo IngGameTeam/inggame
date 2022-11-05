@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 
 abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer, Respawn {
@@ -61,6 +62,14 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
             if (isJoined(exited)) {
                 event.isCancelled = true
             }
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onRiderDamage(event: EntityDamageEvent) {
+        if (event.entity.scoreboardTags.contains(RIDER_TAG)) {
+            event.isCancelled = true
         }
     }
 
