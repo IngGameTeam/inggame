@@ -19,10 +19,12 @@ class ModeratePointAmountCommand(plugin: GamePlugin, user: UserContainer) : Comm
             val player = plugin[Bukkit.getPlayer(args[0])!!]
             if (args.isEmpty()) {
                 val point = user[player].point
-                plugin.component.send("MY_PLAYER_POINT", plugin[player], point)
+                source.sendMessage("point: $point")
+//                plugin.component.send("MY_PLAYER_POINT", plugin[player], point)
             } else Bukkit.getPlayerExact(args[0])?.let { bukkitPlayer ->
                 val point = user[bukkitPlayer].point
-                plugin.component.send("OTHER_PLAYER_POINT", plugin[player], plugin[bukkitPlayer], point)
+                source.sendMessage("${player}'s point: $point")
+//                plugin.component.send("OTHER_PLAYER_POINT", plugin[player], plugin[bukkitPlayer], point)
             }
         }
         thenExecute("add") {
