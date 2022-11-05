@@ -36,7 +36,7 @@ class MinigameMenu(
                 onClickItem { _, _, item, event ->
                     event.isCancelled = true
                     player.closeInventory()
-                    plugin.gameRegister.join(player, item.first)
+                    plugin.gameRegister.join(player, item.first, forceCreateGame = true)
                 }
             }
         }.apply { player.openFrame(this) }
