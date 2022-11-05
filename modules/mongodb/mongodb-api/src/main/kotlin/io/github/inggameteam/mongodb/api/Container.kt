@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 import kotlin.test.assertNotNull
 
-interface UUIDUser { val uuid: UUID; var isExited: Boolean }
+interface UUIDUser { val uuid: UUID; var isExited: Boolean/*semaphore*/ }
 
 abstract class Container<DATA : UUIDUser>(
     final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
@@ -25,9 +25,11 @@ abstract class Container<DATA : UUIDUser>(
         Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
-            pool.forEach {user ->
-                if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
-                    commitAndRemoveAsync(user.uuid)
+            synchronized(pool) {
+                pool.forEach { user ->
+                    if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
+                        commitAndRemoveAsync(user.uuid)
+                    }
                 }
             }
             true
