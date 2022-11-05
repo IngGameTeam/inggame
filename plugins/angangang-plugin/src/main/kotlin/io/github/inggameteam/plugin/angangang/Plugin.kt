@@ -82,6 +82,7 @@ class Plugin : GamePluginImpl(
             ::YouAreKiller,
             ::YouKilledIt,
             ::FirstJoinTutorial,
+            ::MadMonsterOfGame,
             ).forEach { it(this, challenge) }
         NoSaveChunk(this)
         ChatSwearFilter(this)
