@@ -8,6 +8,7 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.LeftType
 import io.github.inggameteam.scheduler.repeat
 import io.github.inggameteam.utils.ColorUtil.color
+import io.github.inggameteam.world.FixLight
 import org.bukkit.command.CommandExecutor
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -102,6 +103,9 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
         }
         thenExecute("update") {
             download(plugin)
+        }
+        thenExecute("fixlight") {
+            FixLight().fixLight()
         }
     }
 

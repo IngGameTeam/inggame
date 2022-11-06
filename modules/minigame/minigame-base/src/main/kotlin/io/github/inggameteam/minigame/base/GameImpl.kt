@@ -1,5 +1,6 @@
 package io.github.inggameteam.minigame.base
 
+import io.github.inggameteam.alert.Lang.lang
 import io.github.inggameteam.minigame.*
 import io.github.inggameteam.minigame.GameAlert.*
 import io.github.inggameteam.minigame.event.*
@@ -114,7 +115,7 @@ abstract class GameImpl(
             } else {
                 val list = ArrayList<() -> Unit>()
                 for (i in tick downTo  1) list.add {
-                    joined.forEach { comp.send(GAME_START_COUNT_DOWN, it, displayName(it), i) }
+                    joined.forEach { comp.send(GAME_START_COUNT_DOWN, it, displayName(it), i, comp.stringOrNull("$name-info", it.lang(plugin))?: "") }
                 }
                 list.add { gameTask = null; start(true) }
                 gameTask = ITask.repeat(plugin, 20, 20, *(list.toTypedArray()))

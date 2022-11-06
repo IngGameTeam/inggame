@@ -44,7 +44,7 @@ class GameRegister(
             .apply { assertNotNull(this, "${player.name} joined game is null") }!!
     }
 
-    fun join(player: Player, name: String, joinType: JoinType = JoinType.PLAY) {
+    fun join(player: Player, name: String, joinType: JoinType = JoinType.PLAY, forceCreateGame: Boolean = false) {
         val gPlayer = plugin.playerRegister[player]
         if (plugin.partyRegister.joinedParty(gPlayer) && name != hubName) {
             if (plugin.partyRegister.hasOwnParty(gPlayer)) {
@@ -55,9 +55,15 @@ class GameRegister(
                 joined.forEach { game.joinGame(it, joinType) }
             } else plugin.component.send(ONLY_LEADER_START, gPlayer)
         } else {
-            val findOrCreateGame = findOrCreateGame(gPlayer, name)
-            left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
-            findOrCreateGame.joinGame(gPlayer, joinType)
+            if (forceCreateGame) {
+                val createGame = createGame(name)
+                left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
+                createGame.joinGame(gPlayer, joinType)
+            } else {
+                val findOrCreateGame = findOrCreateGame(gPlayer, name)
+                left(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
+                findOrCreateGame.joinGame(gPlayer, joinType)
+            }
         }
     }
 

@@ -16,44 +16,50 @@ class ModeratePointAmountCommand(plugin: GamePlugin, user: UserContainer) : Comm
                 source.sendMessage("Only console can execute this command")
                 return@execute
             }
-            val player = plugin[Bukkit.getPlayer(args[2])!!]
-            if (args.size == 2) {
+            val player = plugin[Bukkit.getPlayer(args[0])!!]
+            if (args.isEmpty()) {
                 val point = user[player].point
-                plugin.component.send("MY_PLAYER_POINT", plugin[player], point)
-            } else Bukkit.getPlayerExact(args[2])?.let { bukkitPlayer ->
+                source.sendMessage("point: $point")
+//                plugin.component.send("MY_PLAYER_POINT", plugin[player], point)
+            } else Bukkit.getPlayerExact(args[0])?.let { bukkitPlayer ->
                 val point = user[bukkitPlayer].point
-                plugin.component.send("OTHER_PLAYER_POINT", plugin[player], plugin[bukkitPlayer], point)
+                source.sendMessage("${player}'s point: $point")
+//                plugin.component.send("OTHER_PLAYER_POINT", plugin[player], plugin[bukkitPlayer], point)
             }
         }
         thenExecute("add") {
+            val lastArgs = args[1].split(" ")
             if (source is Player) {
                 source.sendMessage("Only console can execute this command")
                 return@thenExecute
             }
             println(args)
-            val player = plugin[Bukkit.getPlayer(args[1])!!]
-            if (player.isOp) args[2].toLongOrNull()?.apply { user[player].point += this } }
+            val player = plugin[Bukkit.getPlayer(lastArgs[0])!!]
+            if (player.isOp) lastArgs[1].toLongOrNull()?.apply { user[player].point += this } }
         thenExecute("remove") {
+            val lastArgs = args[1].split(" ")
             if (source is Player) {
                 source.sendMessage("Only console can execute this command")
                 return@thenExecute
             }
-            val player = plugin[Bukkit.getPlayer(args[1])!!]
-            if (player.isOp) args[2].toLongOrNull()?.apply { user[player].point -= this } }
+            val player = plugin[Bukkit.getPlayer(lastArgs[0])!!]
+            if (player.isOp) lastArgs[1].toLongOrNull()?.apply { user[player].point -= this } }
         thenExecute("clear") {
+            val lastArgs = args[1].split(" ")
             if (source is Player) {
                 source.sendMessage("Only console can execute this command")
                 return@thenExecute
             }
-            val player = plugin[Bukkit.getPlayer(args[1])!!]
+            val player = plugin[Bukkit.getPlayer(lastArgs[0])!!]
             if (player.isOp) user[player].point = 0 }
-        thenExecute("set")  {
+        thenExecute("set") {
+            val lastArgs = args[1].split(" ")
             if (source is Player) {
                 source.sendMessage("Only console can execute this command")
                 return@thenExecute
             }
-            val player = plugin[Bukkit.getPlayer(args[1])!!]
-             if (player.isOp) args[2].toLongOrNull()?.apply { user[player].point = this }
+            val player = plugin[Bukkit.getPlayer(lastArgs[0])!!]
+             if (player.isOp) lastArgs[1].toLongOrNull()?.apply { user[player].point = this }
         }
     }
 
