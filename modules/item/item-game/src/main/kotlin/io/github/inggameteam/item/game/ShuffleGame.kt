@@ -30,7 +30,8 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
         } else {
             val game = event.player[SHUFFLE_KEY] as? Game
             if (game !== null && game.gameState === GameState.STOP) {
-                { shuffleJoin(event.player) }.runNow(plugin)
+                event.player.remove(SHUFFLE_KEY)
+                ; { shuffleJoin(event.player) }.runNow(plugin)
             }
         }
     }
