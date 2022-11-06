@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
 import io.github.inggameteam.world.FaweImpl
+import io.github.inggameteam.world.WorldChunkLoader
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -49,6 +50,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                     gameRegister.sectorHeight.toDouble(),
                     gameRegister.sectorWidth.toDouble()),
                 File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+            WorldChunkLoader.loadChunk(Bukkit.getWorld(it)!!, gameRegister.sectorWidth * 4)
             logger.info("Generated $it world ")
         } }
         gameSupplierRegister
