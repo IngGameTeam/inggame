@@ -1,6 +1,7 @@
 package io.github.inggameteam.item.game
 
 import io.github.inggameteam.alert.Lang.lang
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.item.api.Interact
 import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.minigame.GamePlugin
@@ -8,7 +9,7 @@ import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.event.EventHandler
 
-class ShuffleGame(override val plugin: GamePlugin) : Item, Interact {
+class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListener(plugin) {
     override val name: String = "shuffle-game"
     override fun use(name: String, player: GPlayer) {
         player[SHUFFLE_KEY] = true
