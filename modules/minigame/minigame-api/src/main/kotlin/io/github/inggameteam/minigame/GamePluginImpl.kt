@@ -50,7 +50,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                     gameRegister.sectorHeight.toDouble(),
                     gameRegister.sectorWidth.toDouble()),
                 File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
-            WorldChunkLoader.loadChunk(Bukkit.getWorld(it)!!, gameRegister.sectorWidth * 4)
+            WorldChunkLoader.loadChunk(Bukkit.getWorld(it)!!, gameRegister.sectorWidth * config.getInt("chunk-load-line"))
             logger.info("Generated $it world ")
         } }
         gameSupplierRegister
