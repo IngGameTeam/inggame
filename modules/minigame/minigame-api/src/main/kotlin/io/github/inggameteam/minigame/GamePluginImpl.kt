@@ -42,17 +42,19 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override val gameRegister by lazy { GameRegister(this, hubName, worldName, width, height) }
     override fun onEnable() {
         super.onEnable()
-        worldName.forEach { WorldGenerator.generateWorld(it) {
-            logger.info("Generating $it world...")
-            FaweImpl(this).paste(
-                Location(Bukkit.getWorld(it),
-                    gameRegister.sectorWidth.toDouble(),
-                    gameRegister.sectorHeight.toDouble(),
-                    gameRegister.sectorWidth.toDouble()),
-                File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+        worldName.forEach {
+            WorldGenerator.generateWorld(it) {
+                logger.info("Generating $it world...")
+                FaweImpl(this).paste(
+                    Location(Bukkit.getWorld(it),
+                        gameRegister.sectorWidth.toDouble(),
+                        gameRegister.sectorHeight.toDouble(),
+                        gameRegister.sectorWidth.toDouble()),
+                    File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
+                logger.info("Generated $it world ")
+            }
             WorldChunkLoader.loadChunk(Bukkit.getWorld(it)!!, gameRegister.sectorWidth * config.getInt("chunk-load-line"))
-            logger.info("Generated $it world ")
-        } }
+        }
         gameSupplierRegister
         gameRegister
         Bukkit.getScheduler().runTask(this, Runnable {
