@@ -7,7 +7,7 @@ import java.util.logging.Logger
 
 class MongoDBCPImpl(override val plugin: PlayerPlugin) : MongoDBCP, PluginHolder<PlayerPlugin> {
     init {
-        Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING)
+        Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE)
         System.setProperty("org.litote.mongo.test.mapping.service", "org.litote.kmongo.jackson.JacksonClassMappingTypeService")
     }
     override val client = createClient()
