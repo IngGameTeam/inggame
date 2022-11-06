@@ -114,6 +114,7 @@ class Plugin : GamePluginImpl(
         DoubleJump(this)
         Bazooka(this)
         BigBoom(this)
+        ShuffleGame(this)
 
     }
 
