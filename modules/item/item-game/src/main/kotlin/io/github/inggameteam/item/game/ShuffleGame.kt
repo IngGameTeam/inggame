@@ -7,6 +7,7 @@ import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.scheduler.delay
 import org.bukkit.event.EventHandler
 
 class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListener(plugin) {
@@ -23,7 +24,7 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
             event.player.remove(SHUFFLE_KEY)
         } else {
             if (event.player[SHUFFLE_KEY] !== null) {
-                shuffleJoin(event.player)
+                { shuffleJoin(event.player) }.delay(plugin, 1)
             }
         }
     }
