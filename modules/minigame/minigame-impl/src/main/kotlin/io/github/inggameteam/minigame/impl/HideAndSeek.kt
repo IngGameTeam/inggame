@@ -17,7 +17,6 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
     NoItemDrop, NoItemPickup, BarGame, SpawnTeamPlayer, ScaleRedTeam
 {
     override val name get() = "hide-and-seek"
-    override val startPlayersAmount get() = 3
     override val bar = GBar(plugin)
     private var timeSize = comp.doubleOrNull("time-size")?:450.0
     var time = timeSize

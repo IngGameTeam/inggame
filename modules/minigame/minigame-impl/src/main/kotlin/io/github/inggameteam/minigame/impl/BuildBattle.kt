@@ -43,7 +43,6 @@ import kotlin.concurrent.thread
 
 class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     BarGame, InteractingBan, SpawnPlayer, Respawn, SimpleGame {
-    override val startPlayersAmount get() = 3
     override val name get() = "build-battle"
     override val bar by lazy { GBar(plugin) }
     override val recommendedSpawnDelay get() = -1L

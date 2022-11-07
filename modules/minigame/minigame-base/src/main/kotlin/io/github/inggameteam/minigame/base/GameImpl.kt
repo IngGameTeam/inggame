@@ -26,7 +26,7 @@ abstract class GameImpl(
     override val playerData = HashMap<GPlayer, HashMap<String, Any>>()
     override val joined = GPlayerList()
 
-    override val startPlayersAmount get() = comp.intOrNull("start-players-amount")?: recommendedStartPlayersAmount
+    override val startPlayersAmount get() = comp.intOrNull("$name-start-players-amount")?: recommendedStartPlayersAmount
     open val recommendedStartPlayersAmount get() = 1
     override val playerLimitAmount get() = comp.intOrNull("player-limit-amount")?: -1
     override val startWaitingSecond = 4

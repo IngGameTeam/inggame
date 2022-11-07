@@ -7,7 +7,6 @@ import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.minigame.Game
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
-import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.scheduler.runNow
@@ -39,7 +38,9 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
     }
 
     private fun randomGame(player: GPlayer): String {
+        val playerSize = plugin.partyRegister.getJoined(player)?.joined?.size ?: 1
         val games = itemComp.stringList("$name-games", player.lang(plugin))
+            .filter { playerSize >= (itemComp.intOrNull("$it-start-players-amount")?: 1) }
         return games.random()
     }
 
