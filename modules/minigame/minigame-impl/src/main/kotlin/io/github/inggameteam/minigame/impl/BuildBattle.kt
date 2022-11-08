@@ -34,6 +34,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.entity.EntitySpawnEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.Inventory
@@ -65,6 +66,15 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     val exampleTopic = ArrayList<String>()
     lateinit var current: UUID
     lateinit var decidedTopic: String
+
+    @Suppress("unused")
+    @EventHandler
+    fun onEntitySpawn(event: EntitySpawnEvent) {
+        if (isInSector(event.location)) {
+            event.isCancelled = true
+        }
+    }
+
 
     @Suppress("unused")
     @EventHandler
