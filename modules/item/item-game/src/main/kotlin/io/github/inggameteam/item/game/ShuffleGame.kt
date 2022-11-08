@@ -33,14 +33,18 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
     }
 
     private fun shuffleJoin(player: GPlayer) {
-        plugin.gameRegister.join(player, randomGame(player), forceCreateGame = true)
+        plugin.gameRegister.join(player, randomGame(player)?: return, forceCreateGame = true)
         player[SHUFFLE_KEY] = plugin.gameRegister.getJoinedGame(player)
     }
 
-    private fun randomGame(player: GPlayer): String {
+    private fun randomGame(player: GPlayer): String? {
         val playerSize = plugin.partyRegister.getJoined(player)?.joined?.size ?: 1
         val games = itemComp.stringList("$name-games", player.lang(plugin))
             .filter { playerSize >= (itemComp.intOrNull("$it-start-players-amount")?: 1) }
+        if (games.isEmpty()) {
+            itemComp.send("SHUFFLE_NEED_PLAYER", player, 2)
+            return null
+        }
         return games.random()
     }
 
