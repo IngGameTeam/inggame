@@ -12,6 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.vehicle.VehicleEntityCollisionEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 
 abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer, Respawn {
@@ -73,6 +74,16 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
             event.isCancelled = true
         }
     }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onRiderDamage(event: VehicleEntityCollisionEvent) {
+        if (event.entity.scoreboardTags.contains(RIDER_TAG)) {
+            event.isCancelled = true
+            event.isCollisionCancelled = true
+        }
+    }
+
 
     companion object {
         const val RIDER_TAG = "Rider"
