@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
@@ -24,7 +25,7 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
     fun spawnRider(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
-        if (gameState === GameState.PLAY) {
+        if (gameState === GameState.PLAY && player.hasTag(PTag.PLAY)) {
             removeRider(player)
             player.world.spawn(player.location.add(0.0, 0.4, 0.0), getRider()) { entity ->
                 entity.addPassenger(player.bukkit)
