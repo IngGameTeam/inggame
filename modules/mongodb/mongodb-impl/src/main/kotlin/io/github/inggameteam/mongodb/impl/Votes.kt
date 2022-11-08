@@ -23,7 +23,7 @@ class Votes(val plugin: IngGamePlugin, val mongo: MongoDBCP) {
 
     fun getVote(uniqueId: UUID): Int {
         val col = client.getDatabase("user").getCollection("votes")
-        val vote = col.find(Document("uuid", uniqueId)).firstOrNull()
+        val vote = col.find(Document("uuid", uniqueId.fastToString())).firstOrNull()
         if (vote === null) {
             return -1
         } else {

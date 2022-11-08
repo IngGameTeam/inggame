@@ -25,10 +25,12 @@ class RewardVote(val plugin: AlertPlugin, val user: UserContainer, val votes: Vo
     @Suppress("unused")
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
-        val vote = votes.getVote(event.player.uniqueId)
-        if (vote != -1) {
-            rewardOnline(event.player, vote)
-        }
+        ;{
+            val vote = votes.getVote(event.player.uniqueId)
+            if (vote != -1) {
+                rewardOnline(event.player, vote)
+            }
+        }.async(plugin)
     }
 
     @Suppress("unused")
