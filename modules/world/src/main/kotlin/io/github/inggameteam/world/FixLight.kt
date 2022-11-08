@@ -1,11 +1,15 @@
 package io.github.inggameteam.world
 
 import net.openhft.compiler.CompilerUtils
+import org.bukkit.Bukkit
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
 import org.bukkit.entity.Player
 import java.lang.reflect.Method
 
 class FixLight {
     fun fixLight() {
+        println(Bukkit.getVersion())
+        println(Bukkit.getBukkitVersion())
         val craftPlayerClass = Class.forName("org.bukkit.craftbukkit.entity.CraftPlayer")
         println(craftPlayerClass.simpleName)
     }
