@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame.base
 
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.vehicle.VehicleEntityCollisionEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 
 abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer, Respawn {
@@ -24,7 +26,7 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
     fun spawnRider(event: GPlayerSpawnEvent) {
         val player = event.player
         if (!isJoined(player)) return
-        if (gameState === GameState.PLAY) {
+        if (gameState === GameState.PLAY && player.hasTag(PTag.PLAY)) {
             removeRider(player)
             player.world.spawn(player.location.add(0.0, 0.4, 0.0), getRider()) { entity ->
                 entity.addPassenger(player.bukkit)
@@ -72,6 +74,16 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
             event.isCancelled = true
         }
     }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onRiderDamage(event: VehicleEntityCollisionEvent) {
+        if (event.entity.scoreboardTags.contains(RIDER_TAG)) {
+            event.isCancelled = true
+            event.isCollisionCancelled = true
+        }
+    }
+
 
     companion object {
         const val RIDER_TAG = "Rider"

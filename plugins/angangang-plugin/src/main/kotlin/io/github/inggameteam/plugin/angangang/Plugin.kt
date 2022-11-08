@@ -9,10 +9,7 @@ import io.github.inggameteam.minigame.impl.*
 import io.github.inggameteam.minigame.ui.MinigameCommand
 import io.github.inggameteam.minigame.ui.ModeratePointAmountCommand
 import io.github.inggameteam.mongodb.api.MongoDBCPImpl
-import io.github.inggameteam.mongodb.impl.ChallengeContainer
-import io.github.inggameteam.mongodb.impl.GameStats
-import io.github.inggameteam.mongodb.impl.PurchaseContainer
-import io.github.inggameteam.mongodb.impl.UserContainer
+import io.github.inggameteam.mongodb.impl.*
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
 import io.github.inggameteam.swear.handle.ChatSwearFilter
@@ -59,6 +56,7 @@ class Plugin : GamePluginImpl(
         val purchase = PurchaseContainer(this, mongoDBCP)
         val challenge = ChallengeContainer(this, mongoDBCP)
         val gameStats = GameStats(this, mongoDBCP)
+        val votes = Votes(this, mongoDBCP)
 
         listOf(
             ::ADrawIsntBadEither,
@@ -104,6 +102,7 @@ class Plugin : GamePluginImpl(
         ArrowStuckPreventHandler(this)
         DisableCollision(this)
         AutoUpdater(this)
+        RewardVote(this, user, votes)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)
@@ -114,6 +113,7 @@ class Plugin : GamePluginImpl(
         DoubleJump(this)
         Bazooka(this)
         BigBoom(this)
+        ShuffleGame(this)
 
     }
 

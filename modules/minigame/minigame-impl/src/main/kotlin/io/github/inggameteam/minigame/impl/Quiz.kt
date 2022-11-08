@@ -13,7 +13,7 @@ import org.bukkit.Bukkit
 class Quiz(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPlayer, BarGame, NoDamage {
     override val name get() = "quiz"
     override val bar = GBar(plugin)
-    var timeSize = 100.0
+    var timeSize = 13 * 20.0
     var time = timeSize
     var result = false
     var quizMsg = ""

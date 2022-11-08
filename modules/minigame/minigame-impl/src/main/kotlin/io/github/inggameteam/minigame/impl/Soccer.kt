@@ -68,6 +68,7 @@ class Soccer(plugin: GamePlugin) : TeamCompetitionImpl(plugin),
                     addScore(PTag.RED)
                 }
                 it.remove()
+                joined.hasTags(PTag.PLAY).forEach(::spawn)
             }
         })
     }

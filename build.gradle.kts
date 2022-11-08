@@ -65,6 +65,7 @@ allprojects {
         testApi("org.json:json:20220924")
         api("io.papermc:paperlib:1.0.7")
         api("net.openhft:compiler:2.4.1")
+        compileOnly("com.github.NuVotifier:NuVotifier:2.7.2")
     }
 
 }
