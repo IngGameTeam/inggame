@@ -11,7 +11,7 @@ object WorldChunkLoader {
         measureTimeMillis {
             for (x in 0..chunkWidth) {
                 for (z in 0..chunkWidth) {
-                    val chunk = world.getChunkAt(x, z)
+                    val chunk = world.getChunkAt(x*16, z*16)
                     if (chunk.isLoaded) continue
                     chunk.isForceLoaded = true
                     chunk.load(true)
