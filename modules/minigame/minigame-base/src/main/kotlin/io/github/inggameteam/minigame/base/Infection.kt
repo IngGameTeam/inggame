@@ -16,7 +16,6 @@ import io.github.inggameteam.scheduler.runNow
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
-import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 interface Infection : ScaleRedTeam, SpawnPlayer {
     @Suppress("unused")
@@ -92,9 +91,5 @@ abstract class InfectionImpl(plugin: GamePlugin) : TeamCompetitionImpl(plugin), 
             }
         }
     }
-
-
-    override fun damage(event: EntityDamageByEntityEvent) = Unit
-
 
 }
