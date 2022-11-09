@@ -43,7 +43,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     override fun onEnable() {
         super.onEnable()
         worldName.forEach {
-            val isLoaded = Bukkit.getWorld(it) !== null
             WorldGenerator.generateWorld(it) {
                 logger.info("Generating $it world...")
                 FaweImpl(this).paste(
@@ -54,8 +53,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                     File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
                 logger.info("Generated $it world ")
             }
-            if (!isLoaded) WorldChunkLoader.loadChunk(Bukkit.getWorld(it)!!, gameRegister.sectorWidth * config.getInt("chunk-load-line"))
-
         }
         gameSupplierRegister
         gameRegister
