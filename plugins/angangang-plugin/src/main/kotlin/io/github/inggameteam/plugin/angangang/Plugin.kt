@@ -82,7 +82,7 @@ class Plugin : GamePluginImpl(
 //            ::FirstJoinTutorial,
             ::MadMonsterOfGame,
             ).forEach { it(this, challenge) }
-//        NoSaveChunk(this)
+        NoSaveChunk(this)
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
         LogGameStats(this, gameStats)
