@@ -4,7 +4,7 @@ import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
-import java.util.UUID
+import java.util.*
 
 class Votes(val plugin: IngGamePlugin, val mongo: MongoDBCP) {
 

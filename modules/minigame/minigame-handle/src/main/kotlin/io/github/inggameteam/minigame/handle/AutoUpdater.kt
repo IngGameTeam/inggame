@@ -1,7 +1,5 @@
 package io.github.inggameteam.minigame.handle
 
-import com.rylinaux.plugman.PlugMan
-import com.rylinaux.plugman.api.PlugManAPI
 import com.rylinaux.plugman.util.PluginUtil
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
