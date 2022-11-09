@@ -6,6 +6,6 @@ interface GamePlugin : PartyPlugin {
 
     val gameRegister: GameRegister
     val gameSupplierRegister: GameSupplierRegister
-
+    var unloadWorldsOnDisable: Boolean
 
 }

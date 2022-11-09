@@ -16,7 +16,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     var width: Int = 0
     var height: Int = 0
     lateinit var init: Array<(GamePlugin) -> Game>
-
+    override var unloadWorldsOnDisable: Boolean = true
     constructor()
     constructor(hubName: String,
                 width: Int, height: Int,
@@ -65,12 +65,16 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
 
     override fun onDisable() {
         super.onDisable()
-        worldName.forEach {
-            worldName
-                .forEach { Bukkit.getWorld(it)
-                    ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) } }
-            Bukkit.unloadWorld(it, false)
-            File(Bukkit.getWorldContainer(), it).deleteOnExit()
+        if (unloadWorldsOnDisable) {
+            worldName.forEach {
+                worldName
+                    .forEach {
+                        Bukkit.getWorld(it)
+                            ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) }
+                    }
+                Bukkit.unloadWorld(it, false)
+                File(Bukkit.getWorldContainer(), it).deleteOnExit()
+            }
         }
     }
 

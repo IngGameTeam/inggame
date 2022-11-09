@@ -97,15 +97,30 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
                     false
                 } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
                     download(plugin)
+                    PluginUtil.reload(plugin)
                     false
                 } else true
             }.repeat(plugin, 1, 1)
         }
         thenExecute("update") {
             download(plugin)
+            PluginUtil.reload(plugin)
         }
         thenExecute("fixlight") {
             FixLight().fixLight()
+        }
+        thenExecute("soft-update") {
+            download(plugin)
+            plugin.addDisableEvent {
+                plugin.unloadWorldsOnDisable = false
+            }
+            PluginUtil.reload(plugin)
+        }
+        thenExecute("soft-reload") {
+            plugin.addDisableEvent {
+                plugin.unloadWorldsOnDisable = false
+            }
+            PluginUtil.reload(plugin)
         }
     }
 
