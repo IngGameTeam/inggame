@@ -33,6 +33,10 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
     }
 
     private fun shuffleJoin(player: GPlayer) {
+        if (plugin.partyRegister.getJoined(player)?.leader != player) {
+            player.remove(SHUFFLE_KEY)
+            return
+        }
         plugin.gameRegister.join(player, randomGame(player)?: return, forceCreateGame = true)
         player[SHUFFLE_KEY] = plugin.gameRegister.getJoinedGame(player)
     }
