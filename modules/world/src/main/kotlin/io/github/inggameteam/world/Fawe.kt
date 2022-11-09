@@ -50,9 +50,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                         {
                             val world = location.world!!
                             PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, false).get().apply {
-                                if (this.isLoaded) {
                                     unload(false)
-                                }
                             }
                         }
                 }.apply { println("measureChunkUnloadTimeMillis: $this") }
