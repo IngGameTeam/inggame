@@ -6,7 +6,6 @@ import io.github.inggameteam.command.player
 import io.github.inggameteam.downloader.download
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.LeftType
-import io.github.inggameteam.scheduler.repeat
 import io.github.inggameteam.utils.ColorUtil.color
 import io.github.inggameteam.world.FixLight
 import org.bukkit.command.CommandExecutor
@@ -71,37 +70,6 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
             PluginUtil.reload(plugin)
             val after = System.currentTimeMillis()
             source.sendMessage("Reload Done in ${after - before}ms")
-        }
-        thenExecute("promise-reload") {
-            source.sendMessage("Reload promised... while a minutes")
-            val before = System.currentTimeMillis()
-            ;
-            {
-                val after = System.currentTimeMillis()
-                if (after - before > 1000 * 60) {
-                    source.sendMessage("Reload-promise timeout!")
-                    false
-                } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
-                    PluginUtil.reload(plugin)
-                    false
-                } else true
-            }.repeat(plugin, 1, 1)
-        }
-        thenExecute("promise-update") {
-            source.sendMessage("Update promised... while a minutes")
-            val before = System.currentTimeMillis()
-            ;
-            {
-                val after = System.currentTimeMillis()
-                if (after - before > 1000 * 60) {
-                    source.sendMessage("Update-promise timeout!")
-                    false
-                } else if (!plugin.playerRegister.any { plugin.gameRegister.getJoinedGame(it.value).name != plugin.gameRegister.hubName }) {
-                    download(plugin)
-                    PluginUtil.reload(plugin)
-                    false
-                } else true
-            }.repeat(plugin, 1, 1)
         }
         thenExecute("update") {
             download(plugin)
