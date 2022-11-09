@@ -72,7 +72,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                             ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) }
                     }
                 Bukkit.unloadWorld(it, false)
-                File(Bukkit.getWorldContainer(), it).deleteOnExit()
             }
         }
     }
