@@ -38,9 +38,6 @@ class AutoUpdater(override val plugin: GamePlugin) : HandleListener(plugin), Plu
             autoUpdatingTask = {
                 if (isEmptyOnline()) {
                     download(plugin)
-                    plugin.addDisableEvent {
-                        plugin.unloadWorldsOnDisable = false
-                    }
                     PluginUtil.reload(plugin)
                 }
             }.delay(plugin, 20 * 10L)

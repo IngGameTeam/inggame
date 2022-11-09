@@ -66,14 +66,12 @@ class MinigameCommand(plugin: GamePlugin) : CommandExecutor by MCCommand(plugin 
         thenExecute("reload") {
             source.sendMessage("Reloading...")
             val before = System.currentTimeMillis()
-            plugin.addDisableEvent { plugin.unloadWorldsOnDisable = false }
             PluginUtil.reload(plugin)
             val after = System.currentTimeMillis()
             source.sendMessage("Reload Done in ${after - before}ms")
         }
         thenExecute("update") {
             download(plugin)
-            plugin.addDisableEvent { plugin.unloadWorldsOnDisable = false }
             PluginUtil.reload(plugin)
         }
         thenExecute("fixlight") {
