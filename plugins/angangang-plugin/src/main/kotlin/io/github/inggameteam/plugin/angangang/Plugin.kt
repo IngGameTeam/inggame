@@ -79,7 +79,7 @@ class Plugin : GamePluginImpl(
             ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
-            ::FirstJoinTutorial,
+//            ::FirstJoinTutorial,
             ::MadMonsterOfGame,
             ).forEach { it(this, challenge) }
         NoSaveChunk(this)
