@@ -1,8 +1,12 @@
 package io.github.inggameteam.minigame.handle
 
+import com.rylinaux.plugman.PlugMan
+import com.rylinaux.plugman.api.PlugManAPI
+import com.rylinaux.plugman.util.PluginUtil
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.downloader.download
+import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.scheduler.ITask
 import io.github.inggameteam.scheduler.delay
 import org.bukkit.Bukkit
@@ -12,7 +16,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.plugin.Plugin
 
-class AutoUpdater(override val plugin: Plugin) : HandleListener(plugin), PluginHolder<Plugin> {
+class AutoUpdater(override val plugin: GamePlugin) : HandleListener(plugin), PluginHolder<Plugin> {
 
     private var autoUpdating = false
     private var autoUpdatingTask: ITask? = null
@@ -34,6 +38,10 @@ class AutoUpdater(override val plugin: Plugin) : HandleListener(plugin), PluginH
             autoUpdatingTask = {
                 if (isEmptyOnline()) {
                     download(plugin)
+                    plugin.addDisableEvent {
+                        plugin.unloadWorldsOnDisable = false
+                    }
+                    PluginUtil.reload(plugin)
                 }
             }.delay(plugin, 20 * 10L)
         }
