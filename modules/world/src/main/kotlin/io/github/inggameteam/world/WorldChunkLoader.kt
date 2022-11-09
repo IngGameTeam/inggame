@@ -11,15 +11,17 @@ object WorldChunkLoader {
         measureTimeMillis {
             for (x in 0..chunkWidth) {
                 for (z in 0..chunkWidth) {
-                    val chunk = world.getChunkAt(x*16, z*16)
-                    if (chunk.isLoaded) continue
-                    chunk.isForceLoaded = true
-                    chunk.load(true)
-                    chunk.isForceLoaded = true
+                    measureTimeMillis {
+                        val chunk = world.getChunkAt(x * 16, z * 16)
+                        if (chunk.isLoaded) return
+                        chunk.isForceLoaded = true
+                        chunk.load(true)
+                        chunk.isForceLoaded = true
+                    }.apply { println("measureChunkLoad($x, $z): ${this}ms") }
                 }
             }
         }.apply {
-            println("measureChunkLoad: $this")
+            println("measureChunkLoad(World): $this")
         }
 
     }
