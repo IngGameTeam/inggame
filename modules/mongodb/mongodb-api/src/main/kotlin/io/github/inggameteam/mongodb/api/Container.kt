@@ -2,7 +2,6 @@ package io.github.inggameteam.mongodb.api
 
 import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.api.PluginHolder
-import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.scheduler.repeat
 import io.github.inggameteam.utils.fastToString
 import org.bukkit.Bukkit
@@ -23,9 +22,9 @@ abstract class Container<DATA : UUIDUser>(
 ) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
 
     init {
-        {
+        Bukkit.getScheduler().runTaskLater(plugin, { _ ->
             Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
-        }.delay(plugin, 1L)
+        }, 1L)
 
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
