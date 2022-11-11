@@ -39,6 +39,10 @@ abstract class Container<DATA : UUIDUser>(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
+        if (!plugin.allowTask || !plugin.isEnabled) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "please reconnect...")
+            return
+        }
         if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
         synchronized(pool) {
