@@ -22,9 +22,7 @@ abstract class Container<DATA : UUIDUser>(
 ) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
 
     init {
-        Bukkit.getScheduler().runTaskLater(plugin, { _ ->
-            Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
-        }, 1L)
+        Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
 
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
@@ -52,7 +50,12 @@ abstract class Container<DATA : UUIDUser>(
             if (pool.any { it.uuid == uniqueId })
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
             else {
-                pool.add(pool(uniqueId))
+                try {
+                    pool.add(pool(uniqueId))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+
+                }
             }
         }
     }
