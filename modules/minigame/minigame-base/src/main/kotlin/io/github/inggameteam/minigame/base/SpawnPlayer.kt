@@ -46,7 +46,7 @@ interface SpawnPlayer : Game, Sectional {
     fun inventorySpawn(player: GPlayer, spawn: String = this.gameState.toString()): Inventory? {
         if (!player.hasTag(PTag.PLAY)) {
             player.inventory.clear()
-            player.itemOnCursor.apply { type = Material.AIR }
+            player.setItemOnCursor(null)
             return null
         }
         return comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
