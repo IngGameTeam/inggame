@@ -7,6 +7,7 @@ import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.GameMode
+import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.inventory.Inventory
 import org.bukkit.potion.PotionEffect
@@ -45,7 +46,7 @@ interface SpawnPlayer : Game, Sectional {
     fun inventorySpawn(player: GPlayer, spawn: String = this.gameState.toString()): Inventory? {
         if (!player.hasTag(PTag.PLAY)) {
             player.inventory.clear()
-            player.inventory.remove(player.itemOnCursor)
+            player.itemOnCursor.apply { type = Material.AIR }
             return null
         }
         return comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
