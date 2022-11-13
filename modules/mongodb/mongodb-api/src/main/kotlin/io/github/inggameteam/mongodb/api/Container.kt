@@ -21,21 +21,6 @@ abstract class Container<DATA : UUIDUser>(
     final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
 ) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
 
-    init {
-        Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
-
-        ;{
-            val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
-            synchronized(pool) {
-                pool.forEach { user ->
-                    if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
-                        commitAndRemoveAsync(user.uuid)
-                    }
-                }
-            }
-            true
-        }.repeat(plugin, 50L, 50L)
-    }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
