@@ -22,13 +22,14 @@ class CompleteDefeat(override val plugin: GamePlugin,
         val game = event.game
         if (game is Soccer) {
             if (game.blueScore == 0 && game.redScore == Soccer.GOAL_SCORE) {
-                game.joined.hasTags(PTag.RED).forEach {
-                    add(it)
-                }
-            } else if (game.redScore == 0 && game.blueScore == Soccer.GOAL_SCORE) {
                 game.joined.hasTags(PTag.BLUE).forEach {
                     add(it)
                 }
+            } else if (game.redScore == 0 && game.blueScore == Soccer.GOAL_SCORE) {
+                game.joined.hasTags(PTag.RED).forEach {
+                    add(it)
+                }
+
             }
         }
     }
