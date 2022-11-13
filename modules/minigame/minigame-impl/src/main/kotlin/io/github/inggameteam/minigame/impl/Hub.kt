@@ -6,12 +6,15 @@ import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.base.Hub
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.player.GPlayer
+import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.inventory.Inventory
 
 class Hub(plugin: GamePlugin) : Hub(plugin), SpawnPlayer, SpawnOnJoin, VoidDeath, SpawnHealth,
     ParticleOnSpawn, ClearPotionOnJoin, PreventFallDamage, NoBlockBreak, NoBlockPlace, NoItemDrop,
-    PersonalTimeOnSpawn {
+    PersonalTimeOnSpawn, InteractingBan {
+
+    override val noInteracts = listOf(Material.CHEST, Material.ENDER_CHEST)
 
     @EventHandler
     override fun onJoinParticle(event: GPlayerSpawnEvent) {
