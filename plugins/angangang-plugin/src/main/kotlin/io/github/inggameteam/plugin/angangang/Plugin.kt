@@ -121,6 +121,7 @@ class Plugin : GamePluginImpl(
         Bazooka(this)
         BigBoom(this)
         ShuffleGame(this)
+        FlakJacket(this)
 
     }
 
