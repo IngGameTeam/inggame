@@ -43,7 +43,6 @@ abstract class Container<USER : UUIDUser>(val plugin: IngGamePlugin,
         }.repeat(plugin, 50L, 50L)
     }
 
-    private val pool = ArrayList<USER>()
 
 //    private var threadPool = Executors.newCachedThreadPool()
 //
