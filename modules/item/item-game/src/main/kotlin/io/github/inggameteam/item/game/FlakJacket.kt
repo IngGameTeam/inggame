@@ -23,7 +23,9 @@ class FlakJacket(override val plugin: AlertPlugin) : Item, HandleListener(plugin
             && damager is Projectile && damager.scoreboardTags.contains(HandyGun.GUN_TAG)) {
             val player = plugin[event.entity as Player]
             val inventory = player.inventory
-            ItemSlot.CHEST_PLATE.slot.any {nameOrNull(player, inventory.getItem(it)) !== null}
+            if (ItemSlot.CHEST_PLATE.slot.any {nameOrNull(player, inventory.getItem(it)) !== null}) {
+                event.damage = 0.0
+            }
         }
     }
 
