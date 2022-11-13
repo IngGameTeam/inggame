@@ -26,11 +26,9 @@ abstract class Container<DATA : UUIDUser>(
 
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
-            synchronized(pool) {
-                pool.forEach { user ->
-                    if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
-                        commitAndRemoveAsync(user.uuid)
-                    }
+            pool.forEach { user ->
+                if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
+                    commitAndRemoveAsync(user.uuid)
                 }
             }
             true
@@ -46,19 +44,17 @@ abstract class Container<DATA : UUIDUser>(
         }
         if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
-        synchronized(pool) {
-            if (pool.any { it.uuid == uniqueId })
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
-            else {
-                println("pool started")
-                try {
-                    pool.add(pool(uniqueId))
-                } catch (e: Exception) {
-                    e.printStackTrace()
+        if (pool.any { it.uuid == uniqueId })
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+        else {
+            println("pool started")
+            try {
+                pool.add(pool(uniqueId))
+            } catch (e: Exception) {
+                e.printStackTrace()
 
-                }
-                println("pool ended")
             }
+            println("pool ended")
         }
     }
 
@@ -71,14 +67,12 @@ abstract class Container<DATA : UUIDUser>(
     }
 
     private fun commitAndRemove(uuid: UUID) {
-        synchronized(pool) {
-            pool.firstOrNull { uuid == it.uuid }?.apply {
-                isExited = true
-                try {
-                    commit(this)
-                } catch(e: Exception) { e.printStackTrace() }
-                pool.remove(this)
-            }
+        pool.firstOrNull { uuid == it.uuid }?.apply {
+            isExited = true
+            try {
+                commit(this)
+            } catch(e: Exception) { e.printStackTrace() }
+            pool.remove(this)
         }
     }
 
