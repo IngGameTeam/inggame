@@ -10,14 +10,16 @@ abstract class PoolImpl<DATA>(
     private val mongo: MongoDBCP,
     private val database: String,
     private val collection: String,
-) : Pool<DATA>, HandleListener(plugin) {
+    ) : Pool<DATA>, HandleListener(plugin) {
 
     val pool = ArrayList<DATA>()
     open val col: MongoCollection<Document> get() = mongo.client.getDatabase(database).getCollection(collection)
 
     init {
-        plugin.addDisableEvent {
-            pool.forEach(::commit)
+        synchronized(pool) {
+            plugin.addDisableEvent {
+                pool.forEach(::commit)
+            }
         }
     }
 }
