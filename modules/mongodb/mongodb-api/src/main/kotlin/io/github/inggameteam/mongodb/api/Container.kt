@@ -1,7 +1,7 @@
 package io.github.inggameteam.mongodb.api
 
+import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.IngGamePlugin
-import io.github.inggameteam.api.PluginHolder
 import io.github.inggameteam.scheduler.repeat
 import io.github.inggameteam.utils.fastToString
 import org.bukkit.Bukkit
@@ -13,15 +13,22 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
+import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.test.assertNotNull
 
+abstract class Container<USER : UUIDUser>(val plugin: IngGamePlugin,
+                                          mongo: MongoDBCP,
+                                          database: String,
+                                          collection: String
+)
+    : PoolImpl<USER>(plugin, mongo, database, collection), Listener {
 
-abstract class Container<DATA : UUIDUser>(
-    final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
-) : PluginHolder<IngGamePlugin>, Listener, PoolImpl<DATA>(plugin, mongo, database, collection) {
-
+    init { Bukkit.getPluginManager().registerEvents(this, plugin) }
     init {
         Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
+        plugin.addDisableEvent {
+            pool.forEach(::commit)
+        }
 
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
@@ -36,6 +43,12 @@ abstract class Container<DATA : UUIDUser>(
         }.repeat(plugin, 50L, 50L)
     }
 
+    private val pool = CopyOnWriteArrayList<USER>()
+
+//    private var threadPool = Executors.newCachedThreadPool()
+//
+//    fun submit(block: () -> USER) = threadPool.submit(block)
+
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
@@ -45,19 +58,10 @@ abstract class Container<DATA : UUIDUser>(
         }
         if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
-        synchronized(pool) {
-            if (pool.any { it.uuid == uniqueId })
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
-            else {
-                println("pool started")
-                try {
-                    pool.add(pool(uniqueId))
-                } catch (e: Exception) {
-                    e.printStackTrace()
-
-                }
-                println("pool ended")
-            }
+        if (pool.any { it.uuid == uniqueId })
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+        else {
+            pool.add(pool(uniqueId))
         }
     }
 
@@ -89,7 +93,7 @@ abstract class Container<DATA : UUIDUser>(
     @EventHandler(ignoreCancelled = true)
     fun onKickedUpsert(event: PlayerKickEvent) = commitAndRemoveAsync(event.player.uniqueId)
 
-    operator fun get(key: UUID): DATA {
+    operator fun get(key: UUID): USER {
         try {
             return pool.firstOrNull { key == it.uuid }
                 ?.apply { assertNotNull(this, "${javaClass.simpleName} does not contain ${key.fastToString()}") }!!
@@ -100,5 +104,6 @@ abstract class Container<DATA : UUIDUser>(
         }
     }
     operator fun get(key: Player) = get(key.uniqueId)
+
 
 }
