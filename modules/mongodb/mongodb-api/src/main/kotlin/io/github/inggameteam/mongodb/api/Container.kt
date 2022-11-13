@@ -49,14 +49,12 @@ abstract class Container<DATA : UUIDUser>(
             if (pool.any { it.uuid == uniqueId })
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
             else {
-                println("pool started")
                 try {
                     pool.add(pool(uniqueId))
                 } catch (e: Exception) {
                     e.printStackTrace()
 
                 }
-                println("pool ended")
             }
         }
     }
