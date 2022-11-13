@@ -83,6 +83,7 @@ class Plugin : GamePluginImpl(
 //            ::FirstJoinTutorial,
             ::MadMonsterOfGame,
             ::ThePassingNecklaceInHisHand,
+            ::CompleteDefeat,
             ).forEach { it(this, challenge) }
 
         ChatLogger(this, chat)
