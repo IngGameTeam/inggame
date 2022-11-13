@@ -57,6 +57,7 @@ class Plugin : GamePluginImpl(
         val challenge = ChallengeContainer(this, mongoDBCP)
         val gameStats = GameStats(this, mongoDBCP)
         val votes = Votes(this, mongoDBCP)
+        val chat = Chat(this, mongoDBCP)
 
         listOf(
             ::ADrawIsntBadEither,
@@ -79,9 +80,15 @@ class Plugin : GamePluginImpl(
             ::WaBadGames,
             ::YouAreKiller,
             ::YouKilledIt,
-            ::FirstJoinTutorial,
+//            ::FirstJoinTutorial,
             ::MadMonsterOfGame,
+            ::ThePassingNecklaceInHisHand,
+            ::CompleteDefeat,
+            ::Ttukbaegi,
+            ::SuppressPhysical,
             ).forEach { it(this, challenge) }
+
+        ChatLogger(this, chat)
         NoSaveChunk(this)
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
@@ -114,6 +121,7 @@ class Plugin : GamePluginImpl(
         Bazooka(this)
         BigBoom(this)
         ShuffleGame(this)
+        FlakJacket(this)
 
     }
 

@@ -70,7 +70,7 @@ class ApplyShopItem(
 
 }
 
-enum class ItemSlot(val size: Int, vararg slot: Int) {
+enum class ItemSlot(val size: Int, vararg val slot: Int) {
     NONE(-1),
     HELMET(1, 39),
     CHEST_PLATE(1, 38),

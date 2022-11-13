@@ -45,6 +45,10 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
             itemComp.send("SHUFFLE_NEED_PLAYER", player, 2)
             return null
         }
+        if (plugin.partyRegister.getJoined(player)?.leader != player) {
+            player.remove(SHUFFLE_KEY)
+            return null
+        }
         return games.random()
     }
 

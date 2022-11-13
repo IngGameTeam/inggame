@@ -4,7 +4,7 @@ import io.github.inggameteam.api.IngGamePlugin
 import io.github.inggameteam.mongodb.api.MongoDBCP
 import io.github.inggameteam.utils.fastToString
 import org.bson.Document
-import java.util.UUID
+import java.util.*
 
 class Votes(val plugin: IngGamePlugin, val mongo: MongoDBCP) {
 
@@ -17,7 +17,7 @@ class Votes(val plugin: IngGamePlugin, val mongo: MongoDBCP) {
                 Document("\$inc", Document("amount", adder))
             ).matchedCount == 0L
         ) {
-            col.insertOne(Document("uuid", uniqueId).append("amount", adder))
+            col.insertOne(Document("uuid", uniqueId.fastToString()).append("amount", adder))
         }
     }
 

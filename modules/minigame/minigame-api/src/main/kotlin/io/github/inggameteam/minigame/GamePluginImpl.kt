@@ -2,7 +2,6 @@ package io.github.inggameteam.minigame
 
 import io.github.inggameteam.party.PartyPluginImpl
 import io.github.inggameteam.world.FaweImpl
-import io.github.inggameteam.world.WorldChunkLoader
 import io.github.inggameteam.world.WorldGenerator
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -16,7 +15,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
     var width: Int = 0
     var height: Int = 0
     lateinit var init: Array<(GamePlugin) -> Game>
-
+    override var unloadWorldsOnDisable: Boolean = true
     constructor()
     constructor(hubName: String,
                 width: Int, height: Int,
@@ -53,7 +52,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                     File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
                 logger.info("Generated $it world ")
             }
-            WorldChunkLoader.loadChunk(Bukkit.getWorld(it)!!, gameRegister.sectorWidth * config.getInt("chunk-load-line"))
         }
         gameSupplierRegister
         gameRegister
@@ -65,12 +63,16 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
 
     override fun onDisable() {
         super.onDisable()
-        worldName.forEach {
-            worldName
-                .forEach { Bukkit.getWorld(it)
-                    ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) } }
-            Bukkit.unloadWorld(it, false)
-            File(Bukkit.getWorldContainer(), it).deleteOnExit()
+        if (unloadWorldsOnDisable) {
+            worldName.forEach {
+                worldName
+                    .forEach {
+                        Bukkit.getWorld(it)
+                            ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) }
+                    }
+                Bukkit.unloadWorld(it, false)
+                File(Bukkit.getWorldContainer(), it).deleteOnExit()
+            }
         }
     }
 

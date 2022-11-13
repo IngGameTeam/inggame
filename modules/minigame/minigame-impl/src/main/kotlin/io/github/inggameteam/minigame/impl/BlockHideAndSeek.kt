@@ -49,7 +49,7 @@ class BlockHideAndSeek(plugin: GamePlugin) : InfectionImpl(plugin),
                 it.removePotionEffect(PotionEffectType.BLINDNESS)
                 it.removePotionEffect(PotionEffectType.SLOW)
             }
-            bar.size = 750.0
+            bar.size = 20.0 * 60 * 3
             bar.update(alert = { comp.string("left-time-title", it.lang(plugin) )}, color = BarColor.PINK)
             addTask(bar.startTimer {
                 joined.hasTags(PTag.PLAY, PTag.RED).forEach {

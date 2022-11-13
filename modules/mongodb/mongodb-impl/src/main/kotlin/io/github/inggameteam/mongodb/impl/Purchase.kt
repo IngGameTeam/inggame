@@ -26,10 +26,13 @@ class PurchaseContainer(plugin: IngGamePlugin, mongo: MongoDBCP) :
     Container<PurchaseList>(plugin, mongo, "user", "purchase") {
 
     override fun pool(uuid: UUID): PurchaseList {
+        val before = System.currentTimeMillis()
         val uuidToString = uuid.fastToString()
         val user = col.find(Document("uuid", uuidToString)).map {
             Purchase(it["name"] as String, it["amount"] as Int, it["lastTime"] as Long)
         }.toList()
+        val after = System.currentTimeMillis()
+        println(after - before)
         return PurchaseList(uuid, ArrayList(user))
     }
 

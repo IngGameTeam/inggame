@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 import kotlin.test.assertNotNull
 
-interface UUIDUser { val uuid: UUID; var isExited: Boolean/*semaphore*/ }
 
 abstract class Container<DATA : UUIDUser>(
     final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
@@ -23,6 +22,7 @@ abstract class Container<DATA : UUIDUser>(
 
     init {
         Bukkit.getOnlinePlayers().forEach { pool.add(pool(it.uniqueId)) }
+
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
             synchronized(pool) {
@@ -39,13 +39,22 @@ abstract class Container<DATA : UUIDUser>(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(event: AsyncPlayerPreLoginEvent) {
+        if (!plugin.allowTask || !plugin.isEnabled) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "please reconnect...")
+            return
+        }
         if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
         synchronized(pool) {
             if (pool.any { it.uuid == uniqueId })
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
             else {
-                pool.add(pool(uniqueId))
+                try {
+                    pool.add(pool(uniqueId))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+
+                }
             }
         }
     }
