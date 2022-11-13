@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 import kotlin.test.assertNotNull
 
-interface UUIDUser { val uuid: UUID; var isExited: Boolean/*semaphore*/ }
 
 abstract class Container<DATA : UUIDUser>(
     final override val plugin: IngGamePlugin, mongo: MongoDBCP, database: String, collection: String,
