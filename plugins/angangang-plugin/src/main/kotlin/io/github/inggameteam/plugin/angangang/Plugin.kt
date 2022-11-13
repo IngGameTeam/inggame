@@ -85,6 +85,7 @@ class Plugin : GamePluginImpl(
             ::ThePassingNecklaceInHisHand,
             ::CompleteDefeat,
             ::Ttukbaegi,
+            ::SuppressPhysical,
             ).forEach { it(this, challenge) }
 
         ChatLogger(this, chat)
