@@ -57,6 +57,7 @@ class Plugin : GamePluginImpl(
         val challenge = ChallengeContainer(this, mongoDBCP)
         val gameStats = GameStats(this, mongoDBCP)
         val votes = Votes(this, mongoDBCP)
+        val chat = Chat(this, mongoDBCP)
 
         listOf(
             ::ADrawIsntBadEither,
@@ -82,6 +83,8 @@ class Plugin : GamePluginImpl(
 //            ::FirstJoinTutorial,
             ::MadMonsterOfGame,
             ).forEach { it(this, challenge) }
+
+        ChatLogger(this, chat)
         NoSaveChunk(this)
         ChatSwearFilter(this)
         SpectateOnJoinParty(this)
