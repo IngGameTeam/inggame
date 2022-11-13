@@ -14,7 +14,7 @@ class ThePassingNecklaceInHisHand(override val plugin: GamePlugin,
     override val name: String get() = "the-passing-necklace-in-his-hand"
     override val goal get() = 1
 
-    @Suppress
+    @Suppress("unused")
     @EventHandler
     fun onPlayerWinGame(event: GPlayerWinEvent) {
         if (event.game is BuildBattle) {
