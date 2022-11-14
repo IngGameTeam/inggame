@@ -66,7 +66,7 @@ allprojects {
         api("io.papermc:paperlib:1.0.7")
         api("net.openhft:compiler:2.4.1")
         compileOnly("com.github.NuVotifier:NuVotifier:2.7.2")
-        compileOnly("io.javalin:javalin:1.6.1")
+        compileOnly("io.javalin:javalin:5.1.3")
     }
 
 }
