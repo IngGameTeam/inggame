@@ -20,6 +20,9 @@ class RestServer(val plugin: GamePlugin) {
             }
                 .start(8080)
             println("RestServer Started!")
+            plugin.addDisableEvent {
+                app.stop()
+            }
 
         }
     }
