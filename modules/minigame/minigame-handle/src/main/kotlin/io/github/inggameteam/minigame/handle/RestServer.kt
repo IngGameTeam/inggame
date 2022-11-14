@@ -11,7 +11,7 @@ class RestServer(val plugin: GamePlugin) {
         thread {
             val app = Javalin.create(/*config*/)
                 .get("/game-stats") { ctx ->
-                    ctx.header(Header.ACCESS_CONTROL_ALLOW_CREDENTIALS, "https://inggameteam.github.io")
+                    ctx.header(Header.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                     ctx.json(
                     """
                 {"message": "Hello World"}
