@@ -11,6 +11,7 @@ libraries:
   - org.mongodb:mongodb-driver-sync:4.6.0
   - org.json:json:20220924
   - io.javalin:javalin:1.6.1
+  - org.eclipse.jetty.websocket:websocket-api:9.3.2.v20150730
 depend: [ PlugManX ]
 commands:
   point:
