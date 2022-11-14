@@ -123,6 +123,7 @@ class Plugin : GamePluginImpl(
         ShuffleGame(this)
         FlakJacket(this)
 
+        RestServer(this)
     }
 
     override fun onDisable() {
