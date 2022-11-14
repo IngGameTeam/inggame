@@ -8,16 +8,16 @@ class RestServer(val plugin: GamePlugin) {
 
     init {
         thread {
-            val app: Javalin = Javalin.create()
-                .port(8080)
-                .start()
-            app.get("/game-stats") { ctx ->
+            val app = Javalin.create(/*config*/)
+                .get("/game-stats") { ctx ->
                 ctx.json(
                     """
                 {"message": "Hello World"}
                 """.trimIndent()
                 )
             }
+                .start(8080)
+
         }
     }
 
