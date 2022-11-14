@@ -2,6 +2,7 @@ package io.github.inggameteam.minigame.handle
 
 import io.github.inggameteam.minigame.GamePlugin
 import io.javalin.Javalin
+import io.javalin.http.Header
 import kotlin.concurrent.thread
 
 class RestServer(val plugin: GamePlugin) {
@@ -10,7 +11,8 @@ class RestServer(val plugin: GamePlugin) {
         thread {
             val app = Javalin.create(/*config*/)
                 .get("/game-stats") { ctx ->
-                ctx.json(
+                    ctx.header(Header.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
+                    ctx.json(
                     """
                 {"message": "Hello World"}
                 """.trimIndent()
