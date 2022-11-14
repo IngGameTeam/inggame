@@ -1,1 +1,27 @@
-https://github.com/IngGameTeam/inggame/tree/main
+<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+<html>
+<h1 id="text">text</h1>
+</html>
+<script>
+
+    var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status === 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status, xhr.response);
+      }
+    };
+    xhr.send();
+};
+
+
+    getJSON("https://brucefreedy.xyz/game-stats", function(err, data) {
+        let log = document.getElementById('text');
+        log.textContent = data.message;
+    })
+</script>
