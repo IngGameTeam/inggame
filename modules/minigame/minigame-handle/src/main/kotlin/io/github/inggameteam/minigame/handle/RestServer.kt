@@ -11,7 +11,7 @@ class RestServer(val plugin: GamePlugin) {
         thread {
             val app = Javalin.create(/*config*/)
                 .get("/game-stats") { ctx ->
-                    ctx.header(Header.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true")
+                    ctx.header(Header.ACCESS_CONTROL_ALLOW_CREDENTIALS, "*")
                     ctx.json(
                     """
                 {"message": "Hello World"}
@@ -19,6 +19,7 @@ class RestServer(val plugin: GamePlugin) {
                 )
             }
                 .start(8080)
+            println("RestServer Started!")
 
         }
     }
