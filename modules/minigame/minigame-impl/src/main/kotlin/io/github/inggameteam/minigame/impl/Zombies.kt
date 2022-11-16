@@ -1,20 +1,12 @@
 package io.github.inggameteam.minigame.impl
 
 import io.github.inggameteam.minigame.GameAlert.PLAYER_DEATH_TO_VOID
-import io.github.inggameteam.minigame.GameAlert.SINGLE_WINNER
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
-import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
-import io.github.inggameteam.minigame.event.GPlayerWinEvent
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayer
-import io.github.inggameteam.player.GPlayerList
-import io.github.inggameteam.player.hasNoTags
-import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.repeat
-import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
@@ -45,8 +37,8 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     fun runRoundCheck() {
         addTask({
             val center = getLocation("start")
-            val alives = world.getNearbyEntities(center, 50.0, 50.0, 50.0) { it.scoreboardTags.contains(ZOMBIE_TAG) }
-            if (alives.isEmpty()) {
+            val lives = point.world.getNearbyEntities(center, 50.0, 50.0, 50.0) { it.scoreboardTags.contains(ZOMBIE_TAG) }
+            if (lives.isEmpty()) {
                 runZombiesRounds()
                 round++
                 comp.send("new-rounds", joined, round)
@@ -56,10 +48,8 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     }
 
     private fun spawnZombies() {
-        val location = comp.location(
-            comp.stringList("zombie-spawn-locations", plugin.defaultLanguage).random(),
-            plugin.defaultLanguage).toLocation(world)
-        world.spawn(location, Zombie::class.java).apply {
+        val location = getLocation(comp.stringList("zombie-spawn-locations", plugin.defaultLanguage).random())
+        point.world.spawn(location, Zombie::class.java).apply {
             addScoreboardTag(ZOMBIE_TAG)
         }
     }
