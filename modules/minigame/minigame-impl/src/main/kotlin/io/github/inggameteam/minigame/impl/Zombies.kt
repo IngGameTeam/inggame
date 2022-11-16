@@ -22,19 +22,14 @@ import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
-    BeginPlayersAmount, NoBlockBreak, NoBlockPlace {
+    BeginPlayersAmount, NoBlockBreak, NoBlockPlace, NoInteract {
     override val name get() = "zombies"
     override var beginPlayersAmount = 0
+    var round: Int = 1
     override fun rewardPoint(player: GPlayer) = if (beginPlayersAmount <= 1) 0 else super.rewardPoint(player)
 
 
-    override fun calcWinner() {
-        if (beginPlayersAmount > 1) {
-            val winner = joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0]
-            joined.forEach { comp.send(SINGLE_WINNER, it, winner, displayName(it)) }
-            Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this, GPlayerList(listOf(winner))))
-        }
-    }
+    override fun calcWinner() = Unit
 
     override fun sendDeathMessage(player: GPlayer, killer: Player?) {
         comp.send(PLAYER_DEATH_TO_VOID, joined, player, recordString(player))
@@ -44,19 +39,41 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     @EventHandler
     fun beginZombies(event: GameBeginEvent) {
         if (event.game !== this) return
-        var count = 0.0
+        runRoundCheck()
+    }
+
+    fun runRoundCheck() {
         addTask({
-            spawnZombies()
-            count += 0.005
+            val center = getLocation("start")
+            val alives = world.getNearbyEntities(center, 50.0, 50.0, 50.0) { it.scoreboardTags.contains(ZOMBIE_TAG) }
+            if (alives.isEmpty()) {
+                runZombiesRounds()
+                round++
+                comp.send("new-rounds", joined, round)
+            }
             true
-        }.repeat(plugin, 1, 1))
+        }.repeat(plugin, 0, 1))
     }
 
     private fun spawnZombies() {
         val location = comp.location(
             comp.stringList("zombie-spawn-locations", plugin.defaultLanguage).random(),
             plugin.defaultLanguage).toLocation(world)
-        world.spawn(location, Zombie::class.java)
+        world.spawn(location, Zombie::class.java).apply {
+            addScoreboardTag(ZOMBIE_TAG)
+        }
+    }
+
+
+
+    fun runZombiesRounds() {
+        var i = 0
+        addTask({
+            if (i++ < round) {
+                spawnZombies()
+                true
+            } else false
+        }.repeat(plugin, 0, 1))
     }
 
     @Suppress("unused")
@@ -66,6 +83,10 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
         if (gameState === GameState.PLAY && player is Player && isJoined(player)) {
             event.isCancelled = true
         }
+    }
+
+    companion object {
+        const val ZOMBIE_TAG = "ZombiesZombieTag"
     }
 
 }
