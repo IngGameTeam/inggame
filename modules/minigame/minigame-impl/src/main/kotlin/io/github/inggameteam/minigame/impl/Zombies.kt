@@ -10,7 +10,6 @@ import io.github.inggameteam.scheduler.repeat
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
-import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
@@ -24,7 +23,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     override fun calcWinner() = Unit
 
     override fun sendDeathMessage(player: GPlayer, killer: Player?) {
-        comp.send(PLAYER_DEATH_TO_VOID, joined, player, recordString(player))
+        comp.send(PLAYER_DEATH_TO_VOID, joined, player, round, recordString(player))
     }
 
     @Suppress("unused")
