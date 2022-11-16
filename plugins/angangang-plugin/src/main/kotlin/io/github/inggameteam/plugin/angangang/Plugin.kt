@@ -110,6 +110,7 @@ class Plugin : GamePluginImpl(
         DisableCollision(this)
         AutoUpdater(this)
         RewardVote(this, user, votes)
+        NoUnderWaterFall(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)
