@@ -27,6 +27,9 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
         val input = input
             .replace("_", "")
             .replace(Regex("\\d"), "")
+            .replace(" ", "")
+            .replace(".", "")
+            .replace(",", "")
         map.forEach { (words, excludes) ->
             words.forEach { word ->
                 val m: Matcher = Pattern.compile(word)
