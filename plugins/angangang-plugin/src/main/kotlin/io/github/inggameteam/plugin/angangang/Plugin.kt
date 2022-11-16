@@ -44,6 +44,7 @@ class Plugin : GamePluginImpl(
         ::Develop,
         ::Tutorial,
         ::JobWars,
+        ::Zombies,
     ),
 ) {
 

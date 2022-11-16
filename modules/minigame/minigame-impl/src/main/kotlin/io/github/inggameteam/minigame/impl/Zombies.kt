@@ -1,0 +1,71 @@
+package io.github.inggameteam.minigame.impl
+
+import io.github.inggameteam.minigame.GameAlert.PLAYER_DEATH_TO_VOID
+import io.github.inggameteam.minigame.GameAlert.SINGLE_WINNER
+import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
+import io.github.inggameteam.minigame.base.*
+import io.github.inggameteam.minigame.event.GPlayerWinEvent
+import io.github.inggameteam.minigame.event.GameBeginEvent
+import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.player.GPlayerList
+import io.github.inggameteam.player.hasNoTags
+import io.github.inggameteam.player.hasTags
+import io.github.inggameteam.scheduler.repeat
+import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.entity.Player
+import org.bukkit.entity.Zombie
+import org.bukkit.event.EventHandler
+import org.bukkit.event.entity.EntityChangeBlockEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+
+class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
+    BeginPlayersAmount, NoBlockBreak, NoBlockPlace {
+    override val name get() = "zombies"
+    override var beginPlayersAmount = 0
+    override fun rewardPoint(player: GPlayer) = if (beginPlayersAmount <= 1) 0 else super.rewardPoint(player)
+
+
+    override fun calcWinner() {
+        if (beginPlayersAmount > 1) {
+            val winner = joined.hasTags(PTag.PLAY).hasNoTags(PTag.DEAD)[0]
+            joined.forEach { comp.send(SINGLE_WINNER, it, winner, displayName(it)) }
+            Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this, GPlayerList(listOf(winner))))
+        }
+    }
+
+    override fun sendDeathMessage(player: GPlayer, killer: Player?) {
+        comp.send(PLAYER_DEATH_TO_VOID, joined, player, recordString(player))
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun beginZombies(event: GameBeginEvent) {
+        if (event.game !== this) return
+        var count = 0.0
+        addTask({
+            spawnZombies()
+            count += 0.005
+            true
+        }.repeat(plugin, 1, 1))
+    }
+
+    private fun spawnZombies() {
+        val location = comp.location(
+            comp.stringList("zombie-spawn-locations", plugin.defaultLanguage).random(),
+            plugin.defaultLanguage).toLocation(world)
+        world.spawn(location, Zombie::class.java)
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun damage(event: EntityDamageByEntityEvent) {
+        val player = event.entity
+        if (gameState === GameState.PLAY && player is Player && isJoined(player)) {
+            event.isCancelled = true
+        }
+    }
+
+}
