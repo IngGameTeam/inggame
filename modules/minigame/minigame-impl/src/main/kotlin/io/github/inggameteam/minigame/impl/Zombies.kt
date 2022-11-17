@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
-    BeginPlayersAmount, NoBlockBreak, NoBlockPlace, NoInteract {
+    BeginPlayersAmount, NoBlockBreak, NoBlockPlace {
     override val name get() = "zombies"
     override var beginPlayersAmount = 0
     var round: Int = 1
