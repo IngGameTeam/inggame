@@ -69,6 +69,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     @EventHandler
     fun damage(event: EntityDamageByEntityEvent) {
         val player = event.entity
+        if (event.damager !is Player) return
         if (gameState === GameState.PLAY && player is Player && isJoined(player)) {
             event.isCancelled = true
         }
