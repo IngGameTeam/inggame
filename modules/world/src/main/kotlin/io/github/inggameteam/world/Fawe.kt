@@ -39,7 +39,7 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
                             PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, true)
                                 .apply { chunks.add(this) }
                         }
-                    while(chunks.all { it.isDone }) {}
+                    while(!chunks.all { it.isDone }) {}
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
         } catch (e: Exception) {
