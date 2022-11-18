@@ -89,8 +89,8 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
 
     override fun inventorySpawn(player: GPlayer, spawn: String): Inventory? {
         return super<SimpleGame>.inventorySpawn(player,
-            if (isDone) "VOTE"
-            else if (::current.isInitialized && current == player.uniqueId) "CANNOT_VOTE_MYSELF"
+            if (::current.isInitialized && current == player.uniqueId) "CANNOT_VOTE_MYSELF"
+            else if (isDone) "VOTE"
             else spawn
         )
     }
