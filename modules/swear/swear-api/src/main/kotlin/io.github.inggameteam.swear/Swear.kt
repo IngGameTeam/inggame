@@ -27,6 +27,15 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
         val input = input
             .replace("_", "")
             .replace(Regex("\\d"), "")
+            .replace(" ", "")
+            .replace(".", "")
+            .replace(",", "")
+        if (isSwear(input)) return true
+        else if (isSwear(input.replace(Regex("[A-Z]"), ""))) return true
+        return false
+    }
+
+    private fun isSwear(input: String): Boolean {
         map.forEach { (words, excludes) ->
             words.forEach { word ->
                 val m: Matcher = Pattern.compile(word)

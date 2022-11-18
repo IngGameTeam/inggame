@@ -22,7 +22,7 @@ interface InteractingBan : Game {
 
     @Suppress("unused")
     @EventHandler
-    fun staticBlock(event: BlockPlaceEvent) = staticBreak(event.player, event.block.type, event)
+    fun staticBlock(event: BlockPlaceEvent) = staticBreak(event.player, event.itemInHand.type, event)
 
     @Suppress("unused")
     @EventHandler

@@ -44,6 +44,7 @@ class Plugin : GamePluginImpl(
         ::Develop,
         ::Tutorial,
         ::JobWars,
+        ::Zombies,
     ),
 ) {
 
@@ -58,6 +59,7 @@ class Plugin : GamePluginImpl(
         val gameStats = GameStats(this, mongoDBCP)
         val votes = Votes(this, mongoDBCP)
         val chat = Chat(this, mongoDBCP)
+        val gameLog = UserLog(this, mongoDBCP)
 
         listOf(
             ::ADrawIsntBadEither,
@@ -88,6 +90,7 @@ class Plugin : GamePluginImpl(
             ::SuppressPhysical,
             ).forEach { it(this, challenge) }
 
+        GameLogger(this, gameLog)
         ChatLogger(this, chat)
         NoSaveChunk(this)
         ChatSwearFilter(this)
@@ -110,6 +113,7 @@ class Plugin : GamePluginImpl(
         DisableCollision(this)
         AutoUpdater(this)
         RewardVote(this, user, votes)
+        NoUnderWaterFall(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)

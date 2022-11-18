@@ -3,11 +3,15 @@ package io.github.inggameteam.world
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
+import io.netty.util.concurrent.CompleteFuture
 import io.papermc.lib.PaperLib
 import org.bukkit.Bukkit
+import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.plugin.Plugin
 import java.io.File
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Future
 import kotlin.system.measureTimeMillis
 
 
@@ -27,13 +31,15 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
+                    val chunks = ArrayList<CompletableFuture<Chunk>>()
                     for (addX in minimumPoint.x..maximumPoint.x)
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
                             val world = location.world!!
-                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, false).get().apply {
-                            }
+                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, true)
+                                .apply { chunks.add(this) }
                         }
+                    while(!chunks.all { it.isDone }) {}
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
         } catch (e: Exception) {
