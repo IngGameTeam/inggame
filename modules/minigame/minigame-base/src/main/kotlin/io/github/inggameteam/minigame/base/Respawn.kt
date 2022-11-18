@@ -50,7 +50,8 @@ interface Respawn : SpawnPlayer, Competition {
         player.apply {
             addTag(PTag.RESPAWN)
             val originGameMode = gameMode
-            val function = {
+            val function = func@{
+                if (!(isJoined(player) && player.hasTag(PTag.PLAY))) return@func
                 removeTag(PTag.RESPAWN)
                 addTag(PTag.PLAY)
                 gameMode = originGameMode
