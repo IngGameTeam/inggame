@@ -45,12 +45,16 @@ interface SpawnPlayer : Game, Sectional {
     fun inventorySpawn(player: GPlayer, spawn: String = this.gameState.toString()): Inventory? {
         player.setItemOnCursor(null)
         player.updateInventory()
+        val inventory = player.inventory
         if (!player.hasTag(PTag.PLAY)) {
-            player.inventory.clear()
+            inventory.clear()
+            inventory.armorContents = null
+            inventory.storageContents = null
+            inventory.extraContents = null
             player.setItemOnCursor(null)
             return null
         }
-        return comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { player.inventory.contents = contents }
+        return comp.inventoryOrNull(spawn, player.lang(plugin))?.apply { inventory.contents = contents }
     }
 
     fun gameModeSpawn(player: GPlayer, spawn: String) {
