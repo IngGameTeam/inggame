@@ -73,7 +73,7 @@ class GameLogger(plugin: Plugin, val userLog: UserLog) : HandleListener(plugin) 
         val game = event.game
         userLog.insert(event.player, "point_reward") {
             put("amount", event.amount)
-            put("game", game)
+            put("game", game.name)
         }
     }
 
