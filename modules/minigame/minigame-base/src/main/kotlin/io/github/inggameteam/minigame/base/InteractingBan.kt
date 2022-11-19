@@ -32,8 +32,8 @@ interface InteractingBan : Game {
     @Suppress("unused")
     @EventHandler
     fun staticInteractBlock(event: PlayerInteractEvent) {
-        listOf(event.clickedBlock?.type, event.material).forEach { mat ->
-            staticBreak(event.player, mat?:return@forEach, event)
+        listOf(event.material).forEach { mat ->
+            staticBreak(event.player, mat, event)
         }
     }
 
