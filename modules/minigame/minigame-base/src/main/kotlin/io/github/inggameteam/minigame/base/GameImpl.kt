@@ -29,7 +29,7 @@ abstract class GameImpl(
     override val startPlayersAmount get() = comp.intOrNull("$name-start-players-amount")?: recommendedStartPlayersAmount
     open val recommendedStartPlayersAmount get() = 1
     override val playerLimitAmount get() = comp.intOrNull("player-limit-amount")?: -1
-    override val startWaitingSecond = 15
+    override val startWaitingSecond = 4
     override val stopWaitingTick = -1L
 
     override fun toString() = name
