@@ -31,15 +31,14 @@ open class FaweImpl(val plugin: Plugin) : Fawe {
             if (file.exists().not()) return
             FaweAPI.load(file).apply {
                 measureTimeMillis {
-                    val chunks = ArrayList<CompletableFuture<Chunk>>()
                     for (addX in minimumPoint.x..maximumPoint.x)
                         for (addY in minimumPoint.y..maximumPoint.y)
                         {
                             val world = location.world!!
-                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, true)
-                                .apply { chunks.add(this) }
+                            world.getChunkAt(location.blockX + addX, location.blockZ + addY)
+                                .apply { isForceLoaded = true }
                         }
-                    while(!chunks.all { it.isDone }) {}
+
                 }.apply { println("measureChunkLoadTimeMillis: $this") }
             }
         } catch (e: Exception) {
