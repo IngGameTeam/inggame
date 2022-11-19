@@ -9,6 +9,7 @@ import io.github.inggameteam.player.GPlayer
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
@@ -48,9 +49,9 @@ interface SpawnPlayer : Game, Sectional {
         val inventory = player.inventory
         if (!player.hasTag(PTag.PLAY)) {
             inventory.clear()
-            inventory.armorContents = null
-            inventory.storageContents = null
-            inventory.extraContents = null
+            inventory.armorContents = Array<ItemStack?>(inventory.armorContents.size) { null }
+            inventory.storageContents = Array<ItemStack?>(inventory.storageContents.size) { null }
+            inventory.extraContents = Array<ItemStack?>(inventory.extraContents.size) { null }
             player.setItemOnCursor(null)
             return null
         }
