@@ -49,9 +49,7 @@ interface SpawnPlayer : Game, Sectional {
         val inventory = player.inventory
         if (!player.hasTag(PTag.PLAY)) {
             inventory.clear()
-            inventory.armorContents = Array<ItemStack?>(inventory.armorContents.size) { null }
             inventory.storageContents = Array<ItemStack?>(inventory.storageContents.size) { null }
-            inventory.extraContents = Array<ItemStack?>(inventory.extraContents.size) { null }
             player.setItemOnCursor(null)
             return null
         }
