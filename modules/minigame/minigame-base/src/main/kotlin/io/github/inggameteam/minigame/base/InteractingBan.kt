@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerInteractEvent
 
 interface InteractingBan : Game {
 
@@ -27,6 +28,14 @@ interface InteractingBan : Game {
     @Suppress("unused")
     @EventHandler
     fun staticBlock(event: PlayerDropItemEvent) = staticBreak(event.player, event.itemDrop.itemStack.type, event)
+
+    @Suppress("unused")
+    @EventHandler
+    fun staticInteractBlock(event: PlayerInteractEvent) {
+        listOf(event.clickedBlock?.type, event.material).forEach { mat ->
+            staticBreak(event.player, mat?:return@forEach, event)
+        }
+    }
 
     @Suppress("unused")
     @EventHandler
