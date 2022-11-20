@@ -67,6 +67,7 @@ allprojects {
         api("net.openhft:compiler:2.4.1")
         compileOnly("com.github.NuVotifier:NuVotifier:2.7.2")
         compileOnly("io.javalin:javalin:5.1.3")
+        compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
     }
 
 }
