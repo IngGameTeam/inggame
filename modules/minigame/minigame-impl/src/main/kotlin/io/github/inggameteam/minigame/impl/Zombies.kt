@@ -3,9 +3,11 @@ package io.github.inggameteam.minigame.impl
 import io.github.inggameteam.minigame.GameAlert.PLAYER_DEATH_TO_VOID
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
+import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.repeat
 import org.bukkit.entity.Player
 import org.bukkit.entity.Zombie
@@ -17,8 +19,20 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     override val name get() = "zombies"
     override var beginPlayersAmount = 0
     var round: Int = 1
-    override fun rewardPoint(player: GPlayer) = if (beginPlayersAmount <= 1) 0 else super.rewardPoint(player)
+    var roundDone = false
+    override fun rewardPoint(player: GPlayer): Int {
+        if (roundDone) {
+            return 1500
+        }
+        return if (beginPlayersAmount <= 1) 0 else super.rewardPoint(player)
+    }
 
+    override fun finishGame() {
+        if (roundDone) {
+            comp.send("round-done", joined, joined.hasTags(PTag.PLAY))
+        }
+        super.finishGame()
+    }
 
     override fun calcWinner() = Unit
 
@@ -35,14 +49,20 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
 
     fun runRoundCheck() {
         addTask({
+            var returnValue = true
             val center = getLocation("start")
             val lives = point.world.getNearbyEntities(center, 50.0, 50.0, 50.0) { it.scoreboardTags.contains(ZOMBIE_TAG) }
             if (lives.isEmpty()) {
+                if (round > MAX_ROUND) {
+                    roundDone = true
+                    stop(false)
+                    returnValue = false
+                }
                 runZombiesRounds()
                 comp.send("new-rounds", joined, round)
                 round++
             }
-            true
+            returnValue
         }.repeat(plugin, 0, 1))
     }
 
@@ -78,6 +98,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
 
     companion object {
         const val ZOMBIE_TAG = "ZombiesZombieTag"
+        const val MAX_ROUND = 15
     }
 
 }
