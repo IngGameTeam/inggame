@@ -50,6 +50,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
         val location = getLocation(comp.stringList("zombie-spawn-locations", plugin.defaultLanguage).random())
         point.world.spawn(location, Zombie::class.java).apply {
             addScoreboardTag(ZOMBIE_TAG)
+            isBaby = false
         }
     }
 
