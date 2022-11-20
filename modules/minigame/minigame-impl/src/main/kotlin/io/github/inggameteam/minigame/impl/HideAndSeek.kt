@@ -38,7 +38,7 @@ class HideAndSeek(plugin: GamePlugin) : TeamCompetitionImpl(plugin), SimpleGame,
         player.teleport(getLocation("$playerJob"))
         comp.send(playerJob.toString(), player)
         if (player.hasTag(PTag.RED)) {
-            player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 55555, 2))
+            player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 55555, 1))
         }
     }
 
