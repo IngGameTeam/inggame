@@ -26,33 +26,35 @@ class ItemShopMenu(
 ) :
     Interact, Drop, InventoryClick, HandleListener(plugin) {
     override fun use(name: String, player: GPlayer) {
-        shopMenu(player)
+        shopMenu(player, name)
     }
 
 
 
-    private fun shopMenu(player: GPlayer) {
+    private fun shopMenu(player: GPlayer, name: String) {
         val lang = player.lang(plugin)
-        val inventory = itemComp.inventory(this.name, lang)
+        val inventory = itemComp.inventory(name, lang)
         val rowSize = 6
-        InvFX.frame(rowSize, Component.text(itemComp.string("${this@ItemShopMenu.name}-inventory-title", lang))) {
-            itemComp.itemOrNull("vote", player.lang(plugin))?.apply {
-                slot(0, 5) {
-                    item = this@apply
-                    onClick {
-                        itemComp.send("vote", player)
+        InvFX.frame(rowSize, Component.text(itemComp.string("${name}-inventory-title", lang))) {
+            if (itemComp.intOrNull("$name-is-main-shop") == 1) {
+                itemComp.itemOrNull("vote", player.lang(plugin))?.apply {
+                    slot(0, 5) {
+                        item = this@apply
+                        onClick {
+                            itemComp.send("vote", player)
+                        }
+                    }
+                }
+                itemComp.itemOrNull("discord", player.lang(plugin))?.apply {
+                    slot(1, 5) {
+                        item = this@apply
+                        onClick {
+                            itemComp.send("discord", player)
+                        }
                     }
                 }
             }
-            itemComp.itemOrNull("discord", player.lang(plugin))?.apply {
-                slot(1, 5) {
-                    item = this@apply
-                    onClick {
-                        itemComp.send("discord", player)
-                    }
-                }
-            }
-            val items = itemComp.stringList(this@ItemShopMenu.name + "-shop-items", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
+            val items = itemComp.stringList("$name-shop-items", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
                 .filter { toItemType(it.first) !== LIMITED }.toMap()
             val pointBalanceItem = safeClone(itemComp.item("point-balance", lang))
             val pointBalanceIndex = inventory.indexOf(pointBalanceItem)
@@ -111,7 +113,7 @@ class ItemShopMenu(
                             }
                             playerPurchase[name].updateLastTime()
                             Bukkit.getPluginManager().callEvent(PurchaseEvent(player))
-                            shopMenu(player)
+                            shopMenu(player, name)
                         }
                     }
                 }
