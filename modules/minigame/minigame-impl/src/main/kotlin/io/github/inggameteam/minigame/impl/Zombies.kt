@@ -39,8 +39,8 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
             val lives = point.world.getNearbyEntities(center, 50.0, 50.0, 50.0) { it.scoreboardTags.contains(ZOMBIE_TAG) }
             if (lives.isEmpty()) {
                 runZombiesRounds()
-                round++
                 comp.send("new-rounds", joined, round)
+                round++
             }
             true
         }.repeat(plugin, 0, 1))
