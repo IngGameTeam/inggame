@@ -31,12 +31,12 @@ class ItemShopMenu(
 
 
 
-    private fun shopMenu(player: GPlayer, name: String) {
+    private fun shopMenu(player: GPlayer, shopName: String) {
         val lang = player.lang(plugin)
-        val inventory = itemComp.inventory(name, lang)
+        val inventory = itemComp.inventory(shopName, lang)
         val rowSize = 6
-        InvFX.frame(rowSize, Component.text(itemComp.string("${name}-inventory-title", lang))) {
-            if (itemComp.intOrNull("$name-is-main-shop") == 1) {
+        InvFX.frame(rowSize, Component.text(itemComp.string("${shopName}-inventory-title", lang))) {
+            if (itemComp.intOrNull("$shopName-is-main-shop") == 1) {
                 itemComp.itemOrNull("vote", player.lang(plugin))?.apply {
                     slot(0, 5) {
                         item = this@apply
@@ -54,7 +54,7 @@ class ItemShopMenu(
                     }
                 }
             }
-            val items = itemComp.stringList("$name-shop-items", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
+            val items = itemComp.stringList("$shopName-shop-items", lang).map { Pair(it, safeClone(itemComp.item(it, lang))) }
                 .filter { toItemType(it.first) !== LIMITED }.toMap()
             val pointBalanceItem = safeClone(itemComp.item("point-balance", lang))
             val pointBalanceIndex = inventory.indexOf(pointBalanceItem)
@@ -113,7 +113,7 @@ class ItemShopMenu(
                             }
                             playerPurchase[name].updateLastTime()
                             Bukkit.getPluginManager().callEvent(PurchaseEvent(player))
-                            shopMenu(player, name)
+                            shopMenu(player, shopName)
                         }
                     }
                 }
