@@ -10,9 +10,9 @@ class Chunky(loc: Location) {
 
     init {
         try {
+            val size  = 2000
             val chunky: ChunkyAPI? = Bukkit.getServer().servicesManager.load(ChunkyAPI::class.java)
-        chunky!!.startTask(loc.world!!.name, "square", loc.x, loc.z, 1000.0, 1000.0,"concentric")
-        chunky.onGenerationComplete { event -> Bukkit.getLogger().info("Generation completed for " + event.world()) }
+        chunky!!.startTask(loc.world!!.name, "square", loc.x + size/2, loc.z + size/2, size.toDouble(), size.toDouble(),"concentric")
         } catch (_: Exception) {
             println("Failed to starting Chunky")
         }
