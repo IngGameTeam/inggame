@@ -34,7 +34,7 @@ class ItemShopMenu(
     private fun shopMenu(player: GPlayer, shopName: String) {
         val lang = player.lang(plugin)
         val inventory = itemComp.inventory(shopName, lang)
-        val rowSize = inventory.size/6
+        val rowSize = inventory.size/9
         InvFX.frame(rowSize, Component.text(itemComp.string("${shopName}-inventory-title", lang))) {
             if (itemComp.intOrNull("$shopName-is-main-shop") == 1) {
                 itemComp.itemOrNull("vote", player.lang(plugin))?.apply {
