@@ -46,7 +46,7 @@ class ShuffleGame(override val plugin: GamePlugin) : Item, Interact, HandleListe
             return null
         }
         val joined = plugin.partyRegister.getJoined(player)
-        if (joined === null || joined.leader != player) {
+        if (joined !== null && joined.leader != player) {
             player.remove(SHUFFLE_KEY)
             return null
         }
