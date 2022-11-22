@@ -10,7 +10,7 @@ class Chunky(loc: Location) {
 
     init {
         try {
-            val size  = 2000
+            val size  = 3200
             val chunky: ChunkyAPI? = Bukkit.getServer().servicesManager.load(ChunkyAPI::class.java)
         chunky!!.startTask(loc.world!!.name, "square", loc.x + size/2, loc.z + size/2, size.toDouble(), size.toDouble(),"concentric")
         } catch (_: Exception) {
