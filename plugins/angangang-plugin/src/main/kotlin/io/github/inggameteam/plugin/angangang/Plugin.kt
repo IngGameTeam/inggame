@@ -133,9 +133,9 @@ class Plugin : GamePluginImpl(
 
         worldName.forEach { worldName ->
             Chunky(Location(Bukkit.getWorld(worldName),
-                gameRegister.sectorWidth.toDouble(),
-                gameRegister.sectorHeight.toDouble(),
-                gameRegister.sectorWidth.toDouble()
+                .0,
+                .0,
+                .0
             ))
         }
     }
