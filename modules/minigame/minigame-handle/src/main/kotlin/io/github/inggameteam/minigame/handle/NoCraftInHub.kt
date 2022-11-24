@@ -5,6 +5,7 @@ import io.github.inggameteam.minigame.GamePlugin
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryDragEvent
 
 class NoCraftInHub(val plugin: GamePlugin) : HandleListener(plugin) {
 
@@ -18,5 +19,17 @@ class NoCraftInHub(val plugin: GamePlugin) : HandleListener(plugin) {
             event.isCancelled = true
         }
     }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onCraft(event: InventoryDragEvent) {
+        val player = event.whoClicked as Player
+        if (plugin.gameRegister.hubName != plugin.gameRegister.getJoinedGame(player).name) return
+        val rawSlots = event.rawSlots
+        rawSlots.forEach { rawSlot ->
+            if (rawSlot in 1..4) {
+                event.isCancelled = true
+            }
+        }    }
 
 }
