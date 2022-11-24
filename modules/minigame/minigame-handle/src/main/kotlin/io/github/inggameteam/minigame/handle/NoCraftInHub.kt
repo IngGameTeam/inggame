@@ -6,6 +6,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
+import org.bukkit.event.inventory.InventoryType
 
 class NoCraftInHub(val plugin: GamePlugin) : HandleListener(plugin) {
 
@@ -13,6 +14,7 @@ class NoCraftInHub(val plugin: GamePlugin) : HandleListener(plugin) {
     @EventHandler
     fun onCraft(event: InventoryClickEvent) {
         val player = event.whoClicked as Player
+        if (player.openInventory.topInventory.type !== InventoryType.PLAYER) return
         if (plugin.gameRegister.hubName != plugin.gameRegister.getJoinedGame(player).name) return
         val rawSlot = event.rawSlot
         if (rawSlot in 1..4) {
