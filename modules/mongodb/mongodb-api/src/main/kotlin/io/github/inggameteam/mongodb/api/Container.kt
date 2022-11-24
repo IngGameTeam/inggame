@@ -45,16 +45,17 @@ abstract class Container<DATA : UUIDUser>(
         }
         if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
-        synchronized(pool) {
-            if (pool.any { it.uuid == uniqueId })
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
-            else {
-                try {
-                    pool.add(pool(uniqueId))
-                } catch (e: Exception) {
-                    e.printStackTrace()
-
+        if (pool.any { it.uuid == uniqueId })
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+        else {
+            try {
+                val element = pool(uniqueId)
+                synchronized(pool) {
+                    pool.add(element)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+
             }
         }
     }
