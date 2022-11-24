@@ -116,7 +116,6 @@ class Plugin : GamePluginImpl(
         AutoUpdater(this)
         RewardVote(this, user, votes)
         NoUnderWaterFall(this)
-        NoCraftInHub(this)
 
         ItemShopMenu(this, user, purchase)
         HandyGun(this)
