@@ -13,8 +13,6 @@ import io.github.inggameteam.mongodb.impl.*
 import io.github.inggameteam.party.PartyCacheSerializer
 import io.github.inggameteam.party.PartyItem
 import io.github.inggameteam.swear.handle.ChatSwearFilter
-import org.bukkit.Bukkit
-import org.bukkit.Location
 
 @Suppress("unused")
 class Plugin : GamePluginImpl(
@@ -90,7 +88,7 @@ class Plugin : GamePluginImpl(
             ::CompleteDefeat,
             ::Ttukbaegi,
             ::SuppressPhysical,
-            ).forEach { it(this, challenge) }
+        ).forEach { it(this, challenge) }
 
         GameLogger(this, gameLog)
         ChatLogger(this, chat)
@@ -132,13 +130,13 @@ class Plugin : GamePluginImpl(
 
         RestServer(this)
 
-        worldName.forEach { worldName ->
-            Chunky(Location(Bukkit.getWorld(worldName),
-                .0,
-                .0,
-                .0
-            ))
-        }
+//        worldName.forEach { worldName ->
+//            Chunky(Location(Bukkit.getWorld(worldName),
+//                .0,
+//                .0,
+//                .0
+//            ))
+//        }
     }
 
     override fun onDisable() {
