@@ -8,7 +8,7 @@ import org.bukkit.Bukkit
 class ChunkForceLoader(val plugin: GamePlugin) {
 
     init {
-        val length = 5
+        val length = 1
         var x = 0
         var y = 0
         ;{
