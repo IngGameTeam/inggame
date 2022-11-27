@@ -9,8 +9,8 @@ class ChunkForceLoader(val plugin: GamePlugin) {
 
     init {
         val length = 1
-        var x = 0
-        var y = 0
+        var x = 1
+        var y = 1
         ;{
             plugin.gameRegister.worldName.forEach { worldName ->
                 loadChunkSector(Sector(x, y, Bukkit.getWorld(worldName)))
