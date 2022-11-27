@@ -17,7 +17,7 @@ const val PARTY = "party"
 class Party(
     override val plugin: PartyPlugin,
     val joined: GPlayerList = GPlayerList(),
-    var opened: Boolean = false,
+    var opened: Boolean = true,
     var renamed: Boolean = false,
     val banList: ArrayList<UUID> = ArrayList(),
     ) : PluginHolder<PartyPlugin> {
