@@ -4,6 +4,7 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.Sector
 import io.github.inggameteam.scheduler.repeat
 import org.bukkit.Bukkit
+import kotlin.system.measureTimeMillis
 
 class ChunkForceLoader(val plugin: GamePlugin) {
 
@@ -38,9 +39,13 @@ class ChunkForceLoader(val plugin: GamePlugin) {
         var x = min.x
         var y = min.y
         ;{
-            world.getChunkAt(x, y).apply {
-                load(false)
-                isForceLoaded = true
+            measureTimeMillis {
+                world.getChunkAt(x, y).apply {
+                    load(false)
+                    isForceLoaded = true
+                }
+            }.apply {
+                println("measure chunk time: ${this}ms")
             }
             if (x <= max.x) {
                 x += 16
