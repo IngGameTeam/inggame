@@ -33,7 +33,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
-        maven { url = uri("https://oss.sonatype.org/content/repositories/central") }
+        maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
         maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
         maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/public/") }
@@ -42,6 +42,7 @@ allprojects {
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
         maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
         maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
+
     }
 
     dependencies {
@@ -68,6 +69,7 @@ allprojects {
         api("net.openhft:compiler:2.4.1")
         compileOnly("com.github.NuVotifier:NuVotifier:2.7.2")
         compileOnly("io.javalin:javalin:5.1.3")
+        compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
     }
 
 }

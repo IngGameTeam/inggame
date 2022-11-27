@@ -7,11 +7,13 @@ import io.github.inggameteam.minigame.event.GPlayerDeathEvent
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.player.hasTags
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.vehicle.VehicleDestroyEvent
 import org.bukkit.event.vehicle.VehicleEntityCollisionEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 
@@ -71,6 +73,15 @@ abstract class Racing(plugin: GamePlugin) : CompetitionImpl(plugin), SpawnPlayer
     @EventHandler
     fun onRiderDamage(event: EntityDamageEvent) {
         if (event.entity.scoreboardTags.contains(RIDER_TAG)) {
+            event.isCancelled = true
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onRiderDestroy(event: VehicleDestroyEvent) {
+        val attacker = event.attacker?.uniqueId
+        if (joined.hasTags(PTag.PLAY).any { attacker == it.uniqueId }) {
             event.isCancelled = true
         }
     }

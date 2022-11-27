@@ -27,24 +27,22 @@ interface Fawe {
 open class FaweImpl(val plugin: Plugin) : Fawe {
 
     override fun loadChunk(location: Location, file: File) {
-        try {
-            if (file.exists().not()) return
-            FaweAPI.load(file).apply {
-                measureTimeMillis {
-                    val chunks = ArrayList<CompletableFuture<Chunk>>()
-                    for (addX in minimumPoint.x..maximumPoint.x)
-                        for (addY in minimumPoint.y..maximumPoint.y)
-                        {
-                            val world = location.world!!
-                            PaperLib.getChunkAtAsync(world, location.blockX + addX, location.blockZ + addY, true)
-                                .apply { chunks.add(this) }
-                        }
-                    while(!chunks.all { it.isDone }) {}
-                }.apply { println("measureChunkLoadTimeMillis: $this") }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        try {
+//            if (file.exists().not()) return
+//            FaweAPI.load(file).apply {
+//                measureTimeMillis {
+//                    for (addX in minimumPoint.x..maximumPoint.x)
+//                        for (addY in minimumPoint.y..maximumPoint.y)
+//                        {
+//                            val world = location.world!!
+//                            world.loadChunk(location.blockX + addX, location.blockZ + addY)
+//                        }
+//
+//                }.apply { println("measureChunkLoadTimeMillis: $this") }
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
     }
 
     override fun unloadChunk(location: Location, file: File) {

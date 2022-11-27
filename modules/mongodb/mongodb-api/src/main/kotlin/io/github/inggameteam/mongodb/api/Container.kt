@@ -13,6 +13,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
+import kotlin.concurrent.thread
 import kotlin.test.assertNotNull
 
 
@@ -25,6 +26,17 @@ abstract class Container<DATA : UUIDUser>(
 
         ;{
             val onlinePlayers = Bukkit.getOnlinePlayers().map { it.uniqueId }
+            onlinePlayers.forEach { player ->
+                if (pool.none { it.uuid == player }) {
+                    thread {
+                        val element = pool(player)
+                        synchronized(pool) {
+                            pool.add(element)
+                        }
+                        println("user container hot loaded(${Bukkit.getPlayer(player)?.name})")
+                    }
+                }
+            }
             synchronized(pool) {
                 pool.forEach { user ->
                     if (!onlinePlayers.contains(user.uuid) && !user.isExited) {
@@ -45,16 +57,17 @@ abstract class Container<DATA : UUIDUser>(
         }
         if (event.loginResult !== AsyncPlayerPreLoginEvent.Result.ALLOWED) return
         val uniqueId = event.uniqueId
-        synchronized(pool) {
-            if (pool.any { it.uuid == uniqueId })
-                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
-            else {
-                try {
-                    pool.add(pool(uniqueId))
-                } catch (e: Exception) {
-                    e.printStackTrace()
-
+        if (pool.any { it.uuid == uniqueId })
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "committing your data... please reconnect.")
+        else {
+            try {
+                val element = pool(uniqueId)
+                synchronized(pool) {
+                    pool.add(element)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+
             }
         }
     }
