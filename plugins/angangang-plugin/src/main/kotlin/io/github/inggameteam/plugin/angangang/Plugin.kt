@@ -137,6 +137,7 @@ class Plugin : GamePluginImpl(
 //                .0
 //            ))
 //        }
+        ChunkForceLoader(this)
     }
 
     override fun onDisable() {
