@@ -48,7 +48,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                     Location(Bukkit.getWorld(it),
                         gameRegister.sectorWidth.toDouble(),
                         gameRegister.sectorHeight.toDouble(),
-                        gameRegister.sectorWidth.toDouble()),
+                        gameRegister.sectorWidth.toDouble()).apply { world!!.spawnLocation = this },
                     File(config.getString("init-world-schem.$it")?.replace("/", File.separator)?: return@generateWorld))
                 logger.info("Generated $it world ")
             }
