@@ -3,6 +3,7 @@ package io.github.inggameteam.minigame.handle
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.Sector
 import io.github.inggameteam.scheduler.repeat
+import org.bukkit.Bukkit
 
 class ChunkForceLoader(val plugin: GamePlugin) {
 
@@ -12,13 +13,17 @@ class ChunkForceLoader(val plugin: GamePlugin) {
         var y = 0
         ;{
             if (x <= length) {
-                loadChunkSector(Sector(x, y))
+                plugin.gameRegister.worldName.forEach { worldName ->
+                    loadChunkSector(Sector(x, y, Bukkit.getWorld(worldName)))
+                }
                 x++
                 true
             } else if (y >= length) {
                 false
             } else {
-                loadChunkSector(Sector(x, y))
+                plugin.gameRegister.worldName.forEach { worldName ->
+                    loadChunkSector(Sector(x, y, Bukkit.getWorld(worldName)))
+                }
                 x = 0
                 y++
                 true
