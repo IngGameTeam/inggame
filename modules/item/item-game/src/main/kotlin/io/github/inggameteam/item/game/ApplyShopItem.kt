@@ -9,6 +9,7 @@ import io.github.inggameteam.item.impl.ItemType
 import io.github.inggameteam.item.impl.event.PurchaseEvent
 import io.github.inggameteam.item.impl.toItemType
 import io.github.inggameteam.minigame.GamePlugin
+import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.base.Hub
 import io.github.inggameteam.minigame.base.SpawnPlayer
 import io.github.inggameteam.minigame.event.GPlayerSpawnEvent
@@ -41,12 +42,13 @@ class ApplyShopItem(
     }
 
     private fun applyShopItem(player: GPlayer) {
-        if (plugin.gameRegister.getJoinedGame(player).name != plugin.gameRegister.hubName) return
-        val shopBlackList = itemComp.stringListOrNull("shop-item-black-list", plugin.defaultLanguage)?: listOf()
-        val items = ArrayList(purchase[player].purchases.filterNot { shopBlackList.contains(it.name) })
+        val joinedGame = plugin.gameRegister.getJoinedGame(player)
+        if (joinedGame.gameState === GameState.WAIT) return
+        val items = ArrayList(purchase[player].purchases
+            .filter { itemComp.stringListOrNull(joinedGame.name + "-shop-items", plugin.defaultLanguage)?.contains(it.name)?: false })
             .apply { sortBy { it.lastTime }; reverse() }
         ItemSlot.values().forEach { it.resetSlot(player) }
-        plugin.gameRegister.getJoinedGame(player).apply {
+        joinedGame.apply {
             if (this is Hub && this is SpawnPlayer) {
                 this.inventorySpawn(player)
             }
