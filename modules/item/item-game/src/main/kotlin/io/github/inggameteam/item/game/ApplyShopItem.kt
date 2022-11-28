@@ -49,7 +49,7 @@ class ApplyShopItem(
             .apply { sortBy { it.lastTime }; reverse() }
         ItemSlot.values().forEach { it.resetSlot(player) }
         joinedGame.apply {
-            if (this is Hub && this is SpawnPlayer) {
+            if (this is SpawnPlayer) {
                 this.inventorySpawn(player)
             }
         }
