@@ -60,6 +60,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
                 }
                 runZombiesRounds()
                 comp.send("new-rounds", joined, round)
+                joined.hasTags(PTag.PLAY).forEach { it.health = it.maxHealth }
                 round++
             }
             returnValue
