@@ -79,6 +79,12 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
         comp.send(getPlayerTeam(player).name + "-death" + if (isBedAlive(player)) "" else "-final", joined, player)
     }
 
-
+    @Suppress("unused")
+    @EventHandler
+    override fun staticInteractBlock(event: PlayerInteractEvent) {
+        listOf(event.material).forEach { mat ->
+            staticBreak(event.player, mat, event)
+        }
+    }
 
 }
