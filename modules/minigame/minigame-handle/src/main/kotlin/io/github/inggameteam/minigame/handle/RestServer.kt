@@ -14,12 +14,10 @@ class RestServer(val plugin: GamePlugin) {
                 .get("/game-stats") { ctx ->
                     ctx.header(Header.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                     ctx.json(
-                    """
-                {
+                    """{
                     "message": "Hello World",
-                    "online": ${Bukkit.getOnlinePlayers()}
-                }
-                """.trimIndent()
+                    "online": "${Bukkit.getOnlinePlayers()}"
+                    }""".trimIndent()
                 )
             }
                 .start(8080)
