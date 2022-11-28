@@ -16,7 +16,7 @@ class RestServer(val plugin: GamePlugin) {
                     ctx.json(
                     """{
                     "message": "Hello World",
-                    "online": "${Bukkit.getOnlinePlayers()}"
+                    "online": "${Bukkit.getOnlinePlayers().size}"
                     }""".trimIndent()
                 )
             }
