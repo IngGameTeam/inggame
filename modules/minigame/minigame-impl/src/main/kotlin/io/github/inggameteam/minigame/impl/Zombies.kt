@@ -18,6 +18,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
     BeginPlayersAmount, NoBlockBreak, NoBlockPlace {
     override val name get() = "zombies"
     override var beginPlayersAmount = 0
+    override val stopCheckPlayer get() = 0
     var round: Int = 1
     var roundDone = false
     override fun rewardPoint(player: GPlayer): Int {
@@ -96,6 +97,8 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
             event.isCancelled = true
         }
     }
+
+
 
     companion object {
         const val ZOMBIE_TAG = "ZombiesZombieTag"
