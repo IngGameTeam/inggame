@@ -17,7 +17,7 @@ class RestServer(val plugin: GamePlugin) {
                     """
                 {
                     "message": "Hello World",
-                    "online": ${Bukkit.getOnlinePlayers()},
+                    "online": ${Bukkit.getOnlinePlayers()}
                 }
                 """.trimIndent()
                 )
