@@ -6,6 +6,7 @@ import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.SectionalImpl
 import io.github.inggameteam.minigame.base.SimpleGame
 import io.github.inggameteam.minigame.base.SpawnPlayer
+import io.github.inggameteam.minigame.event.GameJoinEvent
 import io.github.inggameteam.scheduler.ITask
 import io.github.inggameteam.scheduler.delay
 import io.github.inggameteam.utils.ColorUtil.color
@@ -13,6 +14,9 @@ import org.bukkit.Location
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Witch
+import org.bukkit.event.EventHandler
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleGame {
     override val name get() = TUTORIAL_NAME
@@ -26,6 +30,14 @@ class Tutorial(plugin: GamePlugin) : SectionalImpl(plugin), SpawnPlayer, SimpleG
 
     var count = 1
     var stopTick = 0
+
+    @Suppress("unused")
+    @EventHandler
+    fun onTutorialJoinBlindEffect(event: GameJoinEvent) {
+        if (event.join == this) {
+            event.player.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 20 * 5, 1))
+        }
+    }
 
 
     override fun beginGame() {
