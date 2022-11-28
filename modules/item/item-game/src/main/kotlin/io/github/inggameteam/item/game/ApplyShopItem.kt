@@ -47,6 +47,7 @@ class ApplyShopItem(
         val items = ArrayList(purchase[player].purchases
             .filter { itemComp.stringListOrNull(joinedGame.name + "-shop-items", plugin.defaultLanguage)?.contains(it.name)?: false })
             .apply { sortBy { it.lastTime }; reverse() }
+        if (items.isEmpty()) return
         ItemSlot.values().forEach { it.resetSlot(player) }
         joinedGame.apply {
             if (this is SpawnPlayer) {
