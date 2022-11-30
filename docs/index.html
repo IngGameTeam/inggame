@@ -1,6 +1,14 @@
 <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
-<html>
-<h1 id="text">text</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>My Web Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<center>
+    <h1 id="text">text</h1>
+</center>
 </html>
 <script>
 
@@ -22,6 +30,6 @@
 
     getJSON("https://brucefreedy.xyz/game-stats", function(err, data) {
         let log = document.getElementById('text');
-        log.textContent = data.message;
+        log.textContent = data.online + "명이 접속중입니다";
     })
 </script>
