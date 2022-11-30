@@ -3,15 +3,10 @@ package io.github.inggameteam.world
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
-import io.netty.util.concurrent.CompleteFuture
-import io.papermc.lib.PaperLib
 import org.bukkit.Bukkit
-import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.plugin.Plugin
 import java.io.File
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Future
 import kotlin.system.measureTimeMillis
 
 
@@ -27,22 +22,25 @@ interface Fawe {
 open class FaweImpl(val plugin: Plugin) : Fawe {
 
     override fun loadChunk(location: Location, file: File) {
-//        try {
-//            if (file.exists().not()) return
-//            FaweAPI.load(file).apply {
-//                measureTimeMillis {
-//                    for (addX in minimumPoint.x..maximumPoint.x)
-//                        for (addY in minimumPoint.y..maximumPoint.y)
-//                        {
-//                            val world = location.world!!
-//                            world.loadChunk(location.blockX + addX, location.blockZ + addY)
-//                        }
-//
-//                }.apply { println("measureChunkLoadTimeMillis: $this") }
-//            }
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
+        try {
+            if (file.exists().not()) return
+            FaweAPI.load(file).apply {
+                measureTimeMillis {
+                    for (addX in minimumPoint.x..maximumPoint.x)
+                        for (addY in minimumPoint.y..maximumPoint.y)
+                        {
+                            val world = location.world!!
+                            world.getChunkAt(location.blockX + addX, location.blockZ + addY).apply {
+                                load(false)
+                                isForceLoaded = true
+                            }
+                        }
+
+                }.apply { println("measureChunkLoadTimeMillis: $this") }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun unloadChunk(location: Location, file: File) {
