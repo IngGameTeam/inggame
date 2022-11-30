@@ -14,10 +14,11 @@ import org.bukkit.entity.Zombie
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder,
+class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorder, EnableAttackSpeed,
     BeginPlayersAmount, NoBlockBreak, NoBlockPlace {
     override val name get() = "zombies"
     override var beginPlayersAmount = 0
+    override val stopCheckPlayer get() = 0
     var round: Int = 1
     var roundDone = false
     override fun rewardPoint(player: GPlayer): Int {
@@ -60,6 +61,7 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
                 }
                 runZombiesRounds()
                 comp.send("new-rounds", joined, round)
+                joined.hasTags(PTag.PLAY).forEach { it.health = it.maxHealth }
                 round++
             }
             returnValue
@@ -95,6 +97,8 @@ class Zombies(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), Recorde
             event.isCancelled = true
         }
     }
+
+
 
     companion object {
         const val ZOMBIE_TAG = "ZombiesZombieTag"

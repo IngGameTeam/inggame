@@ -73,7 +73,6 @@ class JobWars(plugin: GamePlugin) : CompetitionImpl(plugin), SimpleGame, SpawnPl
 
     private fun choosingMenu(player: GPlayer) {
         player.openFrame(InvFX.frame(6, Component.text("직업 선택")) {
-            onClose { if (playerData[player]!![MENU_OPENED] == true) addTask({ choosingMenu(player) }.delay(plugin, 1)) }
             list(2, 1, 5, 2, true, { Job.values().filter { it.visible } }) {
                 transform { comp.item(it.jobName, player.lang(plugin)) }
                 onClickItem { _, _, item, _ ->

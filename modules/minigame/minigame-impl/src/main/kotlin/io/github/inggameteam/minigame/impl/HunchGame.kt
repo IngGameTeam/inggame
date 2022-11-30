@@ -5,6 +5,7 @@ import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
 import io.github.inggameteam.minigame.base.CompetitionImpl
+import io.github.inggameteam.minigame.base.NoDamage
 import io.github.inggameteam.minigame.base.SimpleGame
 import io.github.inggameteam.player.hasTags
 import io.github.inggameteam.scheduler.ITask
@@ -12,7 +13,7 @@ import io.github.inggameteam.scheduler.runNow
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.AsyncPlayerChatEvent
 
-class HunchGame(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin) {
+class HunchGame(plugin: GamePlugin) : SimpleGame, CompetitionImpl(plugin), NoDamage {
     override val name get() = "hunch-game"
     var countedNumber = 0
 
