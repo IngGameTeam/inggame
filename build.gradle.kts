@@ -42,7 +42,6 @@ allprojects {
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
         maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
         maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
-        maven { url = uri("https://raw.githubusercontent.com/IngGameTeam/library-mirror/spigot-api-1.19.2/") }
 
     }
 
@@ -58,8 +57,8 @@ allprojects {
         compileOnly("net.kyori:adventure-api:4.10.1")
         compileOnly("io.github.monun:invfx-api:3.1.0")
         compileOnly("com.mojang:authlib:1.5.21")
-        compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
-        compileOnly("org.spigotmc:spigot:1.19.2-R0.1-SNAPSHOT")
+        compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
+        compileOnly("org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT")
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
