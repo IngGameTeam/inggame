@@ -42,6 +42,7 @@ allprojects {
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
         maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
         maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
+        maven { url = uri("https://raw.githubusercontent.com/IngGameTeam/library-mirror/spigot-api-1.19.2/") }
 
     }
 
