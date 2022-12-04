@@ -62,7 +62,7 @@ allprojects {
 //        compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 //        compileOnly("io.papermc.paper:paper:1.18.2-R0.1-SNAPSHOT")
         compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
-        compileOnly("org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT")
+//        compileOnly("org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT")
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
@@ -74,6 +74,8 @@ allprojects {
         compileOnly("com.github.NuVotifier:NuVotifier:2.7.2")
         compileOnly("io.javalin:javalin:5.1.3")
         compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
+
+        compileOnly(files("https://download.getbukkit.org/spigot/spigot-1.19.2.jar"))
     }
 
 }
