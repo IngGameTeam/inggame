@@ -33,6 +33,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        maven { url = uri("https://repo.destroystokyo.com/repository/maven-public/") }
         maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
         maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
@@ -59,9 +60,9 @@ allprojects {
         compileOnly("io.github.monun:invfx-api:3.1.0")
         compileOnly("com.mojang:authlib:1.5.21")
         compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
-        compileOnly("io.papermc.paper:paper:1.18.2-R0.1-SNAPSHOT")
+//        compileOnly("io.papermc.paper:paper:1.18.2-R0.1-SNAPSHOT")
 //        compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
-//        compileOnly("org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT")
+        compileOnly("org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT")
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         compileOnly("net.jafama:jafama:2.3.2")
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
