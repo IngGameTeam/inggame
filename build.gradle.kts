@@ -75,7 +75,6 @@ allprojects {
         compileOnly("io.javalin:javalin:5.1.3")
         compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
 
-        compileOnly(files("https://download.getbukkit.org/spigot/spigot-1.19.2.jar"))
     }
 
 }
