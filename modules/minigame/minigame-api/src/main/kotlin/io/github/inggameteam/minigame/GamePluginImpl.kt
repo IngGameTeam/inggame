@@ -53,9 +53,14 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                 val file =
                     File(config.getString("init-world-schem.$it")?.replace("/", File.separator) ?: return@generateWorld)
                 FaweImpl(this).paste(location, file)
-                FaweImpl(this).loadChunk(location, file)
                 logger.info("Generated $it world ")
             }
+            FaweImpl(this).loadChunk(Location(
+                Bukkit.getWorld(it),
+                gameRegister.sectorWidth.toDouble(),
+                gameRegister.sectorHeight.toDouble(),
+                gameRegister.sectorWidth.toDouble()
+            ), file)
         }
         gameSupplierRegister
         gameRegister
