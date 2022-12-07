@@ -166,13 +166,17 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
     }
 
     private fun clearEntitiesToUnload() {
+        val before = System.currentTimeMillis()
         point.world.getNearbyEntities(Location(point.world,
             point.x * plugin.gameRegister.sectorWidth.toDouble(),
             plugin.gameRegister.sectorHeight.toDouble(),
             point.y * plugin.gameRegister.sectorWidth.toDouble()
-        ), 150.0, 150.0, 150.0).forEach {
+        ), 150.0, 150.0, 150.0).apply {
+            println("clearEntities(nearBy):${System.currentTimeMillis() - before}ms")
+        }.forEach {
             if (it.type != EntityType.PLAYER) it.remove()
         }
+        println("clearEntities(remove):${System.currentTimeMillis() - before}ms")
     }
 
 }
