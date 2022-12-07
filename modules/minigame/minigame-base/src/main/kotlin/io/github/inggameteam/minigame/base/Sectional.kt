@@ -160,6 +160,11 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         return false
     }
 
+    override fun finishGame() {
+        super.finishGame()
+        clearEntitiesToUnload()
+    }
+
     private fun clearEntitiesToUnload() {
         point.world.getNearbyEntities(Location(point.world,
             point.x * plugin.gameRegister.sectorWidth.toDouble(),
