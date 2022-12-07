@@ -55,12 +55,6 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
                 FaweImpl(this).paste(location, file)
                 logger.info("Generated $it world ")
             }
-            FaweImpl(this).loadChunk(Location(
-                Bukkit.getWorld(it),
-                gameRegister.sectorWidth.toDouble(),
-                gameRegister.sectorHeight.toDouble(),
-                gameRegister.sectorWidth.toDouble()
-            ), file)
         }
         gameSupplierRegister
         gameRegister
