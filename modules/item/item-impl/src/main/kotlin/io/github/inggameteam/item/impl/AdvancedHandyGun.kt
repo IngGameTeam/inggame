@@ -17,12 +17,13 @@ class AdvancedHandyGun(override val plugin: AlertPlugin) : Item, Interact, Handl
         linear(Particle.ASH, player.eyeLocation, 10.0, 0.5)
     }
 
-    private fun linear(particle: Particle, direction: Location, distance: Double, step: Double) {
+    private fun linear(particle: Particle, location: Location, distance: Double, step: Double) {
         var adder = 1.0
-        val world = direction.world!!
+        val world = location.world!!
+        val direction = location.direction
         while (abs(adder) < abs(distance)) {
-            val location = direction.toVector().clone().normalize().multiply(step).toLocation(world)
-            world.spawnParticle(particle, location, 1)
+            val newLocation = location.clone().add(direction.clone().multiply(adder))
+            world.spawnParticle(particle, newLocation, 1)
             adder += step
         }
     }
