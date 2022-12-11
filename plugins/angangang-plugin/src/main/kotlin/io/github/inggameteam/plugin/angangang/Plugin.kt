@@ -128,6 +128,7 @@ class Plugin : GamePluginImpl(
         BigBoom(this)
         ShuffleGame(this)
         FlakJacket(this)
+        AdvancedHandyGun(this)
 
         RestServer(this)
 
