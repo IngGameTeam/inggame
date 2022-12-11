@@ -7,7 +7,6 @@ import io.github.inggameteam.item.api.Item
 import io.github.inggameteam.player.GPlayer
 import org.bukkit.Location
 import org.bukkit.Particle
-import org.bukkit.util.Vector
 import kotlin.math.abs
 
 class AdvancedHandyGun(override val plugin: AlertPlugin) : Item, Interact, HandleListener(plugin) {
@@ -18,13 +17,13 @@ class AdvancedHandyGun(override val plugin: AlertPlugin) : Item, Interact, Handl
         linear(Particle.ASH, player.eyeLocation, 10.0, 0.5)
     }
 
-    private fun linear(particle: Particle, direction: Location, distance: Double, interval: Double) {
+    private fun linear(particle: Particle, direction: Location, distance: Double, step: Double) {
         var adder = .0
         val world = direction.world!!
         while (abs(adder) < abs(distance)) {
-            val location = direction.toVector().clone().add(Vector(adder, adder, adder)).toLocation(world)
+            val location = direction.toVector().clone().multiply(adder).toLocation(world)
             world.spawnParticle(particle, location, 1)
-            adder += interval
+            adder += step
         }
     }
 
