@@ -18,10 +18,10 @@ class AdvancedHandyGun(override val plugin: AlertPlugin) : Item, Interact, Handl
     }
 
     private fun linear(particle: Particle, direction: Location, distance: Double, step: Double) {
-        var adder = .0
+        var adder = 1.0
         val world = direction.world!!
         while (abs(adder) < abs(distance)) {
-            val location = direction.toVector().clone().multiply(adder).toLocation(world)
+            val location = direction.toVector().clone().normalize().multiply(step).toLocation(world)
             world.spawnParticle(particle, location, 1)
             adder += step
         }
