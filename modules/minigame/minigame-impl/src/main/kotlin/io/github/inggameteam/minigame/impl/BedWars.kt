@@ -18,10 +18,14 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Respawn, InteractingBan, SpawnTeamPlayer {
     override val name get() = "bed-wars"
-    override val noInteracts = listOf(
-        Material.BLUE_CONCRETE, Material.RED_CONCRETE,
-        Material.RED_BED, Material.BLUE_BED,
-    )
+    override val noInteracts: List<Material> get()  {
+        return comp.stringListOrNull("$schematicName-noInteracts", plugin.defaultLanguage)
+            ?.map { Material.valueOf(it) }?.toList()?: listOf()
+    }
+//        listOf(
+//        Material.BLUE_CONCRETE, Material.RED_CONCRETE,
+//        Material.RED_BED, Material.BLUE_BED,
+//        )
     private var redBed = true
     private var blueBed = true
     private fun isBedAlive(player: GPlayer) = if (player.hasTag(PTag.RED)) redBed else blueBed
@@ -84,6 +88,17 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
     override fun staticInteractBlock(event: PlayerInteractEvent) {
         listOf(event.material).forEach { mat ->
             staticBreak(event.player, mat, event)
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onBreakBlock(event: BlockBreakEvent) {
+        if (!isJoined(event.player) && gameState !== GameState.PLAY) return
+        val loc = event.block.location
+        if (listOf(loc.apply { y += 1 }, loc.apply { y += 2 })
+                .any { it.block.state is @Suppress("DEPRECATION") Bed }) {
+            event.isCancelled = true
         }
     }
 
