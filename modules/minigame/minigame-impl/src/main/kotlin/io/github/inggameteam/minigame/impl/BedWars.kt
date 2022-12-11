@@ -42,8 +42,8 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
                 if (gPlayer.hasTag(PTag.BLUE)) {
                     redBed = false
                     comp.send("RED-bed", joined)
-                    getLocation("RED_BED").block.type = Material.AIR
-                    getLocation("RED_BED2").block.type = Material.AIR
+                    getLocation("$schematicName-RED_BED").block.type = Material.AIR
+                    getLocation("$schematicName-RED_BED2").block.type = Material.AIR
                     playBedBrokenSound()
                 }
             } else if (event.block.type === Material.BLUE_BED) {
@@ -51,8 +51,8 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
                 if (gPlayer.hasTag(PTag.RED)) {
                     blueBed = false
                     comp.send("BLUE-bed", joined)
-                    getLocation("BLUE_BED").block.type = Material.AIR
-                    getLocation("BLUE_BED2").block.type = Material.AIR
+                    getLocation("$schematicName-BLUE_BED").block.type = Material.AIR
+                    getLocation("$schematicName-BLUE_BED2").block.type = Material.AIR
                     playBedBrokenSound()
                 }
             }
