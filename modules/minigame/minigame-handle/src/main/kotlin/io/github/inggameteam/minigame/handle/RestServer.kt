@@ -9,13 +9,13 @@ import kotlin.concurrent.thread
 
 class RestServer(val plugin: GamePlugin) {
 
-    val app by lazy { Javalin.create(/*config*/) }
+    val app by lazy { Javalin.create() }
 
     init {
         thread {
             "/game-stats" get { """{"online": "${Bukkit.getOnlinePlayers().size}"}""" }
-            "chat" get { ctx ->
-                println(ctx.body())
+            "/chat/*" get { ctx ->
+                println(ctx.path())
                 ""
             }
             app.start(8080)
