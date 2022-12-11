@@ -15,7 +15,7 @@ class RestServer(val plugin: GamePlugin) {
         thread {
             "/game-stats" get { """{"online": "${Bukkit.getOnlinePlayers().size}"}""" }
             "chat" get { ctx ->
-                println(ctx.path())
+                println(ctx.body())
                 ""
             }
             app.start(8080)
