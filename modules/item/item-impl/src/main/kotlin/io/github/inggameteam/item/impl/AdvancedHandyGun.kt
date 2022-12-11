@@ -23,7 +23,7 @@ class AdvancedHandyGun(override val plugin: AlertPlugin) : Item, Interact, Handl
         val direction = location.direction
         while (abs(adder) < abs(distance)) {
             val newLocation = location.clone().add(direction.clone().multiply(adder))
-            world.spawnParticle(particle, newLocation, 1)
+            world.spawnParticle(particle, newLocation, 1, .0, .0, .0)
             adder += step
         }
     }
