@@ -14,7 +14,7 @@ class AdvancedHandyGun(override val plugin: AlertPlugin) : Item, Interact, Handl
     override val name get() = "advanced-handy-gun"
 
     override fun use(name: String, player: GPlayer) {
-        linear(Particle.FLASH, player.eyeLocation, 10.0, 0.5)
+        linear(Particle.ASH, player.eyeLocation, 10.0, 0.5)
     }
 
     private fun linear(particle: Particle, location: Location, distance: Double, step: Double) {
