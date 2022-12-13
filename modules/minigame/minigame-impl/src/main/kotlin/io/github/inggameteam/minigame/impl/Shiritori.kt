@@ -140,8 +140,7 @@ class Shiritori(plugin: GamePlugin)
 
         fun getRandomKoreanWord(): String {
             return query(
-                "SELECT * FROM kr\n" +
-                        "WHERE id = (SELECT seq FROM sqlite_sequence WHERE name='kr' ORDER BY random() LIMIT 1);"
+                "SELECT * FROM kr WHERE id = (SELECT seq FROM sqlite_sequence WHERE name='kr' ORDER BY random() LIMIT 1);"
             )
                 ?.getString("word")?: throw AssertionError("random korean db result is null")
         }
