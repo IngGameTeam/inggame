@@ -120,7 +120,7 @@ class Shiritori(plugin: GamePlugin)
             return false
         }
 
-        fun query(sql: String?): ResultSet? {
+        fun <T> query(sql: String?, block: (ResultSet) -> T): T {
             try {
                 return connect(uri) {
                     var rs: ResultSet? = null
@@ -129,7 +129,7 @@ class Shiritori(plugin: GamePlugin)
                     while (rs.next()) {
                         //empty
                     }
-                    rs
+                    block(rs)
                 }
             } catch (e: SQLException) {
                 println(e.message)
@@ -145,8 +145,9 @@ class Shiritori(plugin: GamePlugin)
         fun getRandomKoreanWord(): String {
             return query(
                 "SELECT * FROM kr WHERE id = (SELECT seq FROM sqlite_sequence WHERE name='kr' ORDER BY random() LIMIT 1);"
-            )
-                ?.getString("word")?: throw AssertionError("random korean db result is null")
+            ) {
+                it.getString("word")?: throw AssertionError("random korean db result is null")
+            }
         }
     }
 
