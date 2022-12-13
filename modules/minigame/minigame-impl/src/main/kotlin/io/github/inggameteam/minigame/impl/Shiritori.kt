@@ -128,10 +128,10 @@ class Shiritori(plugin: GamePlugin)
                     var rs: ResultSet? = null
                     val stmt = it.createStatement()
                     rs = stmt.executeQuery(sql)
-                    while (rs.next()) {
-                        //empty
-                    }
-                    block(rs).apply { rs?.close() }
+//                    while (rs.next()) {
+//                        empty
+//                    }
+                    block(rs).apply { rs.close() }
                 }
             } catch (e: SQLException) {
                 println(e.message)
