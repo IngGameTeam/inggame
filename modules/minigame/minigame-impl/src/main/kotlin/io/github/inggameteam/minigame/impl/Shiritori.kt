@@ -38,7 +38,7 @@ class Shiritori(plugin: GamePlugin)
         currentPlayer = joined.hasTags(PTag.PLAY).random()
         var block: () -> Unit = {}
         block = loop@{
-            bar.tick = bar.size.toInt()
+            bar.tick = 0
             currentPlayer.damage(100000.0)
             if(gameState === GameState.STOP) return@loop
             nextPlayer()
@@ -92,7 +92,7 @@ class Shiritori(plugin: GamePlugin)
             if (isKorean) {
                 comp.send("correct-word", joined, player, msg)
                 ;{
-                    bar.tick = bar.size.toInt()
+                    bar.tick = 0
 
                     currentWord = msg
                     nextPlayer()
@@ -105,7 +105,7 @@ class Shiritori(plugin: GamePlugin)
     }
 
     private fun nextPlayer() {
-        bar.tick = bar.size.toInt()
+        bar.tick = 0
         val index = joined.indexOf(currentPlayer)
         val front = joined.subList(0, index)
         val behind = joined.subList(index, joined.size)
