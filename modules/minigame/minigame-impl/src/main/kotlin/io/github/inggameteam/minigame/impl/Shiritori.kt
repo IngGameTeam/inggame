@@ -131,7 +131,7 @@ class Shiritori(plugin: GamePlugin)
                     while (rs.next()) {
                         //empty
                     }
-                    block(rs)
+                    block(rs).apply { rs?.close() }
                 }
             } catch (e: SQLException) {
                 println(e.message)
