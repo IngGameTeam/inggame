@@ -28,6 +28,8 @@ class Shiritori(plugin: GamePlugin)
     lateinit var currentWord: String
     private val koreanWorldDetector by lazy { KoreanWorldDetector(File(plugin.dataFolder, "kr_korean.db")) }
     override val bar by lazy { GBar(plugin, 750.0, adder = -1) }
+    var wordSemaphore = false
+    var chatSemaphore = false
 
     @Suppress("unused")
     @EventHandler
@@ -43,8 +45,14 @@ class Shiritori(plugin: GamePlugin)
             true
         }.repeat(plugin, 1, 1))
         measureTimeMillis {
-            currentWord = koreanWorldDetector.getRandomKoreanWord()
+            thread { newRandomWord() }
         }.apply { println("koreanWordRandomPick(${this}ms)") }
+    }
+
+    fun newRandomWord() {
+        wordSemaphore = true
+        currentWord = koreanWorldDetector.getRandomKoreanWord()
+        wordSemaphore = false
     }
 
     @Suppress("unused")
@@ -66,6 +74,8 @@ class Shiritori(plugin: GamePlugin)
         }
         event.isCancelled = true
         thread {
+            while (wordSemaphore && chatSemaphore) {/*wait*/}
+            chatSemaphore = true
             if (player != currentPlayer) return@thread
             val isKorean = koreanWorldDetector.isKoreanWord(input)
             if (isKorean) {
@@ -74,11 +84,12 @@ class Shiritori(plugin: GamePlugin)
             } else {
                 comp.send("not-correct-word", joined, player, msg)
             }
+            chatSemaphore = false
         }
     }
 
     private fun nextPlayer() {
-        currentWord = koreanWorldDetector.getRandomKoreanWord()
+        thread { newRandomWord() }
         val index = joined.indexOf(currentPlayer)
         val front = joined.subList(0, index)
         val behind = joined.subList(index, joined.size)
