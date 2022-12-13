@@ -48,7 +48,7 @@ class Shiritori(plugin: GamePlugin)
     @Suppress("unused")
     @EventHandler
     fun onLeft(event: GameLeftEvent) {
-        if (gameState !== GameState.PLAY && !isJoined(event.player)) return
+        if (gameState !== GameState.PLAY || !isJoined(event.player)) return
         nextPlayer()
     }
 
@@ -56,7 +56,7 @@ class Shiritori(plugin: GamePlugin)
     @EventHandler
     fun onChat(event: AsyncPlayerChatEvent) {
         val player = plugin[event.player]
-        if (gameState !== GameState.PLAY && !isJoined(player)) return
+        if (gameState !== GameState.PLAY || !isJoined(player)) return
         val msg = event.message
         val input = msg
         if (player != currentPlayer) {
