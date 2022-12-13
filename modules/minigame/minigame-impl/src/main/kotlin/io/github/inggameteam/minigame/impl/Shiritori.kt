@@ -27,7 +27,7 @@ class Shiritori(plugin: GamePlugin)
     private lateinit var currentPlayer: GPlayer
     var currentWord = ""
     private val koreanWorldDetector by lazy { KoreanWorldDetector(File(plugin.dataFolder, "kr_korean.db")) }
-    override val bar by lazy { GBar(plugin, size=750, reversed = true) }
+    override val bar by lazy { GBar(plugin, size=750.0, reversed = true) }
     var wordSemaphore = false
     var chatSemaphore = false
 
