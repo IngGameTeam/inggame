@@ -38,7 +38,7 @@ class Shiritori(plugin: GamePlugin)
         currentPlayer = joined.hasTags(PTag.PLAY).random()
         var block: () -> Unit = {}
         block = {
-            bar.tick = bar.size
+            bar.tick = bar.size.toInt()
             nextPlayer()
             bar.startTimer(block)
         }
