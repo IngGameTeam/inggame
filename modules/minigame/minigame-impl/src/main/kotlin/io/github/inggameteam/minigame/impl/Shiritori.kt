@@ -4,6 +4,7 @@ import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
+import io.github.inggameteam.minigame.base.CircleSpawn
 import io.github.inggameteam.minigame.base.CompetitionImpl
 import io.github.inggameteam.minigame.base.NoDamage
 import io.github.inggameteam.minigame.base.SimpleGame
@@ -23,7 +24,7 @@ import kotlin.system.measureTimeMillis
 
 
 class Shiritori(plugin: GamePlugin)
-    : CompetitionImpl(plugin), NoDamage, SimpleGame {
+    : CompetitionImpl(plugin), NoDamage, SimpleGame, CircleSpawn {
     override val name get() = "shiritori"
 
     private lateinit var currentPlayer: GPlayer
