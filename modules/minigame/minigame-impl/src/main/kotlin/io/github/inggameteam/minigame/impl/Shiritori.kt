@@ -92,6 +92,8 @@ class Shiritori(plugin: GamePlugin)
             if (isKorean) {
                 comp.send("correct-word", joined, player, msg)
                 ;{
+                    bar.tick = bar.size.toInt()
+
                     currentWord = msg
                     nextPlayer()
                 }.runNow(plugin)
