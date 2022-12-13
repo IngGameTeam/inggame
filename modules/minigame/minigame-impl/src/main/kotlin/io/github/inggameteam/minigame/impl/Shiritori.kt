@@ -82,7 +82,11 @@ class Shiritori(plugin: GamePlugin)
             while (wordSemaphore && chatSemaphore) {/*wait*/}
             chatSemaphore = true
             if (player != currentPlayer) return@thread
-            val isKorean = koreanWorldDetector.isKoreanWord(input)
+            val isKorean = listOf(
+                input,
+                input.replace(" ", "^"),
+                input.replace(" ", "-"))
+                .any { koreanWorldDetector.isKoreanWord(it) }
             if (isKorean) {
                 comp.send("correct-word", joined, player, msg)
                 ;{
