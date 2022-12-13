@@ -27,13 +27,17 @@ class Shiritori(plugin: GamePlugin)
     private lateinit var currentPlayer: GPlayer
     lateinit var currentWord: String
     private val koreanWorldDetector by lazy { KoreanWorldDetector(File(plugin.dataFolder, "kr_korean.db")) }
-    override val bar by lazy { GBar(plugin, 750.0) }
+    override val bar by lazy { GBar(plugin, 750.0, adder = -1) }
 
     @Suppress("unused")
     @EventHandler
     fun onBegin(event: GameBeginEvent) {
         if (event.game != this) return
         currentPlayer = joined.hasTags(PTag.PLAY).random()
+        bar.startTimer {
+            bar.tick = bar.size.toInt()
+            nextPlayer()
+        }
         addTask({
             bar.update(comp.string("bar", plugin.defaultLanguage).format(currentPlayer, currentWord))
             true
@@ -74,6 +78,7 @@ class Shiritori(plugin: GamePlugin)
     }
 
     private fun nextPlayer() {
+        currentWord = koreanWorldDetector.getRandomKoreanWord()
         val index = joined.indexOf(currentPlayer)
         val front = joined.subList(0, index)
         val behind = joined.subList(index, joined.size)
