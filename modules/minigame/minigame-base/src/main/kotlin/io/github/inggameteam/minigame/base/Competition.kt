@@ -60,6 +60,7 @@ abstract class CompetitionImpl(plugin: GamePlugin) : SectionalImpl(plugin), Comp
     override val recommendedStartPlayersAmount get() = 2
 
     override fun finishGame() {
+        super.finishGame()
         calcWinner()
     }
 

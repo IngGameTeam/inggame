@@ -8,18 +8,21 @@ import org.bukkit.entity.Player
 import java.lang.System.currentTimeMillis
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.concurrent.thread
 
 class UserLog(val plugin: IngGamePlugin, mongo: MongoDBCP) {
     private val client = mongo.createClient()
 
     fun insert(uuid: UUID, type: String, time: Long, map: HashMap<String, Any>) {
-        client.getDatabase("statics").getCollection("user_log")
-            .insertOne(
-                Document("uuid", uuid.fastToString())
-                    .append("type", type)
-                    .append("Time", time)
-                    .append("info", map)
-            )
+        thread {
+            client.getDatabase("statics").getCollection("user_log")
+                .insertOne(
+                    Document("uuid", uuid.fastToString())
+                        .append("type", type)
+                        .append("Time", time)
+                        .append("info", map)
+                )
+        }
     }
 
     fun insert(uuid: UUID, type: String, time: Long = currentTimeMillis(), block: HashMap<String, Any>.() -> Unit) =

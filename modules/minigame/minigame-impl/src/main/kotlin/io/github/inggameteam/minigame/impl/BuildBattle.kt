@@ -53,7 +53,8 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         Material.STICKY_PISTON,
         Material.TNT,
         Material.TNT_MINECART,
-        Material.ENDER_CHEST
+        Material.ENDER_CHEST,
+        Material.RESPAWN_ANCHOR,
     )
     val doneTime get() = comp.doubleOrNull("done-time")?: (20.0 * 90.0)
     val voteTime get() = comp.doubleOrNull("vote-time")?: 100.0

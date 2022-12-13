@@ -18,10 +18,14 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Respawn, InteractingBan, SpawnTeamPlayer {
     override val name get() = "bed-wars"
-    override val noInteracts = listOf(
-        Material.BLUE_CONCRETE, Material.RED_CONCRETE,
-        Material.RED_BED, Material.BLUE_BED,
-    )
+    override val noInteracts: List<Material> get()  {
+        return comp.stringListOrNull("$schematicName-noInteracts", plugin.defaultLanguage)
+            ?.map { Material.valueOf(it) }?.toList()?: listOf()
+    }
+//        listOf(
+//        Material.BLUE_CONCRETE, Material.RED_CONCRETE,
+//        Material.RED_BED, Material.BLUE_BED,
+//        )
     private var redBed = true
     private var blueBed = true
     private fun isBedAlive(player: GPlayer) = if (player.hasTag(PTag.RED)) redBed else blueBed
@@ -38,8 +42,8 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
                 if (gPlayer.hasTag(PTag.BLUE)) {
                     redBed = false
                     comp.send("RED-bed", joined)
-                    getLocation("RED_BED").block.type = Material.AIR
-                    getLocation("RED_BED2").block.type = Material.AIR
+                    getLocation("$schematicName-RED_BED").block.type = Material.AIR
+                    getLocation("$schematicName-RED_BED2").block.type = Material.AIR
                     playBedBrokenSound()
                 }
             } else if (event.block.type === Material.BLUE_BED) {
@@ -47,8 +51,8 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
                 if (gPlayer.hasTag(PTag.RED)) {
                     blueBed = false
                     comp.send("BLUE-bed", joined)
-                    getLocation("BLUE_BED").block.type = Material.AIR
-                    getLocation("BLUE_BED2").block.type = Material.AIR
+                    getLocation("$schematicName-BLUE_BED").block.type = Material.AIR
+                    getLocation("$schematicName-BLUE_BED2").block.type = Material.AIR
                     playBedBrokenSound()
                 }
             }
@@ -84,6 +88,17 @@ class BedWars(plugin: GamePlugin) : SimpleGame, TeamCompetitionImpl(plugin), Res
     override fun staticInteractBlock(event: PlayerInteractEvent) {
         listOf(event.material).forEach { mat ->
             staticBreak(event.player, mat, event)
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onBreakBlock(event: BlockBreakEvent) {
+        if (!isJoined(event.player) && gameState !== GameState.PLAY) return
+        val loc = event.block.location
+        if (listOf(loc.apply { y += 1 }, loc.apply { y += 2 })
+                .any { it.block.state is @Suppress("DEPRECATION") Bed }) {
+            event.isCancelled = true
         }
     }
 

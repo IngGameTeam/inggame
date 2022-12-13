@@ -45,6 +45,7 @@ class Plugin : GamePluginImpl(
         ::Tutorial,
         ::JobWars,
         ::Zombies,
+        ::Shiritori,
     ),
 ) {
 
@@ -128,6 +129,7 @@ class Plugin : GamePluginImpl(
         BigBoom(this)
         ShuffleGame(this)
         FlakJacket(this)
+        AdvancedHandyGun(this)
 
         RestServer(this)
 
