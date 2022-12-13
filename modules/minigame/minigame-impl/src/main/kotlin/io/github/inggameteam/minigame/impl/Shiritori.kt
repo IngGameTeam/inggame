@@ -4,10 +4,7 @@ import io.github.inggameteam.bossbar.GBar
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.minigame.GameState
 import io.github.inggameteam.minigame.PTag
-import io.github.inggameteam.minigame.base.CircleSpawn
-import io.github.inggameteam.minigame.base.CompetitionImpl
-import io.github.inggameteam.minigame.base.NoDamage
-import io.github.inggameteam.minigame.base.SimpleGame
+import io.github.inggameteam.minigame.base.*
 import io.github.inggameteam.minigame.event.GameBeginEvent
 import io.github.inggameteam.minigame.event.GameLeftEvent
 import io.github.inggameteam.player.GPlayer
@@ -24,13 +21,13 @@ import kotlin.system.measureTimeMillis
 
 
 class Shiritori(plugin: GamePlugin)
-    : CompetitionImpl(plugin), NoDamage, SimpleGame, CircleSpawn {
+    : CompetitionImpl(plugin), NoDamage, SimpleGame, CircleSpawn, BarGame {
     override val name get() = "shiritori"
 
     private lateinit var currentPlayer: GPlayer
     lateinit var currentWord: String
     private val koreanWorldDetector by lazy { KoreanWorldDetector(File(plugin.dataFolder, "kr_korean.db")) }
-    val bar by lazy { GBar(plugin, 750.0) }
+    override val bar by lazy { GBar(plugin, 750.0) }
 
     @Suppress("unused")
     @EventHandler
@@ -63,6 +60,7 @@ class Shiritori(plugin: GamePlugin)
         if (player != currentPlayer) {
             comp.send("not-current-player", player)
         }
+        event.isCancelled = true
         thread {
             if (player != currentPlayer) return@thread
             val isKorean = koreanWorldDetector.isKoreanWord(input)
