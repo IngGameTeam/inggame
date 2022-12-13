@@ -105,6 +105,7 @@ class Shiritori(plugin: GamePlugin)
     }
 
     private fun nextPlayer() {
+        bar.tick = bar.size.toInt()
         val index = joined.indexOf(currentPlayer)
         val front = joined.subList(0, index)
         val behind = joined.subList(index, joined.size)
