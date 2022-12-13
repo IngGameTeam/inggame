@@ -24,7 +24,7 @@ import kotlin.system.measureTimeMillis
 
 class Shiritori(plugin: GamePlugin)
     : CompetitionImpl(plugin), NoDamage, SimpleGame {
-    override val name = "shiritori"
+    override val name get() = "shiritori"
 
     private lateinit var currentPlayer: GPlayer
     lateinit var currentWord: String
