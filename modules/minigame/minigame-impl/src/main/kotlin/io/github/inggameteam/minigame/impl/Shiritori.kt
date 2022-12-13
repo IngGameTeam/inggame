@@ -27,7 +27,7 @@ class Shiritori(plugin: GamePlugin)
     private lateinit var currentPlayer: GPlayer
     lateinit var currentWord: String
     private val koreanWorldDetector by lazy { KoreanWorldDetector(File(plugin.dataFolder, "kr_korean.db")) }
-    override val bar by lazy { GBar(plugin, 750.0, adder = -1) }
+    override val bar by lazy { GBar(plugin, size=0.0, tick=750, adder = -1) }
     var wordSemaphore = false
     var chatSemaphore = false
 
@@ -36,10 +36,13 @@ class Shiritori(plugin: GamePlugin)
     fun onBegin(event: GameBeginEvent) {
         if (event.game != this) return
         currentPlayer = joined.hasTags(PTag.PLAY).random()
-        bar.startTimer {
-            bar.tick = bar.size.toInt()
+        var block: () -> Unit = {}
+        block = {
+            bar.tick = 750
             nextPlayer()
+            bar.startTimer(block)
         }
+        bar.startTimer(block)
         addTask({
             bar.update(comp.string("bar", plugin.defaultLanguage).format(currentPlayer, currentWord))
             true
@@ -80,7 +83,10 @@ class Shiritori(plugin: GamePlugin)
             val isKorean = koreanWorldDetector.isKoreanWord(input)
             if (isKorean) {
                 comp.send("correct-word", joined, player, msg)
-                ;{ nextPlayer() }.runNow(plugin)
+                ;{
+                    currentWord = msg
+                    nextPlayer()
+                }.runNow(plugin)
             } else {
                 comp.send("not-correct-word", joined, player, msg)
             }
@@ -89,7 +95,6 @@ class Shiritori(plugin: GamePlugin)
     }
 
     private fun nextPlayer() {
-        thread { newRandomWord() }
         val index = joined.indexOf(currentPlayer)
         val front = joined.subList(0, index)
         val behind = joined.subList(index, joined.size)
