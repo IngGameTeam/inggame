@@ -87,12 +87,13 @@ class Shiritori(plugin: GamePlugin)
 
         var uri = "jdbc:sqlite:${file.absolutePath}"
 
-        fun connect(url: String?): Connection? {
+        fun <T> connect(url: String?, block: (Connection) -> T): T {
             var conn: Connection? = null
             try {
                 // create a connection to the database
                 conn = DriverManager.getConnection(url)
                 println("Connection to SQLite has been established.")
+                return block(conn)
             } catch (e: SQLException) {
                 println(e.message)
             } finally {
@@ -102,16 +103,17 @@ class Shiritori(plugin: GamePlugin)
                     println(ex.message)
                 }
             }
-            return conn
+            throw AssertionError("null")
         }
 
         fun hasRow(sql: String?): Boolean {
-            val rs: ResultSet?
             try {
-                val conn = connect(uri)
-                val stmt: Statement = conn!!.createStatement()
-                rs = stmt.executeQuery(sql)
-                return rs.next()
+                return connect(uri) {
+                    val rs: ResultSet?
+                    val stmt: Statement = it.createStatement()
+                    rs = stmt.executeQuery(sql)
+                    rs.next()
+                }
             } catch (e: SQLException) {
                 println(e.message)
             }
@@ -119,18 +121,20 @@ class Shiritori(plugin: GamePlugin)
         }
 
         fun query(sql: String?): ResultSet? {
-            var rs: ResultSet? = null
             try {
-                val conn = connect(uri)
-                val stmt = conn!!.createStatement()
-                rs = stmt.executeQuery(sql)
-                while (rs.next()) {
-                    //empty
+                return connect(uri) {
+                    var rs: ResultSet? = null
+                    val stmt = it.createStatement()
+                    rs = stmt.executeQuery(sql)
+                    while (rs.next()) {
+                        //empty
+                    }
+                    rs
                 }
             } catch (e: SQLException) {
                 println(e.message)
             }
-            return rs
+            throw AssertionError("null")
         }
 
 
