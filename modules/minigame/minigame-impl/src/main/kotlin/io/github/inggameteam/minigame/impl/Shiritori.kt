@@ -89,11 +89,12 @@ class Shiritori(plugin: GamePlugin)
 
         fun <T> connect(url: String?, block: (Connection) -> T): T {
             var conn: Connection? = null
+            var res: T? = null
             try {
                 // create a connection to the database
                 conn = DriverManager.getConnection(url)
                 println("Connection to SQLite has been established.")
-                return block(conn)
+                res = block(conn)
             } catch (e: SQLException) {
                 println(e.message)
             } finally {
@@ -103,7 +104,8 @@ class Shiritori(plugin: GamePlugin)
                     println(ex.message)
                 }
             }
-            throw AssertionError("null")
+            if (res === null) throw AssertionError("null ")
+            return res
         }
 
         fun hasRow(sql: String?): Boolean {
