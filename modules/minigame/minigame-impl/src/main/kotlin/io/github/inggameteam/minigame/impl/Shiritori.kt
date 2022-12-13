@@ -57,6 +57,8 @@ class Shiritori(plugin: GamePlugin)
     fun newRandomWord() {
         wordSemaphore = true
         currentWord = koreanWorldDetector.getRandomKoreanWord()
+            .replace("-", " ")
+            .replace("^", " ")
         wordSemaphore = false
     }
 
