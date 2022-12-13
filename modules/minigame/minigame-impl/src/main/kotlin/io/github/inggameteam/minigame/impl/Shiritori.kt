@@ -135,7 +135,7 @@ class Shiritori(plugin: GamePlugin)
 
 
         fun isKoreanWord(input: String): Boolean {
-            return hasRow("SELECT * FROM kr WHERE name = '${input.replace("'", "\'")}'")
+            return hasRow("SELECT * FROM kr WHERE word = '${input.replace("'", "\'")}'")
         }
 
         fun getRandomKoreanWord(): String {
@@ -143,7 +143,7 @@ class Shiritori(plugin: GamePlugin)
                 "SELECT * FROM kr\n" +
                         "WHERE id = (SELECT seq FROM sqlite_sequence WHERE name='kr' ORDER BY random() LIMIT 1);"
             )
-                ?.getString("name")?: throw AssertionError("random korean db result is null")
+                ?.getString("word")?: throw AssertionError("random korean db result is null")
         }
     }
 
