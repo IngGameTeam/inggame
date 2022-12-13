@@ -36,6 +36,7 @@ class Shiritori(plugin: GamePlugin)
     @EventHandler
     fun onBegin(event: GameBeginEvent) {
         if (event.game != this) return
+        currentPlayer = joined.hasTags(PTag.PLAY).random()
         addTask({
             bar.update(comp.string("bar", plugin.defaultLanguage).format(currentPlayer, currentWord))
             true
@@ -43,7 +44,6 @@ class Shiritori(plugin: GamePlugin)
         measureTimeMillis {
             currentWord = koreanWorldDetector.getRandomKoreanWord()
         }.apply { println("koreanWordRandomPick(${this}ms)") }
-        currentPlayer = joined.hasTags(PTag.PLAY).random()
     }
 
     @Suppress("unused")
