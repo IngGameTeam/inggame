@@ -89,7 +89,7 @@ class Shiritori(plugin: GamePlugin)
                 input.replace(" ", "^"),
                 input.replace(" ", "-"))
                 .any { koreanWorldDetector.isKoreanWord(it) }
-            if (isKorean) {
+            if (isKorean && currentWord.substring(currentWord.length - 1) == input.substring(0, 1)) {
                 comp.send("correct-word", joined, player, msg)
                 ;{
                     bar.tick = 0
