@@ -1,3 +1,0 @@
-name: stock
-version: $version
-main: io.github.cheesesandteam.stock.plugin.StockPlugin

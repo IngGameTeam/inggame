@@ -1,0 +1,4 @@
+name: test
+version: $version
+main: io.github.example.test.plugin
+
