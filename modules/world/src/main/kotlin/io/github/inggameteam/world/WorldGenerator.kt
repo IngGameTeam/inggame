@@ -35,12 +35,12 @@ object WorldGenerator {
                 world.setGameRule(GameRule.MAX_ENTITY_CRAMMING, -1)
                 world.setGameRule(GameRule.UNIVERSAL_ANGER, false)
                 world.setGameRule(GameRule.SHOW_DEATH_MESSAGES, false)
-                try { world.isAutoSave = false }
-                catch (e: Exception) { e.printStackTrace() }
+                world.isAutoSave = false
                 onGenerate()
                 world.save()
                 Bukkit.unloadWorld(world, true)
                 worldCreator.createWorld()
+                world.isAutoSave = false
             }
         }
     }
