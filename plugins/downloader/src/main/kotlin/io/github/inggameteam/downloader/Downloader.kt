@@ -1,6 +1,5 @@
 package io.github.inggameteam.downloader
 
-import io.github.inggameteam.inggame.downloader.download
 import org.apache.commons.io.FileUtils
 import org.bukkit.Bukkit
 import org.bukkit.command.Command

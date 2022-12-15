@@ -5,7 +5,7 @@ import com.rylinaux.plugman.api.PlugManAPI
 import com.rylinaux.plugman.util.PluginUtil
 import io.github.inggameteam.api.HandleListener
 import io.github.inggameteam.api.PluginHolder
-import io.github.inggameteam.inggame.downloader.download
+import io.github.inggameteam.downloader.download
 import io.github.inggameteam.minigame.GamePlugin
 import io.github.inggameteam.scheduler.ITask
 import io.github.inggameteam.scheduler.delay
