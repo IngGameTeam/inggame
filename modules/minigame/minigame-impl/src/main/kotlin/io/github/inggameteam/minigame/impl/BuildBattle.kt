@@ -71,6 +71,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     @Suppress("unused")
     @EventHandler
     fun notAllowedBlockBreak(event: BlockBreakEvent) {
+        if (!isJoined(plugin[event.player])) return
         if (gameState !== GameState.PLAY) return
         if (isDone) return
         val location = plugin[event.player][PLAYER_AREA] as Location
