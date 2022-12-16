@@ -75,7 +75,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         if (gameState !== GameState.PLAY) return
         if (isDone) return
         val location = playerData[plugin[event.player]]!![PLAYER_AREA] as Location
-        val aresSize = areaSize - 1
+        val aresSize = areaSize - 2
         if (!event.block.location.toVector().isInAABB(
                 location.clone().subtract(aresSize, aresSize, aresSize).toVector(),
                 location.clone().add(aresSize, aresSize, aresSize).toVector(),
