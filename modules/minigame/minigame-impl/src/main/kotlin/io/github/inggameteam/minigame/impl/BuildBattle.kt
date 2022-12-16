@@ -70,6 +70,22 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
 
     @Suppress("unused")
     @EventHandler
+    fun notAllowedBlockBreak(event: BlockBreakEvent) {
+        if (gameState !== GameState.PLAY) return
+        if (isDone) return
+        val location = plugin[event.player][PLAYER_AREA] as Location
+        val aresSize = areaSize - 1
+        if (!event.block.location.toVector().isInAABB(
+                location.clone().subtract(aresSize, aresSize, aresSize).toVector(),
+                location.clone().add(aresSize, aresSize, aresSize).toVector(),
+            )
+        ) {
+            event.isCancelled = true
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
     fun onEntitySpawn(event: EntitySpawnEvent) {
         if (isInSector(event.location)) {
             event.isCancelled = true
