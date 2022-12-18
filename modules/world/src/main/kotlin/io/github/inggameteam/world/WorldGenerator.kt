@@ -7,7 +7,7 @@ object WorldGenerator {
     fun generateWorld(name: String, onGenerate: () -> Unit) {
         if (name.isEmpty()) return
         if (Bukkit.getWorld(name) === null) {
-            File(Bukkit.getWorldContainer(), name).deleteOnExit()
+//            File(Bukkit.getWorldContainer(), name).deleteOnExit()
             val worldCreator = WorldCreator(name)
             worldCreator.environment(World.Environment.NORMAL)
             worldCreator.type(WorldType.FLAT)
