@@ -9,7 +9,7 @@ import org.bukkit.event.world.ChunkUnloadEvent
 class NoSaveChunk(val plugin: GamePlugin) : HandleListener(plugin) {
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onUnloadChunk(event: ChunkUnloadEvent) {
         if (!plugin.gameRegister.worldName.contains(event.world.name)) return
         event.isSaveChunk = false
