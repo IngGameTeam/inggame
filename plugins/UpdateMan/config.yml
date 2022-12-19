@@ -5,9 +5,14 @@ inggame:
   out: "plugins/build/dist/angangang-plugin.jar"
   branch: "develop"
 inggame-download:
-  download: on
+  download: true
   url: https://github.com/IngGameTeam/inggame/releases/latest/download/angangang-plugin.jar
   destiny: plugins/update/angangang-plugin.jar
+  plugin: angangang
 bukkit-pull:
-  pull: on
+  pull: true
   destiny: ./.git
+updateman-download:
+  download: true
+  url: https://github.com/Bruce0203/Updateman/releases/latest/download/Updateman.jar
+  plugin: UpdateMan
