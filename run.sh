@@ -27,9 +27,9 @@ do
   plugin IntellectualSites/FastAsyncWorldEdit FastAsyncWorldEdit-Bukkit
   plugin ViaVersion/ViaVersion ViaVersion
   plugin ViaVersion/ViaBackwards ViaBackwards
-#  wget -O server.jar https://ci.codemc.io/job/etil2jz/job/Mirai-1.19/lastSuccessfulBuild/artifact/build/libs/mirai-paperclip-1.19.2-R0.1-SNAPSHOT-reobf.jar
-  VERSION=$(<version.txt)
-  wget -O server.jar https://api.purpurmc.org/v2/purpur/$VERSION/latest/download
+  wget -O server.jar https://ci.codemc.io/job/etil2jz/job/Mirai-1.19/lastSuccessfulBuild/artifact/build/libs/mirai-paperclip-1.19.2-R0.1-SNAPSHOT-reobf.jar
+#  VERSION=$(<version.txt)
+#  wget -O server.jar https://api.purpurmc.org/v2/purpur/$VERSION/latest/download
 
 
 java -Xms12G -Xmx12G -jar server.jar
