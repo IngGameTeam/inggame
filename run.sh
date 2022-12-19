@@ -5,6 +5,8 @@ do
   FILE=.git
   if [ -f "$FILE" ]; then
       cd plugins
+      git stash
+      git stash drop
       git pull origin bukkit
       cd ..
       cd ..
