@@ -8,3 +8,5 @@ update.sh
 !plugins/FastAsyncWorldEdit/config.yml
 !eula.txt
 !server.properties
+!config
+!config/paper-global.yml
