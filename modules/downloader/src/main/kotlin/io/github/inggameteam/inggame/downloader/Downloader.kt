@@ -7,6 +7,10 @@ import java.io.File
 import java.net.URL
 
 fun download(plugin: Plugin) {
+    if (plugin.config.getBoolean("disable-update")) {
+        println("update is cancelled due to its disabled")
+        return
+    }
     val configFile = File(plugin.dataFolder, "downloader.yml")
     val config = YamlConfiguration.loadConfiguration(configFile)
     config.getKeys(false).forEach {

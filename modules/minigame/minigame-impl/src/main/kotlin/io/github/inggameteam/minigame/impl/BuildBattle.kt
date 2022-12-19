@@ -56,7 +56,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         Material.ENDER_CHEST,
         Material.RESPAWN_ANCHOR,
     )
-    val doneTime get() = comp.doubleOrNull("done-time")?: (20.0 * 90.0)
+    val doneTime get() = comp.doubleOrNull("done-time")?: (20.0 * 100.0)
     val voteTime get() = comp.doubleOrNull("vote-time")?: 100.0
     val areaSize get() = comp.doubleOrNull("area-size")?: 20.0
     var time = doneTime
@@ -67,6 +67,23 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
     val exampleTopic = ArrayList<String>()
     lateinit var current: UUID
     lateinit var decidedTopic: String
+
+    @Suppress("unused")
+    @EventHandler
+    fun notAllowedBlockBreak(event: BlockBreakEvent) {
+        if (!isJoined(plugin[event.player])) return
+        if (gameState !== GameState.PLAY) return
+        if (isDone) return
+        val location = playerData[plugin[event.player]]!![PLAYER_AREA] as Location
+        val aresSize = areaSize/2 - 6
+        if (!event.block.location.toVector().isInAABB(
+                location.clone().subtract(aresSize, aresSize, aresSize).toVector(),
+                location.clone().add(aresSize, aresSize, aresSize).toVector(),
+            )
+        ) {
+            event.isCancelled = true
+        }
+    }
 
     @Suppress("unused")
     @EventHandler

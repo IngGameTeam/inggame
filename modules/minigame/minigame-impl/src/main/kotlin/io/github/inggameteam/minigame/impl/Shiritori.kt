@@ -30,6 +30,7 @@ class Shiritori(plugin: GamePlugin)
     override val bar by lazy { GBar(plugin, size=140.0, reversed = true) }
     var wordSemaphore = false
     var chatSemaphore = false
+    val words =  ArrayList<String>()
 
     @Suppress("unused")
     @EventHandler
@@ -89,7 +90,11 @@ class Shiritori(plugin: GamePlugin)
                 input.replace(" ", "^"),
                 input.replace(" ", "-"))
                 .any { koreanWorldDetector.isKoreanWord(it) }
-            if (isKorean) {
+            if (isKorean
+                && currentWord.substring(currentWord.length - 1) == input.substring(0, 1)
+                && words.contains(input)
+            ) {
+                words.add(input)
                 comp.send("correct-word", joined, player, msg)
                 ;{
                     bar.tick = 0

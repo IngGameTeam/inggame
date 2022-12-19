@@ -150,7 +150,7 @@ abstract class SectionalImpl(plugin: GamePlugin) : GameImpl(plugin), Sectional {
         if (!isJoined(player)) return
         val to = event.to
         if (to != null && !isInSector(to)
-            && !player.isOp && gameState === GameState.PLAY) event.isCancelled = true
+            && !player.isOp && gameState !== GameState.WAIT) event.isCancelled = true
     }
 
     override fun isInSector(location: Location): Boolean {
