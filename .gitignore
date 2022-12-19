@@ -21,3 +21,5 @@ update.sh
 !plugins/UpdateMan/config.yml
 !plugins/cronman
 !plugins/cronman/config.yml
+!version.txt
+!server.sh
