@@ -2,8 +2,8 @@
 #cd $BASEDIR
 while :
 do
-  FILE=.git
-  if [ -f "$FILE" ]; then
+  if [ -f ".git" ]; then
+      echo "pull!"
       cd plugins
       git stash
       git stash drop
@@ -11,6 +11,8 @@ do
       cd ..
       cd ..
   else
+      echo "clone!"
+      cd ..
       git clone -b bukkit --single-branch https://github.com/IngGameTeam/inggame
   fi
   cd inggame
