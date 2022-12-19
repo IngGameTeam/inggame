@@ -1,5 +1,11 @@
-git pull
-VERSION=$(<version.txt)
+FILE=inggame/.git
+if [ -f "$FILE" ]; then
+    git pull
+else
+    git clone -b bukkit --single-branch https://github.com/IngGameTeam/inggame
+fi
+#VERSION=$(<version.txt)
+mkdir plugins
 cd plugins
 #sudo apt install -y jq
 function plugin() {
