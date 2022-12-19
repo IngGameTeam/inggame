@@ -19,3 +19,5 @@ update.sh
 !plugins/Updateman.jar
 !plugins/UpdateMan
 !plugins/UpdateMan/config.yml
+!plugins/cronman
+!plugins/cronman/config.yml
