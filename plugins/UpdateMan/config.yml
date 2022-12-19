@@ -8,3 +8,6 @@ inggame-download:
   download: on
   url: https://github.com/IngGameTeam/inggame/releases/latest/download/angangang-plugin.jar
   destiny: plugins/update/angangang-plugin.jar
+bukkit-pull:
+  pull: on
+  destiny: ./.git
