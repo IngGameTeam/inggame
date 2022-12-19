@@ -12,7 +12,6 @@ do
       git clone -b bukkit --single-branch https://github.com/IngGameTeam/inggame
   fi
   cd inggame
-  mkdir -r plugins
   cd plugins
   #sudo apt install -y jq
   function plugin() {
