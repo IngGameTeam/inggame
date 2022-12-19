@@ -6,5 +6,5 @@ inggame:
   branch: "develop"
 inggame-download:
   download: on
-  url: https://api.github.com/repos/IngGameTeam/inggame/releases/assets/angangang-plugin.jar
+  url: https://github.com/IngGameTeam/inggame/releases/latest/download/angangang-plugin.jar
   destiny: plugins/update/angangang-plugin.jar
