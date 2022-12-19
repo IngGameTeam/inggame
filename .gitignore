@@ -10,3 +10,8 @@ update.sh
 !server.properties
 !config
 !config/paper-global.yml
+!plugins/PlugManX.jar
+!bukkit.yml
+!spigot.yml
+!pufferfish.yml
+!server-icon.png
