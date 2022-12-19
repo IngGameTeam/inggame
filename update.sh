@@ -1,9 +1,13 @@
+cd ..
 FILE=inggame/.git
 if [ -f "$FILE" ]; then
+    cd inggame
     git pull
+    cd ..
 else
     git clone -b bukkit --single-branch https://github.com/IngGameTeam/inggame
 fi
+cd inggame
 #VERSION=$(<version.txt)
 mkdir plugins
 cd plugins
