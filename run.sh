@@ -2,11 +2,10 @@
 #cd $BASEDIR
 while :
 do
-  cd ..
-  FILE=inggame/.git
+  FILE=.git
   if [ -f "$FILE" ]; then
-      cd inggame/plugins
-      git pull
+      cd plugins
+      git pull origin bukkit
       cd ..
       cd ..
   else
@@ -26,7 +25,5 @@ do
   plugin ViaVersion/ViaBackwards ViaBackwards
   wget -O server.jar https://ci.codemc.io/job/etil2jz/job/Mirai-1.19/lastSuccessfulBuild/artifact/build/libs/mirai-paperclip-1.19.2-R0.1-SNAPSHOT-reobf.jar
 
-mkdir customized_minigame
-cp -r customized_minigame-config.yml customized_minigame/paper-world.yml
 java -Xms12G -Xmx12G -jar server.jar
 done
