@@ -5,8 +5,9 @@ do
   cd ..
   FILE=inggame/.git
   if [ -f "$FILE" ]; then
-      cd inggame
+      cd inggame/plugins
       git pull
+      cd ..
       cd ..
   else
       git clone -b bukkit --single-branch https://github.com/IngGameTeam/inggame
