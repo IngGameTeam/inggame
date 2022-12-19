@@ -1,5 +1,5 @@
-BASEDIR=$(dirname $0)
-cd $BASEDIR
+#BASEDIR=$(dirname $0)
+#cd $BASEDIR
 while :
 do
   cd ..
