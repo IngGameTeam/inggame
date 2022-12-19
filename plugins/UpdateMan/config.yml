@@ -4,3 +4,7 @@ inggame:
   cmd: "./gradlew :plugins:shadowJar"
   out: "plugins/build/dist/angangang-plugin.jar"
   branch: "develop"
+inggame-download:
+  download: on
+  url: https://api.github.com/repos/IngGameTeam/inggame/releases/assets/angangang-plugin.jar
+  destiny: plugins/update/angangang-plugin.jar
