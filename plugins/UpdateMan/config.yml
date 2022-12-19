@@ -1,0 +1,6 @@
+inggame:
+  url: "https://github.com/IngGameTeam/inggame"
+  plugin: "angangang"
+  cmd: "./gradlew :plugins:shadowJar"
+  out: "plugins/build/dist/angangang-plugin.jar"
+  branch: "develop"

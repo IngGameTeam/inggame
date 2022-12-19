@@ -15,3 +15,7 @@ update.sh
 !spigot.yml
 !pufferfish.yml
 !server-icon.png
+!plugins/cronman.jar
+!plugins/Updateman.jar
+!plugins/UpdateMan
+!plugins/UpdateMan/config.yml
