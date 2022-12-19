@@ -16,3 +16,5 @@ updateman-download:
   download: true
   url: https://github.com/Bruce0203/Updateman/releases/latest/download/Updateman.jar
   plugin: UpdateMan
+  destiny: plugins/update/Updateman.jar
+
