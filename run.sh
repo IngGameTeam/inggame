@@ -2,7 +2,7 @@
 #cd $BASEDIR
 while :
 do
-  if [[ -f ".git" ]]; then
+  if [[ -f ".git" ]] then
       echo "pull!"
       cd plugins
       git stash
