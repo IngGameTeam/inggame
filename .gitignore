@@ -7,3 +7,4 @@ update.sh
 !plugins/FastAsyncWorldEdit/
 !plugins/FastAsyncWorldEdit/config.yml
 !eula.txt
+!server.properties
