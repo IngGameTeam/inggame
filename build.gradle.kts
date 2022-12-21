@@ -36,6 +36,7 @@ allprojects {
     dependencies {
         api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
         compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
+        compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     }
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         dependsOn(tasks.processResources)

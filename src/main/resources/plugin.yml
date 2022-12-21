@@ -1,4 +1,5 @@
 name: test
 version: $version
 main: io.github.example.test.plugin
-
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
