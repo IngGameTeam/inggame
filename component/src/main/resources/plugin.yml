@@ -1,5 +1,6 @@
 name: test
 version: $version
-main: io.github.example.test.plugin
+main: io.github.bruce0203.mongodb.Plugin
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
+  - org.mongodb:mongodb-driver-sync:4.8.1

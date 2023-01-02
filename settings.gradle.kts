@@ -1,0 +1,5 @@
+include(
+    "component",
+    "mongodb",
+    "minigame",
+)
