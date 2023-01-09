@@ -115,7 +115,6 @@ class Plugin : GamePluginImpl(
         AutoUpdater(this)
         RewardVote(this, user, votes)
         NoUnderWaterFall(this)
-        NoCraftInHub(this)
         AttackSpeed(this)
 
         ItemShopMenu(this, user, purchase)
@@ -130,6 +129,7 @@ class Plugin : GamePluginImpl(
         ShuffleGame(this)
         FlakJacket(this)
         AdvancedHandyGun(this)
+        NoCraftInteract(this)
 
         RestServer(this)
 
