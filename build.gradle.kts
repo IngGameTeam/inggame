@@ -77,7 +77,7 @@ allprojects {
         testCompileOnly("org.projectlombok:lombok:1.18.24")
         testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
 
-        api("io.insert-koin:koin-core:${Dependency.Koin.Version}")
+        compileOnly("io.insert-koin:koin-core:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit4:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit5:${Dependency.Koin.Version}")

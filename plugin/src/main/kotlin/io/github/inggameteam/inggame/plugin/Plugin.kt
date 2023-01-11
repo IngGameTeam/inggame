@@ -43,7 +43,7 @@ class Plugin : IngGamePluginImp() {
     }.koin }
 
     override fun onEnable() {
-        val comp = app.get<ComponentService>(named(resource))
+
     }
 
     override fun onDisable() {
