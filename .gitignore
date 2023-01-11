@@ -23,3 +23,8 @@ update.sh
 !plugins/cronman/config.yml
 !version.txt
 !server.sh
+!action.yml
+!Dockerfile
+!.github
+!.github/workflows
+!.github/workflows/main.yml
