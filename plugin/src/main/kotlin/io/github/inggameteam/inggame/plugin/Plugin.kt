@@ -13,6 +13,7 @@ import io.github.inggameteam.inggame.minigame.wrapper.Server
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.player.createPlayerModule
+import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
@@ -43,7 +44,7 @@ class Plugin : IngGamePluginImp() {
     }.koin }
 
     override fun onEnable() {
-
+        app.get<PlayerLoader>()
     }
 
     override fun onDisable() {
