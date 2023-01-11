@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.plugin
 
+import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.ResourceComponentService
 import io.github.inggameteam.inggame.component.createLayer
 import io.github.inggameteam.inggame.component.createResource
@@ -8,6 +9,7 @@ import io.github.inggameteam.inggame.minigame.createGameService
 import io.github.inggameteam.inggame.minigame.wrapper.Server
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
+import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
@@ -31,6 +33,7 @@ class Plugin : IngGamePluginImp() {
             createRepo(player),
             createResource(resource, component),
             createLayer(player, resource),
+            createPlayerModule(player),
             createGameService(game),
             module {
                 factory { Server(NonNullDelegateImp("server", get(named(resource)))) }
@@ -39,9 +42,7 @@ class Plugin : IngGamePluginImp() {
     }.koin }
 
     override fun onEnable() {
-        val comp = app.get<ResourceComponentService>()
-        comp.poolNameSpace()
-        comp.saveNameSpace()
+        val comp = app.get<ComponentService>(named(resource))
     }
 
     override fun onDisable() {
