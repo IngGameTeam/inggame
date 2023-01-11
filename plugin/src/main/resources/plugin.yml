@@ -7,5 +7,4 @@ libraries:
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - org.reflections:reflections:0.10.2
-  - org.koin:koin-core:3.0.0-alpha-1
-
+  - org.koin:koin-core-ext:2.0.1
