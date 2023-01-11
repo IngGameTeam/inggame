@@ -5,13 +5,12 @@ import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import org.bson.UuidRepresentation
-import org.bson.codecs.configuration.CodecRegistry
 
-fun createClient(connectionString: ConnectionString, codecRegistry: CodecRegistry): MongoClient {
+fun createClient(connectionString: ConnectionString, codec: MongoCodec): MongoClient {
     val clientSettings = MongoClientSettings.builder()
         .uuidRepresentation(UuidRepresentation.STANDARD)
         .applyConnectionString(connectionString)
-        .codecRegistry(codecRegistry)
+        .codecRegistry(codec.codecRegistry)
         .build()
     return MongoClients.create(clientSettings)
 }

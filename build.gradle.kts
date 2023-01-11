@@ -54,6 +54,9 @@ allprojects {
         testCompileOnly("org.slf4j:slf4j-api:2.0.5")
         testCompileOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
 
+        compileOnly("com.eatthepath:fast-uuid:0.2.0")
+        testCompileOnly("com.eatthepath:fast-uuid:0.2.0")
+
         compileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
         testCompileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
 

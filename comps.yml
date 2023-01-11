@@ -1,0 +1,20 @@
+Game:
+  startPlayersAmount: 2
+  playerLimitAmount: -1
+  startWaitingSecond: 4
+  stopWaitingTick: -1
+RewardPoint:
+  rewardPoint: 100
+SpawnPlayer:
+  gameMode: 0
+VoidDeath:
+  void-death-y: 10
+SimpleGame:
+  parents: Sectional, VoidDeath, SpawnOnStart, SpawnOnJoin, SpawnPlayer, RewardPoint
+SpawnTeamPlayer:
+  SpawnPlayer: TEAM
+BedWars:
+  parents: TeamCompetition, SpawnTeamPlayer, SimpleGame
+RandomWeaponWar:
+  parents: Competition, SpawnPlayer
+
