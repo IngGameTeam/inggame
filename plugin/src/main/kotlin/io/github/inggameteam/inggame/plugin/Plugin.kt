@@ -48,6 +48,7 @@ class Plugin : IngGamePluginImp() {
     }.koin }
 
     override fun onEnable() {
+        super.onEnable()
         app.get<PlayerLoader>()
     }
 
