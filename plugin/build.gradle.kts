@@ -5,5 +5,5 @@ dependencies {
         ":component",
         ":player",
         ":minigame"
-    ).forEach { compileOnly(project(it)) }
+    ).forEach { api(project(it)) }
 }

@@ -49,7 +49,7 @@ allprojects {
     }
 
     dependencies {
-        api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+//        api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
         testCompileOnly("org.slf4j:slf4j-api:2.0.5")
         testCompileOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
@@ -74,7 +74,7 @@ allprojects {
         testCompileOnly("org.projectlombok:lombok:1.18.24")
         testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
 
-        implementation("io.insert-koin:koin-core:${Dependency.Koin.Version}")
+        compileOnly("io.insert-koin:koin-core:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit4:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit5:${Dependency.Koin.Version}")
