@@ -4,7 +4,10 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.ResourceComponentService
 import io.github.inggameteam.inggame.component.createLayer
 import io.github.inggameteam.inggame.component.createResource
+import io.github.inggameteam.inggame.component.createSingleton
+import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.NonNullDelegateImp
+import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import io.github.inggameteam.inggame.minigame.createGameService
 import io.github.inggameteam.inggame.minigame.wrapper.Server
 import io.github.inggameteam.inggame.mongodb.createMongoModule
@@ -35,9 +38,7 @@ class Plugin : IngGamePluginImp() {
             createLayer(player, resource),
             createPlayerModule(player),
             createGameService(game),
-            module {
-                factory { Server(NonNullDelegateImp("server", get(named(resource)))) }
-            }
+            createSingleton(::Server, "server", resource)
         )
     }.koin }
 

@@ -37,6 +37,8 @@ abstract class BaseDelegate : Delegate {
     override val parents get() = component.getParents(nameSpace)
 }
 
+class SimpleDelegate(override val nameSpace: Any, override val component: ComponentService) : BaseDelegate()
+
 class NullableDelegateImp(
     override val nameSpace: Any,
     override val component: ComponentService,
