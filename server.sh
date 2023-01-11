@@ -7,13 +7,13 @@ GIT_URL=https://Bruce0203:$GH_TOKEN@github.com/IngGameTeam/inggame
       cd plugins
       git stash
       git stash drop
-      git remote set-url origin $GIT_URL
       git pull origin bukkit
       cd ..
       cd ..
   else
       echo "clone!"
       cd ..
+      git remote set-url origin $GIT_URL
       git clone -b bukkit --single-branch $GIT_URL
   fi
   cd inggame
