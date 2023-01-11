@@ -14,11 +14,14 @@ import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
+import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import org.reflections.util.QueryFunction.single
 
 class Plugin : IngGamePluginImp() {
 
@@ -39,7 +42,8 @@ class Plugin : IngGamePluginImp() {
             createLayer(player, resource),
             createPlayerModule(player),
             createGameService(game),
-            createSingleton(::Server, "server", resource)
+            createSingleton(::Server, "server", resource),
+            module { single { this@Plugin } bind IngGamePlugin::class }
         )
     }.koin }
 
