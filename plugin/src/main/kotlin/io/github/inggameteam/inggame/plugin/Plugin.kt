@@ -50,6 +50,8 @@ class Plugin : IngGamePluginImp() {
     override fun onEnable() {
         super.onEnable()
         app.get<PlayerLoader>()
+
+
     }
 
     override fun onDisable() {
