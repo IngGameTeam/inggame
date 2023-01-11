@@ -34,4 +34,4 @@ GIT_URL=https://Bruce0203:$GH_TOKEN@github.com/IngGameTeam/inggame
 
 
 #java -Xms12G -Xmx12G -jar server.jar
-java -Xms2G -Xmx2G -jar server.jar --GH_TOKEN="$GH_TOKEN"
+java -Xms2G -Xmx2G -jar server.jar #--GH_TOKEN="$GH_TOKEN"
