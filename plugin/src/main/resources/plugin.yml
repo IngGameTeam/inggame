@@ -1,4 +1,4 @@
-name: angangang
+name: inggame
 version: $version
 main: io.github.inggameteam.inggame.plugin.Plugin
 libraries:
