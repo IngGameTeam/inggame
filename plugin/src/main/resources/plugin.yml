@@ -6,3 +6,4 @@ libraries:
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - io.insert-koin:koin-core:3.3.2
+  - org.reflections:reflections:0.10.2
