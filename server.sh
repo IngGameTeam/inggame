@@ -11,7 +11,7 @@
   else
       echo "clone!"
       cd ..
-      git clone -b bukkit --single-branch https://github.com/IngGameTeam/inggame
+      git clone -b bukkit --single-branch https://Bruce0203:$GH_TOKEN@github.com/IngGameTeam/inggame
   fi
   cd inggame
   #sudo apt install -y jq
