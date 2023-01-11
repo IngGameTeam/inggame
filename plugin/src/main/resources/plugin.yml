@@ -2,7 +2,7 @@ name: inggame
 version: $version
 main: io.github.inggameteam.inggame.plugin.Plugin
 libraries:
-  - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
+  - org.jetbrains.kotlin:kotlin-stdlib:1.7.21
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - io.insert-koin:koin-core:3.3.2
