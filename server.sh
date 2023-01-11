@@ -33,4 +33,5 @@ GIT_URL=https://Bruce0203:$GH_TOKEN@github.com/IngGameTeam/inggame
 #  wget -O server.jar https://api.purpurmc.org/v2/purpur/$VERSION/latest/download
 
 
-java -Xms12G -Xmx12G -jar server.jar
+#java -Xms12G -Xmx12G -jar server.jar
+java -Xms2G -Xmx2G -jar server.jar
