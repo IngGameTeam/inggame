@@ -1,5 +1,7 @@
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -17,13 +19,14 @@ plugins {
     application
 }
 
-
-
 allprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.noarg")
     apply(plugin = "kotlin")
     apply(plugin = "org.gradle.application")
     apply(plugin = "com.github.johnrengelman.shadow")
+
+    version = rootProject.version
+
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         archiveFileName.set("${rootProject.name}.jar")
     }
