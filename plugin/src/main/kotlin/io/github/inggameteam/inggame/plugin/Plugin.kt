@@ -1,3 +1,5 @@
+package io.github.inggameteam.inggame.plugin
+
 import io.github.inggameteam.inggame.component.componentservice.ResourceComponentService
 import io.github.inggameteam.inggame.component.createLayer
 import io.github.inggameteam.inggame.component.createResource
