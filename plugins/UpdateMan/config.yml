@@ -1,7 +1,7 @@
 inggame:
   url: "https://Bruce0203:${GH_TOKEN}@github.com/IngGameTeam/inggame"
   plugin: "inggame"
-  cmd: "./gradlew :plugin:shadowJar"
+  cmd: "./gradlew :clean :plugin:shadowJar"
   out: "plugin/build/libs/inggame.jar"
   branch: "temp"
 download-inggame:
