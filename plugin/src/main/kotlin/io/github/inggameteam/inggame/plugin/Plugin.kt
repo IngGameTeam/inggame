@@ -54,7 +54,6 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
-        app.getAll<Any>().apply(::println)
     }
 
     override fun onDisable() {
