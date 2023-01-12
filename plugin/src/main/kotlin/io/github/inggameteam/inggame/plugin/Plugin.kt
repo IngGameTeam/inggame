@@ -17,7 +17,9 @@ import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
+import org.bukkit.plugin.Plugin
 import org.koin.core.Koin
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
@@ -37,6 +39,7 @@ class Plugin : IngGamePluginImp() {
     val app: Koin by lazy { koinApplication {
         modules(
             module { single { this@Plugin } bind IngGamePlugin::class },
+            module { single { this@Plugin } bind Plugin::class },
             createSingleton(::Server, "server", resource),
             createMongoModule(url, codecPackage, database),
             createRepo(component),
