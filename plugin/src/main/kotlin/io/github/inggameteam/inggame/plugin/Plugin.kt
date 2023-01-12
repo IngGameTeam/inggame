@@ -32,22 +32,25 @@ class Plugin : IngGamePluginImp() {
             ),
             *config.getConfigurationSection("repo")?.run {
                 getKeys(false).map { repo -> createRepo(repo, getString(repo)!!) }.toTypedArray()
-            } ?: emptyArray<Module>(),
+            } ?: emptyArray(),
             *config.getConfigurationSection("file")?.run {
                 getKeys(false).map { repo -> createFileRepo(repo, getString(repo)!!) }.toTypedArray()
-            } ?: emptyArray<Module>(),
+            } ?: emptyArray(),
             *config.getConfigurationSection("layer")?.run {
                 getKeys(false).map { layer -> createLayer(layer, getString(layer)!!) }.toTypedArray()
-            } ?: emptyArray<Module>(),
+            } ?: emptyArray(),
             *config.getConfigurationSection("resource")?.run {
                 getKeys(false).map { layer -> createResource(layer, getString(layer)!!) }.toTypedArray()
-            } ?: emptyArray<Module>(),
+            } ?: emptyArray(),
             createEmpty("default"),
             createGameHandlers(),
-            config.getString("player")?.run(::createPlayerModule),
-            config.getString("game")?.run(::createGameService),
-            config.getString("game-resource")?.run(::createGameResourceService),
-
+            *config.getConfigurationSection("service")?.run {
+                listOfNotNull(
+                    config.getString("player")?.run(::createPlayerModule),
+                    config.getString("game")?.run(::createGameService),
+                    config.getString("game-resource")?.run(::createGameResourceService),
+                ).toTypedArray()
+            }?: emptyArray(),
             *config.getConfigurationSection("singleton")?.run {
                 getKeys(false).firstNotNullOfOrNull { component ->
                     getConfigurationSection(component)?.run {
@@ -66,7 +69,7 @@ class Plugin : IngGamePluginImp() {
                         }
                     }
                 }?.toTypedArray()
-            }?: emptyArray<Module>()
+            }?: emptyArray()
         ).apply { modules(this) }
         modules(
 //            createSingleton(::GameServer, "server", resource),
