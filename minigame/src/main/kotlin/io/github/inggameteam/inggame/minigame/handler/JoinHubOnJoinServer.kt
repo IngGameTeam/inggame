@@ -17,7 +17,6 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
-        println("HELLO")
         gameService.join(server.hub, event.player.uniqueId)
     }
 
