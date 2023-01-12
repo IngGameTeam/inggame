@@ -13,6 +13,8 @@ interface Delegate {
 
     fun default(block: () -> Any) = NonNullDelegateImp(nameSpace, component).apply { defaultBlock = block }
 
+    fun nullableDefault(block: () -> Any?) = NullableDelegateImp(nameSpace, component).apply { defaultBlock = block }
+
     val nonNull get() = NonNullDelegateImp(nameSpace, component)
 
     val nullable get() = NullableDelegateImp(nameSpace, component)
@@ -43,7 +45,7 @@ class NullableDelegateImp(
     override val component: ComponentService,
 ) : NullableDelegate, BaseDelegate() {
 
-    private var defaultBlock: (() -> Any)? = null
+    internal var defaultBlock: (() -> Any?)? = null
 
     @Suppress("UNCHECKED_CAST")
     override operator fun <T, R> getValue(thisRef: T, property: KProperty<*>): R? {
