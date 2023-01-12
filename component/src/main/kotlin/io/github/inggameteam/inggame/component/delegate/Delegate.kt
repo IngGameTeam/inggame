@@ -11,7 +11,6 @@ interface Delegate {
     val nameSpace: Any
     val component: ComponentService
 
-    @Deprecated("do not use this")
     fun default(block: () -> Any) = NonNullDelegateImp(nameSpace, component).apply { defaultBlock = block }
 
     val nonNull get() = NonNullDelegateImp(nameSpace, component)
