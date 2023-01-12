@@ -51,7 +51,7 @@ class NullableDelegateImp(
     override operator fun <T, R> getValue(thisRef: T, property: KProperty<*>): R? {
         val result = try {
             component[nameSpace, property.name, Any::class]
-            println("1233414")
+            println("12334owirjgoawrh982h4t98214")
         } catch (_: Exception) {
             println("exceptionexceptionexceptionexceptionexception")
             defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
