@@ -17,6 +17,7 @@ import org.koin.core.Koin
 import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import org.koin.core.module.Module
 
 @Suppress("unused")
 @Deprecated("need no refs")
@@ -24,31 +25,31 @@ class Plugin : IngGamePluginImp() {
 
     private val app: Koin by lazy { koinApplication {
         val codec = config.getStringList("codec")
-        listOfNotNull(
+        val modules = listOfNotNull<Module>(
             createMongoModule(
                 config.getString("url") ?: "unspecified",
                 *codec.toTypedArray()
             ),
             *config.getConfigurationSection("repo")?.run {
                 getKeys(false).map { repo -> createRepo(repo, getString(repo)!!) }.toTypedArray()
-            }?: emptyArray(),
+            } ?: emptyArray<Module>(),
             *config.getConfigurationSection("file")?.run {
                 getKeys(false).map { repo -> createFileRepo(repo, getString(repo)!!) }.toTypedArray()
-            }?: emptyArray(),
+            } ?: emptyArray<Module>(),
             *config.getConfigurationSection("layer")?.run {
                 getKeys(false).map { layer -> createLayer(layer, getString(layer)!!) }.toTypedArray()
-            }?: emptyArray(),
+            } ?: emptyArray<Module>(),
             *config.getConfigurationSection("resource")?.run {
                 getKeys(false).map { layer -> createResource(layer, getString(layer)!!) }.toTypedArray()
-            }?: emptyArray(),
+            } ?: emptyArray<Module>(),
             createEmpty("default"),
             createGameHandlers(),
             config.getString("player")?.run(::createPlayerModule),
             config.getString("game")?.run(::createGameService),
             config.getString("game-resource")?.run(::createGameResourceService),
 
-            config.getConfigurationSection("singleton")?.run {
-                getKeys(false).forEach { component ->
+            *config.getConfigurationSection("singleton")?.run {
+                getKeys(false).firstNotNullOfOrNull { component ->
                     getConfigurationSection(component)?.run {
                         getKeys(false).map { ns ->
                             val clazz = getString(ns)!!.run {
@@ -64,10 +65,9 @@ class Plugin : IngGamePluginImp() {
                             createSingleton(clazz, ns, component)
                         }
                     }
-                }
-
-            }
-        )
+                }?.toTypedArray()
+            }?: emptyArray<Module>()
+        ).apply { modules(this) }
         modules(
 //            createSingleton(::GameServer, "server", resource),
             module { single { this@Plugin } bind IngGamePlugin::class },
