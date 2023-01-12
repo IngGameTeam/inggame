@@ -54,7 +54,7 @@ class NullableDelegateImp(
         } catch (e: NameSpaceNotFoundException) {
             defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
         }
-        return result as R
+        return result as? R
     }
 
     override operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R?) {
