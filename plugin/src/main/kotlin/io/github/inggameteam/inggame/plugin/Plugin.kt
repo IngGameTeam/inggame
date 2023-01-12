@@ -78,7 +78,9 @@ class Plugin : IngGamePluginImp() {
     }.koin }
 
     override fun onEnable() {
+        println("enabled")
         super.onEnable()
+        println("enabled!")
         app
     }
 
