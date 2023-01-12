@@ -17,6 +17,6 @@ fun createLayer(collection: String, parentComponent: String) = module {
     single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent))) } bind ComponentService::class
 }
 
-fun createSingleton(block: (Delegate) -> Delegate, nameSpace: Any, component: String) = module {
-    single { block(SimpleDelegate(nameSpace, get(named(component)))) }
+inline fun <reified T : Any> createSingleton(crossinline block: (Delegate) -> T, nameSpace: Any, component: String) = module {
+    single { block(SimpleDelegate(nameSpace, get(named(component)))) } bind T::class
 }
