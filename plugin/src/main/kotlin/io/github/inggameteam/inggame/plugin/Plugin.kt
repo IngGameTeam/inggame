@@ -56,6 +56,7 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
+        println(isEnabled)
         app
     }
 
