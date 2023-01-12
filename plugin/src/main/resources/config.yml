@@ -22,5 +22,5 @@ service:
 
 singleton:
   singleton:
-    server: minigame.wrapper.GameServer
+    server: io.github.inggameteam.inggame.minigame.wrapper.GameServer
 
