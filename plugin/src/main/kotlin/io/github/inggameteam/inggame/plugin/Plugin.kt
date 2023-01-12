@@ -46,9 +46,9 @@ class Plugin : IngGamePluginImp() {
             createGameHandlers(),
             *config.getConfigurationSection("service")?.run {
                 listOfNotNull(
-                    config.getString("player")?.run(::createPlayerModule),
-                    config.getString("game")?.run(::createGameService),
-                    config.getString("game-resource")?.run(::createGameResourceService),
+                    getString("player")?.run(::createPlayerModule),
+                    getString("game")?.run(::createGameService),
+                    getString("game-resource")?.run(::createGameResourceService),
                 ).toTypedArray()
             }?: emptyArray(),
             *config.getConfigurationSection("singleton")?.run {
