@@ -10,6 +10,6 @@ fun createGameService(name: String) = module {
 }
 
 fun createGameHandlers() = module {
-//    singleOf(::JoinHubOnJoinServer)
-//    singleOf(::PrintOnMove)
+    singleOf(::JoinHubOnJoinServer)
+    singleOf(::PrintOnMove)
 }
