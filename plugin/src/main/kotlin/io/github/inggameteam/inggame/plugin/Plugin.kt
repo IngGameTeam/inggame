@@ -18,6 +18,7 @@ import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
+import io.github.inggameteam.inggame.utils.delay
 import org.bukkit.plugin.Plugin
 import org.koin.core.Koin
 import org.koin.core.module.dsl.singleOf
@@ -55,7 +56,7 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
-        app
+        ;{ app }.delay(this, 0)
     }
 
     override fun onDisable() {
