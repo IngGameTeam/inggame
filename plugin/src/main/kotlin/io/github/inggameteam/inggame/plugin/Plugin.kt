@@ -56,7 +56,7 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
-        ;{ app }.delay(this, 0)
+        app
     }
 
     override fun onDisable() {
