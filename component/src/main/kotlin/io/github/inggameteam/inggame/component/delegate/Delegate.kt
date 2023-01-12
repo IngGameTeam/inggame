@@ -52,7 +52,6 @@ class NullableDelegateImp(
         val result = try {
             component[nameSpace, property.name, Any::class]
         } catch (_: Throwable) {
-            println("exceptionexceptionexceptionexceptionexception")
             defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
         }
         return result as? R
