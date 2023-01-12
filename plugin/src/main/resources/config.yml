@@ -16,6 +16,7 @@ resource:
   component: default
   resource: component
   singleton: resource
+  game-resource: default
 
 service:
   player: player
