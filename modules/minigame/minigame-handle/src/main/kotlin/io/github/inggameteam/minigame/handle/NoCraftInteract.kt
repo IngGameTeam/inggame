@@ -12,7 +12,7 @@ class NoCraftInteract(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onInteract(event: InventoryClickEvent) {
-        if (event.inventory.type !== InventoryType.PLAYER) return
+        if (event.inventory.type !== InventoryType.CRAFTING) return
         if ((1..4).contains(event.rawSlot)) {
             event.isCancelled = true
         }
@@ -21,7 +21,7 @@ class NoCraftInteract(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onInteract(event: InventoryDragEvent) {
-        if (event.inventory.type !== InventoryType.PLAYER) return
+        if (event.inventory.type !== InventoryType.CRAFTING) return
         if ((1..4).any { event.rawSlots.contains(it) }) {
             event.isCancelled = true
         }
