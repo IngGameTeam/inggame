@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.NonNullDelegateImp
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
+import io.github.inggameteam.inggame.minigame.createGameHandlers
 import io.github.inggameteam.inggame.minigame.createGameService
 import io.github.inggameteam.inggame.minigame.wrapper.Server
 import io.github.inggameteam.inggame.mongodb.createMongoModule
@@ -43,15 +44,14 @@ class Plugin : IngGamePluginImp() {
             createPlayerModule(player),
             createGameService(game),
             createSingleton(::Server, "server", resource),
+            createGameHandlers(),
             module { single { this@Plugin } bind IngGamePlugin::class }
         )
     }.koin }
 
     override fun onEnable() {
         super.onEnable()
-        app.get<PlayerLoader>()
-
-
+        app.getAll<Any>().apply(::println)
     }
 
     override fun onDisable() {
