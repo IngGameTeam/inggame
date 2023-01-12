@@ -18,5 +18,5 @@ fun createLayer(collection: String, parentComponent: String) = module {
 }
 
 fun createSingleton(block: (Delegate) -> Delegate, nameSpace: Any, component: String) = module {
-    factory { block(SimpleDelegate(nameSpace, get(named(component)))) }
+    single { block(SimpleDelegate(nameSpace, get(named(component)))) }
 }
