@@ -19,6 +19,7 @@ resource:
 service:
   player: player
   game: game
+  game-service: game-service
 
 singleton:
   singleton:
