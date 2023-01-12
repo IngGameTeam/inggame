@@ -1,5 +1,5 @@
 codec: [ io.github.inggameteam.inggame ]
-url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/?retryWrites=true&w=majority/inggame"
+url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/?retryWrites=true&w=majority/?authSource=inggame"
 
 repo:
   component: component
