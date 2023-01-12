@@ -6,6 +6,7 @@ repo:
   player: player
   resource: resource
   game: game
+  singleton: singleton
 
 layer:
   game: resource
