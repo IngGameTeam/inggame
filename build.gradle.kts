@@ -85,6 +85,7 @@ allprojects {
 
     }
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+        exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${rootProject.name}.jar")
 
@@ -99,6 +100,7 @@ allprojects {
 
     tasks {
         processResources {
+            exclude("META-INF/**")
             repeat(2) {
                 filesMatching("**/*.yml") {
                     expand(HashMap(rootProject.properties)
@@ -107,6 +109,7 @@ allprojects {
                 }
             }
         }
+
     }
 
 }
