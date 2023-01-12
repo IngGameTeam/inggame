@@ -47,7 +47,7 @@ class Plugin : IngGamePluginImp() {
             createGameHandlers(),
             module { single { this@Plugin } bind IngGamePlugin::class }
         )
-    }.koin }
+    }.apply { createEagerInstances() }.koin }
 
     override fun onEnable() {
         super.onEnable()
