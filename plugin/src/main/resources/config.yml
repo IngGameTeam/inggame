@@ -13,6 +13,7 @@ layer:
   player: game
 
 resource:
+  component: default
   resource: component
   singleton: singleton
 
