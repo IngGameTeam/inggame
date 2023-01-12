@@ -55,7 +55,6 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
-        app.get<PrintOnMove>()
     }
 
     override fun onDisable() {
