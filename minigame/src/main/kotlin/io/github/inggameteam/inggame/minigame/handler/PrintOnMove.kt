@@ -12,6 +12,7 @@ class PrintOnMove(private val playerService: PlayerService, plugin: IngGamePlugi
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
+        event.player.sendMessage("YE1")
         val player = event.player.uniqueId
         if (playerService.getParents(player).contains(javaClass.simpleName)) {
             event.player.sendMessage("YE")
