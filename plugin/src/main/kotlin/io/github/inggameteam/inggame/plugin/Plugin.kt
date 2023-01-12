@@ -1,58 +1,73 @@
 package io.github.inggameteam.inggame.plugin
 
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.componentservice.ResourceComponentService
+import io.github.inggameteam.inggame.component.createEmpty
 import io.github.inggameteam.inggame.component.createLayer
 import io.github.inggameteam.inggame.component.createResource
 import io.github.inggameteam.inggame.component.createSingleton
-import io.github.inggameteam.inggame.component.delegate.Delegate
-import io.github.inggameteam.inggame.component.delegate.NonNullDelegateImp
-import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
-import io.github.inggameteam.inggame.minigame.createGameHandlers
+import io.github.inggameteam.inggame.minigame.createGameResourceService
 import io.github.inggameteam.inggame.minigame.createGameService
-import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
-import io.github.inggameteam.inggame.minigame.wrapper.Server
+import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.player.createPlayerModule
-import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
-import io.github.inggameteam.inggame.utils.delay
-import org.bukkit.plugin.Plugin
 import org.koin.core.Koin
-import org.koin.core.module.dsl.singleOf
-import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
-import org.reflections.util.QueryFunction.single
 
+@Suppress("unused")
+@Deprecated("need no refs")
 class Plugin : IngGamePluginImp() {
 
-    private val url = "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/?retryWrites=true&w=majority"
-    private val codecPackage = "io.github.inggameteam.inggame"
-    private val database = "angangang"
-    private val component = "component"
-    private val player = "player"
-    private val resource = "resource"
-    private val game = "game"
+    private val app: Koin by lazy { koinApplication {
+        val codec = config.getStringList("codec")
+        listOfNotNull(
+            createMongoModule(
+                config.getString("url") ?: "unspecified",
+                *codec.toTypedArray()
+            ),
+            *config.getConfigurationSection("repo")?.run {
+                getKeys(false).map { repo -> createRepo(repo, getString(repo)!!) }.toTypedArray()
+            }?: emptyArray(),
+            *config.getConfigurationSection("file")?.run {
+                getKeys(false).map { repo -> createFileRepo(repo, getString(repo)!!) }.toTypedArray()
+            }?: emptyArray(),
+            *config.getConfigurationSection("layer")?.run {
+                getKeys(false).map { layer -> createLayer(layer, getString(layer)!!) }.toTypedArray()
+            }?: emptyArray(),
+            *config.getConfigurationSection("resource")?.run {
+                getKeys(false).map { layer -> createResource(layer, getString(layer)!!) }.toTypedArray()
+            }?: emptyArray(),
+            createEmpty("default"),
+            config.getString("player")?.run(::createPlayerModule),
+            config.getString("game")?.run(::createGameService),
+            config.getString("game-resource")?.run(::createGameResourceService),
+            config.getConfigurationSection("singleton")?.run {
+                getKeys(false).forEach { component ->
+                    getConfigurationSection(component)?.run {
+                        getKeys(false).map { ns ->
+                            val clazz = getString(ns)!!.run {
+                                listOf(this, *codec.map { it + this }.toTypedArray()).firstNotNullOfOrNull {
+                                    try {
+                                        Class.forName(it).kotlin
+                                    } catch (_: Exception) {
+                                        null
+                                    }
+                                }
+                                    ?: throw AssertionError("$this class not found")
+                            }
+                            createSingleton(clazz, ns, component)
+                        }
+                    }
+                }
 
-    val app: Koin by lazy { koinApplication {
+            }
+        )
         modules(
-            createSingleton(::Server, "server", resource),
-            createMongoModule(url, codecPackage, database),
-            createRepo(component),
-            createRepo(player),
-            createRepo(game),
-            createResource(resource, component),
-            createLayer(player, game),
-            createLayer(game, resource),
-            createPlayerModule(player),
-            createGameService(game),
-            createGameHandlers(),
+//            createSingleton(::GameServer, "server", resource),
             module { single { this@Plugin } bind IngGamePlugin::class },
-            module { single { this@Plugin } bind Plugin::class },
         )
     }.koin }
 

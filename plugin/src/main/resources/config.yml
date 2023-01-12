@@ -1,0 +1,25 @@
+codec: [ io.github.inggameteam.inggame ]
+url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/?retryWrites=true&w=majority"
+
+repo:
+  component: component
+  player: player
+  resource: resource
+  game: game
+
+layer:
+  game: resource
+  player: game
+
+resource:
+  resource: component
+  singleton: singleton
+
+service:
+  player: player
+  game: game
+
+singleton:
+  singleton:
+    server: minigame.wrapper.GameServer
+

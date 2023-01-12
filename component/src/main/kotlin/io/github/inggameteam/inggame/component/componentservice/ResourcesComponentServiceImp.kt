@@ -12,7 +12,8 @@ import kotlin.reflect.KClass
 
 class ResourcesComponentServiceImp(
     private val repo: MongoRepo,
-    private val codec: MongoCodec
+    private val codec: MongoCodec,
+    private val component: ComponentService
 ) : ResourceComponentService, AbstractNameSpaceComponentService() {
 
     private lateinit var nameSpaceCache: ArrayList<NameSpace>
@@ -45,7 +46,10 @@ class ResourcesComponentServiceImp(
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         val ns = getNameSpaces().firstOrNull { it.name == nameSpace }
-            ?: throw NameSpaceNotFoundException(nameSpace)
+            ?: run {
+                try { return component[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
+                throw NameSpaceNotFoundException(nameSpace)
+            }
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
                 ns.parents.forEach { try { return get(it, key, clazz) } catch (_: NameSpaceNotFoundException) { } }

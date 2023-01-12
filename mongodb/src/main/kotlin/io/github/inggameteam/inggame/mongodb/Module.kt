@@ -11,24 +11,24 @@ import org.reflections.Reflections
 
 fun createMongoModule(
     url: String,
-    codecPackage: String,
-    databaseString: String
+    vararg codecPackage: String,
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(Reflections(codecPackage).getTypesAnnotatedWith(Model::class.java)) }
-        single { DatabaseString(databaseString) }
+        single { DatabaseString(get<ConnectionString>().database
+            ?: throw AssertionError("database is not specified in the url")) }
         singleOf(::createClient)
         factoryOf(::MongoCollection)
         factoryOf(::MongoRepoImpl) bind MongoRepo::class
 }
 
-fun createRepo(name: String) = module {
+fun createRepo(name: String, collection: String) = module {
     factory(named(name)) {
-        MongoRepoImpl(MongoCollection(get(), CollectionString(name), get()))
+        MongoRepoImpl(MongoCollection(get(), CollectionString(collection), get()))
     } bind MongoRepo::class
 }
 
 
-fun Module.createFileRepo(name: String, fileDir: String) {
+fun createFileRepo(name: String, fileDir: String) = module {
     factory(named(name)) { MongoFileRepo(fileDir) } bind MongoRepo::class
 }

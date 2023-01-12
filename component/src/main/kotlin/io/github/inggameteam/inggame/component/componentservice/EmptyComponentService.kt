@@ -1,0 +1,22 @@
+package io.github.inggameteam.inggame.component.componentservice
+
+import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
+import kotlin.reflect.KClass
+
+interface EmptyComponentService : ComponentService
+
+class EmptyComponentServiceImp : EmptyComponentService, AbstractNameSpaceComponentService() {
+    override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+        throw NameSpaceNotFoundException(nameSpace)
+    }
+
+    override fun set(nameSpace: Any, key: Any, value: Any?) {
+        throw AssertionError("error occurred while set to empty component")
+    }
+
+    override fun getOrNull(name: Any): NameSpace? {
+        throw NameSpaceNotFoundException(name)
+    }
+
+}

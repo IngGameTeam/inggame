@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.minigame
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import io.github.inggameteam.inggame.component.delegate.get
-import io.github.inggameteam.inggame.minigame.wrapper.Server
+import io.github.inggameteam.inggame.minigame.wrapper.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
@@ -11,12 +11,14 @@ import io.github.inggameteam.inggame.utils.randomUUID
 import java.util.*
 
 class GameService(
-    private val server: Server,
+    private val server: GameServer,
     private val playerService: PlayerService,
-    component: ComponentService
+    component: ComponentService,
+    private val gameResource: GameResourceService
 ) : LayeredComponentService by component as LayeredComponentService {
 
     fun createGame() {
+
         val uuid = randomUUID()
         load(uuid)
     }
