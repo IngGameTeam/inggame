@@ -44,6 +44,7 @@ class Plugin : IngGamePluginImp() {
             createMongoModule(url, codecPackage, database),
             createRepo(component),
             createRepo(player),
+            createRepo(game),
             createResource(resource, component),
             createLayer(player, game),
             createLayer(game, resource),
