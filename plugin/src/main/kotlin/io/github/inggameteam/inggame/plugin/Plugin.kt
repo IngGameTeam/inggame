@@ -53,7 +53,7 @@ class Plugin : IngGamePluginImp() {
                     getConfigurationSection(component)?.run {
                         getKeys(false).map { ns ->
                             val clazz = getString(ns)!!.run {
-                                listOf(this, *codec.map { it + this }.toTypedArray()).firstNotNullOfOrNull {
+                                listOf(this, *codec.map { "$it.$this" }.toTypedArray()).firstNotNullOfOrNull {
                                     try {
                                         Class.forName(it).kotlin
                                     } catch (_: Exception) {
