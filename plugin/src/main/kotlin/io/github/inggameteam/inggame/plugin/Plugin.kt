@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.createEmpty
 import io.github.inggameteam.inggame.component.createLayer
 import io.github.inggameteam.inggame.component.createResource
 import io.github.inggameteam.inggame.component.createSingleton
+import io.github.inggameteam.inggame.minigame.createGameHandlers
 import io.github.inggameteam.inggame.minigame.createGameResourceService
 import io.github.inggameteam.inggame.minigame.createGameService
 import io.github.inggameteam.inggame.mongodb.createFileRepo
@@ -41,9 +42,11 @@ class Plugin : IngGamePluginImp() {
                 getKeys(false).map { layer -> createResource(layer, getString(layer)!!) }.toTypedArray()
             }?: emptyArray(),
             createEmpty("default"),
+            createGameHandlers(),
             config.getString("player")?.run(::createPlayerModule),
             config.getString("game")?.run(::createGameService),
             config.getString("game-resource")?.run(::createGameResourceService),
+
             config.getConfigurationSection("singleton")?.run {
                 getKeys(false).forEach { component ->
                     getConfigurationSection(component)?.run {
