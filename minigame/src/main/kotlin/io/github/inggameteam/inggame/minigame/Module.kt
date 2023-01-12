@@ -9,7 +9,7 @@ fun createGameService(name: String) = module {
     single { GameService(get(), get(), get(named(name))) }
 }
 
-fun createGameHandlers() = module {
+fun createGameHandlers() = module(createdAtStart = true) {
     singleOf(::JoinHubOnJoinServer)
     singleOf(::PrintOnMove)
 }

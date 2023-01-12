@@ -50,7 +50,7 @@ class Plugin : IngGamePluginImp() {
             createPlayerModule(player),
             createGameService(game),
         )
-    }.apply { createEagerInstances() }.koin }
+    }.koin }
 
     override fun onEnable() {
         super.onEnable()
