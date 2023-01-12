@@ -36,6 +36,8 @@ class Plugin : IngGamePluginImp() {
 
     val app: Koin by lazy { koinApplication {
         modules(
+            module { single { this@Plugin } bind IngGamePlugin::class },
+            createSingleton(::Server, "server", resource),
             createMongoModule(url, codecPackage, database),
             createRepo(component),
             createRepo(player),
@@ -43,9 +45,7 @@ class Plugin : IngGamePluginImp() {
             createLayer(player, resource),
             createPlayerModule(player),
             createGameService(game),
-            createSingleton(::Server, "server", resource),
             createGameHandlers(),
-            module { single { this@Plugin } bind IngGamePlugin::class }
         )
     }.apply { createEagerInstances() }.koin }
 
