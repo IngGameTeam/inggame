@@ -4,6 +4,7 @@ main: io.github.inggameteam.inggame.plugin.Plugin
 api-version: 1.13
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.7.21
+  - org.jetbrains.kotlin:kotlin-reflect:1.7.21
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - org.reflections:reflections:0.10.2
