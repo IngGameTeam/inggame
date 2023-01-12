@@ -13,6 +13,7 @@ import kotlin.reflect.full.primaryConstructor
 fun createEmpty(name: String) = module {
     single(named(name)) { EmptyComponentServiceImp() } bind ComponentService::class
 }
+
 fun createResource(name: String, parentComponent: String) = module {
     single(named(name)) { ResourcesComponentServiceImp(get(named(name)), get(), get(named(parentComponent))) } bind ComponentService::class
 }
