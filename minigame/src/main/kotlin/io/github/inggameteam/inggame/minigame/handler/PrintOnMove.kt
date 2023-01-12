@@ -6,7 +6,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 
-class PrintOnMove(val playerService: PlayerService, plugin: IngGamePlugin) : HandleListener(plugin) {
+class PrintOnMove(private val playerService: PlayerService, plugin: IngGamePlugin) : HandleListener(plugin) {
 
 
     @Suppress("unused")

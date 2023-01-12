@@ -10,6 +10,7 @@ import io.github.inggameteam.inggame.component.delegate.NonNullDelegateImp
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import io.github.inggameteam.inggame.minigame.createGameHandlers
 import io.github.inggameteam.inggame.minigame.createGameService
+import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
 import io.github.inggameteam.inggame.minigame.wrapper.Server
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
@@ -54,6 +55,7 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
+        app.get<PrintOnMove>()
     }
 
     override fun onDisable() {
