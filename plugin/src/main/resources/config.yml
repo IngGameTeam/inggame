@@ -1,4 +1,4 @@
-codec: [ io.github.inggameteam.inggame ]
+codec: [ "io.github.inggameteam.inggame" ]
 url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/inggame?retryWrites=true&w=majority"
 
 repo:
