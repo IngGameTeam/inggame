@@ -37,6 +37,7 @@ public class GuiList<T> extends GuiRegion {
         List<T> list = items.get();
         display = new ArrayList<>();
         int size = list.size();
+        if (size == 0) return;
         AtomicInteger index = new AtomicInteger(this.index);
         IntStream.range(y, y + height).forEach(y -> IntStream.range(x, x + width).forEach(x -> {
                 int i = x + y * 9;
