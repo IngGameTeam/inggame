@@ -14,7 +14,9 @@ import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
+import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
+import org.bukkit.command.RemoteConsoleCommandSender
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -88,7 +90,7 @@ class Plugin : IngGamePluginImp() {
             command("ing") {
                 execute {
                     val componentService = app.get<ComponentService>(named(args[0]))
-                    if (source is ConsoleCommandSender) {
+                    if (source is RemoteConsoleCommandSender || source is ConsoleCommandSender) {
                         println(componentService)
                     } else {
                         nsSelector(app, componentService, this@Plugin)
