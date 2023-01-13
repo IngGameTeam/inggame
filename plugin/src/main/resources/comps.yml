@@ -1,7 +1,7 @@
 view:
   ns-selector:
     selector-title: "select your namespace"
-resource:
+game-resource:
   PrintOnMove:
     PrintOnMove: true
   hub.parents: [ Hub ]
