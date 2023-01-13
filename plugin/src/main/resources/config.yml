@@ -8,10 +8,10 @@ repo.game-instance: game-instance
 repo.game-resource: game-resource
 repo.player-game: player-game
 
-layer.player: game-instance
-resource.game-instance: player-game
-layer.player-game: game-resource
 resource.game-resource: default
+layer.player-game: game-resource
+layer.game-instance: player-game
+layer.player: game-instance
 resource.singleton: default
 
 service:
