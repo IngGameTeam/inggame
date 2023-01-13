@@ -19,6 +19,7 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
+        println(playerService.has("PrintOnMove", "PrintOnMove"))
         if (playerService.has(player, "PrintOnMove")) {
             event.player.sendMessage("PrintOnMove")
         }
