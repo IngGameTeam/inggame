@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame
 
+import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import io.github.inggameteam.inggame.component.delegate.get
@@ -10,20 +11,25 @@ import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.utils.randomUUID
 import java.util.*
 
-class GameService(
+class GameInstanceService(
     private val server: GameServer,
     private val playerService: PlayerService,
     component: ComponentService,
-    private val gameResource: GameResourceService
 ) : LayeredComponentService by component as LayeredComponentService {
 
 
     init {
-        load(server.hub)
+        server.hub = createGame(server::hub.name).name as UUID
     }
 
-    fun createGame() {
+    fun createGame(name: Any): NameSpace {
+        val uuid = randomUUID()
+        load(uuid)
+        return get(uuid).apply { parents.add(name) }
+    }
 
+    fun removeGame(uuid: UUID) {
+        unload(uuid, false)
     }
 
     fun join(game: UUID, player: UUID) {

@@ -2,25 +2,22 @@ codec:
   - "io.github.inggameteam.inggame"
 url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/inggame?retryWrites=true&w=majority"
 
-repo:
-  player: player
-  resource: resource
-  game: game
-  singleton: singleton
-  game-resource: game-resource
+repo.singleton: singleton
+repo.player: player
+repo.game-instance: game-instance
+repo.game-resource: game-resource
+repo.player-game: player-game
 
-layer:
-  game: resource
-  player: game
-
-resource:
-  game-resource: default
-  resource: game-resource
-  singleton: resource
+layer.player: game-instance
+layer.game-instance: player-game
+layer.player-game: game-resource
+resource.game-resource: default
+resource.singleton: default
 
 service:
   player: player
-  game: game
+  game-instance: game-instance
+  player-game: player-game
   game-resource: game-resource
 
 singleton:
