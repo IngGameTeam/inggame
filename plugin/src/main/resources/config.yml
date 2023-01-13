@@ -9,8 +9,8 @@ repo.game-resource: game-resource
 repo.player-game: player-game
 
 layer.player: game-instance
-layer.game-instance: player-game
-resource.player-game: game-resource
+resource.game-instance: player-game
+layer.player-game: game-resource
 resource.game-resource: default
 resource.singleton: default
 
