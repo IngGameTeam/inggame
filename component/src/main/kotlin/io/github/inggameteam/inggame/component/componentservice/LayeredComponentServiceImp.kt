@@ -35,16 +35,16 @@ open class LayeredComponentServiceImp(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        return get(nameSpace).let { obj ->
-            obj.elements[key]?.run { try { this as T } catch (_: Exception) {
-                throw AssertionError("'$nameSpace' uuid '$key' key is not ${clazz.simpleName} model")}
-            }?: run {
-                obj.parents.forEach {
-                    try { return@run component[it, key, clazz] } catch (_: NameSpaceNotFoundException) { }
-                }
-                throw AssertionError("'$nameSpace' uuid '$key' key ${clazz.simpleName} model is not exists")
+        val ns = objectList.firstOrNull { it.name == nameSpace }
+            ?: run {
+                try { return component[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
+                throw NameSpaceNotFoundException(nameSpace)
             }
-        }
+        return ns.elements.getOrDefault(key, null)?.run { this as T }
+            ?: run {
+                ns.parents.forEach { try { return get(it, key, clazz) } catch (_: NameSpaceNotFoundException) { } }
+                throw AssertionError("'$nameSpace' namespace '$key' key does not exist")
+            }
     }
 
     override fun has(nameSpace: Any, key: Any): Boolean =
