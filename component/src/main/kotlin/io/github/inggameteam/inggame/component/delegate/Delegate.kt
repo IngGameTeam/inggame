@@ -76,14 +76,16 @@ class NonNullDelegateImp(
 
     @Suppress("UNCHECKED_CAST")
     override operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R {
-        val result = try {
-            component[nameSpace, property.name, Any::class]
-        } catch (e: NameSpaceNotFoundException) {
+        try {
+            val result = try {
+                component[nameSpace, property.name, Any::class]
+            } catch (e: Throwable) {
+                defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
+            }
+            return result as R
+        }catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
-        } catch (e: Throwable) {
-            defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
         }
-        return result as R
     }
 
     override operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R) {
