@@ -9,7 +9,7 @@ class Game(delegate: Delegate) : Delegate by delegate {
     val playerLimitAmount       : Int           by nonNull
     val startWaitingSecond      : Int           by nonNull
     val stopWaitingTick         : Int           by nonNull
-    var joined                  : HashSet<UUID> by nonNull
+    var joined                  : HashSet<UUID> by default { HashSet<UUID>() }
 
 
 }
