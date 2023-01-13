@@ -1,7 +1,9 @@
 package io.github.inggameteam.inggame.component.delegate
 
+import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KProperty
@@ -95,6 +97,10 @@ class NonNullDelegateImp(
 
 }
 
-fun <T> ComponentService.get(uuid: UUID, block: (Delegate) -> T): T {
+fun <T> ComponentService.get(uuid: Any, block: (Delegate) -> T): T {
     return block(NonNullDelegateImp(uuid, this))
+}
+
+fun <T> LayeredComponentService.getAll(block: (Delegate) -> T): Collection<T> {
+    return this.getAll().map(NameSpace::name).map { get(it, block) }
 }
