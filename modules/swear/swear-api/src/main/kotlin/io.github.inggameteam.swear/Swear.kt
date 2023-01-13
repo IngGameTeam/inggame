@@ -25,6 +25,7 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
 
     fun findSwear(input: String): Boolean {
         val input = input
+            .replace("-", "")
             .replace("_", "")
             .replace(Regex("\\d"), "")
             .replace(" ", "")
