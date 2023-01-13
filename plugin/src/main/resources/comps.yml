@@ -1,9 +1,9 @@
 view:
   ns-selector:
     selector-title: "select your namespace"
-PrintOnMove:
-  PrintOnMove: true
 resource:
+  PrintOnMove:
+    PrintOnMove: true
   hub.parents: [ Hub ]
   Hub:
     parents: [ Game, PrintOnMove ]
