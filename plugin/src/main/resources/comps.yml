@@ -1,3 +1,6 @@
+view:
+  ns-selector:
+    selector-title: "select your namespace"
 game-resource:
   hub.parents: Hub
   Hub:
