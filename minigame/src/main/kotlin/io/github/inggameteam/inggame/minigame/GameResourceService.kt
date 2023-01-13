@@ -9,5 +9,10 @@ typealias GameName = String
 class GameResourceService(componentService: ComponentService, plugin: IngGamePlugin)
     : ResourceComponentService by componentService as ResourceComponentService
 {
-
+/*
+player layer
+game instance layer
+player-game layer
+game resource
+ */
 }

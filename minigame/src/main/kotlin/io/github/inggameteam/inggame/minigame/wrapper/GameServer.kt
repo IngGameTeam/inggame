@@ -7,6 +7,6 @@ import java.util.*
 
 class GameServer(delegate: Delegate) : Delegate by delegate {
 
-    var hub: GameName by default { "hub" }
+    var hub: UUID by nonNull
 
 }

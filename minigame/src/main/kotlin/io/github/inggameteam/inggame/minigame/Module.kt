@@ -7,10 +7,14 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 fun createGameService(name: String) = module {
-    single { GameService(get(), get(), get(named(name)), get()) }
+    single { GameInstanceService(get(), get(), get(named(name))) }
 }
 
 fun createGameResourceService(name: String) = module {
+    single { GameResourceService(get(named(name)), get()) }
+}
+
+fun createPlayerGameService(name: String) = module {
     single { GameResourceService(get(named(name)), get()) }
 }
 
