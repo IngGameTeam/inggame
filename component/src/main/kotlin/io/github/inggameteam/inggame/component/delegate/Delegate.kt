@@ -54,7 +54,6 @@ class NullableDelegateImp(
         val result = try {
             component[nameSpace, property.name, Any::class]
         } catch (_: Throwable) {
-            println("defautlBlock is null? = ${defaultBlock === null}")
             defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
         }
         return result as? R
@@ -83,6 +82,8 @@ class NonNullDelegateImp(
             val result = try {
                 component[nameSpace, property.name, Any::class]
             } catch (e: Throwable) {
+                println("defautlBlock is null? = ${defaultBlock === null}")
+
                 defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
             }
             return result as R
