@@ -1,6 +1,8 @@
 package io.github.inggameteam.inggame.minigame.handler
 
+import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.wrapper.GameServer
+import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -17,7 +19,9 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
-
+        val player = event.player.uniqueId
+        println(server.hub)
+        println(playerService.get(player, ::GPlayer).joinedGame)
     }
 
 }
