@@ -8,4 +8,5 @@ interface IngGamePlugin : Plugin, Listener {
     val console: UUID
     var allowTask: Boolean
     fun addDisableEvent(action: () -> Unit)
+    fun addSaveEvent(action: () -> Unit)
 }

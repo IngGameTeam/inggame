@@ -17,6 +17,9 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     private val disableEvent = ArrayList<() -> Unit>()
     override fun addDisableEvent(action: () -> Unit) { disableEvent.add(action) }
 
+    private val saveEvent = ArrayList<() -> Unit>()
+    override fun addSaveEvent(action: () -> Unit) { disableEvent.add(action) }
+
     constructor()
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, dataFolder, file)
