@@ -11,8 +11,6 @@ import org.bukkit.event.player.PlayerMoveEvent
 import kotlin.system.measureTimeMillis
 
 class PrintOnMove(
-    private val server: GameServer,
-    private val playerService: PlayerService,
     plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
@@ -20,6 +18,7 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
+        println("HELLO")
         println(measureTimeMillis { repeat(500) { javaClass.simpleName } })
     }
 
