@@ -36,7 +36,7 @@ class ResourcesComponentServiceImp(
     override fun saveAll() {
         if (semaphore) return
         semaphore = true
-        getNameSpaces().map { ns -> encodeNameSpace(ns, codec) }.apply { repo.set(this) }
+        getAll().map { ns -> encodeNameSpace(ns, codec) }.apply { repo.set(this) }
         semaphore = false
     }
 
@@ -44,7 +44,7 @@ class ResourcesComponentServiceImp(
         return repo.get().map { doc -> decodeNameSpace(doc, codec) }.run(::ArrayList)
     }
 
-    override fun getNameSpaces() =
+    override fun getAll() =
         if (this::nameSpaceCache.isInitialized) nameSpaceCache else {
             poolNameSpace()
             nameSpaceCache
@@ -52,7 +52,7 @@ class ResourcesComponentServiceImp(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        val ns = getNameSpaces().firstOrNull { it.name == nameSpace }
+        val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
                 try { return component[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
                 throw NameSpaceNotFoundException(nameSpace)
@@ -67,7 +67,7 @@ class ResourcesComponentServiceImp(
     override fun has(nameSpace: Any, key: Any): Boolean =
         try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
 
-    override fun getOrNull(name: Any) = getNameSpaces()
+    override fun getOrNull(name: Any) = getAll()
         .firstOrNull { it.name == name }
         ?: NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }
 

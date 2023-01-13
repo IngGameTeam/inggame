@@ -23,4 +23,8 @@ class EmptyComponentServiceImp : EmptyComponentService, AbstractNameSpaceCompone
         throw NameSpaceNotFoundException(name)
     }
 
+    override fun getAll(): Collection<NameSpace> {
+        throw AssertionError("error occurred while get all to empty component")
+    }
+
 }

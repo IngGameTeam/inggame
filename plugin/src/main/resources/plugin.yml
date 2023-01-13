@@ -9,3 +9,5 @@ libraries:
   - com.eatthepath:fast-uuid:0.2.0
   - org.reflections:reflections:0.10.2
   - io.insert-koin:koin-core-jvm:3.3.2
+commands:
+  ing:

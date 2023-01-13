@@ -66,7 +66,7 @@ open class LayeredComponentServiceImp(
         repo.set(name, encodeNameSpace(get(name), codec))
     }
 
-    override fun getAll(): ArrayList<NameSpace> {
+    override fun getAll(): Collection<NameSpace> {
         return ArrayList(objectList)
     }
 

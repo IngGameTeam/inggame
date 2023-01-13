@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.model
 import io.github.inggameteam.inggame.mongodb.Model
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
+import org.bson.codecs.pojo.annotations.BsonDiscriminator
 import org.bukkit.entity.Player
 
 interface AlertReciver
@@ -12,6 +13,7 @@ interface Alert {
 }
 
 @Model
+@BsonDiscriminator("ChatAlert")
 class ChatAlert(
     var message: String
 ) : Alert {
@@ -26,15 +28,18 @@ class ChatAlert(
 }
 
 @Model
+@BsonDiscriminator("ActionBarAlert")
 class ActionBarAlert(var message: String) : Alert {
     override fun send(reciver: AlertReciver, vararg args: String) {
         val format = message.format(*args)
         if (reciver is Player) reciver.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(format))
         else println("$reciver: $format")
     }
+    override fun toString() = "ActionBarAlert($message)}"
 }
 
 @Model
+@BsonDiscriminator("TitleAlert")
 class TitleAlert(
     var title: String,
     var subTitle: String,
@@ -49,9 +54,11 @@ class TitleAlert(
             fadeIn, stay, fadeOut,
         ) else println("$reciver: $title, $subTitle")
     }
+    override fun toString() = "TitleAlert($title, $subTitle, $fadeIn, $stay, $fadeOut)}"
 }
 
 @Model
+@BsonDiscriminator("BaseComponentAlert")
 class BaseComponentAlert(
     var components: ArrayList<ActionComponent>
 ) : Alert {
@@ -61,9 +68,11 @@ class BaseComponentAlert(
             reciver.spigot().sendMessage(component)
         } else println("$reciver:(component alert)")
     }
+    override fun toString() = "BaseComponentAlert($components)}"
 }
 
 @Model
+@BsonDiscriminator("ActionComponent")
 class ActionComponent(
     var message: String,
     var clickAction: ClickEvent.Action,
@@ -78,5 +87,7 @@ class ActionComponent(
             clickEvent = ClickEvent(clickAction, clickValue.format(*args))
             hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue.format(*args))))
         }
+    override fun toString() = "ActionComponent($message, $clickAction, $clickValue, $hoverAction, $hoverValue)}"
+
 }
 

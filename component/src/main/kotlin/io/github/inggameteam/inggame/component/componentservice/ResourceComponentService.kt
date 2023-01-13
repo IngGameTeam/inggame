@@ -6,6 +6,4 @@ interface ResourceComponentService : ComponentService, SaveComponentService {
 
     fun poolNameSpace()
 
-    fun getNameSpaces(): ArrayList<NameSpace>
-
 }

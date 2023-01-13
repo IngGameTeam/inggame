@@ -5,4 +5,6 @@ include(
     "plugin",
     "player",
     "utils",
+    "guiapi",
+    "command"
 )

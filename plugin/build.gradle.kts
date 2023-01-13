@@ -4,6 +4,8 @@ dependencies {
         ":mongodb",
         ":component",
         ":player",
-        ":minigame"
+        ":minigame",
+        ":guiapi",
+        ":command"
     ).forEach { api(project(it)) }
 }

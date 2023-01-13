@@ -20,6 +20,7 @@ interface ComponentService {
     fun newModel(name: Any): NameSpace
     operator fun get(name: Any): NameSpace
     fun getOrNull(name: Any): NameSpace?
+    fun getAll(): Collection<NameSpace>
 
 
 

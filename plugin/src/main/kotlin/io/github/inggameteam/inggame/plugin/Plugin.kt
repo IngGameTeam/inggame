@@ -1,9 +1,10 @@
 package io.github.inggameteam.inggame.plugin
 
-import io.github.inggameteam.inggame.component.createEmpty
-import io.github.inggameteam.inggame.component.createLayer
-import io.github.inggameteam.inggame.component.createResource
-import io.github.inggameteam.inggame.component.createSingleton
+import io.github.inggameteam.command.MCCommand
+import io.github.inggameteam.command.player
+import io.github.inggameteam.inggame.component.*
+import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.view.nsSelector
 import io.github.inggameteam.inggame.minigame.createGameHandlers
 import io.github.inggameteam.inggame.minigame.createGameService
 import io.github.inggameteam.inggame.minigame.createGameResource
@@ -14,9 +15,11 @@ import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.koin.core.Koin
+import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
+import java.io.File
 
 @Suppress("unused")
 @Deprecated("need no refs")
@@ -79,6 +82,15 @@ class Plugin : IngGamePluginImp() {
     override fun onEnable() {
         super.onEnable()
         app
+        load(app, File(dataFolder, "comps.yml"))
+        MCCommand(this) {
+            command("ing") {
+                execute {
+                    nsSelector(app, app.get<ComponentService>(named(args[0])), this@Plugin)
+                        .openInventory(player)
+                }
+            }
+        }
     }
 
     override fun onDisable() {
