@@ -12,8 +12,8 @@ file.singleton: singleton
 file.player: player
 file.game-instance: game-instance
 file.game-resource: game-resource
-game.view: view
-game.resource: resource
+file.view: view
+file.resource: resource
 
 resource.resource: default
 layer.game-resource: resource
