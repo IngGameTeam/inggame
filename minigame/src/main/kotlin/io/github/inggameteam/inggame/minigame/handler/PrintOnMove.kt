@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
+import kotlin.system.measureTimeMillis
 
 class PrintOnMove(
     private val server: GameServer,
@@ -22,7 +23,8 @@ class PrintOnMove(
         event.player.sendMessage("YE1")
         val player = event.player.uniqueId
         println(playerService.get(event.player.uniqueId, ::GPlayer).joinedGame)
-        if (playerService.has(player, server.hub)) {
+        println(measureTimeMillis { repeat(500) { javaClass.simpleName } })
+        if (playerService.has(player, javaClass.simpleName)) {
             event.player.sendMessage("YE")
         }
     }
