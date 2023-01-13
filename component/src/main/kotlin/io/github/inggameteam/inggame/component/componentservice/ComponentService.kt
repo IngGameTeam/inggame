@@ -7,6 +7,7 @@ import kotlin.reflect.KClass
 interface ComponentService {
 
     operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T
+    fun has(nameSpace: Any, key: Any): Boolean
 
     fun set(nameSpace: Any, key: Any, value: Any? = null)
 

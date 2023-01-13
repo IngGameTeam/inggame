@@ -64,6 +64,9 @@ class ResourcesComponentServiceImp(
             }
     }
 
+    override fun has(nameSpace: Any, key: Any): Boolean =
+        try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
+
     override fun getOrNull(name: Any) = getNameSpaces()
         .firstOrNull { it.name == name }
         ?: NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }

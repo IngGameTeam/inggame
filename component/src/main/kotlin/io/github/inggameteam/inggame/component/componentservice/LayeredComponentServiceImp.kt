@@ -42,6 +42,9 @@ open class LayeredComponentServiceImp(
         }
     }
 
+    override fun has(nameSpace: Any, key: Any): Boolean =
+        try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
+
 
     override fun load(name: Any) {
         val doc = repo.get(name)

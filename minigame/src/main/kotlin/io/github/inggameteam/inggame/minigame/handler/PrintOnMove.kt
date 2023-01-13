@@ -17,7 +17,7 @@ class PrintOnMove(private val playerService: PlayerService, plugin: IngGamePlugi
         event.player.sendMessage("YE1")
         val player = event.player.uniqueId
         println(playerService.get(event.player.uniqueId, ::GPlayer).joinedGame)
-        if (playerService.getParents(player).contains(javaClass.simpleName)) {
+        if (playerService.has(player, javaClass.simpleName)) {
             event.player.sendMessage("YE")
         }
     }
