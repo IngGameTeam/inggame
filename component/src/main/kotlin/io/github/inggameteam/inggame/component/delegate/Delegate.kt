@@ -82,9 +82,9 @@ class NonNullDelegateImp(
             val result = try {
                 component[nameSpace, property.name, Any::class]
             } catch (e: Throwable) {
-                println("defautlBlock is null? = ${defaultBlock === null}")
-
-                defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
+                val defaultValue = defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
+                if (defaultValue === null) throw e
+                defaultValue
             }
             return result as R
         } catch (e: NameSpaceNotFoundException) {
