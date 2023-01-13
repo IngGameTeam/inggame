@@ -14,7 +14,7 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
     val view = app.get<ComponentService>(named("view"))
     val selector = "ns-selector"
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
-        .list(0, 0, 9, 6, { componentService.getAll().toMutableList() }, { ns ->
+        .list(0, 0, 8, 5, { componentService.getAll().toMutableList() }, { ns ->
             ItemStack(Material.STONE).apply {
                 itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
                     setDisplayName(ns.name.toString())
