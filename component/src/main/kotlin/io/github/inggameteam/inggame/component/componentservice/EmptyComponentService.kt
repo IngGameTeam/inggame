@@ -11,6 +11,10 @@ class EmptyComponentServiceImp : EmptyComponentService, AbstractNameSpaceCompone
         throw NameSpaceNotFoundException(nameSpace)
     }
 
+    override fun has(nameSpace: Any, key: Any): Boolean {
+        throw AssertionError("error occurred while perform has method to empty component")
+    }
+
     override fun set(nameSpace: Any, key: Any, value: Any?) {
         throw AssertionError("error occurred while set to empty component")
     }
