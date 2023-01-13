@@ -78,10 +78,10 @@ class NonNullDelegateImp(
     override operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R {
         val result = try {
             component[nameSpace, property.name, Any::class]
-        } catch (e: Throwable) {
-            defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
+        } catch (e: Throwable) {
+            defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
         }
         return result as R
     }
