@@ -20,7 +20,7 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
-        event.player.sendMessage("YE123")
+        event.player.sendMessage("asdfasdlfkjsdfl")
         val player = event.player.uniqueId
         println(playerService.get(event.player.uniqueId, ::GPlayer).joinedGame)
         println(measureTimeMillis { repeat(500) { javaClass.simpleName } })
