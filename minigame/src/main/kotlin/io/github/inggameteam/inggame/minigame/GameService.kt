@@ -22,10 +22,15 @@ class GameService(
         load(server.hub)
     }
 
+    fun createGame() {
+
+    }
+
     fun join(game: UUID, player: UUID) {
         left(player)
         val gPlayer = playerService.get(player, ::GPlayer)
         gPlayer.joinedGame = game
+        gPlayer.parents.add(game)
         val targetGame = get(game, ::Game)
         targetGame.joined.add(player)
     }
@@ -33,6 +38,7 @@ class GameService(
     fun left(player: UUID) {
         val gPlayer = playerService.get(player, ::GPlayer)
         val joinedGame = get(gPlayer.joinedGame?: return, ::Game)
+        gPlayer.parents.remove(gPlayer.joinedGame)
         gPlayer.joinedGame = null
         joinedGame.joined.remove(player)
     }

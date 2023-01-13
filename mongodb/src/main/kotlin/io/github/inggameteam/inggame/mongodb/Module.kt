@@ -7,13 +7,16 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.reflections.Reflections
+import kotlin.collections.ArrayList
 
 fun createMongoModule(
     url: String,
     vararg codecPackage: String,
 ) = module {
         single { ConnectionString(url) }
-        single { MongoCodec(Reflections(codecPackage).getTypesAnnotatedWith(Model::class.java)) }
+        single { MongoCodec(ArrayList<Class<*>>().apply {
+            codecPackage.map(::Reflections).map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
+        }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
         singleOf(::createClient)

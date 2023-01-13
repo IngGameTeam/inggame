@@ -3,7 +3,6 @@ codec:
 url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/inggame?retryWrites=true&w=majority"
 
 repo:
-  component: component
   player: player
   resource: resource
   game: game
@@ -15,10 +14,9 @@ layer:
   player: game
 
 resource:
-  component: default
-  resource: component
-  singleton: resource
   game-resource: default
+  resource: game-resource
+  singleton: resource
 
 service:
   player: player
