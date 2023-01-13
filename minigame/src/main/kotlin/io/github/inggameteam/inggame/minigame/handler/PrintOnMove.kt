@@ -15,7 +15,6 @@ class PrintOnMove(
     plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
-
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {

@@ -24,6 +24,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 import java.io.File
+import kotlin.system.measureTimeMillis
 
 @Suppress("unused")
 @Deprecated("need no refs")
@@ -92,7 +93,9 @@ class Plugin : IngGamePluginImp() {
                 execute {
                     val componentService = app.get<ComponentService>(named(args[0]))
                     if (source !is Player) {
-                        println(componentService)
+                        measureTimeMillis {
+                            println(componentService)
+                        }.apply(::println)
                     } else {
                         nsSelector(app, componentService, this@Plugin)
                             .openInventory(player)
