@@ -2,7 +2,7 @@ view:
   ns-selector:
     selector-title: "select your namespace"
 resource:
-  hub.parents: Hub
+  hub.parents: [ Hub  ]
   Hub:
     parents: [ Game, PrintOnMove ]
     startPlayersAmount: -1
