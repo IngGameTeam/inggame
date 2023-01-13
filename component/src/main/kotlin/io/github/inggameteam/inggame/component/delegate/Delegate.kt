@@ -22,14 +22,14 @@ interface Delegate {
 }
 interface NonNullDelegate : Delegate {
 
-    operator fun <T, R> getValue(thisRef: T, property: KProperty<*>): R
+    operator fun <T: Any, R> getValue(thisRef: T, property: KProperty<*>): R
     operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R)
 
 }
 
 interface NullableDelegate : Delegate {
 
-    operator fun <T, R> getValue(thisRef: T, property: KProperty<*>): R?
+    operator fun <T: Any, R> getValue(thisRef: T, property: KProperty<*>): R?
     operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R?)
 
 }
@@ -48,7 +48,7 @@ class NullableDelegateImp(
     internal var defaultBlock: (() -> Any?)? = null
 
     @Suppress("UNCHECKED_CAST")
-    override operator fun <T, R> getValue(thisRef: T, property: KProperty<*>): R? {
+    override operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R? {
         val result = try {
             component[nameSpace, property.name, Any::class]
         } catch (_: Throwable) {
@@ -75,11 +75,13 @@ class NonNullDelegateImp(
     var defaultBlock: (() -> Any)? = null
 
     @Suppress("UNCHECKED_CAST")
-    override operator fun <T, R> getValue(thisRef: T, property: KProperty<*>): R {
+    override operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R {
         val result = try {
             component[nameSpace, property.name, Any::class]
         } catch (e: Throwable) {
             defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
+        } catch (e: NameSpaceNotFoundException) {
+            throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
         return result as R
     }

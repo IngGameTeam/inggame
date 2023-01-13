@@ -1,13 +1,14 @@
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 
 abstract class AbstractNameSpaceComponentService : ComponentService {
 
     override fun get(name: Any): NameSpace {
-        return getOrNull(name)?: throw AssertionError("$name is not exist")
+        return getOrNull(name)?: throw NameSpaceNotFoundException(name)
     }
     override fun setParents(name: Any, value: Collection<Any>) {
         get(name).parents = CopyOnWriteArraySet(value)
