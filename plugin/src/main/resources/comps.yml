@@ -4,7 +4,7 @@ view:
 game-resource:
   hub.parents: Hub
   Hub:
-    parents: Game, PrintOnMove
+    parents: [ Game, PrintOnMove ]
     startPlayersAmount: -1
     startWaitingSecond: -1
 
