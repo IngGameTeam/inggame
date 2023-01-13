@@ -6,7 +6,7 @@ resource:
     PrintOnMove: true
   hub.parents: [ Hub ]
   Hub:
-    parents: [ Game, PrintOnMove ]
+    parents: [ PrintOnMove ]
     startPlayersAmount: -1
     startWaitingSecond: -1
 
