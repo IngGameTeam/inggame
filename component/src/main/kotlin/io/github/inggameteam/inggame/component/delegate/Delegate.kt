@@ -83,7 +83,7 @@ class NonNullDelegateImp(
                 defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) } ?: throw e
             }
             return result as R
-        }catch (e: NameSpaceNotFoundException) {
+        } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }

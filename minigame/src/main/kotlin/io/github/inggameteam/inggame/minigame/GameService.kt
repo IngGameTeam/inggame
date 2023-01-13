@@ -17,14 +17,9 @@ class GameService(
     private val gameResource: GameResourceService
 ) : LayeredComponentService by component as LayeredComponentService {
 
-    fun createGame() {
 
-        val uuid = randomUUID()
-        load(uuid)
-    }
-
-    fun removeGame(uuid: UUID) {
-        unload(uuid, false)
+    init {
+        load(server.hub)
     }
 
     fun join(game: UUID, player: UUID) {

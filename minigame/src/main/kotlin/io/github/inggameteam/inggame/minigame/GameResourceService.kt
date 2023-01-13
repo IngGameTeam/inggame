@@ -7,8 +7,4 @@ class GameResourceService(componentService: ComponentService)
     : ResourceComponentService by componentService as ResourceComponentService
 {
 
-    fun a() {
-
-    }
-
 }

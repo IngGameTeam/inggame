@@ -1,5 +1,7 @@
 package io.github.inggameteam.inggame.minigame.handler
 
+import io.github.inggameteam.inggame.component.delegate.get
+import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -16,6 +18,7 @@ class PrintOnMove(private val playerService: PlayerService, plugin: IngGamePlugi
         val player = event.player.uniqueId
         if (playerService.getParents(player).contains(javaClass.simpleName)) {
             event.player.sendMessage("YE")
+            println(playerService.get(event.player.uniqueId, ::GPlayer).joinedGame)
         }
     }
 
