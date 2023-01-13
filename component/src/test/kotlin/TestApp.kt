@@ -44,7 +44,7 @@ fun main() {
             component.set("bed_wars", "left", ChatAlert("left the bed_wars"))
         }
         component.getNameSpaces().apply(::println)
-        component.saveNameSpace()
+        component.saveAll()
         app.get<MongoRepo>().get().forEach(::println)
         while(true) {
             measureTimeMillis {

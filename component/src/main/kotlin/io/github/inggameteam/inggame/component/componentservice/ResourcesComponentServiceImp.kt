@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.decodeNameSpace
 import io.github.inggameteam.inggame.component.encodeNameSpace
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.mongodb.MongoRepo
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KClass
@@ -13,11 +14,17 @@ import kotlin.reflect.KClass
 class ResourcesComponentServiceImp(
     private val repo: MongoRepo,
     private val codec: MongoCodec,
-    private val component: ComponentService
+    private val component: ComponentService,
+    plugin: IngGamePlugin
 ) : ResourceComponentService, AbstractNameSpaceComponentService() {
 
     private lateinit var nameSpaceCache: ArrayList<NameSpace>
     private var semaphore = false
+
+    init {
+        poolNameSpace()
+        plugin.addDisableEvent { saveAll() }
+    }
 
     override fun poolNameSpace() {
         if (semaphore) return
@@ -26,7 +33,7 @@ class ResourcesComponentServiceImp(
         semaphore = false
     }
 
-    override fun saveNameSpace() {
+    override fun saveAll() {
         if (semaphore) return
         semaphore = true
         getNameSpaces().map { ns -> encodeNameSpace(ns, codec) }.apply { repo.set(this) }

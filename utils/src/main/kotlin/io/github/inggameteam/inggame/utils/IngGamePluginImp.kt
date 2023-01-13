@@ -49,6 +49,7 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
 //        super.onDisable()
         allowTask = false
         for (it in disableEvent) it()
+        for (it in saveEvent) it()
     }
 
 }

@@ -19,6 +19,10 @@ open class LayeredComponentServiceImp(
 
     override fun getOrNull(name: Any): NameSpace? = objectList.firstOrNull { it.name == name }
 
+    override fun saveAll() {
+        getAll().forEach { save(it.name) }
+    }
+
     override fun set(nameSpace: Any, key: Any, value: Any?) {
         if (value === null) get(nameSpace).elements.remove(key)
         else get(nameSpace).elements[key] = value

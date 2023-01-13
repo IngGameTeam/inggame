@@ -34,7 +34,7 @@ fun main() {
     app.get<MongoRepo>(named(component)).apply { set(emptyList()) }
     val comp = app.get<ComponentService>(named(resource)) as ResourceComponentService
     comp.set("bed_wars", "left", ChatAlert("left the bed_wars"))
-    comp.saveNameSpace()
+    comp.saveAll()
     val objComp = app.get<ComponentService>(named(player)) as LayeredComponentService
     val uuid = "33ff3ffc-73e5-4c15-f72a-d81700d02799".fastUUID()
     println(measureTimeMillis {

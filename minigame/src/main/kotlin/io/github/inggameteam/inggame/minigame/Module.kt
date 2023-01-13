@@ -11,7 +11,7 @@ fun createGameService(name: String) = module {
 }
 
 fun createGameResourceService(name: String) = module {
-    single { GameResourceService(get(named(name))) }
+    single { GameResourceService(get(named(name)), get()) }
 }
 
 fun createGameHandlers() = module(createdAtStart = true) {
