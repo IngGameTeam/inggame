@@ -9,7 +9,7 @@ repo.game-resource: game-resource
 repo.view: view
 repo.resource: resource
 
-resource.resource: resource
+resource.resource: default
 layer.game-resource: resource
 layer.game-instance: game-resource
 layer.player: game-instance
