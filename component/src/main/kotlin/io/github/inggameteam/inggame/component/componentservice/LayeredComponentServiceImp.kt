@@ -24,8 +24,9 @@ open class LayeredComponentServiceImp(
     }
 
     override fun set(nameSpace: Any, key: Any, value: Any?) {
-        if (value === null) get(nameSpace).elements.remove(key)
-        else get(nameSpace).elements[key] = value
+        val ns = getOrNull(nameSpace)?: newModel(nameSpace)
+        if (value === null) ns.elements.remove(key)
+        else ns.elements[key] = value
     }
 
     @Suppress("UNCHECKED_CAST")
