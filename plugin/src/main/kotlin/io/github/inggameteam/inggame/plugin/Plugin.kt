@@ -17,7 +17,6 @@ import org.koin.core.Koin
 import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
-import org.koin.core.module.Module
 
 @Suppress("unused")
 @Deprecated("need no refs")
@@ -25,7 +24,7 @@ class Plugin : IngGamePluginImp() {
 
     private val app: Koin by lazy { koinApplication {
         val codec = config.getStringList("codec")
-        val modules = listOfNotNull<Module>(
+        listOfNotNull(
             createMongoModule(
                 config.getString("url") ?: "unspecified",
                 *codec.toTypedArray()

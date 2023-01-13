@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.minigame
 
-import io.github.inggameteam.inggame.minigame.handler.*
+import io.github.inggameteam.inggame.minigame.handler.JoinHubOnJoinServer
+import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module

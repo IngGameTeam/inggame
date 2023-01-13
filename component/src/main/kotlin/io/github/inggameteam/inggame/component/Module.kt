@@ -1,14 +1,15 @@
 package io.github.inggameteam.inggame.component
 
-import io.github.inggameteam.inggame.component.componentservice.*
+import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
+import io.github.inggameteam.inggame.component.componentservice.LayeredComponentServiceImp
+import io.github.inggameteam.inggame.component.componentservice.ResourcesComponentServiceImp
 import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.reflect.KClass
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.primaryConstructor
 
 fun createEmpty(name: String) = module {
     single(named(name)) { EmptyComponentServiceImp() } bind ComponentService::class
