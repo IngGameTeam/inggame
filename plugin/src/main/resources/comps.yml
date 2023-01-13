@@ -1,6 +1,8 @@
 view:
   ns-selector:
     selector-title: "select your namespace"
+PrintOnMove:
+  PrintOnMove: true
 resource:
   hub.parents: [ Hub ]
   Hub:
