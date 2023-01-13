@@ -14,6 +14,10 @@ data class NameSpace(val name: Any, var parents: CopyOnWriteArraySet<Any>, val e
         if (this === other) return true
         return true
     }
+
+    override fun toString(): String {
+        return "NameSpace{name=$name, parents=$parents, elements=$elements}"
+    }
 }
 
 fun decodeNameSpace(doc: Document, codec: MongoCodec): NameSpace {

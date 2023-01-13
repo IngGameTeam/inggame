@@ -21,6 +21,10 @@ class ResourcesComponentServiceImp(
     private lateinit var nameSpaceCache: ArrayList<NameSpace>
     private var semaphore = false
 
+    override fun toString(): String {
+        return nameSpaceCache.toString()
+    }
+
     init {
         poolNameSpace()
         plugin.addDisableEvent { saveAll() }

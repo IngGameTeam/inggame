@@ -17,6 +17,10 @@ open class LayeredComponentServiceImp(
 
     private val objectList = CopyOnWriteArraySet<NameSpace>()
 
+    override fun toString(): String {
+        return objectList.toString()
+    }
+
     override fun getOrNull(name: Any): NameSpace? = objectList.firstOrNull { it.name == name }
 
     override fun saveAll() {

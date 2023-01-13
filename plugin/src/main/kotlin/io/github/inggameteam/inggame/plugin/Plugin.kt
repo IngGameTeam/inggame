@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
+import org.bukkit.command.ConsoleCommandSender
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -86,8 +87,13 @@ class Plugin : IngGamePluginImp() {
         MCCommand(this) {
             command("ing") {
                 execute {
-                    nsSelector(app, app.get<ComponentService>(named(args[0])), this@Plugin)
-                        .openInventory(player)
+                    val componentService = app.get<ComponentService>(named(args[0]))
+                    if (source is ConsoleCommandSender) {
+                        println(componentService)
+                    } else {
+                        nsSelector(app, componentService, this@Plugin)
+                            .openInventory(player)
+                    }
                 }
             }
         }
