@@ -20,7 +20,6 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
-        println(server.hub)
         println(playerService.get(player, ::GPlayer).joinedGame)
     }
 
