@@ -35,7 +35,7 @@ open class LayeredComponentServiceImp(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        val ns = objectList.firstOrNull { it.name == nameSpace }
+        val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
                 try { return component[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
                 throw NameSpaceNotFoundException(nameSpace)
