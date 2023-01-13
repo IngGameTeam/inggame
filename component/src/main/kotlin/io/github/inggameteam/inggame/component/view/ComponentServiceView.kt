@@ -20,7 +20,7 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
                     setDisplayName(ns.name.toString())
                     lore = listOf(
                         "$GREEN" + ns.parents.joinToString("$GRAY, $GREEN"),
-                        ns.elements.map { "${AQUA}${it.key}${GRAY}=${AQUA}${it.value}" }.joinToString("\n")
+                        ns.elements.map { "${AQUA}${it.key}${GRAY}=${WHITE}${it.value}" }.joinToString("\n")
                     )
                 }
 

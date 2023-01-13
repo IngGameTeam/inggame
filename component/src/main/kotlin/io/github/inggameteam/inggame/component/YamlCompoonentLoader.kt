@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.configuration.file.YamlConfiguration
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
@@ -14,8 +15,15 @@ fun load(app: Koin, file: File) {
             getKeys(false).forEach { nameSpace ->
                 getConfigurationSection(nameSpace)?.run {
                     getKeys(false).forEach { key ->
-                        val value = get(key)
-                        app.get<ComponentService>(named(component)).set(nameSpace, key, value)
+                        val componentService = app.get<ComponentService>(named(component))
+                        if (key == "parents") {
+                            componentService.setParents(nameSpace, getStringList(key).map {
+                                try { it.fastUUID() }  catch (_: Throwable) { it }
+                            })
+                        }  else {
+                            val value = get(key)
+                            componentService.set(nameSpace, key, value)
+                        }
                     }
                 }
             }
