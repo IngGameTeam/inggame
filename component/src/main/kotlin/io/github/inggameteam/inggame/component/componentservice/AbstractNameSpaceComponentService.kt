@@ -11,7 +11,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         return getOrNull(name)?: throw NameSpaceNotFoundException(name)
     }
     override fun setParents(name: Any, value: Collection<Any>) {
-        get(name).parents = CopyOnWriteArraySet(value)
+        (getOrNull(name)?: newModel(name)).parents = CopyOnWriteArraySet(value)
     }
 
     override fun getParents(name: Any): CopyOnWriteArraySet<Any> {
