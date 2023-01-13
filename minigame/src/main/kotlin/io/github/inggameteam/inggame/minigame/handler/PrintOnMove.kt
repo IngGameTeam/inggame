@@ -14,7 +14,7 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
-        println("HELLO")
+        println("HELLO2")
         println(measureTimeMillis { repeat(500) { javaClass.simpleName } })
     }
 
