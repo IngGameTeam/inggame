@@ -63,7 +63,7 @@ class NullableDelegateImp(
         if (value === null) {
             component[nameSpace].elements.remove(property.name)
         } else {
-            component[nameSpace].elements[property.name] = value
+            component.set(nameSpace, property.name, value)
         }
     }
 
@@ -93,7 +93,7 @@ class NonNullDelegateImp(
     }
 
     override operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R) {
-        component[nameSpace].elements[property.name] = value
+        component.set(nameSpace, property.name, value)
     }
 
 
