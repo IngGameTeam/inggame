@@ -6,18 +6,15 @@ repo.singleton: singleton
 repo.player: player
 repo.game-instance: game-instance
 repo.game-resource: game-resource
-repo.player-game: player-game
 
-resource.game-resource: default
-layer.player-game: game-resource
-layer.game-instance: player-game
+layer.game-resource: default
+layer.game-instance: game-resource
 layer.player: game-instance
 resource.singleton: default
 
 service:
   player: player
   game-instance: game-instance
-  player-game: player-game
   game-resource: game-resource
 
 singleton:

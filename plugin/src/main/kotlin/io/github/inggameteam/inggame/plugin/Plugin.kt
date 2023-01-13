@@ -5,9 +5,8 @@ import io.github.inggameteam.inggame.component.createLayer
 import io.github.inggameteam.inggame.component.createResource
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.minigame.createGameHandlers
-import io.github.inggameteam.inggame.minigame.createGameResourceService
 import io.github.inggameteam.inggame.minigame.createGameService
-import io.github.inggameteam.inggame.minigame.createPlayerGameService
+import io.github.inggameteam.inggame.minigame.createGameResource
 import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
@@ -48,8 +47,7 @@ class Plugin : IngGamePluginImp() {
                 listOfNotNull(
                     getString("player")?.run(::createPlayerModule),
                     getString("game-instance")?.run(::createGameService),
-                    getString("game-resource")?.run(::createGameResourceService),
-                    getString("player-game")?.run(::createPlayerGameService),
+                    getString("game-resource")?.run(::createGameResource),
                 ).toTypedArray()
             }?: emptyArray(),
             *config.getConfigurationSection("singleton")?.run {
