@@ -8,7 +8,7 @@ resource:
     startPlayersAmount: -1
     startWaitingSecond: -1
 
-  game:
+  Game:
     startPlayersAmount: 2
     playerLimitAmount: -1
     startWaitingSecond: 4
