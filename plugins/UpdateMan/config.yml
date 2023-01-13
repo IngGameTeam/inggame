@@ -23,4 +23,9 @@ updateman-download:
   url: https://github.com/Bruce0203/Updateman/releases/latest/download/Updateman.jar
   plugin: UpdateMan
   destiny: plugins/update/Updateman.jar
-
+updateman:
+  url: "https://Bruce0203:${GH_TOKEN}@github.com/Bruce0203/Updateman"
+  plugin: "Updateman"
+  cmd: "./gradlew :clean && ./gradlew :shadowJar"
+  out: "build/libs/Updateman.jar"
+  branch: "main"
