@@ -22,6 +22,7 @@ fun createMongoModule(
         single { MongoCodec(ArrayList<Class<*>>().apply {
             codecPackage.map { Reflections("io") }
                 .map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
+            apply { println(this) }
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
