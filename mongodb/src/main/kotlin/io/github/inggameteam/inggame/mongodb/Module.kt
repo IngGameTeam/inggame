@@ -16,12 +16,16 @@ import org.reflections.scanners.Scanners.*
 
 fun createMongoModule(
     url: String,
+    modelClasses: List<String>,
     vararg codecPackage: String,
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<*>>().apply {
-            codecPackage.map { Reflections("io.github.inggameteam.inggame.component.model") }
+            codecPackage.map { Reflections(it) }
                 .map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
+            modelClasses.mapNotNull { clazz ->
+                try { Class.forName(clazz) } catch (_: Throwable) { null }
+            }.forEach(::add)
             apply { println(this) }
         }) }
         single { DatabaseString(get<ConnectionString>().database

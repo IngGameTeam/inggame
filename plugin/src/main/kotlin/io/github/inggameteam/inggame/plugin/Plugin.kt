@@ -37,6 +37,7 @@ class Plugin : IngGamePluginImp() {
         listOfNotNull(
             createMongoModule(
                 config.getString("url") ?: "unspecified",
+                config.getStringList("models")?: emptyList(),
                 *codec.toTypedArray()
             ),
             *config.getConfigurationSection("repo")?.run {
