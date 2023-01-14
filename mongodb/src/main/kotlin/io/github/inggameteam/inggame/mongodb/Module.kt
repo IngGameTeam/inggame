@@ -15,7 +15,7 @@ fun createMongoModule(
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<*>>().apply {
-            codecPackage.map { Reflections(it) }.map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
+            codecPackage.map { Reflections(it) }.map { it.getTypesAnnotatedWith(Model::class.java) }.apply(::println).forEach(::addAll)
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
