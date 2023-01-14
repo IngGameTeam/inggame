@@ -4,6 +4,8 @@ import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.componentservice.ResourceComponentService
+import io.github.inggameteam.inggame.component.model.ChatAlert
 import io.github.inggameteam.inggame.component.view.nsSelector
 import io.github.inggameteam.inggame.minigame.createGameHandlers
 import io.github.inggameteam.inggame.minigame.createGameService
@@ -61,9 +63,13 @@ class Plugin : IngGamePluginImp() {
                     getString("game-resource")?.run(::createGameResource),
                 ).toTypedArray()
             }?: emptyArray(),
-            module {
+            module(createdAtStart = true) {
                    single {
-                       
+                       val comp = get<ComponentService>(named("test")) as ResourceComponentService
+                       comp.set("test", "test", ChatAlert("HELLO"))
+                       comp.saveAll()
+                       comp.poolNameSpace()
+                       comp.get("test", "test", ChatAlert::class).apply(::println)
                        Unit
                    }
             },

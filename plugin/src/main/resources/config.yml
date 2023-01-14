@@ -15,6 +15,9 @@ file.game-resource: plugins/inggame/game-resource.json
 file.view: plugins/inggame/view.json
 file.resource: plugins/inggame/resource.json
 
+file.test: plugins.inggame/test.json
+resource.test: default
+
 save:
   player:
   game-resource:
