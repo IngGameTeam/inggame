@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.player.createPlayerModule
+import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.bukkit.command.CommandSender
@@ -37,7 +38,7 @@ class Plugin : IngGamePluginImp() {
         listOfNotNull(
             createMongoModule(
                 config.getString("url") ?: "unspecified",
-                config.getStringList("models")?: emptyList(),
+                config.getStringList("models") ?: emptyList(),
                 *codec.toTypedArray()
             ),
             *config.getConfigurationSection("repo")?.run {
@@ -79,14 +80,7 @@ class Plugin : IngGamePluginImp() {
                     getConfigurationSection(component)?.run {
                         getKeys(false).map { ns ->
                             val clazz = getString(ns)!!.run {
-                                listOf(this, *codec.map { "$it.$this" }.toTypedArray()).firstNotNullOfOrNull {
-                                    try {
-                                        Class.forName(it).kotlin
-                                    } catch (_: Exception) {
-                                        null
-                                    }
-                                }
-                                    ?: throw AssertionError("$this class not found")
+                                matchClass(codec, this)
                             }
                             createSingleton(clazz, ns, component)
                         }

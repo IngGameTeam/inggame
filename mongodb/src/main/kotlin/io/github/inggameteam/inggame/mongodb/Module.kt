@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
+import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.koin.core.module.dsl.factoryOf
@@ -20,12 +21,13 @@ fun createMongoModule(
     vararg codecPackage: String,
 ) = module {
         single { ConnectionString(url) }
-        single { MongoCodec(ArrayList<Class<*>>().apply {
+        single { MongoCodec(ArrayList<Class<out Any>>().apply {
             codecPackage.map { Reflections(it) }
                 .map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
             modelClasses.mapNotNull { clazz ->
-                try { Class.forName(clazz) } catch (_: Throwable) { null }
-            }.forEach(::add)
+                try { matchClass(codecPackage.toList(), clazz).java.apply { add(this)} }
+                catch (_: Throwable) { null }
+            }
             apply { println(this) }
         }) }
         single { DatabaseString(get<ConnectionString>().database
