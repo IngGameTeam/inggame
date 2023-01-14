@@ -15,6 +15,12 @@ file.game-resource: game-resource
 file.view: view
 file.resource: resource
 
+save:
+  player:
+  game-resource:
+  view:
+  resource:
+
 resource.resource: default
 layer.game-resource: resource
 layer.game-instance: game-resource

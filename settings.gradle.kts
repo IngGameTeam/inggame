@@ -6,5 +6,6 @@ include(
     "player",
     "utils",
     "guiapi",
-    "command"
+    "command",
+    "world"
 )

@@ -10,8 +10,8 @@ resource:
     startPlayersAmount: -1
     startWaitingSecond: -1
 
-#  Game:
-#    startPlayersAmount: 2
-#    playerLimitAmount: -1
-#    startWaitingSecond: 4
-#    stopWaitingTick: -1
+  Game:
+    startPlayersAmount: 2
+    playerLimitAmount: -1
+    startWaitingSecond: 4
+    stopWaitingTick: -1

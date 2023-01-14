@@ -49,6 +49,9 @@ class Plugin : IngGamePluginImp() {
             *config.getConfigurationSection("resource")?.run {
                 getKeys(false).map { layer -> createResource(layer, getString(layer)!!) }.toTypedArray()
             } ?: emptyArray(),
+            *config.getConfigurationSection("save")?.run {
+                getKeys(false).map { layer -> addToSaveRegistry(layer) }.toTypedArray()
+            } ?: emptyArray(),
             createEmpty("default"),
             createGameHandlers(),
             *config.getConfigurationSection("service")?.run {

@@ -5,6 +5,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 fun createPlayerModule(collection: String) = module(createdAtStart = true) {
-    single { PlayerService(get(named(collection)), get())}
+    single { PlayerService(get(named(collection)))}
     single { PlayerLoader(get(), get()) }
 }

@@ -38,7 +38,7 @@ class GameInstanceService(
         gPlayer.joinedGame = game
         gPlayer.parents.add(game)
         val targetGame = get(game, ::Game)
-        targetGame.joined.add(player)
+        targetGame.gameJoined.add(player)
     }
 
     fun left(player: UUID) {
@@ -46,7 +46,7 @@ class GameInstanceService(
         val joinedGame = get(gPlayer.joinedGame?: return, ::Game)
         gPlayer.parents.remove(gPlayer.joinedGame)
         gPlayer.joinedGame = null
-        joinedGame.joined.remove(player)
+        joinedGame.gameJoined.remove(player)
     }
 
 

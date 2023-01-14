@@ -27,7 +27,6 @@ class ResourcesComponentServiceImp(
 
     init {
         poolNameSpace()
-        plugin.addDisableEvent { saveAll() }
     }
 
     override fun poolNameSpace() {

@@ -1,6 +1,11 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
 import io.github.inggameteam.inggame.component.delegate.Delegate
+import io.github.inggameteam.inggame.minigame.GameState
+import io.github.inggameteam.inggame.minigame.Sector
+import io.github.inggameteam.inggame.minigame.event.GameTaskCancelEvent
+import io.github.inggameteam.inggame.utils.ITask
+import org.bukkit.Bukkit
 import java.util.*
 
 class Game(delegate: Delegate) : Delegate by delegate {
@@ -9,7 +14,27 @@ class Game(delegate: Delegate) : Delegate by delegate {
     val playerLimitAmount       : Int           by nonNull
     val startWaitingSecond      : Int           by nonNull
     val stopWaitingTick         : Int           by nonNull
-    var joined                  : HashSet<UUID> by default { HashSet<UUID>() }
+
+    var gameJoined: HashSet<UUID> by default { HashSet<UUID>() }
+    var gameSector: Sector by default { Sector(0, 0) }
+
+    private var gameTask: ITask? by nullable
+    fun cancelGameTask() {
+        val gameTask = gameTask
+        gameTask?.cancel()
+        Bukkit.getPluginManager().callEvent(GameTaskCancelEvent(this))
+    }
+
+    fun addTask(task: ITask) {
+        gameTask?.tasks?.addAll(task.tasks).apply {
+            if (this === null) gameTask = task
+        }
+    }
+
+
+
+    val isAllocatedGame: Boolean get() = gameSector.equals(0, 0)
+    var gameState: GameState by default { GameState.WAIT }
 
 
 }

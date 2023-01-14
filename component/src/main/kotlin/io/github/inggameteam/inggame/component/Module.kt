@@ -6,6 +6,8 @@ import io.github.inggameteam.inggame.component.componentservice.LayeredComponent
 import io.github.inggameteam.inggame.component.componentservice.ResourcesComponentServiceImp
 import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
+import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -29,4 +31,8 @@ inline fun <reified T : Any> createSingleton(crossinline block: (Delegate) -> T,
 
 inline fun <reified T : Any> createSingleton(clazz: KClass<out T>, nameSpace: Any, component: String) = module {
     single { clazz.constructors.first().call(SimpleDelegate(nameSpace, get(named(component)))) } bind clazz as KClass<T>
+}
+
+fun addToSaveRegistry(component: String) = module {
+    single(named(component)) { AddToSaveRegistry(get(named(component)), get()) }
 }

@@ -1,9 +1,13 @@
-package io.github.inggameteam.inggame.player
+package io.github.inggameteam.inggame.minigame
 
-import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 
-class PlayerService(componentService: ComponentService)
+class GamePlayerService(componentService: ComponentService, plugin: IngGamePlugin)
     : LayeredComponentService by componentService as LayeredComponentService
+{
+
+
+
+}
