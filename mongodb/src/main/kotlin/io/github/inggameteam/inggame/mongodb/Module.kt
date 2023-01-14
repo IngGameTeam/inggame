@@ -20,7 +20,7 @@ fun createMongoModule(
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<*>>().apply {
-            codecPackage.map { Reflections("io.github.inggameteam.component.model") }
+            codecPackage.map { Reflections("io.github.inggameteam.inggame.component.model") }
                 .map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
             apply { println(this) }
         }) }
