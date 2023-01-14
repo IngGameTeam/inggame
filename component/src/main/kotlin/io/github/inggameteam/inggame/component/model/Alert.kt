@@ -13,7 +13,7 @@ interface Alert {
 }
 
 @Model
-@BsonDiscriminator("ChatAlert")
+//@BsonDiscriminator("ChatAlert")
 class ChatAlert(
     var message: String
 ) : Alert {
@@ -28,7 +28,7 @@ class ChatAlert(
 }
 
 @Model
-@BsonDiscriminator("ActionBarAlert")
+//@BsonDiscriminator("ActionBarAlert")
 class ActionBarAlert(var message: String) : Alert {
     override fun send(reciver: AlertReciver, vararg args: String) {
         val format = message.format(*args)
@@ -39,7 +39,7 @@ class ActionBarAlert(var message: String) : Alert {
 }
 
 @Model
-@BsonDiscriminator("TitleAlert")
+//@BsonDiscriminator("TitleAlert")
 class TitleAlert(
     var title: String,
     var subTitle: String,
@@ -58,7 +58,7 @@ class TitleAlert(
 }
 
 @Model
-@BsonDiscriminator("BaseComponentAlert")
+//@BsonDiscriminator("BaseComponentAlert")
 class BaseComponentAlert(
     var components: ArrayList<ActionComponent>
 ) : Alert {
@@ -72,7 +72,7 @@ class BaseComponentAlert(
 }
 
 @Model
-@BsonDiscriminator("ActionComponent")
+//@BsonDiscriminator("ActionComponent")
 class ActionComponent(
     var message: String,
     var clickAction: ClickEvent.Action,
