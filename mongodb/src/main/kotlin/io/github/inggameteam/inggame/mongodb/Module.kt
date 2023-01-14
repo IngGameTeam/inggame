@@ -1,6 +1,8 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
+import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Bukkit
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
@@ -19,7 +21,7 @@ fun createMongoModule(
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<*>>().apply {
             codecPackage.map { Reflections(it) }
-                .map { it.get(TypesAnnotated.with(Model::class.java).asClass<Any>()); }.forEach(::addAll)
+                .map { it.get(SubTypes.of<Class<*>>(TypesAnnotated.with(Model::class.java)).asClass<Class<*>>()); }.forEach(::addAll)
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
