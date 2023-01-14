@@ -21,7 +21,7 @@ fun createMongoModule(
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<*>>().apply {
             codecPackage.map { Reflections("io.github.inggameteam.inggame.component.model") }
-                .map { it.get(SubTypes.of<Class<*>>(TypesAnnotated.with(Model::class.java)).asClass<Class<*>>()); }.forEach(::addAll)
+                .map { it.get(SubTypes.of<Class<*>>(TypesAnnotated.with(Model::class.java)).asClass<Class<*>>()) }.forEach(::addAll)
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
