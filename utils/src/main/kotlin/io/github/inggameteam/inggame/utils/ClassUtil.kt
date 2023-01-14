@@ -41,12 +41,12 @@ object ClassUtil {
 */
 
     fun matchClass(codec: List<String>, name: String) =
-        listOf(name, *codec.map { "$it.$this" }.toTypedArray()).firstNotNullOfOrNull {
+        listOf(name, *codec.map { "$it.$name" }.toTypedArray()).firstNotNullOfOrNull {
             try {
                 Class.forName(it).kotlin
             } catch (_: Exception) {
                 null
             }
-        } ?: throw AssertionError("$this class not found")
+        } ?: throw AssertionError("$name class not found")
 
 }
