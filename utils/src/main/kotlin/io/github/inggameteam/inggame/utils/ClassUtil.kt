@@ -40,4 +40,13 @@ object ClassUtil {
         return files.filter { it.isFile }.map { it.path }.toList()
 */
 
+    fun matchClass(codec: List<String>, name: String) =
+        listOf(name, *codec.map { "$it.$this" }.toTypedArray()).firstNotNullOfOrNull {
+            try {
+                Class.forName(it).kotlin
+            } catch (_: Exception) {
+                null
+            }
+        } ?: throw AssertionError("$this class not found")
+
 }

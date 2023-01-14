@@ -1,5 +1,8 @@
 codec:
   - "io.github.inggameteam.inggame"
+  - "io.github.inggameteam.inggame.component.model"
+models:
+  - ChatAlert
 url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/inggame?retryWrites=true&w=majority"
 
 #repo.singleton: singleton
