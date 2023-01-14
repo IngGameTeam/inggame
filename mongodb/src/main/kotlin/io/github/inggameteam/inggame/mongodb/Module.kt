@@ -20,7 +20,7 @@ fun createMongoModule(
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<*>>().apply {
-            codecPackage.map { Reflections(it) }
+            codecPackage.map { Reflections("io.github.inggameteam.inggame.component.model") }
                 .map { it.get(SubTypes.of<Class<*>>(TypesAnnotated.with(Model::class.java)).asClass<Class<*>>()); }.forEach(::addAll)
         }) }
         single { DatabaseString(get<ConnectionString>().database
