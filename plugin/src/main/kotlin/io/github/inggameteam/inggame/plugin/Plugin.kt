@@ -61,6 +61,12 @@ class Plugin : IngGamePluginImp() {
                     getString("game-resource")?.run(::createGameResource),
                 ).toTypedArray()
             }?: emptyArray(),
+            module {
+                   single {
+                       
+                       Unit
+                   }
+            },
             *config.getConfigurationSection("singleton")?.run {
                 getKeys(false).firstNotNullOfOrNull { component ->
                     getConfigurationSection(component)?.run {

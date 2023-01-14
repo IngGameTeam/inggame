@@ -8,12 +8,12 @@ url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/ingg
 #repo.game-resource: game-resource
 #repo.view: view
 #repo.resource: resource
-file.singleton: singleton
-file.player: player
-file.game-instance: game-instance
-file.game-resource: game-resource
-file.view: view
-file.resource: resource
+file.singleton: plugins/inggame/singleton
+file.player: plugins/inggame/player
+file.game-instance: plugins/inggame/game-instance
+file.game-resource: plugins/inggame/game-resource
+file.view: plugins/inggame/view
+file.resource: plugins/inggame/resource
 
 save:
   player:
