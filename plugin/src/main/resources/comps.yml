@@ -7,7 +7,7 @@ resource:
   hub.parents: [ Hub ]
   Hub:
     parents: [ PrintOnMove ]
-    gameName: Hub
+    gameName: "Hub"
     startPlayersAmount: -1
     startWaitingSecond: -1
 
