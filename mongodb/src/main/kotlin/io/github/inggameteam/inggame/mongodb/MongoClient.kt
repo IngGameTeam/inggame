@@ -1,26 +1,22 @@
 package io.github.inggameteam.inggame.mongodb
 
-import ch.qos.logback.classic.Level
-import ch.qos.logback.classic.Logger
-import ch.qos.logback.classic.LoggerContext
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import org.bson.UuidRepresentation
 import org.slf4j.LoggerFactory
+import java.io.File
 
 fun createClient(connectionString: ConnectionString, codec: MongoCodec): MongoClient {
 
-    listOf(
-        "org.mongodb.driver",
-        "org.mongodb.driver.cluster",
-        "org.mongodb.driver.client",
-        "org.reflections"
-    ).forEach {
-        val logger = LoggerFactory.getLogger("org.mongodb.driver.client")
-        logger.info("-".repeat(100))
-    }
+    val file = File("libraries/org/slf4j/slf4j-api/1.7.32/log4j2.xml")
+    file.createNewFile()
+    file.writeText("""
+<category name="org.mongodb.driver">
+    <priority value="OFF" />
+</category>
+    """.trimIndent())
     val clientSettings = MongoClientSettings.builder()
         .uuidRepresentation(UuidRepresentation.STANDARD)
         .applyConnectionString(connectionString)
