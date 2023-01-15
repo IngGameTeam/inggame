@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.component.componentservice.LayeredComponent
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KProperty
+import kotlin.reflect.full.isSubclassOf
 
 interface Delegate {
     val nameSpace: Any
@@ -91,8 +92,10 @@ class NonNullDelegateImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
-            return if (R::class is Delegate) R::class.constructors.first().call(NonNullDelegateImp(result, component))
-            else result as R
+            return if (R::class.isSubclassOf(Delegate::class))
+                R::class.constructors.first().call(NonNullDelegateImp(result, component))
+            else
+                result as R
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
