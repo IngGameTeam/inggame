@@ -16,6 +16,7 @@ fun createClient(connectionString: ConnectionString, codec: MongoCodec): MongoCl
         "org.mongodb.driver",
         "org.mongodb.driver.cluster",
         "org.mongodb.driver.client",
+        "org.reflections"
     ).forEach {
         val loggerContext: LoggerContext = LoggerContext()
         val rootLogger: Logger = loggerContext.getLogger(it)
