@@ -10,9 +10,7 @@ import java.util.logging.Logger
 
 fun createClient(connectionString: ConnectionString, codec: MongoCodec): MongoClient {
     val mongoLogger = Logger.getLogger("org.mongodb.driver")
-    mongoLogger.level = Level.OFF
-
-
+    mongoLogger.level = Level.SEVERE
     val clientSettings = MongoClientSettings.builder()
         .uuidRepresentation(UuidRepresentation.STANDARD)
         .applyConnectionString(connectionString)
