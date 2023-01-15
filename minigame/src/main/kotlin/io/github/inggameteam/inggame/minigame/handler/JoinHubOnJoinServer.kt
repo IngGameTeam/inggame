@@ -29,8 +29,8 @@ class JoinHubOnJoinServer(
 ) : HandleListener(plugin) {
 
     init {
-        playerService.getAll().map { gamePlayerService.get(it.name, ::GPlayer) }
-            .forEach { gameService.join(server.hub, it) }
+        playerService.getAll().map(NameSpace::name)
+            .forEach { gameService.join(server.hub, gamePlayerService.get(it, ::GPlayer)) }
     }
 
     @Suppress("unused")
