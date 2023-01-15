@@ -14,6 +14,10 @@ fun createGameResource(name: String) = module {
     single { GameResourceService(get(named(name))) }
 }
 
+fun createGamePlayerService(name: String) = module {
+    single { GamePlayerService(get(named(name))) }
+}
+
 fun createGameHandlers() = module(createdAtStart = true) {
     singleOf(::JoinHubOnJoinServer)
     singleOf(::PrintOnMove)

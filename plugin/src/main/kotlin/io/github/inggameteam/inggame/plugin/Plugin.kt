@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.componentservice.ResourceComponen
 import io.github.inggameteam.inggame.component.model.ChatAlert
 import io.github.inggameteam.inggame.component.view.nsSelector
 import io.github.inggameteam.inggame.minigame.createGameHandlers
+import io.github.inggameteam.inggame.minigame.createGamePlayerService
 import io.github.inggameteam.inggame.minigame.createGameService
 import io.github.inggameteam.inggame.minigame.createGameResource
 import io.github.inggameteam.inggame.mongodb.createFileRepo
@@ -64,6 +65,7 @@ class Plugin : IngGamePluginImp() {
                     getString("player")?.run(::createPlayerModule),
                     getString("game-instance")?.run(::createGameService),
                     getString("game-resource")?.run(::createGameResource),
+                    getString("game-player")?.run(::createGamePlayerService),
                 ).toTypedArray()
             }?: emptyArray(),
             *config.getConfigurationSection("singleton")?.run {

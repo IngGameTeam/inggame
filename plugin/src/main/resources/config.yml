@@ -18,6 +18,7 @@ file.game-instance: plugins/inggame/game-instance.json
 file.game-resource: plugins/inggame/game-resource.json
 file.view: plugins/inggame/view.json
 file.resource: plugins/inggame/resource.json
+file.game-player: plugins/inggame/game-player.json
 
 save:
   player:
@@ -28,6 +29,7 @@ save:
 resource.resource: default
 layer.game-resource: resource
 layer.game-instance: game-resource
+layer.game-player: game-player
 layer.player: game-instance
 resource.singleton: default
 resource.view: default
@@ -36,6 +38,7 @@ service:
   player: player
   game-instance: game-instance
   game-resource: game-resource
+  game-player: game-player
 
 singleton:
   singleton:
