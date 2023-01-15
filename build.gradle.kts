@@ -57,6 +57,8 @@ allprojects {
 
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
 
+        compileOnly("ch.qos.logback:logback-classic:1.2.3")
+
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         testCompileOnly("com.eatthepath:fast-uuid:0.2.0")
 

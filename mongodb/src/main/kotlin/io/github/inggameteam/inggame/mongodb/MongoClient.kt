@@ -5,14 +5,18 @@ import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import org.bson.UuidRepresentation
-import java.util.logging.Level
-import java.util.logging.Logger
+import ch.qos.logback.classic.Logger
+import org.slf4j.LoggerFactory
 
 fun createClient(connectionString: ConnectionString, codec: MongoCodec): MongoClient {
+
     listOf(
         "org.mongodb.driver.cluster",
         "org.mongodb.driver.client",
-    ).forEach { Logger.getLogger(it).setLevel(Level.OFF) }
+    ).forEach {
+        val logger = LoggerFactory.getLogger(it) as Logger
+        logger.setLevel(ch.qos.logback.classic.Level.OFF);
+    }
     val clientSettings = MongoClientSettings.builder()
         .uuidRepresentation(UuidRepresentation.STANDARD)
         .applyConnectionString(connectionString)
