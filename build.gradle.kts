@@ -57,12 +57,6 @@ allprojects {
 
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
 
-//        compileOnly("org.slf4j:slf4j-api:2.0.5")
-//        testCompileOnly("org.slf4j:slf4j-api:2.0.5")
-//
-//        compileOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
-//        testCompileOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
-
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         testCompileOnly("com.eatthepath:fast-uuid:0.2.0")
 
