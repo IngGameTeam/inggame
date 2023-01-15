@@ -46,16 +46,14 @@ interface NullableDelegate : Delegate {
 }
 
 abstract class BaseDelegate : Delegate {
-    override fun equals(other: Any?): Boolean {
-        if (super.equals(other)) return true
-        if (other is Delegate) {
-            return component == other.component && nameSpace == other.nameSpace
-        }
-        return false
-    }
 
     override fun hashCode(): Int {
         return nameSpace.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        return true
     }
 
 
