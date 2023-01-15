@@ -46,10 +46,7 @@ class GameInstanceService(
     fun left(key: Any) {
         val gPlayer = gamePlayerService.get(key, ::GPlayer)
         val joinedGameAtomic = gPlayer.joinedGame
-        println(joinedGameAtomic)
         val joinedGame = get(joinedGameAtomic ?: return, ::Game)
-        gPlayer.removeParents(joinedGame)
-        gPlayer.joinedGame = null
         joinedGame.gameJoined.remove(key)
         gamePlayerService.unload(key, false)
         // STOPSHIP: ComponentService layer priority 만들어서 NameSpace parents sorting by priority 하고 parents 함수로 감싸기
