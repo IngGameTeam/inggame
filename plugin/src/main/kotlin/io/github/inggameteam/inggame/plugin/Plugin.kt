@@ -90,6 +90,10 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
+        println("HELLO!")
+        repeat(10) {
+            println("-".repeat(30))
+        }
         app
         load(app, File(dataFolder, "comps.yml"))
         MCCommand(this) {
