@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.*
+import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
@@ -12,7 +13,7 @@ class Plugin : IngGamePluginImp {
 
     constructor()
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
-            : super(loader, description, dataFolder, file)
+            : super(loader, description, ClassUtil.getJarFile(Plugin::class.java).parentFile, file)
 
     private var appSemaphore = false
     private val appDelegate = lazy {
@@ -27,7 +28,6 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
-        println("HELLO")
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)

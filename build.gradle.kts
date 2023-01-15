@@ -55,7 +55,7 @@ allprojects {
     dependencies {
 //        api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-        testImplementation("com.github.MockBukkit:MockBukkit:v1.19-SNAPSHOT")
+        testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
 
         testCompileOnly("org.slf4j:slf4j-api:2.0.5")
         testCompileOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")

@@ -6,8 +6,10 @@ import java.util.jar.JarFile
 
 object ClassUtil {
 
+    fun getJarFile(clazz: Class<*>) = File(clazz.protectionDomain.codeSource.location.toURI())
+
     fun getDirectory(clazz: Class<*>): List<String> {
-        val file = File(clazz.protectionDomain.codeSource.location.toURI())
+        val file = getJarFile(clazz)
         try {
             return JarFile(file).entries().toList()
                 .filter { !it.isDirectory }.map { it.realName }.toList()
@@ -22,7 +24,7 @@ object ClassUtil {
             }
         }
 
-        val base = File(file.parentFile.parentFile.parentFile, "resources/test")
+        val base = File(file.parentFile.parentFile.parentFile, "resources/main")
         dir(base)
         return files.map { it.relativeTo(base).path }
     }
