@@ -96,9 +96,9 @@ class Plugin : IngGamePluginImp() {
             command("ing") {
                 then("get") {
                     execute {
-                        val componentService = app.get<ComponentService>(named(args[0]))
-                        val nameSpace = args[1].run { try { fastUUID() } catch (_: Throwable) { this } }
-                        val key = args[2]
+                        val componentService = app.get<ComponentService>(named(args[1]))
+                        val nameSpace = args[2].run { try { fastUUID() } catch (_: Throwable) { this } }
+                        val key = args[3]
                         source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
                     }
                 }
