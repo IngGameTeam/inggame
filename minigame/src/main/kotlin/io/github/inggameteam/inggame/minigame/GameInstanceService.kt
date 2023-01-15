@@ -37,7 +37,7 @@ class GameInstanceService(
         left(player)
         gamePlayerService.load(player.nameSpace, true)
         player.joinedGame = game
-        player.addParents(game)
+        player.addParents(game.nameSpace)
         game.gameJoined.add(player)
     }
 
