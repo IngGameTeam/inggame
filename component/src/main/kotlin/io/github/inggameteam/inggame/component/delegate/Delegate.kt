@@ -91,8 +91,8 @@ class NonNullDelegateImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
-            println(R::class.simpleName)
-            return result as R
+            return if (R::class is Delegate) R::class.constructors.first().call(NonNullDelegateImp(result, component))
+            else result as R
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
