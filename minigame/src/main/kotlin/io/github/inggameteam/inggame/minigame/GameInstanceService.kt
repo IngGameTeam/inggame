@@ -19,12 +19,6 @@ class GameInstanceService(
 
 
     init {
-        println("-".repeat(30))
-        println("-".repeat(30))
-        println("-".repeat(30))
-        println("-".repeat(30))
-        println("-".repeat(30))
-        println("-".repeat(30 ))
         server.hub = component.get(createGame(server::hub.name).name, ::Game)
     }
 
