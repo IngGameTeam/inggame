@@ -98,8 +98,8 @@ class Plugin : IngGamePluginImp() {
                     execute {
                         val split = args[1].split(" ")
                         val componentService = app.get<ComponentService>(named(split[0]))
-                        val nameSpace = args[1].run { try { fastUUID() } catch (_: Throwable) { this } }
-                        val key = args[2]
+                        val nameSpace = split[1].run { try { fastUUID() } catch (_: Throwable) { this } }
+                        val key = split[2]
                         source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
                     }
                 }
