@@ -18,7 +18,7 @@ fun createClient(connectionString: ConnectionString, codec: MongoCodec): MongoCl
         "org.mongodb.driver.client",
         "org.reflections"
     ).forEach {
-        val logger = LoggerFactory.getLogger(MongoClient::class.java)
+        val logger = LoggerFactory.getLogger("org.mongodb.driver.client")
         logger.info("-".repeat(100))
     }
     val clientSettings = MongoClientSettings.builder()
