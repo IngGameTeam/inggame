@@ -35,7 +35,7 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     }
 
      fun initializeGameFile(force: Boolean = false) {
-        if (dataFolder.listFiles()?.isNotEmpty() != true) {
+        if (dataFolder.listFiles()?.isNotEmpty() != true || dataFolder.name.lowercase() != name.lowercase()) {
             val excludes = listOf("plugin.yml", "MANIFEST.MF")
             ClassUtil.getDirectory(this.javaClass)
                 .filter { !it.endsWith(".class") && !excludes.contains(it) }
