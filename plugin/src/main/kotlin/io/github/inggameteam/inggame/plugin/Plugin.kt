@@ -18,6 +18,7 @@ import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
+import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.command.RemoteConsoleCommandSender
@@ -93,19 +94,28 @@ class Plugin : IngGamePluginImp() {
         load(app, File(dataFolder, "comps.yml"))
         MCCommand(this) {
             command("ing") {
-                execute {
-                    val componentService = app.get<ComponentService>(named(args[0]))
-                    if (source !is Player) {
-                        measureTimeMillis {
-                            println(componentService)
-                        }.apply(::println)
-                    } else {
-                        nsSelector(app, componentService, this@Plugin)
-                            .openInventory(player)
+                then("get") {
+                    execute {
+                        val componentService = app.get<ComponentService>(named(args[0]))
+                        val nameSpace = args[1].run { try { fastUUID() } catch (_: Throwable) { this } }
+                        val key = args[2]
+                        source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
                     }
                 }
-            }
-        }
+                then("component") {
+                    execute {
+                        val componentService = app.get<ComponentService>(named(args[0]))
+                        if (source !is Player) {
+                            measureTimeMillis {
+                                println(componentService)
+                            }.apply(::println)
+                        } else {
+                            nsSelector(app, componentService, this@Plugin)
+                                .openInventory(player)
+                        }
+                    }
+                }
+            }        }
     }
 
     override fun onDisable() {
