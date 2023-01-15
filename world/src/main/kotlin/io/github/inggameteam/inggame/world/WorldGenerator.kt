@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.world
 
 import org.bukkit.*
 

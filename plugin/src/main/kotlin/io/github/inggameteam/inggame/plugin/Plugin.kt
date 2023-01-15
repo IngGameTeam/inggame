@@ -23,7 +23,10 @@ class Plugin : IngGamePluginImp {
         appSemaphore = false
         result
     }
-    private val app: Koin by appDelegate
+    val app: Koin
+        get() = if (allowTask || !isEnabled) {
+            appDelegate.getValue(this, ::app)
+        } else throw AssertionError("an error occurred while get app before initializing plugin")
 
 
     override fun onEnable() {
@@ -31,6 +34,7 @@ class Plugin : IngGamePluginImp {
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
+        println("HELLO")
     }
 
     override fun onDisable() {

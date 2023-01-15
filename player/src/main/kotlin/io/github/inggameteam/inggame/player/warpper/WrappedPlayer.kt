@@ -10,3 +10,6 @@ import java.util.UUID
 open class WrappedPlayer(delegate: Delegate)
     : Delegate by delegate, AlertReciver,
     Player by Bukkit.getPlayer(delegate.nameSpace as UUID) ?: NotImplementedPlayer()
+{
+    override fun toString() = name
+}

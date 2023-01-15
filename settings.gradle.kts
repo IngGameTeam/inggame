@@ -7,5 +7,6 @@ include(
     "utils",
     "guiapi",
     "command",
-    "world"
+    "world",
+    "party"
 )

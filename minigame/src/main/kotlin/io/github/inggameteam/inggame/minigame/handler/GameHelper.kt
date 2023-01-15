@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.minigame.event.GameUnloadEvent
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -24,16 +25,18 @@ class GameHelper(
     private val plugin: IngGamePlugin
 ) {
 
+
+
     fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
-        val gameAlert = gamePlayerService.get(player, ::GameAlert)
+        val gameAlert = gamePlayerService.get(player, ::GameAlertImp)
         if (requestedGame.gameJoined.contains(player)) {
-            if (sendMessage) gameAlert.ALREADY_JOINED.send(player, requestedGame.gameName)
+            if (sendMessage) gameAlert.GAME_ALREADY_JOINED.send(player, requestedGame.gameName)
         } else if (requestedGame.gameState !== GameState.WAIT && joinType === JoinType.PLAY) {
-            if (sendMessage) gameAlert.CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.gameName)
+            if (sendMessage) gameAlert.GAME_CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.gameName)
         } else if (requestedGame.playerLimitAmount > 0
             && requestedGame.gameJoined.hasTags(PTag.PLAY).size >= requestedGame.playerLimitAmount
             && joinType === JoinType.PLAY) {
-            if (sendMessage) gameAlert.CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.gameName)
+            if (sendMessage) gameAlert.GAME_CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.gameName)
         } else {
             return true
         }
@@ -41,12 +44,12 @@ class GameHelper(
     }
 
     fun joinGame(game: Game, player: GPlayer, joinType: JoinType): Boolean {
-        val gameAlert = player[::GameAlert]
+        val gameAlert = player[::GameAlertImp]
         if (requestJoin(game, player, joinType, true)) {
             gameInstanceService.join(game, player)
-            gameAlert.JOIN.send(player, game.gameName)
+            gameAlert.GAME_JOIN.send(player, game.gameName)
             if (joinType === JoinType.PLAY) player.addTag(PTag.PLAY)
-            else gameAlert.START_SPECTATING.send(player, game.gameName)
+            else gameAlert.GAME_START_SPECTATING.send(player, game.gameName)
             Bukkit.getPluginManager().callEvent(GameJoinEvent(game, player))
 
             if (!game.hasGameTask()
@@ -67,16 +70,16 @@ class GameHelper(
         Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, game, leftType))
         gameInstanceService.left(gPlayer)
         gPlayer.clearTags()
-        val gameAlert = gPlayer[::GameAlert]
+        val gameAlert = gPlayer[::GameAlertImp]
         if (leftType === LeftType.LEFT_SERVER) {
-            gameAlert.LEFT_GAME_DUE_TO_SERVER_LEFT.send(gPlayer, game.gameName)
+            gameAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(gPlayer, game.gameName)
         } else {
-            gameAlert.LEFT.send(gPlayer, game.gameName)
+            gameAlert.GAME_LEFT.send(gPlayer, game.gameName)
         }
         val joinedSize = game.gameJoined.hasTags(PTag.PLAY).size
         if (game.gameState === GameState.WAIT
             && joinedSize < game.startPlayersAmount && game.hasGameTask()) {
-            game.gameJoined.forEach { it[::GameAlert].START_CANCELLED_DUE_TO_PLAYERLESS.send(it) }
+            game.gameJoined.forEach { it[::GameAlertImp].GAME_START_CANCELLED_DUE_TO_PLAYERLESS.send(it) }
             game.cancelGameTask()
         }
         if (leftType.isJoinHub) {
@@ -102,7 +105,7 @@ class GameHelper(
                 val list = ArrayList<() -> Unit>()
                 for (i in tick downTo  1) list.add {
                     game.gameJoined.forEach {
-                        it[::GameAlert].GAME_START_COUNT_DOWN.send(it, it[::Game].gameName, i, it[::Game].gameInfo)
+                        it[::GameAlertImp].GAME_START_COUNT_DOWN.send(it, it[::Game].gameName, i, it[::Game].gameInfo)
                     }
                 }
                 list.add { game.cancelGameTask(); start(game, true) }
@@ -122,16 +125,16 @@ class GameHelper(
             Bukkit.getPluginManager().callEvent(GameUnloadEvent(game))
             if (game.gameState === GameState.STOP)
                 game.addTask({
-                    if (gameInstanceService.hasGame(game)) {
+                    if (gameInstanceService.has(game)) {
                         game.cancelGameTask()
-                    }; gameInstanceService.removeGame(game) }.delay(plugin, game.stopWaitingTick.toLong()))
+                    }; gameInstanceService.remove(game) }.delay(plugin, game.stopWaitingTick.toLong()))
         }
     }
 
     fun finishGame() = Unit
 
     fun beginGame(game: Game) {
-        game.gameJoined.forEach { it[::GameAlert].GAME_START.send(it, it[::Game].gameName)}
+        game.gameJoined.forEach { it[::GameAlertImp].GAME_START.send(it, it[::Game].gameName)}
     }
 
 

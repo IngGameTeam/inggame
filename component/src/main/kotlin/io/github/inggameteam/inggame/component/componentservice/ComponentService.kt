@@ -24,7 +24,7 @@ interface ComponentService {
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
                 ns.parents.forEach { try { return get(it, key, clazz) } catch (_: NameSpaceNotFoundException) { } }
-                throw AssertionError("'$nameSpace' namespace '$key' key does not exist")
+                throw NameSpaceNotFoundException(nameSpace)
             }
     }
 

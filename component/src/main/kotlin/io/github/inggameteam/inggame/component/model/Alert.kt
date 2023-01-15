@@ -75,17 +75,17 @@ class BaseComponentAlert(
 //@BsonDiscriminator("ActionComponent")
 class ActionComponent(
     var message: String,
-    var clickAction: ClickEvent.Action,
-    var clickValue: String,
-    var hoverAction: HoverEvent.Action,
-    var hoverValue: String,
+    var clickAction: ClickEvent.Action?,
+    var clickValue: String?,
+    var hoverAction: HoverEvent.Action?,
+    var hoverValue: String?,
 
     ) {
     @Suppress("DEPRECATION")
     fun append(vararg args: Any) =
         TextComponent(message.format(*args)).apply {
-            clickEvent = ClickEvent(clickAction, clickValue.format(*args))
-            hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue.format(*args))))
+            if (clickAction !== null) clickEvent = ClickEvent(clickAction, clickValue?.format(*args))
+            if (hoverAction !== null) hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue?.format(*args))))
         }
     override fun toString() = "ActionComponent($message, $clickAction, $clickValue, $hoverAction, $hoverValue)}"
 

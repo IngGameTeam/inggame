@@ -28,7 +28,7 @@ fun createMongoModule(
                 try { matchClass(codecPackage.toList(), clazz).java.apply { add(this)} }
                 catch (_: Throwable) { null }
             }
-            apply { println(this) }
+            apply { map { it.simpleName }.apply(::println) }
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }

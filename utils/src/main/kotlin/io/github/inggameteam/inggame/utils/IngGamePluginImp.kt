@@ -14,6 +14,8 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
 
     override val console: UUID by lazy { randomUUID() }
     override var allowTask = false
+    override val isMockTest: Boolean
+        get() = dataFolder.name.lowercase() != name.lowercase()
     private val disableEvent = ArrayList<() -> Unit>()
     override fun addDisableEvent(action: () -> Unit) { disableEvent.add(action) }
 
@@ -35,7 +37,7 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     }
 
      fun initializeGameFile(force: Boolean = false) {
-        if (dataFolder.listFiles()?.isNotEmpty() != true || dataFolder.name.lowercase() != name.lowercase()) {
+        if (dataFolder.listFiles()?.isNotEmpty() != true || isMockTest) {
             val excludes = listOf("plugin.yml", "MANIFEST.MF")
             ClassUtil.getDirectory(this.javaClass)
                 .filter { !it.endsWith(".class") && !excludes.contains(it) }

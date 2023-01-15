@@ -57,8 +57,11 @@ allprojects {
 
         testImplementation("com.github.seeseemelk:MockBukkit-v1.18:1.24.1")
 
+        testImplementation(platform("org.junit:junit-bom:5.9.2"))
+        testImplementation("org.junit.jupiter:junit-jupiter")
+
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
-        testCompileOnly("com.eatthepath:fast-uuid:0.2.0")
+        testApi("com.eatthepath:fast-uuid:0.2.0")
 
         compileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
         testCompileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
@@ -111,6 +114,14 @@ allprojects {
         }
 
     }
+
+    tasks.test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
+
 
 }
 

@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
 import org.bukkit.Bukkit
 import java.util.*
+import java.util.concurrent.CopyOnWriteArraySet
 
 class Game(delegate: Delegate) : Delegate by delegate {
 
@@ -20,7 +21,7 @@ class Game(delegate: Delegate) : Delegate by delegate {
     val startWaitingSecond      : Int           by nonNull
     val stopWaitingTick         : Int           by nonNull
 
-    var gameJoined: HashSet<GPlayer> by default { HashSet<GPlayer>() }
+    var gameJoined: CopyOnWriteArraySet<GPlayer> by default { CopyOnWriteArraySet<GPlayer>() }
     var gameSector: Sector by default { Sector(0, 0) }
 
     private var gameTask: ITask? by nullable

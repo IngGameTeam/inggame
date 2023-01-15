@@ -7,6 +7,7 @@ import java.util.*
 interface IngGamePlugin : Plugin, Listener {
     val console: UUID
     var allowTask: Boolean
+    val isMockTest: Boolean
     fun addDisableEvent(action: () -> Unit)
     fun addSaveEvent(action: () -> Unit)
 }
