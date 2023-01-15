@@ -18,6 +18,11 @@ data class NameSpace(val name: Any, var parents: CopyOnWriteArraySet<Any>, val e
     override fun toString(): String {
         return "NameSpace{name=$name, parents=$parents, elements=$elements}"
     }
+
+    fun clone(): NameSpace {
+        return NameSpace(name, CopyOnWriteArraySet(parents), ConcurrentHashMap(elements))
+    }
+
 }
 
 fun decodeNameSpace(doc: Document, codec: MongoCodec): NameSpace {

@@ -7,28 +7,40 @@ import io.github.inggameteam.inggame.component.componentservice.ResourcesCompone
 import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
-import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
+
+class PriorityFactory {
+    private val atomicInteger = AtomicInteger()
+    fun get(): Int {
+        return atomicInteger.getAndAdd(1)
+    }
+}
+
+fun createPriorityFactory() = module {
+    single { PriorityFactory() } bind PriorityFactory::class
+}
 
 fun createEmpty(name: String) = module {
     single(named(name)) { EmptyComponentServiceImp() } bind ComponentService::class
 }
 
 fun createResource(name: String, parentComponent: String) = module {
-    single(named(name)) { ResourcesComponentServiceImp(get(named(name)), get(), get(named(parentComponent)), get()) } bind ComponentService::class
+    single(named(name)) { ResourcesComponentServiceImp(get(named(name)), get(), get(named(parentComponent)), get<PriorityFactory>().get()) } bind ComponentService::class
 }
 
 fun createLayer(collection: String, parentComponent: String) = module {
-    single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent))) } bind ComponentService::class
+    single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent)), get<PriorityFactory>().get()) } bind ComponentService::class
 }
 
 inline fun <reified T : Any> createSingleton(crossinline block: (Delegate) -> T, nameSpace: Any, component: String) = module {
     single { block(SimpleDelegate(nameSpace, get(named(component)))) } bind T::class
 }
 
+@Suppress("UNCHECKED_CAST")
 inline fun <reified T : Any> createSingleton(clazz: KClass<out T>, nameSpace: Any, component: String) = module {
     single { clazz.constructors.first().call(SimpleDelegate(nameSpace, get(named(component)))) } bind clazz as KClass<T>
 }

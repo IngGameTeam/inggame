@@ -1,128 +1,146 @@
-//package io.github.inggameteam.inggame.minigame.handler
-//
-//import io.github.inggameteam.inggame.minigame.Sector
-//import io.github.inggameteam.inggame.utils.HandleListener
-//import org.bukkit.Bukkit
-//import org.bukkit.Particle
-//import org.bukkit.event.EventHandler
-//import org.bukkit.event.EventPriority
-//import org.bukkit.event.player.PlayerQuitEvent
-//import org.bukkit.plugin.Plugin
-//
-//abstract class GameImpl(
-//    val plugin: Plugin,
-//) : HandleListener(plugin) {
-//
-//    override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
-//        if (joined.contains(gPlayer)) {
-//            if (sendMessage) comp.send(ALREADY_JOINED, gPlayer, displayName(gPlayer))
-//        } else if (gameState !== GameState.WAIT && joinType === JoinType.PLAY) {
-//            if (sendMessage) comp.send(CANNOT_JOIN_DUE_TO_STARTED, gPlayer, displayName(gPlayer))
-//        } else if (playerLimitAmount > 0 && joined.hasTags(PTag.PLAY).size >= playerLimitAmount && joinType === JoinType.PLAY) {
-//            if (sendMessage) comp.send(CANNOT_JOIN_PLAYER_LIMITED, gPlayer, displayName(gPlayer))
-//        } else {
-//            return true
-//        }
-//        return false
-//    }
-//
-//    override fun joinGame(gPlayer: GPlayer, joinType: JoinType): Boolean {
-//        if (requestJoin(gPlayer, joinType, true)) {
-//            joined.add(gPlayer)
-//            playerData[gPlayer] = HashMap()
-//            comp.send(JOIN, gPlayer, displayName(gPlayer))
-//            if (joinType === JoinType.PLAY) gPlayer.addTag(PTag.PLAY)
-//            else comp.send(START_SPECTATING, gPlayer, displayName(gPlayer))
-//            Bukkit.getPluginManager().callEvent(GameJoinEvent(gPlayer, this, joinType))
-//            if (gameTask === null
-//                && gameState === GameState.WAIT
-//                && 0 < startPlayersAmount
-//                && joined.hasTags(PTag.PLAY).size >= startPlayersAmount)
-//                start(false)
-//            return true
-//        }
-//        return false
-//    }
-//
-//    override fun requestLeft(gPlayer: GPlayer, leftType: LeftType) = joined.contains(gPlayer)
-//
-//    override fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
-//        if (!requestLeft(gPlayer, leftType)) return false
-//        Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, this, leftType))
-//        joined.remove(gPlayer)
-//        playerData.remove(gPlayer)
-//        gPlayer.clearTags()
-//        if (leftType === LeftType.LEFT_SERVER) {
-//            comp.send(LEFT_GAME_DUE_TO_SERVER_LEFT, gPlayer, displayName(gPlayer))
-//        } else {
-//            comp.send(LEFT, gPlayer, displayName(gPlayer))
-//        }
-//        val joinedSize = joined.hasTags(PTag.PLAY).size
-//        if (gameState === GameState.WAIT && joinedSize < startPlayersAmount && gameTask != null) {
-//            comp.send(START_CANCELLED_DUE_TO_PLAYERLESS, joined)
-//            cancelGameTask()
-//            gameTask = null
-//        }
-//        if (leftType.isJoinHub) plugin.gameRegister.join(gPlayer, plugin.gameRegister.hubName)
-//        if (gameState != GameState.STOP && joinedSize <= if (gameState === GameState.PLAY) 1 else 0) {
-//            stop(false)
-//        }
-//        return true
-//    }
-//
-//    override fun start(force: Boolean) {
-//        if (force) {
-//            gameState = GameState.PLAY
-//            afterParticle()
-//            beginGame()
-//            Bukkit.getPluginManager().callEvent(GameBeginEvent(this))
-//        } else if (gameState === GameState.WAIT) {
-//            val tick = startWaitingSecond
-//            if (tick < 0) {
-//                start(true)
-//            } else {
-//                val list = ArrayList<() -> Unit>()
-//                for (i in tick downTo  1) list.add {
-//                    joined.forEach { comp.send(GAME_START_COUNT_DOWN, it, displayName(it), i, comp.stringOrNull("$name-info", it.lang(plugin))?: "") }
-//                }
-//                list.add { gameTask = null; start(true) }
-//                gameTask = ITask.repeat(plugin, 20, 20, *(list.toTypedArray()))
-//            }
-//        }
-//    }
-//
-//    override fun stop(force: Boolean, leftType: LeftType) {
-//        if (gameState !== GameState.STOP) {
-//            gameState = GameState.STOP
-//            finishGame()
-//            ArrayList(joined).forEach { gPlayer ->
-//                leftGame(gPlayer, leftType)
-//            }
-//            gameTask = null
-//            Bukkit.getPluginManager().callEvent(GameUnloadEvent(this))
-//            if (gameState === GameState.STOP)
-//                gameTask = { if (plugin.gameRegister.contains(this)) gameTask = null; plugin.gameRegister.removeGame(this) }.delay(plugin, stopWaitingTick)
-//        }
-//    }
-//
-//    override fun finishGame() = Unit
-//
-//    open fun beginGame() {
-//        joined.forEach { comp.send(GAME_START, it, displayName(it)) }
-//    }
-//
-//    @EventHandler(priority = EventPriority.HIGH)
-//    fun onPlayerQuit(event: PlayerQuitEvent) {
-//        val gPlayer = plugin[event.player]
-//        if (!isJoined(gPlayer)) return
-//        if (requestLeft(gPlayer, LeftType.LEFT_SERVER)) leftGame(gPlayer, LeftType.LEFT_SERVER)
-//    }
-//
-//    open fun afterParticle() {
-//        joined.hasTags(PTag.PLAY).forEach {
-//            it.world.spawnParticle(Particle.END_ROD, it.eyeLocation.clone(), 20)
-//        }
-//    }
-//
-//
-//}
+package io.github.inggameteam.inggame.minigame.handler
+
+import io.github.inggameteam.inggame.component.delegate.get
+import io.github.inggameteam.inggame.minigame.*
+import io.github.inggameteam.inggame.minigame.event.GameBeginEvent
+import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
+import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
+import io.github.inggameteam.inggame.minigame.event.GameUnloadEvent
+import io.github.inggameteam.inggame.minigame.singleton.GameServer
+import io.github.inggameteam.inggame.minigame.wrapper.game.Game
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
+import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
+import io.github.inggameteam.inggame.utils.ITask
+import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.delay
+import io.github.inggameteam.inggame.utils.hasTags
+import org.bukkit.Bukkit
+import org.bukkit.Particle
+
+class GameImpl(
+    private val gameInstanceService: GameInstanceService,
+    private val gamePlayerService: GamePlayerService,
+    private val server: GameServer,
+    private val plugin: IngGamePlugin
+) {
+
+    fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
+        val gameAlert = gamePlayerService.get(player, ::GameAlert)
+        if (requestedGame.gameJoined.contains(player)) {
+            if (sendMessage) gameAlert.ALREADY_JOINED.send(player, requestedGame.gameName)
+        } else if (requestedGame.gameState !== GameState.WAIT && joinType === JoinType.PLAY) {
+            if (sendMessage) gameAlert.CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.gameName)
+        } else if (requestedGame.playerLimitAmount > 0
+            && requestedGame.gameJoined.hasTags(PTag.PLAY).size >= requestedGame.playerLimitAmount
+            && joinType === JoinType.PLAY) {
+            if (sendMessage) gameAlert.CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.gameName)
+        } else {
+            return true
+        }
+        return false
+    }
+
+    fun joinGame(game: Game, player: GPlayer, joinType: JoinType): Boolean {
+        val gameAlert = player[::GameAlert]
+        if (requestJoin(game, player, joinType, true)) {
+            gameInstanceService.join(game, player)
+            gameAlert.JOIN.send(player, game.gameName)
+            if (joinType === JoinType.PLAY) player.addTag(PTag.PLAY)
+            else gameAlert.START_SPECTATING.send(player, game.gameName)
+            Bukkit.getPluginManager().callEvent(GameJoinEvent(game, player))
+
+            if (!game.hasGameTask()
+                && game.gameState === GameState.WAIT
+                && 0 < game.startPlayersAmount
+                && game.gameJoined.hasTags(PTag.PLAY).size >= game.startPlayersAmount)
+                start(game, false)
+            return true
+        }
+        return false
+    }
+
+    fun requestLeft(game: Game, gPlayer: GPlayer, leftType: LeftType) = game.gameJoined.contains(gPlayer)
+
+    fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
+        val game = gPlayer[::Game]
+        if (!requestLeft(game, gPlayer, leftType)) return false
+        Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, game, leftType))
+        gameInstanceService.left(gPlayer)
+        gPlayer.clearTags()
+        val gameAlert = gPlayer[::GameAlert]
+        if (leftType === LeftType.LEFT_SERVER) {
+            gameAlert.LEFT_GAME_DUE_TO_SERVER_LEFT.send(gPlayer, game.gameName)
+        } else {
+            gameAlert.LEFT.send(gPlayer, game.gameName)
+        }
+        val joinedSize = game.gameJoined.hasTags(PTag.PLAY).size
+        if (game.gameState === GameState.WAIT
+            && joinedSize < game.startPlayersAmount && game.hasGameTask()) {
+            game.gameJoined.forEach { it[::GameAlert].START_CANCELLED_DUE_TO_PLAYERLESS.send(it) }
+            game.cancelGameTask()
+        }
+        if (leftType.isJoinHub) {
+            gameInstanceService.join(server.hub, gPlayer)
+        }
+        if (game.gameState != GameState.STOP && joinedSize <= if (game.gameState === GameState.PLAY) 1 else 0) {
+            stop(game, false)
+        }
+        return true
+    }
+
+    fun start(game: Game, force: Boolean) {
+        if (force) {
+            game.gameState = GameState.PLAY
+            afterParticle(game)
+            beginGame(game)
+            Bukkit.getPluginManager().callEvent(GameBeginEvent(game))
+        } else if (game.gameState === GameState.WAIT) {
+            val tick = game.startWaitingSecond
+            if (tick < 0) {
+                start(game, true)
+            } else {
+                val list = ArrayList<() -> Unit>()
+                for (i in tick downTo  1) list.add {
+                    game.gameJoined.forEach {
+                        it[::GameAlert].GAME_START_COUNT_DOWN.send(it, it[::Game].gameName, i, it[::Game].gameInfo)
+                    }
+                }
+                list.add { game.cancelGameTask(); start(game, true) }
+                game.addTask(ITask.repeat(plugin, 20, 20, *(list.toTypedArray())))
+            }
+        }
+    }
+
+    fun stop(game: Game, force: Boolean, leftType: LeftType = LeftType.GAME_STOP) {
+        if (game.gameState !== GameState.STOP) {
+            game.gameState = GameState.STOP
+            finishGame()
+            ArrayList(game.gameJoined).forEach { gPlayer ->
+                leftGame(gPlayer, leftType)
+            }
+            game.cancelGameTask()
+            Bukkit.getPluginManager().callEvent(GameUnloadEvent(game))
+            if (game.gameState === GameState.STOP)
+                game.addTask({
+                    if (gameInstanceService.hasGame(game)) {
+                        game.cancelGameTask()
+                    }; gameInstanceService.removeGame(game) }.delay(plugin, game.stopWaitingTick.toLong()))
+        }
+    }
+
+    fun finishGame() = Unit
+
+    fun beginGame(game: Game) {
+        game.gameJoined.forEach { it[::GameAlert].GAME_START.send(it, it[::Game].gameName)}
+    }
+
+
+
+    fun afterParticle(game: Game) {
+        game.gameJoined.hasTags(PTag.PLAY).forEach {
+            it.world.spawnParticle(Particle.END_ROD, it.eyeLocation.clone(), 20)
+        }
+    }
+
+
+}

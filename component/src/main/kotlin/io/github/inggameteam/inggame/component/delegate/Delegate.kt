@@ -9,9 +9,18 @@ import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KProperty
 
 interface Delegate {
-    val parents: CopyOnWriteArraySet<Any>
     val nameSpace: Any
     val component: ComponentService
+
+    fun addParents(value: Any) = component.addParents(nameSpace, value)
+
+    fun getParents() = component.getParents(nameSpace)
+
+    fun setParents(value: Collection<Any>) = component.setParents(nameSpace, value)
+
+    fun removeParents(value: Any) = component.removeParents(nameSpace, value)
+
+    fun hasParents(value: Any) = component.hasParents(nameSpace, value)
 
     fun default(block: () -> Any) = NonNullDelegateImp(nameSpace, component).apply { defaultBlock = block }
 
@@ -37,7 +46,19 @@ interface NullableDelegate : Delegate {
 }
 
 abstract class BaseDelegate : Delegate {
-    override val parents get() = component.getParents(nameSpace)
+    override fun equals(other: Any?): Boolean {
+        if (super.equals(other)) return true
+        if (other is Delegate) {
+            return component == other.component && nameSpace == other.nameSpace
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return nameSpace.hashCode()
+    }
+
+
 }
 
 class SimpleDelegate(override val nameSpace: Any, override val component: ComponentService) : BaseDelegate()
@@ -99,10 +120,15 @@ class NonNullDelegateImp(
 
 }
 
-fun <T> ComponentService.get(uuid: Any, block: (Delegate) -> T): T {
-    return block(NonNullDelegateImp(uuid, this))
+fun <T> ComponentService.get(nameSpace: Any, block: (Delegate) -> T): T {
+    val ns = if (nameSpace is Delegate) nameSpace.nameSpace else nameSpace
+    return block(NonNullDelegateImp(ns, this))
 }
 
 fun <T> LayeredComponentService.getAll(block: (Delegate) -> T): Collection<T> {
     return this.getAll().map(NameSpace::name).map { get(it, block) }
+}
+
+operator fun <T> Delegate.get(block: (Delegate) -> T): T {
+    return block(NonNullDelegateImp(nameSpace, component))
 }

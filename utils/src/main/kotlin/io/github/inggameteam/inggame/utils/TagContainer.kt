@@ -1,9 +1,10 @@
 package io.github.inggameteam.inggame.utils
 
 import java.util.*
+import java.util.concurrent.CopyOnWriteArraySet
 
 interface TagContainer {
-    var tags: HashSet<String>
+    var tags: CopyOnWriteArraySet<String>
 
     fun addTag(tag: Enum<*>) = addTag(tag.name)
 
@@ -20,7 +21,7 @@ interface TagContainer {
     fun hasTag(tag: String): Boolean = tags.contains(tag)
 
     fun clearTags() {
-        tags = HashSet()
+        tags = CopyOnWriteArraySet()
     }
 
 }

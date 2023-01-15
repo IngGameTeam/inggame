@@ -12,7 +12,8 @@ import kotlin.reflect.KClass
 open class LayeredComponentServiceImp(
     private val repo: MongoRepo,
     private val codec: MongoCodec,
-    private val component: ComponentService
+    override val parentComponent: ComponentService,
+    override val layerPriority: Int
 ) : LayeredComponentService, AbstractNameSpaceComponentService() {
 
     private val objectList = CopyOnWriteArraySet<NameSpace>()
@@ -33,26 +34,8 @@ open class LayeredComponentServiceImp(
         else ns.elements[key] = value
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        val ns = getAll().firstOrNull { it.name == nameSpace }
-            ?: run {
-                try { return component[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
-                throw NameSpaceNotFoundException(nameSpace)
-            }
-        return ns.elements.getOrDefault(key, null)?.run { this as T }
-            ?: run {
-                ns.parents.forEach { try { return get(it, key, clazz) } catch (_: NameSpaceNotFoundException) { } }
-                throw AssertionError("'$nameSpace' namespace '$key' key does not exist")
-            }
-    }
-
-    override fun has(nameSpace: Any, key: Any): Boolean =
-        try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
-
-
-    override fun load(name: Any) {
-        val doc = repo.get(name)
+    override fun load(name: Any, new: Boolean) {
+        val doc = if (new) null else repo.get(name)
         objectList.add(
             if (doc === null) newModel(name)
             else decodeNameSpace(doc, codec)

@@ -11,6 +11,11 @@ class EmptyComponentServiceImp : EmptyComponentService, AbstractNameSpaceCompone
         throw NameSpaceNotFoundException(nameSpace)
     }
 
+    override val parentComponent: ComponentService
+        get() = throw AssertionError("error occurred while perform parentComponent variable to empty component")
+    override val layerPriority: Int
+        get() = throw AssertionError("error occurred while perform layerPriority variable to empty component")
+
     override fun has(nameSpace: Any, key: Any): Boolean {
         throw AssertionError("error occurred while perform has method to empty component")
     }

@@ -14,8 +14,8 @@ import kotlin.reflect.KClass
 class ResourcesComponentServiceImp(
     private val repo: MongoRepo,
     private val codec: MongoCodec,
-    private val component: ComponentService,
-    plugin: IngGamePlugin
+    override val parentComponent: ComponentService,
+    override val layerPriority: Int
 ) : ResourceComponentService, AbstractNameSpaceComponentService() {
 
     private lateinit var nameSpaceCache: ArrayList<NameSpace>
@@ -52,23 +52,6 @@ class ResourcesComponentServiceImp(
             poolNameSpace()
             nameSpaceCache
         }
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        val ns = getAll().firstOrNull { it.name == nameSpace }
-            ?: run {
-                try { return component[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
-                throw NameSpaceNotFoundException(nameSpace)
-            }
-        return ns.elements.getOrDefault(key, null)?.run { this as T }
-            ?: run {
-                ns.parents.forEach { try { return get(it, key, clazz) } catch (_: NameSpaceNotFoundException) { } }
-                throw AssertionError("'$nameSpace' namespace '$key' key does not exist")
-            }
-    }
-
-    override fun has(nameSpace: Any, key: Any): Boolean =
-        try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
 
     override fun getOrNull(name: Any) = getAll()
         .firstOrNull { it.name == name }

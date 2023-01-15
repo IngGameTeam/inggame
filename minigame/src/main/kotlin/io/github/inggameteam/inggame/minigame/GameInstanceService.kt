@@ -4,23 +4,24 @@ import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import io.github.inggameteam.inggame.component.delegate.get
-import io.github.inggameteam.inggame.minigame.wrapper.GameServer
+import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
-import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.utils.randomUUID
 import java.util.*
 
 class GameInstanceService(
     private val server: GameServer,
-    private val playerService: PlayerService,
+    private val gamePlayerService: GamePlayerService,
     component: ComponentService,
 ) : LayeredComponentService by component as LayeredComponentService {
 
 
     init {
-        server.hub = createGame(server::hub.name).name as UUID
+        server.hub = component.get(createGame(server::hub.name).name, ::Game)
     }
+
+    fun hasGame(nameSpace: Any): Boolean = getOrNull(nameSpace) !== null
 
     fun createGame(name: Any): NameSpace {
         val uuid = randomUUID()
@@ -28,25 +29,26 @@ class GameInstanceService(
         return get(uuid).apply { parents.add(name) }
     }
 
-    fun removeGame(uuid: UUID) {
+    fun removeGame(uuid: Game) {
         unload(uuid, false)
     }
 
-    fun join(game: UUID, player: UUID) {
+    fun join(game: Game, player: GPlayer) {
         left(player)
-        val gPlayer = playerService.get(player, ::GPlayer)
-        gPlayer.joinedGame = game
-        gPlayer.parents.add(game)
-        val targetGame = get(game, ::Game)
-        targetGame.gameJoined.add(player)
+        player.joinedGame = game
+        player.addParents(game)
+        game.gameJoined.add(player)
+        gamePlayerService.load(player, true)
     }
 
-    fun left(player: UUID) {
-        val gPlayer = playerService.get(player, ::GPlayer)
-        val joinedGame = get(gPlayer.joinedGame?: return, ::Game)
-        gPlayer.parents.remove(gPlayer.joinedGame)
-        gPlayer.joinedGame = null
+    fun left(player: GPlayer) {
+        val joinedGameAtomic = player.joinedGame
+        val joinedGame = get(joinedGameAtomic ?: return, ::Game)
+        player.removeParents(joinedGame)
+        player.joinedGame = null
         joinedGame.gameJoined.remove(player)
+        gamePlayerService.unload(player, false)
+        // STOPSHIP: ComponentService layer priority 만들어서 NameSpace parents sorting by priority 하고 parents 함수로 감싸기
     }
 
 

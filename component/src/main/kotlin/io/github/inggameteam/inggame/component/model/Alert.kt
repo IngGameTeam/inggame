@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 interface AlertReciver
 
 interface Alert {
-    fun send(reciver: AlertReciver, vararg args: String)
+    fun send(reciver: AlertReciver, vararg args: Any)
 }
 
 @Model
@@ -17,7 +17,7 @@ interface Alert {
 class ChatAlert(
     var message: String
 ) : Alert {
-    override fun send(reciver: AlertReciver, vararg args: String) {
+    override fun send(reciver: AlertReciver, vararg args: Any) {
         val format = message.format(*args)
         if (reciver is Player) reciver.sendMessage(format)
         else println("$reciver: $format")
@@ -30,7 +30,7 @@ class ChatAlert(
 @Model
 //@BsonDiscriminator("ActionBarAlert")
 class ActionBarAlert(var message: String) : Alert {
-    override fun send(reciver: AlertReciver, vararg args: String) {
+    override fun send(reciver: AlertReciver, vararg args: Any) {
         val format = message.format(*args)
         if (reciver is Player) reciver.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(format))
         else println("$reciver: $format")
@@ -47,7 +47,7 @@ class TitleAlert(
     var stay: Int,
     var fadeOut: Int,
 ) : Alert {
-    override fun send(reciver: AlertReciver, vararg args: String) {
+    override fun send(reciver: AlertReciver, vararg args: Any) {
         if (reciver is Player) reciver.sendTitle(
             title.format(*args),
             subTitle.format(*args),
@@ -62,7 +62,7 @@ class TitleAlert(
 class BaseComponentAlert(
     var components: ArrayList<ActionComponent>
 ) : Alert {
-    override fun send(reciver: AlertReciver, vararg args: String) {
+    override fun send(reciver: AlertReciver, vararg args: Any) {
         if (reciver is Player) {
             val component = TextComponent(*components.map { it.append(*args) }.toTypedArray())
             reciver.spigot().sendMessage(component)
@@ -82,7 +82,7 @@ class ActionComponent(
 
     ) {
     @Suppress("DEPRECATION")
-    fun append(vararg args: String) =
+    fun append(vararg args: Any) =
         TextComponent(message.format(*args)).apply {
             clickEvent = ClickEvent(clickAction, clickValue.format(*args))
             hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue.format(*args))))

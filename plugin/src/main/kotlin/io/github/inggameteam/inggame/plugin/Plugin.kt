@@ -47,6 +47,7 @@ class Plugin : IngGamePluginImp() {
             *config.getConfigurationSection("file")?.run {
                 getKeys(false).map { repo -> createFileRepo(repo, getString(repo)!!) }.toTypedArray()
             } ?: emptyArray(),
+            createPriorityFactory(),
             *config.getConfigurationSection("layer")?.run {
                 getKeys(false).map { layer -> createLayer(layer, getString(layer)!!) }.toTypedArray()
             } ?: emptyArray(),
@@ -65,16 +66,6 @@ class Plugin : IngGamePluginImp() {
                     getString("game-resource")?.run(::createGameResource),
                 ).toTypedArray()
             }?: emptyArray(),
-            module(createdAtStart = true) {
-                   single {
-                       val comp = get<ComponentService>(named("test")) as ResourceComponentService
-                       comp.set("test", "test", ChatAlert("HELLO"))
-                       comp.saveAll()
-                       comp.poolNameSpace()
-                       comp.get("test", "test", ChatAlert::class).apply(::println)
-                       Unit
-                   }
-            },
             *config.getConfigurationSection("singleton")?.run {
                 getKeys(false).firstNotNullOfOrNull { component ->
                     getConfigurationSection(component)?.run {
