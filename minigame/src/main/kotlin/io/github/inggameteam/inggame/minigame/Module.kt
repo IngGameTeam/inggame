@@ -8,7 +8,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 fun createGameService(name: String) = module {
-    single { GameInstanceService(get(), get(), get(named(name))) }
+    single { GameInstanceService(get(), get(), get(), get(named(name))) }
 }
 
 fun createGameResource(name: String) = module {
