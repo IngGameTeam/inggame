@@ -31,19 +31,6 @@ interface Delegate {
     val nullable get() = NullableDelegateImp(nameSpace, component)
 
 }
-interface NonNullDelegate : Delegate {
-
-    operator fun <T: Any, R> getValue(thisRef: T, property: KProperty<*>): R
-    operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R)
-
-}
-
-interface NullableDelegate : Delegate {
-
-    operator fun <T: Any, R> getValue(thisRef: T, property: KProperty<*>): R?
-    operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R?)
-
-}
 
 abstract class BaseDelegate : Delegate {
 
@@ -63,12 +50,12 @@ class SimpleDelegate(override val nameSpace: Any, override val component: Compon
 class NullableDelegateImp(
     override val nameSpace: Any,
     override val component: ComponentService,
-) : NullableDelegate, BaseDelegate() {
+) : BaseDelegate() {
 
     internal var defaultBlock: (() -> Any?)? = null
 
     @Suppress("UNCHECKED_CAST")
-    override operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R? {
+    operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R? {
         val result = try {
             component[nameSpace, property.name, Any::class]
         } catch (_: Throwable) {
@@ -77,7 +64,7 @@ class NullableDelegateImp(
         return result as? R
     }
 
-    override operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R?) {
+    operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R?) {
         if (value === null) {
             component[nameSpace].elements.remove(property.name)
         } else {
@@ -90,12 +77,12 @@ class NullableDelegateImp(
 class NonNullDelegateImp(
     override val nameSpace: Any,
     override val component: ComponentService,
-) : NonNullDelegate, BaseDelegate() {
+) : BaseDelegate() {
 
     var defaultBlock: (() -> Any)? = null
 
     @Suppress("UNCHECKED_CAST")
-    override operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R {
+    inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R {
         try {
             val result = try {
                 component[nameSpace, property.name, Any::class]
@@ -104,13 +91,14 @@ class NonNullDelegateImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
+            println(R::class.simpleName)
             return result as R
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }
 
-    override operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R) {
+    operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R) {
         component.set(nameSpace, property.name, if (value is Delegate) value.nameSpace else value)
     }
 
