@@ -40,7 +40,7 @@ interface ComponentService {
     fun findComponentService(nameSpace: Any): ComponentService {
         val ns = getAll().firstOrNull { it.name == nameSpace }
         if (ns !== null) return this
-        try { return parentComponent.findComponentService(nameSpace) } catch (_: NameSpaceNotFoundException) { }
+        try { return parentComponent.findComponentService(nameSpace) } catch (_: Throwable) { }
         throw NameSpaceNotFoundException(nameSpace)
     }
 
