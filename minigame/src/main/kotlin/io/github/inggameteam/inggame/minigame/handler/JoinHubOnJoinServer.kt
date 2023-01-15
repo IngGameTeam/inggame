@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.LeftType
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
+import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -21,13 +22,14 @@ class JoinHubOnJoinServer(
     private val server: GameServer, plugin: IngGamePlugin,
     private val gameService: GameInstanceService,
     private val gamePlayerService: GamePlayerService,
+    private val playerService: PlayerService,
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
     private val gameImpl: GameImpl
 ) : HandleListener(plugin) {
 
     init {
-        gamePlayerService.getAll(::GPlayer).forEach { gameService.join(server.hub, it) }
+        playerService.getAll(::GPlayer).forEach { gameService.join(server.hub, it) }
     }
 
     @Suppress("unused")
