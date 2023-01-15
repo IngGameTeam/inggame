@@ -1,7 +1,10 @@
+@file:Suppress("NAME_SHADOWING")
+
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
+import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KClass
 
@@ -12,6 +15,7 @@ interface ComponentService {
 
     @Suppress("UNCHECKED_CAST")
     operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+        val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
                 try { return parentComponent[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
@@ -38,6 +42,7 @@ interface ComponentService {
             }
 
     fun findComponentService(nameSpace: Any): ComponentService {
+        val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace }
         if (ns !== null) return this
         try { return parentComponent.findComponentService(nameSpace) } catch (_: Throwable) { }

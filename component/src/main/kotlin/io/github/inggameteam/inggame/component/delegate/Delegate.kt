@@ -69,7 +69,7 @@ class NullableDelegateImp(
         if (value === null) {
             component[nameSpace].elements.remove(property.name)
         } else {
-            component.set(nameSpace, property.name, if (value is Delegate) value.nameSpace else value)
+            component.set(nameSpace, property.name, uncoverDelegate(value))
         }
     }
 
@@ -102,14 +102,14 @@ class NonNullDelegateImp(
     }
 
     operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R) {
-        component.set(nameSpace, property.name, if (value is Delegate) value.nameSpace else value)
+        component.set(nameSpace, property.name, uncoverDelegate(value))
     }
 
 
 }
 
 fun <T> ComponentService.get(nameSpace: Any, block: (Delegate) -> T): T {
-    val ns = if (nameSpace is Delegate) nameSpace.nameSpace else nameSpace
+    val ns = uncoverDelegate(nameSpace)
     return block(NonNullDelegateImp(ns, this))
 }
 
@@ -119,4 +119,8 @@ fun <T> LayeredComponentService.getAll(block: (Delegate) -> T): Collection<T> {
 
 operator fun <T> Delegate.get(block: (Delegate) -> T): T {
     return block(NonNullDelegateImp(nameSpace, component))
+}
+
+fun uncoverDelegate(any: Any): Any {
+    return if (any is Delegate) any.nameSpace else any
 }
