@@ -39,5 +39,5 @@ service:
 
 singleton:
   singleton:
-    server: minigame.wrapper.GameServer
+    server: minigame.singleton.GameServer
 
