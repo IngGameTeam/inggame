@@ -35,7 +35,7 @@ class GameInstanceService(
 
     fun join(game: Game, player: GPlayer) {
         left(player)
-        gamePlayerService.load(player, true)
+        gamePlayerService.load(player.nameSpace, true)
         player.joinedGame = game
         player.addParents(game)
         game.gameJoined.add(player)
@@ -47,7 +47,7 @@ class GameInstanceService(
         player.removeParents(joinedGame)
         player.joinedGame = null
         joinedGame.gameJoined.remove(player)
-        gamePlayerService.unload(player, false)
+        gamePlayerService.unload(player.nameSpace, false)
         // STOPSHIP: ComponentService layer priority 만들어서 NameSpace parents sorting by priority 하고 parents 함수로 감싸기
     }
 
