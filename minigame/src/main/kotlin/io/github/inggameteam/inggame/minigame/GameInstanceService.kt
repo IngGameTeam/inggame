@@ -46,6 +46,7 @@ class GameInstanceService(
     fun left(key: Any) {
         val gPlayer = gamePlayerService.get(key, ::GPlayer)
         val joinedGameAtomic = gPlayer.joinedGame
+        println(joinedGameAtomic)
         val joinedGame = get(joinedGameAtomic ?: return, ::Game)
         gPlayer.removeParents(joinedGame)
         gPlayer.joinedGame = null
