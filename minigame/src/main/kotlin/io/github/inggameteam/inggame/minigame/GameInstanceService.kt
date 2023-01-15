@@ -36,8 +36,8 @@ class GameInstanceService(
 
     fun join(game: Game, key: Any) {
         left(key)
+        gamePlayerService.load(key, true)
         val gPlayer = gamePlayerService.get(key, ::GPlayer)
-        gamePlayerService.load(gPlayer, true)
         gPlayer.joinedGame = game
         gPlayer.addParents(game)
         game.gameJoined.add(gPlayer)

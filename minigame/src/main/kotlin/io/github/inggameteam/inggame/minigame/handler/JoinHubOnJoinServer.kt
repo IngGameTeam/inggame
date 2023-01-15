@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.minigame.handler
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.delegate.get
-import io.github.inggameteam.inggame.component.delegate.getAll
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.LeftType
@@ -20,7 +19,7 @@ import java.util.*
 
 class JoinHubOnJoinServer(
     private val server: GameServer, plugin: IngGamePlugin,
-    private val gameService: GameInstanceService,
+    private val gameInstanceService: GameInstanceService,
     private val gamePlayerService: GamePlayerService,
     private val playerService: PlayerService,
     @Suppress("unused")
@@ -30,13 +29,13 @@ class JoinHubOnJoinServer(
 
     init {
         playerService.getAll().map(NameSpace::name)
-            .forEach { gameService.join(server.hub, gamePlayerService.get(it, ::GPlayer)) }
+            .forEach { gameInstanceService.join(server.hub, gamePlayerService.get(it, ::GPlayer)) }
     }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
-        gameService.join(server.hub, gamePlayerService.get(event.player.uniqueId, ::GPlayer))
+        gameInstanceService.join(server.hub, gamePlayerService.get(event.player.uniqueId, ::GPlayer))
     }
 
     @Suppress("unused")
