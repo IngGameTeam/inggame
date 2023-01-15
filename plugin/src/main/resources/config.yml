@@ -29,8 +29,8 @@ save:
 resource.resource: default
 layer.game-resource: resource
 layer.game-instance: game-resource
-layer.game-player: game-player
-layer.player: game-instance
+layer.game-player: game-instance
+layer.player: game-player
 resource.singleton: default
 resource.view: default
 
