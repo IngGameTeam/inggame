@@ -52,8 +52,7 @@ abstract class BaseDelegate : Delegate {
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this.nameSpace == other) return true
-        return false
+        return this.nameSpace == other
     }
 
 
