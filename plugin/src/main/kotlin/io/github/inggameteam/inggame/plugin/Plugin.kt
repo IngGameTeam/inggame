@@ -104,7 +104,7 @@ class Plugin : IngGamePluginImp() {
                 }
                 then("component") {
                     execute {
-                        val componentService = app.get<ComponentService>(named(args[0]))
+                        val componentService = app.get<ComponentService>(named(args[1]))
                         if (source !is Player) {
                             measureTimeMillis {
                                 println(componentService)
