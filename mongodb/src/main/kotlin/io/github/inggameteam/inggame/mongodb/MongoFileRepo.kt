@@ -7,6 +7,7 @@ class MongoFileRepo(val file: String) : MongoRepo {
     override fun get(): Collection<Document> {
         val doc = Document.parse(File(file)
             .apply { if (!exists()) {
+                parentFile.mkdir()
                 createNewFile()
                 writeText("""{"_": []}""")
             }
