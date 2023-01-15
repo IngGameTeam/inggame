@@ -18,7 +18,9 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
+        println("HELLO")
         app
+        println("HELLO!!!!")
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
     }
