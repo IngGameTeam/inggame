@@ -35,10 +35,10 @@ class GameInstanceService(
 
     fun join(game: Game, player: GPlayer) {
         left(player)
+        gamePlayerService.load(player, true)
         player.joinedGame = game
         player.addParents(game)
         game.gameJoined.add(player)
-        gamePlayerService.load(player, true)
     }
 
     fun left(player: GPlayer) {
