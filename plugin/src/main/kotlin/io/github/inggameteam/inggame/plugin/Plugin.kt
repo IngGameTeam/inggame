@@ -14,20 +14,31 @@ class Plugin : IngGamePluginImp {
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, dataFolder, file)
 
-    private val app: Koin by lazy { loadApp(this) }
+    private var appSemaphore = false
+    private val appDelegate = lazy {
+        if (appSemaphore) throw AssertionError("an error occurred while get app while initializing app")
+        println("APP_LOAD")
+        appSemaphore = true
+        val result = loadApp(this)
+        appSemaphore = false
+        result
+    }
+    private val app: Koin by appDelegate
+
 
     override fun onEnable() {
         super.onEnable()
         println("HELLO")
         app
-        println("HELLO!!!!")
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
     }
 
     override fun onDisable() {
         super.onDisable()
-        app.close()
+        if (appDelegate.isInitialized()) {
+            app.close()
+        }
     }
 
 }
