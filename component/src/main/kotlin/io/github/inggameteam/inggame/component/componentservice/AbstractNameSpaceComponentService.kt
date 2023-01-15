@@ -12,7 +12,10 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
     }
 
     override fun setParents(name: Any, value: Collection<Any>) {
-        (getOrNull(name)?: newModel(name)).parents = sortParentsByPriority(CopyOnWriteArraySet(value))
+        (getOrNull(name)?: newModel(name)).apply {
+            parents = CopyOnWriteArraySet(value)
+            parents = sortParentsByPriority(parents)
+        }
     }
 
     override fun getParents(name: Any): CopyOnWriteArraySet<Any> {
@@ -39,12 +42,6 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
 
     override fun newModel(name: Any): NameSpace {
         return NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap())
-    }
-
-    private fun sortParentsByPriority(parents: CopyOnWriteArraySet<Any>): CopyOnWriteArraySet<Any> {
-        return parents.map { Pair(it, findComponentService(it)) }
-            .sortedWith { o1, o2 -> o1.second.layerPriority.compareTo(o2.second.layerPriority) }
-            .map { it.first }.run(::CopyOnWriteArraySet)
     }
 
 }

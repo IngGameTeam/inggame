@@ -17,9 +17,11 @@ fun load(app: Koin, file: File) {
                     getKeys(false).forEach { key ->
                         val componentService = app.get<ComponentService>(named(component))
                         if (key == "parents") {
-                            componentService.setParents(nameSpace, getStringList(key).map {
-                                try { it.fastUUID() }  catch (_: Throwable) { it }
-                            })
+                            try {
+                                componentService.setParents(nameSpace, getStringList(key).map {
+                                    try { it.fastUUID() } catch (_: Throwable) { it }
+                                })
+                            } catch (_: Throwable) {}
                         }  else {
                             val value = get(key)
                             componentService.set(nameSpace, key, value)

@@ -44,6 +44,12 @@ interface ComponentService {
         throw NameSpaceNotFoundException(nameSpace)
     }
 
+    fun sortParentsByPriority(parents: CopyOnWriteArraySet<Any>): CopyOnWriteArraySet<Any> {
+        return parents.map { Pair(it, findComponentService(it)) }
+            .sortedWith { o1, o2 -> o1.second.layerPriority.compareTo(o2.second.layerPriority) }
+            .map { it.first }.run(::CopyOnWriteArraySet)
+    }
+
     fun has(nameSpace: Any, key: Any): Boolean =
         try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
 
