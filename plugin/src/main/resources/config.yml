@@ -6,20 +6,20 @@ models:
   - ChatAlert
   - Location
 
-repo.singleton: singleton
-repo.player: player
-repo.game-instance: game-instance
-repo.game-resource: game-resource
-repo.view: view
-repo.resource: resource
-repo.game-player: game-player
-#file.singleton: plugins/inggame/singleton.json
-#file.player: plugins/inggame/player.json
-#file.game-instance: plugins/inggame/game-instance.json
-#file.game-resource: plugins/inggame/game-resource.json
-#file.view: plugins/inggame/view.json
-#file.resource: plugins/inggame/resource.json
-#file.game-player: plugins/inggame/game-player.json
+#repo.singleton: singleton
+#repo.player: player
+#repo.game-instance: game-instance
+#repo.game-resource: game-resource
+#repo.view: view
+#repo.resource: resource
+#repo.game-player: game-player
+file.singleton: plugins/inggame/singleton.json
+file.player: plugins/inggame/player.json
+file.game-instance: plugins/inggame/game-instance.json
+file.game-resource: plugins/inggame/game-resource.json
+file.view: plugins/inggame/view.json
+file.resource: plugins/inggame/resource.json
+file.game-player: plugins/inggame/game-player.json
 
 save:
   player:
