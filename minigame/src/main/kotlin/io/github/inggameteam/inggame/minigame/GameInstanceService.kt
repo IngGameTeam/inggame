@@ -7,12 +7,13 @@ import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
+import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.utils.randomUUID
-import java.util.*
 
 class GameInstanceService(
     private val server: GameServer,
     private val gamePlayerService: GamePlayerService,
+    private val playerService: PlayerService,
     component: ComponentService,
 ) : LayeredComponentService by component as LayeredComponentService {
 
@@ -33,21 +34,23 @@ class GameInstanceService(
         unload(uuid, false)
     }
 
-    fun join(game: Game, player: GPlayer) {
-        left(player)
-        gamePlayerService.load(player, true)
-        player.joinedGame = game
-        player.addParents(game)
-        game.gameJoined.add(player)
+    fun join(game: Game, key: Any) {
+        left(key)
+        val gPlayer = gamePlayerService.get(key, ::GPlayer)
+        gamePlayerService.load(gPlayer, true)
+        gPlayer.joinedGame = game
+        gPlayer.addParents(game)
+        game.gameJoined.add(gPlayer)
     }
 
-    fun left(player: GPlayer) {
-        val joinedGameAtomic = player.joinedGame
+    fun left(key: Any) {
+        val gPlayer = gamePlayerService.get(key, ::GPlayer)
+        val joinedGameAtomic = gPlayer.joinedGame
         val joinedGame = get(joinedGameAtomic ?: return, ::Game)
-        player.removeParents(joinedGame)
-        player.joinedGame = null
-        joinedGame.gameJoined.remove(player)
-        gamePlayerService.unload(player, false)
+        gPlayer.removeParents(joinedGame)
+        gPlayer.joinedGame = null
+        joinedGame.gameJoined.remove(key)
+        gamePlayerService.unload(key, false)
         // STOPSHIP: ComponentService layer priority 만들어서 NameSpace parents sorting by priority 하고 parents 함수로 감싸기
     }
 
