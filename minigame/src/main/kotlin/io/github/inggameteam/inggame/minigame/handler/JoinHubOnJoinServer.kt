@@ -31,7 +31,7 @@ class JoinHubOnJoinServer(
     }
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
         gameService.join(server.hub, gamePlayerService.get(event.player.uniqueId, ::GPlayer))
     }

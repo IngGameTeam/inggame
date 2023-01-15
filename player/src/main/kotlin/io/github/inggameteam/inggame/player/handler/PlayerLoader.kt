@@ -14,8 +14,8 @@ import java.util.*
 class PlayerLoader(private val playerService: PlayerService, private val plugin: IngGamePlugin) : Listener {
 
     init {
-        plugin.server.onlinePlayers.map(Player::getUniqueId).forEach(playerService::load)
         plugin.server.pluginManager.registerEvents(this, plugin)
+        plugin.server.onlinePlayers.map(Player::getUniqueId).forEach(playerService::load)
     }
 
     @Suppress("unused")
