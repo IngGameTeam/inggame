@@ -17,7 +17,7 @@ import io.github.inggameteam.inggame.utils.hasTags
 import org.bukkit.Bukkit
 import org.bukkit.Particle
 
-class GameImpl(
+class GameHelper(
     private val gameInstanceService: GameInstanceService,
     private val gamePlayerService: GamePlayerService,
     private val server: GameServer,

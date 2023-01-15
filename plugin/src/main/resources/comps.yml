@@ -1,18 +1,18 @@
-view:
-  ns-selector:
-    selector-title: "select your namespace"
-resource:
-  PrintOnMove:
-    PrintOnMove: true
-  hub.parents: [ Hub ]
-  Hub:
-    parents: [ PrintOnMove ]
-    gameName: "Hub"
-    startPlayersAmount: -1
-    startWaitingSecond: -1
-
-  Game:
-    startPlayersAmount: 2
-    playerLimitAmount: -1
-    startWaitingSecond: 4
-    stopWaitingTick: -1
+#view:
+#  ns-selector:
+#    selector-title: "select your namespace"
+#resource:
+#  PrintOnMove:
+#    PrintOnMove: true
+#  hub.parents: [ Hub ]
+#  Hub:
+#    parents: [ PrintOnMove ]
+#    gameName: "Hub"
+#    startPlayersAmount: -1
+#    startWaitingSecond: -1
+#
+#  Game:
+#    startPlayersAmount: 2
+#    playerLimitAmount: -1
+#    startWaitingSecond: 4
+#    stopWaitingTick: -1

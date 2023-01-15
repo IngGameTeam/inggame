@@ -48,11 +48,14 @@ allprojects {
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
+        maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
 
     }
 
     dependencies {
 //        api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+        testImplementation("com.github.MockBukkit:MockBukkit:v1.19-SNAPSHOT")
 
         testCompileOnly("org.slf4j:slf4j-api:2.0.5")
         testCompileOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
@@ -67,10 +70,10 @@ allprojects {
         compileOnly("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
 
         compileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
-        testCompileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
+        testApi("org.mongodb:mongodb-driver-sync:4.8.1")
 
         compileOnly("org.reflections:reflections:0.10.2")
-        testCompileOnly("org.reflections:reflections:0.10.2")
+        testApi("org.reflections:reflections:0.10.2")
 
         compileOnly("org.projectlombok:lombok:1.18.24")
         annotationProcessor("org.projectlombok:lombok:1.18.24")

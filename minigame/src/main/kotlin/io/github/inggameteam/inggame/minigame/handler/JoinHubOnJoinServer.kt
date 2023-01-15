@@ -24,7 +24,7 @@ class JoinHubOnJoinServer(
     private val playerService: PlayerService,
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
-    private val gameImpl: GameImpl
+    private val gameHelper: GameHelper
 ) : HandleListener(plugin) {
 
     init {
@@ -43,7 +43,7 @@ class JoinHubOnJoinServer(
     fun onQuit(event: PlayerQuitEvent) {
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
         if (player.joinedGame === null) return
-        gameImpl.leftGame(player, LeftType.LEFT_SERVER)
+        gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
 
 }

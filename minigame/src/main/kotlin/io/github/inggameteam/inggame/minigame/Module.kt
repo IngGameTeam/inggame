@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.minigame
 
-import io.github.inggameteam.inggame.minigame.handler.GameImpl
+import io.github.inggameteam.inggame.minigame.handler.GameHelper
 import io.github.inggameteam.inggame.minigame.handler.JoinHubOnJoinServer
 import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
 import org.koin.core.module.dsl.singleOf
@@ -22,5 +22,5 @@ fun createGamePlayerService(name: String) = module {
 fun createGameHandlers() = module(createdAtStart = true) {
     singleOf(::JoinHubOnJoinServer)
     singleOf(::PrintOnMove)
-    singleOf(::GameImpl)
+    singleOf(::GameHelper)
 }
