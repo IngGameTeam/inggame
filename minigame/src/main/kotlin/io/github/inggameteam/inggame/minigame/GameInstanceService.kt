@@ -44,7 +44,7 @@ class GameInstanceService(
     fun left(player: GPlayer) {
         val joinedGameAtomic = player.joinedGame
         val joinedGame = get(joinedGameAtomic ?: return, ::Game)
-        player.removeParents(joinedGame)
+        player.removeParents(joinedGame.nameSpace)
         player.joinedGame = null
         joinedGame.gameJoined.remove(player)
         gamePlayerService.unload(player.nameSpace, false)
