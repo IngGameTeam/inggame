@@ -9,6 +9,7 @@ libraries:
   - com.eatthepath:fast-uuid:0.2.0
   - org.reflections:reflections:0.10.2
   - io.insert-koin:koin-core-jvm:3.3.2
-  - ch.qos.logback:logback-classic:1.2.3
+  - testImplementation("org.slf4j:slf4j-nop:2.0.6")
+  - org.slf4j:slf4j-nop:2.0.6
 commands:
   ing:
