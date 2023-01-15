@@ -90,7 +90,7 @@ class Plugin : IngGamePluginImp() {
 
     override fun onEnable() {
         super.onEnable()
-        println("HELLO1!1435")
+        println("HELLO1!1f435")
         repeat(10) {
             println("-".repeat(30))
         }
