@@ -13,7 +13,6 @@ interface Alert {
 }
 
 @Model
-@BsonDiscriminator("ChatAlert")
 class ChatAlert(
     var message: String
 ) : Alert {
@@ -28,7 +27,6 @@ class ChatAlert(
 }
 
 @Model
-@BsonDiscriminator("ActionBarAlert")
 class ActionBarAlert(var message: String) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         val format = message.format(*args)
@@ -39,7 +37,6 @@ class ActionBarAlert(var message: String) : Alert {
 }
 
 @Model
-@BsonDiscriminator("TitleAlert")
 class TitleAlert(
     var title: String,
     var subTitle: String,
@@ -58,7 +55,6 @@ class TitleAlert(
 }
 
 @Model
-@BsonDiscriminator("BaseComponentAlert")
 class BaseComponentAlert(
     var components: ArrayList<ActionComponent>
 ) : Alert {
@@ -72,7 +68,6 @@ class BaseComponentAlert(
 }
 
 @Model
-@BsonDiscriminator("ActionComponent")
 class ActionComponent(
     var message: String,
     var clickAction: ClickEvent.Action?,
@@ -89,10 +84,5 @@ class ActionComponent(
         }
     override fun toString() = "ActionComponent($message, $clickAction, $clickValue, $hoverAction, $hoverValue)}"
 
-
-
-    //TODO NameSpace in - game editor
-    //TODO Party Implementation
-    //TODO GameImpl Implementation
 }
 

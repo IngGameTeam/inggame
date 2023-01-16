@@ -1,10 +1,28 @@
 url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/inggame?retryWrites=true&w=majority"
 codec:
-  - "io.github.inggameteam.inggame"
-  - "io.github.inggameteam.inggame.component.model"
+  - io.github.inggameteam.inggame
+  - io.github.inggameteam.inggame.component.model
+  - io.github.inggameteam.inggame.minigame.singleton
+  - io.github.inggameteam.inggame.minigame.wrapper.game
+  - io.github.inggameteam.inggame.minigame.wrapper.player
 models:
   - ChatAlert
+  - ActionBarAlert
+  - TitleAlert
+  - BaseComponentAlert
+  - ActionComponent
   - Location
+  - InventoryModel
+  - ItemStackModel
+
+wrappers:
+  - GameServer
+  - Game
+  - GameAlert
+  - GPlayer
+
+repo.test: test
+layer.test: default
 
 repo.singleton: singleton
 repo.player: player
@@ -43,5 +61,5 @@ service:
 
 singleton:
   singleton:
-    server: minigame.singleton.GameServer
+    server: GameServer
 

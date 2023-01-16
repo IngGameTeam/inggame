@@ -21,10 +21,15 @@ fun loadApp(plugin: IngGamePlugin): Koin {
         koinApplication {
             modules(module { single { plugin } bind IngGamePlugin::class })
             val codec = config.getStringList("codec")
+            val models = config.getStringList("models")
             listOfNotNull(
+                createPropRegistry(
+                    models.map { matchClass(codec, it) }.run(::ArrayList),
+                    config.getStringList("wrappers").map { matchClass(codec, it) }.run(::ArrayList)
+                ),
                 createMongoModule(
                     config.getString("url") ?: "unspecified",
-                    config.getStringList("models"),
+                    models,
                     *codec.toTypedArray()
                 ),
                 *config.getConfigurationSection("repo")?.run {

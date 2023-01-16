@@ -20,6 +20,14 @@ class PriorityFactory {
     }
 }
 
+class PropRegistry(
+    val models: ArrayList<KClass<*>>,
+    val wrappers: ArrayList<KClass<*>>
+)
+fun createPropRegistry(models: ArrayList<KClass<*>>, wrappers: ArrayList<KClass<*>>) = module {
+    single { PropRegistry(models, wrappers) }
+}
+
 fun createPriorityFactory() = module {
     single { PriorityFactory() } bind PriorityFactory::class
 }

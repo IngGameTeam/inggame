@@ -20,18 +20,10 @@ fun createMongoModule(
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<out Any>>().apply {
             println(codecPackage.map { it })
-            codecPackage
-                .map {
-                    CPScanner.scanClasses(
-                        PackageNameFilter(it),
-                        ClassFilter().appendAnnotation(Model::class.java)
-                    ).apply { map { println(it.simpleName) }}
-                }.forEach(::addAll)
             modelClasses.mapNotNull { clazz ->
                 try { matchClass(codecPackage.toList(), clazz).java.apply { add(this)} }
                 catch (_: Throwable) { null }
             }
-            apply { map { it.simpleName }.apply(::println) }
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
