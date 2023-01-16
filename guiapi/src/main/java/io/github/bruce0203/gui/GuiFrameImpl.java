@@ -109,7 +109,12 @@ public class GuiFrameImpl implements GuiWindow, GuiFrame {
             this.onClick.invoke(x, y, event);
         }
 
-        slots.stream().filter(s -> s.x == x && s.y == y).forEach(s -> s.onClick(x, y, event));
+        slots.stream().filter(s -> isEntered(s, x, y)).forEach(s -> s.onClick(x, y, event));
+    }
+
+    private boolean isEntered(GuiRegion s, int x, int y) {
+        if (s.x == x && s.y == y) return true;
+        else return s instanceof GuiList<?> l && l.x <= x && x <= l.width && l.y <= y && y <= l.height;
     }
 
     @Override
