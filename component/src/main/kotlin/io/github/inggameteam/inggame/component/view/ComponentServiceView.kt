@@ -23,7 +23,7 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
     val view = app.get<ComponentService>(named("view"))
     val selector = "ns-selector"
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
-        .list(0, 0, 8, 4, { componentService.getAll().withBlank() }, { ns ->
+        .list(0, 0, 9, 5, { componentService.getAll().withBlank() }, { ns ->
             if (ns is NameSpace) ItemStack(Material.STONE).apply {
                 itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
                     setDisplayName(ns.name.toString())
@@ -49,7 +49,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
     val view = app.get<ComponentService>(named("view"))
     val selector = "el-selector"
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class].format(nameSpace.name))
-        .list(0, 0, 8, 5, { nameSpace.elements.entries.withBlank()}, { ns ->
+        .list(0, 0, 9, 5, { nameSpace.elements.entries.withBlank()}, { ns ->
             if (ns is Pair<*, *>) {
                 ItemStack(Material.DIRT).apply {
                     itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
