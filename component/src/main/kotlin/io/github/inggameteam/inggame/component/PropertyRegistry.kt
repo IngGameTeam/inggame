@@ -21,7 +21,8 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         val types= classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
         types.forEach { clazz ->
-            clazz.memberProperties.apply { map { it.name }.apply { println(this) } }
+            clazz.memberProperties
+                .filter { it.javaField?.getAnnotation(NonElement::class.java) === null }
                 .map { it.name }.map { Pair(it, clazz) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
