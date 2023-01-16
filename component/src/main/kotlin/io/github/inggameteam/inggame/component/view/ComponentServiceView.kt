@@ -75,8 +75,14 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
     val classes = app.getAll<ModelRegistry>().map { it.models }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
     val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
     println(nameSpace.name)
-    types.map { clazz -> clazz.java.declaredFields
-        .mapNotNull { println(it.name); if (it.name != nameSpace.name) null else Pair(clazz, it.name) } }.forEach { it.forEach { pair ->
+    types.map { clazz ->
+        val suffix = "\$delegate"
+        clazz.java.declaredFields
+            .map { it.name }
+            .filter { it.endsWith(suffix) }
+            .filter { it.substring(0, it.length - suffix.length) == nameSpace.name }
+            .map { Pair(clazz, it) }
+    }.forEach { it.forEach { pair ->
         println("result=${pair.first}")
     } }
 }
