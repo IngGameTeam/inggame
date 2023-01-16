@@ -49,7 +49,12 @@ abstract class BaseDelegate : Delegate {
 
 }
 
-class SimpleDelegate(override val nameSpace: Any, override val component: ComponentService) : BaseDelegate()
+class SimpleDelegate(
+    @NonElement
+    override val nameSpace: Any,
+    @NonElement
+    override val component: ComponentService
+) : BaseDelegate()
 
 class NullableDelegateImp(
     @NonElement
