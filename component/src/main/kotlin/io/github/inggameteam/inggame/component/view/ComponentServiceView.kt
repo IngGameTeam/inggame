@@ -65,7 +65,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
                 println(pair.second)
                 val element = pair.second
                 if (element is Pair<*, *>) {
-                    elEditor(app, componentService, nameSpace, element.first!!, plugin)
+                    elEditor(app, componentService, nameSpace, element.second!!, plugin)
                 }
             }
         }
