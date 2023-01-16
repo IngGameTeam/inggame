@@ -2,17 +2,12 @@ package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
 import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
-import io.github.inggameteam.inggame.utils.IngGamePlugin
-import org.bukkit.Bukkit
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.reflections.Reflections
-import org.reflections.scanners.SubTypesScanner
-import kotlin.collections.ArrayList
-import org.reflections.scanners.Scanners.*
 
 
 fun createMongoModule(
