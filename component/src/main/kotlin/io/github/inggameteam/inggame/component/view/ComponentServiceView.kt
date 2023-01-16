@@ -81,7 +81,7 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
     types.map { clazz ->
         val suffix = "\$delegate"
         clazz.java.declaredFields
-            .filter { it.kotlinProperty!!.visibility == KVisibility.PUBLIC }
+            .filter { Modifier.isPublic(it.modifiers) }
             .map { it.name }
             .filter { it.endsWith(suffix) }
             .map { it.substring(0, it.length - suffix.length) }
