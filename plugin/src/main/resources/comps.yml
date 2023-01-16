@@ -1,6 +1,8 @@
 view:
   ns-selector:
     selector-title: "select your namespace"
+  el-selector:
+    selector-title: "select your element in namespace %s"
 resource:
   PrintOnMove:
     PrintOnMove: true
