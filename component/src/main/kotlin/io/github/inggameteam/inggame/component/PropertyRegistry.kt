@@ -21,10 +21,13 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         val types= classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
         types.forEach { clazz ->
-            clazz.memberProperties
-                .filter { it.javaField?.getAnnotation(NonElement::class.java) === null }
-                .apply { this.toList().map { it.name }.apply { println(this) } }
-                .map { it.name }.map { Pair(it, clazz) }
+            val suffix = "\$delegate"
+            clazz.java.declaredFields
+                .filter { it.getAnnotation(NonElement::class.java) === null }
+                .filter { it.name.endsWith(suffix) }
+                .map { it.name }
+                .map { it.substring(0, it.length - suffix.length) }
+                .map { Pair(it, clazz) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
                         throw AssertionError("${it.first} duplicated between ${propMap[it.first]} and ${it.second}")
