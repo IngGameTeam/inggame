@@ -14,7 +14,10 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
+import java.lang.reflect.Modifier
 import kotlin.reflect.KClass
+import kotlin.reflect.KVisibility
+import kotlin.reflect.jvm.kotlinProperty
 
 fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
@@ -78,11 +81,12 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
     types.map { clazz ->
         val suffix = "\$delegate"
         clazz.java.declaredFields
+            .filter { it.kotlinProperty!!.visibility == KVisibility.PUBLIC }
             .map { it.name }
             .filter { it.endsWith(suffix) }
             .map { it.substring(0, it.length - suffix.length) }
-            .filter { it == elem }
             .apply { println(this) }
+            .filter { it == elem }
             .map { Pair(clazz, it) }
     }.forEach { it.forEach { pair ->
         println("result=${pair.first}")
