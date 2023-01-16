@@ -43,7 +43,7 @@ public class GuiList<T> extends GuiRegion {
                 int i = x + y * 9;
                 ItemStack item = null;
                 int ind = index.getAndAdd(1);
-                if (ind < 0) {
+                if (ind <= 0) {
                     ind = size - (Math.abs(ind) % size);
                 } else {
                     ind = ind % size;
