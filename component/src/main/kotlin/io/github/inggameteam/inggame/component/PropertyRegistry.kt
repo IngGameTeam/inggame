@@ -25,7 +25,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
                 .map { it.name }.map { Pair(it, clazz) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
-                        throw AssertionError("${it.first} duplicated between ${propMap.get(it.first)} and ${it.second}")
+                        throw AssertionError("${it.first} duplicated between ${propMap[it.first]} and ${it.second}")
                     }
                     propMap[it.first] = it.second
                 }

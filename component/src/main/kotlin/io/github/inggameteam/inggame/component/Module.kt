@@ -41,11 +41,11 @@ fun registerComponentModels() = module(createdAtStart = true) {
     }
 }
 
-fun createPropertyRegistry() = module {
+fun createPropertyRegistry() = module(createdAtStart = true) {
     singleOf(::PropertyRegistry)
 }
 
-fun createPriorityFactory() = module(createdAtStart = true) {
+fun createPriorityFactory() = module {
     single { PriorityFactory() } bind PriorityFactory::class
 }
 

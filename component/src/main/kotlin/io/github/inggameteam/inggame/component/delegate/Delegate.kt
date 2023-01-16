@@ -52,10 +52,13 @@ abstract class BaseDelegate : Delegate {
 class SimpleDelegate(override val nameSpace: Any, override val component: ComponentService) : BaseDelegate()
 
 class NullableDelegateImp(
+    @NonElement
     override val nameSpace: Any,
+    @NonElement
     override val component: ComponentService,
 ) : BaseDelegate() {
 
+    @NonElement
     internal var defaultBlock: (() -> Any?)? = null
 
     @Suppress("UNCHECKED_CAST")
@@ -79,10 +82,13 @@ class NullableDelegateImp(
 }
 
 class NonNullDelegateImp(
+    @NonElement
     override val nameSpace: Any,
+    @NonElement
     override val component: ComponentService,
 ) : BaseDelegate() {
 
+    @NonElement
     var defaultBlock: (() -> Any)? = null
 
     @Suppress("UNCHECKED_CAST")
