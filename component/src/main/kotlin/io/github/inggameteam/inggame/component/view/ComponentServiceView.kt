@@ -73,9 +73,9 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 }
 
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
-    println("elEditor")
     val classes = app.getAll<PropRegistry>().map { it.all }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
     val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
+    println(types.map { it.simpleName })
     types.map { clazz -> clazz.declaredMemberProperties
         .mapNotNull { if (it.name != elem) null else Pair(clazz, it.name) } }.forEach { it.forEach { pair ->
         println(pair.first)
