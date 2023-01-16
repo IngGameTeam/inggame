@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.view
 import io.github.bruce0203.gui.Gui
 import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.mongodb.ModelRegistry
@@ -75,13 +76,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 }
 
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
-    val classes = app.get<ModelRegistryAll>().models
-    val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
-    println(elem)
-    types.map { clazz ->
-        clazz.declaredMemberProperties
-            .map { it.name }.filter { it == elem }.map { Pair(clazz, it) }
-    }.forEach { it.forEach { pair ->
-        println("result=${pair.first}")
-    } }
+    val propertyRegistry = app.get<PropertyRegistry>()
+    val propClass = propertyRegistry.getPropClass(elem.toString())
+    println(propClass)
 }

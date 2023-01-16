@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.component.model.*
 import io.github.inggameteam.inggame.mongodb.ModelRegistry
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -40,7 +41,11 @@ fun registerComponentModels() = module(createdAtStart = true) {
     }
 }
 
-fun createPriorityFactory() = module {
+fun createPropertyRegistry() = module {
+    singleOf(::PropertyRegistry)
+}
+
+fun createPriorityFactory() = module(createdAtStart = true) {
     single { PriorityFactory() } bind PriorityFactory::class
 }
 
