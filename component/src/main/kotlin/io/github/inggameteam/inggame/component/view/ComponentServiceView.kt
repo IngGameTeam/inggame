@@ -79,8 +79,9 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
         val suffix = "\$delegate"
         clazz.java.declaredFields
             .map { it.name }
-            .filter { it.endsWith(suffix) }
-            .filter { it.substring(0, it.length - suffix.length) == nameSpace.name }
+            .filter { it.endsWith(suffix) }.apply { println(this.size) }
+            .map { it.substring(0, it.length - suffix.length) }
+            .filter { it == nameSpace.name }
             .map { Pair(clazz, it) }
     }.forEach { it.forEach { pair ->
         println("result=${pair.first}")
