@@ -60,7 +60,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
             } else ItemStack(Material.AIR)
         }) { list, gui ->
             gui.slot(0, 5) { event -> list.setIndex(list.index - 45) }
-            gui.slot(8, 6) { event -> list.setIndex(list.index + 45) }
+            gui.slot(8, 5) { event -> list.setIndex(list.index + 45) }
             list.onClick { x, y, pair, event ->
                 val element = pair.second
                 if (element !is Unit) {
