@@ -34,8 +34,8 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
                 }
 
             } else ItemStack(Material.BEDROCK)}) { list, gui ->
-            gui.slot(0, 5) { event -> list.setIndex(list.index - 1) }
-            gui.slot(8, 5) { event -> list.setIndex(list.index + 1) }
+            gui.slot(0, 5) { event -> list.setIndex(list.index - 45) }
+            gui.slot(8, 5) { event -> list.setIndex(list.index + 45) }
             list.onClick { x, y, pair, event ->
                 val nameSpace = pair.second
                 if (nameSpace is NameSpace) {
