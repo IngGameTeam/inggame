@@ -38,6 +38,7 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
             gui.slot(8, 5) { event -> list.setIndex(list.index + 45) }
             list.onClick { x, y, pair, event ->
                 val nameSpace = pair.second
+                println(pair.second)
                 if (nameSpace is NameSpace) {
                     elSelector(app, componentService, nameSpace, plugin).openInventory(event.whoClicked as Player)
                 }
