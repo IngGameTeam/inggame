@@ -2,12 +2,14 @@ package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
 import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
+import net.sf.corn.cps.CPScanner
+import net.sf.corn.cps.ClassFilter
+import net.sf.corn.cps.ResourceFilter
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import org.reflections.Reflections
 
 
 fun createMongoModule(
@@ -17,8 +19,13 @@ fun createMongoModule(
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<out Any>>().apply {
-            codecPackage.map { Reflections(it) }
-                .map { it.getTypesAnnotatedWith(Model::class.java) }.forEach(::addAll)
+            codecPackage
+                .map {
+                    CPScanner.scanClasses(
+                        ResourceFilter().packageName(it),
+                        ClassFilter().annotation(Model::class.java)
+                    )
+                }.forEach(::addAll)
             modelClasses.mapNotNull { clazz ->
                 try { matchClass(codecPackage.toList(), clazz).java.apply { add(this)} }
                 catch (_: Throwable) { null }

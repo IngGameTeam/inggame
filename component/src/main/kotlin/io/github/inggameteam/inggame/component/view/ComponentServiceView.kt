@@ -51,6 +51,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class].format(nameSpace.name))
         .list(0, 0, 9, 5, { nameSpace.elements.entries.map { Pair(it.key, it. value) }.withBlank()}, { ns ->
             if (ns is Pair<*, *>) {
+
                 ItemStack(Material.DIRT).apply {
                     itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
                         setDisplayName("$GOLD" + ns.first.toString())
