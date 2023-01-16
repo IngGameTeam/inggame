@@ -17,6 +17,7 @@ import org.koin.core.qualifier.named
 import java.lang.reflect.Modifier
 import kotlin.reflect.KClass
 import kotlin.reflect.KVisibility
+import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.kotlinProperty
 
@@ -81,7 +82,7 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
     println(elem)
     types.map { clazz ->
         val suffix = "\$delegate"
-        clazz.memberProperties
+        clazz.declaredMemberProperties
             .map { it.name }
             .apply { println(this) }
             .filter { it == elem }
