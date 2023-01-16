@@ -84,8 +84,6 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
         clazz.memberProperties
             .map { it.name }
             .apply { println(this) }
-            .filter { it.endsWith(suffix) }
-            .map { it.substring(0, it.length - suffix.length) }
             .filter { it == elem }
             .map { Pair(clazz, it) }
     }.forEach { it.forEach { pair ->
