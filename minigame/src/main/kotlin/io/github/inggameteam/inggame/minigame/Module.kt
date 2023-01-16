@@ -7,14 +7,14 @@ import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
-import io.github.inggameteam.inggame.mongodb.PropRegistry
+import io.github.inggameteam.inggame.mongodb.ModelRegistry
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-fun registerGameProps() = module(createdAtStart = true) {
+fun registerGameModels() = module(createdAtStart = true) {
     factory {
-        PropRegistry(
+        ModelRegistry(
             GameServer::class,
             Game::class,
             GameAlert::class,

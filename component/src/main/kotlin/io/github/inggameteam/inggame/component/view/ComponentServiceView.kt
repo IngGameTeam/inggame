@@ -5,7 +5,7 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.mongodb.Model
-import io.github.inggameteam.inggame.mongodb.PropRegistry
+import io.github.inggameteam.inggame.mongodb.ModelRegistry
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor.*
@@ -15,8 +15,6 @@ import org.bukkit.inventory.ItemStack
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
 import kotlin.reflect.KClass
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.memberProperties
 
 fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
@@ -74,7 +72,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 }
 
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
-    val classes = app.getAll<PropRegistry>().map { it.all }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
+    val classes = app.getAll<ModelRegistry>().map { it.models }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
     val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
     println(nameSpace.name)
     types.map { clazz -> clazz.java.declaredFields

@@ -8,8 +8,7 @@ import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.component.model.*
-import io.github.inggameteam.inggame.mongodb.Model
-import io.github.inggameteam.inggame.mongodb.PropRegistry
+import io.github.inggameteam.inggame.mongodb.ModelRegistry
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -25,9 +24,9 @@ class PriorityFactory {
 
 
 
-fun registerComponentProps() = module(createdAtStart = true) {
+fun registerComponentModels() = module(createdAtStart = true) {
     factory {
-        PropRegistry(
+        ModelRegistry(
             Alert::class,
             ChatAlert::class,
             ActionBarAlert::class,
