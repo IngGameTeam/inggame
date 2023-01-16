@@ -5,13 +5,14 @@ import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import java.util.*
-import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.isSubclassOf
 
 interface Delegate {
     val nameSpace: Any
     val component: ComponentService
+    val nonNull get() = NonNullDelegateImp(nameSpace, component)
+    val nullable get() = NullableDelegateImp(nameSpace, component)
 
     fun addParents(value: Any) = component.addParents(nameSpace, value)
 
@@ -27,9 +28,6 @@ interface Delegate {
 
     fun nullableDefault(block: () -> Any?) = NullableDelegateImp(nameSpace, component).apply { defaultBlock = block }
 
-    val nonNull get() = NonNullDelegateImp(nameSpace, component)
-
-    val nullable get() = NullableDelegateImp(nameSpace, component)
 
 }
 

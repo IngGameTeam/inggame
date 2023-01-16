@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.mongodb
 
 import kotlin.reflect.KClass
 
-typealias ModelRegistryAll = ModelRegistry
 class ModelRegistry(
     vararg clazz: KClass<*>
 ) {

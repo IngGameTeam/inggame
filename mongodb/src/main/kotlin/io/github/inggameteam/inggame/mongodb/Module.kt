@@ -9,6 +9,8 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 
+typealias ModelRegistryAll = ModelRegistry
+
 fun createModelRegistryAll() = module(createdAtStart = true) {
     single {
         ArrayList<KClass<*>>().apply { getAll<ModelRegistry>().map { it.models }.forEach { addAll(it) } }
