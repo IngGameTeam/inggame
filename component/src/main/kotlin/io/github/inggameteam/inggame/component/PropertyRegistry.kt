@@ -23,7 +23,6 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         types.forEach { clazz ->
             val suffix = "\$delegate"
             clazz.java.declaredFields
-                .filter { it.getAnnotation(NonElement::class.java) === null }
                 .filter { it.name.endsWith(suffix) }
                 .map { it.name }
                 .map { it.substring(0, it.length - suffix.length) }
