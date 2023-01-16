@@ -63,8 +63,8 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
             gui.slot(8, 5) { event -> list.setIndex(list.index + 45) }
             list.onClick { x, y, pair, event ->
                 val element = pair.second
-                if (element !is Unit) {
-                    elEditor(app, componentService, nameSpace, element, plugin)
+                if (element is Pair<*, *>) {
+                    elEditor(app, componentService, nameSpace, element.first!!, plugin)
                 }
             }
         }
