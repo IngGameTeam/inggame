@@ -7,7 +7,7 @@ libraries:
   - org.jetbrains.kotlin:kotlin-reflect:1.7.21
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
-  - org.reflections:reflections:0.10.2
+  - org.reflections:reflections:0.9.11
   - io.insert-koin:koin-core-jvm:3.3.2
 commands:
   ing:
