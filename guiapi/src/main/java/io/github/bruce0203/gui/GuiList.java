@@ -42,9 +42,9 @@ public class GuiList<T> extends GuiRegion {
         IntStream.range(y, y + height).forEach(y -> IntStream.range(x, x + width).forEach(x -> {
                 int i = x + y * 9;
                 ItemStack item = null;
-                int ind = index.addAndGet(1);
+                int ind = index.getAndAdd(1);
                 if (ind < 0) {
-                    ind = size - (Math.abs(ind) % size);
+                    ind = size - (Math.abs(ind - 1) % size);
                 } else {
                     ind = ind % size;
                 }
