@@ -44,11 +44,11 @@ public class GuiList<T> extends GuiRegion {
                 ItemStack item = null;
                 int ind = index.getAndAdd(1);
                 if (ind < 0) {
-                    ind = size - (Math.abs(ind) % size) - 1;
+                    ind = size - (Math.abs(ind) % size);
                 } else {
                     ind = ind % size;
                 }
-                if (ind < (x * y < size ? size : size + this.index)) {
+                if (ind < (x * y <= size ? size : size + this.index)) {
                     T context = list.get(ind % size);
                     item = transform.apply(context);
                     display.add(new Pair<>(item, context));
