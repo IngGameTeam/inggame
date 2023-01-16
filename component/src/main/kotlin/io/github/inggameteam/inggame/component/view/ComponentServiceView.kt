@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.mongodb.ModelRegistry
+import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor.*
@@ -74,7 +75,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 }
 
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
-    val classes = app.getAll<ModelRegistry>().map { it.models }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
+    val classes = app.get<ModelRegistryAll>().models
     val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
     println(elem)
     types.map { clazz ->
