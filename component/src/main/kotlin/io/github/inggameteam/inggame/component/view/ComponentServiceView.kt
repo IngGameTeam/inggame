@@ -22,8 +22,8 @@ fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45
 fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlugin) = run {
     val view = app.get<ComponentService>(named("view"))
     val selector = "ns-selector"
-    val width = 9
-    val height = 8
+    val width = 8
+    val height = 5
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
         .list(0, 0, width, height, { componentService.getAll().withBlank() }, { ns ->
             if (ns is NameSpace) ItemStack(Material.STONE).apply {
