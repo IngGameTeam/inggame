@@ -19,7 +19,7 @@ fun createMongoModule(
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<out Any>>().apply {
-            println(codecPackage)
+            println(codecPackage.map { it })
             codecPackage
                 .map {
                     CPScanner.scanClasses(
