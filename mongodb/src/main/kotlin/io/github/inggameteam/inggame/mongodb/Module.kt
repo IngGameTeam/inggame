@@ -24,7 +24,7 @@ fun createMongoModule(
                     CPScanner.scanClasses(
                         PackageNameFilter(it),
                         ClassFilter().appendAnnotation(Model::class.java)
-                    )
+                    ).apply { map { println(it.simpleName) }}
                 }.forEach(::addAll)
             modelClasses.mapNotNull { clazz ->
                 try { matchClass(codecPackage.toList(), clazz).java.apply { add(this)} }
