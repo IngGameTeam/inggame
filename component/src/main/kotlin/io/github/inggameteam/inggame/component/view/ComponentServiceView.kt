@@ -1,8 +1,11 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.bruce0203.gui.Gui
+import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.mongodb.PropRegistry
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor.*
@@ -11,11 +14,8 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
-
-
-
-
-
+import kotlin.reflect.KClass
+import kotlin.reflect.full.declaredMemberProperties
 
 fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
@@ -45,7 +45,7 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
         }
 }
 
-fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpace, plugin: IngGamePlugin) = run {
+fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpace, plugin: IngGamePlugin): GuiFrameDSL = run {
     val view = app.get<ComponentService>(named("view"))
     val selector = "el-selector"
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class].format(nameSpace.name))
@@ -73,5 +73,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 }
 
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
-
+    val classes = app.getAll<PropRegistry>().map { it.all }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
+    val t = classes.filter { it.java.getAnnotation(Model::class.java) === null }.firstOrNull { elem.javaClass.kotlin == it }
+    t?.declaredMemberProperties?.apply { map { it.name }.apply { println(this) } }
 }
