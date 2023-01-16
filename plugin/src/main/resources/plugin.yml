@@ -8,6 +8,6 @@ libraries:
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - io.insert-koin:koin-core-jvm:3.3.2
-  - net.sf.corn:corn-cps:1.1.10
+  - net.sf.corn:corn-cps:1.0.1
 commands:
   ing:

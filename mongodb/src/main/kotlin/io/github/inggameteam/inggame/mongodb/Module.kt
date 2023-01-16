@@ -4,7 +4,7 @@ import com.mongodb.ConnectionString
 import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
 import net.sf.corn.cps.CPScanner
 import net.sf.corn.cps.ClassFilter
-import net.sf.corn.cps.ResourceFilter
+import net.sf.corn.cps.PackageNameFilter
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
@@ -22,8 +22,8 @@ fun createMongoModule(
             codecPackage
                 .map {
                     CPScanner.scanClasses(
-                        ResourceFilter().packageName(it),
-                        ClassFilter().annotation(Model::class.java)
+                        PackageNameFilter(it),
+                        ClassFilter().appendAnnotation(Model::class.java)
                     )
                 }.forEach(::addAll)
             modelClasses.mapNotNull { clazz ->

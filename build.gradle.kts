@@ -72,8 +72,8 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
         testApi("org.mongodb:mongodb-driver-sync:4.8.1")
 
-        compileOnly("net.sf.corn:corn-cps:1.1.10")
-        testApi("net.sf.corn:corn-cps:1.1.10")
+        compileOnly("net.sf.corn:corn-cps:1.0.1")
+        testApi("net.sf.corn:corn-cps:1.0.1")
 
         compileOnly("org.projectlombok:lombok:1.18.24")
         annotationProcessor("org.projectlombok:lombok:1.18.24")
