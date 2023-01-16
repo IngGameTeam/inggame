@@ -44,7 +44,7 @@ public class GuiList<T> extends GuiRegion {
                 ItemStack item = null;
                 int ind = index.getAndAdd(1);
                 if (ind < 0) {
-                    ind = size - (Math.abs(ind + 1) % size);
+                    ind = size - (Math.abs(ind) % size) - 1;
                 } else {
                     ind = ind % size;
                 }
