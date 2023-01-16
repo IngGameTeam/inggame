@@ -7,6 +7,9 @@ import io.github.inggameteam.inggame.component.componentservice.ResourcesCompone
 import io.github.inggameteam.inggame.component.delegate.Delegate
 import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.component.model.*
+import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.mongodb.PropRegistry
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -20,12 +23,22 @@ class PriorityFactory {
     }
 }
 
-class PropRegistry(
-    val models: ArrayList<KClass<*>>,
-    val wrappers: ArrayList<KClass<*>>
-)
-fun createPropRegistry(models: ArrayList<KClass<*>>, wrappers: ArrayList<KClass<*>>) = module {
-    single { PropRegistry(models, wrappers) }
+
+
+fun registerComponentProps() = module(createdAtStart = true) {
+    factory {
+        PropRegistry(
+            Alert::class,
+            ChatAlert::class,
+            ActionBarAlert::class,
+            TitleAlert::class,
+            BaseComponentAlert::class,
+            ActionComponent::class,
+            Location::class,
+            InventoryModel::class,
+            ItemStackModel::class,
+        )
+    }
 }
 
 fun createPriorityFactory() = module {

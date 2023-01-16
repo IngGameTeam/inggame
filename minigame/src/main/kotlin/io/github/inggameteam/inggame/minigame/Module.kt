@@ -3,9 +3,25 @@ package io.github.inggameteam.inggame.minigame
 import io.github.inggameteam.inggame.minigame.handler.GameHelper
 import io.github.inggameteam.inggame.minigame.handler.JoinHubOnJoinServer
 import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
+import io.github.inggameteam.inggame.minigame.singleton.GameServer
+import io.github.inggameteam.inggame.minigame.wrapper.game.Game
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
+import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
+import io.github.inggameteam.inggame.mongodb.PropRegistry
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+
+fun registerGameProps() = module(createdAtStart = true) {
+    factory {
+        PropRegistry(
+            GameServer::class,
+            Game::class,
+            GameAlert::class,
+            GPlayer::class,
+        )
+    }
+}
 
 fun createGameService(name: String) = module {
     single { GameInstanceService(get(), get(), get(), get(named(name))) }

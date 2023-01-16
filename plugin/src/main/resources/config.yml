@@ -5,21 +5,6 @@ codec:
   - io.github.inggameteam.inggame.minigame.singleton
   - io.github.inggameteam.inggame.minigame.wrapper.game
   - io.github.inggameteam.inggame.minigame.wrapper.player
-models:
-  - ChatAlert
-  - ActionBarAlert
-  - TitleAlert
-  - BaseComponentAlert
-  - ActionComponent
-  - Location
-  - InventoryModel
-  - ItemStackModel
-
-wrappers:
-  - GameServer
-  - Game
-  - GameAlert
-  - GPlayer
 
 repo.test: test
 layer.test: default

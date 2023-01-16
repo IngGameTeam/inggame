@@ -1,10 +1,7 @@
 package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.*
-import io.github.inggameteam.inggame.minigame.createGameHandlers
-import io.github.inggameteam.inggame.minigame.createGamePlayerService
-import io.github.inggameteam.inggame.minigame.createGameResource
-import io.github.inggameteam.inggame.minigame.createGameService
+import io.github.inggameteam.inggame.minigame.*
 import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
@@ -21,15 +18,11 @@ fun loadApp(plugin: IngGamePlugin): Koin {
         koinApplication {
             modules(module { single { plugin } bind IngGamePlugin::class })
             val codec = config.getStringList("codec")
-            val models = config.getStringList("models")
             listOfNotNull(
-                createPropRegistry(
-                    models.map { matchClass(codec, it) }.run(::ArrayList),
-                    config.getStringList("wrappers").map { matchClass(codec, it) }.run(::ArrayList)
-                ),
+                registerComponentProps(),
+                registerGameProps(),
                 createMongoModule(
                     config.getString("url") ?: "unspecified",
-                    models,
                     *codec.toTypedArray()
                 ),
                 *config.getConfigurationSection("repo")?.run {

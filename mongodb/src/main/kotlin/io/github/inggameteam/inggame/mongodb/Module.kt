@@ -14,16 +14,11 @@ import org.koin.dsl.module
 
 fun createMongoModule(
     url: String,
-    modelClasses: List<String>,
     vararg codecPackage: String,
 ) = module {
         single { ConnectionString(url) }
         single { MongoCodec(ArrayList<Class<out Any>>().apply {
-            println(codecPackage.map { it })
-            modelClasses.mapNotNull { clazz ->
-                try { matchClass(codecPackage.toList(), clazz).java.apply { add(this)} }
-                catch (_: Throwable) { null }
-            }
+            getAll<PropRegistry>().map { it.all.map { it.java } }.forEach { addAll(it) }
         }) }
         single { DatabaseString(get<ConnectionString>().database
             ?: throw AssertionError("database is not specified in the url")) }
