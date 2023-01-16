@@ -114,7 +114,7 @@ public class GuiFrameImpl implements GuiWindow, GuiFrame {
 
     private boolean isEntered(GuiRegion s, int x, int y) {
         if (s.x == x && s.y == y) return true;
-        else return s instanceof GuiList<?> l && l.x <= x && x <= l.x + l.width && l.y <= y && y <= l.y + l.height;
+        else return s instanceof GuiList<?> l && l.x <= x && x < l.x + l.width && l.y <= y && y < l.y + l.height;
     }
 
     @Override
