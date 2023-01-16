@@ -80,7 +80,7 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
     println(elem)
     types.map { clazz ->
         val suffix = "\$delegate"
-        clazz.java.fields
+        clazz.java.declaredFields
             .map { it.name }
             .apply { println(this) }
             .filter { it.endsWith(suffix) }
