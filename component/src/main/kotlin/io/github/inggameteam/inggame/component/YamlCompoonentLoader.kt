@@ -1,7 +1,11 @@
 package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.model.ActionBarAlert
+import io.github.inggameteam.inggame.component.model.ChatAlert
+import io.github.inggameteam.inggame.component.model.TitleAlert
 import io.github.inggameteam.inggame.utils.fastUUID
+import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
