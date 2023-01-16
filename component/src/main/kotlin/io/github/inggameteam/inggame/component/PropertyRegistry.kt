@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
 
 class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
@@ -20,8 +21,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         val types= classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
         types.forEach { clazz ->
-            clazz.declaredMemberProperties
-                .filter { it.javaField?.getAnnotation(NonElement::class.java) === null }
+            clazz.memberProperties
                 .map { it.name }.map { Pair(it, clazz) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
