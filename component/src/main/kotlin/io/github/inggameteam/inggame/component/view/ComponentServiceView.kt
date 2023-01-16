@@ -74,7 +74,7 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
     val classes = app.getAll<ModelRegistry>().map { it.models }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
     val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
-    println(nameSpace.name)
+    println(elem)
     types.map { clazz ->
         val suffix = "\$delegate"
         clazz.java.declaredFields
