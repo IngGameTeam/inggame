@@ -16,6 +16,7 @@ import org.koin.core.Koin
 import org.koin.core.qualifier.named
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.memberProperties
 
 fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
@@ -76,7 +77,7 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
     val classes = app.getAll<PropRegistry>().map { it.all }.let { ArrayList<KClass<*>>().apply { it.forEach(::addAll) } }
     val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
     println(types.map { it.simpleName })
-    types.map { clazz -> clazz.declaredMemberProperties
+    types.map { clazz -> clazz.memberProperties
         .mapNotNull { if (it.name != elem) null else Pair(clazz, it.name) } }.forEach { it.forEach { pair ->
         println("reuslt=${pair.first}")
     } }
