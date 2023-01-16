@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.component.delegate
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
-import io.github.inggameteam.inggame.component.NonElement
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import java.util.*
@@ -10,13 +9,13 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.full.isSubclassOf
 
 interface Delegate {
-    @NonElement
+
     val nameSpace: Any
-    @NonElement
+
     val component: ComponentService
-    @NonElement
+
     val nonNull get() = NonNullDelegateImp(nameSpace, component)
-    @NonElement
+
     val nullable get() = NullableDelegateImp(nameSpace, component)
 
     fun addParents(value: Any) = component.addParents(nameSpace, value)
@@ -50,20 +49,20 @@ abstract class BaseDelegate : Delegate {
 }
 
 class SimpleDelegate(
-    @NonElement
+
     override val nameSpace: Any,
-    @NonElement
+
     override val component: ComponentService
 ) : BaseDelegate()
 
 class NullableDelegateImp(
-    @NonElement
+
     override val nameSpace: Any,
-    @NonElement
+
     override val component: ComponentService,
 ) : BaseDelegate() {
 
-    @NonElement
+
     internal var defaultBlock: (() -> Any?)? = null
 
     @Suppress("UNCHECKED_CAST")
@@ -87,13 +86,13 @@ class NullableDelegateImp(
 }
 
 class NonNullDelegateImp(
-    @NonElement
+
     override val nameSpace: Any,
-    @NonElement
+
     override val component: ComponentService,
 ) : BaseDelegate() {
 
-    @NonElement
+
     var defaultBlock: (() -> Any)? = null
 
     @Suppress("UNCHECKED_CAST")
