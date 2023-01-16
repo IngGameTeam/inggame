@@ -21,7 +21,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             .filter { it.java.getAnnotation(Model::class.java) === null }
         types.forEach { clazz ->
             clazz.declaredMemberProperties
-                .filter { it.findAnnotation<NonElement>() === null }
+                .filter { it.findAnnotation<NonElement>().apply { println("${it.name}=$this") } === null }
                 .map { it.name }.map { Pair(it, clazz) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
