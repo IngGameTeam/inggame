@@ -15,7 +15,9 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
 
     init {
         val classes = modelRegistryAll.models
-        val types= classes.filter { it.java.getAnnotation(Model::class.java) === null }
+        val types= classes
+            .filter { it.java.getAnnotation(Model::class.java) === null }
+            .filter { it.java.getAnnotation(NonElement::class.java) === null }
         types.forEach { clazz ->
             clazz.declaredMemberProperties.map { it.name }.map { Pair(it, clazz) }
                 .forEach {

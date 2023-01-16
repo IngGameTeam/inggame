@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.delegate
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
+import io.github.inggameteam.inggame.component.NonElement
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import java.util.*
@@ -9,9 +10,13 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.full.isSubclassOf
 
 interface Delegate {
+    @NonElement
     val nameSpace: Any
+    @NonElement
     val component: ComponentService
+    @NonElement
     val nonNull get() = NonNullDelegateImp(nameSpace, component)
+    @NonElement
     val nullable get() = NullableDelegateImp(nameSpace, component)
 
     fun addParents(value: Any) = component.addParents(nameSpace, value)
