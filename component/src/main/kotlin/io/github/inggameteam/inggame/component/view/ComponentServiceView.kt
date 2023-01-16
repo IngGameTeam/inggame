@@ -17,7 +17,7 @@ import org.koin.core.qualifier.named
 
 
 
-fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45) { add(Unit) } }.toMutableList()
+fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add(Unit) } }.toMutableList()
 
 fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlugin) = run {
     val view = app.get<ComponentService>(named("view"))
@@ -36,8 +36,8 @@ fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlu
                 }
 
             } else ItemStack(Material.AIR)}) { list, gui ->
-            gui.slot(0, 5) { event -> list.setIndex(list.index - (width * height)) }
-            gui.slot(8, 5) { event -> list.setIndex(list.index + (width * height)) }
+            gui.slot(0, 5) { event -> list.setIndex(list.index - 45) }
+            gui.slot(8, 5) { event -> list.setIndex(list.index + 45) }
             list.onClick { x, y, pair, event ->
                 val nameSpace = pair.second
                 if (nameSpace is NameSpace) {
