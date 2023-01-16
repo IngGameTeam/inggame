@@ -80,8 +80,9 @@ fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace
         clazz.java.declaredFields
             .map { it.name }
             .filter { it.endsWith(suffix) }
-            .map { it.substring(0, it.length - suffix.length) }.apply { println(this) }
+            .map { it.substring(0, it.length - suffix.length) }
             .filter { it == nameSpace.name }
+            .apply { println(this) }
             .map { Pair(clazz, it) }
     }.forEach { it.forEach { pair ->
         println("result=${pair.first}")
