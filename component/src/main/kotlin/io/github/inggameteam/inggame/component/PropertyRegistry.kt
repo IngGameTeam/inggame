@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.jvm.javaField
 
 class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
 
@@ -17,9 +18,10 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         val classes = modelRegistryAll.models
         val types= classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
-            .filter { it.java.getAnnotation(NonElement::class.java) === null }
         types.forEach { clazz ->
-            clazz.declaredMemberProperties.map { it.name }.map { Pair(it, clazz) }
+            clazz.declaredMemberProperties
+                .filter { it.javaField?.getAnnotation(NonElement::class.java) === null }
+                .map { it.name }.map { Pair(it, clazz) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
                         throw AssertionError("${it.first} duplicated between ${propMap.get(it.first)} and ${it.second}")
