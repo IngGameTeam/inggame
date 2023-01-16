@@ -5,9 +5,9 @@ import kotlin.reflect.KClass
 class PropRegistry(
     vararg clazz: KClass<*>
 ) {
-    init { register(*clazz) }
     val models = HashSet<KClass<*>>()
     val wrappers = HashSet<KClass<*>>()
+    init { register(*clazz) }
     val all get() = listOf(*models.toTypedArray(), *wrappers.toTypedArray())
     fun register(vararg clazz: KClass<*>) {
         clazz.forEach {
