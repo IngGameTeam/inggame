@@ -17,7 +17,7 @@ import org.koin.core.qualifier.named
 
 
 
-fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(46 - this.size) { add("Unit") } }.toMutableList()
+fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(92 - this.size) { add("Unit") } }.toMutableList()
 
 fun nsSelector(app: Koin, componentService: ComponentService, plugin: IngGamePlugin) = run {
     val view = app.get<ComponentService>(named("view"))
