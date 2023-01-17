@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.PriorityFactory
 import io.github.inggameteam.inggame.component.decodeNameSpace
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.component.encodeNameSpace
@@ -14,7 +15,6 @@ class ResourcesComponentServiceImp(
     private val repo: MongoRepo,
     private val codec: MongoCodec,
     override val parentComponent: ComponentService,
-    override val layerPriority: Int
 ) : ResourceComponentService, AbstractNameSpaceComponentService() {
 
     private lateinit var nameSpaceCache: ArrayList<NameSpace>

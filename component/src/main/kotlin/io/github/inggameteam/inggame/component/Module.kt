@@ -54,11 +54,11 @@ fun createEmpty(name: String) = module {
 }
 
 fun createResource(name: String, parentComponent: String) = module {
-    single(named(name)) { ResourcesComponentServiceImp(get(named(name)), get(), get(named(parentComponent)), get<PriorityFactory>().get()) } bind ComponentService::class
+    single(named(name)) { ResourcesComponentServiceImp(get(named(name)), get(), get(named(parentComponent))) } bind ComponentService::class
 }
 
 fun createLayer(collection: String, parentComponent: String) = module {
-    single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent)), get<PriorityFactory>().get()) } bind ComponentService::class
+    single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent))) } bind ComponentService::class
 }
 
 inline fun <reified T : Any> createSingleton(crossinline block: (Delegate) -> T, nameSpace: Any, component: String) = module {

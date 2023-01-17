@@ -8,6 +8,16 @@ import java.util.concurrent.CopyOnWriteArraySet
 
 abstract class AbstractNameSpaceComponentService : ComponentService {
 
+    override val layerPriority: Int = run {
+        var num = 0
+        var parent: ComponentService = this
+        do {
+            parent = parent.parentComponent
+            num++
+        } while (parent is EmptyComponentService)
+        num
+    }
+
     override fun get(name: Any): NameSpace {
         return getOrNull(name)?: throw NameSpaceNotFoundException(name)
     }
