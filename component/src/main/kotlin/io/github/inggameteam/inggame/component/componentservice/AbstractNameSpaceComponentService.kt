@@ -15,7 +15,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
             do {
                 parent = parent.parentComponent
                 num++
-            } while (parent !is EmptyComponentService)
+            } while (true)
         } catch (_: Throwable) { }
          println(num)
         num
