@@ -67,7 +67,9 @@ allprojects {
         testCompileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
 
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib:${Dependency.Kotlin.Version}")
+        testApi("org.jetbrains.kotlin:kotlin-stdlib:${Dependency.Kotlin.Version}")
         compileOnly("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
+        testApi("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
 
         compileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
         testApi("org.mongodb:mongodb-driver-sync:4.8.1")

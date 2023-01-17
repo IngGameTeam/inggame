@@ -1,7 +1,7 @@
 view:
-  ns-selector:
+  NameSpaceEditorImp:
     selector-title: "select your namespace"
-  el-selector:
+  ElementEditorImp:
     selector-title: "select your element in namespace %s"
 resource:
   PrintOnMove:
