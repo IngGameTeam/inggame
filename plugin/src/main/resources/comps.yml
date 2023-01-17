@@ -4,13 +4,9 @@ view:
     next-page: "&fNext page"
   NameSpaceSelectorView:
     parents: defaultView
-    previous-page: "&fPrev page"
-    next-page: "&fNext page"
     selector-title: "select your namespace"
   ElementView:
     parents: defaultView
-    previous-page: "&fPrev page"
-    next-page: "&fNext page"
     selector-title: "select your element in namespace %s"
 resource:
   PrintOnMove:
