@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.*
+import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.bukkit.plugin.PluginDescriptionFile
@@ -35,6 +36,7 @@ class Plugin : IngGamePluginImp {
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         println("HELLO")
+        app.getAll<ComponentService>().map(ComponentService::layerPriority)
     }
 
     override fun onDisable() {
