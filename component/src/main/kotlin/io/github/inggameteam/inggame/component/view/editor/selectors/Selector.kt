@@ -35,7 +35,10 @@ interface Selector<T : Any> : View {
                         slot(4, 5, backItem) { event -> parentSelector?.open(event.whoClicked as Player) }
                     }
                 }
-                list.onClick { _, _, pair, event -> try { select(pair.second as T, event) } catch (_: Throwable) {} }
+                list.onClick { _, _, pair, event ->
+                    val t = try { pair.second as T } catch (_: Throwable) { return@onClick}
+                    select(t, event)
+                }
             }!!.openInventory(player)
     }
 
