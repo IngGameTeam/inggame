@@ -1,5 +1,5 @@
 view:
-  NameSpaceSelectView:
+  NameSpaceSelectorView:
     selector-title: "select your namespace"
   ElementView:
     selector-title: "select your element in namespace %s"
