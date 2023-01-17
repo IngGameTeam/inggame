@@ -1,7 +1,7 @@
 view:
-  NameSpaceEditor:
+  NameSpaceSelectView:
     selector-title: "select your namespace"
-  ElementEditor:
+  ElementView:
     selector-title: "select your element in namespace %s"
 resource:
   PrintOnMove:

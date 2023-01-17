@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.view.editor.model.ComponentServiceEditorImp
+import io.github.inggameteam.inggame.component.view.editor.model.NameSpaceSelectorViewImp
 import io.github.inggameteam.inggame.component.view.editor.nsSelector
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
@@ -33,7 +33,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                             println(componentService)
                         }.apply(::println)
                     } else {
-                        nsSelector(ComponentServiceEditorImp(componentService, app, this@run))
+                        nsSelector(NameSpaceSelectorViewImp(componentService, app, this@run))
                             .openInventory(player)
                     }
                 }

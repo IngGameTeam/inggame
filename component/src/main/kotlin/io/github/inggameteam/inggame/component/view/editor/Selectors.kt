@@ -3,10 +3,10 @@ package io.github.inggameteam.inggame.component.view.editor
 import io.github.bruce0203.gui.Gui
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.createItem
-import io.github.inggameteam.inggame.component.view.editor.model.ComponentServiceEditor
-import io.github.inggameteam.inggame.component.view.editor.model.ElementEditor
-import io.github.inggameteam.inggame.component.view.editor.model.ElementEditorImp
-import io.github.inggameteam.inggame.component.view.editor.model.NameSpaceEditor
+import io.github.inggameteam.inggame.component.view.editor.model.NameSpaceSelectorView
+import io.github.inggameteam.inggame.component.view.editor.model.ElementView
+import io.github.inggameteam.inggame.component.view.editor.model.ElementViewImp
+import io.github.inggameteam.inggame.component.view.editor.model.NameSpaceParentsView
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack
 
 fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
-inline fun <reified T : Any> selector(csEditor: ComponentServiceEditor, elements: Collection<T>,
+inline fun <reified T : Any> selector(csEditor: NameSpaceSelectorView, elements: Collection<T>,
                                       crossinline transform: (T) -> ItemStack, crossinline editor: (InventoryClickEvent, T) -> Unit,
 ) = csEditor.run {
     Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
@@ -37,7 +37,7 @@ inline fun <reified T : Any> selector(csEditor: ComponentServiceEditor, elements
         }
 }
 
-fun nsSelector(nsEditor: NameSpaceEditor) = selector(nsEditor, nsEditor.componentService.getAll(), { ns ->
+fun nsSelector(nsEditor: NameSpaceSelectorView) = selector(nsEditor, nsEditor.componentService.getAll(), { ns ->
     createItem(Material.STONE,
         ns.name.toString(),
         listOf(
@@ -46,10 +46,10 @@ fun nsSelector(nsEditor: NameSpaceEditor) = selector(nsEditor, nsEditor.componen
         ).joinToString("\n")
     )
 }, { event, nameSpace ->
-    elSelector(ElementEditorImp(nsEditor, nameSpace)).openInventory(event.whoClicked as Player)
+    elSelector(ElementViewImp(nsEditor, nameSpace)).openInventory(event.whoClicked as Player)
 })
 
-fun elSelector(elEditor: ElementEditor) = selector(elEditor,
+fun elSelector(elEditor: ElementView) = selector(elEditor,
     elEditor.nameSpace.elements.entries.map { Pair(it.key, it.value) }, { pair ->
         createItem(
             Material.DIRT,
