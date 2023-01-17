@@ -6,7 +6,7 @@ import org.bson.Document
 
 class MongoCollection(
     private val dbName: DatabaseString,
-    private val colName: CollectionString,
+    val colName: CollectionString,
     private val client: MongoClient
 ) {
     fun getCol(): MongoCollection<Document> = client.getDatabase(dbName.dbName).getCollection(colName.colName)

@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.component.encodeNameSpace
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.mongodb.MongoRepo
+import io.github.inggameteam.inggame.mongodb.MongoRepoImpl
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 
@@ -16,6 +17,9 @@ class ResourcesComponentServiceImp(
     override val parentComponent: ComponentService,
 ) : ResourceComponentService, AbstractNameSpaceComponentService() {
 
+    init {
+        (repo as MongoRepoImpl).col.colName.apply { println(this) }
+    }
     private lateinit var nameSpaceCache: ArrayList<NameSpace>
     private var semaphore = false
 

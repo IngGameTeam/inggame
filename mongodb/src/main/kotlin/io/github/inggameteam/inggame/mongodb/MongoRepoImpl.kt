@@ -4,7 +4,7 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.FindOneAndReplaceOptions
 import org.bson.Document
 
-class MongoRepoImpl(private val col: MongoCollection) : MongoRepo {
+class MongoRepoImpl(val col: MongoCollection) : MongoRepo {
 
     override fun get() = col.getCol().find().toList()
 
