@@ -5,9 +5,6 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.mongodb.Model
-import io.github.inggameteam.inggame.mongodb.ModelRegistry
-import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor.*
@@ -16,9 +13,6 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.koin.core.Koin
 import org.koin.core.qualifier.named
-import kotlin.reflect.KClass
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.jvm.javaField
 
 fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
@@ -57,8 +51,8 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 
                 ItemStack(Material.DIRT).apply {
                     itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
-                        setDisplayName("$GOLD" + ns.first.toString())
-                        lore = listOf("$GREEN" + ns.second.toString())
+                        setDisplayName("$GREEN" + ns.first.toString())
+                        lore = listOf("$GOLD" + ns.second.toString())
                     }
                 }
             } else ItemStack(Material.AIR)
@@ -77,6 +71,6 @@ fun elSelector(app: Koin, componentService: ComponentService, nameSpace: NameSpa
 
 fun elEditor(app: Koin, componentService: ComponentService, nameSpace: NameSpace, elem: Any, plugin: IngGamePlugin) {
     val propertyRegistry = app.get<PropertyRegistry>()
-    val propClass = propertyRegistry.getPropClass(elem.toString())
+    val propClass = propertyRegistry.getProp(elem.toString())
     println(propClass)
 }

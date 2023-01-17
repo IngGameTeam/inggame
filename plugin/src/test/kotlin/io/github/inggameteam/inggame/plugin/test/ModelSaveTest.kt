@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.plugin.test
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
-import io.github.inggameteam.inggame.component.model.ActionBarAlert
 import io.github.inggameteam.inggame.component.model.ChatAlert
 import org.koin.core.qualifier.named
 

@@ -1,8 +1,6 @@
 package io.github.inggameteam.inggame.minigame.handler
 
-import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.GamePlayerService
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler

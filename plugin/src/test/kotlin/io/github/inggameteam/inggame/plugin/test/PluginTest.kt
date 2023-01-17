@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.plugin.test
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
-import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.plugin.Plugin
 import net.sf.corn.cps.CPScanner
 import net.sf.corn.cps.ClassFilter

@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.component.componentservice
 
-import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import java.util.concurrent.CopyOnWriteArraySet
 

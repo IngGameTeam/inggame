@@ -1,19 +1,15 @@
 package io.github.inggameteam.inggame.plugin.test
 
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
-import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.plugin.test.handler.joinPlayer
 import io.github.inggameteam.inggame.plugin.test.handler.receiveMessage
-import io.github.inggameteam.inggame.utils.fastToString
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
-import kotlin.system.measureTimeMillis
 
 @Test
 class GameTest : Listener{

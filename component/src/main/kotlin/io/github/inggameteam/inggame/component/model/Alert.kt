@@ -3,7 +3,6 @@ package io.github.inggameteam.inggame.component.model
 import io.github.inggameteam.inggame.mongodb.Model
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
-import org.bson.codecs.pojo.annotations.BsonDiscriminator
 import org.bukkit.entity.Player
 
 interface AlertReciver

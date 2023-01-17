@@ -8,7 +8,6 @@ import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
 import io.github.inggameteam.inggame.minigame.event.GameUnloadEvent
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask

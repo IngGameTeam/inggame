@@ -1,7 +1,7 @@
 package io.github.bruce0203.gui;
 
-import io.github.bruce0203.gui.utils.Pair;
 import io.github.bruce0203.gui.utils.Function4;
+import io.github.bruce0203.gui.utils.Pair;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 

@@ -1,7 +1,5 @@
 package io.github.inggameteam.inggame.component.componentservice
 
-import io.github.inggameteam.inggame.component.NameSpace
-
 interface ContainerComponentService {
 
     fun has(container: Any): Boolean
