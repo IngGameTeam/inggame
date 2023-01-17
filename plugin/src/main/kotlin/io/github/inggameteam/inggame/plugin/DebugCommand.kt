@@ -3,7 +3,8 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.view.nsSelector
+import io.github.inggameteam.inggame.component.view.editor.model.ComponentServiceEditorImp
+import io.github.inggameteam.inggame.component.view.editor.nsSelector
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -32,7 +33,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                             println(componentService)
                         }.apply(::println)
                     } else {
-                        nsSelector(app, componentService, this@run)
+                        nsSelector(ComponentServiceEditorImp(componentService, app, this@run))
                             .openInventory(player)
                     }
                 }
