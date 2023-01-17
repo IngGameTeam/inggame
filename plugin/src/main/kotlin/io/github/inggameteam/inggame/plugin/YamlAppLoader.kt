@@ -30,13 +30,13 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                     getKeys(false).map { key -> createRepo(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("file")?.run {
-                    getKeys(false).map { key -> createFileRepo(key, getString(key)!!.apply(::println)) }.toTypedArray()
+                    getKeys(false).map { key -> createFileRepo(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("layer")?.run {
-                    getKeys(false).map { key -> createLayer(key, getString(key)!!) }.toTypedArray()
+                    getKeys(false).map { key -> createLayer(key, getString(key)!!.apply(::println)) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("resource")?.run {
-                    getKeys(false).map { key -> createResource(key, getString(key)!!) }.toTypedArray()
+                    getKeys(false).map { key -> createResource(key, getString(key)!!.apply(::println)) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("save")?.run {
                     getKeys(false).map { key -> addToSaveRegistry(key) }.toTypedArray()
