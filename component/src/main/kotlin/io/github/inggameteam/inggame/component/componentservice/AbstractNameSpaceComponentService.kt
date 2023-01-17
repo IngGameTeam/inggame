@@ -11,10 +11,12 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
     override val layerPriority: Int = run {
         var num = 0
         var parent: ComponentService = this
-        do {
-            parent = parent.parentComponent
-            num++
-        } while (parent is EmptyComponentService)
+        try {
+            do {
+                parent = parent.parentComponent
+                num++
+            } while (parent is EmptyComponentService)
+        } catch (_: Throwable) { }
         num
     }
 
