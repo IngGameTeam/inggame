@@ -15,6 +15,10 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         try {
             do {
                 parent = parent.parentComponent
+                try {
+                    parentComponent.apply { println(javaClass.simpleName) }
+                } catch (_: Throwable) {
+                }
                 num++
             } while (true)
         } catch (_: Throwable) { }
