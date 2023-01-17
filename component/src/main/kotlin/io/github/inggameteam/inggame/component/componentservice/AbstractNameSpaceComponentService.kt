@@ -17,6 +17,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
                 num++
             } while (parent is EmptyComponentService)
         } catch (_: Throwable) { }
+         println(num)
         num
     }
 
