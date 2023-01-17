@@ -24,6 +24,7 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 createModelRegistryAll(),
                 registerComponentModels(),
                 registerGameModels(),
+                createEmpty("default"),
                 createMongoModule(config.getString("url") ?: "unspecified"),
                 *config.getConfigurationSection("repo")?.run {
                     getKeys(false).map { repo -> createRepo(repo, getString(repo)!!) }.toTypedArray()
@@ -40,7 +41,6 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 *config.getConfigurationSection("save")?.run {
                     getKeys(false).map { layer -> addToSaveRegistry(layer) }.toTypedArray()
                 } ?: emptyArray(),
-                createEmpty("default"),
                 createGameHandlers(),
                 *config.getConfigurationSection("service")?.run {
                     listOfNotNull(

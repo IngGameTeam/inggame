@@ -13,8 +13,8 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         var parent: ComponentService = this
         try {
             do {
-                num++
                 parent = parent.parentComponent
+                num++
             } while (true)
         } catch (_: Throwable) { }
          println(num)
