@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArraySet
 abstract class AbstractNameSpaceComponentService : ComponentService {
 
     override val layerPriority: Int = run {
-        var num = 0
+        var num = 1
         var parent: ComponentService = this
         try {
             do {
