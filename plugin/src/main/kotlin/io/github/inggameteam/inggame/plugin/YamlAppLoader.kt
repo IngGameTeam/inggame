@@ -31,7 +31,6 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 *config.getConfigurationSection("file")?.run {
                     getKeys(false).map { repo -> createFileRepo(repo, getString(repo)!!) }.toTypedArray()
                 } ?: emptyArray(),
-                createPriorityFactory(),
                 *config.getConfigurationSection("layer")?.run {
                     getKeys(false).map { layer -> createLayer(layer, getString(layer)!!) }.toTypedArray()
                 } ?: emptyArray(),

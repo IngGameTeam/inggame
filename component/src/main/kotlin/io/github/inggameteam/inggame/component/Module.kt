@@ -16,15 +16,6 @@ import org.koin.dsl.module
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
-class PriorityFactory {
-    private val atomicInteger = AtomicInteger()
-    fun get(): Int {
-        return atomicInteger.getAndAdd(1)
-    }
-}
-
-
-
 fun registerComponentModels() = module(createdAtStart = true) {
     factory {
         ModelRegistry(
@@ -43,10 +34,6 @@ fun registerComponentModels() = module(createdAtStart = true) {
 
 fun createPropertyRegistry() = module(createdAtStart = true) {
     singleOf(::PropertyRegistry)
-}
-
-fun createPriorityFactory() = module {
-    single { PriorityFactory() } bind PriorityFactory::class
 }
 
 fun createEmpty(name: String) = module {
