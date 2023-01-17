@@ -35,7 +35,7 @@ fun createGamePlayerService(name: String) = module {
     single { GamePlayerService(get(named(name))) }
 }
 
-fun createGameHandlers() = module(createdAtStart = true) {
+fun createGameHandlers() = module {
     singleOf(::JoinHubOnJoinServer)
     singleOf(::PrintOnMove)
     singleOf(::GameHelper)
