@@ -35,7 +35,7 @@ interface Selector<T : Any> : View {
                     } catch (_: Throwable) {}
                 }
             }
-}!!
+}!!.openInventory(player)
 
     private fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add("Unit") } }.toMutableList()
 
