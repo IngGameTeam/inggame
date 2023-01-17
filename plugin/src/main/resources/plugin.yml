@@ -3,11 +3,10 @@ version: $version
 main: io.github.inggameteam.inggame.plugin.Plugin
 api-version: 1.19
 libraries:
-  - org.jetbrains.kotlin:kotlin-stdlib:1.7.21
-  - org.jetbrains.kotlin:kotlin-reflect:1.7.21
+  - org.jetbrains.kotlin:kotlin-stdlib:1.8.0
+  - org.jetbrains.kotlin:kotlin-reflect:1.8.0
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - io.insert-koin:koin-core-jvm:3.3.2
-  - net.sf.corn:corn-cps:1.0.1
 commands:
   ing:
