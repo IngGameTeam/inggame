@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.model.ComponentServiceEditor
 import io.github.inggameteam.inggame.component.view.editor.model.ElementEditor
 import io.github.inggameteam.inggame.component.view.editor.model.ElementEditorImp
+import io.github.inggameteam.inggame.component.view.editor.model.NameSpaceEditor
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -36,7 +37,7 @@ inline fun <reified T : Any> selector(csEditor: ComponentServiceEditor, elements
         }
 }
 
-fun nsSelector(csEditor: ComponentServiceEditor) = selector(csEditor, csEditor.componentService.getAll(), { ns ->
+fun nsSelector(nsEditor: NameSpaceEditor) = selector(nsEditor, nsEditor.componentService.getAll(), { ns ->
     createItem(Material.STONE,
         ns.name.toString(),
         listOf(
@@ -45,7 +46,7 @@ fun nsSelector(csEditor: ComponentServiceEditor) = selector(csEditor, csEditor.c
         ).joinToString("\n")
     )
 }, { event, nameSpace ->
-    elSelector(ElementEditorImp(csEditor, nameSpace)).openInventory(event.whoClicked as Player)
+    elSelector(ElementEditorImp(nsEditor, nameSpace)).openInventory(event.whoClicked as Player)
 })
 
 fun elSelector(elEditor: ElementEditor) = selector(elEditor,
