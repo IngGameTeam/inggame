@@ -24,9 +24,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             val suffix = "\$delegate"
             clazz.java.declaredFields
                 .filter { it.name.endsWith(suffix) }
-                .map { it.name }
-                .map { it.substring(0, it.length - suffix.length) }
-                .map { Pair(it, clazz) }
+                .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.type.kotlin) }
                 .forEach {
                     if (propMap.containsKey(it.first)) {
                         throw AssertionError("${it.first} duplicated between ${propMap[it.first]} and ${it.second}")
