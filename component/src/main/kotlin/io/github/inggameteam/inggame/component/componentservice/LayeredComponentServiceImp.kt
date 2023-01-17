@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.component.encodeNameSpace
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.mongodb.MongoRepo
+import io.github.inggameteam.inggame.mongodb.MongoRepoImpl
 import java.util.concurrent.CopyOnWriteArraySet
 
 @Suppress("NAME_SHADOWING")
@@ -14,6 +15,10 @@ open class LayeredComponentServiceImp(
     private val codec: MongoCodec,
     override val parentComponent: ComponentService,
 ) : LayeredComponentService, AbstractNameSpaceComponentService() {
+
+    init {
+        (repo as MongoRepoImpl).col.colName.apply { println(this) }
+    }
 
     private val objectList = CopyOnWriteArraySet<NameSpace>()
 
