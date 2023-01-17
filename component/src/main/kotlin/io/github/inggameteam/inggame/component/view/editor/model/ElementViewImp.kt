@@ -23,6 +23,7 @@ data class ElementViewImp(
     constructor(csEditor: NameSpaceSelectorView, nameSpace: NameSpace)
             : this(csEditor.componentService, csEditor.app, nameSpace, csEditor.plugin) {
         parentSelector = csEditor
+        println(parentSelector)
     }
 
     override val elements: Collection<Pair<Any, Any>> get() = nameSpace.elements.map { Pair(it.key, it.value) }
