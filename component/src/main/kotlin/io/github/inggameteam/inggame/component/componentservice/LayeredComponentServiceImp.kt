@@ -16,10 +16,6 @@ open class LayeredComponentServiceImp(
     override val parentComponent: ComponentService,
 ) : LayeredComponentService, AbstractNameSpaceComponentService() {
 
-    init {
-        (repo as MongoRepoImpl).col.colName.apply { println(this) }
-    }
-
     private val objectList = CopyOnWriteArraySet<NameSpace>()
 
     override fun toString(): String {

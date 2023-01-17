@@ -14,8 +14,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         var parent: ComponentService = this
         try {
             do {
-                parent = parent.parentComponent
-                println("parentName: " + (parent.javaClass.getField("repo").get(parent) as MongoRepoImpl).col.colName)
+                parent = parent.parentComponent.parentComponent
                 num++
             } while (true)
         } catch (_: Throwable) { }
