@@ -27,19 +27,19 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 createEmpty("default"),
                 createMongoModule(config.getString("url") ?: "unspecified"),
                 *config.getConfigurationSection("repo")?.run {
-                    getKeys(false).map { repo -> createRepo(repo, getString(repo)!!) }.toTypedArray()
+                    getKeys(false).map { key -> createRepo(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("file")?.run {
-                    getKeys(false).map { repo -> createFileRepo(repo, getString(repo)!!) }.toTypedArray()
+                    getKeys(false).map { key -> createFileRepo(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("layer")?.run {
-                    getKeys(false).map { layer -> createLayer(layer, getString(layer)!!) }.toTypedArray()
+                    getKeys(false).map { key -> createLayer(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("resource")?.run {
-                    getKeys(false).map { layer -> createResource(layer, getString(layer)!!) }.toTypedArray()
+                    getKeys(false).map { key -> createResource(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("save")?.run {
-                    getKeys(false).map { layer -> addToSaveRegistry(layer) }.toTypedArray()
+                    getKeys(false).map { key -> addToSaveRegistry(key) }.toTypedArray()
                 } ?: emptyArray(),
                 createGameHandlers(),
                 *config.getConfigurationSection("service")?.run {

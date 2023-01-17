@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.componentservice
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.mongodb.MongoRepoImpl
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 
@@ -14,6 +15,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         try {
             do {
                 parent = parent.parentComponent
+                println("parentName: " + (parent.javaClass.getField("repo").get(parent) as MongoRepoImpl).col.colName)
                 num++
             } while (true)
         } catch (_: Throwable) { }
