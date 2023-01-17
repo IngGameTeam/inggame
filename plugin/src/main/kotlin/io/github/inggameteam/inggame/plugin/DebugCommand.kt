@@ -4,7 +4,6 @@ import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.view.editor.model.NameSpaceSelectorViewImp
-import io.github.inggameteam.inggame.component.view.editor.nsSelector
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -33,8 +32,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                             println(componentService)
                         }.apply(::println)
                     } else {
-                        nsSelector(NameSpaceSelectorViewImp(componentService, app, this@run))
-                            .openInventory(player)
+                        NameSpaceSelectorViewImp(componentService, app, this@run).open(player)
                     }
                 }
             }
