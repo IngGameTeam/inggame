@@ -1,10 +1,9 @@
-package io.github.inggameteam.inggame.component.view.editor.model
+package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.view.createItem
-import io.github.inggameteam.inggame.component.view.editor.selectors.Selector
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.ChatColor
 import org.bukkit.Material
