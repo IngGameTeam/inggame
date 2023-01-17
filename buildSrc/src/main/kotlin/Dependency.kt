@@ -13,7 +13,7 @@ object Dependency {
     }
 
     object KoinKsp {
-        const val Version = "1.1.0"
+        const val Version = "1.7.21"
     }
 
     object Ksp {
