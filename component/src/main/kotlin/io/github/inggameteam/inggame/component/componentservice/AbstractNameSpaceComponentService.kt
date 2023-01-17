@@ -15,14 +15,8 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         try {
             do {
                 parent = parent.parentComponent
-                try {
-                    parentComponent
-                    println("HELALJELKFJLDJALALJEFJEFJJQOEFNOQEFOQFOFO")
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
                 num++
-            } while (true)
+            } while (parent !is EmptyComponentService)
         } catch (e: Throwable) {
             e.printStackTrace()
         }
