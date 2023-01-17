@@ -23,7 +23,9 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
                 }
                 num++
             } while (true)
-        } catch (_: Throwable) { }
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
          println(num)
         num
     }
