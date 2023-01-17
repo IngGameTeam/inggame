@@ -16,9 +16,14 @@ data class ElementViewImp(
     override val componentService: ComponentService,
     override val app: Koin,
     override val nameSpace: NameSpace, override val plugin: IngGamePlugin
-) : ElementView, Selector<Pair<Any, Any>> {
+) : ElementView {
+
+    override var parentSelector: Selector<*>? = null
+
     constructor(csEditor: NameSpaceSelectorView, nameSpace: NameSpace)
-            : this(csEditor.componentService, csEditor.app, nameSpace, csEditor.plugin)
+            : this(csEditor.componentService, csEditor.app, nameSpace, csEditor.plugin) {
+        parentSelector = csEditor
+    }
 
     override val elements: Collection<Pair<Any, Any>> get() = nameSpace.elements.map { Pair(it.key, it.value) }
 

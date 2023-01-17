@@ -17,6 +17,8 @@ data class NameSpaceSelectorViewImp(
     override val app: Koin, override val plugin: IngGamePlugin
 ) : NameSpaceSelectorView, Selector<NameSpace> {
     override val elements: Collection<NameSpace> get() = componentService.getAll()
+    override val parentSelector: Selector<*>? = null
+
     override fun select(t: NameSpace, event: InventoryClickEvent) {
         ElementViewImp(this, t).open(event.whoClicked as Player)
     }
