@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
+import io.github.inggameteam.inggame.component.view.editor.BooleanEditor
 import io.github.inggameteam.inggame.component.view.editor.Editor
 import io.github.inggameteam.inggame.component.view.editor.ElementEditorViewImp
 import io.github.inggameteam.inggame.component.view.model.editor.EditorView
@@ -21,13 +22,13 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
     val map: HashMap<KType, (ElementView, Selector<*>?) -> Editor> = hashMapOf(
         *listOf(
             Byte::class, Short::class, Int::class, Long::class,
-            Float::class, Double::class, Boolean::class, Char::class, String::class)
-            .map { it.createType() to code(::StringEditor) }.toTypedArray()
-
+            Float::class, Double::class, Char::class, String::class)
+            .map { it.createType() to code(::StringEditor) }.toTypedArray(),
+        Boolean::class.createType() to code(::BooleanEditor)
     )
 
 }
 
-private fun <T : Any> code(block: KFunction2<EditorView<T>, Selector<*>?, StringEditor>) = { elementView: ElementView, selector: Selector<*>? ->
+private fun <T : Any> code(block: KFunction2<EditorView<T>, Selector<*>?, Editor>) = { elementView: ElementView, selector: Selector<*>? ->
     block.invoke(ElementEditorViewImp(elementView), selector)
 }
