@@ -9,6 +9,7 @@ interface AlertReciver
 
 class AlertRecivingPlayer(player: Player) : Player by player, AlertReciver
 
+@Model
 interface Alert {
     fun send(reciver: AlertReciver, vararg args: Any)
 }
