@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.SimpleWrapper
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.component.model.*
+import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
@@ -29,6 +30,10 @@ fun registerComponentModels() = module(createdAtStart = true) {
             ItemStackModel::class,
         )
     }
+}
+
+fun createEditorRegistry() = module(createdAtStart = true) {
+    singleOf(::EditorRegistry)
 }
 
 fun createPropertyRegistry() = module(createdAtStart = true) {

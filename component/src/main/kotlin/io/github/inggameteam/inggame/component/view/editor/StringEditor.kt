@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.view.editor
 
 import io.github.inggameteam.inggame.component.model.ActionComponent
-import io.github.inggameteam.inggame.component.view.model.NameSpaceView
+import io.github.inggameteam.inggame.component.view.model.editor.EditorView
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.utils.runNow
 import net.md_5.bungee.api.chat.ClickEvent
@@ -14,10 +14,9 @@ import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
 class StringEditor(
-    nameSpaceView: NameSpaceView,
-    override val previousSelector: Selector<*>?,
-    val set: (String) -> Unit, val get: () -> String
-) : Editor, NameSpaceView by nameSpaceView {
+    view: EditorView<String>,
+    override val previousSelector: Selector<*>? = null,
+) : Editor, EditorView<String> by view {
 
     override fun open(player: Player) {
         var semaphore = false
@@ -53,7 +52,9 @@ class StringEditor(
             }
 
         }
-        ActionComponent(get(), ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
+        get()?.apply {
+            ActionComponent(this, ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
+        }
     }
 
 }

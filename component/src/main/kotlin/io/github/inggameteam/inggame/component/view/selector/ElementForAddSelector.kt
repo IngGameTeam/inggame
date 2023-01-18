@@ -17,7 +17,7 @@ class ElementForAddSelector(
 
 
     override fun select(t: String, event: InventoryClickEvent) {
-        TODO()
+        
     }
 
     override fun transform(t: String) = createItem(Material.DIRT, "${YELLOW}$t")
