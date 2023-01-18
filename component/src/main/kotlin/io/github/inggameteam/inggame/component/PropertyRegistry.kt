@@ -2,16 +2,25 @@ package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
+import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.jvm.kotlinProperty
 
 class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
 
-    private val propMap = HashMap<String, KType>()
+    data class Prop(val name: String, val type: KType, val clazz: KClass<*>) {
 
-    fun getProp(prop: String): KType {
-        return propMap[prop]?: throw AssertionError("$prop not found")
+    }
+
+    private val propMap = ArrayList<Prop>()
+
+    fun getAllProp(): MutableList<Prop> {
+        return propMap.toMutableList()
+    }
+
+    fun getProp(prop: String): Prop {
+        return propMap.firstOrNull { it.name == prop }?: throw AssertionError("$prop not found")
     }
 
     init {
@@ -19,7 +28,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         classes
             .filter { it.java.getAnnotation(PropHandler::class.java) !== null }
             .forEach {
-                propMap[it.simpleName!!] = Boolean::class.createType()
+                propMap.add(Prop(it.simpleName!!, Boolean::class.createType(), Boolean::class))
             }
         val types = classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
@@ -30,10 +39,10 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
                 .filter { it.name.endsWith(suffix) }
                 .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.kotlinProperty?.returnType!!) }
                 .forEach {
-                    if (propMap.containsKey(it.first)) {
-                        throw AssertionError("${it.first} duplicated between ${propMap[it.first]} and ${it.second}")
+                    if (propMap.any { p -> p.name == it.first }) {
+                        throw AssertionError("${it.first} duplicated between ${getProp(it.first)} and ${it.second}")
                     }
-                    propMap[it.first] = it.second
+                    propMap.add(Prop(it.first, it.second, clazz))
                 }
         }
     }

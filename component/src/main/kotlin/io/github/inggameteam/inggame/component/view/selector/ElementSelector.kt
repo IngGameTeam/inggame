@@ -5,11 +5,16 @@ import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 
 typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
-    : NameSpaceView by nameSpaceView, Selector<Element> {
+    : NameSpaceView by nameSpaceView, Selector<Element>, AddButton<Element> {
+
+    override fun addButton(player: Player) {
+
+    }
 
     override val elements: Collection<Pair<Any, Any>> get() = nameSpace.elements.map { Pair(it.key, it.value) }
 

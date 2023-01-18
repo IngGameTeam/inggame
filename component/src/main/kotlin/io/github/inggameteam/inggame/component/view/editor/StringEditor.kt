@@ -45,7 +45,6 @@ class StringEditor(
                         return@block
                     }
                     set(message)
-                    player.sendMessage(view[editor, "editor-value-saved", String::class])
                 }
                 iTask.runNow(plugin)
                 event.isCancelled = true

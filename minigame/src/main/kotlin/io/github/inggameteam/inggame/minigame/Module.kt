@@ -1,9 +1,6 @@
 package io.github.inggameteam.inggame.minigame
 
-import io.github.inggameteam.inggame.minigame.handler.GameHelper
-import io.github.inggameteam.inggame.minigame.handler.JoinHubOnJoinServer
-import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
-import io.github.inggameteam.inggame.minigame.handler.SectorLoader
+import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
@@ -24,6 +21,7 @@ fun registerGameModels() = module(createdAtStart = true) {
             Game::class,
             GameAlert::class,
             GPlayer::class,
+
         )
     }
 }
@@ -44,4 +42,5 @@ fun createGameHandlers() = module(createdAtStart = true) {
     singleOf(::JoinHubOnJoinServer)
     singleOf(::PrintOnMove)
     singleOf(::GameHelper)
+    singleOf(::EventTest)
 }
