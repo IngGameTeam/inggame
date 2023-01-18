@@ -21,7 +21,6 @@ fun registerGameModels() = module(createdAtStart = true) {
             GameServer::class,
             Game::class,
             GameAlert::class,
-            GameAlertImp::class,
             GPlayer::class,
 
         )

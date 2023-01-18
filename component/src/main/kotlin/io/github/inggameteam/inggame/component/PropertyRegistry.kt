@@ -34,10 +34,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             .filter { it.java.getAnnotation(PropWrapper::class.java) !== null }
         types.forEach { clazz ->
             val suffix = "\$delegate"
-            if (clazz.java.isInterface) {
-
-                println(clazz.declaredMemberProperties.map { it.name })
-            } else clazz.declaredMemberProperties
+            clazz.declaredMemberProperties
                 .filter { it.name.endsWith(suffix) }
                 .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.returnType) }
                 .forEach {
