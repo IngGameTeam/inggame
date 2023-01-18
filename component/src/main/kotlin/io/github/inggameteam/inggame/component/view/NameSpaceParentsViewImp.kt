@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 

@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.component.view
+package io.github.inggameteam.inggame.component.view.model
 
 import io.github.inggameteam.inggame.component.NameSpace
 

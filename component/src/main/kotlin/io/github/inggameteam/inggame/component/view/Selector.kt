@@ -1,8 +1,8 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.bruce0203.gui.Gui
-import io.github.bruce0203.gui.GuiFrame
 import io.github.bruce0203.gui.GuiFrameDSL
+import io.github.inggameteam.inggame.component.view.model.View
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -19,6 +19,7 @@ interface Selector<T : Any> : View {
     fun select(t: T, event: InventoryClickEvent)
 
     fun gui(gui: GuiFrameDSL) = Unit
+
 
     @Suppress("UNCHECKED_CAST")
     fun open(player: Player) {
