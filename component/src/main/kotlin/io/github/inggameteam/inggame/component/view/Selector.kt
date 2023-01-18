@@ -1,6 +1,8 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.bruce0203.gui.Gui
+import io.github.bruce0203.gui.GuiFrame
+import io.github.bruce0203.gui.GuiFrameDSL
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -15,6 +17,8 @@ interface Selector<T : Any> : View {
     fun transform(t: T): ItemStack
 
     fun select(t: T, event: InventoryClickEvent)
+
+    fun gui(gui: GuiFrameDSL) = Unit
 
     @Suppress("UNCHECKED_CAST")
     fun open(player: Player) {
@@ -31,7 +35,9 @@ interface Selector<T : Any> : View {
                         val backItem = createItem(Material.STRING, view[selector, "back-page", String::class])
                         slot(4, 5, backItem) { event -> parentSelector?.open(event.whoClicked as Player) }
                     }
+
                 }
+                gui(gui)
                 list.onClick { _, _, pair, event ->
                     val t = try { pair.second as T } catch (_: Throwable) { return@onClick}
                     select(t, event)
