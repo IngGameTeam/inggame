@@ -20,6 +20,7 @@ fun loadApp(plugin: IngGamePlugin): Koin {
             modules(module { single { plugin } bind IngGamePlugin::class })
             val codec = config.getStringList("codec")
             listOfNotNull(
+                createEditorRegistry(),
                 createPropertyRegistry(),
                 createModelRegistryAll(),
                 registerComponentModels(),

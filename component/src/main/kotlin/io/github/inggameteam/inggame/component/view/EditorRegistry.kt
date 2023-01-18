@@ -11,7 +11,7 @@ import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
-class EditorRegistry(val propertyRegistry: PropertyRegistry) {
+class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
     fun getEditor(name: String, elementView: ElementView, selector: Selector<*>): Editor {
         val prop = propertyRegistry.getProp(name)
