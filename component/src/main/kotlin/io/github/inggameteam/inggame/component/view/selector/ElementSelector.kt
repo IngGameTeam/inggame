@@ -22,6 +22,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
 
     override fun select(t: Pair<Any, Any>, event: InventoryClickEvent) {
         app.get<EditorRegistry>().getEditor(t.first.toString(), ElementViewImp(this, t), this)
+            .open(event.whoClicked as Player)
     }
 
     override fun transform(t: Pair<Any, Any>) =
