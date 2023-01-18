@@ -44,6 +44,7 @@ interface ChatEditor : Editor {
                         return@block
                     }
                     set(message)
+                    previousSelector?.open(player)
                 }
                 iTask.runNow(plugin)
                 event.isCancelled = true
