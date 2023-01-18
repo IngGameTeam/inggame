@@ -33,7 +33,7 @@ resource:
     startPlayersAmount: -1
     startWaitingSecond: -1
   GameAlert:
-
+    parents: [ PrintOnMove ]
   Game:
     startPlayersAmount: 2
     playerLimitAmount: -1
