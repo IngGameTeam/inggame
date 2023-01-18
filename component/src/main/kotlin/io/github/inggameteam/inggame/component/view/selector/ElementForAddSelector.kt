@@ -20,6 +20,6 @@ class ElementForAddSelector(
         TODO()
     }
 
-    override fun transform(t: String) =createItem(Material.DIRT, "${YELLOW}$t")
+    override fun transform(t: String) = createItem(Material.DIRT, "${YELLOW}$t")
 
 }
