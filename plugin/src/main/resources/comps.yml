@@ -17,6 +17,8 @@ view:
   ElementForRemoveSelector:
     parents: [ defaultView ]
     selector-title: "choose element to remove"
+  ModelFieldSelector:
+    parents: [ defaultView ]
   StringEditor:
     cancel-edit: "editing cancelled"
   NumberEditor:
