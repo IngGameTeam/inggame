@@ -12,6 +12,6 @@ class NumberEditor(
         .run { toIntOrNull()?: toLongOrNull()?: toDoubleOrNull()
         ?: throw NumberFormatException("$this is not a number")})
     }
-    override fun get(): String? = get()
+    override fun get(): String? = get.run { invoke()?.toString() }
 
 }
