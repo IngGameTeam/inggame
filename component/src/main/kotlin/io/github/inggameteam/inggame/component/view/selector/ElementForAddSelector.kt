@@ -15,7 +15,6 @@ class ElementForAddSelector(
     override val parentSelector: Selector<*>? = null
 ) : NameSpaceView by nameSpaceView, Selector<String> {
     override val elements: Collection<String> get() = app.get<PropertyRegistry>().getAllProp().filter {
-        println(it.name);
         componentService.has(nameSpace, it.name) || it.clazz.simpleName.apply(::println)!!.lowercase() == nameSpace.name.toString().lowercase()
     }.map { it.name }
 
