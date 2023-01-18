@@ -48,12 +48,12 @@ interface ChatEditor : Editor {
                 }
                 iTask.runNow(plugin)
                 event.isCancelled = true
-                player.closeInventory()
                 semaphore = false
                 HandlerList.unregisterAll(this)
             }
 
         }
+        player.closeInventory()
         plugin.server.pluginManager.registerEvents(listener, plugin)
         get()?.apply {
             ActionComponent(this, ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
