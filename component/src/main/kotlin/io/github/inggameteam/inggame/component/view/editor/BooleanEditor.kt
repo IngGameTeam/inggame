@@ -12,7 +12,7 @@ class BooleanEditor(
     override fun open(player: Player) {
         set(get()?.not()?: true)
         previousSelector?.open(player)
-        println("BooleanEditor done!")
+        println("BooleanEditor previousSelector=$previousSelector!")
     }
 
 }
