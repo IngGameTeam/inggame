@@ -8,6 +8,6 @@ class StringEditor(
 ) : Editor, EditorView<String> by view, ChatEditor {
 
     override fun set(any: String) { set(any) }
-    override fun get(): String? = get()
+    override fun get(): String? = get.invoke()
 
 }
