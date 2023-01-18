@@ -20,6 +20,9 @@ view:
   ModelFieldSelector:
     parents: [ defaultView ]
     selector-title: "choose filed to edit"
+  SubTypeSelector:
+    parents: [ defaultView ]
+    selector-title: "choose sub types"
   StringEditor:
     cancel-edit: "editing cancelled"
   NumberEditor:
