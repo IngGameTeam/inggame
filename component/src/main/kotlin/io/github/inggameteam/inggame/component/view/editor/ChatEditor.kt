@@ -43,7 +43,11 @@ interface ChatEditor : Editor {
                         player.sendMessage(view[editor, "cancel-edit", String::class])
                         return@block
                     }
-                    set(message)
+                    try {
+                        set(message)
+                    } catch (_: Throwable) {
+                        player.sendMessage(view[editor, "cannot-edit", String::class])
+                    }
                     previousSelector?.open(player)
                 }
                 iTask.runNow(plugin)
