@@ -1,10 +1,13 @@
 package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
+import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
+import io.github.inggameteam.inggame.component.view.model.ElementViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor.YELLOW
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 
 class ElementForAddSelector(
@@ -17,7 +20,8 @@ class ElementForAddSelector(
 
 
     override fun select(t: String, event: InventoryClickEvent) {
-        
+        app.get<EditorRegistry>().getEditor(t, ElementViewImp(this, Pair(t, Unit)), this)
+            .open(event.whoClicked as Player)
     }
 
     override fun transform(t: String) = createItem(Material.DIRT, "${YELLOW}$t")
