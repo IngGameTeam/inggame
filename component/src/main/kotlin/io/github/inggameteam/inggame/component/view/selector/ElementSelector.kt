@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.GuiFrameDSL
+import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
@@ -31,7 +32,8 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     override val elements: Collection<Pair<Any, Any>> get() = nameSpace.elements.map { Pair(it.key, it.value) }
 
     override fun select(t: Pair<Any, Any>, event: InventoryClickEvent) {
-        app.get<EditorRegistry>().getEditor(t.first.toString(), ElementViewImp(this, t), this)
+        val prop = app.get<PropertyRegistry>().getProp(t.first.toString())
+        app.get<EditorRegistry>().getEditor(prop.type, ElementViewImp(this, t), this)
             .open(event.whoClicked as Player)
     }
 

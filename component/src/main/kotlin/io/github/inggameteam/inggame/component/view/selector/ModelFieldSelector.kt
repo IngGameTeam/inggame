@@ -1,5 +1,7 @@
 package io.github.inggameteam.inggame.component.view.selector
 
+import io.github.inggameteam.inggame.component.PropertyRegistry
+import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.Editor
 import io.github.inggameteam.inggame.component.view.model.ModelView
@@ -26,7 +28,7 @@ class ModelFieldSelector(
         get() = model.declaredMemberProperties
 
     override fun select(t: Field, event: InventoryClickEvent) {
-        TODO()
+        app.get<EditorRegistry>().getEditor(t.returnType, this, parentSelector)
     }
 
     override fun transform(t: Field) = createItem(Material.OAK_PLANKS, t.name)

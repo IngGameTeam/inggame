@@ -18,9 +18,8 @@ import kotlin.reflect.jvm.javaType
 
 class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
-    fun getEditor(name: String, elementView: ElementView, selector: Selector<*>?): Editor {
-        val prop = propertyRegistry.getProp(name)
-        val clazz = prop.type.javaType as Class<*>
+    fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?): Editor {
+        val clazz = type.javaType as Class<*>
         if (clazz.getAnnotation(Model::class.java) !== null) {
             val modelView = ModelViewImp(elementView, clazz.kotlin)
             clazz.getAnnotation(Subs::class.java)?.also {
@@ -28,7 +27,7 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             }
             return ModelFieldSelector(modelView, selector)
         }
-        return this.map[prop.type]!!.invoke(elementView, selector)
+        return this.map[type]!!.invoke(elementView, selector)
     }
 
     val map: HashMap<KType, (ElementView, Selector<*>?) -> Editor> = hashMapOf(
