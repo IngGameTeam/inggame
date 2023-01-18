@@ -17,7 +17,7 @@ view:
     cancel-edit: "editing cancelled"
 resource:
   PrintOnMove:
-    PrintOnMove: false
+    PrintOnMove: true
   hub.parents: [ Hub ]
   Hub:
     parents: [ PrintOnMove ]
