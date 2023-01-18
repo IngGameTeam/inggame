@@ -5,8 +5,7 @@ import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.ElementViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
-import org.bukkit.ChatColor.YELLOW
-import org.bukkit.Color.RED
+import org.bukkit.ChatColor.*
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -20,6 +19,7 @@ class ElementForRemoveSelector(
 
     override fun select(t: String, event: InventoryClickEvent) {
         componentService.set(nameSpace, t, null)
+        parentSelector?.open(event.whoClicked as Player)
     }
 
     override fun transform(t: String) = createItem(Material.DIRT, "${RED}$t")
