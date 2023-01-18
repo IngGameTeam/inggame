@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.utils.ColorUtil.getColoredString
 import org.bson.Document
 import org.bson.codecs.pojo.annotations.BsonExtraElements
+import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
 import org.bukkit.Color
 import org.bukkit.Material
@@ -27,6 +28,7 @@ class ItemStackModel(
         setItem(itemStack)
     }
 
+    @BsonIgnore
     private lateinit var cachedItemStack: ItemStack
 
     fun getItemStack() = if (::cachedItemStack.isInitialized) cachedItemStack else {

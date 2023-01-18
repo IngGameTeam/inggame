@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.model
 import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.utils.ColorUtil.getColoredString
 import org.bson.codecs.pojo.annotations.BsonExtraElements
+import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
@@ -18,6 +19,7 @@ class InventoryModel(
         setInventory(inventory)
     }
 
+    @BsonIgnore
     private lateinit var cachedInventory: Inventory
 
     fun getInventory() = if (::cachedInventory.isInitialized) cachedInventory else {
