@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryAction
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.plugin.Plugin
@@ -12,8 +13,10 @@ import org.bukkit.plugin.Plugin
 class EventTest(plugin: IngGamePlugin) : HandleListener(plugin) {
 
     @EventHandler
-    fun onItemHeld(event: InventoryClickEvent ) {
+    fun onClick(event: InventoryClickEvent) {
         val player = event.whoClicked as Player
-        player.sendMessage("PlayerItemHeldEvent{action=${event.action}}")
+        if (event.action == InventoryAction.HOTBAR_SWAP || event.action == InventoryAction.HOTBAR_MOVE_AND_READD) {
+            event.isCancelled = true
+        }
     }
 }
