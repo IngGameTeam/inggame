@@ -8,15 +8,15 @@ import java.util.*
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.isSubclassOf
 
-interface Delegate {
+interface Wrapper {
 
     val nameSpace: Any
 
     val component: ComponentService
 
-    val nonNull get() = NonNullDelegateImp(nameSpace, component)
+    val nonNull get() = NonNullWrapperImp(nameSpace, component)
 
-    val nullable get() = NullableDelegateImp(nameSpace, component)
+    val nullable get() = NullableWrapperImp(nameSpace, component)
 
     fun addParents(value: Any) = component.addParents(nameSpace, value)
 
@@ -28,14 +28,14 @@ interface Delegate {
 
     fun hasParents(value: Any) = component.hasParents(nameSpace, value)
 
-    fun default(block: () -> Any) = NonNullDelegateImp(nameSpace, component).apply { defaultBlock = block }
+    fun default(block: () -> Any) = NonNullWrapperImp(nameSpace, component).apply { defaultBlock = block }
 
-    fun nullableDefault(block: () -> Any?) = NullableDelegateImp(nameSpace, component).apply { defaultBlock = block }
+    fun nullableDefault(block: () -> Any?) = NullableWrapperImp(nameSpace, component).apply { defaultBlock = block }
 
 
 }
 
-abstract class BaseDelegate : Delegate {
+abstract class BaseWrapper : Wrapper {
 
     override fun hashCode(): Int {
         return nameSpace.hashCode()
@@ -48,19 +48,19 @@ abstract class BaseDelegate : Delegate {
 
 }
 
-class SimpleDelegate(
+class SimpleWrapper(
 
     override val nameSpace: Any,
 
     override val component: ComponentService
-) : BaseDelegate()
+) : BaseWrapper()
 
-class NullableDelegateImp(
+class NullableWrapperImp(
 
     override val nameSpace: Any,
 
     override val component: ComponentService,
-) : BaseDelegate() {
+) : BaseWrapper() {
 
 
     internal var defaultBlock: (() -> Any?)? = null
@@ -85,12 +85,12 @@ class NullableDelegateImp(
 
 }
 
-class NonNullDelegateImp(
+class NonNullWrapperImp(
 
     override val nameSpace: Any,
 
     override val component: ComponentService,
-) : BaseDelegate() {
+) : BaseWrapper() {
 
 
     var defaultBlock: (() -> Any)? = null
@@ -105,8 +105,8 @@ class NonNullDelegateImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
-            return if (R::class.isSubclassOf(Delegate::class))
-                R::class.constructors.first().call(NonNullDelegateImp(result, component))
+            return if (R::class.isSubclassOf(Wrapper::class))
+                R::class.constructors.first().call(NonNullWrapperImp(result, component))
             else
                 result as R
         } catch (e: NameSpaceNotFoundException) {
@@ -121,19 +121,19 @@ class NonNullDelegateImp(
 
 }
 
-fun <T> ComponentService.get(nameSpace: Any, block: (Delegate) -> T): T {
+fun <T> ComponentService.get(nameSpace: Any, block: (Wrapper) -> T): T {
     val ns = uncoverDelegate(nameSpace)
-    return block(NonNullDelegateImp(ns, this))
+    return block(NonNullWrapperImp(ns, this))
 }
 
-fun <T> LayeredComponentService.getAll(block: (Delegate) -> T): Collection<T> {
+fun <T> LayeredComponentService.getAll(block: (Wrapper) -> T): Collection<T> {
     return this.getAll().map(NameSpace::name).map { get(it, block) }
 }
 
-operator fun <T> Delegate.get(block: (Delegate) -> T): T {
-    return block(NonNullDelegateImp(nameSpace, component))
+operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
+    return block(NonNullWrapperImp(nameSpace, component))
 }
 
 fun uncoverDelegate(any: Any): Any {
-    return if (any is Delegate) any.nameSpace else any
+    return if (any is Wrapper) any.nameSpace else any
 }

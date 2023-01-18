@@ -1,8 +1,8 @@
-package io.github.inggameteam.inggame.mongodb
+package io.github.inggameteam.inggame.utils
 
 import kotlin.reflect.KClass
 
-class ModelRegistry(
+class ClassRegistry(
     vararg clazz: KClass<*>
 ) {
     val models = HashSet<KClass<*>>()

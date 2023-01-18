@@ -3,18 +3,23 @@ package io.github.inggameteam.inggame.minigame
 import io.github.inggameteam.inggame.minigame.handler.GameHelper
 import io.github.inggameteam.inggame.minigame.handler.JoinHubOnJoinServer
 import io.github.inggameteam.inggame.minigame.handler.PrintOnMove
+import io.github.inggameteam.inggame.minigame.handler.SectorLoader
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
-import io.github.inggameteam.inggame.mongodb.ModelRegistry
+import io.github.inggameteam.inggame.utils.ClassRegistry
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 fun registerGameModels() = module(createdAtStart = true) {
     factory {
-        ModelRegistry(
+        ClassRegistry(
+            PrintOnMove::class,
+            GameHelper::class,
+            JoinHubOnJoinServer::class,
+            SectorLoader::class,
             GameServer::class,
             Game::class,
             GameAlert::class,

@@ -1,9 +1,9 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
-import io.github.inggameteam.inggame.component.delegate.Delegate
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.Alert
 
-class GameAlertImp(delegate: Delegate) : Delegate by delegate, GameAlert {
+class GameAlertImp(wrapper: Wrapper) : Wrapper by wrapper, GameAlert {
     override val GAME_ALREADY_JOINED: Alert by nonNull
     override val GAME_CANNOT_JOIN_DUE_TO_STARTED: Alert by nonNull
     override val GAME_CANNOT_JOIN_PLAYER_LIMITED: Alert by nonNull

@@ -1,11 +1,11 @@
-package io.github.inggameteam.inggame.component.view
+package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class NameSpaceParentsViewImp(
+class NameSpaceParentsSelector(
     nameSpaceView: NameSpaceView,
     override val parentSelector: Selector<*>? = null
 ) : Selector<NameSpace>, NameSpaceView by nameSpaceView {

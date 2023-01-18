@@ -1,9 +1,9 @@
 package io.github.inggameteam.inggame.party.wrapper
 
-import io.github.inggameteam.inggame.component.delegate.Delegate
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.player.warpper.WrappedPlayer
 
-class PartyRequestImp(delegate: Delegate) : Delegate by delegate, PartyRequest {
+class PartyRequestImp(wrapper: Wrapper) : Wrapper by wrapper, PartyRequest {
     override val partyRequestSender: WrappedPlayer by nonNull
     override val partyRequestReciver: WrappedPlayer by nonNull
     override val party: Party by nonNull

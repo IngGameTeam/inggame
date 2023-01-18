@@ -4,21 +4,20 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentServiceImp
 import io.github.inggameteam.inggame.component.componentservice.ResourcesComponentServiceImp
-import io.github.inggameteam.inggame.component.delegate.Delegate
-import io.github.inggameteam.inggame.component.delegate.SimpleDelegate
+import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.component.delegate.SimpleWrapper
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.component.model.*
-import io.github.inggameteam.inggame.mongodb.ModelRegistry
+import io.github.inggameteam.inggame.utils.ClassRegistry
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
 fun registerComponentModels() = module(createdAtStart = true) {
     factory {
-        ModelRegistry(
+        ClassRegistry(
             Alert::class,
             ChatAlert::class,
             ActionBarAlert::class,
@@ -48,13 +47,13 @@ fun createLayer(collection: String, parentComponent: String) = module {
     single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent))) } bind ComponentService::class
 }
 
-inline fun <reified T : Any> createSingleton(crossinline block: (Delegate) -> T, nameSpace: Any, component: String) = module {
-    single { block(SimpleDelegate(nameSpace, get(named(component)))) } bind T::class
+inline fun <reified T : Any> createSingleton(crossinline block: (Wrapper) -> T, nameSpace: Any, component: String) = module {
+    single { block(SimpleWrapper(nameSpace, get(named(component)))) } bind T::class
 }
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : Any> createSingleton(clazz: KClass<out T>, nameSpace: Any, component: String) = module {
-    single { clazz.constructors.first().call(SimpleDelegate(nameSpace, get(named(component)))) } bind clazz as KClass<T>
+    single { clazz.constructors.first().call(SimpleWrapper(nameSpace, get(named(component)))) } bind clazz as KClass<T>
 }
 
 fun addToSaveRegistry(component: String) = module {

@@ -1,13 +1,13 @@
-package io.github.inggameteam.inggame.component.view
+package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.Gui
 import io.github.bruce0203.gui.GuiFrameDSL
+import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.View
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import kotlin.reflect.full.superclasses
 
 interface Selector<T : Any> : View {
 
@@ -27,7 +27,9 @@ interface Selector<T : Any> : View {
     fun open(player: Player) {
         Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
             .list(0, 0, 9, 5, { elements.withBlank() },
-                { ns -> try { transform(ns as T)} catch (_: Throwable) { ItemStack(Material.AIR) } }
+                { ns -> try { transform(ns as T)} catch (_: Throwable) {
+                    ItemStack(Material.AIR)
+                } }
             ) { list, gui ->
                 gui.apply {
                     val prevItem = createItem(Material.FEATHER, view[selector, "previous-page", String::class])

@@ -1,16 +1,15 @@
-package io.github.inggameteam.inggame.component.view
+package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
+import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.event.inventory.InventoryClickEvent
 
 typealias Element = Pair<Any, Any>
-class ElementView(
-    nameSpaceView: NameSpaceView,
-    override val parentSelector: Selector<*>? = null
-) : NameSpaceView by nameSpaceView, Selector<Element> {
+class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
+    : NameSpaceView by nameSpaceView, Selector<Element> {
 
     override val elements: Collection<Pair<Any, Any>> get() = nameSpace.elements.map { Pair(it.key, it.value) }
 

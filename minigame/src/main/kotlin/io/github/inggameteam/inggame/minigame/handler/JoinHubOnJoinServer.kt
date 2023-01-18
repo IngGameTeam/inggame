@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 
@@ -45,6 +46,14 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onQuit(event: PlayerQuitEvent) {
+        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
+        if (player.joinedGame === null) return
+        gameHelper.leftGame(player, LeftType.LEFT_SERVER)
+    }
+
+    @Suppress("unused")
+    @EventHandler(priority = EventPriority.HIGH)
+    fun onKick(event: PlayerKickEvent) {
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
         if (player.joinedGame === null) return
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)

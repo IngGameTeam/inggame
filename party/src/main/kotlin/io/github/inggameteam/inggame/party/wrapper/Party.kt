@@ -1,10 +1,10 @@
 package io.github.inggameteam.inggame.party.wrapper
 
-import io.github.inggameteam.inggame.component.delegate.Delegate
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.player.warpper.WrappedPlayer
 import java.util.*
 
-class Party(delegate: Delegate) : Delegate by delegate {
+class Party(wrapper: Wrapper) : Wrapper by wrapper {
     val partyJoined: ArrayList<WrappedPlayer> by default { ArrayList<WrappedPlayer>() }
     var isPartyOpened: Boolean by default { true }
     private var renamedPartyName: String? by nullable

@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
-import io.github.inggameteam.inggame.component.delegate.Delegate
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.minigame.GameState
 import io.github.inggameteam.inggame.minigame.Sector
 import io.github.inggameteam.inggame.minigame.event.GameTaskCancelEvent
@@ -10,7 +10,7 @@ import org.bukkit.Bukkit
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
-class Game(delegate: Delegate) : Delegate by delegate {
+class Game(wrapper: Wrapper) : Wrapper by wrapper {
 
     val uuid: UUID get() = nameSpace as UUID
 

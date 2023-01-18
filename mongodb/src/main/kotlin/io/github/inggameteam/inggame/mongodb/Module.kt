@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
+import io.github.inggameteam.inggame.utils.ClassRegistry
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
@@ -9,11 +10,11 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 
-typealias ModelRegistryAll = ModelRegistry
+typealias ModelRegistryAll = ClassRegistry
 
 fun createModelRegistryAll() = module(createdAtStart = true) {
     single {
-        ArrayList<KClass<*>>().apply { getAll<ModelRegistry>().map { it.models }.forEach { addAll(it) } }
+        ArrayList<KClass<*>>().apply { getAll<ClassRegistry>().map { it.models }.forEach { addAll(it) } }
             .run { ModelRegistryAll(*this.toTypedArray()) }
     }
 }

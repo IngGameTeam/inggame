@@ -1,8 +1,8 @@
 package io.github.inggameteam.inggame.party.wrapper
 
-import io.github.inggameteam.inggame.component.delegate.Delegate
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 
-interface PartyPlayer : Delegate {
+interface PartyPlayer : Wrapper {
 
     val joinedParty: Party
 }
