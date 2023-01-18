@@ -20,7 +20,8 @@ class ElementForAddSelector(
 
 
     override fun select(t: String, event: InventoryClickEvent) {
-        app.get<EditorRegistry>().getEditor(t, ElementViewImp(this, Pair(t, Unit)), parentSelector)
+        val prop = app.get<PropertyRegistry>().getProp(t)
+        app.get<EditorRegistry>().getEditor(prop.type, ElementViewImp(this, Pair(t, Unit)), parentSelector)
             .open(event.whoClicked as Player)
     }
 
