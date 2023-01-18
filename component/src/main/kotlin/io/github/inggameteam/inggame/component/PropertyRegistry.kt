@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
+import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.kotlinProperty
 
 class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
@@ -35,7 +36,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             val suffix = "\$delegate"
             if (clazz.java.isInterface) {
 
-                println(clazz.java.fields.map { it.name })
+                println(clazz.declaredMemberProperties.map { it.name })
             } else clazz.java.declaredFields
                 .filter { it.name.endsWith(suffix) }
                 .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.kotlinProperty?.returnType!!) }
