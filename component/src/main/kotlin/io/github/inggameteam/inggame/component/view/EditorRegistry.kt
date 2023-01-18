@@ -1,12 +1,14 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
+import io.github.inggameteam.inggame.component.Subs
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.ElementView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
+import io.github.inggameteam.inggame.component.view.selector.SubTypeSelector
 import io.github.inggameteam.inggame.mongodb.Model
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
@@ -20,7 +22,11 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
         val prop = propertyRegistry.getProp(name)
         val clazz = prop.type.javaType as Class<*>
         if (clazz.getAnnotation(Model::class.java) !== null) {
-            return ModelFieldSelector(ModelViewImp(elementView, clazz.kotlin), selector)
+            val modelView = ModelViewImp(elementView, clazz.kotlin)
+            clazz.getAnnotation(Subs::class.java)?.also {
+                SubTypeSelector(modelView, selector)
+            }
+            return ModelFieldSelector(modelView, selector)
         }
         return this.map[prop.type]!!.invoke(elementView, selector)
     }
