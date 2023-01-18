@@ -22,7 +22,9 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
     val map: HashMap<KType, (ElementView, Selector<*>?) -> Editor> = hashMapOf(
         *listOf(
             Byte::class, Short::class, Int::class, Long::class,
-            Float::class, Double::class, Char::class, String::class)
+            Float::class, Double::class, Char::class, String::class,
+            java.lang.Byte::class, java.lang.Short::class, java.lang.Integer::class, java.lang.Long::class,
+            java.lang.Float::class, java.lang.Double::class, java.lang.String::class)
             .map { it.createType() to code(::StringEditor) }.toTypedArray(),
         Boolean::class.createType() to code(::BooleanEditor)
     )
