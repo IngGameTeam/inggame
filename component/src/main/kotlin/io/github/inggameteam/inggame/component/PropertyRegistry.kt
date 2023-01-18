@@ -6,7 +6,6 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.kotlinProperty
 
 class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
@@ -38,9 +37,9 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             if (clazz.java.isInterface) {
 
                 println(clazz.declaredMemberProperties.map { it.name })
-            } else clazz.declaredMemberProperties.map { it.javaField!! }
+            } else clazz.declaredMemberProperties
                 .filter { it.name.endsWith(suffix) }
-                .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.kotlinProperty?.returnType!!) }
+                .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.returnType) }
                 .forEach {
                     if (propMap.any { p -> p.name == it.first }) {
                         throw AssertionError("${it.first} duplicated between ${getProp(it.first)} and ${it.second}")
