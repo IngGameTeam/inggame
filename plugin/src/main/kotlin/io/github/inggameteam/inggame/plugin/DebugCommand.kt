@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.view.NameSpaceSelectorViewImp
+import io.github.inggameteam.inggame.component.view.NameSpaceSelectorView
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -32,7 +32,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                             println(componentService)
                         }.apply(::println)
                     } else {
-                        NameSpaceSelectorViewImp(componentService, app, this@run).open(player)
+                        NameSpaceSelectorView(componentService, app, this@run).open(player)
                     }
                 }
             }
