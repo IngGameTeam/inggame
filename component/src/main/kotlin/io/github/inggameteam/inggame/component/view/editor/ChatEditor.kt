@@ -48,6 +48,7 @@ interface ChatEditor : Editor {
                 }
                 iTask.runNow(plugin)
                 event.isCancelled = true
+                player.closeInventory()
                 semaphore = false
                 HandlerList.unregisterAll(this)
             }
