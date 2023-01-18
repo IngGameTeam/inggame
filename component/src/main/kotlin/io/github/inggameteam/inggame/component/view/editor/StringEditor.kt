@@ -7,7 +7,7 @@ class StringEditor(
     override val previousSelector: Selector<*>? = null,
 ) : Editor, EditorView<String> by view, ChatEditor {
 
-    override fun set(any: String) { set(any) }
+    override fun set(any: String) { set.invoke(any) }
     override fun get(): String? = get.invoke()
 
 }
