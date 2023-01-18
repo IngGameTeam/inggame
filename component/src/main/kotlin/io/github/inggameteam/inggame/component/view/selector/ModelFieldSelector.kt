@@ -26,7 +26,6 @@ class ModelFieldSelector(
         get() = model.declaredMemberProperties
             .filter { it.findAnnotation<BsonIgnore>() === null }
             .filter { it.visibility === KVisibility.PUBLIC }
-            .map { it.kotlinProperty!! }
 
     override fun select(t: Field, event: InventoryClickEvent) {
         TODO()
