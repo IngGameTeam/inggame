@@ -20,7 +20,7 @@ class ElementForAddSelector(
 
 
     override fun select(t: String, event: InventoryClickEvent) {
-        app.get<EditorRegistry>().getEditor(t, ElementViewImp(this, Pair(t, Unit)), this)
+        app.get<EditorRegistry>().getEditor(t, ElementViewImp(this, Pair(t, Unit)), parentSelector)
             .open(event.whoClicked as Player)
     }
 

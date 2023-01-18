@@ -11,7 +11,7 @@ import kotlin.reflect.full.createType
 
 class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
-    fun getEditor(name: String, elementView: ElementView, selector: Selector<*>): Editor {
+    fun getEditor(name: String, elementView: ElementView, selector: Selector<*>?): Editor {
         val prop = propertyRegistry.getProp(name)
         return this.map[prop.type]!!.invoke(elementView, selector)
     }
