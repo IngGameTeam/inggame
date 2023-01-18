@@ -12,7 +12,7 @@ interface RemoveButton<T : Any> : Selector<T> {
     override fun gui(gui: GuiFrameDSL) {
         super.gui(gui)
         gui.apply {
-            val removeItem = createItem(Material.LIME_DYE, view[selector, "remove-button", String::class])
+            val removeItem = createItem(Material.RED_DYE, view[selector, "remove-button", String::class])
             slot(6, 5, removeItem) { event ->
                 removeButton(event.whoClicked as Player)
             }
