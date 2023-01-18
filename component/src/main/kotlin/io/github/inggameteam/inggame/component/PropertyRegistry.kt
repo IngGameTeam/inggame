@@ -9,9 +9,7 @@ import kotlin.reflect.jvm.kotlinProperty
 
 class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
 
-    data class Prop(val name: String, val type: KType, val clazz: KClass<*>) {
-
-    }
+    data class Prop(val name: String, val type: KType, val clazz: KClass<*>)
 
     private val propMap = ArrayList<Prop>()
 
@@ -32,7 +30,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             }
         val types = classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
-            .filter { it.java.getAnnotation(Wrapper::class.java) !== null }
+            .filter { it.java.getAnnotation(PropWrapper::class.java) !== null }
         types.forEach { clazz ->
             val suffix = "\$delegate"
             clazz.java.declaredFields

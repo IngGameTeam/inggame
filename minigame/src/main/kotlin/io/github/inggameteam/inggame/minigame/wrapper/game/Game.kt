@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
+import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.minigame.GameState
 import io.github.inggameteam.inggame.minigame.Sector
@@ -10,6 +11,7 @@ import org.bukkit.Bukkit
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
+@PropWrapper
 class Game(wrapper: Wrapper) : Wrapper by wrapper {
 
     val uuid: UUID get() = nameSpace as UUID
