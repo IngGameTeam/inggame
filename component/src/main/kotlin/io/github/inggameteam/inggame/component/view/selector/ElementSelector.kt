@@ -13,7 +13,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     : NameSpaceView by nameSpaceView, Selector<Element>, AddButton<Element> {
 
     override fun addButton(player: Player) {
-
+        ElementForAddSelector(this, this).open(player)
     }
 
     override val elements: Collection<Pair<Any, Any>> get() = nameSpace.elements.map { Pair(it.key, it.value) }

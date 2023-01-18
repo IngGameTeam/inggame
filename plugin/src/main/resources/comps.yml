@@ -10,6 +10,8 @@ view:
     parents: [ defaultView ]
     selector-title: "select your element in namespace %s"
     add-button: "&aAdd element"
+  ElementForAddSelector:
+    parents: [ defaultView ]
 resource:
   PrintOnMove:
     PrintOnMove: true
