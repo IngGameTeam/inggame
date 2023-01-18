@@ -35,7 +35,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
             val suffix = "\$delegate"
             if (clazz.java.isInterface) {
 
-                println(clazz.java.fields)
+                println(clazz.java.fields.map { it.name })
             } else clazz.java.declaredFields
                 .filter { it.name.endsWith(suffix) }
                 .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.kotlinProperty?.returnType!!) }
