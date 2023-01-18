@@ -3,10 +3,10 @@ view:
     previous-page: "&fPrev page"
     next-page: "&fNext page"
     back-page: "&fBack page"
-  NameSpaceSelectorView:
+  NameSpaceSelector:
     parents: [ defaultView ]
     selector-title: "select your namespace"
-  ElementView:
+  ElementSelector:
     parents: [ defaultView ]
     selector-title: "select your element in namespace %s"
 resource:
