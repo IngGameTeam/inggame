@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.view.editor
 
 import io.github.inggameteam.inggame.component.model.ActionComponent
+import io.github.inggameteam.inggame.component.model.AlertRecivingPlayer
 import io.github.inggameteam.inggame.component.view.model.editor.EditorView
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.utils.runNow
@@ -20,17 +21,19 @@ class StringEditor(
 
     override fun open(player: Player) {
         var semaphore = false
-        object : Listener {
+        val listener = object : Listener {
             @Suppress("unused")
             @EventHandler
             fun onQuit(event: PlayerQuitEvent) {
                 if (event.player == player) HandlerList.unregisterAll(this)
             }
+
             @Suppress("unused")
             @EventHandler
             fun onKick(event: PlayerKickEvent) {
                 if (event.player == player) HandlerList.unregisterAll(this)
             }
+
             @Suppress("unused")
             @EventHandler
             fun onChat(event: AsyncPlayerChatEvent) {
@@ -52,8 +55,10 @@ class StringEditor(
             }
 
         }
+        plugin.server.pluginManager.registerEvents(listener, plugin)
         get()?.apply {
             ActionComponent(this, ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
+                .send(AlertRecivingPlayer(player))
         }
     }
 

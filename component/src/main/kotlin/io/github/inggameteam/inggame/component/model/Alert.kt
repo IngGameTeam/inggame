@@ -7,6 +7,8 @@ import org.bukkit.entity.Player
 
 interface AlertReciver
 
+class AlertRecivingPlayer(player: Player) : Player by player, AlertReciver
+
 interface Alert {
     fun send(reciver: AlertReciver, vararg args: Any)
 }
@@ -58,10 +60,10 @@ class BaseComponentAlert(
     var components: ArrayList<ActionComponent>
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
+        val component = TextComponent(*components.map { it.append(*args) }.toTypedArray())
         if (reciver is Player) {
-            val component = TextComponent(*components.map { it.append(*args) }.toTypedArray())
             reciver.spigot().sendMessage(component)
-        } else println("$reciver:(component alert)")
+        } else println("$reciver:($component)")
     }
     override fun toString() = "BaseComponentAlert($components)}"
 }
@@ -74,7 +76,15 @@ class ActionComponent(
     var hoverAction: HoverEvent.Action?,
     var hoverValue: String?,
 
-    ) {
+    ) : Alert {
+
+    override fun send(reciver: AlertReciver, vararg args: Any) {
+        val component = TextComponent(append(*args))
+        if (reciver is Player) {
+            reciver.spigot().sendMessage(component)
+        } else println("$reciver:($component)")
+    }
+
     @Suppress("DEPRECATION")
     fun append(vararg args: Any) =
         TextComponent(message.format(*args)).apply {
