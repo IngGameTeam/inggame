@@ -15,9 +15,9 @@ import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
 class StringEditor(
-    view: EditorView<String>,
+    view: EditorView<Any>,
     override val previousSelector: Selector<*>? = null,
-) : Editor, EditorView<String> by view {
+) : Editor, EditorView<Any> by view {
 
     override fun open(player: Player) {
         var semaphore = false
@@ -57,7 +57,7 @@ class StringEditor(
         }
         plugin.server.pluginManager.registerEvents(listener, plugin)
         get()?.apply {
-            ActionComponent(this, ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
+            ActionComponent(toString(), ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
                 .send(AlertRecivingPlayer(player))
         }
     }
