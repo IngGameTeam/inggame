@@ -42,5 +42,4 @@ fun createGameHandlers() = module(createdAtStart = true) {
     singleOf(::JoinHubOnJoinServer)
     singleOf(::PrintOnMove)
     singleOf(::GameHelper)
-    singleOf(::EventTest)
 }
