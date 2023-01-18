@@ -10,10 +10,8 @@ class BooleanEditor(
 ) : Editor, EditorView<Boolean> by view {
 
     override fun open(player: Player) {
-        set(get()?.not()?: false)
-        println(get())
+        set(get()?.not()?: true)
         previousSelector?.open(player)
-        println("BooleanEditor previousSelector=$previousSelector!")
     }
 
 }
