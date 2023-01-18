@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.Gui
 import io.github.bruce0203.gui.GuiFrameDSL
+import io.github.inggameteam.inggame.component.view.OpenView
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.View
 import org.bukkit.Material
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-interface Selector<T : Any> : View {
+interface Selector<T : Any> : View, OpenView {
 
     val elements: Collection<T>
 
@@ -24,7 +25,7 @@ interface Selector<T : Any> : View {
     val selector: String get() = javaClass.simpleName
 
     @Suppress("UNCHECKED_CAST")
-    fun open(player: Player) {
+    override fun open(player: Player) {
         Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
             .list(0, 0, 9, 5, { elements.withBlank() },
                 { ns -> try { transform(ns as T)} catch (_: Throwable) {
