@@ -10,6 +10,7 @@ class BooleanEditor(
 ) : Editor, EditorView<Boolean> by view {
 
     override fun open(player: Player) {
+        println("BooleanEditor opened!")
         set(get()?.not()?: true)
         previousSelector?.open(player)
     }
