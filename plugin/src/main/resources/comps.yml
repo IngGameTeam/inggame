@@ -32,6 +32,7 @@ resource:
     gameName: "Hub"
     startPlayersAmount: -1
     startWaitingSecond: -1
+  GameAlert:
 
   Game:
     startPlayersAmount: 2
