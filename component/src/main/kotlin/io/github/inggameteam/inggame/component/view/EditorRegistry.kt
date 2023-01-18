@@ -23,10 +23,8 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
         val clazz = prop.type.javaType as Class<*>
         if (clazz.getAnnotation(Model::class.java) !== null) {
             val modelView = ModelViewImp(elementView, clazz.kotlin)
-            println("HELLO???")
             clazz.getAnnotation(Subs::class.java)?.also {
-                println("HELLO???!!!!")
-                SubTypeSelector(modelView, selector)
+                return SubTypeSelector(modelView, selector)
             }
             return ModelFieldSelector(modelView, selector)
         }
