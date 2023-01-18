@@ -1,11 +1,8 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
-import io.github.inggameteam.inggame.component.view.editor.BooleanEditor
-import io.github.inggameteam.inggame.component.view.editor.Editor
-import io.github.inggameteam.inggame.component.view.editor.ElementEditorViewImp
+import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.model.editor.EditorView
-import io.github.inggameteam.inggame.component.view.editor.StringEditor
 import io.github.inggameteam.inggame.component.view.model.editor.ElementView
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import kotlin.reflect.KFunction2
@@ -22,10 +19,13 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
     val map: HashMap<KType, (ElementView, Selector<*>?) -> Editor> = hashMapOf(
         *listOf(
             Byte::class, Short::class, Int::class, Long::class,
-            Float::class, Double::class, Char::class, String::class,
+            Float::class, Double::class,
             java.lang.Byte::class, java.lang.Short::class, java.lang.Integer::class, java.lang.Long::class,
-            java.lang.Float::class, java.lang.Double::class, java.lang.String::class)
-            .map { it.createType() to code(::StringEditor) }.toTypedArray(),
+            java.lang.Float::class, java.lang.Double::class, )
+            .map { it.createType() to code(::NumberEditor) }.toTypedArray(),
+
+        java.lang.String::class.createType() to code(::StringEditor),
+        String::class.createType() to code(::StringEditor),
         Boolean::class.createType() to code(::BooleanEditor)
     )
 

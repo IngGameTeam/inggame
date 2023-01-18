@@ -15,51 +15,11 @@ import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
 class StringEditor(
-    view: EditorView<Any>,
+    view: EditorView<String>,
     override val previousSelector: Selector<*>? = null,
-) : Editor, EditorView<Any> by view {
+) : Editor, EditorView<String> by view, ChatEditor {
 
-    override fun open(player: Player) {
-        var semaphore = false
-        val listener = object : Listener {
-            @Suppress("unused")
-            @EventHandler
-            fun onQuit(event: PlayerQuitEvent) {
-                if (event.player == player) HandlerList.unregisterAll(this)
-            }
-
-            @Suppress("unused")
-            @EventHandler
-            fun onKick(event: PlayerKickEvent) {
-                if (event.player == player) HandlerList.unregisterAll(this)
-            }
-
-            @Suppress("unused")
-            @EventHandler
-            fun onChat(event: AsyncPlayerChatEvent) {
-                if (semaphore) return
-                semaphore = true
-                val message = event.message
-                ;
-                val iTask = block@{
-                    if (message == "\$cancel") {
-                        player.sendMessage(view[editor, "cancel-edit", String::class])
-                        return@block
-                    }
-                    set(message)
-                }
-                iTask.runNow(plugin)
-                event.isCancelled = true
-                semaphore = false
-                HandlerList.unregisterAll(this)
-            }
-
-        }
-        plugin.server.pluginManager.registerEvents(listener, plugin)
-        get()?.apply {
-            ActionComponent(toString(), ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
-                .send(AlertRecivingPlayer(player))
-        }
-    }
+    override fun set(any: String) { set(any) }
+    override fun get(): String? = get()
 
 }
