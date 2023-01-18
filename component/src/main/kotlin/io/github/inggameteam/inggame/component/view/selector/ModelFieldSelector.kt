@@ -24,7 +24,6 @@ class ModelFieldSelector(
 
     override val elements: Collection<Field>
         get() = model.declaredMemberProperties
-            .filter { it.findAnnotation<BsonIgnore>() === null }
 
     override fun select(t: Field, event: InventoryClickEvent) {
         TODO()
