@@ -31,6 +31,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         val types = classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
             .filter { it.java.getAnnotation(PropWrapper::class.java) !== null }
+        println(types.map { it.simpleName })
         types.forEach { clazz ->
             val suffix = "\$delegate"
             clazz.java.declaredFields
