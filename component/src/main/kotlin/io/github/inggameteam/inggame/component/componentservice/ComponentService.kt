@@ -61,7 +61,7 @@ interface ComponentService {
     fun has(nameSpace: NameSpace, key: Any): Boolean =
         try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
 
-    fun set(nameSpace: Any, key: Any, value: Any? = null)
+    fun set(nameSpace: Any, key: Any, value: Any?)
 
     fun setParents(name: Any, value: Collection<Any>)
     fun getParents(name: Any): CopyOnWriteArraySet<Any>
