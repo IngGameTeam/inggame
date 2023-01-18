@@ -9,6 +9,9 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import java.lang.reflect.Modifier
 import kotlin.reflect.KProperty
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.jvm.kotlinProperty
 
 typealias Field = KProperty<*>
@@ -20,9 +23,9 @@ class ModelFieldSelector(
     override val previousSelector: Selector<*>? get() = parentSelector
 
     override val elements: Collection<Field>
-        get() = model.java.declaredFields
-            .filter { it.getAnnotation(BsonIgnore::class.java) === null }
-            .filterNot { Modifier.isPrivate(it.modifiers) }
+        get() = model.declaredMemberProperties
+            .filter { it.findAnnotation<BsonIgnore>() === null }
+            .filter { it.visibility === KVisibility.PUBLIC }
             .map { it.kotlinProperty!! }
 
     override fun select(t: Field, event: InventoryClickEvent) {
