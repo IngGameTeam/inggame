@@ -15,9 +15,7 @@ class ElementForRemoveSelector(
     nameSpaceView: NameSpaceView,
     override val parentSelector: Selector<*>? = null
 ) : NameSpaceView by nameSpaceView, Selector<String> {
-    override val elements: Collection<String> get() = app.get<PropertyRegistry>().getAllProp().filter {
-        componentService.has(nameSpace, it.name)
-    }.map { it.name }
+    override val elements: Collection<String> get() = nameSpace.elements.keys.map { it.toString() }
 
 
     override fun select(t: String, event: InventoryClickEvent) {
