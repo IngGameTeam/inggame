@@ -12,6 +12,7 @@ view:
     add-button: "&aAdd element"
   ElementForAddSelector:
     parents: [ defaultView ]
+    selector-title: "choose element to add"
 resource:
   PrintOnMove:
     PrintOnMove: true
