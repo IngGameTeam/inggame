@@ -35,8 +35,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
         types.forEach { clazz ->
             val suffix = "\$delegate"
             clazz.declaredMemberProperties
-                .filter { it.name.endsWith(suffix) }
-                .map { Pair(it.name.substring(0, it.name.length - suffix.length), it.returnType) }
+                .map { Pair(if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length) else it.name, it.returnType) }
                 .forEach {
                     if (propMap.any { p -> p.name == it.first }) {
                         throw AssertionError("${it.first} duplicated between ${getProp(it.first)} and ${it.second}")
