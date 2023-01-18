@@ -25,6 +25,7 @@ view:
     selector-title: "choose sub types"
   StringEditor:
     cancel-edit: "editing cancelled"
+    cannot-edit: "cannot edit"
   NumberEditor:
     cannot-edit: "You can enter only numbers"
 resource:
