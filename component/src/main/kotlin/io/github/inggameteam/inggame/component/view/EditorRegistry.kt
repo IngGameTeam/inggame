@@ -2,8 +2,8 @@ package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.editor.*
-import io.github.inggameteam.inggame.component.view.model.editor.EditorView
-import io.github.inggameteam.inggame.component.view.model.editor.ElementView
+import io.github.inggameteam.inggame.component.view.editor.EditorView
+import io.github.inggameteam.inggame.component.view.model.ElementView
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType

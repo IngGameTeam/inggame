@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.component.view.editor
 
-import io.github.inggameteam.inggame.component.view.model.editor.EditorView
 import io.github.inggameteam.inggame.component.view.selector.Selector
 
 class NumberEditor(

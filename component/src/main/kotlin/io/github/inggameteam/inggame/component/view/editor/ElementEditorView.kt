@@ -1,4 +1,6 @@
-package io.github.inggameteam.inggame.component.view.model.editor
+package io.github.inggameteam.inggame.component.view.editor
+
+import io.github.inggameteam.inggame.component.view.model.ElementView
 
 @Suppress("UNCHECKED_CAST")
 interface ElementEditorView<T : Any> : EditorView<T>, ElementView {

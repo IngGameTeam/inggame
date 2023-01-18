@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.component.view.model.editor
+package io.github.inggameteam.inggame.component.view.editor
 
 import io.github.inggameteam.inggame.component.view.model.View
 
