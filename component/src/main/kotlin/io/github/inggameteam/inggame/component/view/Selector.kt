@@ -7,6 +7,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
+import kotlin.reflect.full.superclasses
 
 interface Selector<T : Any> : View {
 
@@ -20,6 +21,7 @@ interface Selector<T : Any> : View {
 
     fun gui(gui: GuiFrameDSL) = Unit
 
+    val selector: String get() = javaClass.kotlin.superclasses.first { it.java.isInterface }.simpleName!!
 
     @Suppress("UNCHECKED_CAST")
     fun open(player: Player) {

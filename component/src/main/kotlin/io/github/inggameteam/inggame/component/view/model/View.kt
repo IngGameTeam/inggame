@@ -13,7 +13,6 @@ interface View {
 
     val view get() = app.get<ComponentService>(named("view"))
 
-    val selector: String get() = javaClass.kotlin.superclasses.first { it.java.isInterface }.simpleName!!
 
 }
 
