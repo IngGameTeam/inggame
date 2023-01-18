@@ -21,7 +21,7 @@ interface Selector<T : Any> : View {
 
     fun gui(gui: GuiFrameDSL) = Unit
 
-    val selector: String get() = javaClass.kotlin.superclasses.first { it.java.isInterface }.simpleName!!
+    val selector: String get() = javaClass.simpleName
 
     @Suppress("UNCHECKED_CAST")
     fun open(player: Player) {
