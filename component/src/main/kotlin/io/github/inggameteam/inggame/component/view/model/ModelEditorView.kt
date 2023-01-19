@@ -6,7 +6,7 @@ import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.declaredMemberProperties
 
 @Suppress("UNCHECKED_CAST")
-interface ModelEditorView<T : Any> : EditorView<T>, ModelView {
+interface ModelEditorView<T : Any> : EditorView<T>, FieldView {
 
 
     @Suppress("DEPRECATION")
@@ -16,12 +16,9 @@ interface ModelEditorView<T : Any> : EditorView<T>, ModelView {
             .apply { componentService.set(nameSpace.name, element.first, this) } as T }
 
     override val get: () -> T?
-        get() = { getOrNewInstance()
-            .run { this.javaClass.kotlin.declaredMemberProperties.first { it.name == element.first }.get(this) as T } }
+        get() = { getOrNewInstance().run { aField.getter.call(this) as T } }
 
     override val set: (T) -> Unit
-        get() = { getOrNewInstance()
-            .run { this.javaClass.kotlin.declaredMemberProperties.first { it.name == element.first } as KMutableProperty<*> }
-            .run { this.setter.call(it) } }
+        get() = { getOrNewInstance().run { (aField as KMutableProperty<*>).setter.call(this, it) } }
 
 }
