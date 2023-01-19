@@ -19,8 +19,15 @@ import kotlin.reflect.jvm.javaType
 class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
     fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?): Editor {
-        val clazz = type.javaType as Class<*>
+        val clazz = (type.javaType as Class<out Any>)
+            .let { clazz ->
+                elementView.run {
+                    try { componentService[nameSpace.name, element.first, clazz.kotlin] }
+                    catch (_: Throwable) { this }
+                }.javaClass
+            }
         if (clazz.getAnnotation(Model::class.java) !== null) {
+
             val modelView = ModelViewImp(elementView, clazz.kotlin)
             clazz.getAnnotation(Subs::class.java)?.also {
                 return SubTypeSelector(modelView, selector)
