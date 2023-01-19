@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 
 @Suppress("UNCHECKED_CAST")
-class EnumFieldEditor(
+class EnumEditor(
     private val modelView: ModelView,
     editorView: EditorView<*>,
     override val parentSelector: Selector<*>?

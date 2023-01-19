@@ -4,7 +4,6 @@ import io.github.inggameteam.inggame.component.SubClassRegistry
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.ElementView
-import io.github.inggameteam.inggame.component.view.editor.FieldEditorImp
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
@@ -35,9 +34,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                     catch (_: Throwable) { clazz }
                 }
             }
-        println(clazz)
+        println("$type --- $clazz")
         if (clazz.isEnum) {
-            return EnumFieldEditor(ModelViewImp(elementView, clazz.kotlin), editorView, selector)
+            return EnumEditor(ModelViewImp(elementView, clazz.kotlin), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
 
             val modelView = ModelViewImp(elementView, clazz.kotlin)
