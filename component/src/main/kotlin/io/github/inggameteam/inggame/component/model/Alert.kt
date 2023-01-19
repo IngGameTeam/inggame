@@ -43,7 +43,7 @@ class ActionBarAlert(var message: String) : Alert {
         if (reciver is Player) reciver.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(format))
         else println("$reciver: $format")
     }
-    override fun toString() = "ActionBarAlert($message)}"
+    override fun toString() = "ActionBarAlert{$message}"
 }
 
 @Model
@@ -61,7 +61,7 @@ class TitleAlert(
             fadeIn, stay, fadeOut,
         ) else println("$reciver: $title, $subTitle")
     }
-    override fun toString() = "TitleAlert($title, $subTitle, $fadeIn, $stay, $fadeOut)}"
+    override fun toString() = "TitleAlert{$title, $subTitle, $fadeIn, $stay, $fadeOut}"
 }
 
 @Model
@@ -74,7 +74,7 @@ class BaseComponentAlert(
             reciver.spigot().sendMessage(component)
         } else println("$reciver:($component)")
     }
-    override fun toString() = "BaseComponentAlert($components)}"
+    override fun toString() = "BaseComponentAlert{$components}"
 }
 
 @Model
@@ -100,7 +100,7 @@ class ActionComponent(
             if (clickAction !== null) clickEvent = ClickEvent(clickAction, clickValue?.format(*args))
             if (hoverAction !== null) hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue?.format(*args))))
         }
-    override fun toString() = "ActionComponent($message, $clickAction, $clickValue, $hoverAction, $hoverValue)}"
+    override fun toString() = "ActionComponent{$message, $clickAction, $clickValue, $hoverAction, $hoverValue}"
 
 }
 
