@@ -25,7 +25,7 @@ class ModelFieldSelector(
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
 
     override fun select(t: Field, event: InventoryClickEvent) {
-        app.get<EditorRegistry>().getEditor(t.returnType, this, parentSelector)
+        app.get<EditorRegistry>().getEditor(t.returnType, this, this)
             .open(event.whoClicked as Player)
     }
 
