@@ -1,11 +1,10 @@
 package io.github.inggameteam.inggame.component.view
 
-import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.SubClassRegistry
-import io.github.inggameteam.inggame.component.Subs
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.ElementView
+import io.github.inggameteam.inggame.component.view.editor.FieldEditorImp
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
@@ -15,7 +14,6 @@ import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
-import kotlin.reflect.javaType
 import kotlin.reflect.jvm.javaType
 
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
@@ -38,7 +36,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                     catch (_: Throwable) { clazz }
                 }
             }
-        if (clazz.getAnnotation(Model::class.java) !== null) {
+        if (clazz.isEnum) {
+            return EnumFieldEditor(ModelViewImp(elementView, clazz.kotlin), editorView, selector)
+        } else if (clazz.getAnnotation(Model::class.java) !== null) {
 
             val modelView = ModelViewImp(elementView, clazz.kotlin)
             try {

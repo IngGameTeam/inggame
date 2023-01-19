@@ -1,12 +1,10 @@
-package io.github.inggameteam.inggame.component.view.model
+package io.github.inggameteam.inggame.component.view.editor
 
-import io.github.inggameteam.inggame.component.view.editor.EditorView
+import io.github.inggameteam.inggame.component.view.model.FieldView
 import kotlin.reflect.KMutableProperty
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.declaredMemberProperties
 
 @Suppress("UNCHECKED_CAST")
-interface ModelEditorView<T : Any> : EditorView<T>, FieldView {
+interface FieldEditor<T : Any> : EditorView<T>, FieldView {
 
 
     @Suppress("DEPRECATION")
