@@ -34,6 +34,7 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             }
             return ModelFieldSelector(modelView, selector)
         }
+        println(clazz.simpleName!!)
         return this.map[clazz.kotlin.createType()]!!.invoke(elementView, selector)
     }
 
