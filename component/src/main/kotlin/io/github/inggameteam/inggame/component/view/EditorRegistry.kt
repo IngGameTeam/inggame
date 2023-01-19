@@ -23,7 +23,7 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             .let { clazz ->
                 elementView.run {
                     try { componentService[nameSpace.name, element.first, clazz.kotlin] }
-                    catch (_: Throwable) { clazz }
+                    catch (_: Throwable) { clazz.kotlin }
                 }.javaClass
             }
         if (clazz.getAnnotation(Model::class.java) !== null) {
