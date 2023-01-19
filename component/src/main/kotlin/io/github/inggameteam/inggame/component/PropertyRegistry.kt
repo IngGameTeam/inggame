@@ -1,14 +1,13 @@
 package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.mongodb.Model
-import io.github.inggameteam.inggame.mongodb.ModelRegistryAll
+import io.github.inggameteam.inggame.mongodb.ClassRegistryAll
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.jvm.kotlinProperty
 
-class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
+class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
 
     data class Prop(val name: String, val type: KType, val clazz: KClass<*>)
 
@@ -23,7 +22,7 @@ class PropertyRegistry(modelRegistryAll: ModelRegistryAll) {
     }
 
     init {
-        val classes = modelRegistryAll.models
+        val classes = classRegistryAll.classes
         classes
             .filter { it.java.getAnnotation(PropHandler::class.java) !== null }
             .forEach {

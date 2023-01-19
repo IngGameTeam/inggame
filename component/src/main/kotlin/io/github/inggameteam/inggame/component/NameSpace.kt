@@ -44,4 +44,6 @@ fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
     }
 }
 
+class NameSpaceNotFoundException(nameSpace: Any) : Exception("$nameSpace does not exist")
+
 

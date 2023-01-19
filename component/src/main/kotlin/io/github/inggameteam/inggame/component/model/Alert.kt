@@ -104,3 +104,6 @@ class ActionComponent(
 
 }
 
+//todo SubClassRegistry
+//todo ItemStack/Inventory Editor
+//ChatEditor ChatListener Priority

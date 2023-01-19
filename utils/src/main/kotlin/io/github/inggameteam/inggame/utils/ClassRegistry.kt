@@ -2,12 +2,12 @@ package io.github.inggameteam.inggame.utils
 
 import kotlin.reflect.KClass
 
-class ClassRegistry(
+open class ClassRegistry(
     vararg clazz: KClass<*>
 ) {
-    val models = HashSet<KClass<*>>()
+    val classes = HashSet<KClass<*>>()
     init { register(*clazz) }
     fun register(vararg clazz: KClass<*>) {
-        clazz.forEach { models.add(it) }
+        clazz.forEach { classes.add(it) }
     }
 }

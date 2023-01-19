@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.PropertyRegistry
+import io.github.inggameteam.inggame.component.SubClassRegistry
 import io.github.inggameteam.inggame.component.Subs
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.editor.EditorView
@@ -17,7 +18,7 @@ import kotlin.reflect.full.createType
 import kotlin.reflect.javaType
 import kotlin.reflect.jvm.javaType
 
-class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
+class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
     fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView)): Editor {
         val clazz = run {
@@ -37,9 +38,10 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
         if (clazz.getAnnotation(Model::class.java) !== null) {
 
             val modelView = ModelViewImp(elementView, clazz.kotlin)
-            clazz.getAnnotation(Subs::class.java)?.also {
+            try {
+                subClassRegistry.getSubs(clazz.kotlin)
                 return SubTypeSelector(modelView, selector)
-            }
+            } catch (_: Throwable) { }
             return ModelFieldSelector(modelView, selector)
         }
         return this.map[clazz.kotlin.createType()]!!.invoke(editorView, selector)

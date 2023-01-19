@@ -32,6 +32,10 @@ fun registerComponentModels() = module(createdAtStart = true) {
     }
 }
 
+fun createSubClassRegistry() = module(createdAtStart = true) {
+    singleOf(::SubClassRegistry)
+}
+
 fun createEditorRegistry() = module(createdAtStart = true) {
     singleOf(::EditorRegistry)
 }

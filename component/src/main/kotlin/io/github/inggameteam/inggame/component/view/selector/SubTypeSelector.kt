@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.view.selector
 
-import io.github.inggameteam.inggame.component.Subs
+import io.github.inggameteam.inggame.component.SubClassRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.Editor
 import io.github.inggameteam.inggame.component.view.model.Model
@@ -15,8 +15,7 @@ class SubTypeSelector(
     override val parentSelector: Selector<*>? = null
 ) : ModelView by modelView, Selector<Model>, Editor {
     override val previousSelector: Selector<*>? get() = parentSelector
-    override val elements: Collection<Model> get() = modelView.model.java.getAnnotation(Subs::class.java)
-        ?.run { kClasses.toList() }?: throw AssertionError("an error occurred while read Subs")
+    override val elements: Collection<Model> get() = app.get<SubClassRegistry>().getSubs(model)
 
     override fun select(t: Model, event: InventoryClickEvent) {
         ModelFieldSelector(ModelViewImp(this, t), parentSelector)

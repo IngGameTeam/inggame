@@ -10,12 +10,12 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 
-typealias ModelRegistryAll = ClassRegistry
+typealias ClassRegistryAll = ClassRegistry
 
 fun createModelRegistryAll() = module(createdAtStart = true) {
     single {
-        ArrayList<KClass<*>>().apply { getAll<ClassRegistry>().map { it.models }.forEach { addAll(it) } }
-            .run { ModelRegistryAll(*this.toTypedArray()) }
+        ArrayList<KClass<*>>().apply { getAll<ClassRegistry>().map { it.classes }.forEach { addAll(it) } }
+            .run { ClassRegistryAll(*this.toTypedArray()) }
     }
 }
 
@@ -24,7 +24,7 @@ fun createMongoModule(
 ) = module {
     single { ConnectionString(url) }
     single { MongoCodec(ArrayList<Class<out Any>>().apply {
-        get<ModelRegistryAll>().models.filter { it.java.getAnnotation(Model::class.java) !== null }
+        get<ClassRegistryAll>().classes.filter { it.java.getAnnotation(Model::class.java) !== null }
             .map { it.java }.apply(::addAll)
     }) }
     single { DatabaseString(get<ConnectionString>().database
