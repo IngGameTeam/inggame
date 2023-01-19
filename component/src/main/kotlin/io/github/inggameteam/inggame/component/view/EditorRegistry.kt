@@ -26,7 +26,8 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             if (javaType is Class<out Any>) {
                 javaType
             } else {
-                (javaType as ParameterizedType).actualTypeArguments as Class<Any>
+                val actualTypeArguments = (javaType as ParameterizedType).actualTypeArguments
+                actualTypeArguments[0] as Class<*>
             }
         }
             .let { clazz ->
