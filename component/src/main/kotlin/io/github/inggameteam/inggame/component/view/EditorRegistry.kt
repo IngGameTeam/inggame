@@ -34,7 +34,7 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             }
             return ModelFieldSelector(modelView, selector)
         }
-        return this.map[type]!!.invoke(elementView, selector)
+        return this.map[clazz.kotlin.createType()]!!.invoke(elementView, selector)
     }
 
     val map: HashMap<KType, (ElementView, Selector<*>?) -> Editor> = hashMapOf(
