@@ -9,9 +9,10 @@ import kotlin.reflect.full.declaredMemberProperties
 interface ModelEditorView<T : Any> : EditorView<T>, ModelView {
 
 
+    @Suppress("DEPRECATION")
     private fun getOrNewInstance() =
         try { componentService[nameSpace.name, element.first, model] as T }
-        catch (_: Throwable) { model.createInstance()
+        catch (_: Throwable) { model.java.newInstance()
             .apply { componentService.set(nameSpace.name, element.first, this) } as T }
 
     override val get: () -> T?
