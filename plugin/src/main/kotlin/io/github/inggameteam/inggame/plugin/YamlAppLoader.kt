@@ -17,6 +17,7 @@ import org.koin.dsl.module
 fun loadApp(plugin: IngGamePlugin): Koin {
     return plugin.run {
         koinApplication {
+            allowOverride(false)
             modules(module { single { plugin } bind IngGamePlugin::class })
             val codec = config.getStringList("codec")
             listOfNotNull(

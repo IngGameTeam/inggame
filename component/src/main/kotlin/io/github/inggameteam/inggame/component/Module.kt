@@ -16,7 +16,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.reflect.KClass
 
-fun registerComponentModels() = module(createdAtStart = true) {
+fun registerComponentModels() = module {
     factory {
         ClassRegistry(
             Alert::class,
