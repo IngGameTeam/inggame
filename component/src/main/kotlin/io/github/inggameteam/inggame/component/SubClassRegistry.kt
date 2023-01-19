@@ -14,12 +14,10 @@ class SubClassRegistry(classRegistry: ClassRegistryAll) {
 
     init {
         val classes = classRegistry.classes
+        println(classes.map { it.simpleName })
         classes.forEach { clazz ->
             if (clazz.java.isInterface) {
-                map[clazz] = classes.filter {
-                    println(it.toString() + it.isSubclassOf(clazz).toString())
-                    it.isSubclassOf(clazz) }.run(::ArrayList)
-            }
+                map[clazz] = classes.filter { it.isSubclassOf(clazz) }.run(::ArrayList) }
         }
     }
 
