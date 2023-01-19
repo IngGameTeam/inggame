@@ -34,10 +34,10 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             }
             return ModelFieldSelector(modelView, selector)
         }
-        return this.map[clazz.kotlin.createType()]!!.invoke(elementView, selector)
+        return this.map[clazz.kotlin.createType()]!!.invoke(ElementEditorViewImp<Any>(elementView), selector)
     }
 
-    val map: HashMap<KType, (ElementView, Selector<*>?) -> Editor> = hashMapOf(
+    val map: HashMap<KType, (EditorView<*>, Selector<*>?) -> Editor> = hashMapOf(
         *listOf(
             Byte::class, Short::class, Int::class, Long::class,
             Float::class, Double::class,
@@ -52,6 +52,7 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
 }
 
-private fun <T : Any> code(block: KFunction2<EditorView<T>, Selector<*>?, Editor>) = { elementView: ElementView, selector: Selector<*>? ->
-    block.invoke(ElementEditorViewImp(elementView), selector)
+@Suppress("UNCHECKED_CAST")
+private fun <T : Any> code(block: KFunction2<EditorView<T>, Selector<*>?, Editor>) = { editorView: EditorView<*>, selector: Selector<*>? ->
+    block.invoke(editorView as EditorView<T>, selector)
 }
