@@ -28,6 +28,9 @@ view:
     cannot-edit: "cannot edit"
   NumberEditor:
     cannot-edit: "You can enter only numbers"
+  EnumEditor:
+    parents: [ defaultView ]
+    selector-title: "choose your enum"
 resource:
   PrintOnMove:
     PrintOnMove: false
