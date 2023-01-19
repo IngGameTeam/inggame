@@ -16,7 +16,7 @@ interface ModelEditorView<T : Any> : EditorView<T>, FieldView {
             .apply { componentService.set(nameSpace.name, element.first, this) } as T }
 
     override val get: () -> T?
-        get() = { getOrNewInstance().run { aField.getter.call(this) as T } }
+        get() = { getOrNewInstance().run { aField.getter.call(this) as? T } }
 
     override val set: (T) -> Unit
         get() = { getOrNewInstance().run { (aField as KMutableProperty<*>).setter.call(this, it) } }

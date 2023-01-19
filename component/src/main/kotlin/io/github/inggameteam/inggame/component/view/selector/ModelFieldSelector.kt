@@ -6,7 +6,6 @@ import io.github.inggameteam.inggame.component.view.editor.Editor
 import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelEditorViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
-import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Material
 import org.bukkit.entity.Player
