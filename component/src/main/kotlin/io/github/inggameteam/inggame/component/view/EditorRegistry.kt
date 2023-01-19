@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.component.Subs
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.ElementView
+import io.github.inggameteam.inggame.component.view.model.ModelEditorViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
@@ -18,7 +19,7 @@ import kotlin.reflect.jvm.javaType
 
 class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
-    fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?): Editor {
+    fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView)): Editor {
         val clazz = (type.javaType as Class<out Any>)
             .let { clazz ->
                 elementView.run {
@@ -34,7 +35,7 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             }
             return ModelFieldSelector(modelView, selector)
         }
-        return this.map[clazz.kotlin.createType()]!!.invoke(ElementEditorViewImp<Any>(elementView), selector)
+        return this.map[clazz.kotlin.createType()]!!.invoke(editorView, selector)
     }
 
     val map: HashMap<KType, (EditorView<*>, Selector<*>?) -> Editor> = hashMapOf(
