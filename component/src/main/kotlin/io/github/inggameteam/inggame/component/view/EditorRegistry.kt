@@ -20,7 +20,14 @@ import kotlin.reflect.jvm.javaType
 class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
     fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView)): Editor {
-        val clazz = ((type.javaType as ParameterizedType).actualTypeArguments as Class<out Any>)
+        val clazz = run {
+            val javaType = type.javaType
+            if (javaType is Class<out Any>) {
+                javaType
+            } else {
+                (javaType as ParameterizedType).actualTypeArguments as Class<Any>
+            }
+        }
             .let { clazz ->
                 elementView.run {
                     try { componentService[nameSpace.name, element.first, clazz.kotlin].javaClass }
