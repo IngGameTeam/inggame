@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.utils.runNow
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
@@ -33,7 +34,7 @@ interface ChatEditor : Editor {
             }
 
             @Suppress("unused")
-            @EventHandler
+            @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
             fun onChat(event: AsyncPlayerChatEvent) {
                 if (semaphore) return
                 semaphore = true

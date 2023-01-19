@@ -103,7 +103,3 @@ class ActionComponent(
     override fun toString() = "ActionComponent{$message, $clickAction, $clickValue, $hoverAction, $hoverValue}"
 
 }
-
-//todo SubClassRegistry
-//todo ItemStack/Inventory Editor
-//ChatEditor ChatListener Priority
