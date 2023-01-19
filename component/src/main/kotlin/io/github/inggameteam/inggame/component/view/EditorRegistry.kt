@@ -10,6 +10,7 @@ import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.component.view.selector.SubTypeSelector
 import io.github.inggameteam.inggame.mongodb.Model
+import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
@@ -19,7 +20,7 @@ import kotlin.reflect.jvm.javaType
 class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
 
     fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView)): Editor {
-        val clazz = (type.javaType as Class<out Any>)
+        val clazz = ((type.javaType as ParameterizedType).actualTypeArguments as Class<out Any>)
             .let { clazz ->
                 elementView.run {
                     try { componentService[nameSpace.name, element.first, clazz.kotlin].javaClass }
