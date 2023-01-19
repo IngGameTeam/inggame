@@ -36,6 +36,7 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
     }
 
     private fun isSwear(input: String): Boolean {
+        if(input.isBlank()) return false
         map.forEach { (words, excludes) ->
             words.forEach { word ->
                 val m: Matcher = Pattern.compile(word)
