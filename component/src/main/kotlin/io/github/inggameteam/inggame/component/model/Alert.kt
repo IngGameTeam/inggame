@@ -32,7 +32,7 @@ class ChatAlert(
         else println("$reciver: $format")
     }
 
-    override fun toString() = "ChatAlert($message)}"
+    override fun toString() = "ChatAlert{$message}"
 
 }
 
