@@ -7,12 +7,14 @@ import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ClassRegistry
+import io.github.inggameteam.inggame.utils.fastToString
+import io.github.inggameteam.inggame.utils.randomUUID
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 fun registerGameModels() = module(createdAtStart = true) {
-    factory {
+    factory(named(randomUUID().fastToString())) {
         ClassRegistry(
             PrintOnMove::class,
             GameHelper::class,

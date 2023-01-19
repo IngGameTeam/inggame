@@ -10,6 +10,8 @@ import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.component.model.*
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.utils.ClassRegistry
+import io.github.inggameteam.inggame.utils.fastToString
+import io.github.inggameteam.inggame.utils.randomUUID
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -17,7 +19,7 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 fun registerComponentModels() = module {
-    factory {
+    factory(named(randomUUID().fastToString())) {
         ClassRegistry(
             Alert::class,
             ChatAlert::class,
