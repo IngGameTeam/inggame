@@ -10,7 +10,7 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 
-typealias ClassRegistryAll = ClassRegistry
+class ClassRegistryAll(vararg clazz: KClass<*>) : ClassRegistry(*clazz)
 
 fun createModelRegistryAll() = module(createdAtStart = true) {
     single {
