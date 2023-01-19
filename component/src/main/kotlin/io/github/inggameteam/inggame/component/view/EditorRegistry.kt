@@ -22,9 +22,9 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
         val clazz = (type.javaType as Class<out Any>)
             .let { clazz ->
                 elementView.run {
-                    try { componentService[nameSpace.name, element.first, clazz.kotlin] }
-                    catch (_: Throwable) { clazz.kotlin }
-                }.javaClass
+                    try { componentService[nameSpace.name, element.first, clazz.kotlin].javaClass }
+                    catch (_: Throwable) { clazz }
+                }
             }
         if (clazz.getAnnotation(Model::class.java) !== null) {
 
@@ -34,7 +34,6 @@ class EditorRegistry(private val propertyRegistry: PropertyRegistry) {
             }
             return ModelFieldSelector(modelView, selector)
         }
-        println(clazz.simpleName!!)
         return this.map[clazz.kotlin.createType()]!!.invoke(elementView, selector)
     }
 
