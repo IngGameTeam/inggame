@@ -36,6 +36,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                     catch (_: Throwable) { clazz }
                 }
             }
+        println(clazz)
         if (clazz.isEnum) {
             return EnumFieldEditor(ModelViewImp(elementView, clazz.kotlin), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
