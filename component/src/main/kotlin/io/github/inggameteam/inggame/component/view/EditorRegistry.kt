@@ -19,7 +19,6 @@ import kotlin.reflect.jvm.javaType
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
     fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView)): Editor {
-        println(type)
         val clazz = run {
             val javaType = type.javaType
             if (javaType is Class<out Any>) {
