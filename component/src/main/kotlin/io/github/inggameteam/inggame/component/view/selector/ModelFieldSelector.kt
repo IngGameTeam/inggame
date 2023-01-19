@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.view.selector
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.Editor
+import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelEditorViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
@@ -27,7 +28,7 @@ class ModelFieldSelector(
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
 
     override fun select(t: Field, event: InventoryClickEvent) {
-        app.get<EditorRegistry>().getEditor(t.returnType, this, this, ModelEditorViewImp<Any>(this))
+        app.get<EditorRegistry>().getEditor(t.returnType, this, this, ModelEditorViewImp<Any>(FieldViewImp(this, t)))
             .open(event.whoClicked as Player)
     }
 
