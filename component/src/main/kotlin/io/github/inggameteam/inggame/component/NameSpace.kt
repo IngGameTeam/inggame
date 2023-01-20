@@ -41,7 +41,6 @@ fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
         set("elements", ns.elements.entries.map { entry ->
             println(entry.value)
             codec.encode(entry.value).let { Document().apply { set("key", entry.key); set("value", it) } }
-            println(entry.value.toString() + "DONE")
         }.toList())
     }
 }
