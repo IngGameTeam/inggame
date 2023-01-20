@@ -35,7 +35,7 @@ class ModelFieldSelector(
 
     override fun transform(t: Field) = createItem(Material.OAK_PLANKS, t.name, run {
         try {
-            editorView.get()?.toString()?: ""
+            editorView.get()?.run { t.getter.call(this).toString() }?: ""
         } catch (_: Throwable) { "" }
     })
 
