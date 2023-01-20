@@ -13,7 +13,9 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KType
 import kotlin.reflect.full.createType
+import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
 
 @Suppress("UNCHECKED_CAST")
@@ -25,14 +27,12 @@ class ArrayListSelector<T : Any>(
     override val elements: Collection<T> = (get() as? ArrayList<T>)?: ArrayList()
 
     private val genericType get() =
-        try { list.javaClass.kotlin.createType() }
-        catch (_: Throwable) { (editorView as ModelView).model }
-        .run { ((this.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).kotlin.createType() }
+        (((editorView as ModelView).model.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).kotlin.createType()
 
     private val modelView = editorView as ModelView
 
     override fun addButton(player: Player) {
-        elem(player)
+        elem(genericType, player)
     }
 
     private val list get() = (editorView.get.invoke() as? ArrayList<Any>)
@@ -40,7 +40,7 @@ class ArrayListSelector<T : Any>(
             editorView.set.invoke(this as T)
         }
 
-    private fun elem(player: Player, index: Int = list.size) {
+    private fun elem(genericType: KType, player: Player, index: Int = list.size) {
         app.get<EditorRegistry>().getEditor(
             genericType, ModelViewImp(modelView, genericType), this,
             ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(this,
@@ -60,7 +60,10 @@ class ArrayListSelector<T : Any>(
     }
 
     override fun select(t: T, event: InventoryClickEvent) {
-        elem(event.whoClicked as Player, list.indexOf(t))
+        elem(
+            t.javaClass.kotlin.starProjectedType,
+            event.whoClicked as Player, list.indexOf(t)
+        )
     }
 
     override fun transform(t: T) = createItem(Material.DIRT, "${ChatColor.WHITE}$t")
