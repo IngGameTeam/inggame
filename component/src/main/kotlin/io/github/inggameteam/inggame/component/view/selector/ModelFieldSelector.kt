@@ -28,12 +28,19 @@ class ModelFieldSelector(
         get() = model.singleClass.kotlin. declaredMemberProperties
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
 
+    @Suppress("DEPRECATION")
+    private fun getOrNewInstance() =
+        try { editorView.get()!! }
+        catch (_: Throwable) { model.singleClass.newInstance()
+            .apply { componentService.set(nameSpace.name, element.first, this) } }
+
+
     override fun select(t: Field, event: InventoryClickEvent) {
         app.get<EditorRegistry>().getEditor(t.returnType, this, this,
 //            FieldEditorImp<Any>(FieldViewImp(this, t))
             ModelEditorView(modelView, EditorViewImp(modelView,
-                { editorView.get().run { (t as KMutableProperty<*>).setter.call(this, it) } },
-                { editorView.get().run { t.getter.call(this) } }))
+                { getOrNewInstance().run { (t as KMutableProperty<*>).setter.call(this, it) } },
+                { getOrNewInstance().run { t.getter.call(this) } }))
         )
             .open(event.whoClicked as Player)
     }
