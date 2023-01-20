@@ -32,7 +32,10 @@ class ArrayListSelector<T : Any>(
         elem(player)
     }
 
-    private val list get() = editorView.get.invoke() as ArrayList<Any>
+    private val list get() = (editorView.get.invoke() as? ArrayList<Any>)
+        ?: ArrayList<Any>().apply {
+            editorView.set.invoke(this as T)
+        }
 
     private fun elem(player: Player, index: Int = list.size) {
         app.get<EditorRegistry>().getEditor(
