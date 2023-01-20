@@ -15,7 +15,7 @@ interface ElementEditorView<T : Any> : EditorView<T>, ModelView {
         catch(_: Throwable) {
             try {
                 try {
-                    ((model as ParameterizedType).actualTypeArguments[0] as Class<*>).newInstance()
+                    ((model.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).newInstance()
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
