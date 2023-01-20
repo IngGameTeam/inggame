@@ -4,7 +4,6 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.model.ItemStackModel
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.*
-import io.github.inggameteam.inggame.component.view.model.ModelView
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -63,7 +62,7 @@ class ItemStackPropSelector(
 
     override fun transform(t: Any): ItemStack {
         val itemField = t as ItemField
-        return createItem(Material.OAK_PLANKS, itemField.name)
+        return createItem(Material.END_STONE, itemField.name)
     }
 
 
