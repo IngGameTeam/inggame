@@ -25,7 +25,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 javaType
             } else {
                 val actualTypeArguments = (javaType as ParameterizedType).actualTypeArguments
-                println(actualTypeArguments)
+                println("actualTypeArguments=$actualTypeArguments")
                 actualTypeArguments[0] as Class<*>
             }
         }
