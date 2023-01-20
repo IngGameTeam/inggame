@@ -20,20 +20,20 @@ class ItemStackPropSelector(
     enum class ItemField(val select: (ItemStackPropSelector, Player) -> Unit) {
         DISPLAY_NAME({ view, player ->
             StringEditor(EditorViewImp(view,
-                { view.getItem().setName(it); view.parentSelector?.open(player)},
+                { view.getItem().setName(it); view.open(player)},
                 {view.getItem().getItemStack().itemMeta?.displayName}))
                 .open(player)
         }),
         LORE({ view, player ->
             StringEditor(EditorViewImp(view,
-                { view.getItem().setLore(it); view.parentSelector?.open(player) },
+                { view.getItem().setLore(it); view.open(player) },
                 { view.getItem().getItemStack().itemMeta?.lore?.joinToString("\n") }))
                 .open(player)
 
         }),
         ITEM({ view, player ->
             ItemStackEditor(EditorViewImp(view,
-                { view.getItem().setItem(it as ItemStack); view.parentSelector?.open(player) },
+                { view.getItem().setItem(it as ItemStack); view.open(player) },
                 { view.getItem().getItemStack() }), view)
         }),
         GET_ITEM({ view, player ->
