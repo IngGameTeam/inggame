@@ -22,24 +22,24 @@ class ItemStackPropSelector(
         DISPLAY_NAME({ view, player ->
             StringEditor(EditorViewImp(view,
                 { view.getItem().apply { setName(it) }.apply(view::set); view.open(player)},
-                {view.getItem().getItemStack().itemMeta?.displayName}))
+                {view.getItem().itemStack.itemMeta?.displayName}))
                 .open(player)
         }),
         LORE({ view, player ->
             StringEditor(EditorViewImp(view,
                 { view.getItem().apply { setLore(it) }.apply(view::set); view.open(player) },
-                { view.getItem().getItemStack().itemMeta?.lore?.joinToString("\n") }))
+                { view.getItem().itemStack.itemMeta?.lore?.joinToString("\n") }))
                 .open(player)
 
         }),
         ITEM({ view, player ->
             ItemStackEditor(EditorViewImp(view,
-                { (it as ItemStack).apply { view.set(ItemStackModel(null).also { it.setItemStack(this) })}; view.open(player) },
-                { view.getItem().getItemStack() }), view)
+                { (it as ItemStack).apply { view.set(ItemStackModel(null).also { it.itemStack = this })}; view.open(player) },
+                { view.getItem().itemStack }), view)
                 .open(player)
         }),
         GET_ITEM({ view, player ->
-            player.inventory.addItem(view.getItem().getItemStack())
+            player.inventory.addItem(view.getItem().itemStack)
         })
     }
 
@@ -53,8 +53,8 @@ class ItemStackPropSelector(
 
     override fun gui(gui: GuiFrameDSL) {
         super.gui(gui)
-        gui.slot(4, 2, getItem().getItemStack()) {
-            val itemStack = getItem().getItemStack()
+        gui.slot(4, 2, getItem().itemStack) {
+            val itemStack = getItem().itemStack
             if (itemStack.type !== Material.AIR) {
                 (it.whoClicked as Player).inventory.addItem(itemStack)
             }
