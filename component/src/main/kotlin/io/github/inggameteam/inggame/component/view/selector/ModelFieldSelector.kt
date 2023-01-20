@@ -31,7 +31,7 @@ class ModelFieldSelector(
 
     override fun select(t: Field, event: InventoryClickEvent) {
         app.get<EditorRegistry>().getEditor(t.returnType, this, this,
-            FieldEditorImp(FieldViewImp(this, t), t.returnType.singleClass.kotlin))
+            FieldEditorImp<Any>(FieldViewImp(this, t)))
             .open(event.whoClicked as Player)
     }
 

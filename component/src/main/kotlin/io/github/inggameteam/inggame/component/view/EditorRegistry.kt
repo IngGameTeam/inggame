@@ -34,9 +34,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                     catch (_: Throwable) { clazz }
                 }?: clazz
             }
+        val modelView = ModelViewImp(elementView!!, type)
         val editorView = paramEditorView?: run {
-            println(clazz.simpleName)
-            ElementEditorViewImp(elementView!!, clazz.kotlin)
+            ElementEditorViewImp<Any>(modelView)
         }
         println("$type(${type.javaType}) --- $clazz")
         this.map[clazz.kotlin]?.invoke(editorView, selector)?.run { return this }
@@ -44,7 +44,6 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             return EnumEditor(ModelViewImp(elementView!!, type), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
 
-            val modelView = ModelViewImp(elementView!!, type)
             try {
                 subClassRegistry.getSubs(clazz.kotlin)
                 return SubTypeSelector(editorView, modelView, selector)
