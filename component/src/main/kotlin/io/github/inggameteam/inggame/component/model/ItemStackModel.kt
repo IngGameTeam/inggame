@@ -51,4 +51,8 @@ class ItemStackModel(
         setItemStack(getItemStack().apply { itemMeta?.lore = listOf(lore) })
     }
 
+    override fun toString(): String {
+        return itemString?: "null"
+    }
+
 }
