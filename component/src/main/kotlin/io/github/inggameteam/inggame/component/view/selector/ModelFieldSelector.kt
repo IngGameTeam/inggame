@@ -2,9 +2,7 @@ package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
-import io.github.inggameteam.inggame.component.view.editor.Editor
-import io.github.inggameteam.inggame.component.view.editor.EditorView
-import io.github.inggameteam.inggame.component.view.editor.FieldEditorImp
+import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.singleClass
@@ -12,6 +10,7 @@ import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
@@ -31,7 +30,11 @@ class ModelFieldSelector(
 
     override fun select(t: Field, event: InventoryClickEvent) {
         app.get<EditorRegistry>().getEditor(t.returnType, this, this,
-            FieldEditorImp<Any>(FieldViewImp(this, t)))
+//            FieldEditorImp<Any>(FieldViewImp(this, t))
+            ModelEditorView(modelView, EditorViewImp(modelView,
+                { editorView.get().run { (t as KMutableProperty<*>).setter.call(this, it) } },
+                { editorView.get().run { t.getter.call(this) } }))
+        )
             .open(event.whoClicked as Player)
     }
 
