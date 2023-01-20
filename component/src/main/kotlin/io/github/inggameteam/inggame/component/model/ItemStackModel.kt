@@ -11,10 +11,6 @@ import org.bukkit.inventory.ItemStack
 @Model
 class ItemStackModel(private var itemString: String?) {
 
-    constructor(itemStack: ItemStack) : this(null) {
-        setItemStack(itemStack)
-    }
-
     @BsonIgnore
     var cachedItemStack: ItemStack? = null
 
