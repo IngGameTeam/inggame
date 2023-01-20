@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.minigame.wrapper.game
 import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.Alert
+import io.github.inggameteam.inggame.component.model.InventoryModel
 import io.github.inggameteam.inggame.component.model.ItemModel
 
 @PropWrapper
@@ -19,6 +20,8 @@ interface GameAlert : Wrapper {
     val GAME_START_COUNT_DOWN                   : Alert
     val GAME_START                              : Alert
     val testItem : ItemModel
+    val testInventory: InventoryModel
+    val testArrayList: ArrayList<Alert>
 
 
 }

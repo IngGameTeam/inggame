@@ -27,8 +27,10 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 javaType
             } else {
                 val actualTypeArguments = (javaType as ParameterizedType).actualTypeArguments
-                println("actualTypeArguments=${actualTypeArguments.map { it.typeName }}")
-                actualTypeArguments[0] as Class<*>
+                println(actualTypeArguments)
+                if (actualTypeArguments.isNotEmpty()) {
+                }
+                throw AssertionError("cannot read class type")
             }
         }
             .let { clazz ->
@@ -70,7 +72,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         java.lang.String::class.createType() to code(::StringEditor),
         String::class.createType() to code(::StringEditor),
         Boolean::class.createType() to code(::BooleanEditor),
-        ItemModel::class.createType() to code(::ItemStackPropSelector)
+        ItemModel::class.createType() to code(::ItemStackPropSelector),
     )
 
 }
