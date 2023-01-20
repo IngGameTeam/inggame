@@ -17,17 +17,18 @@ class ItemStackModel(private var itemString: String?) {
     @get:BsonIgnore
     @set:BsonIgnore
     var itemStack: ItemStack
-        set(itemStack: ItemStack) {
-            itemString = YamlConfiguration().apply { set("_", itemStack) }.saveToString()
+        set(value) {
+            itemString = YamlConfiguration().apply { set("_", value) }.saveToString()
             loadItemStack()
         }
         get() = if (cacfffhedItemStack !== null) cacfffhedItemStack!! else {
             loadItemStack()
             cacfffhedItemStack!!
+            newItemStack()
         }
 
     private fun loadItemStack() {
-        cacfffhedItemStack = newItemStack()
+//        cacfffhedItemStack = newItemStack()
     }
 
     @Suppress("DEPRECATION")
