@@ -41,7 +41,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         println("$type(${type.javaType}) --- $clazz")
         this.map[clazz.kotlin]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
-            return EnumEditor(ModelViewImp(elementView!!, type), editorView, selector)
+            return EnumEditor(ModelViewImp(elementView, type), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
 
             try {
