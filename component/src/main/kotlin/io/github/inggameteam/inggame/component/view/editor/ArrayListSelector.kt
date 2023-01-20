@@ -29,11 +29,17 @@ class ArrayListSelector<T : Any>(
     private val modelView = editorView as ModelView
 
     override fun addButton(player: Player) {
-        var e: Any? = null
+        elem(player)
+    }
+
+    private val list get() = editorView.get.invoke() as ArrayList<Any>
+
+    private fun elem(player: Player, index: Int = list.size) {
         app.get<EditorRegistry>().getEditor(
             genericType, ModelViewImp(modelView, genericType), this,
-            ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(editorView,
-                { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e }))
+            ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(this,
+                { if (index == list.size) list.add(it) else list[index] = it },
+                { if (index == list.size) null else list[index] }))
         ).open(player)
     }
 
@@ -48,11 +54,7 @@ class ArrayListSelector<T : Any>(
     }
 
     override fun select(t: T, event: InventoryClickEvent) {
-        var e = t
-        app.get<EditorRegistry>().getEditor(
-            genericType, ModelViewImp(modelView, genericType), this, ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(editorView, { e = it
-                (editorView.get.invoke() as ArrayList<Any>).add(e) }, { e }))
-        ).open(event.whoClicked as Player)
+        elem(event.whoClicked as Player, list.indexOf(t))
     }
 
     override fun transform(t: T) = createItem(Material.DIRT, "${ChatColor.WHITE}$t")
