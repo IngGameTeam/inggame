@@ -25,16 +25,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             val javaType = type.javaType
             if (javaType is Class<out Any>) {
                 javaType
-            } else {
-                val actualTypeArguments = (javaType as ParameterizedType).actualTypeArguments
-                println(actualTypeArguments)
-                if (actualTypeArguments.isNotEmpty()) {
-                    type.apply {
-                        println("${javaType.javaClass.simpleName}; $javaType; $classifier")
-                    }
-                }
-                throw AssertionError("cannot read class type")
-            }
+            } else if (javaType is ParameterizedType) {
+                javaType.rawType as Class<out Any>
+            } else throw AssertionError("cannot read class type")
         }
             .let { clazz ->
                 println("letClazz=${clazz.kotlin}")
