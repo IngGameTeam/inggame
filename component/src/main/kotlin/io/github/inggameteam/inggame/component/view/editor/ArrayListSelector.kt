@@ -25,10 +25,12 @@ class ArrayListSelector<T : Any>(
 
     private val genericType get() = (editorView as ModelView).model
 
+    private val modelView = editorView as ModelView
+
     override fun addButton(player: Player) {
         var e: Any? = null
         app.get<EditorRegistry>().getEditor(
-            genericType, null, parentSelector,
+            genericType, modelView, parentSelector,
             EditorViewImp(editorView, { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e })
         ).open(player)
     }
@@ -46,7 +48,7 @@ class ArrayListSelector<T : Any>(
     override fun select(t: T, event: InventoryClickEvent) {
         var e = t
         app.get<EditorRegistry>().getEditor(
-            genericType, null, parentSelector, EditorViewImp(editorView, { e = it
+            genericType, modelView, parentSelector, EditorViewImp(editorView, { e = it
                 (editorView.get.invoke() as ArrayList<Any>).add(e) }, { e })
         ).open(event.whoClicked as Player)
     }
