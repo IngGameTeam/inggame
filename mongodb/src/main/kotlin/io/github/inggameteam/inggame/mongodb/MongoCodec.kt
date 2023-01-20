@@ -1,8 +1,10 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.MongoClientSettings
+import org.bson.BsonArray
 import org.bson.BsonDocument
 import org.bson.BsonDocumentWriter
+import org.bson.BsonValue
 import org.bson.Document
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
@@ -24,12 +26,17 @@ class MongoCodec(codecs: Collection<Class<*>>) {
         } else value
     }
 
-    fun encode(value: Any): Any {
-        return if (value.javaClass.getAnnotation(Model::class.java) !== null || value is Collection<*>) {
+    fun encode(value: Any?): Any? {
+        if (value === null) return null
+        return if (value.javaClass.getAnnotation(Model::class.java) !== null) {
             val document = BsonDocument()
             val writer = BsonDocumentWriter(document)
             codecRegistry[value.javaClass].encode(writer, value, EncoderContext.builder().build())
             return fromBson(document)
+        } else if (value is Collection<*>) {
+            BsonArray(value.map {
+                (encode(it) as? Document)?.run(::toBson)
+            }.toMutableList())
         } else value
     }
 
