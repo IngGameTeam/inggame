@@ -16,6 +16,7 @@ import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubclassOf
+import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
 
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
@@ -69,7 +70,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         String::class.createType() to code(::StringEditor),
         Boolean::class.createType() to code(::BooleanEditor),
         ItemModel::class.createType() to code(::ItemStackPropSelector),
-        ArrayList::class.createType() to code(::ArrayListSelector)
+        ArrayList<Any>()::class.createType() to code(::ArrayListSelector)
     )
 
 }
