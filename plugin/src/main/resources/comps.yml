@@ -43,6 +43,9 @@ view:
     selector-title: "edit your list"
     add-button: "&aAdd element"
     remove-button: "&cRemove element"
+  ArrayListRemoveSelector:
+    parents: [ defaultView ]
+    selector-title: "remove your element"
 resource:
   PrintOnMove:
     PrintOnMove: false
