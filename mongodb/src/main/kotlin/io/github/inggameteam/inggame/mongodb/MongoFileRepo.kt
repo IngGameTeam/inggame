@@ -4,15 +4,16 @@ import org.bson.Document
 import java.io.File
 
 class MongoFileRepo(val file: String) : MongoRepo {
+
+    fun getFile() = File(file)
+        .apply { if (!exists()) {
+            parentFile.mkdir()
+            createNewFile()
+            writeText("""{"_": []}""")
+        }
+        }
     override fun get(): Collection<Document> {
-        val doc = Document.parse(File(file)
-            .apply { if (!exists()) {
-                parentFile.mkdir()
-                createNewFile()
-                writeText("""{"_": []}""")
-            }
-            }
-            .readText())
+        val doc = Document.parse(getFile()
         return doc.getList("_", Document::class.java)
     }
 
@@ -35,7 +36,7 @@ class MongoFileRepo(val file: String) : MongoRepo {
     }
 
     override fun set(col: Collection<Document>) {
-        File(file).writeText(Document().apply { set("_", col) }.toJson())
+        getFile().writeText(Document().apply { set("_", col) }.toJson())
     }
 
     override fun delete(id: Document) {
