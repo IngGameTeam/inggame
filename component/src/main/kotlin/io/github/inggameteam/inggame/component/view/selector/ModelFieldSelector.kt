@@ -4,8 +4,8 @@ import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.Editor
 import io.github.inggameteam.inggame.component.view.editor.EditorView
-import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.editor.FieldEditorImp
+import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.singleClass
 import org.bson.codecs.pojo.annotations.BsonIgnore

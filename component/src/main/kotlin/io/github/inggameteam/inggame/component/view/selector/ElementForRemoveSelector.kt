@@ -4,7 +4,6 @@ import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor.RED
 import org.bukkit.Material
-import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 
 class ElementForRemoveSelector(

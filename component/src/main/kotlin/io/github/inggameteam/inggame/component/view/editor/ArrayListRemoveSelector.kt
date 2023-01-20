@@ -1,15 +1,11 @@
 package io.github.inggameteam.inggame.component.view.editor
 
 import io.github.inggameteam.inggame.component.view.createItem
-import io.github.inggameteam.inggame.component.view.model.ModelView
-import io.github.inggameteam.inggame.component.view.selector.AddButton
-import io.github.inggameteam.inggame.component.view.selector.RemoveButton
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.inventory.ItemStack
 
 class ArrayListRemoveSelector(
     private val editorView: EditorView<Any>,

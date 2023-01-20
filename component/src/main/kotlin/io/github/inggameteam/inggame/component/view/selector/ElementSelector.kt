@@ -4,8 +4,8 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
-import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import io.github.inggameteam.inggame.component.view.model.ElementViewImp
+import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
