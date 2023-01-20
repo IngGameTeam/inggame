@@ -35,6 +35,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 }?: clazz
             }
         val editorView = paramEditorView?: run {
+            println(clazz.simpleName)
             ElementEditorViewImp(elementView!!, clazz.kotlin)
         }
         println("$type(${type.javaType}) --- $clazz")
