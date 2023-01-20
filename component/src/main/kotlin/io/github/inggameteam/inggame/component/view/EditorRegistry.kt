@@ -29,6 +29,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 val actualTypeArguments = (javaType as ParameterizedType).actualTypeArguments
                 println(actualTypeArguments)
                 if (actualTypeArguments.isNotEmpty()) {
+                    type.apply {
+                        println("$javaType; $classifier")
+                    }
                 }
                 throw AssertionError("cannot read class type")
             }
