@@ -17,18 +17,18 @@ class ItemStackPropSelector(
 
     private fun getItem(): ItemStackModel = ((get() as? ItemStackModel)?: ItemStackModel(null))
 
-    private fun ItemStackModel.setItem() = set.invoke(this)
+    private fun set(itemStackModel: ItemStackModel) = set.invoke(itemStackModel)
 
     enum class ItemField(val select: (ItemStackPropSelector, Player) -> Unit) {
         DISPLAY_NAME({ view, player ->
             StringEditor(EditorViewImp(view,
-                { view.getItem().setName(it); view.open(player)},
+                { view.getItem().apply { setName(it) }.apply(view::set); view.open(player)},
                 {view.getItem().getItemStack().itemMeta?.displayName}))
                 .open(player)
         }),
         LORE({ view, player ->
             StringEditor(EditorViewImp(view,
-                { view.getItem().setLore(it); view.open(player) },
+                { view.getItem().apply { setLore(it) }.apply(view::set); view.open(player) },
                 { view.getItem().getItemStack().itemMeta?.lore?.joinToString("\n") }))
                 .open(player)
 
