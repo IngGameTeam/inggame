@@ -12,15 +12,15 @@ import org.bukkit.inventory.ItemStack
 class ItemStackModel(private var itemString: String?) {
 
     @BsonIgnore
-    var cachedItemStack: ItemStack? = null
+    var cacfffhedItemStack: ItemStack? = null
 
-    fun getItemStack() = if (cachedItemStack !== null) cachedItemStack!! else {
+    fun getItemStack() = if (cacfffhedItemStack !== null) cacfffhedItemStack!! else {
         loadItemStack()
-        cachedItemStack!!
+        cacfffhedItemStack!!
     }
 
     private fun loadItemStack() {
-        cachedItemStack = newItemStack()
+        cacfffhedItemStack = newItemStack()
     }
 
     @Suppress("DEPRECATION")
