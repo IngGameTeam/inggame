@@ -18,7 +18,7 @@ class ItemStackModel(private var itemString: String?) {
     @set:BsonIgnore
     var itemStack: ItemStack
         set(value) {
-            itemString = YamlConfiguration().apply { set("_", value) }.saveToString()
+            itemString = YamlConfiguration().apply { set("_", value) }.saveToString().reversed()
             loadItemStack()
         }
         get() /* =if (cacfffhedItemStack !== null) cacfffhedItemStack!! else*/ {
@@ -32,7 +32,7 @@ class ItemStackModel(private var itemString: String?) {
     }
 
     private fun newItemStack(): ItemStack {
-        val itemStack = itemString?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
+        val itemStack = itemString?.reversed()?.run { YamlConfiguration.loadConfiguration(reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.AIR)
         val itemMeta = itemStack.itemMeta?: Bukkit.getItemFactory().getItemMeta(itemStack.type)
         itemStack.itemMeta = itemMeta
