@@ -36,7 +36,7 @@ class CollectionSelector<T : Any>(
     }
 
     private val list get() = (editorView.get.invoke() as? MutableCollection<Any>)
-        ?: (genericType.singleClass.newInstance() as MutableCollection<Any>).apply {
+        ?: ((editorView as ModelView).model.singleClass.newInstance() as MutableCollection<Any>).apply {
             editorView.set.invoke(this as T)
         }
 
