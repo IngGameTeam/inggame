@@ -31,6 +31,10 @@ class ModelFieldSelector(
             .open(event.whoClicked as Player)
     }
 
-    override fun transform(t: Field) = createItem(Material.OAK_PLANKS, t.name)
+    override fun transform(t: Field) = createItem(Material.OAK_PLANKS, t.name, run {
+        try {
+            componentService[nameSpace.name, element.first, Any::class].toString()
+        } catch (_: Throwable) { "" }
+    })
 
 }
