@@ -30,7 +30,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 println(actualTypeArguments)
                 if (actualTypeArguments.isNotEmpty()) {
                     type.apply {
-                        println("${javaType is Class<*>}; $javaType; $classifier")
+                        println("${javaType.javaClass.simpleName}; $javaType; $classifier")
                     }
                 }
                 throw AssertionError("cannot read class type")
