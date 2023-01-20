@@ -6,33 +6,35 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.inventory.ItemStack
+import java.util.Base64
 
 
 @Model
 class ItemStackModel(private var itemString: String?) {
 
-//    @BsonIgnore
-//    private var cacfffhedItemStack: ItemStack? = null
+    @BsonIgnore
+    private var cachedItemStack: ItemStack? = null
 
     @get:BsonIgnore
     @set:BsonIgnore
     var itemStack: ItemStack
         set(value) {
-            itemString = YamlConfiguration().apply { set("_", value) }.saveToString().replace("\n", "\\n")
+            itemString = YamlConfiguration().apply { set("_", value) }.saveToString().run { Base64.getEncoder().encodeToString(toByteArray()) }
             loadItemStack()
         }
-        get() /* =if (cacfffhedItemStack !== null) cacfffhedItemStack!! else*/ {
+        get() = if (cachedItemStack !== null) cachedItemStack!! else {
             loadItemStack()
-//            cacfffhedItemStack!!
-            return newItemStack()
+            cachedItemStack!!
         }
 
     private fun loadItemStack() {
-//        cacfffhedItemStack = newItemStack()
+        cachedItemStack = newItemStack()
     }
 
     private fun newItemStack(): ItemStack {
-        val itemStack = itemString?.replace("\\n", "\n")?.run { YamlConfiguration.loadConfiguration(reader()).getItemStack("_")
+        val itemStack = itemString
+            ?.run { Base64.getDecoder().decode(this) }
+            ?.replace("\\n", "\n")?.run { YamlConfiguration.loadConfiguration(reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.AIR)
         val itemMeta = itemStack.itemMeta?: Bukkit.getItemFactory().getItemMeta(itemStack.type)
         itemStack.itemMeta = itemMeta
