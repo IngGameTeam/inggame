@@ -24,6 +24,7 @@ class ArrayListSelector<T : Any>(
 
     override fun addButton(player: Player) {
         var e: Any? = null
+        println(editorView.javaClass)
         app.get<EditorRegistry>().getEditor(
             genericType, null, parentSelector,
             EditorViewImp(editorView, { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e })
