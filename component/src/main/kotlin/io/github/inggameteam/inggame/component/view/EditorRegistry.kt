@@ -70,7 +70,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         String::class.createType() to code(::StringEditor),
         Boolean::class.createType() to code(::BooleanEditor),
         ItemModel::class.createType() to code(::ItemStackPropSelector),
-        ArrayList<Any>()::class.createType() to code(::ArrayListSelector)
+//        ArrayList<Any>()::class.createType() to code(::ArrayListSelector)
     )
 
 }
