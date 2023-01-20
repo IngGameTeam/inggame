@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.view.editor
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.selector.Selector
+import io.github.inggameteam.inggame.component.view.singleClass
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -15,7 +16,7 @@ class EnumEditor(
 ) : Selector<Enum<*>>, Editor, EditorView<Enum<*>> by editorView as EditorView<Enum<*>> {
     override val previousSelector: Selector<*>? get() = parentSelector
 
-    override val elements: Collection<Enum<*>> get() = modelView.model.java.enumConstants.map { it as Enum<*> }
+    override val elements: Collection<Enum<*>> get() = modelView.model.singleClass.enumConstants.map { it as Enum<*> }
 
     override fun select(t: Enum<*>, event: InventoryClickEvent) {
         set(t)

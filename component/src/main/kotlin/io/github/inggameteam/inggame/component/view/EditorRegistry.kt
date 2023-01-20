@@ -19,17 +19,12 @@ import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
 
+
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
+
     fun getEditor(type: KType, elementView: ElementView?, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView!!)): Editor {
-        val clazz = run {
-            val javaType = type.javaType
-            if (javaType is Class<out Any>) {
-                javaType
-            } else if (javaType is ParameterizedType) {
-                javaType.rawType as Class<out Any>
-            } else throw AssertionError("cannot read class type")
-        }
+        val clazz = type.singleClass
             .let { clazz ->
                 println("letClazz=${clazz.kotlin}")
                 elementView?.run {
@@ -43,12 +38,12 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 }?: clazz
             }
         println("$type(${type.javaType}) --- $clazz")
-        this.map[type]?.invoke(editorView, selector)?.run { return this }
+        this.map[clazz.kotlin.starProjectedType]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
-            return EnumEditor(ModelViewImp(elementView!!, clazz.kotlin), editorView, selector)
+            return EnumEditor(ModelViewImp(elementView!!, type), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
 
-            val modelView = ModelViewImp(elementView!!, clazz.kotlin)
+            val modelView = ModelViewImp(elementView!!, type)
             try {
                 subClassRegistry.getSubs(clazz.kotlin)
                 return SubTypeSelector(editorView, modelView, selector)

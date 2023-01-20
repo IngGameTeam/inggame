@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.editor.FieldEditorImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
+import io.github.inggameteam.inggame.component.view.singleClass
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -25,7 +26,7 @@ class ModelFieldSelector(
     override val previousSelector: Selector<*>? get() = parentSelector
 
     override val elements: Collection<Field>
-        get() = model.declaredMemberProperties
+        get() = model.singleClass.kotlin. declaredMemberProperties
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
 
     override fun select(t: Field, event: InventoryClickEvent) {
