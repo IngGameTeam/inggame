@@ -4,7 +4,6 @@ import com.mongodb.MongoClientSettings
 import org.bson.BsonArray
 import org.bson.BsonDocument
 import org.bson.BsonDocumentWriter
-import org.bson.BsonValue
 import org.bson.Document
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
@@ -17,18 +16,24 @@ class MongoCodec(codecs: Collection<Class<*>>) {
 
     val codecRegistry = createCodec(codecs)
 
-    fun decode(value: Any): Any {
-        val resultValue = if (value is Document) {
-            codecRegistry[Class.forName(value.getString("_t"))]
-                .decode(
-                    value.toBsonDocument().asBsonReader(),
-                    DecoderContext.builder().checkedDiscriminator(true).build()
-                )
-                ?: throw AssertionError("An error occurred while decoding Document")
-        } else value
-        return if (resultValue is BsonArray) {
-            resultValue.map { decode(it) }
-        } else resultValue
+    fun decode(document: Any?): Any? {
+        if (document === null) return null
+        if (document is Document) {
+            document.keys.forEach { key ->
+                val obj = document[key]
+                if (obj is Collection<*>) {
+                    document[key] = obj.map { decode(it) }
+                } else if (obj is Document) {
+                    document[key] = codecRegistry[Class.forName(obj.getString("_t"))]
+                        .decode(
+                            obj.toBsonDocument().asBsonReader(),
+                            DecoderContext.builder().checkedDiscriminator(true).build()
+                        )
+                        ?: throw AssertionError("An error occurred while decoding Document")
+                }
+            }
+        }
+        return document
     }
 
     fun encode(value: Any?): Any? {
