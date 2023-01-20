@@ -13,7 +13,7 @@ class MongoFileRepo(val file: String) : MongoRepo {
         }
         }
     override fun get(): Collection<Document> {
-        val doc = Document.parse(getFile()
+        val doc = Document.parse(getFile().readText())
         return doc.getList("_", Document::class.java)
     }
 
