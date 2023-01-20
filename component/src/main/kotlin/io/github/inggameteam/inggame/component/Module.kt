@@ -67,6 +67,6 @@ inline fun <reified T : Any> createSingleton(clazz: KClass<out T>, nameSpace: An
     single { clazz.constructors.first().call(SimpleWrapper(nameSpace, get(named(component)))) } bind clazz as KClass<T>
 }
 
-fun addToSaveRegistry(component: String) = module {
+fun addToSaveRegistry(component: String) = module(createdAtStart = true) {
     single(named(component)) { AddToSaveRegistry(get(named(component)), get()) }
 }
