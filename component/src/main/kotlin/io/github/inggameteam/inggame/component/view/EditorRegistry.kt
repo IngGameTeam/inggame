@@ -14,6 +14,7 @@ import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
+import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.jvm.javaType
 
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
@@ -32,7 +33,12 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             .let { clazz ->
                 println("letClazz=${clazz.kotlin}")
                 elementView.run {
-                    try { componentService[nameSpace.name, element.first, clazz.kotlin].javaClass }
+                    try {
+                        val any = componentService[nameSpace.name, element.first, Any::class]
+                        if (any.javaClass.kotlin.isSubclassOf(clazz.kotlin)) {
+                            any.javaClass
+                        } else clazz
+                    }
                     catch (_: Throwable) { clazz }
                 }
             }
