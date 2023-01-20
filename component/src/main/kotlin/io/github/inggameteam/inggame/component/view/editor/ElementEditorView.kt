@@ -7,7 +7,7 @@ import java.lang.reflect.ParameterizedType
 import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
 
-@Suppress("UNCHECKED_CAST", "DEPRECATION")
+@Suppress("UNCHECKED_CAST")
 interface ElementEditorView<T : Any> : EditorView<T>, ModelView {
 
     override val get: () -> T? get() = {

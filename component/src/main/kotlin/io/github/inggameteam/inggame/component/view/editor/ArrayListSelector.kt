@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.view.editor
 import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
+import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.selector.AddButton
 import io.github.inggameteam.inggame.component.view.selector.RemoveButton
 import io.github.inggameteam.inggame.component.view.selector.Selector
@@ -10,7 +11,9 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import java.lang.reflect.ParameterizedType
 import kotlin.reflect.full.createType
+import kotlin.reflect.jvm.javaType
 
 @Suppress("UNCHECKED_CAST")
 class ArrayListSelector<T : Any>(
@@ -20,7 +23,7 @@ class ArrayListSelector<T : Any>(
     override val previousSelector: Selector<*>? get() = parentSelector
     override val elements: Collection<T> = (get() as? ArrayList<T>)?: ArrayList()
 
-    private val genericType get() = editorView.get.invoke()!!.javaClass.kotlin.createType()
+    private val genericType get() = (editorView as ModelView).model
 
     override fun addButton(player: Player) {
         var e: Any? = null
