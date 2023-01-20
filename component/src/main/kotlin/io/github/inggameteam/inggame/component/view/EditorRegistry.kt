@@ -30,6 +30,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             }
         }
             .let { clazz ->
+                println("letClazz=$clazz")
                 elementView.run {
                     try { componentService[nameSpace.name, element.first, clazz.kotlin].javaClass }
                     catch (_: Throwable) { clazz }
