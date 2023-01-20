@@ -38,12 +38,12 @@ view:
   ItemStackPropSelector:
     parents: [ defaultView ]
     selector-title: "edit your item"
-  ArrayListSelector:
+  CollectionSelector:
     parents: [ defaultView ]
     selector-title: "edit your list"
     add-button: "&aAdd element"
     remove-button: "&cRemove element"
-  ArrayListRemoveSelector:
+  CollectionRemoveSelector:
     parents: [ defaultView ]
     selector-title: "remove your element"
 resource:
