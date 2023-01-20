@@ -10,6 +10,8 @@ import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.component.view.selector.SubTypeSelector
 import io.github.inggameteam.inggame.mongodb.Model
+import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
@@ -39,7 +41,8 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             ElementEditorViewImp<Any>(modelView)
         }
         println("$type(${type.javaType}) --- $clazz")
-        this.map[clazz.kotlin]?.invoke(editorView, selector)?.run { return this }
+        this.map.entries.firstOrNull { clazz.kotlin.isSubclassOf(it.key) }
+            ?.value?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
             return EnumEditor(ModelViewImp(elementView, type), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
@@ -65,7 +68,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         String::class to code(::StringEditor),
         Boolean::class to code(::BooleanEditor),
         ItemModel::class to code(::ItemStackPropSelector),
-        ArrayList::class to code(::ArrayListSelector)
+        MutableCollection::class to code(::CollectionSelector),
     )
 
 }
