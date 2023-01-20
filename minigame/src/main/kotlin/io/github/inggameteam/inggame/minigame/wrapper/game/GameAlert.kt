@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.minigame.wrapper.game
 import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.Alert
-import io.github.inggameteam.inggame.component.model.ItemStackModel
+import io.github.inggameteam.inggame.component.model.ItemModel
 
 @PropWrapper
 interface GameAlert : Wrapper {
@@ -18,7 +18,7 @@ interface GameAlert : Wrapper {
     val GAME_START_CANCELLED_DUE_TO_PLAYERLESS  : Alert
     val GAME_START_COUNT_DOWN                   : Alert
     val GAME_START                              : Alert
-    val testItem : ItemStackModel
+    val testItem : ItemModel
 
 
 }

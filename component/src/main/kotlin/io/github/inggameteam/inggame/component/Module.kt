@@ -29,7 +29,7 @@ fun registerComponentModels() = module {
             ActionComponent::class,
             Location::class,
             InventoryModel::class,
-            ItemStackModel::class,
+            ItemModel::class,
         )
     }
 }

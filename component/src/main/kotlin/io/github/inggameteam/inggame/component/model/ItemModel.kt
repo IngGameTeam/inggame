@@ -10,7 +10,7 @@ import java.util.Base64
 
 
 @Model
-class ItemStackModel(private var itemString: String?) {
+class ItemModel(private var itemString: String?) {
 
     @BsonIgnore
     private var cachedItemStack: ItemStack? = null
@@ -56,7 +56,7 @@ class ItemStackModel(private var itemString: String?) {
     }
 
     companion object {
-        fun ItemStack.toItemModel(): ItemStackModel = ItemStackModel(null).apply { itemStack = this@toItemModel }
+        fun ItemStack.toItemModel(): ItemModel = ItemModel(null).apply { itemStack = this@toItemModel }
     }
 
 }

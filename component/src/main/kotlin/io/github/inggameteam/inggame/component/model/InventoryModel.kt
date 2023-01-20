@@ -12,7 +12,7 @@ import org.bukkit.inventory.Inventory
 class InventoryModel(
     @BsonExtraElements
     var map: HashMap<String, Any>,
-    var items: ArrayList<ItemStackModel?>
+    var items: ArrayList<ItemModel?>
 ) {
 
     constructor(inventory: Inventory) : this(HashMap(), ArrayList()) {
@@ -29,7 +29,7 @@ class InventoryModel(
 
     fun setInventory(inventory: Inventory) {
         val contents = inventory.contents
-            .map { it?.run { ItemStackModel(null).apply { itemStack = it } } }.run(::ArrayList)
+            .map { it?.run { ItemModel(null).apply { itemStack = it } } }.run(::ArrayList)
         if (inventory.type === InventoryType.CHEST) {
             map["type"] = inventory.maxStackSize
         } else map["type"] = inventory.type.name

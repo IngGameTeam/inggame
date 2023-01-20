@@ -1,8 +1,8 @@
 package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.GuiFrameDSL
-import io.github.inggameteam.inggame.component.model.ItemStackModel
-import io.github.inggameteam.inggame.component.model.ItemStackModel.Companion.toItemModel
+import io.github.inggameteam.inggame.component.model.ItemModel
+import io.github.inggameteam.inggame.component.model.ItemModel.Companion.toItemModel
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.*
 import org.bukkit.Material
@@ -15,9 +15,9 @@ class ItemStackPropSelector(
     override val parentSelector: Selector<*>? = null
 ) : Selector<Any>, Editor, EditorView<Any> by editorView {
 
-    private fun getItem(): ItemStackModel = ((get() as? ItemStackModel)?: ItemStackModel(null))
+    private fun getItem(): ItemModel = ((get() as? ItemModel)?: ItemModel(null))
 
-    private fun set(itemStackModel: ItemStackModel) = set.invoke(itemStackModel)
+    private fun set(itemModel: ItemModel) = set.invoke(itemModel)
 
     enum class ItemField(val select: (ItemStackPropSelector, Player) -> Unit) {
         DISPLAY_NAME({ view, player ->
