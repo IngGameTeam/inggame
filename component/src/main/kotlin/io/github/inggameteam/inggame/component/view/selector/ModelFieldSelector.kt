@@ -28,11 +28,12 @@ class ModelFieldSelector(
         get() = model.singleClass.kotlin. declaredMemberProperties
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "UNCHECKED_CAST")
     private fun getOrNewInstance() =
         try { editorView.get()!! }
-        catch (_: Throwable) { model.singleClass.newInstance()
-            .apply { componentService.set(nameSpace.name, element.first, this) } }
+        catch (_: Throwable) {
+            model.singleClass.newInstance().apply { (editorView as EditorView<Any>).set.invoke(this) }
+        }
 
 
     override fun select(t: Field, event: InventoryClickEvent) {
