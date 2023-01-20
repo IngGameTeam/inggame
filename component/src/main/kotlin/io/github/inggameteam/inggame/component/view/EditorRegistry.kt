@@ -43,7 +43,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 }?: clazz
             }
         println("$type(${type.javaType}) --- $clazz")
-        this.map[clazz.kotlin.createType()]?.invoke(editorView, selector)?.run { return this }
+        this.map[clazz.kotlin.starProjectedType]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
             return EnumEditor(ModelViewImp(elementView!!, clazz.kotlin), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
