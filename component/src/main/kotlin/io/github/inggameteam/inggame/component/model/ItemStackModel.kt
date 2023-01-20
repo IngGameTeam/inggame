@@ -23,7 +23,7 @@ class ItemStackModel(private var itemString: String?) {
         }
         get() = if (cacfffhedItemStack !== null) cacfffhedItemStack!! else {
             loadItemStack()
-            cacfffhedItemStack!!
+//            cacfffhedItemStack!!
             newItemStack()
         }
 
