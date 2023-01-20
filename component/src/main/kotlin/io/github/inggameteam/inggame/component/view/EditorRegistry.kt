@@ -20,7 +20,7 @@ import kotlin.reflect.jvm.javaType
 
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
-    fun getEditor(type: KType, elementView: ElementView, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView)): Editor {
+    fun getEditor(type: KType, elementView: ElementView?, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView!!)): Editor {
         val clazz = run {
             val javaType = type.javaType
             if (javaType is Class<out Any>) {
@@ -31,7 +31,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         }
             .let { clazz ->
                 println("letClazz=${clazz.kotlin}")
-                elementView.run {
+                elementView?.run {
                     try {
                         val any = componentService[nameSpace.name, element.first, Any::class]
                         if (any.javaClass.kotlin.isSubclassOf(clazz.kotlin)) {
@@ -39,15 +39,15 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                         } else clazz
                     }
                     catch (_: Throwable) { clazz }
-                }
+                }?: clazz
             }
         println("$type(${type.javaType}) --- $clazz")
         this.map[clazz.kotlin.createType()]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
-            return EnumEditor(ModelViewImp(elementView, clazz.kotlin), editorView, selector)
+            return EnumEditor(ModelViewImp(elementView!!, clazz.kotlin), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
 
-            val modelView = ModelViewImp(elementView, clazz.kotlin)
+            val modelView = ModelViewImp(elementView!!, clazz.kotlin)
             try {
                 subClassRegistry.getSubs(clazz.kotlin)
                 return SubTypeSelector(editorView, modelView, selector)
@@ -69,6 +69,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         String::class.createType() to code(::StringEditor),
         Boolean::class.createType() to code(::BooleanEditor),
         ItemModel::class.createType() to code(::ItemStackPropSelector),
+        ArrayList::class.createType() to code(::ArrayListSelector)
     )
 
 }

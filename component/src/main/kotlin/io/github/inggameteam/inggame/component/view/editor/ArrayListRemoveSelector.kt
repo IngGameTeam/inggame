@@ -12,10 +12,9 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
 class ArrayListRemoveSelector(
-    private val modelView: ModelView,
     private val editorView: EditorView<Any>,
     override val parentSelector: Selector<*>? = null
-) : Selector<Any>, ModelView by modelView, Editor {
+) : Selector<Any>, EditorView<Any> by editorView, Editor {
     override val previousSelector: Selector<*>? get() = parentSelector
     override val elements: Collection<Any> = (editorView.get() as? ArrayList<*>)?: ArrayList()
 
