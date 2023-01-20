@@ -26,6 +26,7 @@ class MongoCodec(codecs: Collection<Class<*>>) {
 
     fun encode(value: Any): Any {
         return if (value.javaClass.getAnnotation(Model::class.java) !== null) {
+            println(value.javaClass)
             val document = BsonDocument()
             val writer = BsonDocumentWriter(document)
             codecRegistry[value.javaClass].encode(writer, value, EncoderContext.builder().build())
