@@ -41,7 +41,9 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                     getKeys(false).map { key -> createResource(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("save")?.run {
-                    getKeys(false).map { key -> println("a".repeat(100)); ;addToSaveRegistry(key) }.toTypedArray()
+                    println("a".repeat(100));
+                    println(getKeys(false))
+                    getKeys(false).map { key ->  ;addToSaveRegistry(key) }.toTypedArray()
                 } ?: emptyArray(),
                 createGameHandlers(),
                 *config.getConfigurationSection("service")?.run {
