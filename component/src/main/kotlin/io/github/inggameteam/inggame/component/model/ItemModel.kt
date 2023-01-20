@@ -10,7 +10,7 @@ import java.util.Base64
 
 
 @Model
-class ItemModel(private var itemString: String?) {
+class ItemModel(var itemString: String?) {
 
     @BsonIgnore
     private var cachedItemStack: ItemStack? = null
