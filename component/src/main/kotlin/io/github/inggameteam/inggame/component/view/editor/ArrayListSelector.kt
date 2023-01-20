@@ -23,14 +23,14 @@ class ArrayListSelector<T : Any>(
     override val previousSelector: Selector<*>? get() = parentSelector
     override val elements: Collection<T> = (get() as? ArrayList<T>)?: ArrayList()
 
-    private val genericType get() = (editorView as ModelView).model
+    private val genericType get() = (((editorView as ModelView).model.javaType as ParameterizedType).actualTypeArguments as Class<*>).kotlin.createType()
 
     private val modelView = editorView as ModelView
 
     override fun addButton(player: Player) {
         var e: Any? = null
         app.get<EditorRegistry>().getEditor(
-            genericType, modelView, parentSelector,
+            genericType, modelView, this,
             ModelEditorView(modelView, EditorViewImp(editorView, { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e }))
         ).open(player)
     }
@@ -48,7 +48,7 @@ class ArrayListSelector<T : Any>(
     override fun select(t: T, event: InventoryClickEvent) {
         var e = t
         app.get<EditorRegistry>().getEditor(
-            genericType, modelView, parentSelector, ModelEditorView(modelView, EditorViewImp(editorView, { e = it
+            genericType, modelView, this, ModelEditorView(modelView, EditorViewImp(editorView, { e = it
                 (editorView.get.invoke() as ArrayList<Any>).add(e) }, { e }))
         ).open(event.whoClicked as Player)
     }
