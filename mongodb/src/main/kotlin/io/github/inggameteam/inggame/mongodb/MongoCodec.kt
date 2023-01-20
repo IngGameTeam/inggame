@@ -19,6 +19,7 @@ class MongoCodec(codecs: Collection<Class<*>>) {
     fun decode(document: Any?): Any? {
         if (document === null) return null
         println("-".repeat(200))
+        println(document)
         if (document is Document) {
             document.keys.forEach { key ->
                 val obj = document[key]
