@@ -68,5 +68,5 @@ inline fun <reified T : Any> createSingleton(clazz: KClass<out T>, nameSpace: An
 }
 
 fun addToSaveRegistry(component: String) = module(createdAtStart = true) {
-    single(named(component)) { AddToSaveRegistry(get(named(component)), get()) }
+    single(named(component)) { println("a".repeat(100)); AddToSaveRegistry(get(named(component)), get()) }
 }
