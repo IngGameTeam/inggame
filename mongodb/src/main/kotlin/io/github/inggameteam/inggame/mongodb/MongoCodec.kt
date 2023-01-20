@@ -18,12 +18,17 @@ class MongoCodec(codecs: Collection<Class<*>>) {
     val codecRegistry = createCodec(codecs)
 
     fun decode(value: Any): Any {
-        return if (value is Document) {
+        val resultValue = if (value is Document) {
             codecRegistry[Class.forName(value.getString("_t"))]
-                .decode(value.toBsonDocument().asBsonReader(),
-                    DecoderContext.builder().checkedDiscriminator(true).build())
+                .decode(
+                    value.toBsonDocument().asBsonReader(),
+                    DecoderContext.builder().checkedDiscriminator(true).build()
+                )
                 ?: throw AssertionError("An error occurred while decoding Document")
         } else value
+        return if (resultValue is BsonArray) {
+            resultValue.map { decode(it) }
+        } else resultValue
     }
 
     fun encode(value: Any?): Any? {
