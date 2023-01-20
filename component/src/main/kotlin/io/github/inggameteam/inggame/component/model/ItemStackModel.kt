@@ -21,11 +21,9 @@ import org.bukkit.potion.PotionType
 @Model
 class ItemStackModel(
     var itemString: String? = null,
-    @BsonExtraElements
-    var map: HashMap<String, Any>,
 ) {
 
-    constructor(itemStack: ItemStack?) : this(map = HashMap()) {
+    constructor(itemStack: ItemStack?) : this() {
         setItem(itemStack?: return)
     }
 
@@ -45,53 +43,7 @@ class ItemStackModel(
     private fun newItemStack(): ItemStack {
         val itemStack = itemString?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.STONE)
-        if (map.containsKey("type")) {
-            val type = map.getColoredString("type")
-            try {
-                itemStack.type = type.run(Material::valueOf)
-            } catch(_: Exception) {
-                throw AssertionError("$type is not a material")
-            }
-        }
-        val itemMeta = Bukkit.getItemFactory().getItemMeta(itemStack.type)!!
-        if (map.containsKey("amount")) itemStack.amount = map["amount"] as Int
-        if (map.containsKey("name")) itemMeta.setDisplayName(map.getColoredString("name"))
-        if (map.containsKey("lore")) itemMeta.setDisplayName(map.getColoredString("lore"))
-        if (map.containsKey("hide"))
-            itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DYE, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS)
-        if (map.containsKey("unbreak"))
-            itemMeta.isUnbreakable = true
-        if (map.containsKey("data")) {
-            val data = itemStack.data
-                ?: throw AssertionError ("a unknown error occurred while deserializing yaml item configuration")
-            data.data = map["data"] as Byte
-        }
-        if (map.containsKey("color")) {
-            (map["color"] as Document).run {
-                Color.fromRGB(
-                    getInteger("R"),
-                    getInteger("G"),
-                    getInteger("B"),
-                )
-            }.apply { (itemMeta as LeatherArmorMeta).setColor(this) }
-        }
-        if (map.containsKey("potion")) {
-            val potionMeta = itemMeta as PotionMeta
-            try {
-                potionMeta.basePotionData = PotionData(PotionType.valueOf(map.getColoredString("potion")))
-            } catch (_: Exception) {
-                throw AssertionError("an error occurred while read item potion configuration")
-            }
-        }
-        if (map.containsKey("enchants")) {
-            (map["enchants"] as Document).apply {
-                entries.forEach {
-                    val enchantment = Enchantment.getByName(it.key)
-                        ?: throw AssertionError("${it.key} is not a enchants")
-                    itemStack.addUnsafeEnchantment(enchantment, it.value as Int)
-                }
-            }
-        }
+        val itemMeta = itemStack.itemMeta?: Bukkit.getItemFactory().getItemMeta(itemStack.type)!!
         itemStack.itemMeta = itemMeta
         return itemStack
     }
@@ -102,12 +54,11 @@ class ItemStackModel(
     }
 
     fun setName(name: String) {
-        map["name"] = name
-        loadItemStack()
+        setItem(getItemStack().apply { itemMeta?.setDisplayName(name) })
     }
 
     fun setLore(lore: String) {
-        map["lore"] = lore
+        setItem(getItemStack().apply { itemMeta?.lore = listOf(lore) })
     }
 
 }
