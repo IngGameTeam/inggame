@@ -6,20 +6,22 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import java.lang.reflect.Type
 
-class ArrayListRemoveSelector(
-    private val editorView: EditorView<Any>,
+@Suppress("UNCHECKED_CAST")
+class ArrayListRemoveSelector<T: Any>(
+    private val editorView: EditorView<T>,
     override val parentSelector: Selector<*>? = null
-) : Selector<Any>, EditorView<Any> by editorView, Editor {
+) : Selector<T>, EditorView<T> by editorView, Editor {
     override val previousSelector: Selector<*>? get() = parentSelector
-    override val elements: Collection<Any> = (editorView.get() as? ArrayList<*>)?: ArrayList()
+    override val elements: Collection<T> = (editorView.get() as? ArrayList<T>)?: ArrayList()
 
-    override fun select(t: Any, event: InventoryClickEvent) {
+    override fun select(t: T, event: InventoryClickEvent) {
         (editorView.get.invoke() as ArrayList<*>).remove(t)
         parentSelector?.open(event.whoClicked as Player)
     }
 
-    override fun transform(t: Any) = createItem(Material.GRAY_WOOL, "${ChatColor.RED}$t")
+    override fun transform(t: T) = createItem(Material.GRAY_WOOL, "${ChatColor.RED}$t")
 
 
 }

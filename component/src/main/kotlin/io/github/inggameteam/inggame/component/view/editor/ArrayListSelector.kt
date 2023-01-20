@@ -13,12 +13,12 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.full.createType
 
 @Suppress("UNCHECKED_CAST")
-class ArrayListSelector(
-    private val editorView: EditorView<Any>,
+class ArrayListSelector<T : Any>(
+    private val editorView: EditorView<T>,
     override val parentSelector: Selector<*>? = null
-) : Selector<Any>, Editor, EditorView<Any> by editorView, AddButton<Any>, RemoveButton<Any> {
+): Selector<T>, Editor, EditorView<T> by editorView, AddButton<T>, RemoveButton<T> {
     override val previousSelector: Selector<*>? get() = parentSelector
-    override val elements: Collection<Any> = (get() as? ArrayList<*>)?: ArrayList()
+    override val elements: Collection<T> = (get() as? ArrayList<T>)?: ArrayList()
 
     private val genericType get() = editorView.get.invoke()!!.javaClass.kotlin.createType()
 
@@ -40,7 +40,7 @@ class ArrayListSelector(
         super<Selector>.gui(gui)
     }
 
-    override fun select(t: Any, event: InventoryClickEvent) {
+    override fun select(t: T, event: InventoryClickEvent) {
         var e = t
         app.get<EditorRegistry>().getEditor(
             genericType, null, parentSelector, EditorViewImp(editorView, { e = it
@@ -48,6 +48,6 @@ class ArrayListSelector(
         ).open(event.whoClicked as Player)
     }
 
-    override fun transform(t: Any) = createItem(Material.DIRT, "${ChatColor.WHITE}$t")
+    override fun transform(t: T) = createItem(Material.DIRT, "${ChatColor.WHITE}$t")
 
 }
