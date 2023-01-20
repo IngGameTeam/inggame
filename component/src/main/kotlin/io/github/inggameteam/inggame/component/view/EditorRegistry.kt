@@ -13,16 +13,14 @@ import io.github.inggameteam.inggame.mongodb.Model
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
-import kotlin.reflect.full.createType
 import kotlin.reflect.full.isSubclassOf
-import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
 
 
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
 
-    fun getEditor(type: KType, elementView: ElementView?, selector: Selector<*>?, editorView: EditorView<*> = ElementEditorViewImp<Any>(elementView!!)): Editor {
+    fun getEditor(type: KType, elementView: ElementView?, selector: Selector<*>?, paramEditorView: EditorView<*>? = null): Editor {
         val clazz = type.singleClass
             .let { clazz ->
                 println("letClazz=${clazz.kotlin}")
@@ -36,6 +34,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                     catch (_: Throwable) { clazz }
                 }?: clazz
             }
+        val editorView = paramEditorView?: run {
+            ElementEditorViewImp(elementView!!, clazz.kotlin)
+        }
         println("$type(${type.javaType}) --- $clazz")
         this.map[clazz.kotlin]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
