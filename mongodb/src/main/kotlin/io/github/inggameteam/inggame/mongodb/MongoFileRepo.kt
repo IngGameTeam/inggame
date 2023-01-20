@@ -36,6 +36,8 @@ class MongoFileRepo(val file: String) : MongoRepo {
     }
 
     override fun set(col: Collection<Document>) {
+        println(col
+        )
         getFile().writeText(Document().apply { set("_", col) }.toJson())
     }
 
