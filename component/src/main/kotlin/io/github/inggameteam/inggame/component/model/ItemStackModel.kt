@@ -97,12 +97,12 @@ class ItemStackModel(
     }
 
     fun setItem(item: ItemStack) {
-        map["item"] = YamlConfiguration().apply { set("_", item) }.saveToString()
+        itemStackString = YamlConfiguration().apply { set("_", item) }.saveToString()
         loadItemStack()
     }
 
     fun setName(name: String) {
-        itemStackString = name
+        map["name"] = name
         loadItemStack()
     }
 
