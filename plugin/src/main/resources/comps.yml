@@ -31,6 +31,10 @@ view:
   EnumEditor:
     parents: [ defaultView ]
     selector-title: "choose your enum"
+  ItemStackEditor:
+    cancel-edit: "editing cancelled"
+    cannot-edit: "cannot edit"
+    click-item-to-edit: "set item with right click item"
 resource:
   PrintOnMove:
     PrintOnMove: false

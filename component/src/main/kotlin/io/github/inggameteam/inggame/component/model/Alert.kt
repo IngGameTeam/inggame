@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.component.Subs
 import io.github.inggameteam.inggame.mongodb.Model
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
@@ -11,13 +10,6 @@ interface AlertReciver
 class AlertRecivingPlayer(player: Player) : Player by player, AlertReciver
 
 @Model
-@Subs(
-    ChatAlert::class,
-    ActionBarAlert::class,
-    TitleAlert::class,
-    BaseComponentAlert::class,
-    ActionComponent::class
-)
 interface Alert {
     fun send(reciver: AlertReciver, vararg args: Any)
 }

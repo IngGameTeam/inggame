@@ -36,6 +36,7 @@ interface ChatEditor : Editor {
             @Suppress("unused")
             @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
             fun onChat(event: AsyncPlayerChatEvent) {
+                if (event.player != player) return
                 if (semaphore) return
                 semaphore = true
                 val message = event.message

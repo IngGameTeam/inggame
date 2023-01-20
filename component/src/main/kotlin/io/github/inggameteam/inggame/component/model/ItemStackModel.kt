@@ -24,8 +24,8 @@ class ItemStackModel(
     var map: HashMap<String, Any>,
 ) {
 
-    constructor(itemStack: ItemStack) : this(HashMap()) {
-        setItem(itemStack)
+    constructor(itemStack: ItemStack?) : this(HashMap()) {
+        setItem(itemStack?: return)
     }
 
     @BsonIgnore
@@ -99,6 +99,15 @@ class ItemStackModel(
     fun setItem(item: ItemStack) {
         map["item"] = YamlConfiguration().apply { set("_", item) }.saveToString()
         loadItemStack()
+    }
+
+    fun setName(name: String) {
+        map["name"] = name
+        loadItemStack()
+    }
+
+    fun setLore(lore: String) {
+        map["lore"] = lore
     }
 
 }

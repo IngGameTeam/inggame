@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.SubClassRegistry
+import io.github.inggameteam.inggame.component.model.ItemStackModel
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.ElementView
@@ -59,7 +60,8 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
         java.lang.String::class.createType() to code(::StringEditor),
         String::class.createType() to code(::StringEditor),
-        Boolean::class.createType() to code(::BooleanEditor)
+        Boolean::class.createType() to code(::BooleanEditor),
+        ItemStackModel::class.createType() to code(::ItemStackEditor)
     )
 
 }
