@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 class AddToSaveRegistry(componentService: ComponentService, plugin: IngGamePlugin) {
 
     init {
+        println("AddToSaveRegistry")
         if (componentService is SaveComponentService) {
             plugin.addSaveEvent { componentService.saveAll() }
         } else {
