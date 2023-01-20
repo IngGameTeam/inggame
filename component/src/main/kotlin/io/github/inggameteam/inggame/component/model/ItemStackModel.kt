@@ -20,7 +20,7 @@ import org.bukkit.potion.PotionType
 
 @Model
 class ItemStackModel(
-    var itemStackString: String? = null,
+    var itemString: String? = null,
     @BsonExtraElements
     var map: HashMap<String, Any>,
 ) {
@@ -43,7 +43,7 @@ class ItemStackModel(
 
     @Suppress("DEPRECATION")
     private fun newItemStack(): ItemStack {
-        val itemStack = itemStackString?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
+        val itemStack = itemString?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.STONE)
         if (map.containsKey("type")) {
             val type = map.getColoredString("type")
@@ -97,7 +97,7 @@ class ItemStackModel(
     }
 
     fun setItem(item: ItemStack) {
-        itemStackString = YamlConfiguration().apply { set("_", item) }.saveToString()
+        itemString = YamlConfiguration().apply { set("_", item) }.saveToString()
         loadItemStack()
     }
 
