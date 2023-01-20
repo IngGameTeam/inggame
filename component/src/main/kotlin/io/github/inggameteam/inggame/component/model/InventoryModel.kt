@@ -29,7 +29,7 @@ class InventoryModel(
 
     fun setInventory(inventory: Inventory) {
         val contents = inventory.contents
-            .map { it?.run { ItemStackModel(null).apply { setItemStack(it) } } }.run(::ArrayList)
+            .map { it?.run { ItemStackModel(null).apply { itemStack = it } } }.run(::ArrayList)
         if (inventory.type === InventoryType.CHEST) {
             map["type"] = inventory.maxStackSize
         } else map["type"] = inventory.type.name
@@ -48,7 +48,7 @@ class InventoryModel(
             if (title === null) Bukkit.createInventory(null, inventoryType)
             else Bukkit.createInventory(null, inventoryType, title)
         } else Bukkit.createInventory(null, InventoryType.PLAYER)
-        items.forEachIndexed { index, item -> item?.run { inven.setItem(index, item.getItemStack()) } }
+        items.forEachIndexed { index, item -> item?.run { inven.setItem(index, item.itemStack) } }
         return inven
     }
 

@@ -14,10 +14,17 @@ class ItemStackModel(private var itemString: String?) {
     @BsonIgnore
     var cacfffhedItemStack: ItemStack? = null
 
-    fun getItemStack() = if (cacfffhedItemStack !== null) cacfffhedItemStack!! else {
-        loadItemStack()
-        cacfffhedItemStack!!
-    }
+    @get:BsonIgnore
+    @set:BsonIgnore
+    var itemStack: ItemStack
+        set(itemStack: ItemStack) {
+            itemString = YamlConfiguration().apply { set("_", itemStack) }.saveToString()
+            loadItemStack()
+        }
+        get() = if (cacfffhedItemStack !== null) cacfffhedItemStack!! else {
+            loadItemStack()
+            cacfffhedItemStack!!
+        }
 
     private fun loadItemStack() {
         cacfffhedItemStack = newItemStack()
@@ -32,17 +39,14 @@ class ItemStackModel(private var itemString: String?) {
         return itemStack
     }
 
-    fun setItemStack(item: ItemStack) {
-        itemString = YamlConfiguration().apply { set("_", item) }.saveToString()
-        loadItemStack()
-    }
+
 
     fun setName(name: String) {
-        setItemStack(getItemStack().apply { itemMeta?.setDisplayName(name) })
+        itemStack = (itemStack.apply { itemMeta?.setDisplayName(name) })
     }
 
     fun setLore(lore: String) {
-        setItemStack(getItemStack().apply { itemMeta?.lore = listOf(lore) })
+        itemStack = (itemStack.apply { itemMeta?.lore = listOf(lore) })
     }
 
     override fun toString(): String {
