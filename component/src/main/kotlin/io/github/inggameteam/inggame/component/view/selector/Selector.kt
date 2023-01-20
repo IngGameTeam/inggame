@@ -10,6 +10,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
+typealias EmptyElement = Unit
+
 interface Selector<T : Any> : View, OpenView {
 
     val elements: Collection<T>
@@ -28,7 +30,7 @@ interface Selector<T : Any> : View, OpenView {
     override fun open(player: Player) {
         Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
             .list(0, 0, 9, 5, { elements.withBlank() },
-                { ns -> try { transform(ns as T)} catch (_: Throwable) {
+                { ns -> try { if (ns is EmptyElement) throw AssertionError(); transform(ns as T)} catch (_: Throwable) {
                     ItemStack(Material.AIR)
                 } }
             ) { list, gui ->
@@ -51,7 +53,7 @@ interface Selector<T : Any> : View, OpenView {
             }!!.openInventory(player)
     }
 
-    private fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add(Unit) } }.toMutableList()
+    private fun Collection<Any>.withBlank() = run { ArrayList<Any>(this) }.apply { repeat(45 - this.size) { add(EmptyElement) } }.toMutableList()
 
 
 }
