@@ -24,7 +24,7 @@ class ArrayListSelector<T : Any>(
     override val parentSelector: Selector<*>? = null
 ): Selector<T>, Editor, EditorView<T> by editorView, AddButton<T>, RemoveButton<T> {
     override val previousSelector: Selector<*>? get() = parentSelector
-    override val elements: Collection<T> = (get() as? ArrayList<T>)?: ArrayList()
+    override val elements: Collection<T> = list as ArrayList<T>
 
     private val genericType get() =
         (((editorView as ModelView).model.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).kotlin.starProjectedType
@@ -51,6 +51,7 @@ class ArrayListSelector<T : Any>(
 
     override fun removeButton(player: Player) {
         ArrayListRemoveSelector(editorView, this)
+            .open(player)
     }
 
     override fun gui(gui: GuiFrameDSL) {
