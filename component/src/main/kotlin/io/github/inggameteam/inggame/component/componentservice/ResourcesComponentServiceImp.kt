@@ -36,6 +36,7 @@ class ResourcesComponentServiceImp(
     }
 
     override fun saveAll() {
+        println("$semaphore saveALL")
         if (semaphore) return
         semaphore = true
         getAll().map { ns -> encodeNameSpace(ns, codec) }.apply { repo.set(this) }
