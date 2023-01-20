@@ -16,7 +16,7 @@ class ItemStackModel(private var itemString: String?) {
     }
 
     @BsonIgnore
-    private var cachedItemStack: ItemStack? = null
+    var cachedItemStack: ItemStack? = null
 
     fun getItemStack() = if (cachedItemStack !== null) cachedItemStack!! else {
         loadItemStack()
