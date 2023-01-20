@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.view.selector
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.Editor
+import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.editor.FieldEditorImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
@@ -16,6 +17,7 @@ import kotlin.reflect.jvm.javaField
 
 typealias Field = KProperty<*>
 class ModelFieldSelector(
+    private val editorView: EditorView<*>,
     private val modelView: ModelView,
     override val parentSelector: Selector<*>? = null
 ) : ModelView by modelView, Selector<Field>, Editor {
@@ -33,7 +35,7 @@ class ModelFieldSelector(
 
     override fun transform(t: Field) = createItem(Material.OAK_PLANKS, t.name, run {
         try {
-            componentService[nameSpace.name, element.first, Any::class].toString()
+            editorView.get()?.toString()?: ""
         } catch (_: Throwable) { "" }
     })
 

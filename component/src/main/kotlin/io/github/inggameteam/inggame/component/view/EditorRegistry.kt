@@ -50,9 +50,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             val modelView = ModelViewImp(elementView, clazz.kotlin)
             try {
                 subClassRegistry.getSubs(clazz.kotlin)
-                return SubTypeSelector(modelView, selector)
+                return SubTypeSelector(editorView, modelView, selector)
             } catch (_: Throwable) { }
-            return ModelFieldSelector(modelView, selector)
+            return ModelFieldSelector(editorView, modelView, selector)
         }
         return this.map[clazz.kotlin.createType()]!!.invoke(editorView, selector)
     }
