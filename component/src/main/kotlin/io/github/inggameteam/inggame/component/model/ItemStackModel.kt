@@ -31,7 +31,6 @@ class ItemStackModel(private var itemString: String?) {
 //        cacfffhedItemStack = newItemStack()
     }
 
-    @Suppress("DEPRECATION")
     private fun newItemStack(): ItemStack {
         val itemStack = itemString?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.AIR)
