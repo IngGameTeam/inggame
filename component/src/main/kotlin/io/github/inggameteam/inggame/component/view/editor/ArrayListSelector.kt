@@ -4,6 +4,7 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.ModelView
+import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.selector.AddButton
 import io.github.inggameteam.inggame.component.view.selector.RemoveButton
 import io.github.inggameteam.inggame.component.view.selector.Selector
@@ -30,8 +31,9 @@ class ArrayListSelector<T : Any>(
     override fun addButton(player: Player) {
         var e: Any? = null
         app.get<EditorRegistry>().getEditor(
-            genericType, modelView, this,
-            ModelEditorView(modelView, EditorViewImp(editorView, { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e }))
+            genericType, ModelViewImp(modelView, genericType), this,
+            ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(editorView,
+                { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e }))
         ).open(player)
     }
 
@@ -48,7 +50,7 @@ class ArrayListSelector<T : Any>(
     override fun select(t: T, event: InventoryClickEvent) {
         var e = t
         app.get<EditorRegistry>().getEditor(
-            genericType, modelView, this, ModelEditorView(modelView, EditorViewImp(editorView, { e = it
+            genericType, ModelViewImp(modelView, genericType), this, ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(editorView, { e = it
                 (editorView.get.invoke() as ArrayList<Any>).add(e) }, { e }))
         ).open(event.whoClicked as Player)
     }
