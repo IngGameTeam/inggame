@@ -3,7 +3,6 @@ package io.github.inggameteam.inggame.component.view
 import io.github.inggameteam.inggame.component.SubClassRegistry
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.view.editor.*
-import io.github.inggameteam.inggame.component.view.editor.EditorView
 import io.github.inggameteam.inggame.component.view.model.ElementView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.selector.ItemStackPropSelector
@@ -11,7 +10,6 @@ import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.component.view.selector.SubTypeSelector
 import io.github.inggameteam.inggame.mongodb.Model
-import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType

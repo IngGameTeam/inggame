@@ -2,8 +2,6 @@ package io.github.inggameteam.inggame.component.view.editor
 
 import io.github.inggameteam.inggame.component.view.model.ElementView
 import io.github.inggameteam.inggame.component.view.singleClass
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.starProjectedType
 
 @Suppress("UNCHECKED_CAST", "DEPRECATION")
 interface ElementEditorView<T : Any> : EditorView<T>, ElementView {
