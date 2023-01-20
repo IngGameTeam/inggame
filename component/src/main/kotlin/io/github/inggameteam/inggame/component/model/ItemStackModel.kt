@@ -1,21 +1,11 @@
 package io.github.inggameteam.inggame.component.model
 
 import io.github.inggameteam.inggame.mongodb.Model
-import io.github.inggameteam.inggame.utils.ColorUtil.getColoredString
-import org.bson.Document
-import org.bson.codecs.pojo.annotations.BsonExtraElements
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
-import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.configuration.file.YamlConfiguration
-import org.bukkit.enchantments.Enchantment
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.LeatherArmorMeta
-import org.bukkit.inventory.meta.PotionMeta
-import org.bukkit.potion.PotionData
-import org.bukkit.potion.PotionType
 
 
 @Model
@@ -23,8 +13,8 @@ class ItemStackModel(
     var itemString: String? = null,
 ) {
 
-    constructor(itemStack: ItemStack?) : this() {
-        setItem(itemStack?: return)
+    constructor(itemStack: ItemStack) : this() {
+        setItemStack(itemStack)
     }
 
     @BsonIgnore
@@ -48,17 +38,17 @@ class ItemStackModel(
         return itemStack
     }
 
-    fun setItem(item: ItemStack) {
+    fun setItemStack(item: ItemStack) {
         itemString = YamlConfiguration().apply { set("_", item) }.saveToString()
         loadItemStack()
     }
 
     fun setName(name: String) {
-        setItem(getItemStack().apply { itemMeta?.setDisplayName(name) })
+        setItemStack(getItemStack().apply { itemMeta?.setDisplayName(name) })
     }
 
     fun setLore(lore: String) {
-        setItem(getItemStack().apply { itemMeta?.lore = listOf(lore) })
+        setItemStack(getItemStack().apply { itemMeta?.lore = listOf(lore) })
     }
 
 }
