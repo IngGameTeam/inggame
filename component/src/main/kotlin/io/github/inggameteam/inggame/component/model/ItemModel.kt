@@ -44,12 +44,12 @@ class ItemModel(var itemString: String?) {
 
 
     @BsonIgnore
-    fun setName(name: String) {
+    fun name(name: String) {
         itemStack = (itemStack.apply { itemMeta?.setDisplayName(name) })
     }
 
     @BsonIgnore
-    fun setLore(lore: String) {
+    fun lore(lore: String) {
         itemStack = (itemStack.apply { itemMeta?.lore = listOf(lore) })
     }
 

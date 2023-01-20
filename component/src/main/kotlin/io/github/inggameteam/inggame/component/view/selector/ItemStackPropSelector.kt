@@ -22,13 +22,13 @@ class ItemStackPropSelector(
     enum class ItemField(val select: (ItemStackPropSelector, Player) -> Unit) {
         DISPLAY_NAME({ view, player ->
             StringEditor(EditorViewImp(view,
-                { view.getItem().apply { setName(it) }.apply(view::set); view.open(player)},
+                { view.getItem().apply { name(it) }.apply(view::set); view.open(player)},
                 {view.getItem().itemStack.itemMeta?.displayName}))
                 .open(player)
         }),
         LORE({ view, player ->
             StringEditor(EditorViewImp(view,
-                { view.getItem().apply { setLore(it) }.apply(view::set); view.open(player) },
+                { view.getItem().apply { lore(it) }.apply(view::set); view.open(player) },
                 { view.getItem().itemStack.itemMeta?.lore?.joinToString("\n") }))
                 .open(player)
 
