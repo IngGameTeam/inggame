@@ -67,6 +67,6 @@ class ArrayListSelector<T : Any>(
         )
     }
 
-    override fun transform(t: T) = createItem(Material.DIRT, "${ChatColor.WHITE}$t")
+    override fun transform(t: T) = createItem(Material.GRAY_WOOL, "${ChatColor.WHITE}$t")
 
 }
