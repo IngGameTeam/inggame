@@ -10,6 +10,7 @@ import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.component.view.selector.SubTypeSelector
 import io.github.inggameteam.inggame.mongodb.Model
+import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
@@ -36,7 +37,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 }?: clazz
             }
         println("$type(${type.javaType}) --- $clazz")
-        this.map[clazz.kotlin.starProjectedType]?.invoke(editorView, selector)?.run { return this }
+        this.map[clazz.kotlin]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
             return EnumEditor(ModelViewImp(elementView!!, type), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
@@ -51,19 +52,19 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         throw AssertionError("$type Editor Not Found")
     }
 
-    val map: HashMap<KType, (EditorView<*>, Selector<*>?) -> Editor> = hashMapOf(
+    val map: HashMap<KClass<*>, (EditorView<*>, Selector<*>?) -> Editor> = hashMapOf(
         *listOf(
             Byte::class, Short::class, Int::class, Long::class,
             Float::class, Double::class,
             java.lang.Byte::class, java.lang.Short::class, java.lang.Integer::class, java.lang.Long::class,
             java.lang.Float::class, java.lang.Double::class, )
-            .map { it.createType() to code(::NumberEditor) }.toTypedArray(),
+            .map { it to code(::NumberEditor) }.toTypedArray(),
 
-        java.lang.String::class.createType() to code(::StringEditor),
-        String::class.createType() to code(::StringEditor),
-        Boolean::class.createType() to code(::BooleanEditor),
-        ItemModel::class.createType() to code(::ItemStackPropSelector),
-        ArrayList<Any>()::class.createType() to code(::ArrayListSelector)
+        java.lang.String::class to code(::StringEditor),
+        String::class to code(::StringEditor),
+        Boolean::class to code(::BooleanEditor),
+        ItemModel::class to code(::ItemStackPropSelector),
+        ArrayList::class to code(::ArrayListSelector)
     )
 
 }
