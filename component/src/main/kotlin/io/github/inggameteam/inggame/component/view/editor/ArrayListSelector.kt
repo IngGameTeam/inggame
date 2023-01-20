@@ -27,7 +27,7 @@ class ArrayListSelector<T : Any>(
     override val elements: Collection<T> = (get() as? ArrayList<T>)?: ArrayList()
 
     private val genericType get() =
-        (((editorView as ModelView).model.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).kotlin.createType()
+        (((editorView as ModelView).model.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).kotlin.starProjectedType
 
     private val modelView = editorView as ModelView
 
