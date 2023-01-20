@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.*
 import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
+import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.singleClass
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Material
@@ -37,9 +38,11 @@ class ModelFieldSelector(
 
 
     override fun select(t: Field, event: InventoryClickEvent) {
+        val mView = ModelViewImp(this, t.returnType)
         app.get<EditorRegistry>().getEditor(t.returnType, this, this,
 //            FieldEditorImp<Any>(FieldViewImp(this, t))
-            ModelEditorView(modelView, EditorViewImp(modelView,
+            ModelEditorView(
+                mView, EditorViewImp(mView,
                 { getOrNewInstance().run { (t as KMutableProperty<*>).setter.call(this, it) } },
                 { getOrNewInstance().run { t.getter.call(this) } }))
         )
