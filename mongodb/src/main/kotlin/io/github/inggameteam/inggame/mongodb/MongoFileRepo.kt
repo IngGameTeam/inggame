@@ -1,12 +1,16 @@
 package io.github.inggameteam.inggame.mongodb
 
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bson.Document
 import java.io.File
 
-class MongoFileRepo(val file: String) : MongoRepo {
+class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
 
     fun getFile() = File(file)
         .apply { if (!exists()) {
+            if (!plugin.dataFolder.exists()) {
+                throw AssertionError("cannot save cause plugin folder is not exists")
+            }
             parentFile.mkdir()
             createNewFile()
             writeText("""{"_": []}""")

@@ -42,5 +42,5 @@ fun createRepo(name: String, collection: String) = module {
 
 
 fun createFileRepo(name: String, fileDir: String) = module {
-    factory(named(name)) { MongoFileRepo(fileDir) } bind MongoRepo::class
+    factory(named(name)) { MongoFileRepo(fileDir, get()) } bind MongoRepo::class
 }
