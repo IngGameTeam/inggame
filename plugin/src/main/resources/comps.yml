@@ -35,6 +35,9 @@ view:
     cancel-edit: "editing cancelled"
     cannot-edit: "cannot edit"
     click-item-to-edit: "set item with right click item"
+  ItemStackPropSelector:
+    parents: [ defaultView ]
+    selector-title: "edit your item"
 resource:
   PrintOnMove:
     PrintOnMove: false
