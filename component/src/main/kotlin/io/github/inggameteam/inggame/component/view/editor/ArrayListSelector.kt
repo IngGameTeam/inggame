@@ -31,7 +31,7 @@ class ArrayListSelector<T : Any>(
         var e: Any? = null
         app.get<EditorRegistry>().getEditor(
             genericType, modelView, parentSelector,
-            EditorViewImp(editorView, { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e })
+            ModelEditorView(modelView, EditorViewImp(editorView, { e = it; (editorView.get.invoke() as ArrayList<Any>).add(e!!) }, { e }))
         ).open(player)
     }
 
@@ -48,8 +48,8 @@ class ArrayListSelector<T : Any>(
     override fun select(t: T, event: InventoryClickEvent) {
         var e = t
         app.get<EditorRegistry>().getEditor(
-            genericType, modelView, parentSelector, EditorViewImp(editorView, { e = it
-                (editorView.get.invoke() as ArrayList<Any>).add(e) }, { e })
+            genericType, modelView, parentSelector, ModelEditorView(modelView, EditorViewImp(editorView, { e = it
+                (editorView.get.invoke() as ArrayList<Any>).add(e) }, { e }))
         ).open(event.whoClicked as Player)
     }
 
