@@ -16,11 +16,11 @@ class ItemStackModel(private var itemString: String?) {
     }
 
     @BsonIgnore
-    private lateinit var cachedItemStack: ItemStack
+    private var cachedItemStack: ItemStack? = null
 
-    fun getItemStack() = if (::cachedItemStack.isInitialized) cachedItemStack else {
+    fun getItemStack() = if (cachedItemStack !== null) cachedItemStack!! else {
         loadItemStack()
-        cachedItemStack
+        cachedItemStack!!
     }
 
     private fun loadItemStack() {
