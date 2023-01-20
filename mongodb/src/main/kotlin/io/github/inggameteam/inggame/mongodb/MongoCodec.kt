@@ -21,10 +21,10 @@ class MongoCodec(codecs: Collection<Class<*>>) {
         if (document is Document) {
             document.keys.forEach { key ->
                 val obj = document[key]
+                println("-".repeat(200))
                 if (obj is Collection<*>) {
                     document[key] = obj.map { decode(it) }
                 } else if (obj is Document) {
-                    println("-".repeat(200))
                     document[key] = codecRegistry[Class.forName(obj.getString("_t"))]
                         .decode(
                             obj.toBsonDocument().asBsonReader(),
