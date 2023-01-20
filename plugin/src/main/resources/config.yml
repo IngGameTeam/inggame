@@ -25,10 +25,10 @@ file.resource: plugins/inggame/resource.json
 file.game-player: plugins/inggame/game-player.json
 
 save:
-  player:
-  game-resource:
-  view:
-  resource:
+  player: on
+  game-resource: on
+  view: on
+  resource: on
 
 resource.resource: default
 layer.game-resource: resource
