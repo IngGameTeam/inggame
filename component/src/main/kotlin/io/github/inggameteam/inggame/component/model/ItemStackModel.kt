@@ -20,11 +20,12 @@ import org.bukkit.potion.PotionType
 
 @Model
 class ItemStackModel(
+    var item: String? = null,
     @BsonExtraElements
     var map: HashMap<String, Any>,
 ) {
 
-    constructor(itemStack: ItemStack?) : this(HashMap()) {
+    constructor(itemStack: ItemStack?) : this(map = HashMap()) {
         setItem(itemStack?: return)
     }
 
@@ -42,7 +43,7 @@ class ItemStackModel(
 
     @Suppress("DEPRECATION")
     private fun newItemStack(): ItemStack {
-        val itemStack = map["item"]?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
+        val itemStack = item?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.STONE)
         if (map.containsKey("type")) {
             val type = map.getColoredString("type")
@@ -101,7 +102,7 @@ class ItemStackModel(
     }
 
     fun setName(name: String) {
-        map["name"] = name
+        item = name
         loadItemStack()
     }
 
