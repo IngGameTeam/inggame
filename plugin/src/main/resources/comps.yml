@@ -38,6 +38,9 @@ view:
   ItemStackPropSelector:
     parents: [ defaultView ]
     selector-title: "edit your item"
+  ArrayListSelector:
+    parents: [ defaultView ]
+    selector-title: "edit your list"
 resource:
   PrintOnMove:
     PrintOnMove: false
