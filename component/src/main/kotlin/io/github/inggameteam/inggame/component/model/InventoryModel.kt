@@ -29,7 +29,7 @@ class InventoryModel(
 
     fun setInventory(inventory: Inventory) {
         val contents = inventory.contents
-            .map { it?.run { ItemStackModel(HashMap()).apply { setItem(it) } } }.run(::ArrayList)
+            .map { it?.run { ItemStackModel(map=HashMap()).apply { setItem(it) } } }.run(::ArrayList)
         if (inventory.type === InventoryType.CHEST) {
             map["type"] = inventory.maxStackSize
         } else map["type"] = inventory.type.name
