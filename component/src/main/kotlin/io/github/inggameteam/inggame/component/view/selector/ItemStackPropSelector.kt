@@ -33,10 +33,14 @@ class ItemStackPropSelector(
 
         }),
         ITEM({ view, player ->
-            ItemStackEditor(EditorViewImp(view,
-                { (it as ItemStack).apply { view.set(ItemStackModel(null).also { it.itemStack = this })}; view.open(player) },
-                { view.getItem().itemStack }), view)
-                .open(player)
+            try {
+                ItemStackEditor(EditorViewImp(view,
+                    { (it as ItemStack).apply { view.set(ItemStackModel(null).also { it.itemStack = this })}; view.open(player) },
+                    { view.getItem().itemStack }), view)
+                    .open(player)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }),
         GET_ITEM({ view, player ->
             player.inventory.addItem(view.getItem().itemStack)
