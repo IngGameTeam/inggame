@@ -9,11 +9,9 @@ import org.bukkit.inventory.ItemStack
 
 
 @Model
-class ItemStackModel(
-    var itemString: String? = null,
-) {
+class ItemStackModel(private var itemString: String?) {
 
-    constructor(itemStack: ItemStack) : this() {
+    constructor(itemStack: ItemStack) : this(null) {
         setItemStack(itemStack)
     }
 
@@ -32,7 +30,7 @@ class ItemStackModel(
     @Suppress("DEPRECATION")
     private fun newItemStack(): ItemStack {
         val itemStack = itemString?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
-            ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.STONE)
+            ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.AIR)
         val itemMeta = itemStack.itemMeta?: Bukkit.getItemFactory().getItemMeta(itemStack.type)!!
         itemStack.itemMeta = itemMeta
         return itemStack
