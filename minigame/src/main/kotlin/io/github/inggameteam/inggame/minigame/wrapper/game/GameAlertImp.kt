@@ -20,7 +20,7 @@ class GameAlertImp(wrapper: Wrapper) : Wrapper by wrapper, GameAlert {
     override val GAME_START: Alert by nonNull
     override val testItem: ItemModel by nonNull
     override val testInventory: InventoryModel by nonNull
-    override val testArrayList: ArrayList<String> by nonNull
+    override val testArrayList: ArrayList<Alert> by nonNull
     override val testHashSet: HashSet<Alert> by nonNull
 
 }
