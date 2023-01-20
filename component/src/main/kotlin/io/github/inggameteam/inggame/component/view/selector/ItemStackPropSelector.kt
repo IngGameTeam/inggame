@@ -34,7 +34,7 @@ class ItemStackPropSelector(
         }),
         ITEM({ view, player ->
             ItemStackEditor(EditorViewImp(view,
-                { view.getItem().setItem(it as ItemStack); view.open(player) },
+                { (it as ItemStack).apply { view.set(ItemStackModel(this))}; view.open(player) },
                 { view.getItem().getItemStack() }), view)
                 .open(player)
         }),
