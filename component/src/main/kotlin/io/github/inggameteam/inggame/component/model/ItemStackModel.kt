@@ -42,7 +42,7 @@ class ItemStackModel(
 
     @Suppress("DEPRECATION")
     private fun newItemStack(): ItemStack {
-        val itemStack = map["item"]?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
+        val itemStack = map["_item"]?.run { YamlConfiguration.loadConfiguration(toString().reader()).getItemStack("_")
             ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.STONE)
         if (map.containsKey("type")) {
             val type = map.getColoredString("type")
@@ -96,8 +96,7 @@ class ItemStackModel(
     }
 
     fun setItem(item: ItemStack) {
-        map["item"] = YamlConfiguration().apply { set("_", item) }.saveToString()
-        println(map["item"])
+        map["_item"] = YamlConfiguration().apply { set("_", item) }.saveToString()
         loadItemStack()
     }
 
