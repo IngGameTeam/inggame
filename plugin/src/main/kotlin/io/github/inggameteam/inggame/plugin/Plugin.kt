@@ -35,7 +35,6 @@ class Plugin : IngGamePluginImp {
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
-        println("HELLO")
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
     }
 
