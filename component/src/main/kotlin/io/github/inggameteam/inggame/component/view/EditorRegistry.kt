@@ -43,6 +43,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
                 }
             }
         println("$type(${type.javaType}) --- $clazz")
+        this.map[clazz.kotlin.createType()]?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {
             return EnumEditor(ModelViewImp(elementView, clazz.kotlin), editorView, selector)
         } else if (clazz.getAnnotation(Model::class.java) !== null) {
@@ -54,7 +55,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             } catch (_: Throwable) { }
             return ModelFieldSelector(editorView, modelView, selector)
         }
-        return this.map[clazz.kotlin.createType()]!!.invoke(editorView, selector)
+        throw AssertionError("$type Editor Not Found")
     }
 
     val map: HashMap<KType, (EditorView<*>, Selector<*>?) -> Editor> = hashMapOf(
