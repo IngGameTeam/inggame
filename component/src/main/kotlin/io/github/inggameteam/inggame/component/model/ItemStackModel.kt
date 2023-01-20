@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 class ItemStackModel(private var itemString: String?) {
 
     @BsonIgnore
-    var cacfffhedItemStack: ItemStack? = null
+    private var cacfffhedItemStack: ItemStack? = null
 
     @get:BsonIgnore
     @set:BsonIgnore
