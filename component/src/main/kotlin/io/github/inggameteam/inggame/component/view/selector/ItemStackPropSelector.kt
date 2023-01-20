@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.model.ItemStackModel
+import io.github.inggameteam.inggame.component.model.ItemStackModel.Companion.toItemModel
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.*
 import org.bukkit.Material
@@ -35,7 +36,7 @@ class ItemStackPropSelector(
         ITEM({ view, player ->
             try {
                 ItemStackEditor(EditorViewImp(view,
-                    { (it as ItemStack).apply { view.set(ItemStackModel(null).also { it.itemStack = this })}; view.open(player) },
+                    { (it as ItemStack).apply { view.set(this.toItemModel())}; view.open(player) },
                     { view.getItem().itemStack }), view)
                     .open(player)
             } catch (e: Exception) {

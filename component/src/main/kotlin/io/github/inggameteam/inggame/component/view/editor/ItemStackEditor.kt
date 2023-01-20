@@ -14,7 +14,6 @@ class ItemStackEditor(editorView: EditorView<Any>, override val previousSelector
     : Editor, EditorView<Any> by editorView {
 
     override fun open(player: Player) {
-        println("Open${javaClass.simpleName}")
         val listener = object : Listener {
             @Suppress("unused")
             @EventHandler

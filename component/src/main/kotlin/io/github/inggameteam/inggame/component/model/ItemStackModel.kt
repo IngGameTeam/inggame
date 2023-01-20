@@ -53,4 +53,8 @@ class ItemStackModel(private var itemString: String?) {
         return itemString?: "null"
     }
 
+    companion object {
+        fun ItemStack.toItemModel(): ItemStackModel = ItemStackModel(null).apply { itemStack = this@toItemModel }
+    }
+
 }
