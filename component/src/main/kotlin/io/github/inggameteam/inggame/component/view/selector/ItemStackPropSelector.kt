@@ -36,6 +36,7 @@ class ItemStackPropSelector(
             ItemStackEditor(EditorViewImp(view,
                 { view.getItem().setItem(it as ItemStack); view.open(player) },
                 { view.getItem().getItemStack() }), view)
+                .open(player)
         }),
         GET_ITEM({ view, player ->
             player.inventory.addItem(view.getItem().getItemStack())
