@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack
 @Model
 class ItemStackModel(private var itemString: String?) {
 
-    @BsonIgnore
-    private var cacfffhedItemStack: ItemStack? = null
+//    @BsonIgnore
+//    private var cacfffhedItemStack: ItemStack? = null
 
     @get:BsonIgnore
     @set:BsonIgnore
@@ -21,10 +21,10 @@ class ItemStackModel(private var itemString: String?) {
             itemString = YamlConfiguration().apply { set("_", value) }.saveToString()
             loadItemStack()
         }
-        get() = if (cacfffhedItemStack !== null) cacfffhedItemStack!! else {
+        get() /* =if (cacfffhedItemStack !== null) cacfffhedItemStack!! else*/ {
             loadItemStack()
 //            cacfffhedItemStack!!
-            newItemStack()
+            return newItemStack()
         }
 
     private fun loadItemStack() {
