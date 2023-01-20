@@ -10,7 +10,7 @@ interface ElementEditorView<T : Any> : EditorView<T>, ElementView {
         try { componentService[nameSpace.name, element.first, Any::class] as T }
         catch(_: Throwable) {
             try {
-                println(javaClass.genericSuperclass.singleClass)
+                println("generic=${javaClass.genericSuperclass.singleClass}")
                 javaClass.genericSuperclass.singleClass.newInstance() as T
             } catch (_: Throwable) {
                 null
