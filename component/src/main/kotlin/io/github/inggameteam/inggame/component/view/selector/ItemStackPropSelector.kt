@@ -17,6 +17,8 @@ class ItemStackPropSelector(
 
     private fun getItem(): ItemStackModel = ((get() as? ItemStackModel)?: ItemStackModel(null))
 
+    private fun ItemStackModel.setItem() = set.invoke(this)
+
     enum class ItemField(val select: (ItemStackPropSelector, Player) -> Unit) {
         DISPLAY_NAME({ view, player ->
             StringEditor(EditorViewImp(view,
