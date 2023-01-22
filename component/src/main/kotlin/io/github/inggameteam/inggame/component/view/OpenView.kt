@@ -4,4 +4,5 @@ import org.bukkit.entity.Player
 
 interface OpenView {
     fun open(player: Player)
+
 }

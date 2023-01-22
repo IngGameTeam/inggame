@@ -1,9 +1,6 @@
 package io.github.inggameteam.inggame.component
 
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
-import io.github.inggameteam.inggame.component.componentservice.LayeredComponentServiceImp
-import io.github.inggameteam.inggame.component.componentservice.ResourcesComponentServiceImp
+import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.SimpleWrapper
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
@@ -47,16 +44,21 @@ fun createPropertyRegistry() = module(createdAtStart = true) {
 }
 
 fun createEmpty(name: String) = module {
-    single(named(name)) { EmptyComponentServiceImp() } bind ComponentService::class
+    single(named(name)) { EmptyComponentServiceImp(name) } bind ComponentService::class
 }
 
 fun createResource(name: String, parentComponent: String) = module {
-    single(named(name)) { ResourcesComponentServiceImp(get(named(name)), get(), get(named(parentComponent))) } bind ComponentService::class
+    single(named(name)) { ResourceComponentServiceImp(get(named(name)), get(), get(named(parentComponent)), name) } bind ComponentService::class
 }
 
 fun createLayer(collection: String, parentComponent: String) = module {
-    single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent))) } bind ComponentService::class
+    single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent)), collection) } bind ComponentService::class
 }
+
+fun createMultiParents(name: String, parentComponent: String, components: Collection<String>, defaultComponent: String, key: String) = module {
+    single(named(name)) { MultiParentsComponentService(name, get(named(parentComponent)), components.map { get(named(it)) }, get(named(defaultComponent)), key)}
+}
+
 
 inline fun <reified T : Any> createSingleton(crossinline block: (Wrapper) -> T, nameSpace: Any, component: String) = module {
     single { block(SimpleWrapper(nameSpace, get(named(component)))) } bind T::class

@@ -1,13 +1,11 @@
 package io.github.inggameteam.inggame.component.componentservice
 
-import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
-import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KClass
 
 interface EmptyComponentService : ComponentService
 
-class EmptyComponentServiceImp : EmptyComponentService {
+class EmptyComponentServiceImp(override val name: String) : EmptyComponentService {
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>) = throw NameSpaceNotFoundException(nameSpace)
     override fun get(name: Any) = throw AssertionError("error occurred while perform empty component")
     override val parentComponent get() = this

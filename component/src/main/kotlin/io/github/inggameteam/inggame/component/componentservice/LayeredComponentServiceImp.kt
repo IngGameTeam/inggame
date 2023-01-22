@@ -14,6 +14,7 @@ open class LayeredComponentServiceImp(
     private val repo: MongoRepo,
     private val codec: MongoCodec,
     override val parentComponent: ComponentService,
+    override val name: String,
 ) : LayeredComponentService, AbstractNameSpaceComponentService() {
 
     private val objectList = CopyOnWriteArraySet<NameSpace>()

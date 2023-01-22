@@ -5,7 +5,7 @@ import org.bukkit.entity.Player
 
 class BooleanEditor(
     view: EditorView<Boolean>,
-    override val previousSelector: Selector<*>? = null,
+    override val previousSelector: Selector<*>? = null
 ) : Editor, EditorView<Boolean> by view {
 
     override fun open(player: Player) {

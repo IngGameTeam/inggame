@@ -10,6 +10,7 @@ import kotlin.reflect.KClass
 
 interface ComponentService {
 
+    val name: String
     val parentComponent: ComponentService
     val layerPriority: Int
 
@@ -28,19 +29,6 @@ interface ComponentService {
             }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    operator fun <T : Any> get(nameSpace: NameSpace, key: Any, clazz: KClass<T>): T =
-        nameSpace.elements.getOrDefault(key, null)?.run { this as T }
-            ?: run {
-                nameSpace.parents.forEach {
-                    try {
-                        return get(it, key, clazz)
-                    } catch (_: NameSpaceNotFoundException) {
-                    }
-                }
-                throw AssertionError("'$nameSpace' namespace '$key' key does not exist")
-            }
-
     fun findComponentService(nameSpace: Any): ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace }
@@ -56,9 +44,6 @@ interface ComponentService {
     }
 
     fun has(nameSpace: Any, key: Any): Boolean =
-        try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
-
-    fun has(nameSpace: NameSpace, key: Any): Boolean =
         try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
 
     fun set(nameSpace: Any, key: Any, value: Any?)

@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.mongodb.createModelRegistryAll
 import io.github.inggameteam.inggame.mongodb.createMongoModule
 import io.github.inggameteam.inggame.mongodb.createRepo
+import io.github.inggameteam.inggame.player.createPlayerInstanceModule
 import io.github.inggameteam.inggame.player.createPlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil.matchClass
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -37,6 +38,14 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 *config.getConfigurationSection("layer")?.run {
                     getKeys(false).map { key -> createLayer(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
+                *config.getConfigurationSection("multi-parents")?.run {
+                    getKeys(false).map { key -> createMultiParents(key,
+                        getString("$key.parent")!!,
+                        getStringList("$key.components"),
+                        getString("$key.default")!!,
+                        getString("$key.key")!!
+                    ) }.toTypedArray()
+                } ?: emptyArray(),
                 *config.getConfigurationSection("resource")?.run {
                     getKeys(false).map { key -> createResource(key, getString(key)!!) }.toTypedArray()
                 } ?: emptyArray(),
@@ -46,6 +55,7 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 createGameHandlers(),
                 *config.getConfigurationSection("service")?.run {
                     listOfNotNull(
+                        getString("player-instance")?.run(::createPlayerInstanceModule),
                         getString("player")?.run(::createPlayerModule),
                         getString("game-instance")?.run(::createGameService),
                         getString("game-resource")?.run(::createGameResource),

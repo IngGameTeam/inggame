@@ -35,7 +35,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                         }.apply(::println)
                     } else {
                         NameSpaceSelector(
-                            ComponentServiceViewImp(ViewImp(app, this@run), componentService)
+                            ComponentServiceViewImp(ViewImp(app, this@run, player), componentService)
                         ).open(player)
                     }
                 }
