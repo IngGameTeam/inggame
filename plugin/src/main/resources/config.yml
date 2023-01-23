@@ -34,7 +34,7 @@ save:
   resource: on
 
 layer.view-player: multi-player
-resource.korean: resource
+resource.korean: language-resource
 
 resource.view: default
 resource.resource: view
@@ -42,7 +42,7 @@ resource.resource: view
 resource.game-resource: default
 layer.custom-game: game-resource
 
-layer.game-instance: resource
+layer.game-instance: language-resource
 layer.game-player: game-instance
 
 layer.player-instance: multi-player
