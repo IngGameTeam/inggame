@@ -30,9 +30,10 @@ file.custom-game: plugins/inggame/custom-game.json
 
 save:
   player-instance: on
-  game-resource: on
   view: on
-  resource: on
+  view-resource: on
+  game-resource: on
+  custom-game: on
 
 
 resource.korean: resource
