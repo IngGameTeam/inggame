@@ -30,28 +30,42 @@ save:
   view: on
   resource: on
 
-resource.resource: default
-layer.game-resource: resource
-layer.game-instance: game-resource
-layer.game-player: player-instance
-layer.player-instance: game-instance
-resource.singleton: default
 resource.view: default
+resource.resource: view
 
-multi-parents.player:
-  parent: player-instance
-  components:
-    - resource
-  default: resource
-  key: language
+resource.game-resource: default
+layer.custom-game: game-resource
 
-# rootComponentService property on MultiParentComponentService
+layer.game-instance: resource
+layer.game-player: game-instance
+
+layer.player-instance: multi-player
+resource.singleton: default
+
+multi-parents:
+  language-resource:
+    root: player
+    components:
+      - resource
+      - korean
+  resource:
+    components:
+      - custom-game
+      - view-resource
+  multi-player:
+    root: player
+    components:
+      - view-player
+      - game-player
+  player:
+    components:
+      - player-instance
 
 service:
   player: player
   player-instance: player-instance
   game-instance: game-instance
-  game-resource: game-resource
+  game-resource: custom-game
   game-player: game-player
 
 singleton:

@@ -55,8 +55,8 @@ fun createLayer(collection: String, parentComponent: String) = module {
     single(named(collection)) { LayeredComponentServiceImp(get(named(collection)), get(), get(named(parentComponent)), collection) } bind ComponentService::class
 }
 
-fun createMultiParents(name: String, rootComponent: String, components: Collection<String>, key: String?) = module {
-    single(named(name)) { MultiParentsComponentService(name, get(named(rootComponent)), components.map { get(named(it)) }, key)} bind ComponentService::class
+fun createMultiParents(name: String, rootComponent: String?, components: Collection<String>, key: String?) = module {
+    single(named(name)) { MultiParentsComponentService(name, rootComponent?.run { get(named(this)) }, components.map { get(named(it)) }, key)} bind ComponentService::class
 }
 
 
