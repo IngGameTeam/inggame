@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 @Suppress("NAME_SHADOWING")
 class MultiParentsComponentService(
     override val name: String,
-    private val rootComponent: ComponentService?,
+    private val rootComponent: () -> ComponentService?,
     private val components: Collection<ComponentService>,
     private val parentKey: Any?
 ) : ComponentService, AbstractNameSpaceComponentService() {
@@ -24,7 +24,7 @@ class MultiParentsComponentService(
     override val layerPriority: Int by lazy { return@lazy components.maxOf { it.layerPriority } }
 
     private fun findParent(nameSpace: Any): ComponentService {
-        return try { rootComponent!![nameSpace, parentKey!!, Any::class]
+        return try { rootComponent()!![nameSpace, parentKey!!, Any::class]
             .let { name -> components.firstOrNull { it.name == name }!! } }
         catch (_: Throwable) { components.first() }
     }

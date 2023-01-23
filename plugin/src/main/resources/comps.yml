@@ -1,4 +1,4 @@
-view:
+view-resource:
   defaultView:
     previous-page: "&fPrev page"
     next-page: "&fNext page"
@@ -46,7 +46,7 @@ view:
   CollectionRemoveSelector:
     parents: [ defaultView ]
     selector-title: "remove your element"
-resource:
+game-resource:
   PrintOnMove:
     PrintOnMove: false
   hub.parents: [ Hub ]
