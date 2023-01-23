@@ -49,7 +49,7 @@ layer.custom-game: game-resource
 layer.game-instance: language-resource
 layer.game-player: game-instance
 
-layer.player-instance: multi-player
+layer.player-instance: language-resource
 resource.singleton: default
 
 
@@ -66,11 +66,12 @@ multi-parents:
       - view-resource
   multi-player:
     components:
+      - player-instance
       - view-player
       - game-player
   player:
     components:
-      - player-instance
+      - multi-player
 
 service:
   player: player
