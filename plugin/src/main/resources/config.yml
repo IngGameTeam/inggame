@@ -40,7 +40,6 @@ resource.korean: resource
 layer.view-player: multi-player
 
 resource.view: default
-resource.resource: view
 
 resource.game-resource: default
 layer.custom-game: game-resource
