@@ -9,6 +9,6 @@ fun createPlayerModule(collection: String) = module(createdAtStart = true) {
 }
 
 fun createPlayerInstanceModule(collection: String) = module(createdAtStart = true) {
-    single { PlayerInstanceService(get(named(collection))) }
     single { PlayerLoader(get(), get()) }
+    single { PlayerInstanceService(get(named(collection))) }
 }
