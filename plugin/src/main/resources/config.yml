@@ -45,6 +45,7 @@ multi-parents.player:
   default: resource
   key: language
 
+# rootComponentService property on MultiParentComponentService
 
 service:
   player: player

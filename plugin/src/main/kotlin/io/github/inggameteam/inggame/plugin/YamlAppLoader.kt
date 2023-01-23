@@ -40,10 +40,9 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 } ?: emptyArray(),
                 *config.getConfigurationSection("multi-parents")?.run {
                     getKeys(false).map { key -> createMultiParents(key,
-                        getString("$key.parent")!!,
+                        getString("$key.root")!!,
                         getStringList("$key.components"),
-                        getString("$key.default")!!,
-                        getString("$key.key")!!
+                        getString("$key.key")
                     ) }.toTypedArray()
                 } ?: emptyArray(),
                 *config.getConfigurationSection("resource")?.run {

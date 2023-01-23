@@ -1,4 +1,3 @@
-@file:Suppress("NAME_SHADOWING")
 
 package io.github.inggameteam.inggame.component.componentservice
 
@@ -8,6 +7,7 @@ import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KClass
 
+@Suppress("NAME_SHADOWING")
 interface ComponentService {
 
     val name: String
