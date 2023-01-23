@@ -42,6 +42,7 @@ layer.game-player: game-instance
 layer.player-instance: multi-player
 resource.singleton: default
 
+
 multi-parents:
   language-resource:
     root: player
@@ -53,7 +54,6 @@ multi-parents:
       - custom-game
       - view-resource
   multi-player:
-    root: player
     components:
       - view-player
       - game-player
