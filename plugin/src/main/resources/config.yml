@@ -37,7 +37,7 @@ save:
 resource.korean: resource
 
 
-layer.view-player: multi-player
+layer.view-player: language-resource
 
 resource.view: default
 
