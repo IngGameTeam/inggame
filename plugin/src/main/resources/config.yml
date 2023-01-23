@@ -45,7 +45,6 @@ resource.singleton: default
 
 multi-parents:
   language-resource:
-    root: player
     components:
       - resource
       - korean
