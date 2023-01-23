@@ -55,6 +55,7 @@ resource.singleton: default
 
 multi-parents:
   language-resource:
+    key: language
     root: player
     components:
       - resource
