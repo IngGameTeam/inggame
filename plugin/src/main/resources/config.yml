@@ -23,6 +23,7 @@ file.game-resource: plugins/inggame/game-resource.json
 file.view: plugins/inggame/view.json
 file.resource: plugins/inggame/resource.json
 file.game-player: plugins/inggame/game-player.json
+file.view-player: plugin/inggame/view-player.json
 
 save:
   player-instance: on
