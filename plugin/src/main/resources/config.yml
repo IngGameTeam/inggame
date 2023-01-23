@@ -31,8 +31,7 @@ save:
   view: on
   resource: on
 
-layer.view-player: view-player
-
+layer.view-player: resource
 
 resource.view: default
 resource.resource: view
