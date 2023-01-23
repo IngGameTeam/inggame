@@ -25,7 +25,6 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
     fun getEditor(type: KType, elementView: ElementView?, selector: Selector<*>?, paramEditorView: EditorView<*>? = null): Editor {
         val clazz = type.singleClass
             .let { clazz ->
-                println("letClazz=${clazz.kotlin}")
                 elementView?.run {
                     try {
                         val any = componentService[nameSpace.name, element.first, Any::class]
@@ -40,7 +39,6 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         val editorView = paramEditorView?: run {
             ElementEditorViewImp<Any>(modelView)
         }
-        println("$type(${type.javaType}) --- $clazz")
         this.map.entries.firstOrNull { clazz.kotlin.isSubclassOf(it.key) }
             ?.value?.invoke(editorView, selector)?.run { return this }
         if (clazz.isEnum) {

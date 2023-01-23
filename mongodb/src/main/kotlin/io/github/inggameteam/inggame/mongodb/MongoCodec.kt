@@ -18,8 +18,6 @@ class MongoCodec(codecs: Collection<Class<*>>) {
 
     fun decode(document: Any?): Any? {
         if (document === null) return null
-        println("-".repeat(200))
-        println(document.javaClass)
         if (document is Document) {
             return codecRegistry[Class.forName(document.getString("_t"))]
                 .decode(
