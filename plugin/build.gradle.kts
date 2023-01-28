@@ -3,6 +3,7 @@ dependencies {
         ":utils",
         ":mongodb",
         ":component",
+        ":component-view",
         ":player",
         ":minigame",
         ":guiapi",

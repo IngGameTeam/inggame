@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.bukkit.plugin.PluginDescriptionFile
@@ -17,16 +18,14 @@ class Plugin : IngGamePluginImp {
             : super(loader, description, ClassUtil.getJarFile(Plugin::class.java).parentFile, file)
 
     private var appSemaphore = false
-    private val appDelegate = lazy {
-        if (appSemaphore) throw AssertionError("an error occurred while get app while initializing app")
-        appSemaphore = true
-        val result = loadApp(this)
-        appSemaphore = false
-        result
-    }
+    private val appDelegate = lazy { loadApp(this) }
     val app: Koin
         get() = if (allowTask || !isEnabled) {
-            appDelegate.getValue(this, ::app)
+            if (appSemaphore) throw AssertionError("an error occurred while get app while initializing app")
+            appSemaphore = true
+            val result = appDelegate.getValue(this, ::app)
+            appSemaphore = false
+            result
         } else throw AssertionError("an error occurred while get app before initializing plugin")
 
 
@@ -35,6 +34,7 @@ class Plugin : IngGamePluginImp {
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
+        app.getAll<ComponentService>().forEach { AddToSaveRegistry(it, this) }
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
     }
 

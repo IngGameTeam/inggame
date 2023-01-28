@@ -8,5 +8,6 @@ include(
     "guiapi",
     "command",
     "world",
-    "party"
+    "party",
+    "component-view"
 )

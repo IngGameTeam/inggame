@@ -5,7 +5,6 @@ import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.SimpleWrapper
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.component.model.*
-import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
@@ -35,9 +34,6 @@ fun createSubClassRegistry() = module(createdAtStart = true) {
     singleOf(::SubClassRegistry)
 }
 
-fun createEditorRegistry() = module(createdAtStart = true) {
-    singleOf(::EditorRegistry)
-}
 
 fun createPropertyRegistry() = module(createdAtStart = true) {
     singleOf(::PropertyRegistry)
@@ -58,6 +54,10 @@ fun createLayer(collection: String, parentComponent: String) = module {
 fun createMultiParents(name: String, rootComponent: String?, components: Collection<String>, key: String?) = module {
     single(named(name)) { MultiParentsComponentService(name,
         { rootComponent?.run { get(named(this)) } }, components.map { get(named(it)) }, key)} bind ComponentService::class
+}
+
+fun createRootComponentService(rootName: String, component: String) = module {
+    single(named(rootName)) { get<ComponentService>(named(component)) }
 }
 
 
