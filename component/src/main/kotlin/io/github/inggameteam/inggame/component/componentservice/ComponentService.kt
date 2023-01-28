@@ -19,12 +19,12 @@ interface ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
-                try { return parentComponent[nameSpace, key, clazz] } catch (_: NameSpaceNotFoundException) { }
+                try { return parentComponent[nameSpace, key, clazz] } catch (_: Throwable) { }
                 throw NameSpaceNotFoundException(nameSpace)
             }
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
-                ns.parents.forEach { try { return get(it, key, clazz) } catch (_: NameSpaceNotFoundException) { } }
+                ns.parents.forEach { try { return get(it, key, clazz) } catch (_: Throwable) { } }
                 throw NameSpaceNotFoundException(nameSpace)
             }
     }
