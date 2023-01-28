@@ -14,5 +14,5 @@ class ModelEditorView<T : Any>(val modelView: ModelView, editorView: EditorView<
     override val plugin: IngGamePlugin get() = modelView.plugin
     override val player: Player get() = modelView.player
     override val selector: Selector get() = modelView.selector
-
+    override val clazz: String get() = modelView.clazz
 }
