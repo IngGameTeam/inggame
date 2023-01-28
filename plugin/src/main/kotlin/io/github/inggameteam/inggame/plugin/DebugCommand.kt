@@ -25,7 +25,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val key = split[2]
                     measureTimeMillis {
                         repeat (1000) {
-                            source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
+                            componentService.get(nameSpace, key, Any::class)
                         }
                     }.run(Any::toString).apply(source::sendMessage)
                 }
