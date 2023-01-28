@@ -22,6 +22,7 @@ class ComponentServiceRegisterEvent(
     private val modules: ArrayList<Module> = ArrayList()
 
     fun addModule(name: String, block: (ComponentService) -> Any) {
+        root.findComponentServiceDSL(name).isLayer = true
         modules.add(newModule(name, block))
     }
 

@@ -4,11 +4,11 @@ class ComponentServiceDSL(
     val name: String,
     val parents: ArrayList<String>,
     val registry: ArrayList<ComponentServiceDSL>,
-    val isLayer: Boolean = false,
+    var isLayer: Boolean = false,
     var key: String? = null
 ) {
 
-    private fun findComponentServiceDSL(name: String): ComponentServiceDSL {
+    fun findComponentServiceDSL(name: String): ComponentServiceDSL {
         return registry.firstOrNull { it.name == name }
             ?: ComponentServiceDSL(name, ArrayList(), registry).apply(registry::add)
     }
