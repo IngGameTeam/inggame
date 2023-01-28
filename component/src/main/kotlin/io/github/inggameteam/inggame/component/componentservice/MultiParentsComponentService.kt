@@ -29,8 +29,10 @@ class MultiParentsComponentService(
         catch (_: Throwable) { components }
     }
 
-    fun <T, R> Iterable<T>.firstSuccess(block: (T) -> R, throws: Throwable): R {
-        this.forEach { try { return block(it) } catch (_: Throwable) { } }
+    private fun <T, R> Iterable<T>.firstSuccess(block: (T) -> R, throws: Throwable): R {
+        val throwables = ArrayList<Throwable>()
+        this.forEach { try { return block(it) } catch (e: Throwable) { throwables.add(e) } }
+        throwables.forEach(Throwable::printStackTrace)
         throw throws
     }
 
