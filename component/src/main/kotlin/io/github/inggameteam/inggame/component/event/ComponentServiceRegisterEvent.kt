@@ -86,9 +86,7 @@ class ComponentServiceRegisterEvent(
             }
         }
     }.run {
-        val result = ArrayList(this)
-        result.addAll(modules)
-        result
+        arrayListOf(*this.toTypedArray(), *modules.toTypedArray())
     }
 
     override fun getHandlers(): HandlerList { return HANDLERS }
