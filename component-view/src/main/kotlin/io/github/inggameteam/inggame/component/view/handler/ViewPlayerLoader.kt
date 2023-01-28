@@ -6,5 +6,4 @@ import io.github.inggameteam.inggame.component.helper.LayeredPlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 
 class ViewPlayerLoader(componentService: ComponentService, plugin: IngGamePlugin) :
-    LayeredPlayerLoader(componentService as LayeredComponentService, plugin) {
-}
+    LayeredPlayerLoader(componentService as LayeredComponentService, plugin)
