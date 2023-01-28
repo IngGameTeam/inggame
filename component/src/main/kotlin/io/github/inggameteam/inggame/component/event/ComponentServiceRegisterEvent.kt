@@ -14,7 +14,7 @@ class ComponentServiceRegisterEvent(
     private val instanceRegistry: ComponentServiceDSL = root.run { "root" isMulti true cs "player" isMulti true cs "player-instance" cs "multi-player" isMulti true csc { } },
     private val languageRegistry: ComponentServiceDSL = root.run { "language" key "language" csc {
         "resource" csc { "singleton" cs "default" }
-        "english" cs "resource"
+        "english" cs "resource" isMulti true
     } },
     private val resourceRegistry: ComponentServiceDSL = root.findComponentServiceDSL("resource"),
 ) : Event() {
