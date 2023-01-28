@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame
 
+import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
@@ -7,42 +8,45 @@ import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ClassRegistry
+import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
+import org.bukkit.event.EventHandler
+import org.bukkit.plugin.Plugin
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-fun registerGameModels() = module(createdAtStart = true) {
-    factory(named(randomUUID().fastToString())) {
-        ClassRegistry(
-            PrintOnMove::class,
-            GameHelper::class,
-            JoinHubOnJoinServer::class,
-            SectorLoader::class,
-            GameServer::class,
-            Game::class,
-            GameAlert::class,
-            GPlayer::class,
+class GameModule(plugin: Plugin) : HandleListener(plugin) {
 
-        )
+    @Suppress("unused")
+    @EventHandler
+    fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
+        event.addModule(module(createdAtStart = true) {
+            singleOf(::JoinHubOnJoinServer)
+            singleOf(::PrintOnMove)
+            singleOf(::GameHelper)
+
+            factory(named(randomUUID().fastToString())) {
+                ClassRegistry(
+                    PrintOnMove::class,
+                    GameHelper::class,
+                    JoinHubOnJoinServer::class,
+                    SectorLoader::class,
+                    GameServer::class,
+                    Game::class,
+                    GameAlert::class,
+                    GPlayer::class,
+
+                    )
+            }
+        })
+        event.addModule("game-player", ::GamePlayerService)
+        event.addModule(module { single {
+            GameInstanceService(get(), get(), get(), get(named("game-instance")))
+        } })
+        event.addModule("game-resource", ::GameResourceService)
+        event.registerInstance("game-player", "game-instsance")
+        event.registerInstance("game-resource")
     }
-}
-
-fun createGameService(name: String) = module {
-    single { GameInstanceService(get(), get(), get(), get(named(name))) }
-}
-
-fun createGameResource(name: String) = module {
-    single { GameResourceService(get(named(name))) }
-}
-
-fun createGamePlayerService(name: String) = module {
-    single { GamePlayerService(get(named(name))) }
-}
-
-fun createGameHandlers() = module(createdAtStart = true) {
-    singleOf(::JoinHubOnJoinServer)
-    singleOf(::PrintOnMove)
-    singleOf(::GameHelper)
 }

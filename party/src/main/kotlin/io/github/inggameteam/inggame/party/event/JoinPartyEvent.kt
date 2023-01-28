@@ -1,12 +1,12 @@
 package io.github.inggameteam.inggame.party.event
 
-import io.github.inggameteam.party.Party
-import io.github.inggameteam.player.GPlayer
+import io.github.inggameteam.inggame.party.wrapper.Party
+import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
 class JoinPartyEvent(
-    val player: GPlayer,
+    val player: PartyPlayer,
     val joined: Party,
 ) : Event() {
     override fun getHandlers(): HandlerList { return HANDLERS }

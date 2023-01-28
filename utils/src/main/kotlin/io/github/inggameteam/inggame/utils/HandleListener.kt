@@ -6,6 +6,6 @@ import org.bukkit.plugin.Plugin
 open class HandleListener(plugin: Plugin) : Listener, Handler {
 
     init {
-        Bukkit.getPluginManager().registerEvents(this, plugin)
+        plugin.server.pluginManager.registerEvents(this, plugin)
     }
 }

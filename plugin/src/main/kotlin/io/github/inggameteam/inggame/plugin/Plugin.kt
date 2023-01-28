@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.minigame.GameModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.bukkit.plugin.PluginDescriptionFile
@@ -31,6 +32,7 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
+        GameModule(this)
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
