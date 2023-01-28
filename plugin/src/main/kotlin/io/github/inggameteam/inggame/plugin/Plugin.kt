@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.minigame.GameModule
+import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import org.bukkit.plugin.PluginDescriptionFile
@@ -15,6 +16,7 @@ import java.io.File
 class Plugin : IngGamePluginImp {
 
     constructor()
+
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, ClassUtil.getJarFile(Plugin::class.java).parentFile, file)
 
@@ -32,6 +34,7 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
+        PlayerModule(this)
         GameModule(this)
         app
         load(app, File(dataFolder, "comps.yml"))

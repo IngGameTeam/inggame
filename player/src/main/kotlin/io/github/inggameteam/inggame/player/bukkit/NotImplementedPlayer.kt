@@ -476,11 +476,11 @@ class NotImplementedPlayer : Player {
         throw AssertionError("player is offline")
     }
 
-    override fun <T : Projectile?> launchProjectile(projectile: Class<out T>): T {
+    override fun <T : Projectile?> launchProjectile(projectile: Class<out T>): T & Any {
         throw AssertionError("player is offline")
     }
 
-    override fun <T : Projectile?> launchProjectile(projectile: Class<out T>, velocity: Vector?): T {
+    override fun <T : Projectile?> launchProjectile(projectile: Class<out T>, velocity: Vector?): T & Any {
         throw AssertionError("player is offline")
     }
 
