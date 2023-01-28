@@ -19,6 +19,7 @@ class SubTypeSelector(
     override val parentSelector: Selector<*>? = null
 ) : ModelView by modelView, Selector<Model>, Editor {
     override val previousSelector: Selector<*>? get() = parentSelector
+
     override val elements: Collection<Model> get() =
         app.get<SubClassRegistry>().getSubs(model.singleClass.kotlin).map { it.createType() }
 

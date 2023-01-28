@@ -42,13 +42,13 @@ interface ChatEditor : Editor {
                 val message = event.message
                 val iTask = block@{
                     if (message == "\$cancel") {
-                        player.sendMessage(selector.VIEW_CANCEL_EDIT)
+                        player.sendMessage(editor.VIEW_CANCEL_EDIT)
                         return@block
                     }
                     try {
                         set(message)
                     } catch (_: Throwable) {
-                        player.sendMessage(selector.VIEW_CANNOT_EDIT)
+                        player.sendMessage(editor.VIEW_CANNOT_EDIT)
                     }
                     previousSelector?.open(player)
                 }

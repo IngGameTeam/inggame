@@ -15,15 +15,14 @@ interface View {
     val app: Koin
     val plugin: IngGamePlugin
 
-    val selector: Selector get() =
-        (app.get<ComponentService>(named("view-player")) as LayeredComponentService)
-            .apply { setParents(player.uniqueId, emptyList()) }
-            .apply { addParents(player.uniqueId, getClazz()) }
-            .get(player.uniqueId, ::SelectorImp)
-
-    fun getClazz(): String = javaClass.simpleName
-
     val player: Player
 
+    fun getSelector(name: String): Selector {
+        return (app.get<ComponentService>(named("view-player")) as LayeredComponentService)
+            .apply { setParents(player.uniqueId, emptyList()) }
+            .apply { addParents(player.uniqueId, name) }
+            .get(player.uniqueId, ::SelectorImp)
+
+    }
 }
 

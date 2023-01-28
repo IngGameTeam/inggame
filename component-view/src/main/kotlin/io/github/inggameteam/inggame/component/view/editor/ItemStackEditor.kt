@@ -33,7 +33,7 @@ class ItemStackEditor(editorView: EditorView<Any>, override val previousSelector
                 if (event.player != player) return
                 val item = event.item
                 if (item === null) {
-                    player.sendMessage(selector.VIEW_CANCEL_EDIT)
+                    player.sendMessage(editor.VIEW_CANCEL_EDIT)
                     event.isCancelled = true
                     HandlerList.unregisterAll(this)
                     return
@@ -41,7 +41,7 @@ class ItemStackEditor(editorView: EditorView<Any>, override val previousSelector
                 try {
                     set(item)
                 } catch (_: Throwable) {
-                    player.sendMessage(selector.VIEW_CANCEL_EDIT)
+                    player.sendMessage(editor.VIEW_CANCEL_EDIT)
                 }
                 previousSelector?.open(player)
                 event.isCancelled = true
@@ -51,7 +51,7 @@ class ItemStackEditor(editorView: EditorView<Any>, override val previousSelector
         }
         player.closeInventory()
         plugin.server.pluginManager.registerEvents(listener, plugin)
-        player.sendMessage(selector.VIEW_CLICK_ITEM_TO_EDIT)
+        player.sendMessage(editor.VIEW_CLICK_ITEM_TO_EDIT)
     }
 
 }
