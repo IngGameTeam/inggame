@@ -22,7 +22,7 @@ class PrintOnMove(
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
         measureTimeMillis{
-            repeat(1000) {
+            repeat(200) {
                 gamePlayerService[player, javaClass.simpleName, Boolean::class]
             }
         }.apply { println(this) }
