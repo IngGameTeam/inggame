@@ -18,10 +18,10 @@ interface View {
     val selector: Selector get() =
         app.get<ComponentService>(named("view-player"))
             .apply { setParents(player.uniqueId, emptyList()) }
-            .apply { addParents(player.uniqueId, clazz) }
+            .apply { addParents(player.uniqueId, getClazz()) }
             .get(player.uniqueId, ::SelectorImp)
 
-    val clazz: String get() = javaClass.simpleName
+    fun getClazz(): String = javaClass.simpleName
 
     val player: Player
 

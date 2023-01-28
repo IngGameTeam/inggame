@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.component.view.editor
 
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.model.View
 import io.github.inggameteam.inggame.component.view.wrapper.Selector
@@ -14,5 +13,6 @@ class ModelEditorView<T : Any>(val modelView: ModelView, editorView: EditorView<
     override val plugin: IngGamePlugin get() = modelView.plugin
     override val player: Player get() = modelView.player
     override val selector: Selector get() = modelView.selector
-    override val clazz: String get() = modelView.clazz
+
+    override fun getClazz(): String = modelView.getClazz()
 }
