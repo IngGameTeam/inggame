@@ -75,7 +75,7 @@ class ComponentServiceRegisterEvent(
                     else if (cs.isMulti || cs.key !== null && !cs.isLayer)
                         MultiParentsComponentService(
                             cs.name,
-                            { get(named(registry.first().name)) },
+                            { get(named(cs.root?: registry.first().name)) },
                             cs.parents.map { get(named(it)) },
                             cs.key
                         )
