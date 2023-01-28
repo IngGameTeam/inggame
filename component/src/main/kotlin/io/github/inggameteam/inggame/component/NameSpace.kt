@@ -5,7 +5,10 @@ import org.bson.Document
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 
-data class NameSpace(val name: Any, var parents: CopyOnWriteArraySet<Any>, val elements: ConcurrentHashMap<Any, Any>) {
+data class NameSpace(
+    val name: Any,
+    var parents: CopyOnWriteArraySet<Any>,
+    val elements: ConcurrentHashMap<Any, Any>) {
     override fun hashCode(): Int {
         return name.hashCode()
     }

@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 class MultiParentsComponentService(
     override val name: String,
     private val rootComponent: () -> ComponentService?,
-    private val components: Collection<ComponentService>,
+    private var components: Collection<ComponentService>,
     private val parentKey: Any?
 ) : ComponentService, AbstractNameSpaceComponentService() {
 
@@ -17,6 +17,7 @@ class MultiParentsComponentService(
         if (components.isEmpty()) {
             throw AssertionError("an error occurred while create multi parents component service that empty components collection")
         }
+        components = components.sortedWith { o1, o2 -> o1.layerPriority.compareTo(o2.layerPriority) }
     }
 
     override val parentComponent get() = components.first()
