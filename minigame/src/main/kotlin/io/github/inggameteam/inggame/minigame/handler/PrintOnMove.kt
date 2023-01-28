@@ -9,6 +9,7 @@ import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.bukkit.event.player.PlayerMoveEvent
+import kotlin.system.measureTimeMillis
 
 @PropHandler
 class PrintOnMove(
@@ -20,9 +21,11 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
-        repeat(1000) {
-            gamePlayerService[player, javaClass.simpleName, Boolean::class]
-        }
+        measureTimeMillis{
+            repeat(1000) {
+                gamePlayerService[player, javaClass.simpleName, Boolean::class]
+            }
+        }.apply { println(this) }
         if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
             event.player.sendMessage("PrintOnMove!!!")
         }
