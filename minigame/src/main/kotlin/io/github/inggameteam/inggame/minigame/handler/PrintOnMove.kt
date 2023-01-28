@@ -20,6 +20,9 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
+        repeat(100) {
+            gamePlayerService[player, javaClass.simpleName, Boolean::class]
+        }
         if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
             event.player.sendMessage("PrintOnMove!!!")
         }
