@@ -4,7 +4,6 @@ import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 
-@PropWrapper
 class GameServer(wrapper: Wrapper) : Wrapper by wrapper {
 
     var hub: Game by nonNull
