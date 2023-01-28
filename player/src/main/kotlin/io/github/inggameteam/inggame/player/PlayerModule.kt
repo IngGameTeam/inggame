@@ -18,7 +18,7 @@ class PlayerModule(plugin: Plugin) : HandleListener(plugin) {
             single { PlayerLoader(get(), get()) }
             single { PlayerLanguage(get(), get()) }
         })
-        event.addModule(newModule("player", ::PlayerService))
+        event.addModule(newModule("multi-player", ::PlayerService))
         event.addModule(newModule("player-instance", ::PlayerInstanceService))
         event.layer("player-instance")
     }
