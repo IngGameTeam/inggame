@@ -22,7 +22,11 @@ class ComponentServiceRegisterEvent(
     private val modules: ArrayList<Module> = ArrayList()
 
     fun addModule(name: String, block: (ComponentService) -> Any) {
-        modules.add(module { single(named(name)) { block(get(named(name))) } })
+        modules.add(newModule(name, block))
+    }
+
+    private inline fun <reified T : Any> newModule(name: String, crossinline block: (ComponentService) -> T) = module {
+        single(named(name)) { block(get(named(name))) } bind T::class
     }
 
     fun addModule(module: Module) {
