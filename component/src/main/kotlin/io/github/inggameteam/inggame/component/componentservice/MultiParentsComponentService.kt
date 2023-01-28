@@ -43,6 +43,13 @@ class MultiParentsComponentService(
         return findParent(nameSpace).firstSuccess({ it[nameSpace, key, clazz] }, NameSpaceNotFoundException(nameSpace))
     }
 
+    override fun findComponentService(nameSpace: Any): ComponentService {
+        val nameSpace = uncoverDelegate(nameSpace)
+        val ns = getAll().firstOrNull { it.name == nameSpace }
+        if (ns !== null) return this
+        findParent(nameSpace).firstSuccess({ it.findComponentService(nameSpace) }, NameSpaceNotFoundException(nameSpace))
+    }
+
     override fun set(nameSpace: Any, key: Any, value: Any?) {
         findParent(nameSpace).first().set(nameSpace, key, value)
     }
