@@ -19,6 +19,7 @@ class ComponentServiceRegisterEvent(
     private val resourceRegistry: ComponentServiceDSL = root.run { "resource" csc { "singleton" cs "default" } },
 ) : Event() {
 
+
     private val modules: ArrayList<Module> = ArrayList()
 
     fun addModule(name: String, block: (ComponentService) -> Any) {
@@ -37,6 +38,9 @@ class ComponentServiceRegisterEvent(
     private fun register(name: Collection<String>, registry: ComponentServiceDSL, suffix: String) {
         val iterator = name.iterator()
         var last: ComponentServiceDSL = registry
+        if (name.size == 1) {
+            registry.run { name.first() cs suffix }
+        }
         while (iterator.hasNext()) {
             val next = iterator.next()
             if (iterator.hasNext()) {
@@ -66,9 +70,11 @@ class ComponentServiceRegisterEvent(
 
     fun getNewModule() = getRegistry().let { registry ->
         registry.map { cs ->
+            println(root.registry.joinToString("\n"))
+
             module {
                 single {
-                    if (cs.parents.size == 1)
+                    if (cs.parents.size > 1)
                         MultiParentsComponentService(
                             cs.name,
                             { get(named(registry.first().name)) },
