@@ -4,6 +4,7 @@ class ComponentServiceDSL(
     val name: String,
     val parents: ArrayList<String>,
     val registry: ArrayList<ComponentServiceDSL>,
+    var root: String? = null,
     var isLayer: Boolean = false,
     var key: String? = null,
     var isMulti: Boolean = false,
@@ -18,12 +19,16 @@ class ComponentServiceDSL(
         this.isMulti = isMulti
     }
 
+    infix fun ComponentServiceDSL.root(root: String): ComponentServiceDSL = this.apply {
+        this.root = root
+    }
+
     infix fun String.isMulti(isMulti: Boolean): String = this.apply {
         findComponentServiceDSL(this).isMulti = isMulti
     }
 
-    infix fun String.key(key: String): String = this.apply {
-        findComponentServiceDSL(this).key = key
+    infix fun String.key(key: String) = findComponentServiceDSL(this).apply {
+        this.key = key
     }
 
     infix fun String.csc(block: ComponentServiceDSL.() -> Unit): ComponentServiceDSL {
