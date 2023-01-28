@@ -12,6 +12,7 @@ class PlayerModule(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
+        println("-".repeat(1000))
         event.addModule(module(createdAtStart = true) {
             single { PlayerLoader(get(), get()) }
         })
