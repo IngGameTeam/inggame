@@ -24,7 +24,9 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val nameSpace = split[1].run { try { fastUUID() } catch (_: Throwable) { this } }
                     val key = split[2]
                     measureTimeMillis {
-                        source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
+                        repeat (100) {
+                            source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
+                        }
                     }.run(Any::toString).apply(source::sendMessage)
                 }
             }
