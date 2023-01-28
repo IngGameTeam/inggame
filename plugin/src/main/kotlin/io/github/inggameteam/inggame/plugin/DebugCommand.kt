@@ -23,7 +23,9 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val componentService = app.get<ComponentService>(named(split[0]))
                     val nameSpace = split[1].run { try { fastUUID() } catch (_: Throwable) { this } }
                     val key = split[2]
-                    source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
+                    measureTimeMillis {
+                        source.sendMessage(componentService.get(nameSpace, key, Any::class).toString())
+                    }.run(Any::toString).apply(source::sendMessage)
                 }
             }
             then("component") {
