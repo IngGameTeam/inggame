@@ -5,12 +5,21 @@ class ComponentServiceDSL(
     val parents: ArrayList<String>,
     val registry: ArrayList<ComponentServiceDSL>,
     var isLayer: Boolean = false,
-    var key: String? = null
+    var key: String? = null,
+    var isMulti: Boolean = false,
 ) {
 
     fun findComponentServiceDSL(name: String): ComponentServiceDSL {
         return registry.firstOrNull { it.name == name }
             ?: ComponentServiceDSL(name, ArrayList(), registry).apply(registry::add)
+    }
+
+    infix fun ComponentServiceDSL.isMulti(isMulti: Boolean): ComponentServiceDSL = this.apply {
+        this.isMulti = isMulti
+    }
+
+    infix fun String.isMulti(isMulti: Boolean): String = this.apply {
+        findComponentServiceDSL(this).isMulti = isMulti
     }
 
     infix fun String.key(key: String): String = this.apply {

@@ -9,8 +9,9 @@ class AddToSaveRegistry(componentService: ComponentService, plugin: IngGamePlugi
     init {
         if (componentService is SaveComponentService) {
             plugin.addSaveEvent { componentService.saveAll() }
+            println("${componentService.name} is savable")
         } else {
-            throw AssertionError("an error occurred while add to save registry")
+//            throw AssertionError("an error occurred while add to save registry")
         }
     }
 

@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.minigame
 
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
+import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
@@ -41,11 +42,15 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
                     )
             }
         })
-        event.addModule("game-player", ::GamePlayerService)
+        event.addModule(newModule("game-player", ::GamePlayerService))
+        event.layer("game-player")
+        event.layer("game-instance")
         event.addModule(module { single {
             GameInstanceService(get(), get(), get(), get(named("game-instance")))
         } })
-        event.addModule("game-resource", ::GameResourceService)
+        event.addModule(newModule("game-resource", ::CustomGameService))
+        event.layer("game-resource")
+
         event.registerInstance("game-player", "game-instance")
         event.registerResource("game-resource")
         event.addModule(createSingleton(::GameServer, "server", "singleton"))

@@ -20,7 +20,6 @@ fun loadApp(plugin: IngGamePlugin): Koin {
                 createEditorRegistry(),
                 createPropertyRegistry(),
                 registerComponentModels(),
-                createEmpty("default"),
             ).apply { modules(this) }
         }.koin
     }

@@ -1,10 +1,7 @@
 package io.github.inggameteam.inggame.component.event
 
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.componentservice.LayeredComponentServiceImp
-import io.github.inggameteam.inggame.component.componentservice.MultiParentsComponentService
-import io.github.inggameteam.inggame.component.componentservice.ResourceComponentServiceImp
+import io.github.inggameteam.inggame.component.componentservice.*
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 import org.koin.core.module.Module
@@ -14,22 +11,16 @@ import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList()),
-    private val instanceRegistry: ComponentServiceDSL = root.run { "player" cs "player-instance" cs "multi-player" csc { } },
-    private val languageRegistry: ComponentServiceDSL = root.run { "language" key "language" csc { } },
-    private val resourceRegistry: ComponentServiceDSL = root.run { "resource" csc { "singleton" cs "default" } },
+    private val instanceRegistry: ComponentServiceDSL = root.run { "player" isMulti true cs "player-instance" cs "multi-player" isMulti true csc { } },
+    private val languageRegistry: ComponentServiceDSL = root.run { "language" key "language" csc {
+        "resource" csc { "singleton" cs "default" }
+        "english" cs "resource"
+    } },
+    private val resourceRegistry: ComponentServiceDSL = root.findComponentServiceDSL("resource"),
 ) : Event() {
 
 
     private val modules: ArrayList<Module> = ArrayList()
-
-    fun addModule(name: String, block: (ComponentService) -> Any) {
-        root.findComponentServiceDSL(name).isLayer = true
-        modules.add(newModule(name, block))
-    }
-
-    private inline fun <reified T : Any> newModule(name: String, crossinline block: (ComponentService) -> T) = module {
-        single(named(name)) { block(get(named(name))) } bind T::class
-    }
 
     fun addModule(module: Module) {
         modules.add(module)
@@ -50,7 +41,12 @@ class ComponentServiceRegisterEvent(
         last.run { last cs suffix }
     }
 
+    fun layer(name: String) {
+        root.findComponentServiceDSL(name).isLayer = true
+    }
+
     fun registerInstance(vararg name: String) {
+        name.forEach(::layer)
         register(name.toList(), instanceRegistry, "language")
     }
 
@@ -69,12 +65,14 @@ class ComponentServiceRegisterEvent(
     private fun getRegistry() = ArrayList(root.registry)
 
     fun getNewModule() = getRegistry().let { registry ->
+        println(root.registry.joinToString("\n"))
         registry.map { cs ->
-            println(root.registry.joinToString("\n"))
-
+            println("${cs.name}=${cs.isLayer}")
             module {
-                single {
-                    if (cs.parents.size > 1)
+                single(named(cs.name)) {
+                    println("${cs.name} loaded ${"+".repeat(1000)}")
+                    if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
+                    else if (cs.isMulti || cs.key !== null && !cs.isLayer)
                         MultiParentsComponentService(
                             cs.name,
                             { get(named(registry.first().name)) },
@@ -96,9 +94,7 @@ class ComponentServiceRegisterEvent(
                 } bind ComponentService::class
             }
         }
-    }.run {
-        arrayListOf(*this.toTypedArray(), *modules.toTypedArray())
-    }
+    }.run { arrayListOf(*this.toTypedArray(), *modules.toTypedArray()) }
 
     override fun getHandlers(): HandlerList { return HANDLERS }
     companion object {
@@ -107,4 +103,8 @@ class ComponentServiceRegisterEvent(
         @JvmStatic
         fun getHandlerList(): HandlerList { return HANDLERS }
     }
+}
+
+inline fun <reified T : Any> newModule(name: String, crossinline block: (ComponentService) -> T) = module {
+    single { block(get(named(name))) } bind T::class
 }

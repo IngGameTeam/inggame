@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.component.view.ComponentViewModule
 import io.github.inggameteam.inggame.minigame.GameModule
 import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil
@@ -36,6 +37,7 @@ class Plugin : IngGamePluginImp {
         super.onEnable()
         PlayerModule(this)
         GameModule(this)
+        ComponentViewModule(this)
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
