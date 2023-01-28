@@ -65,12 +65,9 @@ class ComponentServiceRegisterEvent(
     private fun getRegistry() = ArrayList(root.registry)
 
     fun getNewModule() = getRegistry().let { registry ->
-        println(root.registry.joinToString("\n"))
         registry.map { cs ->
-            println("${cs.name}=${cs.isLayer}")
             module {
                 single(named(cs.name)) {
-                    println("${cs.name} loaded ${"+".repeat(1000)}")
                     if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
                     else if (cs.isMulti || cs.key !== null && !cs.isLayer)
                         MultiParentsComponentService(
