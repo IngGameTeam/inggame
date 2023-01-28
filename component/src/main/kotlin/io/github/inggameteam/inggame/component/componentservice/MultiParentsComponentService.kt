@@ -38,7 +38,7 @@ class MultiParentsComponentService(
         if (parentKey == key)
             throw AssertionError("an error occurred while perform get method parentKey and key is same")
         val nameSpace = uncoverDelegate(nameSpace)
-        return findParent(nameSpace).apply { println(this.map { it.name }) }.firstSuccess({ it[nameSpace, key, clazz] }, NameSpaceNotFoundException(nameSpace))
+        return findParent(nameSpace).firstSuccess({ it[nameSpace, key, clazz] }, NameSpaceNotFoundException(nameSpace))
     }
 
     override fun set(nameSpace: Any, key: Any, value: Any?) {
