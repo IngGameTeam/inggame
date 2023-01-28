@@ -18,6 +18,8 @@ interface Selector<T : Any> : View, OpenView {
 
     val parentSelector: Selector<*>?
 
+    override val clazz get() = javaClass.simpleName
+
     fun transform(t: T): ItemStack
 
     fun select(t: T, event: InventoryClickEvent)
