@@ -8,7 +8,7 @@ interface Editor : View, OpenView {
 
     val previousSelector: Selector<*>?
 
-    val editor: String get() = javaClass.simpleName
+    override val clazz: String get() = javaClass.simpleName
 
 
 }
