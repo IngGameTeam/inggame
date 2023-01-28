@@ -18,7 +18,7 @@ interface Selector<T : Any> : View, OpenView {
 
     val parentSelector: Selector<*>?
 
-    override val clazz get() = javaClass.simpleName
+    override val clazz: String get() = javaClass.simpleName
 
     fun transform(t: T): ItemStack
 

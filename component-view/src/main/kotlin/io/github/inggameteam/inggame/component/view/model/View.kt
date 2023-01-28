@@ -21,7 +21,7 @@ interface View {
             .apply { addParents(player.uniqueId, clazz) }
             .get(player.uniqueId, ::SelectorImp)
 
-    val clazz get() = javaClass.simpleName!!
+    val clazz: String get() = javaClass.simpleName
 
     val player: Player
 
