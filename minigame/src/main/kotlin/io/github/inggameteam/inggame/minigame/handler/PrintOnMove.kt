@@ -13,7 +13,7 @@ import kotlin.system.measureTimeMillis
 
 @PropHandler
 class PrintOnMove(
-    private val gamePlayerService: PlayerService,
+    private val gamePlayerService: GamePlayerService,
     plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
