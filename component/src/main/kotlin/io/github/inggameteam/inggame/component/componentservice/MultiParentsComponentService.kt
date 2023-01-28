@@ -25,10 +25,10 @@ class MultiParentsComponentService(
     override val layerPriority: Int by lazy { return@lazy components.maxOf { it.layerPriority } }
 
     private fun findParent(nameSpace: Any): Collection<ComponentService> {
-//        return try { rootComponent()!![nameSpace, parentKey!!, Any::class]
-//            .let { name -> components.firstOrNull { it.name == name }!! }.run(::listOf) }
-//        catch (_: Throwable) { components }
-        return components
+        return try { rootComponent()!![nameSpace, parentKey!!, Any::class]
+            .let { name -> components.firstOrNull { it.name == name }!! }.run(::listOf) }
+        catch (_: Throwable) { components }
+//        return components
     }
 
     private fun <T, R> Iterable<T>.firstSuccess(block: (T) -> R, throws: Throwable): R {
