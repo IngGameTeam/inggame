@@ -46,7 +46,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             GameInstanceService(get(), get(), get(), get(named("game-instance")))
         } })
         event.addModule("game-resource", ::GameResourceService)
-        event.registerInstance("game-player", "game-instsance")
-        event.registerInstance("game-resource")
+        event.registerInstance("game-player", "game-instance")
+        event.registerResource("game-resource")
     }
 }

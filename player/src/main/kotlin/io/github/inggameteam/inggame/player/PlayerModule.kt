@@ -17,7 +17,6 @@ class PlayerModule(plugin: Plugin) : HandleListener(plugin) {
         })
         event.addModule("player", ::PlayerService)
         event.addModule("player-instance", ::PlayerInstanceService)
-
     }
 
 }
