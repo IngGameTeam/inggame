@@ -11,5 +11,7 @@ class ComponentViewModule(plugin: Plugin) : HandleListener(plugin) {
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.registerResource("view-resource")
+        event.registerInstance("view-player")
+
     }
 }
