@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame
 
+import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
@@ -48,5 +49,6 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
         event.addModule("game-resource", ::GameResourceService)
         event.registerInstance("game-player", "game-instance")
         event.registerResource("game-resource")
+        event.addModule(createSingleton(::GameServer, "server", "singleton"))
     }
 }
