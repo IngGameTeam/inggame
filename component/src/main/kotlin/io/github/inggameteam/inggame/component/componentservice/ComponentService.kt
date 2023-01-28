@@ -25,7 +25,6 @@ interface ComponentService {
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
                 ns.parents.forEach { try { return get(it, key, clazz) } catch (_: Throwable) { } }
-                try { return parentComponent[nameSpace, key, clazz] } catch (_: Throwable) { }
                 throw NameSpaceNotFoundException(nameSpace)
             }
     }
