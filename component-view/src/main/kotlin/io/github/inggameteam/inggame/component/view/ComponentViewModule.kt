@@ -15,7 +15,7 @@ class ComponentViewModule(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
-        event.addModule(module { single { ViewPlayerLoader(get(named("view-player")), get()) } })
+        event.addModule(module(createdAtStart = true) { single { ViewPlayerLoader(get(named("view-player")), get()) } })
         event.registerResource("view-resource")
         event.registerInstance("view-player")
 
