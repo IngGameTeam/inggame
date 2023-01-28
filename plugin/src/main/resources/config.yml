@@ -18,10 +18,3 @@ file.view-player: plugins/inggame/view-player.json
 file.korean: plugins/inggame/korean.json
 file.view-resource: plugins/inggame/view-resource.json
 file.custom-game: plugins/inggame/custom-game.json
-
-save:
-  player-instance: on
-  view: on
-  view-resource: on
-  game-resource: on
-  custom-game: on

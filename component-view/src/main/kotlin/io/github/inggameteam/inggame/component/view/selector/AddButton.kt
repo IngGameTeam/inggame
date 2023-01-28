@@ -12,7 +12,7 @@ interface AddButton<T : Any> : Selector<T> {
     override fun gui(gui: GuiFrameDSL) {
         super.gui(gui)
         gui.apply {
-            val addItem = createItem(Material.LIME_DYE, view[selector, "add-button", String::class])
+            val addItem = createItem(Material.LIME_DYE, selector.VIEW_ADD_BUTTON)
             slot(5, 5, addItem) { event ->
                 addButton(event.whoClicked as Player)
             }

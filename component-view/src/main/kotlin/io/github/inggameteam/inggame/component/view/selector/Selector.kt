@@ -24,23 +24,21 @@ interface Selector<T : Any> : View, OpenView {
 
     fun gui(gui: GuiFrameDSL) = Unit
 
-    val selector: String get() = javaClass.simpleName
-
     @Suppress("UNCHECKED_CAST")
     override fun open(player: Player) {
-        Gui.frame(plugin, 6, view[selector, "selector-title", String::class])
+        Gui.frame(plugin, 6, selector.VIEW_TITLE)
             .list(0, 0, 9, 5, { elements.withBlank() },
                 { ns -> try { if (ns is EmptyElement) throw AssertionError(); transform(ns as T)} catch (_: Throwable) {
                     ItemStack(Material.AIR)
                 } }
             ) { list, gui ->
                 gui.apply {
-                    val prevItem = createItem(Material.FEATHER, view[selector, "previous-page", String::class])
-                    val nextItem = createItem(Material.FEATHER, view[selector, "next-page", String::class])
+                    val prevItem = createItem(Material.FEATHER, selector.VIEW_PREV_PAGE)
+                    val nextItem = createItem(Material.FEATHER, selector.VIEW_NEXT_PAGE)
                     slot(0, 5, prevItem) { list.setIndex(list.index - 45) }
                     slot(8, 5, nextItem) { list.setIndex(list.index + 45) }
                     if (parentSelector !== null) {
-                        val backItem = createItem(Material.STRING, view[selector, "back-page", String::class])
+                        val backItem = createItem(Material.STRING, selector.VIEW_BACK_PAGE)
                         slot(4, 5, backItem) { event -> parentSelector?.open(event.whoClicked as Player) }
                     }
 

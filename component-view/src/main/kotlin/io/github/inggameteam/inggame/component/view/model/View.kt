@@ -15,8 +15,6 @@ interface View {
     val app: Koin
     val plugin: IngGamePlugin
 
-    val view get() = app.get<ComponentService>(named("view"))
-
     val selector: Selector get() =
         app.get<ComponentService>(named("root")).get(player.uniqueId, ::SelectorImp)
 

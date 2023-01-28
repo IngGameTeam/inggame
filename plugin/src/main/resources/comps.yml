@@ -1,51 +1,51 @@
 view-resource:
   defaultView:
-    previous-page: "&fPrev page"
-    next-page: "&fNext page"
-    back-page: "&fBack page"
+    VIEW_PREV_PAGE: "&fPrev page"
+    VIEW_NEXT_PAGE: "&fNext page"
+    VIEW_BACK_PAGE: "&fBack page"
   NameSpaceSelector:
     parents: [ defaultView ]
-    selector-title: "select your namespace"
+    VIEW_TITLE: "select your namespace"
   ElementSelector:
     parents: [ defaultView ]
-    selector-title: "select your element in namespace %s"
-    add-button: "&aAdd element"
-    remove-button: "&cRemove element"
+    VIEW_TITLE: "select your element in namespace %s"
+    VIEW_ADD_BUTTON: "&aAdd element"
+    VIEW_REMOVE_BUTTON: "&cRemove element"
   ElementForAddSelector:
     parents: [ defaultView ]
-    selector-title: "choose element to add"
+    VIEW_TITLE: "choose element to add"
   ElementForRemoveSelector:
     parents: [ defaultView ]
-    selector-title: "choose element to remove"
+    VIEW_TITLE: "choose element to remove"
   ModelFieldSelector:
     parents: [ defaultView ]
-    selector-title: "choose filed to edit"
+    VIEW_TITLE: "choose filed to edit"
   SubTypeSelector:
     parents: [ defaultView ]
-    selector-title: "choose sub types"
+    VIEW_TITLE: "choose sub types"
   StringEditor:
-    cancel-edit: "editing cancelled"
-    cannot-edit: "cannot edit"
+    VIEW_CANCEL_EDIT: "editing cancelled"
+    VIEW_CANNOT_EDIT: "cannot edit"
   NumberEditor:
-    cannot-edit: "You can enter only numbers"
+    VIEW_CANNOT_EDIT: "You can enter only numbers"
   EnumEditor:
     parents: [ defaultView ]
-    selector-title: "choose your enum"
+    VIEW_TITLE: "choose your enum"
   ItemStackEditor:
-    cancel-edit: "editing cancelled"
-    cannot-edit: "cannot edit"
-    click-item-to-edit: "set item with right click item"
+    VIEW_CANCEL_EDIT: "editing cancelled"
+    VIEW_CANNOT_EDIT: "cannot edit"
+    VIEW_CLICK_ITEM_TO_EDIT: "set item with right click item"
   ItemStackPropSelector:
     parents: [ defaultView ]
-    selector-title: "edit your item"
+    VIEW_TITLE: "edit your item"
   CollectionSelector:
     parents: [ defaultView ]
-    selector-title: "edit your list"
-    add-button: "&aAdd element"
-    remove-button: "&cRemove element"
+    VIEW_TITLE: "edit your list"
+    VIEW_ADD_BUTTON: "&aAdd element"
+    VIEW_REMOVE_BUTTON: "&cRemove element"
   CollectionRemoveSelector:
     parents: [ defaultView ]
-    selector-title: "remove your element"
+    VIEW_TITLE: "remove your element"
 game-resource:
   PrintOnMove:
     PrintOnMove: false
