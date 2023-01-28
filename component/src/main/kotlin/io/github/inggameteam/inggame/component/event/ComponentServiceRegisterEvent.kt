@@ -45,6 +45,10 @@ class ComponentServiceRegisterEvent(
         register(name.toList(), instanceRegistry, "language")
     }
 
+    fun registerRoot(vararg name: String) {
+        register(name.toList(), root, "default")
+    }
+
     fun registerResource(vararg name: String) {
         register(name.toList(), resourceRegistry, "default")
     }
