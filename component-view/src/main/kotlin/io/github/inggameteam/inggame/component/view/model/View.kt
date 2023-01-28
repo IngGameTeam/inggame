@@ -16,7 +16,12 @@ interface View {
     val plugin: IngGamePlugin
 
     val selector: Selector get() =
-        app.get<ComponentService>(named("root")).get(player.uniqueId, ::SelectorImp)
+        app.get<ComponentService>(named("view-player"))
+            .apply { setParents(player.uniqueId, emptyList()) }
+            .apply { addParents(player.uniqueId, clazz) }
+            .get(player.uniqueId, ::SelectorImp)
+
+    val clazz get() = javaClass.simpleName
 
     val player: Player
 
