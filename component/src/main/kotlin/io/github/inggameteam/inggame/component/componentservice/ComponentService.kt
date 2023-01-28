@@ -16,6 +16,7 @@ interface ComponentService {
 
     @Suppress("UNCHECKED_CAST")
     operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+        println("!!$name")
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
