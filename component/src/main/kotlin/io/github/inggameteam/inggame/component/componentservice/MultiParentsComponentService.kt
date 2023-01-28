@@ -37,7 +37,6 @@ class MultiParentsComponentService(
     }
 
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        println("!!$name")
         if (parentKey == key)
             throw AssertionError("an error occurred while perform get method parentKey and key is same")
         val nameSpace = uncoverDelegate(nameSpace)
