@@ -13,7 +13,7 @@ class PlayerLanguage(val playerInstanceService: PlayerInstanceService, plugin: P
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         if (event.player.firstPlayed == 0L) {
-            playerService.set(event.player.uniqueId, "language", "english")
+            playerInstanceService.set(event.player.uniqueId, "language", "english")
         }
     }
 
