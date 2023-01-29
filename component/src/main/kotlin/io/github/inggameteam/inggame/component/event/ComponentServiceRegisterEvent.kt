@@ -10,8 +10,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
-    private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList(), isMulti = true)
-        .apply { registry.add(this) }
+    private val root: ComponentServiceDSL = ComponentServiceDSL("null", ArrayList(), ArrayList(), isMulti = true)
+        .apply { "root" csc {} }
 ) : Event() {
 
 
