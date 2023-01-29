@@ -9,7 +9,8 @@ class BooleanEditor(
 ) : Editor, EditorView<Boolean> by view {
 
     override fun open(player: Player) {
-        set(get()?.not()?: true)
+        val result = try { get() } catch (_: Throwable) { false }
+        set(result?.not()?: true)
         previousSelector?.open(player)
     }
 
