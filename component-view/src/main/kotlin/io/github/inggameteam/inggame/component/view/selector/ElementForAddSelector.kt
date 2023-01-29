@@ -20,7 +20,6 @@ class ElementForAddSelector(
                 || nameSpace.parents.contains(it.clazz.simpleName!!)
     }.map { it.name }
 
-
     override fun select(t: String, event: InventoryClickEvent) {
         val prop = app.get<PropertyRegistry>().getProp(t)
         app.get<EditorRegistry>().getEditor(prop.type, ElementViewImp(this, Pair(t, Unit)), parentSelector)
