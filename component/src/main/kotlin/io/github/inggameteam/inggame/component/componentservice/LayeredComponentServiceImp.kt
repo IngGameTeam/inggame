@@ -43,7 +43,7 @@ open class LayeredComponentServiceImp(
         val name = uncoverDelegate(name)
         val doc = if (new) null else repo.get(name)
         objectList.add(
-            if (doc === null) newModel(name)
+            if (doc === null) newModel(name).apply { println("newModelToLoad=$name") }
             else decodeNameSpace(doc, codec)
         )
         println("$name---$objectList")
