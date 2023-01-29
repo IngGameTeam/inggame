@@ -15,7 +15,7 @@ data class NameSpace(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        return true
+        return false
     }
 
     override fun toString(): String {
