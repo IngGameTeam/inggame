@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("null", ArrayList(), ArrayList(), isMulti = true)
-        .apply { "root" csc {} }
+        .apply { "root" isMulti true csc {} }
 ) : Event() {
 
 
