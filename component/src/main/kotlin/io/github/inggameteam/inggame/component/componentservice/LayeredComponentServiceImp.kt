@@ -46,7 +46,7 @@ open class LayeredComponentServiceImp(
             if (doc === null) newModel(name)
             else decodeNameSpace(doc, codec)
         )
-        println(objectList)
+        println("$name---$objectList")
     }
 
     override fun unload(name: Any, save: Boolean) {
