@@ -45,7 +45,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
         val supertypes = ArrayList<String>()::class.typeParameters
         println(supertypes)
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
-            supertypes.first()
+            NameSpace::parents.returnType
         ), EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
             { componentService.getParents(nameSpace) })), this)
