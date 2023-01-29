@@ -53,4 +53,4 @@ class Plugin : IngGamePluginImp {
         }
     }
 
-}  /// STOPSHIP: do not find parent's N.S in Player Instance C/S
+}
