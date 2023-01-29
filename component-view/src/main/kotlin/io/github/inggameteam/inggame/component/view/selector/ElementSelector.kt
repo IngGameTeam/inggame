@@ -1,17 +1,22 @@
 package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.GuiFrameDSL
+import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.CollectionSelector
 import io.github.inggameteam.inggame.component.view.editor.EditorViewImp
+import io.github.inggameteam.inggame.component.view.editor.ModelEditorView
 import io.github.inggameteam.inggame.component.view.model.ElementViewImp
+import io.github.inggameteam.inggame.component.view.model.ModelView
+import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import kotlin.reflect.full.starProjectedType
 
 typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
@@ -34,9 +39,9 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     }
 
     private fun parentButton(player: Player) {
-        CollectionSelector(EditorViewImp(this,
+        CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)), NameSpace::parents.javaClass.kotlin.starProjectedType), EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
-            { componentService.getParents(nameSpace) }), this)
+            { componentService.getParents(nameSpace) })), this)
             .open(player)
     }
 
