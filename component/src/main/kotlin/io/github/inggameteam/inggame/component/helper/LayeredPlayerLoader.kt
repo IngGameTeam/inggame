@@ -22,7 +22,6 @@ open class LayeredPlayerLoader(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
-        println("LayeredPlayerLoader!!!onJoin")
         layeredComponentService.load(event.player.uniqueId, true)
     }
 
