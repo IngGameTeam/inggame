@@ -42,7 +42,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     }
 
     private fun parentButton(player: Player) {
-        val supertypes = ArrayList<String>()::class.nestedClasses
+        val supertypes = ArrayList<String>()::class.createType().arguments
         println(supertypes)
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
             NameSpace::parents.returnType
