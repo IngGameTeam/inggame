@@ -16,8 +16,8 @@ class ComponentServiceRegisterEvent(
 
     private val modules: ArrayList<Module> = ArrayList()
 
-    fun addModule(module: Module) {
-        modules.add(module)
+    fun addModule(vararg module: Module) {
+        modules.addAll(module)
     }
 
     private fun register(name: Collection<String>, registry: ComponentServiceDSL, suffix: String) {

@@ -16,10 +16,7 @@ fun loadApp(plugin: IngGamePlugin): Koin {
             listOfNotNull(
                 *loadComponentService(plugin).toTypedArray(),
                 loadMongoModule(plugin),
-                createSubClassRegistry(),
                 createEditorRegistry(),
-                createPropertyRegistry(),
-                registerComponentModels(),
             ).apply { modules(this) }
         }.koin
     }

@@ -35,6 +35,7 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
+        ComponentModule(this)
         PlayerModule(this)
         GameModule(this)
         ComponentViewModule(this)
