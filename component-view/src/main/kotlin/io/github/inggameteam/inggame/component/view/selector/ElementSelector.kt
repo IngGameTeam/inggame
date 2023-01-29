@@ -12,10 +12,12 @@ import io.github.inggameteam.inggame.component.view.model.ElementViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
+import io.github.inggameteam.inggame.component.view.singleClass
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import kotlin.reflect.full.createType
 import kotlin.reflect.full.starProjectedType
 
 typealias Element = Pair<Any, Any>
@@ -39,7 +41,8 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     }
 
     private fun parentButton(player: Player) {
-        CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)), NameSpace::parents.returnType), EditorViewImp(this,
+        CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
+            NameSpace::parents.returnType.singleClass.kotlin.createType(ArrayList<String>().javaClass.kotlin.starProjectedType.arguments)), EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
             { componentService.getParents(nameSpace) })), this)
             .open(player)
