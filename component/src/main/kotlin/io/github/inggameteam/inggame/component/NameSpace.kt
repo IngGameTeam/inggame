@@ -31,6 +31,7 @@ data class NameSpace(
 fun decodeNameSpace(doc: Document, codec: MongoCodec): NameSpace {
     val name = doc["_id"]!!
     val parents = doc.getList("parents", Any::class.java).run(::CopyOnWriteArraySet)
+    println(parents)
     val elements = doc.getList("elements", Document::class.java).associate {
         Pair(it["key"]!!, codec.decode(it["value"]!!)!!)
     }.run(::ConcurrentHashMap)
@@ -40,7 +41,7 @@ fun decodeNameSpace(doc: Document, codec: MongoCodec): NameSpace {
 fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
     return Document().apply {
         set("_id", ns.name)
-        set("parents", ns.parents.map { it.toString() })
+        set("parents", ns.parents.map { it.toString() }.toList())
         set("elements", ns.elements.entries.map { entry ->
             codec.encode(entry.value).let { Document().apply { set("key", entry.key); set("value", it) } }
         }.toList())
