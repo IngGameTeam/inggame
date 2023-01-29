@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList()),
-    private val instanceRegistry: ComponentServiceDSL = root.run { "root" isMulti true  cs "multi-player" isMulti true csc { "player-instance" cs "default" } },
+    private val instanceRegistry: ComponentServiceDSL = root.run { "root" isMulti true  cs "multi-player" isMulti true csc {  } },
     private val languageRegistry: ComponentServiceDSL = root.run { "language" key "language" root "player-instance" csc {
         "resource" csc { "singleton" cs "default" }
         "english" cs "resource" isMulti true
