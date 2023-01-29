@@ -46,7 +46,6 @@ class Plugin : IngGamePluginImp {
     }
 
     override fun onDisable() {
-
         super.onDisable()
         if (appDelegate.isInitialized()) {
             app.close()
