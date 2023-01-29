@@ -37,7 +37,9 @@ class ComponentServiceRegisterEvent(
     }
 
     fun register(block: ComponentServiceDSL.() -> Unit) {
-        block(root.findComponentServiceDSL("root"))
+        root.apply {
+            "root" csc(block)
+        }
     }
 
     fun layer(name: String) {
