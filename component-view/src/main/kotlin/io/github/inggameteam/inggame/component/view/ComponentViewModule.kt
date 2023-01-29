@@ -17,7 +17,7 @@ class ComponentViewModule(plugin: Plugin) : HandleListener(plugin) {
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.addModule(module(createdAtStart = true) { single { ViewPlayerLoader(get(named("view-player")), get()) } })
         event.register {
-            "view-player" isLayer true cs "view-resource"
+            "view-player" isLayer true cs "view-resource" cs "default"
         }
     }
 }
