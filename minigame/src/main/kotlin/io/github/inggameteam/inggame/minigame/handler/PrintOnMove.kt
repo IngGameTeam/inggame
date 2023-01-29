@@ -21,7 +21,7 @@ class PrintOnMove(
 
         measureTimeMillis{
             val simpleName = javaClass.simpleName
-            repeat(2000) {
+            repeat(20000) {
                 gamePlayerService[player, simpleName, Boolean::class]
             }
         }.apply { println(this) }
