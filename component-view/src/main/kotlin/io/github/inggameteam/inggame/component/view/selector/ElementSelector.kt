@@ -26,6 +26,7 @@ typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
     : NameSpaceView by nameSpaceView, Selector<Element>, AddButton<Element>, RemoveButton<Element> {
 
+
     override fun addButton(player: Player) {
         ElementForAddSelector(this, this).open(player)
     }
@@ -46,7 +47,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
         val supertypes = ArrayList<String>()::class.defaultType.arguments
         println(supertypes)
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
-            NameSpace::parents.returnType
+            NameSpace::parents.returnType.singleClass.kotlin.createType(supertypes)
         ), EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
             { componentService.getParents(nameSpace) })), this)
