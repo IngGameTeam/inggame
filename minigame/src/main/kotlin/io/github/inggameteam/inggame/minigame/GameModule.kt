@@ -43,8 +43,6 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             }
         })
         event.addModule(newModule("game-player", ::GamePlayerService))
-        event.layer("game-player")
-        event.layer("game-instance")
         event.addModule(module { single {
             GameInstanceService(get(), get(), get(), get(named("game-instance")))
         } })
