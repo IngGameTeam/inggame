@@ -4,6 +4,8 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
+import io.github.inggameteam.inggame.component.view.editor.CollectionSelector
+import io.github.inggameteam.inggame.component.view.editor.EditorViewImp
 import io.github.inggameteam.inggame.component.view.model.ElementViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
 import org.bukkit.ChatColor
@@ -23,6 +25,18 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
         super<RemoveButton>.gui(gui)
         super<AddButton>.gui(gui)
         super<Selector>.gui(gui)
+        gui.apply {
+            val parentItem = createItem(Material.PURPLE_DYE, selector.VIEW_PARENT_BUTTON)
+            slot(7, 5, parentItem) { event ->
+                parentButton(event.whoClicked as Player)
+            }
+        }
+    }
+
+    fun parentButton(player: Player) {
+        CollectionSelector(EditorViewImp(this,
+            { componentService.setParents(nameSpace, it) },
+            { componentService.getParents(nameSpace) }), this)
     }
 
     override fun removeButton(player: Player) {

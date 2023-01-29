@@ -7,6 +7,7 @@ interface Selector {
     val VIEW_CLICK_ITEM_TO_EDIT: String
     val VIEW_ADD_BUTTON: String
     val VIEW_REMOVE_BUTTON: String
+    val VIEW_PARENT_BUTTON: String
     val VIEW_TITLE: String
     val VIEW_PREV_PAGE: String
     val VIEW_NEXT_PAGE: String
