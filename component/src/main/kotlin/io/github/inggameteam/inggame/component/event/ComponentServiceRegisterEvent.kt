@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList()),
-    private val instanceRegistry: ComponentServiceDSL = root.run { "root" isMulti true  cs "multi-player" isMulti true csc {  } },
+    private val instanceRegistry: ComponentServiceDSL = root.run { "root" isMulti true cs "multi-player" isMulti true csc {  } },
     private val languageRegistry: ComponentServiceDSL = root.run { "language" key "language" root "player-instance" csc {
         "resource" csc { "singleton" cs "default" }
         "english" cs "resource" isMulti true
@@ -69,14 +69,15 @@ class ComponentServiceRegisterEvent(
             module {
                 single(named(cs.name)) {
                     if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
-                    else if (cs.isMulti || cs.key !== null && !cs.isLayer)
+                    else if (cs.isMulti || cs.key !== null && !cs.isLayer) {
+                        val root = get<ComponentService>(named(cs.root ?: registry.first().name))
                         MultiParentsComponentService(
                             cs.name,
-                            { get(named(cs.root?: registry.first().name)) },
+                            { root },
                             cs.parents.map { get(named(it)) },
                             cs.key
                         )
-                    else if (cs.isLayer) LayeredComponentServiceImp(
+                    } else if (cs.isLayer) LayeredComponentServiceImp(
                         get(named(cs.name)),
                         get(),
                         get(named(cs.parents.first())),
