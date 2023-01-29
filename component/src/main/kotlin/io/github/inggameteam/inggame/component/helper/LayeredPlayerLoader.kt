@@ -16,12 +16,14 @@ open class LayeredPlayerLoader(
 ) : HandleListener(plugin) {
 
     init {
+        println("LayeredPlayerLoader!!!")
         plugin.server.onlinePlayers.map(Player::getUniqueId).forEach { layeredComponentService.load(it, true) }
     }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     private fun onJoin(event: PlayerJoinEvent) {
+        println("LayeredPlayerLoader!!!onJoin")
         layeredComponentService.load(event.player.uniqueId, true)
     }
 
@@ -29,13 +31,13 @@ open class LayeredPlayerLoader(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     private fun onQuit(event: PlayerQuitEvent) {
-        layeredComponentService.unload(event.player.uniqueId, true)
+        layeredComponentService.unload(event.player.uniqueId, false)
     }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.MONITOR)
     private fun onKick(event: PlayerKickEvent) {
-        layeredComponentService.unload(event.player.uniqueId, true)
+        layeredComponentService.unload(event.player.uniqueId, false)
     }
 
 
