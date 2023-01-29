@@ -17,7 +17,7 @@ class ElementForAddSelector(
     override val elements: Collection<String> get() = app.get<PropertyRegistry>().getAllProp().filter {
         componentService.has(nameSpace.name, it.name)
                 || it.clazz.simpleName!!.equals(nameSpace.name.toString(), ignoreCase = true)
-                || it.name.equals(nameSpace.name.toString(), ignoreCase = true)
+                || nameSpace.parents.contains(it.clazz.simpleName!!)
     }.map { it.name }
 
 
