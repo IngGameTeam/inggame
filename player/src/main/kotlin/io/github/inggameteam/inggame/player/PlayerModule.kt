@@ -19,7 +19,7 @@ class PlayerModule(plugin: Plugin) : HandleListener(plugin) {
             single { PlayerLanguage(get(), get()) }
         })
         event.addModule(newModule("root", ::PlayerService))
-        event.register { "player-instance" isLayer true }
+        event.register { "player-instance" isLayer true cs "default" }
         event.addModule(newModule("player-instance", ::PlayerInstanceService))
     }
 
