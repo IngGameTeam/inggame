@@ -10,7 +10,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
-    private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList()),
+    private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList(), isMulti = true),
 ) : Event() {
 
 
