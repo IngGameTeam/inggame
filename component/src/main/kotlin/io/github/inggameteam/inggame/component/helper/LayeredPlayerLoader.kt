@@ -16,7 +16,7 @@ open class LayeredPlayerLoader(
 ) : HandleListener(plugin) {
 
     init {
-        plugin.server.onlinePlayers.map(Player::getUniqueId).forEach(layeredComponentService::load)
+        plugin.server.onlinePlayers.map(Player::getUniqueId).forEach { layeredComponentService.load(it, true) }
     }
 
     @Suppress("unused")
