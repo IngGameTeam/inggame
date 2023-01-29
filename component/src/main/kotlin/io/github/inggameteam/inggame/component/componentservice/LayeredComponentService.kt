@@ -10,7 +10,7 @@ interface LayeredComponentService : ComponentService, SaveComponentService {
     fun unload(name: Any, save: Boolean)
     fun save(name: Any)
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
     override operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace } ?: run { throw NameSpaceNotFoundException(nameSpace) }
