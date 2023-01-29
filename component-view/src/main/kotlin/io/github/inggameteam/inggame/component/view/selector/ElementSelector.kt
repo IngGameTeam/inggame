@@ -10,10 +10,13 @@ import io.github.inggameteam.inggame.component.view.editor.ModelEditorView
 import io.github.inggameteam.inggame.component.view.model.ElementViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
+import io.github.inggameteam.inggame.component.view.singleClass
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import kotlin.reflect.full.createType
+import kotlin.reflect.javaType
 
 typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
@@ -56,8 +59,10 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
 
     override fun select(t: Pair<Any, Any>, event: InventoryClickEvent) {
         val prop = app.get<PropertyRegistry>().getProp(t.first.toString())
-        println(prop.type)
-        app.get<EditorRegistry>().getEditor(prop.type, ElementViewImp(this, t), this)
+        val type = if (prop.type.singleClass.isInterface)
+            try { componentService[nameSpace.name, t.first.toString(), Any::class] } catch(e: Exception) { prop.type }
+        else prop.type
+        app.get<EditorRegistry>().getEditor(type, ElementViewImp(this, t), this)
             .open(event.whoClicked as Player)
     }
 
