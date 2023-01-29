@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.GuiFrameDSL
-import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.PropertyRegistry
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
@@ -9,23 +8,20 @@ import io.github.inggameteam.inggame.component.view.editor.CollectionSelector
 import io.github.inggameteam.inggame.component.view.editor.EditorViewImp
 import io.github.inggameteam.inggame.component.view.editor.ModelEditorView
 import io.github.inggameteam.inggame.component.view.model.ElementViewImp
-import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceView
-import io.github.inggameteam.inggame.component.view.singleClass
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
-import kotlin.reflect.full.allSupertypes
-import kotlin.reflect.full.createType
-import kotlin.reflect.full.defaultType
-import kotlin.reflect.full.starProjectedType
 
 typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
     : NameSpaceView by nameSpaceView, Selector<Element>, AddButton<Element>, RemoveButton<Element> {
 
+    @Deprecated("ornamental", ReplaceWith("stringGenericList"))
+    val stringGenericList: ArrayList<String>
+        get() = throw AssertionError()
 
     override fun addButton(player: Player) {
         ElementForAddSelector(this, this).open(player)
@@ -42,9 +38,10 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
             }
         }
     }
+    @Suppress("DEPRECATION")
     private fun parentButton(player: Player) {
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
-            NameSpace::parents.returnType
+            ::stringGenericList.returnType
         ), EditorViewImp(this,
             { componentService.setParents(nameSpace.name, it) },
             { componentService.getParents(nameSpace.name) })), this)

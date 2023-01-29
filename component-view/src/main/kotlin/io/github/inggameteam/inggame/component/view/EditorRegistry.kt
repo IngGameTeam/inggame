@@ -65,7 +65,6 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
         ItemModel::class to code(::ItemStackPropSelector),
         MutableCollection::class to code(::CollectionSelector),
-        Any::class to code(::StringEditor),
     )
 
 }
