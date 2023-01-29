@@ -42,13 +42,12 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
             }
         }
     }
-
     private fun parentButton(player: Player) {
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
             NameSpace::parents.returnType
         ), EditorViewImp(this,
-            { componentService.setParents(nameSpace, it) },
-            { componentService.getParents(nameSpace) })), this)
+            { componentService.setParents(nameSpace.name, it) },
+            { componentService.getParents(nameSpace.name) })), this)
             .open(player)
     }
 
