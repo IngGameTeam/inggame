@@ -18,16 +18,16 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
-//
-//        measureTimeMillis{
-//            val simpleName = javaClass.simpleName
-//            repeat(200) {
-//                gamePlayerService[player, simpleName, Boolean::class]
-//            }
-//        }.apply { println(this) }
-//        if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
-//            event.player.sendMessage("PrintOnMove!!!")
-//        }
+
+        measureTimeMillis{
+            val simpleName = javaClass.simpleName
+            repeat(200) {
+                gamePlayerService[player, simpleName, Boolean::class]
+            }
+        }.apply { println(this) }
+        if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
+            event.player.sendMessage("PrintOnMove!!!")
+        }
     }
 
 }
