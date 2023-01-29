@@ -11,6 +11,7 @@ view-resource:
     VIEW_TITLE: "select your element in namespace %s"
     VIEW_ADD_BUTTON: "&aAdd element"
     VIEW_REMOVE_BUTTON: "&cRemove element"
+    VIEW_PARENT_BUTTON: "&dEdit parents"
   ElementForAddSelector:
     parents: [ defaultView ]
     VIEW_TITLE: "choose element to add"

@@ -33,10 +33,11 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
         }
     }
 
-    fun parentButton(player: Player) {
+    private fun parentButton(player: Player) {
         CollectionSelector(EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
             { componentService.getParents(nameSpace) }), this)
+            .open(player)
     }
 
     override fun removeButton(player: Player) {
