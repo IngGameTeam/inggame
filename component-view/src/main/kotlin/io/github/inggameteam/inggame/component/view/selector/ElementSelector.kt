@@ -19,6 +19,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.full.allSupertypes
 import kotlin.reflect.full.createType
+import kotlin.reflect.full.defaultType
 import kotlin.reflect.full.starProjectedType
 
 typealias Element = Pair<Any, Any>
@@ -42,7 +43,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     }
 
     private fun parentButton(player: Player) {
-        val supertypes = ArrayList<String>()::class.createType().arguments
+        val supertypes = ArrayList<String>()::class.defaultType.arguments
         println(supertypes)
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
             NameSpace::parents.returnType
