@@ -35,7 +35,7 @@ class ContainerComponentServiceImp(
         left(key)
         keyComponent.load(key, true)
         keyComponent.set(key, keyAssign, container)
-        println("${keyComponent.get(key).name}")
+        println(keyComponent.toString())
         keyComponent.addParents(key, container)
         getList(container).add(key)
     }
