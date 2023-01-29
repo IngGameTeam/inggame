@@ -1,7 +1,11 @@
 package io.github.inggameteam.inggame.minigame.handler
 
 import io.github.inggameteam.inggame.component.PropHandler
+import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
+import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
@@ -17,15 +21,9 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
-        val player = event.player.uniqueId
-
-        measureTimeMillis{
-            val simpleName = javaClass.simpleName
-            repeat(20000) {
-                gamePlayerService[player, simpleName, Boolean::class]
-            }
-        }.apply { println(this) }
+        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
         if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
+            gamePlayerService.get(player, ::GameAlertImp).GAME_JOIN.send(player)
             event.player.sendMessage("PrintOnMove!!!")
         }
     }
