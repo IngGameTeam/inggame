@@ -9,6 +9,8 @@ import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import kotlin.system.measureTimeMillis
 
@@ -27,5 +29,13 @@ class PrintOnMove(
             event.player.sendMessage("PrintOnMove!!!")
         }
     }
+
+
+    @Suppress("unused")
+    @EventHandler(priority = EventPriority.LOW)
+    private fun onJoin(event: PlayerJoinEvent) {
+        println("PrintOnMove onJoin!!!")
+    }
+
 
 }
