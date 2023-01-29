@@ -30,12 +30,4 @@ class PrintOnMove(
         }
     }
 
-
-    @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOW)
-    private fun onJoin(event: PlayerJoinEvent) {
-        println("PrintOnMove onJoin!!!")
-    }
-
-
 }

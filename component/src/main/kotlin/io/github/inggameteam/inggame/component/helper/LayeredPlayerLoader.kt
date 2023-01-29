@@ -16,7 +16,6 @@ open class LayeredPlayerLoader(
 ) : HandleListener(plugin) {
 
     init {
-        println("LayeredPlayerLoader!!!")
         plugin.server.onlinePlayers.map(Player::getUniqueId).forEach { layeredComponentService.load(it, true) }
     }
 
