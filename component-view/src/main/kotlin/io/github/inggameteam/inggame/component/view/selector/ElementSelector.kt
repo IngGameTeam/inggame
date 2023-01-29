@@ -42,7 +42,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
 
     private fun parentButton(player: Player) {
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
-            NameSpace::parents.returnType.singleClass.kotlin.starProjectedType), EditorViewImp(this,
+            ArrayList<String>()::class.createType()), EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
             { componentService.getParents(nameSpace) })), this)
             .open(player)
