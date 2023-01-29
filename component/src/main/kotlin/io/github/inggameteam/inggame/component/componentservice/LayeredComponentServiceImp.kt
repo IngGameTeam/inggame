@@ -34,7 +34,6 @@ open class LayeredComponentServiceImp(
 
     override fun set(nameSpace: Any, key: Any, value: Any?) {
         val nameSpace = uncoverDelegate(nameSpace)
-        println(objectList)
         val ns = get(nameSpace)
         if (value === null) ns.elements.remove(key)
         else ns.elements[key] = value
@@ -47,6 +46,7 @@ open class LayeredComponentServiceImp(
             if (doc === null) newModel(name)
             else decodeNameSpace(doc, codec)
         )
+        println(objectList)
     }
 
     override fun unload(name: Any, save: Boolean) {
