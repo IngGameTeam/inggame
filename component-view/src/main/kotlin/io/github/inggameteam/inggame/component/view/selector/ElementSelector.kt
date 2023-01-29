@@ -44,10 +44,8 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     }
 
     private fun parentButton(player: Player) {
-        val supertypes = ArrayList<String>()::class.defaultType.arguments
-        println(supertypes)
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
-            NameSpace::parents.returnType.singleClass.kotlin.createType(supertypes)
+            NameSpace::parents.returnType
         ), EditorViewImp(this,
             { componentService.setParents(nameSpace, it) },
             { componentService.getParents(nameSpace) })), this)

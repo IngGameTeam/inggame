@@ -59,6 +59,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             java.lang.Float::class, java.lang.Double::class, )
             .map { it to code(::NumberEditor) }.toTypedArray(),
 
+        Any::class to code(::StringEditor),
         java.lang.String::class to code(::StringEditor),
         String::class to code(::StringEditor),
         Boolean::class to code(::BooleanEditor),
