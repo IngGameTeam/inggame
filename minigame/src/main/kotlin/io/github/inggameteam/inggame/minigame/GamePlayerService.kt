@@ -5,8 +5,3 @@ import io.github.inggameteam.inggame.component.componentservice.LayeredComponent
 
 class GamePlayerService(componentService: ComponentService)
     : LayeredComponentService by componentService as LayeredComponentService
-{
-
-
-
-}
