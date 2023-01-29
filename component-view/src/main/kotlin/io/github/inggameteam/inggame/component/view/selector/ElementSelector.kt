@@ -41,7 +41,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     }
 
     private fun parentButton(player: Player) {
-        val arguments = ArrayList<String>()::class.starProjectedType.arguments
+        val arguments = ArrayList<String>()::class.createType().arguments
         println(arguments)
         CollectionSelector(ModelEditorView(ModelViewImp(ElementViewImp(this, Pair(Unit, Unit)),
             NameSpace::parents.returnType.singleClass.kotlin.createType(arguments)), EditorViewImp(this,
