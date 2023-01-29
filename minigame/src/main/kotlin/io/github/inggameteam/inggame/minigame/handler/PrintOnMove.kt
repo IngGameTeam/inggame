@@ -18,6 +18,9 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = event.player.uniqueId
+        event.isCancelled = true
+        return
+
         measureTimeMillis{
             val simpleName = javaClass.simpleName
             repeat(200) {
