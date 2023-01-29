@@ -40,16 +40,16 @@ class ActionBarAlert(var message: String) : Alert {
 
 @Model
 class TitleAlert(
-    var title: String,
-    var subTitle: String,
+    var title: String?,
+    var subTitle: String?,
     var fadeIn: Int,
     var stay: Int,
     var fadeOut: Int,
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         if (reciver is Player) reciver.sendTitle(
-            title.format(*args),
-            subTitle.format(*args),
+            title?.format(*args)?: "",
+            subTitle?.format(*args)?: "",
             fadeIn, stay, fadeOut,
         ) else println("$reciver: $title, $subTitle")
     }
