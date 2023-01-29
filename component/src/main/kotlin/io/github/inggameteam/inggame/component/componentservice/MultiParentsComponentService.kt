@@ -28,7 +28,7 @@ class MultiParentsComponentService(
         if (parentKey === null) return components
         return try { rootComponent()!![nameSpace, parentKey, Any::class]
             .let { name -> components.firstOrNull { it.name == name }!! }.run(::listOf) }
-        catch (_: Throwable) { listOf<>(components.first()) }
+        catch (_: Throwable) { listOf(components.first()) }
 //        return components
     }
 
