@@ -34,8 +34,8 @@ class ContainerComponentServiceImp(
         val key = uncoverDelegate(key)
         left(key)
         keyComponent.load(key, true)
-        keyComponent.set(key, keyAssign, container)
         println(keyComponent.toString())
+        keyComponent.set(key, keyAssign, container)
         keyComponent.addParents(key, container)
         getList(container).add(key)
     }
