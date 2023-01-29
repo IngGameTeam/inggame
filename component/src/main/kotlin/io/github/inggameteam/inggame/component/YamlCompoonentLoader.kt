@@ -11,11 +11,12 @@ fun load(app: Koin, file: File) {
     if (!file.exists()) return
     val yaml = YamlConfiguration.loadConfiguration(file)
     yaml.getKeys(false).forEach { component ->
+        val componentService = app.get<ComponentService>(named(component))
+        if (componentService.getAll().isNotEmpty()) return@forEach
         yaml.getConfigurationSection(component)?.run {
             getKeys(false).forEach { nameSpace ->
                 getConfigurationSection(nameSpace)?.run {
                     getKeys(false).forEach { key ->
-                        val componentService = app.get<ComponentService>(named(component))
                         if (key == "parents") {
                             try {
                                 componentService.setParents(nameSpace, getStringList(key).map {
