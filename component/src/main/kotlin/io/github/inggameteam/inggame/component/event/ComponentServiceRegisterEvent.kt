@@ -11,12 +11,6 @@ import org.koin.dsl.module
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("root", ArrayList(), ArrayList()),
-    private val instanceRegistry: ComponentServiceDSL = root.run { "root" isMulti true cs "multi-player" isMulti true csc {  } },
-    private val languageRegistry: ComponentServiceDSL = root.run { "language" key "language" root "player-instance" csc {
-        "resource" csc { "singleton" cs "default" }
-        "english" cs "resource" isMulti true
-    } },
-    private val resourceRegistry: ComponentServiceDSL = root.findComponentServiceDSL("resource"),
 ) : Event() {
 
 
@@ -41,25 +35,16 @@ class ComponentServiceRegisterEvent(
         last.run { last cs suffix }
     }
 
+    fun register(block: ComponentServiceDSL.() -> Unit) {
+        block(root)
+    }
+
     fun layer(name: String) {
         root.findComponentServiceDSL(name).isLayer = true
     }
 
-    fun registerInstance(vararg name: String) {
-        name.forEach(::layer)
-        register(name.toList(), instanceRegistry, "language")
-    }
-
     fun registerRoot(vararg name: String) {
         register(name.toList(), root, "default")
-    }
-
-    fun registerResource(vararg name: String) {
-        register(name.toList(), resourceRegistry, "default")
-    }
-
-    fun registerLanguage(vararg name: String) {
-        register(name.toList(), languageRegistry, "resource")
     }
 
     private fun getRegistry() = ArrayList(root.registry)

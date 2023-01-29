@@ -49,10 +49,10 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             GameInstanceService(get(), get(), get(), get(named("game-instance")))
         } })
         event.addModule(newModule("custom-game", ::CustomGameService))
-        event.layer("custom-game")
 
-        event.registerInstance("game-player", "game-instance")
-        event.registerResource("game-resource")
+        event.register {
+            "game-player" isLayer true cs "game-instance" isLayer true cs "custom-game" isLayer true cs "game-resource"
+        }
         event.addModule(createSingleton(::GameServer, "server", "singleton"))
     }
 }

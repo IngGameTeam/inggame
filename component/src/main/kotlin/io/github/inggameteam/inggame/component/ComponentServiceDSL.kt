@@ -15,6 +15,14 @@ class ComponentServiceDSL(
             ?: ComponentServiceDSL(name, ArrayList(), registry).apply(registry::add)
     }
 
+    infix fun ComponentServiceDSL.isLayer(isLayer: Boolean): ComponentServiceDSL = this.apply {
+        this.isLayer = isLayer
+    }
+
+    infix fun String.isLayer(isLayer: Boolean): String = this.apply {
+        findComponentServiceDSL(this).isLayer = isLayer
+    }
+
     infix fun ComponentServiceDSL.isMulti(isMulti: Boolean): ComponentServiceDSL = this.apply {
         this.isMulti = isMulti
     }
