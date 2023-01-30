@@ -47,8 +47,9 @@ class CollectionSelector<T : Any>(
             genericType, ModelViewImp(modelView, genericType), this,
             ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(this,
                 { if (!settled) {
-                    list.add(it)
-                    editorView.set.invoke(list as T)
+                    val l = list
+                    l.add(it)
+                    editorView.set.invoke(l as T)
                     e = it
                 }; settled = true },
                 { e }))
