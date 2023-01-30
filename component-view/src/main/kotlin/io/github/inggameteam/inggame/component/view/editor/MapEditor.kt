@@ -35,7 +35,8 @@ class MapEditor<T : Map<String, *>>(
                     NameSpace("Unit", CopyOnWriteArraySet(), ConcurrentHashMap())), Pair(Unit, Unit)),
                 ArrayList::class.createType((view as ModelView).model.arguments.run { subList(1, size) })
         ), EditorViewImp(this,
-            { set((it as ArrayList<Entry<*>>).map { e -> Pair(e.key, e.value) }.toMap() as T) },
+            { try { set((it as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) } as T) }
+            catch (e: Throwable) { e.printStackTrace()}},
             { get()?.entries?.map { Entry(it.key, it.value!!) } })), previousSelector)
             .open(player)
     }
