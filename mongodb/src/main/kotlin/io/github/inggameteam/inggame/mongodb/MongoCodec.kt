@@ -19,7 +19,7 @@ class MongoCodec(codecs: Collection<Class<*>>) {
     fun decode(document: Any?): Any? {
         if (document === null) return null
         if (document is Document) {
-            println(document.containsKey("_t"))
+            println(document)
             return codecRegistry[Class.forName(document.getString("_t"))]
                 .decode(
                     document.toBsonDocument().asBsonReader(),
