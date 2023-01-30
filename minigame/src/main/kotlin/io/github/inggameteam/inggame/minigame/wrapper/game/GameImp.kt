@@ -11,7 +11,6 @@ import org.bukkit.Bukkit
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
-@PropWrapper
 class GameImp(wrapper: Wrapper) : Game, Wrapper by wrapper {
 
     override val uuid: UUID get() = nameSpace as UUID
