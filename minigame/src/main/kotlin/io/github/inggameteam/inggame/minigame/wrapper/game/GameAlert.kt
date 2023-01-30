@@ -24,6 +24,7 @@ interface GameAlert : Wrapper {
     val testArrayList: ArrayList<Alert>
     val testHashSet: HashSet<Alert>
     val testHashMap: HashMap<String, ItemModel>
+    val testMultiGenericMap: HashMap<String, ArrayList<ItemModel>>
 
 
 }
