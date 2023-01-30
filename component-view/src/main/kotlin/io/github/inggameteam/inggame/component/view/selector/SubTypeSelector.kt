@@ -13,7 +13,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.full.createType
 
-class SubTypeSelector(
+class
+SubTypeSelector(
     private val editorView: EditorView<*>,
     private val modelView: ModelView,
     override val parentSelector: Selector<*>? = null
@@ -21,7 +22,8 @@ class SubTypeSelector(
     override val previousSelector: Selector<*>? get() = parentSelector
 
     override val elements: Collection<Model> get() =
-        app.get<SubClassRegistry>().getSubs(model.singleClass.kotlin).map { it.createType() }
+        app.get<SubClassRegistry>().getSubs(model.singleClass.kotlin)
+            .filter { !it.java.isInterface }.map { it.createType() }
 
     override fun select(t: Model, event: InventoryClickEvent) {
         ModelFieldSelector(editorView, ModelViewImp(this, t), parentSelector)
