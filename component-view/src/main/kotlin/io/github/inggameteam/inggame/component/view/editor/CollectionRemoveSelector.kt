@@ -16,7 +16,8 @@ class CollectionRemoveSelector<T: Any>(
     override val elements: Collection<T> = (editorView.get() as? MutableCollection<T>)?: emptyList()
 
     override fun select(t: T, event: InventoryClickEvent) {
-        (editorView.get.invoke() as MutableCollection<*>).remove(t)
+
+        editorView.set.invoke((editorView.get.invoke() as MutableCollection<*>).remove(t) as T)
         parentSelector?.open(event.whoClicked as Player)
     }
 
