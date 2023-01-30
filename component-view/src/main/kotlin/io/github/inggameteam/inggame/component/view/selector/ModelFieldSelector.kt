@@ -35,10 +35,12 @@ class ModelFieldSelector(
 
     @Suppress("DEPRECATION", "UNCHECKED_CAST")
     private fun getOrNewInstance() =
-        try { editorView.get()!! }
-        catch (_: Throwable) { model.singleClass.newInstance() }
-            .apply { (editorView as EditorView<Any>).set.invoke(this) }
+        try { editorView.get()!! } catch (_: Throwable) { model.singleClass.newInstance() }
+            .apply { set(this) }
 
+    private fun set(value: Any) {
+        (editorView as EditorView<Any>).set.invoke(value)
+    }
 
     override fun select(t: Field, event: InventoryClickEvent) {
         val type = try { t.returnType.apply { singleClass } } catch (_: Throwable) { model.arguments[0].type!! }
@@ -48,8 +50,8 @@ class ModelFieldSelector(
 //            FieldEditorImp<Any>(FieldViewImp(this, t))
             ModelEditorView(
                 mView, EditorViewImp(mView,
-                { getOrNewInstance().run { (t as KMutableProperty<*>).setter.call(this, it) } },
-                { getOrNewInstance().run { t.getter.call(this) } }))
+                { getOrNewInstance().run { (t as KMutableProperty<*>).setter.call(this, it); set(this) } },
+                { getOrNewInstance().run { t.getter.call(this) }; set(this) }))
         )
             .open(event.whoClicked as Player)
     }
