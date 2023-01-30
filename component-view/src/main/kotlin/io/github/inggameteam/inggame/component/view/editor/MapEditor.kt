@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.full.createType
 
-class MapEditor<T : Map<String, *>>(
+class MapEditor<T : Map<String, L>, L>(
     view: EditorView<T>,
     override val previousSelector: Selector<*>? = null,
 ) : Editor, EditorView<T> by view {
