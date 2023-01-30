@@ -52,12 +52,12 @@ view-resource:
 game-resource:
   PrintOnMove:
     PrintOnMove: false
-  hub.parents: [ Hub ]
   Hub:
     parents: [ PrintOnMove ]
     gameName: "Hub"
     startPlayersAmount: -1
     startWaitingSecond: -1
+  hub.parents: [ Hub ]
   GameAlert:
     parents: [ PrintOnMove ]
   Game:
