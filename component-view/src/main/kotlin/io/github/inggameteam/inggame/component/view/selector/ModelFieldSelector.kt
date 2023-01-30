@@ -33,7 +33,7 @@ class ModelFieldSelector(
         get() = model.singleClass.kotlin. declaredMemberProperties
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
 
-    @Suppress("DEPRECATION", "UNCHECKED_CAST")
+    @Suppress("DEPRECATION")
     private fun getOrNewInstance() =
         try { editorView.get()!! } catch (_: Throwable) { model.singleClass.newInstance().apply { set(this) } }
 
