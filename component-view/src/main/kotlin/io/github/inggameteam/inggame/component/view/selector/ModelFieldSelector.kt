@@ -49,7 +49,7 @@ class ModelFieldSelector(
 //            FieldEditorImp<Any>(FieldViewImp(this, t))
             ModelEditorView(
                 mView, EditorViewImp(mView,
-                { getOrNewInstance().run { (t as KMutableProperty<*>).setter.call(this, it); set(this) } },
+                { getOrNewInstance().apply { (t as KMutableProperty<*>).setter.call(this, it); set(this) } },
                 { getOrNewInstance().run { t.getter.call(this) } }))
         )
             .open(event.whoClicked as Player)
