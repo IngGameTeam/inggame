@@ -17,7 +17,6 @@ class MongoCodec(codecs: Collection<Class<*>>) {
     val codecRegistry = createCodec(codecs)
 
     fun decode(document: Any?): Any? {
-        println(document?.javaClass?.simpleName)
         if (document === null) return null
         if (document is Document) {
             return codecRegistry[Class.forName(document.getString("_t"))]
