@@ -33,7 +33,7 @@ class MapEditor<T : Map<String, *>>(
 
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
-        println((::genericMap.returnType.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>)
+        println((::genericMap.returnType.javaType as ParameterizedType).actualTypeArguments[0].typeName)
         println(::genericMap.returnType.arguments)
         CollectionSelector(ModelEditorView(
             ModelViewImp(
