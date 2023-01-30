@@ -19,7 +19,7 @@ class ComponentViewModule(plugin: Plugin) : HandleListener(plugin) {
         event.registerClass(MapEditor.Entry::class)
         event.addModule(module(createdAtStart = true) { single { ViewPlayerLoader(get(named("view-player")), get()) } })
         event.register {
-            "view-player" isLayer true cs "view-resource" cs "default"
+            "view-player" isLayer true cs "view-resource" isSavable true cs "default"
         }
     }
 }
