@@ -40,7 +40,7 @@ class MapEditor<T : Map<String, *>>(
                     KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
                 ))
         ), EditorViewImp(this,
-            { try { set((it as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) }.toMap().run { HashMap(this) } as T) }
+            { try { set((it as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) }.toMap().run { HashMap(this) } as T); println("MapEditor settled") }
             catch (e: Throwable) { e.printStackTrace()}},
             { try { get()?.entries?.map { Entry(it.key, it.value!!) }?.run(::ArrayList)?: ArrayList<Entry<*>>() }
             catch (e: Throwable) { e.printStackTrace() } })), previousSelector)
