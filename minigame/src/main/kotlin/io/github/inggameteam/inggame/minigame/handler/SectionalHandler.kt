@@ -24,7 +24,7 @@ class SectionalHandler(
         val game = event.game
         if (game.isAllocatedGame && game.gameJoined.size == 1) {
             val sectional = game[::SectionalImp]
-            sectional.loadSector()
+            sectionalHelper.loadSector(sectional)
         }
     }
 
@@ -35,7 +35,7 @@ class SectionalHandler(
         if (game.isAllocatedGame && game.gameJoined.size == 0) {
             val sectional = game[::SectionalImp]
             sectionalHelper.clearEntitiesToUnload(sectional)
-            ;{ sectional.unloadSector(); }.delay(plugin, 20)
+            ;{ sectionalHelper.unloadSector(sectional); }.delay(plugin, 20)
         }
     }
 
