@@ -28,7 +28,18 @@ class MapEditor<T : Map<String, *>>(
         var value: E
     ) {
         override fun hashCode(): Int {
-            return key.hashCode()?: super.hashCode()
+            return key?.hashCode()?: super.hashCode()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as Entry<*>
+
+            if (key != other.key) return false
+
+            return true
         }
     }
 
