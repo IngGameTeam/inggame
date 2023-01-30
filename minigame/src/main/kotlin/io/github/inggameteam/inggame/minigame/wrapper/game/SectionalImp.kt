@@ -1,10 +1,10 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.component.model.Location
 import io.github.inggameteam.inggame.minigame.GameState
-import org.bukkit.Location
 import org.bukkit.util.Vector
-import java.io.File
+import java.util.concurrent.CopyOnWriteArrayList
 
 
 class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
@@ -15,20 +15,13 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 //     */
 //    override val stopWaitingTick = 84600L * 20L
     override val schematicName: String by nonNull
-
+    val schematicLocations: HashMap<String, CopyOnWriteArrayList<Location>> by nonNull
 
     override val minPoint: Vector
     override val maxPoint: Vector
     override var isUnloaded = false
     override val gameWidth: Int by nonNull
     override val gameHeight: Int by nonNull
-    override fun loadSector(key: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun unloadSector() {
-        TODO("Not yet implemented")
-    }
 
     init {
         if (isAllocatedGame) {
@@ -69,11 +62,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 //                z += width * point.y
 //            }
 //        }
-        TODO()
-    }
 
-    override fun getSchematicFile(name: String, dir: String): File {
-        TODO("Not yet implemented")
     }
 
 
