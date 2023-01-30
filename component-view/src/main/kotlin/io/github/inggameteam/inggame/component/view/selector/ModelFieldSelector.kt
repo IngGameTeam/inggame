@@ -51,7 +51,7 @@ class ModelFieldSelector(
             ModelEditorView(
                 mView, EditorViewImp(mView,
                 { getOrNewInstance().run { (t as KMutableProperty<*>).setter.call(this, it); set(this) } },
-                { getOrNewInstance().run { t.getter.call(this) }; set(this) }))
+                { getOrNewInstance().run { t.getter.call(this) }.also { set(this) } }))
         )
             .open(event.whoClicked as Player)
     }

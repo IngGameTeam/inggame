@@ -45,7 +45,6 @@ class MapEditor<T : Map<String, *>>(
 
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
-        val entry = Entry("", "")
         CollectionSelector(ModelEditorView(
             ModelViewImp(
                 ElementViewImp(NameSpaceViewImp(
