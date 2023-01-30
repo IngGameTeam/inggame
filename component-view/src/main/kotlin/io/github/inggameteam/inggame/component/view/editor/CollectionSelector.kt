@@ -40,9 +40,8 @@ class CollectionSelector<T : Any>(
             .newInstance(collection?: ArrayList<Any>())
     }
     private val list get() = ((editorView.get.invoke() as? MutableCollection<Any>)
-        ?: (newE() as MutableCollection<Any>)).apply {
-            editorView.set.invoke(this as T)
-        }
+        ?: (newE() as MutableCollection<Any>))
+        .apply { editorView.set.invoke(this as T) }
 
     private fun elem(genericType: KType, player: Player, t: Any?) {
         var e = t
@@ -61,7 +60,7 @@ class CollectionSelector<T : Any>(
                         e = it
                     }
                 },
-                { e }))
+                { list; e }))
         ).open(player)
     }
 
