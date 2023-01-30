@@ -56,8 +56,8 @@ class MapEditor<T : Map<String, *>>(
         ), EditorViewImp(this,
             { try { (it.apply { println(this) } as ArrayList<Entry<*>>).run {
                 if (any { e -> e.key === null || e.value === null }) null else this
-            }?.associate { e -> Pair(e.key, e.value) }?.toMap()?.run { HashMap(this) }.run { set(this as T) } }
-            catch (e: Throwable) { e.printStackTrace()}},
+            }?.associate { e -> Pair(e.key, e.value) }?.toMap()?.run { HashMap(this) }?.run { set(this as T) } }
+            catch (_: Throwable) { } },
             { try { get()?.entries?.mapNotNull { Entry(it.key, it.value?: return@mapNotNull null) }?.run(::ArrayList) }
             catch (e: Throwable) { e.printStackTrace() } })), previousSelector)
             .open(player)
