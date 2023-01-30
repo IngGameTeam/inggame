@@ -95,7 +95,6 @@ class NonNullWrapperImp(
 
     var defaultBlock: (() -> Any)? = null
 
-    @Suppress("UNCHECKED_CAST")
     inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R {
         try {
             val result = try {
@@ -105,10 +104,14 @@ class NonNullWrapperImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
-            return if (R::class.isSubclassOf(Wrapper::class))
-                R::class.constructors.first().call(NonNullWrapperImp(result, component))
-            else
-                result as R
+            try {
+                return if (R::class.isSubclassOf(Wrapper::class))
+                    R::class.constructors.first().call(NonNullWrapperImp(result, component))
+                else result as R
+            } catch (_: Throwable) {
+                throw AssertionError("an error occurred while wrap property due to non exist consturctor")
+            }
+
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }

@@ -62,9 +62,9 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         java.lang.String::class to code(::StringEditor),
         String::class to code(::StringEditor),
         Boolean::class to code(::BooleanEditor),
-
         ItemModel::class to code(::ItemStackPropSelector),
         MutableCollection::class to code(::CollectionSelector),
+        Map::class to code(::MapEditor),
     )
 
 }

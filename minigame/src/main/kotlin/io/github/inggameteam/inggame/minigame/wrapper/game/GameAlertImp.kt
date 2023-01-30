@@ -22,5 +22,6 @@ class GameAlertImp(wrapper: Wrapper) : Wrapper by wrapper, GameAlert {
     override val testInventory: InventoryModel by nonNull
     override val testArrayList: ArrayList<Alert> by nonNull
     override val testHashSet: HashSet<Alert> by nonNull
+    override val testHashMap: HashMap<String, ItemModel> by nonNull
 
 }

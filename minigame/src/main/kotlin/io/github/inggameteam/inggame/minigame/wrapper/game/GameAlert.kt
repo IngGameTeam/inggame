@@ -23,6 +23,7 @@ interface GameAlert : Wrapper {
     val testInventory: InventoryModel
     val testArrayList: ArrayList<Alert>
     val testHashSet: HashSet<Alert>
+    val testHashMap: HashMap<String, ItemModel>
 
 
 }
