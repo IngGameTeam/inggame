@@ -23,6 +23,6 @@ class GameAlertImp(wrapper: Wrapper) : Wrapper by wrapper, GameAlert {
     override val testArrayList: ArrayList<Alert> by nonNull
     override val testHashSet: HashSet<Alert> by nonNull
     override val testHashMap: HashMap<String, ItemModel> by nonNull
-    override val testMultiGenericMap: HashMap<String, ArrayList<ItemModel>> by nonNull
+    override val testMultiGenericMap: HashMap<String, ArrayList<String>> by nonNull
 
 }
