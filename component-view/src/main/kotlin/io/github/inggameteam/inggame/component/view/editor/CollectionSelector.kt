@@ -29,10 +29,10 @@ class CollectionSelector<T : Any>(
     private val genericType: KType get() {
         val model = (editorView as ModelView).model
         val javaType = model.javaType
-        if (javaType is ParameterizedType) {
-            return (javaType.actualTypeArguments[0] as Class<*>).kotlin.starProjectedType
+        return if (javaType is ParameterizedType) {
+            (javaType.actualTypeArguments[0] as Class<*>).kotlin.starProjectedType
         } else {
-            return model.arguments.first().type!!
+            model.arguments.first().type!!
         }
     }
 
