@@ -36,7 +36,7 @@ class MapEditor<T : Map<String, *>>(
                     ComponentServiceViewImp(this, EmptyComponentServiceImp("Unit")),
                     NameSpace("Unit", CopyOnWriteArraySet(), ConcurrentHashMap())), Pair(Unit, Unit)),
                 ArrayList::class.createType(listOf(
-                    KTypeProjection(KVariance.OUT, Entry::class.createType((view as ModelView).model.arguments.run { subList(1, size) })),
+                    KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
                 ))
         ), EditorViewImp(this,
             { try { set((it as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) } as T) }
