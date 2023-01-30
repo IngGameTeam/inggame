@@ -25,7 +25,7 @@ class MapEditor<T : Map<String, *>>(
     @Model
     class Entry<E : Any>(
         var key: String?,
-        var value: E
+        var value: E?
     ) {
         override fun hashCode(): Int {
             return key?.hashCode()?: super.hashCode()
@@ -54,7 +54,9 @@ class MapEditor<T : Map<String, *>>(
                     KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
                 ))
         ), EditorViewImp(this,
-            { try { set((it.apply { println(this) } as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) }.toMap().run { HashMap(this) } as T) }
+            { try { (it.apply { println(this) } as ArrayList<Entry<*>>).run {
+                if (any { e -> e.key === null || e.value === null }) null else this
+            }?.associate { e -> Pair(e.key, e.value) }?.toMap()?.run { HashMap(this) }.run { set(this as T) } }
             catch (e: Throwable) { e.printStackTrace()}},
             { try { get()?.entries?.mapNotNull { Entry(it.key, it.value?: return@mapNotNull null) }?.run(::ArrayList) }
             catch (e: Throwable) { e.printStackTrace() } })), previousSelector)
