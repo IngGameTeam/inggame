@@ -5,6 +5,8 @@ view-resource:
     VIEW_BACK_PAGE: "&fBack page"
   NameSpaceSelector:
     parents: [ defaultView ]
+    VIEW_ADD_BUTTON: "&aAdd namespace"
+    VIEW_REMOVE_BUTTON: "&cRemove namespace"
     VIEW_TITLE: "select your namespace"
   ElementSelector:
     parents: [ defaultView ]
