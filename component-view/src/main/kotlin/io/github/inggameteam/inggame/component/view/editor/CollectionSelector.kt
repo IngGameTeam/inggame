@@ -41,7 +41,6 @@ class CollectionSelector<T : Any>(
         }
 
     private fun elem(genericType: KType, player: Player, isAdd: Boolean, t: Any?) {
-        println(genericType)
         var settled = !isAdd
         var e = t
         app.get<EditorRegistry>().getEditor(
