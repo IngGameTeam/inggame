@@ -7,8 +7,10 @@ import io.github.inggameteam.inggame.component.view.model.ElementViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.model.NameSpaceViewImp
 import io.github.inggameteam.inggame.component.view.selector.Selector
+import io.github.inggameteam.inggame.component.view.singleClass
 import io.github.inggameteam.inggame.mongodb.Model
 import org.bukkit.entity.Player
+import java.lang.reflect.ParameterizedType
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.full.createType
@@ -31,7 +33,7 @@ class MapEditor<T : Map<String, *>>(
 
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
-        println(::genericMap.returnType.arguments.first().type?.javaType?.typeName)
+        println((::genericMap.returnType.singleClass as ParameterizedType).actualTypeArguments[0] as Class<*>)
         println(::genericMap.returnType.arguments)
         CollectionSelector(ModelEditorView(
             ModelViewImp(
