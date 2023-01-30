@@ -35,8 +35,8 @@ class CollectionSelector<T : Any>(
         elem(genericType, player, true, null)
     }
 
-    private fun newE(collection: Collection<*>): Any {
-        return (editorView as ModelView).model.singleClass.getConstructor(Collection::class.java).newInstance(collection)
+    private fun newE(collection: Collection<*>? = null): Any {
+        return (editorView as ModelView).model.singleClass.getConstructor(Collection::class.java).newInstance(collection?: ArrayList<Any>())
     }
     private val list get() = (editorView.get.invoke() as? MutableCollection<Any>)
         ?: (newE() as MutableCollection<Any>).apply {
