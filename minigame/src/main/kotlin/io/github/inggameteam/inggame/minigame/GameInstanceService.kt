@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.component.componentservice.LayeredComponent
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
 import io.github.inggameteam.inggame.utils.randomUUID
@@ -23,7 +24,7 @@ class GameInstanceService(
 
 
     init {
-        server.hub = component.get(create(randomUUID(),  server::hub.name), ::Game)
+        server.hub = component.get(create(randomUUID(),  server::hub.name), ::GameImp)
     }
 
 }

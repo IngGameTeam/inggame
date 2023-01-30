@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.minigame.event.GameUnloadEvent
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -23,8 +24,6 @@ class GameHelper(
     private val server: GameServer,
     private val plugin: IngGamePlugin
 ) {
-
-
 
     fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
         val gameAlert = gamePlayerService.get(player, ::GameAlertImp)
@@ -64,7 +63,7 @@ class GameHelper(
     fun requestLeft(game: Game, gPlayer: GPlayer, leftType: LeftType) = game.gameJoined.contains(gPlayer)
 
     fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
-        val game = gPlayer[::Game]
+        val game = gPlayer[::GameImp]
         if (!requestLeft(game, gPlayer, leftType)) return false
         Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, game, leftType))
         gameInstanceService.left(gPlayer)
@@ -104,7 +103,7 @@ class GameHelper(
                 val list = ArrayList<() -> Unit>()
                 for (i in tick downTo  1) list.add {
                     game.gameJoined.forEach {
-                        it[::GameAlertImp].GAME_START_COUNT_DOWN.send(it, it[::Game].gameName, i, it[::Game].gameInfo)
+                        it[::GameAlertImp].GAME_START_COUNT_DOWN.send(it, it[::GameImp].gameName, i, it[::GameImp].gameInfo)
                     }
                 }
                 list.add { game.cancelGameTask(); start(game, true) }
@@ -133,7 +132,7 @@ class GameHelper(
     fun finishGame() = Unit
 
     fun beginGame(game: Game) {
-        game.gameJoined.forEach { it[::GameAlertImp].GAME_START.send(it, it[::Game].gameName)}
+        game.gameJoined.forEach { it[::GameAlertImp].GAME_START.send(it, it[::GameImp].gameName)}
     }
 
 

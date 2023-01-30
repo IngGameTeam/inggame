@@ -12,40 +12,28 @@ import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
 @PropWrapper
-class Game(wrapper: Wrapper) : Wrapper by wrapper {
+interface Game : Wrapper {
 
-    val uuid: UUID get() = nameSpace as UUID
+    val uuid: UUID
 
-    val gameName: String by nonNull
-    val gameInfo: String by nonNull
-    val startPlayersAmount      : Int           by nonNull
-    val playerLimitAmount       : Int           by nonNull
-    val startWaitingSecond      : Int           by nonNull
-    val stopWaitingTick         : Int           by nonNull
+    val gameName: String
+    val gameInfo: String
+    val startPlayersAmount      : Int
+    val playerLimitAmount       : Int
+    val startWaitingSecond      : Int
+    val stopWaitingTick         : Int
 
-    var gameJoined: CopyOnWriteArraySet<GPlayer> by default { CopyOnWriteArraySet<GPlayer>() }
-    var gameSector: Sector by default { Sector(0, 0) }
+    var gameJoined: CopyOnWriteArraySet<GPlayer>
+    var gameSector: Sector
 
-    private var gameTask: ITask? by nullable
-    fun cancelGameTask() {
-        val gameTask = gameTask
-        gameTask?.cancel()
-        this.gameTask = null
-        Bukkit.getPluginManager().callEvent(GameTaskCancelEvent(this))
-    }
+    fun addTask(task: ITask)
 
-    fun addTask(task: ITask) {
-        gameTask?.tasks?.addAll(task.tasks).apply {
-            if (this === null) gameTask = task
-        }
-    }
+    fun cancelGameTask()
+    fun hasGameTask(): Boolean
 
-    fun hasGameTask() = gameTask !== null
+    val isAllocatedGame: Boolean
+    var gameState: GameState
 
-
-
-    val isAllocatedGame: Boolean get() = gameSector.equals(0, 0)
-    var gameState: GameState by default { GameState.WAIT }
 
 
 }

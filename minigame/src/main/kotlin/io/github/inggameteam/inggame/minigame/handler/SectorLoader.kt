@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.delegate.getAll
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.Sector
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import org.bukkit.World
 import kotlin.math.sqrt
 
@@ -12,7 +13,7 @@ class SectorLoader(
 ) {
 
     fun newAllocatable(world: World): Sector {
-        val list = gameInstanceService.getAll(::Game).filter(Game::isAllocatedGame)
+        val list = gameInstanceService.getAll(::GameImp).filter(Game::isAllocatedGame)
             .map(Game::gameSector).filter { it.worldOrNull == world }.toSet()
         val line = sqrt(list.size.toDouble()).toInt() + 1
         var x = 1

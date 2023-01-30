@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.minigame.JoinType
 import io.github.inggameteam.inggame.minigame.LeftType
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
+import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
@@ -38,7 +39,7 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
-        val game = gameInstanceService.get(server.hub, ::Game)
+        val game = gameInstanceService.get(server.hub, ::GameImp)
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
         gameHelper.joinGame(game, player, JoinType.PLAY)
     }

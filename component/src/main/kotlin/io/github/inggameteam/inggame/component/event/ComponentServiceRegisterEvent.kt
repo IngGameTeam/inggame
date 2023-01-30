@@ -2,12 +2,17 @@ package io.github.inggameteam.inggame.component.event
 
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.*
+import io.github.inggameteam.inggame.component.model.*
+import io.github.inggameteam.inggame.utils.ClassRegistry
+import io.github.inggameteam.inggame.utils.fastToString
+import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import kotlin.reflect.KClass
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("null", ArrayList(), ArrayList(), isMulti = true)
@@ -34,6 +39,14 @@ class ComponentServiceRegisterEvent(
             }
         }
         last.run { last cs suffix }
+    }
+
+    fun registerClass(vararg clazz: KClass<*>) {
+        addModule(module {
+            factory(named(randomUUID().fastToString())) {
+                ClassRegistry(*clazz)
+            }
+        })
     }
 
     fun register(block: ComponentServiceDSL.() -> Unit) {
