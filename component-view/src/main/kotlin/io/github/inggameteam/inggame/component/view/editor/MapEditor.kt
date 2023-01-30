@@ -42,7 +42,8 @@ class MapEditor<T : Map<String, *>>(
         ), EditorViewImp(this,
             { try { set((it as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) } as T) }
             catch (e: Throwable) { e.printStackTrace()}},
-            { get()?.entries?.map { Entry(it.key, it.value!!) } })), previousSelector)
+            { try { get()?.entries?.map { Entry(it.key, it.value!!) } }
+            catch (e: Throwable) { e.printStackTrace() } })), previousSelector)
             .open(player)
     }
 
