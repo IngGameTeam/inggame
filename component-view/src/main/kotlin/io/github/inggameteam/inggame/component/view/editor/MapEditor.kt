@@ -29,7 +29,9 @@ class MapEditor<T : Map<String, *>>(
 
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
-
+println(ArrayList::class.createType(listOf(
+    KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
+)))
         CollectionSelector(ModelEditorView(
             ModelViewImp(
                 ElementViewImp(NameSpaceViewImp(
