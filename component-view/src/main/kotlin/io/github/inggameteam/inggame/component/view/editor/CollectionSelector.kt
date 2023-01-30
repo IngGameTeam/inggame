@@ -32,7 +32,7 @@ class CollectionSelector<T : Any>(
     private val modelView = editorView as ModelView
 
     override fun addButton(player: Player) {
-        elem(genericType, player, true, null)
+        elem(genericType, player, null)
     }
 
     private fun newE(collection: Collection<*>? = null): Any {
@@ -44,15 +44,14 @@ class CollectionSelector<T : Any>(
             editorView.set.invoke(this as T)
         }
 
-    private fun elem(genericType: KType, player: Player, isAdd: Boolean, t: Any?) {
-        var settled = !isAdd
+    private fun elem(genericType: KType, player: Player, t: Any?) {
         var e = t
         app.get<EditorRegistry>().getEditor(
             genericType, ModelViewImp(modelView, genericType), this,
             ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(this,
                 {
                     val l = list
-                    val indexOf = l.indexOf(it)
+                    val indexOf = l.indexOf(e)
                     if (indexOf != -1) {
                         e = it
                         editorView.set.invoke(newE(ArrayList(l).apply { set(indexOf, it) }) as T)
@@ -60,7 +59,8 @@ class CollectionSelector<T : Any>(
                         l.add(it)
                         editorView.set.invoke(l as T)
                         e = it
-                    }; settled = true },
+                    }
+                },
                 { e }))
         ).open(player)
     }
@@ -79,7 +79,7 @@ class CollectionSelector<T : Any>(
     override fun select(t: T, event: InventoryClickEvent) {
         elem(
             genericType,
-            event.whoClicked as Player, false, t
+            event.whoClicked as Player, t
         )
     }
 

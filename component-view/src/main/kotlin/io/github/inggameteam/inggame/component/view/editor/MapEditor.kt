@@ -31,6 +31,10 @@ class MapEditor<T : Map<String, *>>(
             return key?.hashCode()?: super.hashCode()
         }
 
+        override fun toString(): String {
+            return "$key=$value"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
@@ -43,7 +47,6 @@ class MapEditor<T : Map<String, *>>(
         }
     }
 
-    @Suppress("DEPRECATION")
     override fun open(player: Player) {
         CollectionSelector(ModelEditorView(
             ModelViewImp(
