@@ -27,8 +27,8 @@ class MapEditor<T : Map<String, *>>(
         var key: String,
         var value: E
     ) {
-        override fun toString(): String {
-            return "$key=$value"
+        override fun hashCode(): Int {
+            return key.hashCode()
         }
     }
 
