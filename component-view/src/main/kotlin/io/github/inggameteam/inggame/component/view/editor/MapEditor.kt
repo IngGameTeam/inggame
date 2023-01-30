@@ -10,6 +10,8 @@ import org.bukkit.entity.Player
 import java.lang.reflect.ParameterizedType
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
+import kotlin.reflect.KTypeProjection
+import kotlin.reflect.KVariance
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
@@ -33,7 +35,10 @@ class MapEditor<T : Map<String, *>>(
                 ElementViewImp(NameSpaceViewImp(
                     ComponentServiceViewImp(this, EmptyComponentServiceImp("Unit")),
                     NameSpace("Unit", CopyOnWriteArraySet(), ConcurrentHashMap())), Pair(Unit, Unit)),
-                ArrayList::class.createType((view as ModelView).model.arguments.run { subList(1, size) })
+                ArrayList::class.createType(listOf(
+                    KTypeProjection(KVariance.OUT, Entry::class.createType()),
+                    *(view as ModelView).model.arguments.run { subList(1, size) }.toTypedArray()
+                ))
         ), EditorViewImp(this,
             { try { set((it as ArrayList<Entry<*>>).associate { e -> Pair(e.key, e.value) } as T) }
             catch (e: Throwable) { e.printStackTrace()}},
