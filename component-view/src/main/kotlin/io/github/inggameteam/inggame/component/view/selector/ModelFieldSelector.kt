@@ -41,9 +41,7 @@ class ModelFieldSelector(
 
 
     override fun select(t: Field, event: InventoryClickEvent) {
-        println(t.returnType)
-        val type = try { t.returnType } catch (_: Throwable) { model }
-        println(model)
+        val type = model
         val mView = ModelViewImp(this, type)
         app.get<EditorRegistry>().getEditor(
             type, this, this,
