@@ -52,6 +52,10 @@ class ResourceComponentServiceImp(
             nameSpaceCache
         }
 
+    override fun removeNameSpace(name: Any) {
+        nameSpaceCache.removeIf { it.name == name }
+    }
+
     override fun getOrNull(name: Any) = getAll()
         .firstOrNull { it.name == name }
         ?: NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }

@@ -63,4 +63,8 @@ class MultiParentsComponentService(
         return emptyList()
     }
 
+    override fun removeNameSpace(name: Any) {
+        //nothing
+    }
+
 }

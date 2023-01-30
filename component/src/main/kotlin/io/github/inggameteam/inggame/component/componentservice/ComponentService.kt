@@ -59,6 +59,8 @@ interface ComponentService {
     fun getOrNull(name: Any): NameSpace?
     fun getAll(): Collection<NameSpace>
 
+    fun removeNameSpace(name: Any)
+
 
 
 }

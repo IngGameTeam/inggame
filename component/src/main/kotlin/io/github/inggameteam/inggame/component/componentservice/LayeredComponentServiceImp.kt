@@ -63,4 +63,8 @@ open class LayeredComponentServiceImp(
         return ArrayList(objectList)
     }
 
+    override fun removeNameSpace(name: Any) {
+        objectList.removeIf { it.name == name }
+    }
+
 }
