@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.singleClass
 import org.bson.codecs.pojo.annotations.BsonIgnore
+import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -35,9 +36,8 @@ class ModelFieldSelector(
     @Suppress("DEPRECATION", "UNCHECKED_CAST")
     private fun getOrNewInstance() =
         try { editorView.get()!! }
-        catch (_: Throwable) {
-            model.singleClass.newInstance().apply { (editorView as EditorView<Any>).set.invoke(this) }
-        }
+        catch (_: Throwable) { model.singleClass.newInstance() }
+            .apply { (editorView as EditorView<Any>).set.invoke(this) }
 
 
     override fun select(t: Field, event: InventoryClickEvent) {
@@ -56,7 +56,7 @@ class ModelFieldSelector(
 
     override fun transform(t: Field) = createItem(Material.OAK_PLANKS, t.name, run {
         try {
-            editorView.get()?.run { t.getter.call(this).toString() }?: ""
+            "${ChatColor.WHITE}" + (editorView.get()?.run { t.getter.call(this).toString() }?: "")
         } catch (_: Throwable) { "" }
     })
 
