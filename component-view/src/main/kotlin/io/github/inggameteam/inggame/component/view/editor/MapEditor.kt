@@ -16,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.full.createType
 import kotlin.reflect.jvm.javaType
 
-class MapEditor<T : Map<String, *>>(
+class MapEditor<T : Map<String, L>, L : Any>(
     view: EditorView<T>,
     override val previousSelector: Selector<*>? = null,
 ) : Editor, EditorView<T> by view {
@@ -28,7 +28,7 @@ class MapEditor<T : Map<String, *>>(
     )
 
     @Deprecated("ornamental", ReplaceWith("genericMap"))
-    val genericMap: Entry<T>
+    val genericMap: Entry<L>
         get() = throw AssertionError()
 
     @Suppress("DEPRECATION")

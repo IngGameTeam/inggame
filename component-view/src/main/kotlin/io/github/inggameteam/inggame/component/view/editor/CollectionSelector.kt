@@ -26,15 +26,8 @@ class CollectionSelector<T : Any>(
     override val previousSelector: Selector<*>? get() = parentSelector
     override val elements: Collection<T> = list as MutableCollection<T>
 
-    private val genericType: KType get() {
-        val model = (editorView as ModelView).model
-        val javaType = model.javaType
-        return if (javaType is ParameterizedType) {
-            (Class.forName(javaType.actualTypeArguments[0].typeName)).kotlin.starProjectedType
-        } else {
-            model.arguments.first().type!!
-        }
-    }
+    private val genericType get() =
+        (((editorView as ModelView).model.javaType as ParameterizedType).actualTypeArguments[0] as Class<*>).kotlin.starProjectedType
 
     private val modelView = editorView as ModelView
 
