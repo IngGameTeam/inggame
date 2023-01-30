@@ -14,8 +14,6 @@ val Type.singleClass: Class<*>
             javaType
         } else if (javaType is ParameterizedType) {
             javaType.rawType as Class<out Any>
-        } else if (javaType is sun.reflect.generics.reflectiveObjects.TypeVariableImpl<*>) {
-            Class.forName(javaType.typeName)
         } else throw AssertionError("cannot read class type")
 
     }
