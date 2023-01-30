@@ -67,7 +67,7 @@ class CollectionSelector<T : Any>(
 
     override fun select(t: T, event: InventoryClickEvent) {
         elem(
-            t.javaClass.kotlin.starProjectedType,
+            genericType,
             event.whoClicked as Player, false, t
         )
     }
