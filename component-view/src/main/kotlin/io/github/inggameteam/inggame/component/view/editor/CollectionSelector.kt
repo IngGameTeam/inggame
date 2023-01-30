@@ -30,7 +30,7 @@ class CollectionSelector<T : Any>(
         val model = (editorView as ModelView).model
         val javaType = model.javaType
         return if (javaType is ParameterizedType) {
-            (javaType.actualTypeArguments[0].singleClass).kotlin.starProjectedType
+            (Class.forName(javaType.actualTypeArguments[0].typeName)).kotlin.starProjectedType
         } else {
             model.arguments.first().type!!
         }
