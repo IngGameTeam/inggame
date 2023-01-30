@@ -25,7 +25,7 @@ class MapEditor<T : Map<String, *>>(
     )
 
     @Deprecated("ornamental", ReplaceWith("genericMap"))
-    val genericMap: ArrayList<Entry<T>>
+    val genericMap: Entry<T>
         get() = throw AssertionError()
 
     @Suppress("DEPRECATION")
