@@ -56,11 +56,11 @@ class CollectionSelector<T : Any>(
                     if (indexOf != -1) {
                         e = it
                         editorView.set.invoke(newE(ArrayList(l).apply { set(indexOf, it) }) as T)
-                    } else if (!settled) {
-                    l.add(it)
-                    editorView.set.invoke(l as T)
-                    e = it
-                }; settled = true },
+                    } else {
+                        l.add(it)
+                        editorView.set.invoke(l as T)
+                        e = it
+                    }; settled = true },
                 { e }))
         ).open(player)
     }
