@@ -20,6 +20,7 @@ class MongoCodec(codecs: Collection<Class<*>>) {
         if (document === null) return null
         if (document is Document) {
             try {
+                println(Pair("a", "b"))
                 println(document.toList())
             } catch (e: Exception) {
             }
