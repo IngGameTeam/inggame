@@ -25,9 +25,6 @@ class MapEditor<T : Map<String, *>>(
         var value: E
     )
 
-    private val genericType get() =
-        (((view as ModelView).model.javaType as ParameterizedType).actualTypeArguments[1] as Class<*>).kotlin.starProjectedType
-
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
 
@@ -36,7 +33,7 @@ class MapEditor<T : Map<String, *>>(
                 ElementViewImp(NameSpaceViewImp(
                     ComponentServiceViewImp(this, EmptyComponentServiceImp("Unit")),
                     NameSpace("Unit", CopyOnWriteArraySet(), ConcurrentHashMap())), Pair(Unit, Unit)),
-                genericType
+                ArrayList::class.createType((view as ModelView).model.arguments.run { subList(1, size) })
         ), EditorViewImp(this,
             { set((it as ArrayList<Entry<*>>).map { e -> Pair(e.key, e.value) }.toMap() as T) },
             { get()?.entries?.map { Entry(it.key, it.value!!) } })), previousSelector)
