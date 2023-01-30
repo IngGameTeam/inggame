@@ -19,13 +19,16 @@ class MongoCodec(codecs: Collection<Class<*>>) {
     fun decode(document: Any?): Any? {
         if (document === null) return null
         if (document is Document) {
-            println(document.toBsonDocument())
+            try {
+                println(document.toList())
+            } catch (e: Exception) {
+            }
             return codecRegistry[Class.forName(document.getString("_t"))]
-                .decode(
-                    document.toBsonDocument().asBsonReader(),
-                    DecoderContext.builder().checkedDiscriminator(true).build()
-                )
-                ?: throw AssertionError("An error occurred while decoding Document")
+                    .decode(
+                        document.toBsonDocument().asBsonReader(),
+                        DecoderContext.builder().checkedDiscriminator(true).build()
+                    )
+                    ?: throw AssertionError("An error occurred while decoding Document")
         } else if (document is Collection<*>) {
             return document.map { decode(it) }
         }
