@@ -39,7 +39,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 
     val LOCATION get() = "static"
 
-    override fun getLocation(key: String): Location {
+    override fun getLocation(key: String): org.bukkit.Location {
 //        component.get(nameSpace, key, )
 //        comp.location(key, schematicName).run {
 //            toLocation(point.world).apply {
@@ -53,7 +53,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     }
 
 
-    override fun getLocationOrNull(key: String): Location? {
+    override fun getLocationOrNull(key: String): org.bukkit.Location? {
 //        comp.locationOrNull(key, schematicName)?.run {
 //            toLocation(point.world).apply {
 //                if (tag?.contains(LOCATION) == true) return@apply
@@ -62,11 +62,11 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 //                z += width * point.y
 //            }
 //        }
-
+    TODO()
     }
 
 
-    override fun isInSector(location: Location): Boolean {
+    override fun isInSector(location: org.bukkit.Location): Boolean {
         if (gameState !== GameState.WAIT && location.toVector().isInAABB(minPoint, maxPoint)) {
             return true
         }
