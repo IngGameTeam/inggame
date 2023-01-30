@@ -24,7 +24,7 @@ class CollectionSelector<T : Any>(
     override val parentSelector: Selector<*>? = null
 ): Selector<T>, Editor, EditorView<T> by editorView, AddButton<T>, RemoveButton<T> {
     override val previousSelector: Selector<*>? get() = parentSelector
-    override val elements: Collection<T> = list as MutableCollection<T>
+    override val elements: Collection<T> get() = list as MutableCollection<T>
 
     private val genericType get() =
         ((editorView as ModelView).model.arguments[0].type!!)
