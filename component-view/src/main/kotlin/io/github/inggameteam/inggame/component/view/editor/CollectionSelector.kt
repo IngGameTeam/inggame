@@ -54,9 +54,8 @@ class CollectionSelector<T : Any>(
                     val l = list
                     val indexOf = l.indexOf(it)
                     if (indexOf != -1) {
-                        e = newE()
-                        l.add(e!!)
-                        editorView.set.invoke(l as T)
+                        e = it
+                        editorView.set.invoke(newE(ArrayList(l).apply { set(indexOf, it) }) as T)
                     } else if (!settled) {
                     l.add(it)
                     editorView.set.invoke(l as T)
