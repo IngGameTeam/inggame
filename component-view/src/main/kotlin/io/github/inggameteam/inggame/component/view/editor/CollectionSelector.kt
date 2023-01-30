@@ -35,8 +35,11 @@ class CollectionSelector<T : Any>(
         elem(genericType, player, true, null)
     }
 
+    private fun newE(collection: Collection<*>): Any {
+        return (editorView as ModelView).model.singleClass.getConstructor(Collection::class.java).newInstance(collection)
+    }
     private val list get() = (editorView.get.invoke() as? MutableCollection<Any>)
-        ?: ((editorView as ModelView).model.singleClass.newInstance() as MutableCollection<Any>).apply {
+        ?: (newE() as MutableCollection<Any>).apply {
             editorView.set.invoke(this as T)
         }
 
@@ -46,8 +49,13 @@ class CollectionSelector<T : Any>(
         app.get<EditorRegistry>().getEditor(
             genericType, ModelViewImp(modelView, genericType), this,
             ModelEditorView(ModelViewImp(modelView, genericType), EditorViewImp(this,
-                { if (!settled) {
+                {
                     val l = list
+                    val indexOf = l.indexOf(it)
+                    if (indexOf != -1) {
+                        l.add(newE())
+                    }
+                    if (!settled) {
                     l.add(it)
                     editorView.set.invoke(l as T)
                     e = it
