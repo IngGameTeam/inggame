@@ -4,8 +4,10 @@ import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.GamePlayerService
+import io.github.inggameteam.inggame.minigame.JoinType
 import io.github.inggameteam.inggame.minigame.LeftType
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
+import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
@@ -36,11 +38,9 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
-        try {
-            gameInstanceService.join(server.hub, gamePlayerService.get(event.player.uniqueId, ::GPlayer))
-        } catch(e: Throwable) {
-            e.printStackTrace()
-        }
+        val game = gameInstanceService.get(server.hub, ::Game)
+        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
+        gameHelper.joinGame(game, player, JoinType.PLAY)
     }
 
     @Suppress("unused")
