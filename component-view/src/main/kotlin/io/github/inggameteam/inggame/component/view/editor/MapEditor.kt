@@ -12,6 +12,7 @@ import org.bukkit.entity.Player
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.full.createType
+import kotlin.reflect.jvm.javaType
 
 class MapEditor<T : Map<String, *>>(
     view: EditorView<T>,
@@ -30,7 +31,7 @@ class MapEditor<T : Map<String, *>>(
 
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
-        println(::genericMap.returnType.arguments.first().type)
+        println(::genericMap.returnType.arguments.first().type?.javaType?.typeName)
         println(::genericMap.returnType.arguments)
         CollectionSelector(ModelEditorView(
             ModelViewImp(
