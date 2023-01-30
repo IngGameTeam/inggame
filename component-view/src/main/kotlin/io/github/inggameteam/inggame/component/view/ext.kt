@@ -14,6 +14,6 @@ val Type.singleClass: Class<*>
             javaType
         } else if (javaType is ParameterizedType) {
             javaType.rawType as Class<out Any>
-        } else throw AssertionError("cannot read class type")
+        } else throw AssertionError("cannot read class type ${javaType.typeName}")
 
     }
