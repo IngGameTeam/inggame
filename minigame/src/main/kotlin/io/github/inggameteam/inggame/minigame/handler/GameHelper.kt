@@ -2,10 +2,7 @@ package io.github.inggameteam.inggame.minigame.handler
 
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.*
-import io.github.inggameteam.inggame.minigame.event.GameBeginEvent
-import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
-import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
-import io.github.inggameteam.inggame.minigame.event.GameUnloadEvent
+import io.github.inggameteam.inggame.minigame.event.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
@@ -115,7 +112,7 @@ class GameHelper(
     fun stop(game: Game, force: Boolean, leftType: LeftType = LeftType.GAME_STOP) {
         if (game.gameState !== GameState.STOP) {
             game.gameState = GameState.STOP
-            finishGame()
+            finishGame(game)
             ArrayList(game.gameJoined).forEach { gPlayer ->
                 leftGame(gPlayer, leftType)
             }
@@ -129,7 +126,9 @@ class GameHelper(
         }
     }
 
-    fun finishGame() = Unit
+    private fun finishGame(game: Game) {
+        plugin.server.pluginManager.callEvent(GameFinishEvent(game))
+    }
 
     fun beginGame(game: Game) {
         game.gameJoined.forEach { it[::GameAlertImp].GAME_START.send(it, it[::GameImp].gameName)}

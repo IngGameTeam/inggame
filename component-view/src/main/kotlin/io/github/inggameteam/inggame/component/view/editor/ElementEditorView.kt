@@ -1,11 +1,6 @@
 package io.github.inggameteam.inggame.component.view.editor
 
-import io.github.inggameteam.inggame.component.view.model.ElementView
 import io.github.inggameteam.inggame.component.view.model.ModelView
-import io.github.inggameteam.inggame.component.view.singleClass
-import java.lang.reflect.ParameterizedType
-import kotlin.reflect.full.starProjectedType
-import kotlin.reflect.jvm.javaType
 
 @Suppress("UNCHECKED_CAST")
 interface ElementEditorView<T : Any> : EditorView<T>, ModelView {

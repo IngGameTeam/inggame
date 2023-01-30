@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component.model
 import io.github.inggameteam.inggame.mongodb.Model
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.World
 
 @Model
 class Location(
@@ -12,9 +13,10 @@ class Location(
     var z: Double = 0.0,
     var yaw: Float = 0f,
     var pitch: Float = 0f,
+    var isRelative: Boolean
 ) {
     override fun toString() = "$world($x, $y, $z, $yaw, $pitch)"
 
-    fun toLocation() = Location(Bukkit.getWorld(world), x, y, z, yaw, pitch)
+    fun toLocation(world: World? = Bukkit.getWorld(this.world)) = Location(world, x, y, z, yaw, pitch)
 
 }

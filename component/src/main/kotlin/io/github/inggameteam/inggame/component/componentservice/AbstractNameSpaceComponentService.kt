@@ -3,7 +3,6 @@ package io.github.inggameteam.inggame.component.componentservice
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
-import io.github.inggameteam.inggame.mongodb.MongoRepoImpl
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 
@@ -25,8 +24,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
 
     override fun setParents(name: Any, value: Collection<Any>) {
         (getOrNull(name)?: newModel(name)).apply {
-            parents = CopyOnWriteArraySet(value.map { uncoverDelegate(it) })
-            parents = sortParentsByPriority(parents)
+            parents = sortParentsByPriority(CopyOnWriteArraySet(value.map { uncoverDelegate(it) }))
         }
     }
 
@@ -36,15 +34,17 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
 
     override fun addParents(name: Any, value: Any) {
         get(name).apply {
+            val parents = CopyOnWriteArraySet(parents)
             parents.add(uncoverDelegate(value))
-            parents = sortParentsByPriority(parents)
+            this.parents = sortParentsByPriority(parents)
         }
     }
 
     override fun removeParents(name: Any, value: Any) {
         get(name).apply {
+            val parents = CopyOnWriteArraySet(parents)
             parents.remove(uncoverDelegate(value))
-            parents = sortParentsByPriority(parents)
+            this.parents = sortParentsByPriority(parents)
         }
     }
 

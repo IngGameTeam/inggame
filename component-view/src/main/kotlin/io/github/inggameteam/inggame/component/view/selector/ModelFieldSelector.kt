@@ -3,7 +3,6 @@ package io.github.inggameteam.inggame.component.view.selector
 import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.editor.*
-import io.github.inggameteam.inggame.component.view.model.FieldViewImp
 import io.github.inggameteam.inggame.component.view.model.ModelView
 import io.github.inggameteam.inggame.component.view.model.ModelViewImp
 import io.github.inggameteam.inggame.component.view.singleClass
@@ -14,9 +13,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
-import kotlin.reflect.KTypeProjection
-import kotlin.reflect.KVariance
-import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 

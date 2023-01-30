@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component
 
-import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.mongodb.ClassRegistryAll
+import io.github.inggameteam.inggame.mongodb.Model
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType

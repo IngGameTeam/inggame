@@ -13,10 +13,7 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
-import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KType
-import kotlin.reflect.full.starProjectedType
-import kotlin.reflect.jvm.javaType
 
 @Suppress("UNCHECKED_CAST")
 class CollectionSelector<T : Any>(

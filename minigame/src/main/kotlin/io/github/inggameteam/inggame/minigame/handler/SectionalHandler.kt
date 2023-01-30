@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.minigame.handler
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.GameState
+import io.github.inggameteam.inggame.minigame.event.GameFinishEvent
 import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
 import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
 import io.github.inggameteam.inggame.minigame.wrapper.game.SectionalImp
@@ -49,6 +50,15 @@ class SectionalHandler(
             val to = event.to
             if (to != null && !sectional.isInSector(to)
                 && !bPlayer.isOp && sectional.gameState !== GameState.WAIT) event.isCancelled = true
+        }
+    }
+
+    @Suppress("unused")
+    @EventHandler
+    fun onFinishGame(event: GameFinishEvent) {
+        val game = event.game
+        if (game.component.has(game, javaClass.simpleName)) {
+            sectionalHelper.clearEntitiesToUnload(game[::SectionalImp])
         }
     }
 

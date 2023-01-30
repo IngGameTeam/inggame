@@ -6,7 +6,6 @@ import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.component.encodeNameSpace
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.mongodb.MongoRepo
-import io.github.inggameteam.inggame.mongodb.MongoRepoImpl
 import java.util.concurrent.CopyOnWriteArraySet
 
 @Suppress("NAME_SHADOWING")

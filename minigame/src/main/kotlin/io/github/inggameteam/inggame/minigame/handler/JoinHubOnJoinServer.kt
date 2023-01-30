@@ -7,7 +7,6 @@ import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.JoinType
 import io.github.inggameteam.inggame.minigame.LeftType
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
-import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerInstanceService
@@ -25,7 +24,7 @@ class JoinHubOnJoinServer(
     private val server: GameServer, plugin: IngGamePlugin,
     private val gameInstanceService: GameInstanceService,
     private val gamePlayerService: GamePlayerService,
-    private val playerInstanceService: PlayerInstanceService,
+    playerInstanceService: PlayerInstanceService,
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
     private val gameHelper: GameHelper

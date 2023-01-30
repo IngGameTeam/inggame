@@ -2,18 +2,13 @@ package io.github.inggameteam.inggame.component.view.selector
 
 import io.github.bruce0203.gui.Gui
 import io.github.bruce0203.gui.GuiFrameDSL
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
-import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.component.view.OpenView
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.model.View
-import io.github.inggameteam.inggame.component.view.wrapper.SelectorImp
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import org.koin.core.qualifier.named
 
 typealias EmptyElement = Unit
 

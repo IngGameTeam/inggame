@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.mongodb.ClassRegistryAll
-import io.github.inggameteam.inggame.utils.ClassRegistry
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 

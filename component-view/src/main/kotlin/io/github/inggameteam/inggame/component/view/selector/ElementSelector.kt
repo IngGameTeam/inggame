@@ -16,7 +16,6 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.full.createType
-import kotlin.reflect.javaType
 
 typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)

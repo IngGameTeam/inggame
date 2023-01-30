@@ -15,7 +15,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 //     */
 //    override val stopWaitingTick = 84600L * 20L
     override val schematicName: String by nonNull
-    val schematicLocations: HashMap<String, CopyOnWriteArrayList<Location>> by nonNull
+    val schematicLocations: HashMap<String, HashMap<String, Location>> by nonNull
 
     override val minPoint: Vector
     override val maxPoint: Vector
@@ -35,35 +35,19 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
         }
     }
 
+    override fun getLocation(key: String): org.bukkit.Location =
+        getLocationOrNull(key)?: throw AssertionError("$key location is not exists")
 
 
-    val LOCATION get() = "static"
-
-    override fun getLocation(key: String): org.bukkit.Location {
-//        component.get(nameSpace, key, )
-//        comp.location(key, schematicName).run {
-//            toLocation(point.world).apply {
-//                if (tag?.contains(LOCATION) == true) return@apply
-//                x += width * point.x
-//                y += height
-//                z += width * point.y
-//            }
-//        }
-        TODO()
-    }
-
-
-    override fun getLocationOrNull(key: String): org.bukkit.Location? {
-//        comp.locationOrNull(key, schematicName)?.run {
-//            toLocation(point.world).apply {
-//                if (tag?.contains(LOCATION) == true) return@apply
-//                x += width * point.x
-//                y += height
-//                z += width * point.y
-//            }
-//        }
-    TODO()
-    }
+    override fun getLocationOrNull(key: String): org.bukkit.Location? =
+        schematicLocations[schematicName]?.get(key)?.run {
+            toLocation(gameSector.world).apply {
+                if (isRelative) return@apply
+                x += gameWidth * gameSector.x
+                y += gameHeight
+                z += gameWidth * gameSector.y
+            }
+        }
 
 
     override fun isInSector(location: org.bukkit.Location): Boolean {
@@ -72,11 +56,5 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
         }
         return false
     }
-
-//    override fun finishGame() {
-//        super.finishGame()
-//        clearEntitiesToUnload()
-//    }
-
 
 }
