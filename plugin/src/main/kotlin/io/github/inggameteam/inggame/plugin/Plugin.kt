@@ -42,7 +42,6 @@ class Plugin : IngGamePluginImp {
         app
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
-        app.getAll<ComponentService>().forEach { AddToSaveRegistry(it, this) }
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
     }
 

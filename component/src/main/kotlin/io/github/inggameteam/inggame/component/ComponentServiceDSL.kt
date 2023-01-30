@@ -8,11 +8,20 @@ class ComponentServiceDSL(
     var isLayer: Boolean = false,
     var key: String? = null,
     var isMulti: Boolean = false,
+    var isSavable: Boolean = false,
 ) {
 
     fun findComponentServiceDSL(name: String): ComponentServiceDSL {
         return registry.firstOrNull { it.name == name }
             ?: ComponentServiceDSL(name, ArrayList(), registry).apply(registry::add)
+    }
+
+    infix fun ComponentServiceDSL.isSavable(isSavable: Boolean): ComponentServiceDSL = this.apply {
+        this.isSavable = isSavable
+    }
+
+    infix fun String.isSavable(isSavable: Boolean): String = this.apply {
+        findComponentServiceDSL(this).isSavable = isSavable
     }
 
     infix fun ComponentServiceDSL.isLayer(isLayer: Boolean): ComponentServiceDSL = this.apply {
