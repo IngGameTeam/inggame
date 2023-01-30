@@ -24,11 +24,11 @@ class MapEditor<T : Map<String, *>>(
 
     @Model
     class Entry<E : Any>(
-        var key: String,
+        var key: String?,
         var value: E
     ) {
         override fun hashCode(): Int {
-            return key.hashCode()
+            return key.hashCode()?: super.hashCode()
         }
     }
 
