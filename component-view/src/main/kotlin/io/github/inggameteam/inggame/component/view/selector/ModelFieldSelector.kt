@@ -13,6 +13,9 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
+import kotlin.reflect.KTypeProjection
+import kotlin.reflect.KVariance
+import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 
@@ -38,8 +41,10 @@ class ModelFieldSelector(
 
 
     override fun select(t: Field, event: InventoryClickEvent) {
-        val mView = ModelViewImp(this, t.returnType)
-        app.get<EditorRegistry>().getEditor(t.returnType, this, this,
+        val type = try { t.returnType } catch (_: Throwable) { model.arguments[0].type!! }
+        val mView = ModelViewImp(this, type)
+        app.get<EditorRegistry>().getEditor(
+            type, this, this,
 //            FieldEditorImp<Any>(FieldViewImp(this, t))
             ModelEditorView(
                 mView, EditorViewImp(mView,

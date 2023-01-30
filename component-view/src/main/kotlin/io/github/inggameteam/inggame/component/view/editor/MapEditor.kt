@@ -13,6 +13,7 @@ import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 import kotlin.reflect.full.createType
+import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.jvm.javaType
 
@@ -29,9 +30,7 @@ class MapEditor<T : Map<String, *>>(
 
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
-println(ArrayList::class.createType(listOf(
-    KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
-)))
+        val entry = Entry("", "")
         CollectionSelector(ModelEditorView(
             ModelViewImp(
                 ElementViewImp(NameSpaceViewImp(
