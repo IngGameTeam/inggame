@@ -36,7 +36,8 @@ class CollectionSelector<T : Any>(
     }
 
     private fun newE(collection: Collection<*>? = null): Any {
-        return (editorView as ModelView).model.singleClass.getConstructor(Collection::class.java).newInstance(collection?: ArrayList<Any>())
+        return (editorView as ModelView).model.singleClass.getConstructor(Collection::class.java)
+            .newInstance(collection?: ArrayList<Any>())
     }
     private val list get() = (editorView.get.invoke() as? MutableCollection<Any>)
         ?: (newE() as MutableCollection<Any>).apply {
@@ -53,9 +54,10 @@ class CollectionSelector<T : Any>(
                     val l = list
                     val indexOf = l.indexOf(it)
                     if (indexOf != -1) {
-                        l.add(newE())
-                    }
-                    if (!settled) {
+                        e = newE()
+                        l.add(e!!)
+                        editorView.set.invoke(l as T)
+                    } else if (!settled) {
                     l.add(it)
                     editorView.set.invoke(l as T)
                     e = it
