@@ -24,7 +24,7 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
-        player[::GameAlertImp].testHashMap
+        player[::GameAlertImp].testHashMap.put("HELLO", "ALALALAL")
         if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
             gamePlayerService.get(player, ::GameAlertImp).GAME_JOIN.send(player)
             event.player.sendMessage("PrintOnMove!!!")
