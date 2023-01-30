@@ -31,6 +31,7 @@ class MapEditor<T : Map<String, *>>(
     @Suppress("DEPRECATION")
     override fun open(player: Player) {
         println(::genericMap.returnType.arguments)
+        println(::genericMap.returnType.arguments)
         CollectionSelector(ModelEditorView(
             ModelViewImp(
                 ElementViewImp(NameSpaceViewImp(
