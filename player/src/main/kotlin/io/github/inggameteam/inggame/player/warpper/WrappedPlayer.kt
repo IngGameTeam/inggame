@@ -18,8 +18,7 @@ open class WrappedPlayer(wrapper: Wrapper)
     }
 
     override fun equals(other: Any?): Boolean {
-        println("WrappedPlayerEquals")
-        if (super.equals(other)) return true
+        if (this === other) return true
         if (other is Wrapper) {
             if (nameSpace == other.nameSpace) {
                 return true
