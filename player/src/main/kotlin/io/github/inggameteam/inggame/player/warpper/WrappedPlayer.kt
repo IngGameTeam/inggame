@@ -12,4 +12,8 @@ open class WrappedPlayer(wrapper: Wrapper)
     Player by Bukkit.getPlayer(wrapper.nameSpace as UUID) ?: NotImplementedPlayer()
 {
     override fun toString() = name
+
+    override fun hashCode(): Int {
+        return nameSpace.hashCode()
+    }
 }
