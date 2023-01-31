@@ -19,7 +19,7 @@ open class WrappedPlayer(wrapper: Wrapper)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        println("equalsWrappedPlayer is true")
+        println("equalsWrappedPlayer is true (${other?.javaClass?.simpleName})")
         if (other is Wrapper) {
             if (nameSpace == other.nameSpace) {
                 return true
