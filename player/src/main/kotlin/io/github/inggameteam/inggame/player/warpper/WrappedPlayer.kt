@@ -13,6 +13,10 @@ open class WrappedPlayer(wrapper: Wrapper)
 {
     override fun toString() = name
 
+    override fun hashCode(): Int {
+        return nameSpace.hashCode()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (super.equals(other)) return true
         if (other is Wrapper) {
