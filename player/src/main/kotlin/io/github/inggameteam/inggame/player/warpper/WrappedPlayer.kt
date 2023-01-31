@@ -13,13 +13,14 @@ open class WrappedPlayer(wrapper: Wrapper)
 {
     override fun toString() = name
 
-    override fun hashCode(): Int {
-        return nameSpace.hashCode()
+    override fun equals(other: Any?): Boolean {
+        if (super.equals(other)) return true
+        if (other is Wrapper) {
+            if (nameSpace == other.nameSpace) {
+                return true
+            }
+        }
+        return false
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
 }
