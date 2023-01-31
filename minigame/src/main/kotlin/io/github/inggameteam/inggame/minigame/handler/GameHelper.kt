@@ -63,14 +63,15 @@ class GameHelper(
         val game = gPlayer[::GameImp]
         if (!requestLeft(game, gPlayer, leftType)) return false
         Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, game, leftType))
-        gameInstanceService.left(gPlayer)
-        gPlayer.clearTags()
+
         val gameAlert = gPlayer[::GameAlertImp]
         if (leftType === LeftType.LEFT_SERVER) {
             gameAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(gPlayer, game.gameName)
         } else {
             gameAlert.GAME_LEFT.send(gPlayer, game.gameName)
         }
+        gPlayer.clearTags()
+        gameInstanceService.left(gPlayer)
         val joinedSize = game.gameJoined.hasTags(PTag.PLAY).size
         if (game.gameState === GameState.WAIT
             && joinedSize < game.startPlayersAmount && game.hasGameTask()) {
