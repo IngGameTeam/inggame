@@ -21,6 +21,7 @@ open class WrappedPlayer(wrapper: Wrapper)
         if (this === other) return true
         if (other is Wrapper) {
             if (nameSpace == other.nameSpace) {
+                println("equalsWrappedPlayer is true")
                 return true
             }
         }
