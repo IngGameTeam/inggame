@@ -58,7 +58,7 @@ class GameHelper(
     }
 
     private fun requestLeft(game: Game, gPlayer: GPlayer, leftType: LeftType) = game.gameJoined.contains(gPlayer)
-        .apply { println("${game.gameJoined.contains(gPlayer)}") }
+        .apply { println("${game.gameJoined.map { it.nameSpace }.contains(gPlayer)}") }
 
     fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
         val game = gPlayer[::GameImp]
