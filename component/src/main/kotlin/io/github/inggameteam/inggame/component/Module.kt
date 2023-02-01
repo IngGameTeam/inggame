@@ -10,6 +10,7 @@ import org.koin.dsl.module
 inline fun <reified T : Any> createSingleton(crossinline block: (Wrapper) -> T, nameSpace: Any, component: String) = module {
     single {
         val componentService = get<ComponentService>(named(component))
+        componentService.addNameSpace(nameSpace)
         block(SimpleWrapper(nameSpace, componentService))
     } bind T::class
 }

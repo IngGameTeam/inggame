@@ -31,5 +31,6 @@ class EmptyComponentServiceImp(override val name: String) : EmptyComponentServic
     override fun getOrNull(name: Any) = throw NameSpaceNotFoundException(name)
     override fun getAll() = throw AssertionError("error occurred while perform empty component")
     override fun removeNameSpace(name: Any) = throw AssertionError("error occurred while perform empty component")
+    override fun addNameSpace(name: Any) = throw AssertionError("error occurred while perform empty component")
 
 }

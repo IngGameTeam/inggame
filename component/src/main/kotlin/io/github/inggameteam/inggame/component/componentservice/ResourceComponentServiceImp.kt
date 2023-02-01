@@ -17,7 +17,7 @@ class ResourceComponentServiceImp(
     override val name: String,
 ) : ResourceComponentService, AbstractNameSpaceComponentService() {
 
-    private lateinit var nameSpaceCache: ArrayList<NameSpace>
+    private lateinit var nameSpaceCache: CopyOnWriteArraySet<NameSpace>
     private var semaphore = false
 
     override fun toString(): String {
@@ -42,8 +42,8 @@ class ResourceComponentServiceImp(
         semaphore = false
     }
 
-    private fun findNameSpace(repo: MongoRepo, codec: MongoCodec): ArrayList<NameSpace> {
-        return repo.get().map { doc -> decodeNameSpace(doc, codec) }.run(::ArrayList)
+    private fun findNameSpace(repo: MongoRepo, codec: MongoCodec): CopyOnWriteArraySet<NameSpace> {
+        return repo.get().map { doc -> decodeNameSpace(doc, codec) }.run(::CopyOnWriteArraySet)
     }
 
     override fun getAll() =
