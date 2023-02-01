@@ -38,7 +38,6 @@ class GameInstanceService(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
-        if (event.plugin != plugin) return
         server.hub = get(randomUUID(), ::GameImp).apply { create(this, server::hub.name) }
     }
 
