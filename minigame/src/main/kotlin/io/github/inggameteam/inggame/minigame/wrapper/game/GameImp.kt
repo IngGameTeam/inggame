@@ -13,7 +13,7 @@ import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
 @PropWrapper
-class GameImp(wrapper: Wrapper) : Game, Wrapper by SimpleWrapper(wrapper) {
+class GameImp(wrapper: Wrapper) : Game, SimpleWrapper(wrapper) {
 
     override val uuid: UUID get() = nameSpace as UUID
 

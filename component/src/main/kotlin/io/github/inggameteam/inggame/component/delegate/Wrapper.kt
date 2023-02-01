@@ -50,7 +50,7 @@ abstract class BaseWrapper : Wrapper {
 
 }
 
-class SimpleWrapper(
+open class SimpleWrapper(
 
     override val nameSpace: Any,
 

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 import java.util.*
 
 open class WrappedPlayer(wrapper: Wrapper)
-    : Wrapper by SimpleWrapper(wrapper), AlertReciver,
+    : SimpleWrapper(wrapper), AlertReciver,
     Player by Bukkit.getPlayer(wrapper.nameSpace as UUID) ?: NotImplementedPlayer()
 {
     override fun toString() = name
