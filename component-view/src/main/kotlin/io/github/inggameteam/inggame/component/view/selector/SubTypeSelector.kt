@@ -23,7 +23,9 @@ SubTypeSelector(
 
     override val elements: Collection<Model> get() =
         app.get<SubClassRegistry>().getSubs(model.singleClass.kotlin)
-            .filter { !it.java.isInterface }.map { it.createType() }
+            .filter { !it.java.isInterface }
+            .sortedWith(Comparator { o1, o2 -> o1.simpleName!!.compareTo(o2.simpleName!!) })
+            .map { it.createType() }
 
     override fun select(t: Model, event: InventoryClickEvent) {
         ModelFieldSelector(editorView, ModelViewImp(this, t), parentSelector)
