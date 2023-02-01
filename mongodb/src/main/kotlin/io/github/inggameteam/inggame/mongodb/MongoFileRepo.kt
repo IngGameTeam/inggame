@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bson.Document
 import java.io.File
 
-class MongoFileRepo(val file: String, val plugin: IngGamePlugin, val mongoCodec: MongoCodec) : MongoRepo {
+class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
 
     fun getFile() = File(plugin.dataFolder, file)
         .apply { if (!exists()) {
@@ -40,7 +40,7 @@ class MongoFileRepo(val file: String, val plugin: IngGamePlugin, val mongoCodec:
     }
 
     override fun set(col: Collection<Document>) {
-        getFile().writeText(Document().apply { set("_", col) }.run(mongoCodec::toBson).run(mongoCodec::fromBson).toJson())
+        getFile().writeText(Document().apply { set("_", col) }.toJson())
     }
 
     override fun delete(id: Document) {
