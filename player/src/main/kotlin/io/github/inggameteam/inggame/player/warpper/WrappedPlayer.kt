@@ -13,14 +13,15 @@ open class WrappedPlayer(wrapper: Wrapper)
 {
     override fun toString() = name
 
-    override fun hashCode(): Int {
-        return nameSpace.hashCode()
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (this.nameSpace.hashCode() == other.hashCode()) return true
+        if (this.nameSpace == other) return true
+        if (other is Wrapper && this.nameSpace == other.nameSpace) return true
         return false
+    }
+
+    override fun hashCode(): Int {
+        return nameSpace.hashCode()
     }
 
 }
