@@ -17,6 +17,7 @@ interface ComponentService {
     @Suppress("UNCHECKED_CAST")
     operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         val nameSpace = uncoverDelegate(nameSpace)
+        println(this::class.simpleName)
         val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
                 try { return parentComponent[nameSpace, key, clazz] } catch (_: Throwable) { }
