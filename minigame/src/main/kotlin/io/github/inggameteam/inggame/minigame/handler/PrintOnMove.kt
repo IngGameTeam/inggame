@@ -20,7 +20,7 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
-        if (gamePlayerService[player, javaClass.simpleName, Boolean::class]) {
+        if (gamePlayerService.has(player, javaClass.simpleName)) {
             gamePlayerService.get(player, ::GameAlertImp).GAME_JOIN.send(player)
             event.player.sendMessage("PrintOnMove!!!")
         }
