@@ -66,8 +66,8 @@ class SectionalHelper(
         val z = gameWidth * sector.y
         val file = getSchematicFile(key, gameName)
         val location = Location(world, x.toDouble(), gameHeight.toDouble(), z.toDouble())
+        println(location)
         thread {
-            println("fileExists=${file.exists()}")
 //            FaweImpl(plugin).loadChunk(location, file)
             paste(location, file)
         }
