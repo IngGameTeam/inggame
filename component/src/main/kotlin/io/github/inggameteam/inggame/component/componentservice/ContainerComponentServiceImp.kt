@@ -30,13 +30,13 @@ class ContainerComponentServiceImp(
     }
 
     override fun join(container: Any, key: Any) {
-        val container = uncoverDelegate(container)
+        val uncoveredContainer = uncoverDelegate(container)
         val key = uncoverDelegate(key)
         left(key)
         keyComponent.load(key, true)
         keyComponent.set(key, keyAssign, container)
-        keyComponent.addParents(key, container)
-        getList(container).add(key)
+        keyComponent.addParents(key, uncoveredContainer)
+        getList(uncoveredContainer).add(key)
     }
 
     override fun left(key: Any) {
