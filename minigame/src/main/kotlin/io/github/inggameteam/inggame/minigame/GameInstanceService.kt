@@ -21,7 +21,7 @@ class GameInstanceService(
     private val playerService: PlayerService,
     val plugin: IngGamePlugin,
 ) : KoinComponent, LayeredComponentService by gameInstanceRepository,
-    ContainerComponentService<GameImp, GPlayer> by ContainerComponentServiceImp(
+    ContainerComponentService<Game, GPlayer> by ContainerComponentServiceImp(
         gameInstanceRepository, gamePlayerService,
         GPlayer::joinedGame.name, Game::gameJoined.name
     )
@@ -29,7 +29,7 @@ class GameInstanceService(
 {
 
     init {
-        server.hub = create(get(randomUUID(), ::GameImp), server::hub.name)
+        server.hub = get(randomUUID(), ::GameImp).apply { create(this, server::hub.name) }
     }
 
 }
