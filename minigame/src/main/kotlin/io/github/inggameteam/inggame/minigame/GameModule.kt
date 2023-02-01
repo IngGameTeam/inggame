@@ -8,10 +8,7 @@ import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
-import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.HandleListener
-import io.github.inggameteam.inggame.utils.fastToString
-import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
 import org.koin.core.module.dsl.singleOf
@@ -37,7 +34,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             Game::class,
             GameAlert::class,
             GPlayer::class,
-            SectionalHandler::class,
+            Sectional::class,
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(module { single {

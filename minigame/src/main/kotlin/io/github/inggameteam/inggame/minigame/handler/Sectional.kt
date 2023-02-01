@@ -13,7 +13,7 @@ import io.github.inggameteam.inggame.utils.delay
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 
-class SectionalHandler(
+class Sectional(
     private val sectionalHelper: SectionalHelper,
     private val gamePlayerService: GamePlayerService,
     private val plugin: IngGamePlugin
