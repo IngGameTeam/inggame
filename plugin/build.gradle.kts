@@ -7,6 +7,7 @@ dependencies {
         ":player",
         ":minigame",
         ":guiapi",
-        ":command"
+        ":command",
+        ":world",
     ).map(::project).forEach { api(it); testApi(it) }
 }
