@@ -77,6 +77,7 @@ class Sectional(
     @EventHandler
     fun onLoadGame(event: GameLoadEvent) {
         val game = event.game[::SectionalImp]
+        println("GameLoadEvent ${isHandler(game)}")
         if (isHandler(game)) {
             game.gameSector = sectorLoader.newAllocatable(gameServer.gameWorld)
         }
