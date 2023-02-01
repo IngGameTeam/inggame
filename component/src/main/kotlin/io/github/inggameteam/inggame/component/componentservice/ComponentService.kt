@@ -58,8 +58,7 @@ interface ComponentService {
         val parents = getOrNull(name)?.parents
         if (parents === null) return false
         if (parents.contains(value)) return true
-        if (parents.any { hasParents(it, value) }) return true
-        return parents.any { parentComponent.hasParents(it, value) }
+        return parents.any { findComponentService(it).hasParents(it, value) }
     }
 
     fun newModel(name: Any): NameSpace
