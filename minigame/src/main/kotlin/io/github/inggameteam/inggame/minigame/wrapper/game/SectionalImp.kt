@@ -28,6 +28,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     override val gameHeight: Int by nonNull
 
     fun initPoints() {
+        println("isAllocatedGame=$isAllocatedGame")
         if (isAllocatedGame) {
             val vector = Vector(gameSector.x * gameWidth, 0, gameSector.y * gameWidth)
             val half = gameWidth / 2
