@@ -17,13 +17,11 @@ interface ComponentService {
     @Suppress("UNCHECKED_CAST")
     operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         val nameSpace = uncoverDelegate(nameSpace)
-        println(nameSpace)
         val ns = getAll().firstOrNull { it.name == nameSpace }
             ?: run {
                 try { return parentComponent[nameSpace, key, clazz] } catch (_: Throwable) { }
                 throw NameSpaceNotFoundException(nameSpace)
             }
-        println(ns)
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
                 ns.parents.forEach { try { return get(it, key, clazz) } catch (_: Throwable) { } }
