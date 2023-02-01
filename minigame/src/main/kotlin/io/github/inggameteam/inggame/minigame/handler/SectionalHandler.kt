@@ -23,6 +23,7 @@ class SectionalHandler(
     @EventHandler
     fun onJoinGame(event: GameJoinEvent) {
         val game = event.game
+        println("GameJoinEvent")
         if (game.isAllocatedGame && game.gameJoined.size == 1) {
             val sectional = game[::SectionalImp]
             sectionalHelper.loadSector(sectional)

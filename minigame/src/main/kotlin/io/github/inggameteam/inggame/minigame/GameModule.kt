@@ -27,21 +27,18 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::JoinHubOnJoinServer)
             singleOf(::PrintOnMove)
             singleOf(::GameHelper)
-
-            factory(named(randomUUID().fastToString())) {
-                ClassRegistry(
-                    PrintOnMove::class,
-                    GameHelper::class,
-                    JoinHubOnJoinServer::class,
-                    SectorLoader::class,
-                    GameServer::class,
-                    Game::class,
-                    GameAlert::class,
-                    GPlayer::class,
-
-                    )
-            }
         })
+        event.registerClass(
+            PrintOnMove::class,
+            GameHelper::class,
+            JoinHubOnJoinServer::class,
+            SectorLoader::class,
+            GameServer::class,
+            Game::class,
+            GameAlert::class,
+            GPlayer::class,
+            SectionalHandler::class,
+        )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(module { single {
             GameInstanceService(get(), get(), get(), get(named("game-instance")))
