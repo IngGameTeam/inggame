@@ -17,8 +17,11 @@ interface Alert {
 }
 
 
+@Suppress("unused")
 @NoArgsConstructor
-class EmptyAlert() : Alert {
+class EmptyAlert(
+    var nothing: String?
+) : Alert {
 
     override fun send(reciver: AlertReciver, vararg args: Any) {
         //nothing
