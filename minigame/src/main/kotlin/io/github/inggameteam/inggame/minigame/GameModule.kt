@@ -28,6 +28,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::SectionalHelper)
             singleOf(::Sectional)
             singleOf(::GameInstanceService)
+            singleOf(::SectorLoader)
         })
         event.registerClass(
             PrintOnMove::class,

@@ -15,7 +15,7 @@ class SectorLoader(
     private val plugin: IngGamePlugin
 ) {
 
-    fun loadWorld(world: String) {
+    private fun loadWorld(world: String) {
         plugin.server.getWorld(world)?: run {
             WorldGenerator.generateWorld(world) {}
             plugin.server.getWorld(world)
