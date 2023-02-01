@@ -21,6 +21,6 @@ class NameSpaceForRemoveSelector(
         parentSelector?.open(event.whoClicked as Player)
     }
 
-    override fun transform(t: NameSpace) = createItem(Material.DIRT, "${ChatColor.RED}$t")
+    override fun transform(t: NameSpace) = createItem(Material.DIRT, "${ChatColor.RED}${t.name}")
 
 }
