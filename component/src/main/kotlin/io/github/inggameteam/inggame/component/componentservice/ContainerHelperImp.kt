@@ -21,7 +21,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
         val uncoveredContainer = uncoverDelegate(container)
         componentService.load(uncoveredContainer, true)
         val parent = uncoverDelegate(parent)
-        componentService[uncoveredContainer].apply { parents.add(parent) }.name
+        componentService.addParents(uncoveredContainer, parent)
         return container
     }
 
