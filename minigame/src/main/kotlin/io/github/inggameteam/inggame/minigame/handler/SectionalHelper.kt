@@ -61,19 +61,20 @@ class SectionalHelper(
     }.async(plugin)
     }
 
-    private fun loadSector(sectional: Sectional, world: World?, sector: Sector, key: String): Unit = sectional.run {
+    private fun loadSector(sectional: Sectional, world: World, sector: Sector, key: String): Unit = sectional.run {
         val x = gameWidth * sector.x
         val z = gameWidth * sector.y
         val file = getSchematicFile(key, gameName)
         val location = Location(world, x.toDouble(), gameHeight.toDouble(), z.toDouble())
         thread {
+            println("fileExists=${file.exists()}")
 //            FaweImpl(plugin).loadChunk(location, file)
             paste(location, file)
         }
     }
 
     fun getSchematicFile(name: String, dir: String) =
-        File(plugin.dataFolder, "schematics/" + dir + File.separator + name + ".schem")
+        File(plugin.dataFolder, "schematics" + File.separator + dir + File.separator + name + ".schem")
 
 
 
