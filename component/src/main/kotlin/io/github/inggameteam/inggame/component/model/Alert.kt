@@ -29,6 +29,7 @@ class EmptyAlert() : Alert {
     }
 }
 
+@NoArgsConstructor
 class ChatAlert(
     var message: String?
 ) : Alert {
