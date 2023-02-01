@@ -9,8 +9,11 @@ import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
+import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.randomUUID
+import org.bukkit.event.EventHandler
+import org.bukkit.event.server.PluginEnableEvent
 import org.koin.core.component.KoinComponent
 
 class GameInstanceService(
@@ -20,16 +23,20 @@ class GameInstanceService(
     @Suppress("unused")
     private val playerService: PlayerService,
     val plugin: IngGamePlugin,
-) : KoinComponent,
+) : KoinComponent, HandleListener(plugin),
     LayeredComponentService by gameInstanceRepository,
     ContainerHelper<Game, GPlayer> by gameInstanceRepository.newContainerHelper(gamePlayerService)
 {
 
-    private val containerHelper = gameInstanceRepository.containerHelper
-
-    init {
+    @Suppress("unused")
+    @EventHandler
+    fun onPluginEnabled(event: PluginEnableEvent) {
+        if (event.plugin != plugin) return
         server.hub = get(randomUUID(), ::GameImp).apply { create(this, server::hub.name) }
+
     }
+
+    private val containerHelper = gameInstanceRepository.containerHelper
 
     override fun create(container: Game, parent: Any): Game =
         containerHelper.create(container, parent)
