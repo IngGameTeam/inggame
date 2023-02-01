@@ -17,7 +17,7 @@ class NameSpaceForRemoveSelector(
 
 
     override fun select(t: NameSpace, event: InventoryClickEvent) {
-        componentService.removeNameSpace(t)
+        componentService.removeNameSpace(t.name)
         parentSelector?.open(event.whoClicked as Player)
     }
 
