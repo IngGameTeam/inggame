@@ -36,7 +36,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             GameAlert::class,
             GPlayer::class,
             Sectional::class,
-            SectionalImp::class
+            io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(module { single {
