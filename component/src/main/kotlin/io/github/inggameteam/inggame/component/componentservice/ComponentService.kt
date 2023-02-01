@@ -54,7 +54,7 @@ interface ComponentService {
     fun removeParents(name: Any, value: Any)
     fun hasParents(name: Any, value: Any): Boolean {
         val value = uncoverDelegate(value)
-        val parents = get(name).parents
+        val parents = getOrNull(name)?.parents?: return false
         return parents.contains(value)
             .run { if (this) true else parents.any { findComponentService(it).hasParents(name, value) } }
     }
