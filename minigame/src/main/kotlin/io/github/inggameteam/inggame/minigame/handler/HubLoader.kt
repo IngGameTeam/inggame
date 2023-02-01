@@ -24,7 +24,7 @@ class HubLoader(
         gameServer.hub = gameInstanceService.get(randomUUID(), ::GameImp)
             .apply {
                 gameInstanceService.create(this, gameServer::hub.name)
-                startWaitingSecond = -1
+                startPlayersAmount = -1
             }
     }
 

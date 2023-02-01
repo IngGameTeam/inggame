@@ -18,9 +18,9 @@ class GameImp(wrapper: Wrapper) : Game, Wrapper by wrapper {
 
     override val gameName: String by nonNull
     override val gameInfo: String by nonNull
-    override val startPlayersAmount      : Int           by nonNull
+    override var startPlayersAmount      : Int           by nonNull
     override val playerLimitAmount       : Int           by nonNull
-    override var startWaitingSecond      : Int           by nonNull
+    override val startWaitingSecond      : Int           by nonNull
     override val stopWaitingTick         : Int           by nonNull
 
     override var gameState: GameState by default { GameState.WAIT }
