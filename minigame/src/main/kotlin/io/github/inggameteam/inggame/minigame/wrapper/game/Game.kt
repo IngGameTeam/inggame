@@ -18,7 +18,7 @@ interface Game : Wrapper {
     val gameInfo: String
     val startPlayersAmount      : Int
     val playerLimitAmount       : Int
-    val startWaitingSecond      : Int
+    var startWaitingSecond      : Int
     val stopWaitingTick         : Int
 
     var gameState: GameState
