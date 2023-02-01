@@ -18,7 +18,7 @@ interface Alert {
 
 
 @Suppress("unused")
-@NoArgsConstructor
+@Model
 class EmptyAlert(
     var nothing: String?
 ) : Alert {
@@ -32,7 +32,7 @@ class EmptyAlert(
     }
 }
 
-@NoArgsConstructor
+@Model
 class ChatAlert(
     var message: String?
 ) : Alert {
