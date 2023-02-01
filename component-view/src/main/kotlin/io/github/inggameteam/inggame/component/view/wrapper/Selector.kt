@@ -1,5 +1,8 @@
 package io.github.inggameteam.inggame.component.view.wrapper
 
+import io.github.inggameteam.inggame.component.PropWrapper
+
+@PropWrapper
 interface Selector {
 
     val VIEW_CANNOT_EDIT: String
