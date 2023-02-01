@@ -26,21 +26,6 @@ class ComponentServiceRegisterEvent(
         modules.addAll(module)
     }
 
-    private fun register(name: Collection<String>, registry: ComponentServiceDSL, suffix: String) {
-        val iterator = name.iterator()
-        var last: ComponentServiceDSL = registry
-        if (name.size == 1) {
-            registry.run { name.first() cs suffix }
-        }
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (iterator.hasNext()) {
-                last = last.run { next cs iterator.next() }
-            }
-        }
-        last.run { last cs suffix }
-    }
-
     fun registerClass(vararg clazz: KClass<*>) {
         addModule(module {
             factory(named(randomUUID().fastToString())) {
@@ -53,14 +38,6 @@ class ComponentServiceRegisterEvent(
         root.apply {
             "root" csc(block)
         }
-    }
-
-    fun layer(name: String) {
-        root.findComponentServiceDSL(name).isLayer = true
-    }
-
-    fun registerRoot(vararg name: String) {
-        register(name.toList(), root, "default")
     }
 
     private fun getRegistry() = ArrayList(root.registry)

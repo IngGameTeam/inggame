@@ -1,6 +1,7 @@
 name: inggame
 version: $version
 main: io.github.inggameteam.inggame.plugin.Plugin
+authors: [ Bruce0203, chomade ]
 api-version: 1.19
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.8.0

@@ -17,10 +17,10 @@ interface Alert {
 
 @Model
 class ChatAlert(
-    var message: String
+    var message: String?
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
-        val format = message.color.format(*args)
+        val format = message?.color?.format(*args)
         if (reciver is Player) reciver.sendMessage(format)
         else println("$reciver: $format")
     }
@@ -30,9 +30,9 @@ class ChatAlert(
 }
 
 @Model
-class ActionBarAlert(var message: String) : Alert {
+class ActionBarAlert(var message: String?) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
-        val format = message.color.format(*args)
+        val format = message?.color?.format(*args)
         if (reciver is Player) reciver.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(format))
         else println("$reciver: $format")
     }
@@ -72,7 +72,7 @@ class BaseComponentAlert(
 
 @Model
 class ActionComponent(
-    var message: String,
+    var message: String?,
     var clickAction: ClickEvent.Action?,
     var clickValue: String?,
     var hoverAction: HoverEvent.Action?,
@@ -89,7 +89,7 @@ class ActionComponent(
 
     @Suppress("DEPRECATION")
     fun append(vararg args: Any) =
-        TextComponent(message.format(*args)).apply {
+        TextComponent(message?.format(*args)).apply {
             if (clickAction !== null) clickEvent = ClickEvent(clickAction, clickValue?.color?.format(*args))
             if (hoverAction !== null) hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue?.color?.format(*args))))
         }
