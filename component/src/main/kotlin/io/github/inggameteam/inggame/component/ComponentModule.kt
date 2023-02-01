@@ -29,7 +29,8 @@ class ComponentModule(plugin: Plugin) : HandleListener(plugin) {
                         Location::class,
                         InventoryModel::class,
                         ItemModel::class,
-        ),
+        )
+        event.addModule(
             module(createdAtStart = true) {
                 singleOf(::SubClassRegistry)
                 singleOf(::PropertyRegistry)
