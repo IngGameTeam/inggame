@@ -15,7 +15,10 @@ interface Alert {
     fun send(reciver: AlertReciver, vararg args: Any)
 }
 
+
+@Suppress("unused")
 class EmptyAlert() : Alert {
+
     override fun send(reciver: AlertReciver, vararg args: Any) {
         //nothing
     }
