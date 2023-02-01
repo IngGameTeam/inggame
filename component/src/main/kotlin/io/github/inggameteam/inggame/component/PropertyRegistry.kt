@@ -26,6 +26,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
         classes
             .filter { it.java.getAnnotation(PropHandler::class.java) !== null }
             .forEach {
+
                 propMap.add(Prop(it.simpleName!!, Boolean::class.createType(), Boolean::class))
             }
         val types = classes

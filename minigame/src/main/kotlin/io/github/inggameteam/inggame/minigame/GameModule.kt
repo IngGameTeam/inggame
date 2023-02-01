@@ -25,6 +25,8 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::JoinHubOnJoinServer)
             singleOf(::PrintOnMove)
             singleOf(::GameHelper)
+            singleOf(::SectionalHelper)
+            singleOf(::Sectional)
         })
         event.registerClass(
             PrintOnMove::class,

@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.event
 
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
+import io.github.inggameteam.inggame.component.PropHandler
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.utils.ClassRegistry
