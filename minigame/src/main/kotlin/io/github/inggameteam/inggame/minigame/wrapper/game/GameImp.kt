@@ -42,8 +42,8 @@ class GameImp(wrapper: Wrapper) : Game, Wrapper by wrapper {
 
     override fun hasGameTask() = gameTask !== null
 
-
-
-
+    override fun toString(): String {
+        return "Game{name=$gameName}"
+    }
 
 }

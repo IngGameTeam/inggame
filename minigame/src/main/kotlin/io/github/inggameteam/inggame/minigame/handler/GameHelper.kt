@@ -23,7 +23,7 @@ class GameHelper(
 ) {
 
     fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
-        val gameAlert = gamePlayerService.get(player, ::GameAlertImp)
+        val gameAlert = (if (player.joinedGame !== null) player else requestedGame)[::GameAlertImp]
         if (requestedGame.gameJoined.contains(player)) {
             if (sendMessage) gameAlert.GAME_ALREADY_JOINED.send(player, requestedGame.gameName)
         } else if (requestedGame.gameState !== GameState.WAIT && joinType === JoinType.PLAY) {
