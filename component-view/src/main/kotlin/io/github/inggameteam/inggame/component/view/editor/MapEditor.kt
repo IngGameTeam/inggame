@@ -52,7 +52,7 @@ class MapEditor<T : Map<String, *>>(
                     KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
                 ))
         ), EditorViewImp(this,
-            { try { (it.apply { println(this) } as ArrayList<Entry<*>>).run {
+            { try { (it as ArrayList<Entry<*>>).run {
                 if (any { e -> e.key === null || e.value === null }) null else this
             }?.associate { e -> Pair(e.key, e.value) }?.toMap()?.run { HashMap(this) }?.run { set(this as T) } }
             catch (_: Throwable) { } },
