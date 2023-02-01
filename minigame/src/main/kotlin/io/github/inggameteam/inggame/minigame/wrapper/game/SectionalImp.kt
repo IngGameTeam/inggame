@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 
     override var gameSector: Sector by default { Sector(0, 0) }
-    override val isAllocatedGame: Boolean get() = gameSector.equals(0, 0)
+    override val isAllocatedGame: Boolean get() = !gameSector.equals(0, 0)
 //    /**
 //     * 할당된 구역 마무리 정리 시간
 //     */
