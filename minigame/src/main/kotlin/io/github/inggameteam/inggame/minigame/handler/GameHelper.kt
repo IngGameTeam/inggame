@@ -58,7 +58,6 @@ class GameHelper(
     }
 
     private fun requestLeft(game: Game, gPlayer: GPlayer, leftType: LeftType) = game.gameJoined.contains(gPlayer)
-        .also { println(it) }
 
     fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
         val game = gPlayer.joinedGame?: return false
