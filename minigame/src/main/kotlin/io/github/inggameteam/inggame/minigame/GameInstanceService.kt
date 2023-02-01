@@ -25,7 +25,6 @@ class GameInstanceService(
         gameInstanceRepository, gamePlayerService,
         GPlayer::joinedGame.name, Game::gameJoined.name
     )
-
 {
 
     init {
