@@ -56,13 +56,12 @@ class ResourceComponentServiceImp(
         nameSpaceCache.removeIf { it.name == name }
     }
 
-    override fun getOrNull(name: Any) = getAll()
-        .firstOrNull { it.name == name }
-        ?: NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }
+    override fun getOrNull(name: Any) = getAll().firstOrNull { it.name == name }
 
     override fun set(nameSpace: Any, key: Any, value: Any?) {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getOrNull(nameSpace)
+            ?: NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }
         if (value === null) ns.elements.remove(key) else ns.elements[key] = value
     }
 
