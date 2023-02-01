@@ -18,7 +18,6 @@ class NameSpaceForRemoveSelector(
 
     override fun select(t: NameSpace, event: InventoryClickEvent) {
         componentService.removeNameSpace(t.name)
-        parentSelector?.open(event.whoClicked as Player)
     }
 
     override fun transform(t: NameSpace) = createItem(Material.DIRT, "${ChatColor.RED}${t.name}")
