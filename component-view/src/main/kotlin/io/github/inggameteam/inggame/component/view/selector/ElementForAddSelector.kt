@@ -18,6 +18,7 @@ class ElementForAddSelector(
         componentService.has(nameSpace.name, it.name)
                 || it.clazz.simpleName!!.equals(nameSpace.name.toString(), ignoreCase = true)
                 || nameSpace.parents.contains(it.clazz.simpleName!!)
+                || nameSpace.parents.contains(it.name)
     }.map { it.name }
 
     override fun select(t: String, event: InventoryClickEvent) {
