@@ -1,10 +1,7 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.MongoClientSettings
-import org.bson.BsonArray
-import org.bson.BsonDocument
-import org.bson.BsonDocumentWriter
-import org.bson.Document
+import org.bson.*
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistries
@@ -27,7 +24,7 @@ class MongoCodec(codecs: Collection<Class<*>>) {
                     )
                     ?: throw AssertionError("An error occurred while decoding Document")
             } catch (_: Throwable) {
-                return document.toMap().mapValues { decode(it.value) }
+                return document.mapValues { decode(it.value) }
             }
         } else if (document is Collection<*>) {
             return document.map { decode(it) }
@@ -46,6 +43,8 @@ class MongoCodec(codecs: Collection<Class<*>>) {
             BsonArray(value.map {
                 (encode(it) as? Document)?.run(::toBson)
             }.toMutableList())
+        } else if (value is Map<*, *>) {
+            value.mapValues { encode(it.value) }
         } else value
     }
 
