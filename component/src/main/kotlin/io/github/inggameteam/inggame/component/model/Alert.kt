@@ -38,7 +38,6 @@ class ChatAlert(
 
 }
 
-@Model
 class ActionBarAlert(var message: String?) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         val format = message?.color?.format(*args)
@@ -48,7 +47,6 @@ class ActionBarAlert(var message: String?) : Alert {
     override fun toString() = "ActionBarAlert{$message}"
 }
 
-@Model
 class TitleAlert(
     var title: String?,
     var subTitle: String?,
@@ -66,7 +64,6 @@ class TitleAlert(
     override fun toString() = "TitleAlert{$title, $subTitle, $fadeIn, $stay, $fadeOut}"
 }
 
-@Model
 class BaseComponentAlert(
     var components: ArrayList<ActionComponent>
 ) : Alert {
@@ -79,7 +76,6 @@ class BaseComponentAlert(
     override fun toString() = "BaseComponentAlert{$components}"
 }
 
-@Model
 class ActionComponent(
     var message: String?,
     var clickAction: ClickEvent.Action?,
