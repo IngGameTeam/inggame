@@ -10,4 +10,5 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.qualifier.named
 
-class GameInstanceRepository(componentService: ComponentService) : LayeredComponentService by componentService as LayeredComponentService
+class GameInstanceRepository(componentService: ComponentService)
+    : LayeredComponentService by componentService as LayeredComponentService
