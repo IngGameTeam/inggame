@@ -35,7 +35,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val componentService = app.get<ComponentService>(named(args[1]))
                     if (source !is Player) {
                         measureTimeMillis {
-                            println(componentService)
+                            println(componentService.getAll().joinToString("\n"))
                         }.apply(::println)
                     } else {
                         NameSpaceSelector(
