@@ -19,15 +19,16 @@ class ComponentModule(plugin: Plugin) : HandleListener(plugin) {
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.register { "singleton" cs "default" }
         event.registerClass(
-                        Alert::class,
-                        ChatAlert::class,
-                        ActionBarAlert::class,
-                        TitleAlert::class,
-                        BaseComponentAlert::class,
-                        ActionComponent::class,
-                        Location::class,
-                        InventoryModel::class,
-                        ItemModel::class,
+            Alert::class,
+            ChatAlert::class,
+            ActionBarAlert::class,
+            EmptyAlert::class,
+            TitleAlert::class,
+            BaseComponentAlert::class,
+            ActionComponent::class,
+            Location::class,
+            InventoryModel::class,
+            ItemModel::class,
         )
         event.addModule(
             module(createdAtStart = true) {
