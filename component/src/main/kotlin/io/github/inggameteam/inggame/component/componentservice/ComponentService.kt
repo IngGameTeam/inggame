@@ -54,7 +54,6 @@ interface ComponentService {
     fun removeParents(name: Any, value: Any)
     fun hasParents(name: Any, value: Any): Boolean {
         val name = uncoverDelegate(name)
-        println("$name, $value")
         val parents = getOrNull(name)?.parents
         if (parents === null) return false
         if (parents.contains(value)) return true
