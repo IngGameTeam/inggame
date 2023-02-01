@@ -1,5 +1,7 @@
 package io.github.inggameteam.inggame.minigame.handler
 
+import io.github.inggameteam.inggame.component.PropHandler
+import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.GameState
@@ -13,6 +15,7 @@ import io.github.inggameteam.inggame.utils.delay
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 
+@PropHandler
 class Sectional(
     private val sectionalHelper: SectionalHelper,
     private val gamePlayerService: GamePlayerService,
