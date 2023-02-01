@@ -63,23 +63,35 @@ class NullableWrapperImp(
 ) : BaseWrapper() {
 
 
-    internal var defaultBlock: (() -> Any?)? = null
+    var defaultBlock: (() -> Any?)? = null
 
-    @Suppress("UNCHECKED_CAST")
-    operator fun <T : Any, R> getValue(thisRef: T, property: KProperty<*>): R? {
-        val result = try {
-            component[nameSpace, property.name, Any::class]
-        } catch (_: Throwable) {
-            defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
+    inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R? {
+        try {
+            val result = try {
+                component[nameSpace, property.name, Any::class]
+            } catch (e: Throwable) {
+                val defaultValue = defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
+                if (defaultValue === null) return null
+                defaultValue
+            }
+            try {
+                return if (R::class.isSubclassOf(Wrapper::class))
+                    R::class.constructors.first().call(NonNullWrapperImp(result, component))
+                else result as R
+            } catch (_: Throwable) {
+                throw AssertionError("an error occurred while wrap property due to non exist constructor")
+            }
+
+        } catch (e: NameSpaceNotFoundException) {
+            throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
-        return result as? R
     }
 
     operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R?) {
         if (value === null) {
             component[nameSpace].elements.remove(property.name)
         } else {
-            component.set(nameSpace, property.name, uncoverDelegate(value))
+            component.set(nameSpace, property.name, value)
         }
     }
 
@@ -109,7 +121,7 @@ class NonNullWrapperImp(
                     R::class.constructors.first().call(NonNullWrapperImp(result, component))
                 else result as R
             } catch (_: Throwable) {
-                throw AssertionError("an error occurred while wrap property due to non exist consturctor")
+                throw AssertionError("an error occurred while wrap property due to non exist constructor")
             }
 
         } catch (e: NameSpaceNotFoundException) {
@@ -118,7 +130,7 @@ class NonNullWrapperImp(
     }
 
     operator fun <T, R : Any> setValue(thisRef: T, property: KProperty<*>, value: R) {
-        component.set(nameSpace, property.name, uncoverDelegate(value))
+        component.set(nameSpace, property.name, value)
     }
 
 
