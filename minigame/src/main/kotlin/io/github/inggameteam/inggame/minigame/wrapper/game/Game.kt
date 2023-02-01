@@ -21,16 +21,14 @@ interface Game : Wrapper {
     val startWaitingSecond      : Int
     val stopWaitingTick         : Int
 
+    var gameState: GameState
     var gameJoined: CopyOnWriteArraySet<GPlayer>
-    var gameSector: Sector
 
     fun addTask(task: ITask)
 
     fun cancelGameTask()
     fun hasGameTask(): Boolean
 
-    val isAllocatedGame: Boolean
-    var gameState: GameState
 
 
 

@@ -23,8 +23,8 @@ class GameImp(wrapper: Wrapper) : Game, Wrapper by wrapper {
     override val startWaitingSecond      : Int           by nonNull
     override val stopWaitingTick         : Int           by nonNull
 
+    override var gameState: GameState by default { GameState.WAIT }
     override var gameJoined: CopyOnWriteArraySet<GPlayer> by default { CopyOnWriteArraySet<GPlayer>() }
-    override var gameSector: Sector by default { Sector(0, 0) }
 
     private var gameTask: ITask? by nullable
     override fun cancelGameTask() {
@@ -44,8 +44,6 @@ class GameImp(wrapper: Wrapper) : Game, Wrapper by wrapper {
 
 
 
-    override val isAllocatedGame: Boolean get() = gameSector.equals(0, 0)
-    override var gameState: GameState by default { GameState.WAIT }
 
 
 }

@@ -1,12 +1,15 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
 import io.github.inggameteam.inggame.component.PropWrapper
+import io.github.inggameteam.inggame.minigame.Sector
 import org.bukkit.Location
 import org.bukkit.util.Vector
 
 @PropWrapper
 interface Sectional : Game {
 
+    var gameSector: Sector
+    val isAllocatedGame: Boolean
     val schematicName: String
     val minPoint: Vector
     val maxPoint: Vector

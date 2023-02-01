@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.componentservice.ContainerCompone
 import io.github.inggameteam.inggame.component.componentservice.ContainerComponentServiceImp
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import io.github.inggameteam.inggame.component.delegate.get
+import io.github.inggameteam.inggame.minigame.event.GameLoadEvent
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
@@ -20,15 +21,21 @@ class GameInstanceService(
     @Suppress("unused")
     private val playerService: PlayerService,
     val plugin: IngGamePlugin,
-) : KoinComponent, LayeredComponentService by gameInstanceRepository,
-    ContainerComponentService<Game, GPlayer> by ContainerComponentServiceImp(
+    private val containerComponentService: ContainerComponentService<Game, GPlayer> = ContainerComponentServiceImp(
         gameInstanceRepository, gamePlayerService,
         GPlayer::joinedGame.name, Game::gameJoined.name
     )
+) : KoinComponent,
+    LayeredComponentService by gameInstanceRepository,
+    ContainerComponentService<Game, GPlayer> by containerComponentService
 {
 
     init {
         server.hub = get(randomUUID(), ::GameImp).apply { create(this, server::hub.name) }
     }
+
+    override fun create(container: Game, parent: Any): Game =
+        containerComponentService.create(container, parent)
+            .also { plugin.server.pluginManager.callEvent(GameLoadEvent(container)) }
 
 }
