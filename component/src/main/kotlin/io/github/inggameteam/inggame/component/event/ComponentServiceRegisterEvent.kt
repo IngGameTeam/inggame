@@ -83,6 +83,6 @@ class ComponentServiceRegisterEvent(
     }
 }
 
-inline fun <reified T : Any> newModule(name: String, crossinline block: (ComponentService) -> T) = module {
+inline fun <reified T : Any> newModule(name: String, crossinline block: (ComponentService) -> T) = module(createdAtStart = true) {
     single { block(get(named(name))) } bind T::class
 }
