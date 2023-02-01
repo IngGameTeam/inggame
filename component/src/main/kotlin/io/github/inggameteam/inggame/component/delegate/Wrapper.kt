@@ -37,14 +37,16 @@ interface Wrapper {
 
 abstract class BaseWrapper : Wrapper {
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (this.nameSpace == other) return true
+        if (other is Wrapper && this.nameSpace == other.nameSpace) return true
+        return false
+    }
+
     override fun hashCode(): Int {
         return nameSpace.hashCode()
     }
-
-    override fun equals(other: Any?): Boolean {
-        return this.nameSpace == other
-    }
-
 
 }
 
