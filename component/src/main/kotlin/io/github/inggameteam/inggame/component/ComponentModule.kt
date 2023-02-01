@@ -18,10 +18,7 @@ class ComponentModule(plugin: Plugin) : HandleListener(plugin) {
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.register { "singleton" cs "default" }
-        event.addModule(
-            module {
-                factory(named(randomUUID().fastToString())) {
-                    ClassRegistry(
+        event.registerClass(
                         Alert::class,
                         ChatAlert::class,
                         EmptyAlert::class,
@@ -32,9 +29,7 @@ class ComponentModule(plugin: Plugin) : HandleListener(plugin) {
                         Location::class,
                         InventoryModel::class,
                         ItemModel::class,
-                    )
-                }
-            },
+        ),
             module(createdAtStart = true) {
                 singleOf(::SubClassRegistry)
                 singleOf(::PropertyRegistry)
