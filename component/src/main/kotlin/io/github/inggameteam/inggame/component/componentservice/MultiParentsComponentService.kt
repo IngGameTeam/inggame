@@ -67,4 +67,8 @@ class MultiParentsComponentService(
         //nothing
     }
 
+    override fun addNameSpace(name: Any) {
+        //nothing
+    }
+
 }

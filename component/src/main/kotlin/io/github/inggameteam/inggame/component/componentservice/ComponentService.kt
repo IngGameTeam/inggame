@@ -67,6 +67,7 @@ interface ComponentService {
     fun getAll(): Collection<NameSpace>
 
     fun removeNameSpace(name: Any)
+    fun addNameSpace(name: Any)
 
 
 
