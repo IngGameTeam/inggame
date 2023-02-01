@@ -53,7 +53,7 @@ interface ComponentService {
     fun addParents(name: Any, value: Any)
     fun removeParents(name: Any, value: Any)
     fun hasParents(name: Any, value: Any): Boolean {
-        val nameSpace = uncoverDelegate(name)
+        val name = uncoverDelegate(name)
         if (getOrNull(name)?.parents?.contains(value) == true) return true
             return try { parentComponent.hasParents(name, value) } catch (_: Throwable) { false }
     }
