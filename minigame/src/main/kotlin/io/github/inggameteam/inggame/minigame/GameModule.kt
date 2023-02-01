@@ -41,9 +41,9 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
-        event.addModule(module { single {
-            GameInstanceService(get(), get(), get(), get(named("game-instance")))
-        } })
+        event.addModule(module {
+            singleOf(::GameInstanceService)
+        })
         event.addModule(newModule("custom-game", ::CustomGameService))
 
         event.register {
