@@ -82,6 +82,7 @@ class Sectional(
         if (isHandler(game)) {
             println("GameLoadEvent2")
             game.gameSector = sectorLoader.newAllocatable(gameServer.gameWorld)
+            game.initPoints()
         }
     }
 

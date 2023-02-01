@@ -21,13 +21,13 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     override val schematicName: String by nonNull
     val schematicLocations: HashMap<String, HashMap<String, Location>> by nonNull
 
-    override val minPoint: Vector
-    override val maxPoint: Vector
+    override lateinit var minPoint: Vector
+    override lateinit var maxPoint: Vector
     override var isUnloaded = false
     override val gameWidth: Int by nonNull
     override val gameHeight: Int by nonNull
 
-    init {
+    fun initPoints() {
         if (isAllocatedGame) {
             val vector = Vector(gameSector.x * gameWidth, 0, gameSector.y * gameWidth)
             val half = gameWidth / 2
