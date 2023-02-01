@@ -45,7 +45,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(newModule("game-instance", ::GameInstanceRepository))
-        event.addModule(newModule("custom-game", ::CustomGameService))
+//        event.addModule(newModule("custom-game", ::CustomGameService))
         event.register {
             "game-player" isLayer true cs "game-instance" isLayer true cs "custom-game" isSavable true cs "game-resource" isSavable true cs "default"
         }
