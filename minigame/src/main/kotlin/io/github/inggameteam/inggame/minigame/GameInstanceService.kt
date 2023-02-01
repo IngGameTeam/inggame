@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.koin.core.component.KoinComponent
 
 class GameInstanceService(
@@ -35,7 +36,7 @@ class GameInstanceService(
             .also { plugin.server.pluginManager.callEvent(GameLoadEvent(container)) }
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         if (event.plugin != plugin) return
         server.hub = get(randomUUID(), ::GameImp).apply { create(this, server::hub.name) }

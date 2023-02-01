@@ -16,6 +16,7 @@ import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.delay
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
 
 @PropHandler
@@ -67,17 +68,16 @@ class Sectional(
     @Suppress("unused")
     @EventHandler
     fun onFinishGame(event: GameFinishEvent) {
-        val game = event.game
+        val game = event.game[::SectionalImp]
         if (isHandler(game)) {
-            sectionalHelper.clearEntitiesToUnload(game[::SectionalImp])
+            sectionalHelper.clearEntitiesToUnload(game)
         }
     }
 
     @Suppress("unused")
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     fun onLoadGame(event: GameLoadEvent) {
         val game = event.game[::SectionalImp]
-        println("GameLoadEvent ${isHandler(game)}")
         if (isHandler(game)) {
             game.gameSector = sectorLoader.newAllocatable(gameServer.gameWorld)
         }
