@@ -27,7 +27,7 @@ class MongoCodec(codecs: Collection<Class<*>>) {
                     )
                     ?: throw AssertionError("An error occurred while decoding Document")
             } catch (_: Throwable) {
-                return document.toMap()
+                return document.toMap().mapValues { decode(it.value) }
             }
         } else if (document is Collection<*>) {
             return document.map { decode(it) }
