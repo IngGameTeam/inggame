@@ -20,6 +20,10 @@ class EmptyAlert : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         //nothing
     }
+
+    override fun toString(): String {
+        return this.javaClass.simpleName
+    }
 }
 
 @Model
