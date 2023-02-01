@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
+import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.Location
 import io.github.inggameteam.inggame.minigame.GameState
@@ -7,6 +8,7 @@ import org.bukkit.util.Vector
 import java.util.concurrent.CopyOnWriteArrayList
 
 
+@PropWrapper
 class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 
 

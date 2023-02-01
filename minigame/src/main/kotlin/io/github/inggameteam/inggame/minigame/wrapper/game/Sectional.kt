@@ -1,8 +1,10 @@
 package io.github.inggameteam.inggame.minigame.wrapper.game
 
+import io.github.inggameteam.inggame.component.PropWrapper
 import org.bukkit.Location
 import org.bukkit.util.Vector
 
+@PropWrapper
 interface Sectional : Game {
 
     val schematicName: String

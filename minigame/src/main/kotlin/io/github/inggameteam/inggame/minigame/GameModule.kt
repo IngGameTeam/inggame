@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
+import io.github.inggameteam.inggame.minigame.wrapper.game.SectionalImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.HandleListener
 import org.bukkit.event.EventHandler
@@ -35,6 +36,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             GameAlert::class,
             GPlayer::class,
             Sectional::class,
+            SectionalImp::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(module { single {
