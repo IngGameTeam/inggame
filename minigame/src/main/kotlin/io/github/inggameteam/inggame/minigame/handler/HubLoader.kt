@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.minigame.handler
 
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GameInstanceService
+import io.github.inggameteam.inggame.minigame.GameState
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.utils.HandleListener
@@ -21,7 +22,10 @@ class HubLoader(
     @EventHandler(priority = EventPriority.LOW)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         gameServer.hub = gameInstanceService.get(randomUUID(), ::GameImp)
-            .apply { gameInstanceService.create(this, gameServer::hub.name) }
+            .apply {
+                gameInstanceService.create(this, gameServer::hub.name)
+                gameState = GameState.STOP
+            }
     }
 
 }
