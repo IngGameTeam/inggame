@@ -40,7 +40,7 @@ class MongoFileRepo(val file: String, val plugin: IngGamePlugin, val mongoCodec:
     }
 
     override fun set(col: Collection<Document>) {
-        getFile().writeText(Document().apply { set("_", col) }.run(mongoCodec::toBson).toJson())
+        getFile().writeText(Document().apply { set("_", col) }.run(mongoCodec::toBson).run(mongoCodec::fromBson).toJson())
     }
 
     override fun delete(id: Document) {
