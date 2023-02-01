@@ -53,10 +53,9 @@ interface ComponentService {
     fun addParents(name: Any, value: Any)
     fun removeParents(name: Any, value: Any)
     fun hasParents(name: Any, value: Any): Boolean {
-        val value = uncoverDelegate(value)
-        val parents = getOrNull(name)?.parents?: return false
-        return parents.contains(value)
-            .run { if (this) true else parents.any { findComponentService(it).hasParents(name, value) } }
+        val nameSpace = uncoverDelegate(name)
+        if (getOrNull(name)?.parents?.contains(value) == true) return true
+            return try { parentComponent.hasParents(name, value) } catch (_: Throwable) { false }
     }
 
     fun newModel(name: Any): NameSpace
