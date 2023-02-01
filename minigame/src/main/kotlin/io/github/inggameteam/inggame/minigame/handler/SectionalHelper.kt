@@ -33,7 +33,7 @@ class SectionalHelper(
         println("clearEntities(remove):${System.currentTimeMillis() - before}ms")
     }
 
-    fun loadSector(sectional: Sectional, key: String = sectional.gameName) {
+    fun loadSector(sectional: Sectional, key: String = "default") {
         loadSector(sectional, sectional.gameSector.world, sectional.gameSector, key)
     }
 
@@ -47,7 +47,7 @@ class SectionalHelper(
         val before = System.currentTimeMillis()
         val x = sector.x * gameWidth
         val z = sector.y * gameWidth
-        val file = getSchematicFile("default", gameName)
+        val file = getSchematicFile("default", "default")
         val location = Location(world, x.toDouble(), gameHeight.toDouble(), z.toDouble())
         ;{
         paste(location, file)
