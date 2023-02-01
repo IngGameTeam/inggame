@@ -53,7 +53,9 @@ class SimpleWrapper(
     override val nameSpace: Any,
 
     override val component: ComponentService
-) : BaseWrapper()
+) : BaseWrapper() {
+    constructor(wrapper: Wrapper) : this(wrapper.nameSpace, wrapper.component)
+}
 
 class NullableWrapperImp(
 
