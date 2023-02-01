@@ -60,7 +60,7 @@ class GameHelper(
     private fun requestLeft(game: Game, gPlayer: GPlayer, leftType: LeftType) = game.gameJoined.contains(gPlayer)
 
     fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
-        val game = gPlayer.joinedGame?: return false
+        val game = gPlayer.joinedGame?: return false.apply { println("joinedGame is null") }
         if (!requestLeft(game, gPlayer, leftType)) return false
         Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, game, leftType))
 

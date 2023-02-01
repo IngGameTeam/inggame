@@ -47,9 +47,7 @@ class JoinHubOnJoinServer(
     @EventHandler(priority = EventPriority.HIGH)
     fun onQuit(event: PlayerQuitEvent) {
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
-        println("PlayerQuitEvent1")
         if (player.joinedGame === null) return
-        println("PlayerQuitEvent2")
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
 
