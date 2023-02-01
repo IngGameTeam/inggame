@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.minigame.GameModule
 import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
+import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPluginLoader
 import org.koin.core.Koin
@@ -42,6 +43,7 @@ class Plugin : IngGamePluginImp {
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
+        server.pluginManager.callEvent(IngGamePluginEnableEvent(this))
     }
 
     override fun onDisable() {

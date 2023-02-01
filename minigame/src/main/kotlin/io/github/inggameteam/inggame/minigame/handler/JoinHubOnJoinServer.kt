@@ -13,6 +13,7 @@ import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
@@ -24,13 +25,16 @@ class JoinHubOnJoinServer(
     private val server: GameServer, plugin: IngGamePlugin,
     private val gameInstanceService: GameInstanceService,
     private val gamePlayerService: GamePlayerService,
-    playerInstanceService: PlayerInstanceService,
+    private val playerInstanceService: PlayerInstanceService,
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
     private val gameHelper: GameHelper
 ) : HandleListener(plugin) {
 
-    init {
+
+    @Suppress("unused")
+    @EventHandler
+    fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         playerInstanceService.getAll().map(NameSpace::name)
             .forEach { gameInstanceService.join(server.hub, gamePlayerService.get(it, ::GPlayer)) }
     }
