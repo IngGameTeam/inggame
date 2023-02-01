@@ -19,7 +19,7 @@ open class WrappedPlayer(wrapper: Wrapper)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (this.nameSpace == other) return true
+        if (this.nameSpace.hashCode() == other.hashCode()) return true
         return false
     }
 
