@@ -20,6 +20,7 @@ data class NameSpaceSelector(
     override fun addButton(player: Player) {
         StringEditor(EditorViewImp(this,
             { componentService.getOrNull(it) }, {""}), this)
+            .open(player)
     }
 
     override fun removeButton(player: Player) {
