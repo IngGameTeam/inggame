@@ -15,7 +15,6 @@ interface Alert {
     fun send(reciver: AlertReciver, vararg args: Any)
 }
 
-@Model
 class EmptyAlert : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         //nothing
@@ -26,7 +25,6 @@ class EmptyAlert : Alert {
     }
 }
 
-@Model
 class ChatAlert(
     var message: String?
 ) : Alert {

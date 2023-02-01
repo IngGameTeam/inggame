@@ -2,12 +2,14 @@ package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
 import io.github.inggameteam.inggame.utils.ClassRegistry
+import org.bson.codecs.Codec
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 
 
 class ClassRegistryAll(vararg clazz: KClass<*>) : ClassRegistry(*clazz)
@@ -24,8 +26,10 @@ fun createMongoModule(
 ) = module {
     single { ConnectionString(url) }
     single { MongoCodec(ArrayList<Class<out Any>>().apply {
-        get<ClassRegistryAll>().classes.filter { it.java.getAnnotation(Model::class.java) !== null }
-            .map { it.java }.apply(::addAll)
+        get<ClassRegistryAll>().classes.
+        filter { it.java.getAnnotation(Model::class.java) !== null
+                || it.isSubclassOf(Codec::class)
+        }.map { it.java }.apply(::addAll)
     }) }
     single { DatabaseString(get<ConnectionString>().database
         ?: throw AssertionError("database is not specified in the url")) }
