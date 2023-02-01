@@ -24,6 +24,7 @@ class ComponentModule(plugin: Plugin) : HandleListener(plugin) {
                     ClassRegistry(
                         Alert::class,
                         ChatAlert::class,
+                        EmptyAlert::class,
                         ActionBarAlert::class,
                         TitleAlert::class,
                         BaseComponentAlert::class,

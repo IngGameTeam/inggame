@@ -70,7 +70,7 @@ class NullableWrapperImp(
         val result = try {
             component[nameSpace, property.name, Any::class]
         } catch (_: Throwable) {
-            defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
+            defaultBlock?.invoke()
         }
         return result as? R
     }
@@ -100,7 +100,7 @@ class NonNullWrapperImp(
             val result = try {
                 component[nameSpace, property.name, Any::class]
             } catch (e: Throwable) {
-                val defaultValue = defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
+                val defaultValue = defaultBlock?.invoke()
                 if (defaultValue === null) throw e
                 defaultValue
             }

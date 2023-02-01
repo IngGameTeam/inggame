@@ -16,6 +16,13 @@ interface Alert {
 }
 
 @Model
+class EmptyAlert : Alert {
+    override fun send(reciver: AlertReciver, vararg args: Any) {
+        //nothing
+    }
+}
+
+@Model
 class ChatAlert(
     var message: String?
 ) : Alert {
