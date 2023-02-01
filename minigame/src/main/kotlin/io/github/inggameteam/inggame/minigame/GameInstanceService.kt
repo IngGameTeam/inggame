@@ -35,10 +35,6 @@ class GameInstanceService(
         containerHelper.create(container, parent)
             .also { plugin.server.pluginManager.callEvent(GameLoadEvent(container)) }
 
-    @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOW)
-    fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
-        server.hub = get(randomUUID(), ::GameImp).apply { create(this, server::hub.name) }
-    }
+
 
 }
