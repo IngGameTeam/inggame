@@ -36,7 +36,10 @@ allprojects {
     }
 
     noArg {
-        annotation("io.github.inggameteam.inggame.mongodb.NoArgsConstructor")
+        annotations(
+            "io.github.inggameteam.inggame.mongodb.NoArgsConstructor",
+            "io.github.inggameteam.inggame.mongodb.Model"
+        )
     }
 
     repositories {

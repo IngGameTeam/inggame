@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.model
 
 import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.mongodb.NoArgsConstructor
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
@@ -16,7 +17,7 @@ interface Alert {
 }
 
 
-@Suppress("unused")
+@NoArgsConstructor
 class EmptyAlert() : Alert {
 
     override fun send(reciver: AlertReciver, vararg args: Any) {
