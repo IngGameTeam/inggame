@@ -73,7 +73,7 @@ class SectionalHelper(
     }
 
     fun getSchematicFile(name: String, dir: String) =
-        File(plugin.dataFolder, dir + File.separator + name + ".schem")
+        File(plugin.dataFolder, "schematics/" + dir + File.separator + name + ".schem")
 
 
 
