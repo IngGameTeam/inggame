@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.component.view
 
+import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.SubClassRegistry
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.view.editor.*
@@ -24,7 +25,8 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             .let { clazz ->
                 elementView?.run {
                     try {
-                        val any = componentService[nameSpace.name, element.first, Any::class]
+                        val any = componentService[nameSpace.name].elements
+                            .getOrElse(element.first) { throw NameSpaceNotFoundException(nameSpace) }
                         if (any.javaClass.kotlin.isSubclassOf(clazz.kotlin)) {
                             any.javaClass
                         } else clazz
