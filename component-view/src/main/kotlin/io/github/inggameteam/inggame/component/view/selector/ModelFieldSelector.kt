@@ -28,6 +28,7 @@ class ModelFieldSelector(
     override val elements: Collection<Field>
         get() = model.singleClass.kotlin. declaredMemberProperties
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
+            .apply { getOrNewInstance() }
 
     @Suppress("DEPRECATION")
     private fun getOrNewInstance() =
