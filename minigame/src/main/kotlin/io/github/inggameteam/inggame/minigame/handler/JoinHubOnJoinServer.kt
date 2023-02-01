@@ -38,6 +38,7 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
+        println("PlayerJoinEvent")
         val game = gameInstanceService.get(server.hub, ::GameImp)
         val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
         gameHelper.joinGame(game, player, JoinType.PLAY)
