@@ -74,14 +74,7 @@ class NullableWrapperImp(
                 if (defaultValue === null) return null
                 defaultValue
             }
-            try {
-                return if (R::class.isSubclassOf(Wrapper::class))
-                    R::class.constructors.first().call(NonNullWrapperImp(result, component))
-                else result as R
-            } catch (_: Throwable) {
-                throw AssertionError("an error occurred while wrap property due to non exist constructor")
-            }
-
+            return result as R
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
@@ -116,14 +109,7 @@ class NonNullWrapperImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
-            try {
-                return if (R::class.isSubclassOf(Wrapper::class))
-                    R::class.constructors.first().call(NonNullWrapperImp(result, component))
-                else result as R
-            } catch (_: Throwable) {
-                throw AssertionError("an error occurred while wrap property due to non exist constructor")
-            }
-
+            return result as R
         } catch (e: NameSpaceNotFoundException) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
