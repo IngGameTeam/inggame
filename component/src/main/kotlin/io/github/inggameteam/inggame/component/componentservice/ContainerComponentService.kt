@@ -1,15 +1,17 @@
 package io.github.inggameteam.inggame.component.componentservice
 
-interface ContainerComponentService {
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 
-    fun has(container: Any): Boolean
+interface ContainerComponentService<CONTAINER : Wrapper, ELEMENT : Wrapper> {
 
-    fun create(container: Any, name: Any): Any
+    fun has(container: CONTAINER): Boolean
 
-    fun remove(container: Any)
+    fun create(container: CONTAINER, parent: Any): CONTAINER
 
-    fun join(container: Any, key: Any)
+    fun remove(container: CONTAINER)
 
-    fun left(key: Any)
+    fun join(container: CONTAINER, key: ELEMENT)
+
+    fun left(key: ELEMENT)
 
 }

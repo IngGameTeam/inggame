@@ -137,6 +137,6 @@ operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
     return block(NonNullWrapperImp(nameSpace, component))
 }
 
-fun uncoverDelegate(any: Any): Any {
+fun <T : Any> uncoverDelegate(any: T): Any {
     return if (any is Wrapper) any.nameSpace else any
 }

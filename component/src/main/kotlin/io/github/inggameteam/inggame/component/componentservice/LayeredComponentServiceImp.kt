@@ -40,6 +40,8 @@ open class LayeredComponentServiceImp(
 
     override fun load(name: Any, new: Boolean) {
         val name = uncoverDelegate(name)
+        if (objectList.contains(name))
+            throw AssertionError("an error occurred while load namespace due to already exist")
         val doc = if (new) null else repo.get(name)
         objectList.add(
             if (doc === null) newModel(name)

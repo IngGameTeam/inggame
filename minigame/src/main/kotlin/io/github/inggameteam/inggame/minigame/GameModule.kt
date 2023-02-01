@@ -27,6 +27,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::GameHelper)
             singleOf(::SectionalHelper)
             singleOf(::Sectional)
+            singleOf(::GameInstanceService)
         })
         event.registerClass(
             PrintOnMove::class,
@@ -41,11 +42,8 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
-        event.addModule(module {
-            singleOf(::GameInstanceService)
-        })
+        event.addModule(newModule("game-instance", ::GameInstanceRepository))
         event.addModule(newModule("custom-game", ::CustomGameService))
-
         event.register {
             "game-player" isLayer true cs "game-instance" isLayer true cs "custom-game" isSavable true cs "game-resource" isSavable true cs "default"
         }

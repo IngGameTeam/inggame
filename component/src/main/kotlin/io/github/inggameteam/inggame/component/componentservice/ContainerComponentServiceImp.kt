@@ -1,54 +1,56 @@
 package io.github.inggameteam.inggame.component.componentservice
 
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import java.util.concurrent.CopyOnWriteArraySet
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
-class ContainerComponentServiceImp(
+class ContainerComponentServiceImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     private val componentService: LayeredComponentService,
     private val keyComponent: LayeredComponentService,
     private val keyAssign: Any,
     private val keyList: Any,
-) : ContainerComponentService {
+) : ContainerComponentService<CONTAINER, ELEMENT> {
 
-    override fun has(container: Any): Boolean {
+    override fun has(container: CONTAINER): Boolean {
         val container = uncoverDelegate(container)
         return componentService.getOrNull(container) !== null
     }
 
-    override fun create(container: Any, name: Any): Any {
-        val container = uncoverDelegate(container)
-        val name = uncoverDelegate(name)
-        componentService.load(container, true)
-        return componentService[container].apply { parents.add(name) }.name
-    }
-
-    override fun remove(container: Any) {
-        val container = uncoverDelegate(container)
-        getList(container).forEach(::left)
-        componentService.unload(container, false)
-    }
-
-    override fun join(container: Any, key: Any) {
+    override fun create(container: CONTAINER, parent: Any): CONTAINER {
         val uncoveredContainer = uncoverDelegate(container)
-        val key = uncoverDelegate(key)
-        left(key)
-        keyComponent.load(key, true)
-        keyComponent.set(key, keyAssign, container)
-        keyComponent.addParents(key, uncoveredContainer)
-        getList(uncoveredContainer).add(key)
+        componentService.load(uncoveredContainer, true)
+        val parent = uncoverDelegate(parent)
+        componentService[uncoveredContainer].apply { parents.add(parent) }.name
+        return container
     }
 
-    override fun left(key: Any) {
+    override fun remove(container: CONTAINER) {
+        val uncoveredContainer = uncoverDelegate(container)
+        getList(container).forEach(::left)
+        componentService.unload(uncoveredContainer, false)
+    }
+
+    override fun join(container: CONTAINER, key: ELEMENT) {
+        val uncoveredContainer = uncoverDelegate(container)
+        val uncoveredKey = uncoverDelegate(key)
+        left(key)
+        keyComponent.load(uncoveredKey, true)
+        keyComponent.set(uncoveredKey, keyAssign, container)
+        keyComponent.addParents(uncoveredKey, uncoveredContainer)
+        getList(container).add(key)
+    }
+
+    override fun left(key: ELEMENT) {
         val key = uncoverDelegate(key)
-        val container = try { keyComponent[key, keyAssign, Any::class] } catch (_: Throwable) { return }
+        val container = try { keyComponent[key, keyAssign, Any::class] as CONTAINER } catch (_: Throwable) { return }
         getList(container).remove(key)
         keyComponent.unload(key, false)
     }
 
-    private fun getList(container: Any): CopyOnWriteArraySet<Any> {
-        return try { componentService[container, keyList, Any::class] as CopyOnWriteArraySet<Any> }
-        catch (_: Throwable) { CopyOnWriteArraySet<Any>().apply { componentService.set(container, keyList, this) } }
+    private fun getList(container: CONTAINER): CopyOnWriteArraySet<ELEMENT> {
+        return try { componentService[container, keyList, Any::class] as CopyOnWriteArraySet<ELEMENT> }
+        catch (_: Throwable) { CopyOnWriteArraySet<ELEMENT>().apply { componentService.set(container, keyList, this) } }
     }
 
 }
