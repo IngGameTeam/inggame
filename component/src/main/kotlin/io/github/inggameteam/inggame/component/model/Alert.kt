@@ -15,7 +15,7 @@ interface Alert {
     fun send(reciver: AlertReciver, vararg args: Any)
 }
 
-class EmptyAlert : Alert {
+class EmptyAlert() : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         //nothing
     }
