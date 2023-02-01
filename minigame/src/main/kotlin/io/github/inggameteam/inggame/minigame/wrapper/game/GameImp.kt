@@ -21,7 +21,7 @@ class GameImp(wrapper: Wrapper) : Game, Wrapper by wrapper {
     override var startPlayersAmount      : Int           by nonNull
     override val playerLimitAmount       : Int           by nonNull
     override val startWaitingSecond      : Int           by nonNull
-    override val stopWaitingTick         : Int           by nonNull
+    override var stopWaitingTick         : Int           by nonNull
 
     override var gameState: GameState by default { GameState.WAIT }
     override var gameJoined: CopyOnWriteArraySet<GPlayer> by default { CopyOnWriteArraySet<GPlayer>() }

@@ -19,7 +19,7 @@ interface Game : Wrapper {
     var startPlayersAmount      : Int
     val playerLimitAmount       : Int
     val startWaitingSecond      : Int
-    val stopWaitingTick         : Int
+    var stopWaitingTick         : Int
 
     var gameState: GameState
     var gameJoined: CopyOnWriteArraySet<GPlayer>

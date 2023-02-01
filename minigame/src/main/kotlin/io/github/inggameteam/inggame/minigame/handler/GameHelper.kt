@@ -72,8 +72,8 @@ class GameHelper(
             gameAlert.GAME_LEFT.send(gPlayer, game.gameName)
         }
         gPlayer.clearTags()
-        val joinedSize = game.gameJoined.hasTags(PTag.PLAY).size
         gameInstanceService.left(gPlayer)
+        val joinedSize = game.gameJoined.hasTags(PTag.PLAY).size
         if (game.gameState === GameState.WAIT
             && joinedSize < game.startPlayersAmount && game.hasGameTask()) {
             game.gameJoined.forEach { it[::GameAlertImp].GAME_START_CANCELLED_DUE_TO_PLAYERLESS.send(it) }
