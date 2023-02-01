@@ -16,7 +16,7 @@ interface LayeredComponentService : ComponentService, SaveComponentService {
         val ns = getAll().firstOrNull { it.name == nameSpace } ?: run { throw NameSpaceNotFoundException(nameSpace) }
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
-                println(parentComponent.name)
+                println(parentComponent.javaClass.simpleName)
                 ns.parents.forEach { try { return parentComponent[it, key, clazz] } catch (_: Throwable) { } }
                 throw NameSpaceNotFoundException(nameSpace)
             }
