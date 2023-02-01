@@ -34,6 +34,7 @@ class SectionalHelper(
     }
 
     fun loadSector(sectional: Sectional, key: String = sectional.gameName) {
+        println("loadSector")
         loadSector(sectional, sectional.gameSector.world, sectional.gameSector, key)
     }
 
