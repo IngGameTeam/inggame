@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 
 interface Handler {
 
-    fun isHandler(wrapper: Wrapper): Boolean = wrapper.run { println(javaClass.name); component.hasParents(nameSpace, javaClass.simpleName) }
+    fun isHandler(wrapper: Wrapper): Boolean = wrapper.run { component.hasParents(nameSpace, this@Handler.javaClass.simpleName) }
 
     fun isNotHandler(wrapper: Wrapper) = !isHandler(wrapper)
 
