@@ -52,7 +52,12 @@ interface ComponentService {
     fun getParents(name: Any): CopyOnWriteArraySet<Any>
     fun addParents(name: Any, value: Any)
     fun removeParents(name: Any, value: Any)
-    fun hasParents(name: Any, value: Any): Boolean
+    fun hasParents(name: Any, value: Any): Boolean {
+        val value = uncoverDelegate(value)
+        val parents = get(name).parents
+        return parents.contains(value)
+            .run { if (this) true else return parents.any { findComponentService(it).hasParents(name, value) } }
+    }
 
     fun newModel(name: Any): NameSpace
     operator fun get(name: Any): NameSpace
