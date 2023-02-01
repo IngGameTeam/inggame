@@ -56,7 +56,7 @@ interface ComponentService {
         val value = uncoverDelegate(value)
         val parents = get(name).parents
         return parents.contains(value)
-            .run { if (this) true else return parents.any { findComponentService(it).hasParents(name, value) } }
+            .run { if (this) true else parents.any { findComponentService(it).hasParents(name, value) } }
     }
 
     fun newModel(name: Any): NameSpace

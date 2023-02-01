@@ -48,10 +48,6 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         }
     }
 
-    override fun hasParents(name: Any, value: Any): Boolean {
-        return get(name).parents.contains(uncoverDelegate(value))
-    }
-
     override fun newModel(name: Any): NameSpace {
         return NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap())
     }
