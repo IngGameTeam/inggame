@@ -5,12 +5,12 @@ import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import java.util.concurrent.CopyOnWriteArraySet
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
-class ContainerComponentServiceImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
+class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     private val componentService: LayeredComponentService,
     private val keyComponent: LayeredComponentService,
     private val keyAssign: Any,
     private val keyList: Any,
-) : ContainerComponentService<CONTAINER, ELEMENT> {
+) : ContainerHelper<CONTAINER, ELEMENT> {
 
     override fun has(container: CONTAINER): Boolean {
         val container = uncoverDelegate(container)

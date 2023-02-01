@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 
-interface ContainerComponentService<CONTAINER : Wrapper, ELEMENT : Wrapper> {
+interface ContainerHelper<CONTAINER : Wrapper, ELEMENT : Wrapper> {
 
     fun has(container: CONTAINER): Boolean
 
