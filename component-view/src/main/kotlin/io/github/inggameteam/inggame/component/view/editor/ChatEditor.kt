@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.view.editor
 
 import io.github.inggameteam.inggame.component.model.ActionComponent
-import io.github.inggameteam.inggame.component.model.AlertRecivingPlayer
+import io.github.inggameteam.inggame.component.model.AlertReceivingPlayer
 import io.github.inggameteam.inggame.utils.runNow
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.entity.Player
@@ -63,7 +63,7 @@ interface ChatEditor : Editor {
         plugin.server.pluginManager.registerEvents(listener, plugin)
         get()?.apply {
             ActionComponent(this, ClickEvent.Action.SUGGEST_COMMAND, "", null, null)
-                .send(AlertRecivingPlayer(player))
+                .send(AlertReceivingPlayer(player))
         }
     }
 

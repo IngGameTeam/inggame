@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.component.model
 
 import io.github.inggameteam.inggame.mongodb.Model
-import io.github.inggameteam.inggame.mongodb.NoArgsConstructor
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
@@ -9,7 +8,7 @@ import org.bukkit.entity.Player
 
 interface AlertReciver
 
-class AlertRecivingPlayer(player: Player) : Player by player, AlertReciver
+class AlertReceivingPlayer(player: Player) : Player by player, AlertReciver
 
 @Model
 interface Alert {
