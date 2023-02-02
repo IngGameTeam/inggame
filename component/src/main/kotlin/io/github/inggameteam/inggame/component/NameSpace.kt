@@ -47,6 +47,6 @@ fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
     }
 }
 
-class NameSpaceNotFoundException(nameSpace: Any) : Throwable("$nameSpace does not exist")
+class NameSpaceNotFoundException(nameSpace: Any) : Throwable("namespace does not exist")
 
 class Assert(message: Any) : Throwable(message.toString())
