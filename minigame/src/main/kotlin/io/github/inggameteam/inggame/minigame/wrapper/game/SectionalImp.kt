@@ -18,7 +18,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 //     */
 //    override val stopWaitingTick = 84600L * 20L
     override val schematicName: String by nonNull
-    val schematicLocations: HashMap<String, HashMap<String, LocationModel>> by nonNull
+    override val schematicLocations: HashMap<String, HashMap<String, LocationModel>> by nonNull
 
     override var minPoint: Vector by nonNull
     override var maxPoint: Vector by nonNull
