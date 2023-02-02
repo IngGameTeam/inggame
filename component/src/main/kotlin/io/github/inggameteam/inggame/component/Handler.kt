@@ -5,7 +5,11 @@ import kotlin.reflect.KClass
 
 interface Handler {
 
-    fun isHandler(wrapper: Wrapper): Boolean = wrapper.run { component[nameSpace, this@Handler.javaClass.simpleName, Boolean::class] }
+    fun isHandler(wrapper: Wrapper): Boolean =
+        wrapper.run {
+            try { component[nameSpace, this@Handler.javaClass.simpleName, Boolean::class] }
+            catch (_: Throwable) { false }
+        }
 
     fun isNotHandler(wrapper: Wrapper) = !isHandler(wrapper)
 
