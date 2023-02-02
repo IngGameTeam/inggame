@@ -22,7 +22,7 @@ class ComponentModule(plugin: Plugin) : HandleListener(plugin) {
             TitleAlert::class,
             BaseComponentAlert::class,
             ActionComponent::class,
-            Location::class,
+            LocationModel::class,
             InventoryModel::class,
             ItemModel::class,
         )

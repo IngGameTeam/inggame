@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.minigame.wrapper.game
 
 import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.component.model.Location
+import io.github.inggameteam.inggame.component.model.LocationModel
 import io.github.inggameteam.inggame.minigame.GameState
 import io.github.inggameteam.inggame.minigame.Sector
 import org.bukkit.util.Vector
@@ -18,7 +18,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 //     */
 //    override val stopWaitingTick = 84600L * 20L
     override val schematicName: String by nonNull
-    val schematicLocations: HashMap<String, HashMap<String, Location>> by nonNull
+    val schematicLocations: HashMap<String, HashMap<String, LocationModel>> by nonNull
 
     override var minPoint: Vector by nonNull
     override var maxPoint: Vector by nonNull
