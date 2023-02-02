@@ -46,11 +46,11 @@ class ResourceComponentServiceImp(
         return repo.get().map { doc -> decodeNameSpace(doc, codec) }.run(::CopyOnWriteArraySet)
     }
 
-    override fun getAll() =
+    override fun getAll(): List<NameSpace> =
         if (this::nameSpaceCache.isInitialized) nameSpaceCache else {
             poolNameSpace()
             nameSpaceCache
-        }
+        }.toList()
 
     override fun removeNameSpace(name: Any) {
         nameSpaceCache.removeIf { it.name == name }

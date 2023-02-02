@@ -4,6 +4,9 @@ package io.github.inggameteam.inggame.component.componentservice
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.utils.fastFirst
+import io.github.inggameteam.inggame.utils.fastFirstOrNull
+import io.github.inggameteam.inggame.utils.fastForEach
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KClass
 
@@ -17,21 +20,21 @@ interface ComponentService {
     @Suppress("UNCHECKED_CAST")
     operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         val nameSpace = uncoverDelegate(nameSpace)
-        val ns = getAll().firstOrNull { it.name == nameSpace }
+        val ns = getAll().fastFirstOrNull { it.name == nameSpace }
             ?: run {
                 try { return parentComponent[nameSpace, key, clazz] } catch (_: Throwable) { }
                 throw NameSpaceNotFoundException(nameSpace)
             }
         return ns.elements.getOrDefault(key, null)?.run { this as T }
             ?: run {
-                ns.parents.forEach { try { return get(it, key, clazz) } catch (_: Throwable) { } }
+                ns.parents.toArray().fastForEach { try { return get(it, key, clazz) } catch (_: Throwable) { } }
                 throw NameSpaceNotFoundException(nameSpace)
             }
     }
 
     fun findComponentService(nameSpace: Any): ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
-        val ns = getAll().firstOrNull { it.name == nameSpace }
+        val ns = getAll().fastFirstOrNull { it.name == nameSpace }
         if (ns !== null) return this
         try { return parentComponent.findComponentService(nameSpace) } catch (_: Throwable) { }
         throw NameSpaceNotFoundException(nameSpace)
@@ -63,7 +66,7 @@ interface ComponentService {
     fun newModel(name: Any): NameSpace
     operator fun get(name: Any): NameSpace
     fun getOrNull(name: Any): NameSpace?
-    fun getAll(): Collection<NameSpace>
+    fun getAll(): List<NameSpace>
 
     fun removeNameSpace(name: Any)
     fun addNameSpace(name: Any)

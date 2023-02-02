@@ -3,6 +3,7 @@ version: $version
 main: io.github.inggameteam.inggame.plugin.Plugin
 authors: [ Bruce0203, chomade ]
 api-version: 1.19
+softdepend: [ FastAsyncWorldEdit ]
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.8.0
   - org.jetbrains.kotlin:kotlin-reflect:1.8.0

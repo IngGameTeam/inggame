@@ -60,7 +60,7 @@ class MultiParentsComponentService(
         return findParent(name).firstSuccess({ getOrNull(name) }, NameSpaceNotFoundException(name))
     }
 
-    override fun getAll(): Collection<NameSpace> {
+    override fun getAll(): List<NameSpace> {
         return emptyList()
     }
 
