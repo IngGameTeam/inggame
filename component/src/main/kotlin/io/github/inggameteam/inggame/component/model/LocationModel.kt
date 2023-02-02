@@ -18,6 +18,6 @@ class LocationModel(
     override fun toString() = "$world($x, $y, $z, $yaw, $pitch)"
 
     fun toLocation(world: World? = null) =
-        Location(Bukkit.getWorld(if (isRelative && world !== null) world.name else this.world), x, y, z, yaw, pitch)
+        Location(if (isRelative && world !== null) world else Bukkit.getWorld(this.world), x, y, z, yaw, pitch)
 
 }

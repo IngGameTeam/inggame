@@ -45,7 +45,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     override fun getLocationOrNull(key: String): org.bukkit.Location? =
         schematicLocations[schematicName]?.get(key)?.run {
             toLocation(gameSector.world).apply {
-                if (isRelative) return@apply
+                if (!isRelative) return@apply
                 x += gameWidth * gameSector.x
                 y += gameHeight
                 z += gameWidth * gameSector.y
