@@ -28,6 +28,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::GameInstanceService)
             singleOf(::SectorLoader)
             singleOf(::HubLoader)
+            singleOf(::SpawnPlayer)
         })
         event.registerClass(
             PrintOnMove::class,
@@ -39,7 +40,8 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             GameAlert::class,
             GPlayer::class,
             Sectional::class,
-            io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class
+            io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class,
+            io.github.inggameteam.inggame.minigame.wrapper.game.SpawnPlayer::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(newModule("game-instance", ::GameInstanceRepository))
