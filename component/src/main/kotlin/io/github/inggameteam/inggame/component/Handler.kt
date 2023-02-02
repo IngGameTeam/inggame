@@ -5,12 +5,12 @@ import kotlin.reflect.KClass
 
 interface Handler {
 
-    fun isHandler(wrapper: Wrapper): Boolean = wrapper.run { component.hasParents(nameSpace, this@Handler.javaClass.simpleName) }
+    fun isHandler(wrapper: Wrapper): Boolean = wrapper.run { component[nameSpace, this@Handler.javaClass.simpleName, Boolean::class] }
 
     fun isNotHandler(wrapper: Wrapper) = !isHandler(wrapper)
 
     companion object {
-        fun Wrapper.isHandler(handler: KClass<out Handler>) = component.hasParents(nameSpace, handler.simpleName!!)
+        fun Wrapper.isHandler(handler: KClass<out Handler>) = component[nameSpace, handler.simpleName!!, Boolean::class]
 
         fun Wrapper.isNotHandler(handler: KClass<out Handler>) = !isHandler(handler)
     }
