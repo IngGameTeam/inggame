@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.component.componentservice
 
+import io.github.inggameteam.inggame.component.Assert
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.decodeNameSpace
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
@@ -41,7 +42,7 @@ open class LayeredComponentServiceImp(
     override fun load(name: Any, new: Boolean) {
         val name = uncoverDelegate(name)
         if (objectList.contains(name))
-            throw AssertionError("an error occurred while load namespace due to already exist")
+            throw Assert("an error occurred while load namespace due to already exist")
         val doc = if (new) null else repo.get(name)
         objectList.add(
             if (doc === null) newModel(name)

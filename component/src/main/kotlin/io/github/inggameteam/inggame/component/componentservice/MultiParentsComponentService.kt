@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.component.componentservice
 
+import io.github.inggameteam.inggame.component.Assert
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
@@ -15,7 +16,7 @@ class MultiParentsComponentService(
 
     init {
         if (components.isEmpty()) {
-            throw AssertionError("an error occurred while create multi parents component service that empty components collection")
+            throw Assert("an error occurred while create multi parents component service that empty components collection")
         }
         components = components.sortedWith { o1, o2 -> o1.layerPriority.compareTo(o2.layerPriority) }
     }
@@ -39,7 +40,7 @@ class MultiParentsComponentService(
 
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         if (parentKey == key)
-            throw AssertionError("an error occurred while perform get method parentKey and key is same")
+            throw Assert("an error occurred while perform get method parentKey and key is same")
         val nameSpace = uncoverDelegate(nameSpace)
         return findParent(nameSpace).firstSuccess({ it[nameSpace, key, clazz] }, NameSpaceNotFoundException(nameSpace))
     }

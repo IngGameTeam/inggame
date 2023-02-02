@@ -1,11 +1,12 @@
 package io.github.inggameteam.inggame.component.componentservice
 
+import io.github.inggameteam.inggame.component.Assert
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import kotlin.reflect.KClass
 
 interface EmptyComponentService : ComponentService
 
-private val assertionError = AssertionError("error occurred while perform empty component")
+private val assertionError = Assert("error occurred while perform empty component")
 class EmptyComponentServiceImp(override val name: String) : EmptyComponentService {
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>) = throw NameSpaceNotFoundException(nameSpace)
     override fun get(name: Any) = throw assertionError
