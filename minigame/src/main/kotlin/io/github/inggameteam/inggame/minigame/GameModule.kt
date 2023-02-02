@@ -41,6 +41,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             GPlayer::class,
             Sectional::class,
             io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class,
+            SpawnPlayer::class,
             io.github.inggameteam.inggame.minigame.wrapper.game.SpawnPlayer::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
