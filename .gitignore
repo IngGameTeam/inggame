@@ -15,6 +15,9 @@ update.sh
 !spigot.yml
 !pufferfish.yml
 !server-icon.png
+!plugins/FastAsyncWorldEdit-Bukkit.jar
+!plugins/ViaVersion.jar
+!plugins/ViaBackwards.jar
 !plugins/Updateman.jar
 !plugins/UpdateMan
 !plugins/UpdateMan/config.yml
