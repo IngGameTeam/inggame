@@ -10,7 +10,7 @@ import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
 class PartyService(
     componentService: ComponentService,
     partyPlayerService: PartyPlayerService
-) : ContainerHelper by ContainerHelperImp(
+) : ContainerHelper<Party, PartyPlayer> by ContainerHelperImp(
     componentService as LayeredComponentService, partyPlayerService,
     PartyPlayer::joinedParty.name, Party::partyJoined.name)
 {
