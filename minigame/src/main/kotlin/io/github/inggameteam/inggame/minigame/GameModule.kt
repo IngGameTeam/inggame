@@ -29,8 +29,10 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::SectorLoader)
             singleOf(::HubLoader)
             singleOf(::SpawnPlayer)
+            singleOf(::SpawnOnJoin)
         })
         event.registerClass(
+            SpawnOnJoin::class,
             PrintOnMove::class,
             GameHelper::class,
             JoinHubOnJoinServer::class,
