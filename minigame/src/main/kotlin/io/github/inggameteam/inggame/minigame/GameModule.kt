@@ -7,13 +7,11 @@ import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.Game
 import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
-import io.github.inggameteam.inggame.minigame.wrapper.game.SectionalImp
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.HandleListener
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
 import org.koin.core.module.dsl.singleOf
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 class GameModule(plugin: Plugin) : HandleListener(plugin) {

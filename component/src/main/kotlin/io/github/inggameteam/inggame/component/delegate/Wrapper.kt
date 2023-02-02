@@ -4,9 +4,7 @@ import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
-import java.util.*
 import kotlin.reflect.KProperty
-import kotlin.reflect.full.isSubclassOf
 
 interface Wrapper {
 

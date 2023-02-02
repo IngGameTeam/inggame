@@ -4,7 +4,6 @@ import io.github.inggameteam.inggame.component.Handler.Companion.isHandler
 import io.github.inggameteam.inggame.component.delegate.getAll
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.Sector
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
 import io.github.inggameteam.inggame.minigame.wrapper.game.SectionalImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.world.WorldGenerator

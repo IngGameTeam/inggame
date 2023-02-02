@@ -4,7 +4,6 @@ package io.github.inggameteam.inggame.component.componentservice
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
-import io.github.inggameteam.inggame.utils.fastFirst
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
 import io.github.inggameteam.inggame.utils.fastForEach
 import java.util.concurrent.CopyOnWriteArraySet

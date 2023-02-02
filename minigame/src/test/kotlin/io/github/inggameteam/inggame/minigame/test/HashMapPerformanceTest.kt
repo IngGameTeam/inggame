@@ -1,10 +1,7 @@
 package io.github.inggameteam.inggame.minigame.test
 
-import io.github.inggameteam.inggame.component.Assert
-import java.lang.AssertionError
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.collections.HashMap
 import kotlin.system.measureTimeMillis
 
 fun main() {

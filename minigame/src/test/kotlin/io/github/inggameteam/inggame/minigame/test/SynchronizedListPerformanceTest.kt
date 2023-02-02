@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.minigame.test
 
 import java.util.*
-import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.system.measureTimeMillis
 
 fun main() {

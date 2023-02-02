@@ -1,7 +1,10 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.MongoClientSettings
-import org.bson.*
+import org.bson.BsonArray
+import org.bson.BsonDocument
+import org.bson.BsonDocumentWriter
+import org.bson.Document
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistries

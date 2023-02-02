@@ -6,7 +6,6 @@ import io.github.inggameteam.inggame.component.model.Location
 import io.github.inggameteam.inggame.minigame.GameState
 import io.github.inggameteam.inggame.minigame.Sector
 import org.bukkit.util.Vector
-import java.util.concurrent.CopyOnWriteArrayList
 
 
 @PropWrapper

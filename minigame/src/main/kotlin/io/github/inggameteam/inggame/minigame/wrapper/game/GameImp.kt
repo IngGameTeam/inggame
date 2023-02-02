@@ -4,7 +4,6 @@ import io.github.inggameteam.inggame.component.PropWrapper
 import io.github.inggameteam.inggame.component.delegate.SimpleWrapper
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.minigame.GameState
-import io.github.inggameteam.inggame.minigame.Sector
 import io.github.inggameteam.inggame.minigame.event.GameTaskCancelEvent
 import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
