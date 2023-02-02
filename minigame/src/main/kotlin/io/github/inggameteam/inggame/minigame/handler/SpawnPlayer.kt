@@ -19,6 +19,7 @@ class SpawnPlayer(plugin: IngGamePlugin) : Handler, HandleListener(plugin) {
         val player = event.player
         val game = (player.joinedGame?: return)[::SpawnPlayerImp]
         if (isNotHandler(game)) return
+        println("SpawnPlayer!!!")
         player.teleport(game.spawn.toLocation())
     }
 
