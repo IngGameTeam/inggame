@@ -33,7 +33,7 @@ class SectionalHelper(
         println("clearEntities(remove):${System.currentTimeMillis() - before}ms")
     }
 
-    fun loadSector(sectional: Sectional, key: String = "default") {
+    fun loadSector(sectional: Sectional, key: String = sectional.schematicName) {
         loadSector(sectional, sectional.gameSector.world, sectional.gameSector, key)
     }
 
