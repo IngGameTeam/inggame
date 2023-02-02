@@ -19,7 +19,7 @@ data class NameSpaceSelector(
 ) : ComponentServiceView by nameSpaceView, Selector<NameSpace>, AddButton<NameSpace>, RemoveButton<NameSpace> {
     override fun addButton(player: Player) {
         StringEditor(EditorViewImp(this,
-            { componentService.getOrNull(it) }, {""}), this)
+            { componentService.addNameSpace(it) }, {""}), this)
             .open(player)
     }
 
