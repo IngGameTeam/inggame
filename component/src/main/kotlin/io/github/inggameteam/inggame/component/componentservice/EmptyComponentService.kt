@@ -5,32 +5,26 @@ import kotlin.reflect.KClass
 
 interface EmptyComponentService : ComponentService
 
+private val assertionError = AssertionError("error occurred while perform empty component")
 class EmptyComponentServiceImp(override val name: String) : EmptyComponentService {
     override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>) = throw NameSpaceNotFoundException(nameSpace)
-    override fun get(name: Any) = throw AssertionError("error occurred while perform empty component")
+    override fun get(name: Any) = throw assertionError
     override val parentComponent get() = this
     override val layerPriority get() = 0
-    override fun has(nameSpace: Any, key: Any) = throw AssertionError("error occurred while perform empty component")
-    override fun set(nameSpace: Any, key: Any, value: Any?) =
-        throw AssertionError("error occurred while perform empty component")
+    override fun has(nameSpace: Any, key: Any) = throw assertionError
+    override fun set(nameSpace: Any, key: Any, value: Any?) = throw assertionError
 
-    override fun setParents(name: Any, value: Collection<Any>) = throw AssertionError("error occurred while perform empty component")
-    override fun getParents(name: Any) = throw AssertionError("error occurred while perform empty component")
+    override fun setParents(name: Any, value: Collection<Any>) = throw assertionError
+    override fun getParents(name: Any) = throw assertionError
 
-    override fun addParents(name: Any, value: Any) =
-        throw AssertionError("error occurred while perform empty component")
-
-    override fun removeParents(name: Any, value: Any) =
-        throw AssertionError("error occurred while perform empty component")
-
-    override fun hasParents(name: Any, value: Any) =
-        throw AssertionError("error occurred while perform empty component")
-
-    override fun newModel(name: Any) = throw AssertionError("error occurred while perform empty component")
+    override fun addParents(name: Any, value: Any) = throw assertionError
+    override fun removeParents(name: Any, value: Any) = throw assertionError
+    override fun hasParents(name: Any, value: Any) = throw assertionError
+    override fun newModel(name: Any) = throw assertionError
 
     override fun getOrNull(name: Any) = throw NameSpaceNotFoundException(name)
-    override fun getAll() = throw AssertionError("error occurred while perform empty component")
-    override fun removeNameSpace(name: Any) = throw AssertionError("error occurred while perform empty component")
-    override fun addNameSpace(name: Any) = throw AssertionError("error occurred while perform empty component")
+    override fun getAll() = throw assertionError
+    override fun removeNameSpace(name: Any) = throw assertionError
+    override fun addNameSpace(name: Any) = throw assertionError
 
 }
