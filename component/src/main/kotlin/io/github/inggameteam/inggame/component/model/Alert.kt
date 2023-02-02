@@ -105,7 +105,7 @@ class ActionComponent(
 
     @Suppress("DEPRECATION")
     fun append(vararg args: Any) =
-        TextComponent(message?.format(*args)).apply {
+        TextComponent(message?.format(*args)?: "").apply {
             if (clickAction !== null) clickEvent = ClickEvent(clickAction, clickValue?.color?.format(*args))
             if (hoverAction !== null) hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue?.color?.format(*args))))
         }
