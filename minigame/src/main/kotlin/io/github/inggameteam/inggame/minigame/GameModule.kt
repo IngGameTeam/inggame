@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.minigame
 
 import io.github.inggameteam.inggame.component.createSingleton
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
@@ -9,12 +10,14 @@ import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import org.reflections.Reflections
 
 class GameModule(plugin: Plugin) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
+        println(Reflections("io.github.inggameteam.inggame").getSubTypesOf(Wrapper::class.java))
         event.addModule(module(createdAtStart = true) {
             singleOf(::JoinHubOnJoinServer)
             singleOf(::PrintOnMove)
