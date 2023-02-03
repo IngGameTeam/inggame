@@ -77,8 +77,8 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
         testApi("org.mongodb:mongodb-driver-sync:4.8.1")
 
-        compileOnly("io.github.bruce0203:reflections:0.10.3")
-        testApi("io.github.bruce0203:reflections:0.10.3")
+        compileOnly("io.github.bruce0203:reflections:0.10.3.1")
+        testApi("io.github.bruce0203:reflections:0.10.3.1")
 
         compileOnly("org.projectlombok:lombok:1.18.24")
         annotationProcessor("org.projectlombok:lombok:1.18.24")

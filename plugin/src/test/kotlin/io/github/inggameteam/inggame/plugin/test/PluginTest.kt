@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.plugin.Plugin
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.reflections.Reflections
 import kotlin.reflect.full.createInstance
 
 lateinit var SERVER: ServerMock
@@ -30,8 +31,9 @@ object PluginTest {
     @Test
     fun testAll() {
         "-".repeat(20).apply(::println)
-        throw AssertionError()
-            listOf<Class<*>>().forEach { clazz ->
+            Reflections("io.github.inggameteam.inggame.plugin.test")
+                .getTypesAnnotatedWith(io.github.inggameteam.inggame.plugin.test.Test::class.java)
+                .forEach { clazz ->
                 try {
                     clazz.kotlin.createInstance()
                     println("${clazz.simpleName} PASSED")
