@@ -1,11 +1,13 @@
 package io.github.inggameteam.inggame.component
 
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.mongodb.ClassRegistryAll
 import io.github.inggameteam.inggame.mongodb.Model
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.isSubclassOf
 
 class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
 
@@ -31,7 +33,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             }
         val types = classes
             .filter { it.java.getAnnotation(Model::class.java) === null }
-            .filter { it.java.getAnnotation(PropWrapper::class.java) !== null }
+            .filter { it.isSubclassOf(Wrapper::class) }
         types.forEach { clazz ->
             val suffix = "\$delegate"
             clazz.declaredMemberProperties
