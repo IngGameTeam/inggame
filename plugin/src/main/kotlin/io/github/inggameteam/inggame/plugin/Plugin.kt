@@ -40,10 +40,10 @@ class Plugin : IngGamePluginImp {
         GameModule(this)
         ComponentViewModule(this)
         app
-        load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
         server.pluginManager.callEvent(IngGamePluginEnableEvent(this))
+        load(app, File(dataFolder, "comps.yml"))
     }
 
     override fun onDisable() {
