@@ -10,10 +10,13 @@ import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.named
+import org.koin.core.scope.get
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.reflect.KClass
+import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.isSubclassOf
 
 class ComponentServiceRegisterEvent(
@@ -29,10 +32,10 @@ class ComponentServiceRegisterEvent(
     }
 
     fun registerClass(vararg classes: KClass<*>) {
-        classes.forEach { clazz ->
+        classes.filterIsInstance<KClass<Any>>().forEach { clazz ->
             if (clazz.isSubclassOf(Handler::class)) {
                 addModule(module {
-                    single {  }
+                    single { clazz.createInstance() }
                 })
             }
 

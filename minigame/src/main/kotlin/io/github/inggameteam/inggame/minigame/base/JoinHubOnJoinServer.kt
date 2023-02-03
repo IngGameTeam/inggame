@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.JoinType
 import io.github.inggameteam.inggame.minigame.LeftType
+import io.github.inggameteam.inggame.utils.NoArgsConstructor
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.HandleListener
@@ -18,6 +19,7 @@ import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 
+@NoArgsConstructor
 class JoinHubOnJoinServer(
     private val server: GameServer, plugin: IngGamePlugin,
     private val gameInstanceService: GameInstanceService,

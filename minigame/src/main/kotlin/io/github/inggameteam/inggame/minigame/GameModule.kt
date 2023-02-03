@@ -1,14 +1,9 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame
 
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.event.newModule
-import io.github.inggameteam.inggame.minigame.CustomGameService
-import io.github.inggameteam.inggame.minigame.GameInstanceRepository
-import io.github.inggameteam.inggame.minigame.GameInstanceService
-import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.base.*
-import io.github.inggameteam.inggame.minigame.handler.*
 import io.github.inggameteam.inggame.utils.HandleListener
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
