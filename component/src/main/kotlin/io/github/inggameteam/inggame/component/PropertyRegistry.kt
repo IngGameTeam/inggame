@@ -26,7 +26,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
     init {
         val classes = classRegistryAll.classes
         classes
-            .filter { it.java.getAnnotation(PropHandler::class.java) !== null }
+            .filter { it.isSubclassOf(Handler::class) }
             .forEach {
 
                 propMap.add(Prop(it.simpleName!!, Boolean::class.createType(), Boolean::class))
