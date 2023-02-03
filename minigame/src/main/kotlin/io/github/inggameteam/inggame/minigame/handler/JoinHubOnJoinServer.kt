@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
@@ -36,15 +37,19 @@ class JoinHubOnJoinServer(
     @EventHandler
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         playerInstanceService.getAll().map(NameSpace::name)
-            .forEach { gameInstanceService.join(server.hub, gamePlayerService.get(it, ::GPlayer)) }
+            .filterIsInstance<UUID>().forEach { joinHub(it) }
+    }
+
+    private fun joinHub(player: UUID) {
+        val game = gameInstanceService.get(server.hub, ::GameImp)
+        val player = gamePlayerService.get(player, ::GPlayer)
+        gameHelper.joinGame(game, player, JoinType.PLAY)
     }
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onJoin(event: PlayerJoinEvent) {
-        val game = gameInstanceService.get(server.hub, ::GameImp)
-        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
-        gameHelper.joinGame(game, player, JoinType.PLAY)
+        joinHub(event.player.uniqueId)
     }
 
     @Suppress("unused")
