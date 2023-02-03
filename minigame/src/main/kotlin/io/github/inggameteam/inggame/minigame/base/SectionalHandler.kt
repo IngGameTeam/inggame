@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.delegate.get
@@ -8,9 +8,6 @@ import io.github.inggameteam.inggame.minigame.event.GameFinishEvent
 import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
 import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
 import io.github.inggameteam.inggame.minigame.event.GameLoadEvent
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
-import io.github.inggameteam.inggame.minigame.wrapper.game.SectionalImp
-import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.delay
@@ -18,7 +15,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
 
-class Sectional(
+class SectionalHandler(
     private val sectionalHelper: SectionalHelper,
     private val gamePlayerService: GamePlayerService,
     private val plugin: IngGamePlugin,
@@ -58,7 +55,8 @@ class Sectional(
             val sectional = player[::SectionalImp]
             val to = event.to
             if (to != null && !sectional.isInSector(to)
-                && !bPlayer.isOp && sectional.gameState !== GameState.WAIT) event.isCancelled = true
+                && !bPlayer.isOp && sectional.gameState !== GameState.WAIT
+            ) event.isCancelled = true
         }
     }
 

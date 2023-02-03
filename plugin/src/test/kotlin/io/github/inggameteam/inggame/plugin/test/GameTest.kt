@@ -2,8 +2,8 @@ package io.github.inggameteam.inggame.plugin.test
 
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
-import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
+import io.github.inggameteam.inggame.minigame.base.GameServer
+import io.github.inggameteam.inggame.minigame.base.GPlayer
 import io.github.inggameteam.inggame.plugin.test.handler.joinPlayer
 import io.github.inggameteam.inggame.plugin.test.handler.receiveMessage
 import org.bukkit.Bukkit

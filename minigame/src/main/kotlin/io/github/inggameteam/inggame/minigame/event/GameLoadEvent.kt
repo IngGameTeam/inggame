@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.minigame.event
 
-import io.github.inggameteam.inggame.minigame.wrapper.game.Game
+import io.github.inggameteam.inggame.minigame.base.Game
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 

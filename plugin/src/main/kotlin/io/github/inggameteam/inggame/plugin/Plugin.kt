@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.view.ComponentViewModule
-import io.github.inggameteam.inggame.minigame.GameModule
+import io.github.inggameteam.inggame.minigame.base.GameModule
 import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp

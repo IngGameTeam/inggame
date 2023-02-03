@@ -1,10 +1,9 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.Handler.Companion.isHandler
 import io.github.inggameteam.inggame.component.delegate.getAll
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.Sector
-import io.github.inggameteam.inggame.minigame.wrapper.game.SectionalImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.world.WorldGenerator
 import kotlin.math.sqrt
@@ -24,7 +23,7 @@ class SectorLoader(
     fun newAllocatable(worldString: String): Sector {
         loadWorld(worldString)
         val list = gameInstanceService.getAll(::SectionalImp)
-            .filter { it.isHandler(Sectional::class) }.filter(SectionalImp::isAllocatedGame)
+            .filter { it.isHandler(SectionalHandler::class) }.filter(SectionalImp::isAllocatedGame)
             .map(SectionalImp::gameSector).filter { it.worldOrNull?.name == worldString }.toSet()
         val line = sqrt(list.size.toDouble()).toInt() + 1
         var x = 1

@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.event
 
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
+import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.utils.ClassRegistry
@@ -13,6 +14,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("null", ArrayList(), ArrayList(), isMulti = true)
@@ -26,10 +28,18 @@ class ComponentServiceRegisterEvent(
         modules.addAll(module)
     }
 
-    fun registerClass(vararg clazz: KClass<*>) {
+    fun registerClass(vararg classes: KClass<*>) {
+        classes.forEach { clazz ->
+            if (clazz.isSubclassOf(Handler::class)) {
+                addModule(module {
+                    single {  }
+                })
+            }
+
+        }
         addModule(module {
             factory(named(randomUUID().fastToString())) {
-                ClassRegistry(*clazz)
+                ClassRegistry(*classes)
             }
         })
     }

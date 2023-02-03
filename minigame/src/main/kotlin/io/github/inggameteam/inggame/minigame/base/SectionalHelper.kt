@@ -1,8 +1,7 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.Sector
-import io.github.inggameteam.inggame.minigame.wrapper.game.Sectional
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.runNow

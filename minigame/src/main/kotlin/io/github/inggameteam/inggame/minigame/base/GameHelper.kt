@@ -1,13 +1,8 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.*
 import io.github.inggameteam.inggame.minigame.event.*
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
-import io.github.inggameteam.inggame.minigame.wrapper.game.Game
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlertImp
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
-import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.delay
@@ -30,7 +25,8 @@ class GameHelper(
             if (sendMessage) gameAlert.GAME_CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.gameName)
         } else if (requestedGame.playerLimitAmount > 0
             && requestedGame.gameJoined.hasTags(PTag.PLAY).size >= requestedGame.playerLimitAmount
-            && joinType === JoinType.PLAY) {
+            && joinType === JoinType.PLAY
+        ) {
             if (sendMessage) gameAlert.GAME_CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.gameName)
         } else {
             return true

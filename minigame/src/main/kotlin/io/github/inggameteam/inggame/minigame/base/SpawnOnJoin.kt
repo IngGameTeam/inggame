@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.minigame.event.GPlayerSpawnEvent

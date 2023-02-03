@@ -1,7 +1,6 @@
-package io.github.inggameteam.inggame.minigame.singleton
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 
 class GameServer(wrapper: Wrapper) : Wrapper by wrapper {
 

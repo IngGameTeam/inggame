@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.handler
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.delegate.get
@@ -6,15 +6,11 @@ import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.JoinType
 import io.github.inggameteam.inggame.minigame.LeftType
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
-import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
-import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
@@ -40,9 +36,9 @@ class JoinHubOnJoinServer(
             .filterIsInstance<UUID>().forEach { joinHub(it) }
     }
 
-    private fun joinHub(player: UUID) {
+    private fun joinHub(playerUuid: UUID) {
         val game = gameInstanceService.get(server.hub, ::GameImp)
-        val player = gamePlayerService.get(player, ::GPlayer)
+        val player = gamePlayerService.get(playerUuid, ::GPlayer)
         gameHelper.joinGame(game, player, JoinType.PLAY)
     }
 

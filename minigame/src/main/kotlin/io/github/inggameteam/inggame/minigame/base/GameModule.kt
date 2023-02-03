@@ -1,13 +1,14 @@
-package io.github.inggameteam.inggame.minigame
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.event.newModule
+import io.github.inggameteam.inggame.minigame.CustomGameService
+import io.github.inggameteam.inggame.minigame.GameInstanceRepository
+import io.github.inggameteam.inggame.minigame.GameInstanceService
+import io.github.inggameteam.inggame.minigame.GamePlayerService
+import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.minigame.handler.*
-import io.github.inggameteam.inggame.minigame.singleton.GameServer
-import io.github.inggameteam.inggame.minigame.wrapper.game.Game
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameAlert
-import io.github.inggameteam.inggame.minigame.wrapper.player.GPlayer
 import io.github.inggameteam.inggame.utils.HandleListener
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
@@ -24,11 +25,11 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             singleOf(::PrintOnMove)
             singleOf(::GameHelper)
             singleOf(::SectionalHelper)
-            singleOf(::Sectional)
+            singleOf(::SectionalHandler)
             singleOf(::GameInstanceService)
             singleOf(::SectorLoader)
             singleOf(::HubLoader)
-            singleOf(::SpawnPlayer)
+            singleOf(::SpawnPlayerHandler)
             singleOf(::SpawnOnJoin)
         })
         event.registerClass(
@@ -41,10 +42,10 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             Game::class,
             GameAlert::class,
             GPlayer::class,
+            SectionalHandler::class,
             Sectional::class,
-            io.github.inggameteam.inggame.minigame.wrapper.game.Sectional::class,
-            SpawnPlayer::class,
-            io.github.inggameteam.inggame.minigame.wrapper.game.SpawnPlayer::class
+            SpawnPlayerHandler::class,
+            SpawnPlayer::class
         )
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(newModule("game-instance", ::GameInstanceRepository))

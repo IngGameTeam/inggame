@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.wrapper.game
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.Alert

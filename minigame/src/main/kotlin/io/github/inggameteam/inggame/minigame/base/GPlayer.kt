@@ -1,7 +1,6 @@
-package io.github.inggameteam.inggame.minigame.wrapper.player
+package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.minigame.wrapper.game.GameImp
 import io.github.inggameteam.inggame.player.warpper.WrappedPlayer
 import io.github.inggameteam.inggame.utils.TagContainer
 import java.util.concurrent.CopyOnWriteArraySet

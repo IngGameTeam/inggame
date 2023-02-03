@@ -28,7 +28,6 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
         classes
             .filter { it.isSubclassOf(Handler::class) }
             .forEach {
-
                 propMap.add(Prop(it.simpleName!!, Boolean::class.createType(), Boolean::class))
             }
         val types = classes
