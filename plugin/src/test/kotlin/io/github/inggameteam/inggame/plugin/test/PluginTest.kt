@@ -30,6 +30,7 @@ object PluginTest {
     @Test
     fun testAll() {
         "-".repeat(20).apply(::println)
+        throw AssertionError()
             listOf<Class<*>>().forEach { clazz ->
                 try {
                     clazz.kotlin.createInstance()
