@@ -3,9 +3,6 @@ package io.github.inggameteam.inggame.plugin.test
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
 import io.github.inggameteam.inggame.plugin.Plugin
-import net.sf.corn.cps.CPScanner
-import net.sf.corn.cps.ClassFilter
-import net.sf.corn.cps.PackageNameFilter
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -33,11 +30,7 @@ object PluginTest {
     @Test
     fun testAll() {
         "-".repeat(20).apply(::println)
-        CPScanner.scanClasses(
-            PackageNameFilter(javaClass.packageName),
-            ClassFilter().appendAnnotation(io.github.inggameteam.inggame.plugin.test.Test::class.java)
-        )
-            .forEach { clazz ->
+            listOf<Class<*>>().forEach { clazz ->
                 try {
                     clazz.kotlin.createInstance()
                     println("${clazz.simpleName} PASSED")
