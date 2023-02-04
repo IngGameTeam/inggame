@@ -23,19 +23,20 @@ class Swear(val file: File, val map: HashMap<List<String>, List<String>> = readF
         }
     }
 
-    fun findSwear(input: String): Boolean {
-        val input = input
-            .replace("_", "")
-            .replace(Regex("\\d"), "")
-            .replace(" ", "")
-            .replace(".", "")
-            .replace(",", "")
+    fun findSwear(inputVar: String): Boolean {
+        var input = inputVar
         if (isSwear(input)) return true
-        else if (isSwear(input.replace(Regex("[A-Z]"), ""))) return true
+        input = input.replace(Regex("[\\d<>%.,\"'=)_(*&^\$#@!/\\]\\[}{?]"), "")
+        if (isSwear(input)) return true
+        input = input.replace(Regex("(?!\\p{IsHangul})."), "")
+        if (isSwear(input)) return true
+        input = input.replace(Regex("[ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔㅁㄴㅇㄹㅎㅗㅓㅏㅣㅋㅌㅊㅍㅠㅜㅡ]"), "")
+        if (isSwear(input)) return true
         return false
     }
 
     private fun isSwear(input: String): Boolean {
+        if(input.isBlank()) return false
         map.forEach { (words, excludes) ->
             words.forEach { word ->
                 val m: Matcher = Pattern.compile(word)

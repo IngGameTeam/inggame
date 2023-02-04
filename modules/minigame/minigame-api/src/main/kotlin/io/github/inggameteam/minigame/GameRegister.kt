@@ -11,6 +11,7 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.sqrt
 import kotlin.test.assertNotNull
 
@@ -21,6 +22,12 @@ class GameRegister(
     val sectorWidth: Int,
     val sectorHeight: Int,
     ) : HashSet<Game>(), Listener {
+
+
+    private val sectorFactory = AtomicInteger()
+    private val newSector get() = sectorFactory.getAndAdd(1)
+
+
 
     init {
         Bukkit.getPluginManager().registerEvents(this, plugin)

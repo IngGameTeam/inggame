@@ -68,11 +68,7 @@ open class GamePluginImpl : GamePlugin, PartyPluginImpl {
         super.onDisable()
         if (unloadWorldsOnDisable) {
             worldName.forEach {
-                worldName
-                    .forEach {
-                        Bukkit.getWorld(it)
-                            ?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) }
-                    }
+                Bukkit.getWorld(it)?.players?.forEach { p -> p.teleport(Bukkit.getWorlds()[0].spawnLocation) }
                 Bukkit.unloadWorld(it, false)
                 File(Bukkit.getWorldContainer(), it).deleteOnExit()
             }
