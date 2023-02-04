@@ -9,6 +9,7 @@ object WorldGenerator {
             val worldCreator = WorldCreator(name)
             worldCreator.environment(World.Environment.NORMAL)
             worldCreator.type(WorldType.FLAT)
+            worldCreator.generateStructures(false)
             worldCreator.generatorSettings(
                 "{\"structures\": {\"structures\": {}}, " +
                         "\"layers\": [" +
