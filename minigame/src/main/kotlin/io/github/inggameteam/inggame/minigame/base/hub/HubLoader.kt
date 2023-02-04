@@ -20,7 +20,7 @@ class HubLoader(
 ) : Listener(plugin) {
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.LOWEST)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         gameServer.hub = gameInstanceService[randomUUID(), ::GameImp]
             .apply {
