@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base.hub
 
+import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.base.game.GameHelper
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
@@ -17,7 +18,7 @@ class HubLoader(
     private val gameInstanceService: GameInstanceService,
     private val gameHelper: GameHelper,
     plugin: IngGamePlugin
-) : Listener(plugin) {
+) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOWEST)
