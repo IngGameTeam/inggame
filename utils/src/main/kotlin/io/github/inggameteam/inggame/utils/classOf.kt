@@ -3,11 +3,9 @@ package io.github.inggameteam.inggame.utils
 import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.DefinitionOptions
-import org.koin.core.module.dsl.new
-import org.koin.core.module.dsl.onOptions
-import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.*
 import org.koin.dsl.ModuleDeclaration
+import org.koin.dsl.binds
 import org.koin.dsl.module
 import kotlin.reflect.KClass
 
@@ -20,7 +18,7 @@ inline fun <reified T> ClassModule.clazz(
     noinline definition: Definition<T>
 ): KoinDefinition<T>  {
     classes.add(T::class)
-    return module.singleOf(definition)
+    return module.singleOf(definition).apply { binds(arrayOf(T::class)) }
 }
 
 inline fun <reified R> ClassModule.classOf(
