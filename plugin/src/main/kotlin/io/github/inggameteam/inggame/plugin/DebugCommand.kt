@@ -25,10 +25,10 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val componentService = app.get<ComponentService>(named(split[0]))
                     val nameSpace = split[1].run { try { fastUUID() } catch (_: Throwable) { this } }
                     val key = split[2]
-//                    measureTimeMillis {
-//                            componentService[nameSpace, ::GPlayer].joinedGame
+                    measureTimeMillis {
+                            componentService[nameSpace, ::GPlayer].joinedGame
                             source.sendMessage(componentService.find(nameSpace, key).toString())
-//                    }.run(Any::toString).apply(source::sendMessage)
+                    }.run(Any::toString).apply(source::sendMessage)
                 }
             }
             then("component") {
