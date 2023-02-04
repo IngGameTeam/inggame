@@ -17,8 +17,6 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
-        println(Reflections("io.github.inggameteam.inggame.minigame.base").getSubTypesOf(Wrapper::class.java))
-
         event.addModule(module(createdAtStart = true) {
             singleOf(::JoinHubOnJoinServer)
             singleOf(::PrintOnMove)
