@@ -27,12 +27,6 @@ class EnableAttackSpeed(
 
     @Suppress("unused")
     @EventHandler
-    fun onGameJoin(event: PlayerJoinEvent) {
-        disableAttackSpeed(gamePlayerService[event.player.uniqueId, ::GPlayer])
-    }
-
-    @Suppress("unused")
-    @EventHandler
     fun onGameJoin(event: GameJoinEvent) {
         if (isHandler(event.player)) {
             enableAttackSpeed(event.player)
