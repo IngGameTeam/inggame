@@ -13,10 +13,8 @@ import io.github.inggameteam.inggame.minigame.base.sectional.*
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnJoin
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
-import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerImp
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeath
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHandler
-import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathImp
 import io.github.inggameteam.inggame.minigame.component.CustomGameService
 import io.github.inggameteam.inggame.minigame.component.GameInstanceRepository
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
