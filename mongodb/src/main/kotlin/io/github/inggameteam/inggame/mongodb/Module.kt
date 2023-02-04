@@ -40,7 +40,7 @@ fun createMongoModule(
 
 fun createRepo(name: String, collection: String) = module {
     factory(named(name)) {
-        MongoRepoImpl(MongoCollection(get(), CollectionString(collection), get()))
+        MongoRepoImpl(MongoCollection(get(), CollectionString(collection + ".json"), get()))
     } bind MongoRepo::class
 }
 
