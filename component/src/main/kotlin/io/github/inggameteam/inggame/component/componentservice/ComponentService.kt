@@ -22,14 +22,12 @@ interface ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
             ?: run {
-                try { return parentComponent.find(nameSpace, key)
-                } catch (_: Throwable) { }
+                try { return parentComponent.find(nameSpace, key) } catch (_: Throwable) { }
                 throw NameSpaceNotFound
             }
-        return ns.elements.getOrDefault(key, null)?.run { this  }
+        return ns.elements.getOrDefault(key, null)
             ?: run {
-                ns.parents.toArray().fastForEach { try { return find(it, key)
-                } catch (_: Throwable) { } }
+                ns.parents.toArray().fastForEach { try { return find(it, key) } catch (_: Throwable) { } }
                 throw NameSpaceNotFound
             }
     }
