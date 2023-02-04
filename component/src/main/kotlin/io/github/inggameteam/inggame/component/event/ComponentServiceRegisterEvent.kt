@@ -61,7 +61,7 @@ class ComponentServiceRegisterEvent(
             module {
                 includes(createFileRepo(cs.name, cs.name))
                 single(named(cs.name)) {
-                    if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
+                    (if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
                     else if (cs.isMulti || cs.key !== null && !cs.isLayer) {
                         val root by lazy { get<ComponentService>(named(cs.root ?: registry.first().name)) }
                         MultiParentsComponentService(
@@ -87,7 +87,7 @@ class ComponentServiceRegisterEvent(
                         get(),
                         get(named(cs.parents.first())),
                         cs.name
-                    )
+                    ))
                         .apply { if (cs.isSavable) AddToSaveRegistry(this, get()) }
                         .apply { println("$name=${javaClass.simpleName}") }
                 } bind ComponentService::class
