@@ -139,7 +139,7 @@ operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
 }
 
 fun <T : Any> uncoverDelegate(any: T): Any {
-    return any
+    return if (any is Wrapper) any.nameSpace else any
 }
 
 fun <T : Wrapper> uncoverDelegate(any: T): Any {
