@@ -47,6 +47,8 @@ fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
     }
 }
 
-class NameSpaceNotFoundException(nameSpace: Any) : Exception("namespace does not exist")
+val NameSpaceNotFound = NameSpaceNotFoundException()
+
+class NameSpaceNotFoundException : Exception("namespace does not exist")
 
 class Assert(message: Any) : Exception(message.toString())

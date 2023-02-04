@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.Assert
 import io.github.inggameteam.inggame.component.NameSpace
-import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
+import io.github.inggameteam.inggame.component.NameSpaceNotFound
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
 import io.github.inggameteam.inggame.utils.fastForEach
@@ -44,14 +44,14 @@ class MultiParentsComponentService(
         if (parentKey == key)
             throw Assert("an error occurred while perform get method parentKey and key is same")
         val nameSpace = uncoverDelegate(nameSpace)
-        return findParent(nameSpace).firstSuccess({ it.find(nameSpace, key, clazz) }, NameSpaceNotFoundException(nameSpace))
+        return findParent(nameSpace).firstSuccess({ it.find(nameSpace, key, clazz) }, NameSpaceNotFound)
     }
 
     override fun findComponentService(nameSpace: Any): ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
         if (ns !== null) return this
-        return findParent(nameSpace).firstSuccess({ it.findComponentService(nameSpace) }, NameSpaceNotFoundException(nameSpace))
+        return findParent(nameSpace).firstSuccess({ it.findComponentService(nameSpace) }, NameSpaceNotFound)
     }
 
     override fun set(nameSpace: Any, key: Any, value: Any?) {
@@ -59,7 +59,7 @@ class MultiParentsComponentService(
     }
 
     override fun getOrNull(name: Any): NameSpace? {
-        return findParent(name).firstSuccess({ getOrNull(name) }, NameSpaceNotFoundException(name))
+        return findParent(name).firstSuccess({ getOrNull(name) }, NameSpaceNotFound)
     }
 
     override fun getAll(): List<NameSpace> {

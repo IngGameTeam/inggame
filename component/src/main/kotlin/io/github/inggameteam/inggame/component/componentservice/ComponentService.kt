@@ -2,7 +2,7 @@
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
-import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
+import io.github.inggameteam.inggame.component.NameSpaceNotFound
 import io.github.inggameteam.inggame.component.delegate.NonNullWrapperImp
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
@@ -24,13 +24,13 @@ interface ComponentService {
             ?: run {
                 try { return parentComponent.find(nameSpace, key)
                 } catch (_: Throwable) { }
-                throw NameSpaceNotFoundException(nameSpace)
+                throw NameSpaceNotFound
             }
         return ns.elements.getOrDefault(key, null)?.run { this  }
             ?: run {
                 ns.parents.toArray().fastForEach { try { return find(it, key)
                 } catch (_: Throwable) { } }
-                throw NameSpaceNotFoundException(nameSpace)
+                throw NameSpaceNotFound
             }
     }
 
@@ -45,7 +45,7 @@ interface ComponentService {
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
         if (ns !== null) return this
         try { return parentComponent.findComponentService(nameSpace) } catch (_: Throwable) { }
-        throw NameSpaceNotFoundException(nameSpace)
+        throw NameSpaceNotFound
     }
 
     fun sortParentsByPriority(parents: CopyOnWriteArraySet<Any>): CopyOnWriteArraySet<Any> {

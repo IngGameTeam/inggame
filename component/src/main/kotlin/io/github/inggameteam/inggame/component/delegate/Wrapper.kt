@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.component.delegate
 
 import io.github.inggameteam.inggame.component.NameSpace
-import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import kotlin.reflect.KProperty
@@ -83,7 +82,7 @@ class NullableWrapperImp(
                 defaultValue
             }
             return result as R
-        } catch (e: NameSpaceNotFoundException) {
+        } catch (e: Throwable) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }
@@ -118,7 +117,7 @@ class NonNullWrapperImp(
                 defaultValue
             }
             return result as R
-        } catch (e: NameSpaceNotFoundException) {
+        } catch (e: Throwable) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }

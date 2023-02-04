@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.plugin.test
 
+import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.minigame.base.GameServer
 import io.github.inggameteam.inggame.minigame.base.GPlayer
@@ -20,7 +21,7 @@ class GameTest : Listener{
         Bukkit.getPluginManager().registerEvents(this, PLUGIN)
         val player = joinPlayer("TestPlayer_1")
         player.simulatePlayerMove(player.location.clone().apply { x += 1 })
-        val gPlayer = PLUGIN.app.get<GamePlayerService>().get(player.uniqueId, ::GPlayer)
+        val gPlayer = PLUGIN.app.get<GamePlayerService>()[player.uniqueId, ::GPlayer]
         PLUGIN.app.get<GamePlayerService>().find(player.uniqueId, "PrintOnMove", Any::class).apply { println("PrintOnMove=$this") }
         receiveMessage(player)
 
