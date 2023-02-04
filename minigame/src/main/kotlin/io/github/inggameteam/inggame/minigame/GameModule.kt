@@ -48,6 +48,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::DeathHandler)
             classOf(::VoidDeathHelper)
             classOf(::NoHunger)
+            classOf(::HideJoinLeaveMessage)
             classOf(
                 Game::class,
                 GameAlert::class,
