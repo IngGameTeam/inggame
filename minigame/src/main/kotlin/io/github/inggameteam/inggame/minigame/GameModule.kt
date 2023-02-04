@@ -19,7 +19,6 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.addModule(module(createdAtStart = true) {
             singleOf(::JoinHubOnJoinServer)
-            singleOf(::PrintOnMove)
             singleOf(::GameHelper)
             singleOf(::SectionalHelper)
             singleOf(::SectionalHandler)
@@ -31,7 +30,6 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
         })
         event.registerClass(
             SpawnOnJoin::class,
-            PrintOnMove::class,
             GameHelper::class,
             JoinHubOnJoinServer::class,
             SectorLoader::class,
