@@ -12,7 +12,7 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 class ClassModule(
-    val module: Module = module(createdAtStart = true) { },
+    val module: Module,
     val classes: ArrayList<KClass<*>> = ArrayList()
 )
 
