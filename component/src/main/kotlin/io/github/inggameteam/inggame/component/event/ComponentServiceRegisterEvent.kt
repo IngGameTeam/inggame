@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.ClassModule
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
@@ -54,6 +55,9 @@ class ComponentServiceRegisterEvent(
     private fun getRegistry() = ArrayList(root.registry)
 
     fun getNewModule() = getRegistry().let { registry ->
+        registry.forEach {
+            createRepo(it.name, it.name)
+        }
         registry.map { cs ->
             module {
                 single(named(cs.name)) {
