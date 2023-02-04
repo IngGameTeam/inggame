@@ -26,7 +26,7 @@ class PrintOnMove(
 //                    player[::GameAlertImp].GAME_JOIN.send(player)
 //                event.player.sendMessage("${randomUUID()}")
                 }
-            }
+//            }
         }.apply { println(this) }
     }
 
