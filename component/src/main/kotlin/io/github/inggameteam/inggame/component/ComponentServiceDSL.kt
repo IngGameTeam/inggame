@@ -41,20 +41,28 @@ class ComponentServiceDSL(
         findComponentServiceDSL(this).isLayer = isLayer
     }
 
-    infix fun ComponentServiceDSL.isMulti(isMulti: Boolean): ComponentServiceDSL = this.apply {
-        this.isMulti = isMulti
-    }
-
     infix fun ComponentServiceDSL.root(root: String): ComponentServiceDSL = this.apply {
         this.root = root
     }
 
-    infix fun String.isMulti(isMulti: Boolean): String = this.apply {
-        findComponentServiceDSL(this).isMulti = isMulti
+    infix fun String.root(root: String): ComponentServiceDSL  = findComponentServiceDSL(this).apply {
+        this.root = root
+    }
+
+    infix fun ComponentServiceDSL.key(key: String): ComponentServiceDSL = this.apply {
+        this.key = key
     }
 
     infix fun String.key(key: String) = findComponentServiceDSL(this).apply {
         this.key = key
+    }
+
+    infix fun ComponentServiceDSL.isMulti(isMulti: Boolean): ComponentServiceDSL = this.apply {
+        this.isMulti = isMulti
+    }
+
+    infix fun String.isMulti(isMulti: Boolean): String = this.apply {
+        findComponentServiceDSL(this).isMulti = isMulti
     }
 
     infix fun String.csc(block: ComponentServiceDSL.() -> Unit): ComponentServiceDSL {
