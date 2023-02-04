@@ -21,6 +21,10 @@ import io.github.inggameteam.inggame.minigame.component.CustomGameService
 import io.github.inggameteam.inggame.minigame.component.GameInstanceRepository
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
+import io.github.inggameteam.inggame.minigame.listener.ArrowStuckPrevent
+import io.github.inggameteam.inggame.minigame.listener.DisableCollision
+import io.github.inggameteam.inggame.minigame.listener.HideJoinLeaveMessage
+import io.github.inggameteam.inggame.minigame.listener.NoUnderWaterFall
 import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
@@ -49,6 +53,10 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::VoidDeathHelper)
             classOf(::NoHunger)
             classOf(::HideJoinLeaveMessage)
+            classOf(::ArrowStuckPrevent)
+            classOf(::DisableCollision)
+            classOf(::EnableAttackSpeed)
+            classOf(::NoUnderWaterFall)
             classOf(
                 Game::class,
                 GameAlert::class,
