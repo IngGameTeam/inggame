@@ -55,9 +55,9 @@ class ComponentServiceRegisterEvent(
     private fun getRegistry() = ArrayList(root.registry)
 
     fun getNewModule() = getRegistry().let { registry ->
-        registry.forEach { addModule(createRepo(it.name, it.name)) }
         registry.map { cs ->
             module {
+                includes(createRepo(cs.name, cs.name))
                 single(named(cs.name)) {
                     if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
                     else if (cs.isMulti || cs.key !== null && !cs.isLayer) {
@@ -90,7 +90,7 @@ class ComponentServiceRegisterEvent(
                 } bind ComponentService::class
             }
         }
-    }.run { arrayListOf(*this.toTypedArray(), *modules.toTypedArray()) }
+    }.run { arrayListOf(*this.toTypedArray(), *modules.toTypedArray(),) }
 
     override fun getHandlers(): HandlerList { return HANDLERS }
     companion object {
