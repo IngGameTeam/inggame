@@ -26,7 +26,7 @@ class PrintOnMove(
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
+            randomUUID() to "randomUUID()",
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
