@@ -29,9 +29,9 @@ class EnableAttackSpeed(
     @EventHandler
     fun onGameJoin(event: GameJoinEvent) {
         if (isHandler(event.player)) {
-            enableAttackSpeed(event.player)
-        } else {
             disableAttackSpeed(event.player)
+        } else {
+            enableAttackSpeed(event.player)
         }
     }
 
@@ -40,7 +40,7 @@ class EnableAttackSpeed(
     fun onGameLeft(event: GameLeftEvent) {
         val game = event.left
         if (isHandler(game)) {
-            disableAttackSpeed(event.player)
+            enableAttackSpeed(event.player)
         }
     }
 
