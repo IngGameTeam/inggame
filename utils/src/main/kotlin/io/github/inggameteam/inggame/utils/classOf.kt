@@ -16,7 +16,7 @@ inline fun <reified T> ClassModule.clazz(
     noinline definition: Definition<T>
 ): KoinDefinition<T>  {
     classes.add(T::class)
-    return module.singleOf(definition).apply { binds(arrayOf(T::class)) }
+    return module.singleOf(definition)
 }
 
 inline fun <reified R : Any> ClassModule.classOf(clazz: KClass<R>) {
