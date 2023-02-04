@@ -2,11 +2,11 @@ package io.github.inggameteam.inggame.minigame.base.spawnplayer
 
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.minigame.event.GPlayerSpawnEvent
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 
-class SpawnPlayerHandler(plugin: IngGamePlugin) : Handler, HandleListener(plugin) {
+class SpawnPlayerHandler(plugin: IngGamePlugin) : Handler, Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler

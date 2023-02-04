@@ -1,8 +1,7 @@
 package io.github.inggameteam.inggame.utils
 import org.bukkit.event.Listener
-import org.bukkit.plugin.Plugin
 
-open class HandleListener(plugin: Plugin) : Listener {
+open class Listener(plugin: IngGamePlugin) : Listener {
 
     init {
         plugin.server.pluginManager.registerEvents(this, plugin)

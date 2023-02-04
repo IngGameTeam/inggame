@@ -9,7 +9,7 @@ import io.github.inggameteam.inggame.minigame.event.GameFinishEvent
 import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
 import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
 import io.github.inggameteam.inggame.minigame.event.GameLoadEvent
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.delay
 import org.bukkit.event.EventHandler
@@ -22,7 +22,7 @@ class SectionalHandler(
     private val plugin: IngGamePlugin,
     private val sectorLoader: SectorLoader,
     private val gameServer: GameServer,
-) : HandleListener(plugin), Handler {
+) : Listener(plugin), Handler {
 
     @Suppress("unused")
     @EventHandler

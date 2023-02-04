@@ -6,7 +6,7 @@ import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.component.KoinComponent
 
@@ -17,6 +17,6 @@ class GameInstanceService(
     @Suppress("unused")
     private val playerService: PlayerService,
     val plugin: IngGamePlugin,
-) : KoinComponent, HandleListener(plugin),
+) : KoinComponent, Listener(plugin),
     LayeredComponentService by gameInstanceRepository,
     ContainerHelper<Game, GPlayer> by gameInstanceRepository.newContainerHelper(gamePlayerService)

@@ -1,12 +1,12 @@
 package io.github.inggameteam.inggame.player.handler
 
 import io.github.inggameteam.inggame.player.PlayerInstanceService
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 
-class PlayerLanguage(val playerInstanceService: PlayerInstanceService, plugin: IngGamePlugin) : HandleListener(plugin) {
+class PlayerLanguage(val playerInstanceService: PlayerInstanceService, plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler

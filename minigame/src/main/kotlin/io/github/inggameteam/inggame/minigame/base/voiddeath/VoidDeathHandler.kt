@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.minigame.base.voiddeath
 
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.die
 import org.bukkit.event.EventHandler
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 class VoidDeathHandler(
     private val gamePlayerService: GamePlayerService,
     plugin: IngGamePlugin
-) : Handler, HandleListener(plugin) {
+) : Handler, Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler

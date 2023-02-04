@@ -4,12 +4,12 @@ import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEve
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.player.handler.PlayerLanguage
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
-import org.bukkit.plugin.Plugin
 import org.koin.dsl.module
 
-class PlayerModule(plugin: Plugin) : HandleListener(plugin) {
+class PlayerModule(plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler

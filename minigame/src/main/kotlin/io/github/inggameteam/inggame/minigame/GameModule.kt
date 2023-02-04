@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
+import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.hub.HubLoader
 import io.github.inggameteam.inggame.minigame.base.hub.JoinHubOnJoinServer
@@ -19,11 +20,11 @@ import io.github.inggameteam.inggame.minigame.component.CustomGameService
 import io.github.inggameteam.inggame.minigame.component.GameInstanceRepository
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
-import org.bukkit.plugin.Plugin
 
-class GameModule(plugin: Plugin) : HandleListener(plugin) {
+class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler
@@ -43,6 +44,7 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             classOf(::GPlayer)
             classOf(::SectionalHandler)
             classOf(::VoidDeathHandler)
+            classOf(::DeathHandler)
             classOf(
                 Game::class,
                 GameAlert::class,

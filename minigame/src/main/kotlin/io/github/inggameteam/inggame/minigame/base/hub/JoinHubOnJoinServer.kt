@@ -7,7 +7,7 @@ import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.NoArgsConstructor
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
@@ -27,7 +27,7 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
     private val gameHelper: GameHelper
-) : HandleListener(plugin) {
+) : Listener(plugin) {
 
 
     @Suppress("unused")

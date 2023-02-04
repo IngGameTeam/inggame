@@ -5,7 +5,7 @@ import io.github.inggameteam.inggame.minigame.base.game.GameHelper
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.game.GameState
-import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.randomUUID
@@ -17,7 +17,7 @@ class HubLoader(
     private val gameInstanceService: GameInstanceService,
     private val gameHelper: GameHelper,
     plugin: IngGamePlugin
-) : HandleListener(plugin) {
+) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
