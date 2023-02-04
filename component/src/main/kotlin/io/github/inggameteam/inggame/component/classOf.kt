@@ -1,11 +1,14 @@
-package io.github.inggameteam.inggame.utils
+package io.github.inggameteam.inggame.component
 
+import io.github.inggameteam.inggame.utils.randomUUID
 import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.*
-import org.koin.dsl.binds
+import org.koin.core.qualifier.named
+import org.koin.dsl.factory
 import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 
 class ClassModule(
     val module: Module,
@@ -16,7 +19,8 @@ inline fun <reified T> ClassModule.clazz(
     noinline definition: Definition<T>
 ): KoinDefinition<T>  {
     classes.add(T::class)
-    return module.single { definition(it) }
+    if (T::class.isSubclassOf(Handler::class)) return module.single { definition(it) }
+    return module.factory(named(randomUUID().toString())) { throw AssertionError() }
 }
 
 inline fun <reified R : Any> ClassModule.classOf(clazz: KClass<R>) {

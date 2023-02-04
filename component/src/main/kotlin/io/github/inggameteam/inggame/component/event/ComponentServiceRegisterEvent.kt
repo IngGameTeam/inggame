@@ -3,18 +3,16 @@ package io.github.inggameteam.inggame.component.event
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
-import io.github.inggameteam.inggame.utils.ClassModule
+import io.github.inggameteam.inggame.component.ClassModule
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
-import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
 
 

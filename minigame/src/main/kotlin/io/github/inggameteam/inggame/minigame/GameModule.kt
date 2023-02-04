@@ -1,17 +1,13 @@
 package io.github.inggameteam.inggame.minigame
 
 import io.github.inggameteam.inggame.component.createSingleton
-import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.utils.HandleListener
-import io.github.inggameteam.inggame.utils.classOf
+import io.github.inggameteam.inggame.component.classOf
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
-import org.reflections.Reflections
 
 class GameModule(plugin: Plugin) : HandleListener(plugin) {
 
