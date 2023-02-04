@@ -131,7 +131,7 @@ operator fun <T> ComponentService.get(nameSpace: Any, block: (Wrapper) -> T): T 
 }
 
 inline fun <reified T : Any> LayeredComponentService.getAll(noinline block: (Wrapper) -> T): Collection<T> {
-    return this.getAll().map(NameSpace::name).map { find(it, block, T::class) }
+    return this.getAll().map(NameSpace::name).map { get(it, block) }
 }
 
 operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
