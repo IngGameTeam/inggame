@@ -53,7 +53,6 @@ class JoinHubOnJoinServer(
     @EventHandler(priority = EventPriority.HIGH)
     fun onQuit(event: PlayerQuitEvent) {
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-        if (player.joinedGame === null) return
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
 
@@ -61,7 +60,6 @@ class JoinHubOnJoinServer(
     @EventHandler(priority = EventPriority.HIGH)
     fun onKick(event: PlayerKickEvent) {
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-        if (player.joinedGame === null) return
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
 
