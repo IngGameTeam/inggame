@@ -17,7 +17,7 @@ class ComponentViewModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.registerClass(Selector::class)
         event.addModule(module(createdAtStart = true) { single { ViewPlayerLoader(get(named("view-player")), get()) } })
         event.register {
-            "view-player" isLayer true cs "view-resource" isSavable true cs "default"
+            "view-player" isMask true cs "view-resource" isSavable true cs "default"
         }
     }
 }
