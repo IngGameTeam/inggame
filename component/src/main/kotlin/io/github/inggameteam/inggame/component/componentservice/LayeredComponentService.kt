@@ -2,6 +2,8 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.utils.fastFirstOrNull
+import io.github.inggameteam.inggame.utils.fastForEach
 import kotlin.reflect.KClass
 
 interface LayeredComponentService : ComponentService, SaveComponentService {
@@ -10,13 +12,14 @@ interface LayeredComponentService : ComponentService, SaveComponentService {
     fun unload(name: Any, save: Boolean)
     fun save(name: Any)
 
-    @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
-    override operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+    override fun find(nameSpace: Any, key: Any): Any {
         val nameSpace = uncoverDelegate(nameSpace)
-        val ns = getAll().firstOrNull { it.name == nameSpace } ?: run { throw NameSpaceNotFoundException(nameSpace) }
-        return ns.elements.getOrDefault(key, null)?.run { this as T }
+        val ns = getAll().fastFirstOrNull { it.name == nameSpace }
+            ?: run { throw NameSpaceNotFoundException(nameSpace) }
+        return ns.elements.getOrDefault(key, null)
             ?: run {
-                ns.parents.forEach { try { return parentComponent[it, key, clazz] } catch (_: Throwable) { } }
+                ns.parents.toArray().fastForEach { try { return parentComponent.find(it, key)
+                } catch (_: Throwable) { } }
                 throw NameSpaceNotFoundException(nameSpace)
             }
     }

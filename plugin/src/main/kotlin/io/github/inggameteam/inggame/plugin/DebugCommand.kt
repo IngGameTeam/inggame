@@ -3,11 +3,9 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.component.view.model.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.model.ViewImp
 import io.github.inggameteam.inggame.component.view.selector.NameSpaceSelector
-import io.github.inggameteam.inggame.minigame.base.GPlayer
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -28,7 +26,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     measureTimeMillis {
                         repeat (2000) {
 //                            componentService.get(nameSpace, ::GPlayer)
-                            source.sendMessage(componentService[nameSpace, key, Any::class].toString())
+                            source.sendMessage(componentService.find(nameSpace, key, Any::class).toString())
                         }
                     }.run(Any::toString).apply(source::sendMessage)
                 }

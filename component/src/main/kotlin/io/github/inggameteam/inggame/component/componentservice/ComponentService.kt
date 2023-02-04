@@ -3,6 +3,8 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
+import io.github.inggameteam.inggame.component.delegate.NonNullWrapperImp
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
 import io.github.inggameteam.inggame.utils.fastForEach
@@ -16,22 +18,29 @@ interface ComponentService {
     val parentComponent: ComponentService
     val layerPriority: Int
 
-    @Suppress("UNCHECKED_CAST")
-    operator fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+    fun find(nameSpace: Any, key: Any): Any {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
             ?: run {
-                try { return parentComponent[nameSpace, key, clazz] } catch (_: Throwable) { }
+                try { return parentComponent.find(nameSpace, key)
+                } catch (_: Throwable) { }
                 throw NameSpaceNotFoundException(nameSpace)
             }
-        return ns.elements.getOrDefault(key, null)?.run { this as T }
+        return ns.elements.getOrDefault(key, null)?.run { this  }
             ?: run {
-                ns.parents.toArray().fastForEach { try { return get(it, key, clazz) } catch (_: Throwable) { } }
+                ns.parents.toArray().fastForEach { try { return find(it, key)
+                } catch (_: Throwable) { } }
                 throw NameSpaceNotFoundException(nameSpace)
             }
     }
 
-    fun findComponentService(nameSpace: Any): ComponentService {
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Any> find(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+        return find(nameSpace, key) as T
+    }
+
+
+        fun findComponentService(nameSpace: Any): ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
         if (ns !== null) return this
@@ -46,7 +55,8 @@ interface ComponentService {
     }
 
     fun has(nameSpace: Any, key: Any): Boolean =
-        try { get(nameSpace, key, Any::class); true } catch (_: Throwable) { false }
+        try {
+            find(nameSpace, key); true } catch (_: Throwable) { false }
 
     fun set(nameSpace: Any, key: Any, value: Any?)
 

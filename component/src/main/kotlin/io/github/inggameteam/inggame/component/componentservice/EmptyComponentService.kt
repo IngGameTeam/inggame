@@ -8,7 +8,7 @@ interface EmptyComponentService : ComponentService
 
 private val assertionError = Assert("error occurred while perform empty component")
 class EmptyComponentServiceImp(override val name: String) : EmptyComponentService {
-    override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>) = throw NameSpaceNotFoundException(nameSpace)
+    override fun <T : Any> find(nameSpace: Any, key: Any, clazz: KClass<T>) = throw NameSpaceNotFoundException(nameSpace)
     override fun get(name: Any) = throw assertionError
     override val parentComponent get() = this
     override val layerPriority get() = 0

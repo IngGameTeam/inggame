@@ -42,13 +42,13 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     }
 
     override fun left(key: ELEMENT) {
-        val container = try { keyComponent[key, keyAssign, Any::class] as CONTAINER } catch (_: Throwable) { return }
+        val container = try { keyComponent.find(key, keyAssign) as CONTAINER } catch (_: Throwable) { return }
         getList(container).remove(key)
         keyComponent.unload(key, false)
     }
 
     private fun getList(container: CONTAINER): CopyOnWriteArraySet<ELEMENT> {
-        return try { componentService[container, keyList, Any::class] as CopyOnWriteArraySet<ELEMENT> }
+        return try { componentService.find(container, keyList) as CopyOnWriteArraySet<ELEMENT> }
         catch (_: Throwable) { CopyOnWriteArraySet<ELEMENT>().apply { componentService.set(container, keyList, this) } }
     }
 

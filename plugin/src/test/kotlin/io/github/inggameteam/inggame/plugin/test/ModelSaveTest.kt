@@ -14,7 +14,7 @@ class ModelSaveTest {
         comp.set("test", "test", ChatAlert("HELLO BRUCE"))
         comp.unload("test", true)
         comp.load("test", false)
-        val result = comp["test", "test", ChatAlert::class]
+        val result = comp.find("test", "test", ChatAlert::class)
         println(result)
     }
 }

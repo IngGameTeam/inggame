@@ -4,13 +4,15 @@ import io.github.inggameteam.inggame.component.Assert
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFoundException
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.utils.fastFirstOrNull
+import io.github.inggameteam.inggame.utils.fastForEach
 import kotlin.reflect.KClass
 
 @Suppress("NAME_SHADOWING")
 class MultiParentsComponentService(
     override val name: String,
     private val rootComponent: () -> ComponentService?,
-    private var components: Collection<ComponentService>,
+    private var components: List<ComponentService>,
     private val parentKey: Any?
 ) : ComponentService, AbstractNameSpaceComponentService() {
 
@@ -25,29 +27,29 @@ class MultiParentsComponentService(
 
     override val layerPriority: Int by lazy { return@lazy components.maxOf { it.layerPriority } }
 
-    private fun findParent(nameSpace: Any): Collection<ComponentService> {
+    private fun findParent(nameSpace: Any): List<ComponentService> {
         if (parentKey === null) return components
-        return try { rootComponent()!![nameSpace, parentKey, Any::class]
-            .let { name -> components.firstOrNull { it.name == name }!! }.run(::listOf) }
+        return try { rootComponent()!!.find(nameSpace, parentKey)
+            .let { name -> components.fastFirstOrNull { it.name == name }!! }.run(::listOf) }
         catch (_: Throwable) { listOf(components.first()) }
 //        return components
     }
 
-    private fun <T, R> Iterable<T>.firstSuccess(block: (T) -> R, throws: Throwable): R {
-        this.forEach { try { return block(it) } catch (_: Throwable) { } }
+    private fun <T, R> List<T>.firstSuccess(block: (T) -> R, throws: Throwable): R {
+        this.fastForEach { try { return block(it) } catch (_: Throwable) { } }
         throw throws
     }
 
-    override fun <T : Any> get(nameSpace: Any, key: Any, clazz: KClass<T>): T {
+    override fun <T : Any> find(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         if (parentKey == key)
             throw Assert("an error occurred while perform get method parentKey and key is same")
         val nameSpace = uncoverDelegate(nameSpace)
-        return findParent(nameSpace).firstSuccess({ it[nameSpace, key, clazz] }, NameSpaceNotFoundException(nameSpace))
+        return findParent(nameSpace).firstSuccess({ it.find(nameSpace, key, clazz) }, NameSpaceNotFoundException(nameSpace))
     }
 
     override fun findComponentService(nameSpace: Any): ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
-        val ns = getAll().firstOrNull { it.name == nameSpace }
+        val ns = getAll().fastFirstOrNull { it.name == nameSpace }
         if (ns !== null) return this
         return findParent(nameSpace).firstSuccess({ it.findComponentService(nameSpace) }, NameSpaceNotFoundException(nameSpace))
     }

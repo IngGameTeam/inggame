@@ -71,7 +71,7 @@ class NullableWrapperImp(
     inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R? {
         try {
             val result = try {
-                component[nameSpace, property.name, Any::class]
+                component.find(nameSpace, property.name)
             } catch (e: Throwable) {
                 val defaultValue = defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
                 if (defaultValue === null) return null
@@ -106,7 +106,7 @@ class NonNullWrapperImp(
     inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R {
         try {
             val result = try {
-                component[nameSpace, property.name, Any::class]
+                component.find(nameSpace, property.name)
             } catch (e: Throwable) {
                 val defaultValue = defaultBlock?.invoke()?.apply { setValue(thisRef, property, this) }
                 if (defaultValue === null) throw e
@@ -125,13 +125,13 @@ class NonNullWrapperImp(
 
 }
 
-fun <T> ComponentService.get(nameSpace: Any, block: (Wrapper) -> T): T {
+operator fun <T> ComponentService.get(nameSpace: Any, block: (Wrapper) -> T): T {
     val ns = uncoverDelegate(nameSpace)
     return block(NonNullWrapperImp(ns, this))
 }
 
-fun <T> LayeredComponentService.getAll(block: (Wrapper) -> T): Collection<T> {
-    return this.getAll().map(NameSpace::name).map { get(it, block) }
+inline fun <reified T : Any> LayeredComponentService.getAll(noinline block: (Wrapper) -> T): Collection<T> {
+    return this.getAll().map(NameSpace::name).map { find(it, block, T::class) }
 }
 
 operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
@@ -139,7 +139,7 @@ operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
 }
 
 fun <T : Any> uncoverDelegate(any: T): Any {
-    return if (any is Wrapper) any.nameSpace else any
+    return any
 }
 
 fun <T : Wrapper> uncoverDelegate(any: T): Any {
