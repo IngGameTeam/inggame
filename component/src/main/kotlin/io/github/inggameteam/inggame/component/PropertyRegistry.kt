@@ -8,7 +8,6 @@ import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.isSubclassOf
-import kotlin.reflect.jvm.javaField
 
 class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
 

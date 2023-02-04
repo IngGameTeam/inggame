@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.minigame.test
 
 import io.github.inggameteam.inggame.utils.fastForEach
 import java.lang.reflect.ParameterizedType
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Supplier
 
 

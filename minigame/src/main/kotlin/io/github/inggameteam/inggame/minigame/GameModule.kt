@@ -1,11 +1,10 @@
 package io.github.inggameteam.inggame.minigame
 
+import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
-import io.github.inggameteam.inggame.utils.HandleListener
-import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.hub.HubLoader
 import io.github.inggameteam.inggame.minigame.base.hub.JoinHubOnJoinServer
@@ -15,6 +14,7 @@ import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnJoin
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerImp
+import io.github.inggameteam.inggame.utils.HandleListener
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
 

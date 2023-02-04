@@ -8,7 +8,6 @@ import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.*
 import org.koin.core.qualifier.named
-import org.koin.dsl.factory
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 

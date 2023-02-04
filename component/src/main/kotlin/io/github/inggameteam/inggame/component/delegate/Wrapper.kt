@@ -1,8 +1,6 @@
 package io.github.inggameteam.inggame.component.delegate
 
-import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import kotlin.reflect.KProperty
 
 interface Wrapper {

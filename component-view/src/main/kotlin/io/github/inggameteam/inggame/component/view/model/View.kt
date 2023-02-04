@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.component.view.model
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
-import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.component.view.wrapper.Selector
 import io.github.inggameteam.inggame.component.view.wrapper.SelectorImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin

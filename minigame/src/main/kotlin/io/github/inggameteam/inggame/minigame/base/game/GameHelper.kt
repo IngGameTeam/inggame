@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base.game
 
-import io.github.inggameteam.inggame.component.delegate.get
-import io.github.inggameteam.inggame.minigame.*
+import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.event.*
