@@ -34,8 +34,7 @@ class EnableAttackSpeed(
     @Suppress("unused")
     @EventHandler
     fun onGameJoin(event: GameJoinEvent) {
-        val game = event.game
-        if (isHandler(game)) {
+        if (isHandler(event.player)) {
             enableAttackSpeed(event.player)
         } else {
             disableAttackSpeed(event.player)
