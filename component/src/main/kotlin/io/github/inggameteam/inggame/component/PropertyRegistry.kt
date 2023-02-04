@@ -38,8 +38,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             val suffix = "\$delegate"
             clazz.declaredMemberProperties
                 .filter {
-                    println(it.javaField)
-                    it.javaField?.type?.kotlin?.isSubclassOf(Wrapper::class)?.not()?: true
+                    it.javaField?.type == clazz.java
                 }
                 .map { Pair(
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
