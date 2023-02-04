@@ -22,7 +22,7 @@ class PrintOnMove(
     fun onMove(event: PlayerMoveEvent) {
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
         val key = randomUUID()
-        val map = mapOf(
+        val map = mapOf<Any, Any>(
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
