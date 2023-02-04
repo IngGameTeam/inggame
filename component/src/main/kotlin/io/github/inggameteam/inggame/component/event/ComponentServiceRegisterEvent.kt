@@ -55,9 +55,7 @@ class ComponentServiceRegisterEvent(
     private fun getRegistry() = ArrayList(root.registry)
 
     fun getNewModule() = getRegistry().let { registry ->
-        registry.forEach {
-            createRepo(it.name, it.name)
-        }
+        registry.forEach { addModule(createRepo(it.name, it.name)) }
         registry.map { cs ->
             module {
                 single(named(cs.name)) {
