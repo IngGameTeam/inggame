@@ -6,7 +6,7 @@ import java.io.File
 
 class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
 
-    fun getFile() = File(plugin.dataFolder, file)
+    fun getFile() = File(plugin.dataFolder, "$file.json")
         .apply { if (!exists()) {
             if (!plugin.dataFolder.exists()) {
                 throw AssertionError("cannot save cause plugin folder is not exists")
