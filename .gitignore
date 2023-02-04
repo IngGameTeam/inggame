@@ -1,8 +1,8 @@
 **/**
 run.sh
 update.sh
-!customized_minigame/
-!customized_minigame/paper-world.yml
+!customized_game_world/
+!customized_game_world/paper-world.yml
 !plugins/
 !plugins/FastAsyncWorldEdit/
 !plugins/FastAsyncWorldEdit/config.yml
