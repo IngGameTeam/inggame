@@ -20,7 +20,7 @@ class PrintOnMove(
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
         if (isHandler(player)) {
             player[::GameAlertImp].GAME_JOIN.send(player)
-            event.player.sendMessage("${randomUUID()}!!!")
+            event.player.sendMessage("${randomUUID()}")
         }
     }
 
