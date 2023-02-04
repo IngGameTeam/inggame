@@ -11,24 +11,6 @@ import org.koin.dsl.ModuleDeclaration
 import org.koin.dsl.module
 import kotlin.reflect.KClass
 
-/**
- * Declare a [Module.clazz] definition by resolving a constructor reference for the dependency.
- * The resolution is done at compile time by leveraging inline functions, no reflection is required.
- *
- * Example:
- * ```
- * class Model
- *
- * val myModule = module {
- *   factory(::Model)
- * }
- * ```
- * @author Arnaud Giuliani
- * @author Marcello Galhardo
- *
- * @see new
- */
-
 class ClassModule(
     val module: Module = module(createdAtStart = true) { },
     val classes: ArrayList<KClass<*>> = ArrayList()

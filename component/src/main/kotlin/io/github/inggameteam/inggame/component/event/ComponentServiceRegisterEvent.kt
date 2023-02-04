@@ -31,13 +31,11 @@ class ComponentServiceRegisterEvent(
     }
 
     fun registerClass(block: ClassModule.() -> Unit) {
-        val classModule = ClassModule().apply(block)
-        addModule(classModule.module.apply {
-            includes(module {
-                factory(named(randomUUID().fastToString())) {
-                    ClassRegistry(*classModule.classes.toTypedArray())
-                }
-            })
+        addModule(module {
+            val classModule = ClassModule(this).apply(block)
+            factory(named(randomUUID().fastToString())) {
+                ClassRegistry(*classModule.classes.toTypedArray())
+            }
         })
     }
 
