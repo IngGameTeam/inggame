@@ -7,6 +7,7 @@ import org.koin.core.module.dsl.DefinitionOptions
 import org.koin.core.module.dsl.new
 import org.koin.core.module.dsl.onOptions
 import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.ModuleDeclaration
 import org.koin.dsl.module
 import kotlin.reflect.KClass
 
