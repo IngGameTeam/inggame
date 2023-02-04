@@ -32,6 +32,8 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 }
             }
             then("component") {
+                tab { app.getAll<ComponentService>().map { it.name } }
+
                 execute {
                     val componentService = app.get<ComponentService>(named(args[1]))
                     if (source !is Player) {
