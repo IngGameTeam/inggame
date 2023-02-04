@@ -125,8 +125,8 @@ class NonNullWrapperImp(
 
 }
 
-fun <T> ComponentService.get(nameSpace: Any, block: (Wrapper) -> T): T {
-    val ns = uncoverDelegate(nameSpace)
+fun <T> ComponentService.get(ns: Any, block: (Wrapper) -> T): T {
+//    val ns = uncoverDelegate(nameSpace)
     return block(NonNullWrapperImp(ns, this))
 }
 
