@@ -48,8 +48,8 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     }
 
     private fun getList(container: CONTAINER): CopyOnWriteArraySet<ELEMENT> {
-        return try { componentService.find(container, keyList) as CopyOnWriteArraySet<ELEMENT> }
-        catch (_: Throwable) { CopyOnWriteArraySet<ELEMENT>().apply { componentService.set(container, keyList, this) } }
+        return try { container.get(keyList) as CopyOnWriteArraySet<ELEMENT> }
+        catch (_: Throwable) { CopyOnWriteArraySet<ELEMENT>().apply { container.set(keyList, this) } }
     }
 
 }
