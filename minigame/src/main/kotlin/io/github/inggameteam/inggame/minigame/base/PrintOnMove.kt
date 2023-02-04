@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
+import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.system.measureTimeMillis
 
@@ -20,6 +21,7 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
+        val key = randomUUID()
         val map = mapOf(
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
@@ -39,11 +41,15 @@ class PrintOnMove(
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
             randomUUID() to randomUUID(),
+            key to randomUUID(),
         ).run(::ConcurrentHashMap)
         measureTimeMillis{
-            val key = randomUUID()
             repeat (100){
-                map.getOrDefault(key, null)
+                try {
+                    map[key] as UUID
+                } catch (_: Throwable) {
+
+                }
 //                if (isHandler(player)) {
 //                    player[::GameAlertImp].GAME_JOIN.send(player)
 //                    event.player.sendMessage("${randomUUID()}")
