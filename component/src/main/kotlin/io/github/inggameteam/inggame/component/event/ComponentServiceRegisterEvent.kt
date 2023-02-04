@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.ClassModule
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
@@ -57,7 +58,7 @@ class ComponentServiceRegisterEvent(
     fun getNewModule() = getRegistry().let { registry ->
         registry.map { cs ->
             module {
-                includes(createRepo(cs.name, cs.name))
+                includes(createFileRepo(cs.name, cs.name))
                 single(named(cs.name)) {
                     if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
                     else if (cs.isMulti || cs.key !== null && !cs.isLayer) {
