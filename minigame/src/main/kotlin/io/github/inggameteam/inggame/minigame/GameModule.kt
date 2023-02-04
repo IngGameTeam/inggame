@@ -14,6 +14,13 @@ import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnJoin
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerImp
+import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeath
+import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHandler
+import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathImp
+import io.github.inggameteam.inggame.minigame.component.CustomGameService
+import io.github.inggameteam.inggame.minigame.component.GameInstanceRepository
+import io.github.inggameteam.inggame.minigame.component.GameInstanceService
+import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.utils.HandleListener
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
@@ -35,18 +42,15 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             classOf(::SpawnPlayerHandler)
             classOf(::SpawnOnJoin)
             classOf(::GameServer)
-            classOf(::GameImp)
-            classOf(::GameAlertImp)
             classOf(::GPlayer)
             classOf(::SectionalHandler)
-            classOf(::SectionalImp)
-            classOf(::SpawnPlayerImp)
+            classOf(::VoidDeathHandler)
             classOf(
                 Game::class,
                 GameAlert::class,
                 Sectional::class,
                 SpawnPlayer::class,
-
+                VoidDeath::class,
             )
         }
         event.addModule(newModule("game-player", ::GamePlayerService))

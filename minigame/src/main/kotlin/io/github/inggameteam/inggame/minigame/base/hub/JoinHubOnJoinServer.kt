@@ -1,8 +1,8 @@
 package io.github.inggameteam.inggame.minigame.base.hub
 
 import io.github.inggameteam.inggame.component.NameSpace
-import io.github.inggameteam.inggame.minigame.GameInstanceService
-import io.github.inggameteam.inggame.minigame.GamePlayerService
+import io.github.inggameteam.inggame.minigame.component.GameInstanceService
+import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerInstanceService

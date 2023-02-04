@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
 import io.github.inggameteam.inggame.component.Handler
-import io.github.inggameteam.inggame.minigame.GamePlayerService
+import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.game.GameState
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer

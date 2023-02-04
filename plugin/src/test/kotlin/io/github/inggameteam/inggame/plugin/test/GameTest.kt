@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.plugin.test
 
-import io.github.inggameteam.inggame.minigame.GamePlayerService
+import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.plugin.test.handler.joinPlayer

@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame
+package io.github.inggameteam.inggame.minigame.component
 
 import io.github.inggameteam.inggame.component.componentservice.ContainerHelper
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
