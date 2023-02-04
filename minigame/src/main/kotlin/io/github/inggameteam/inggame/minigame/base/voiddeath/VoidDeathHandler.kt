@@ -19,7 +19,8 @@ class VoidDeathHandler(
     @EventHandler
     fun onVoidDeath(event: PlayerMoveEvent) {
         val bPlayer = event.player
-        if (voidDeathHelper.testVoidDeath(gamePlayerService[bPlayer, ::GPlayer])) {
+        val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
+        if (voidDeathHelper.testVoidDeath(player)) {
             bPlayer.die()
         }
     }
