@@ -43,7 +43,7 @@ class PrintOnMove(
         measureTimeMillis{
             val key = randomUUID()
             repeat (100){
-                repeat(10000) { map.getOrDefault(key, null) }
+                map.getOrDefault(key, null)
 //                if (isHandler(player)) {
 //                    player[::GameAlertImp].GAME_JOIN.send(player)
 //                    event.player.sendMessage("${randomUUID()}")
