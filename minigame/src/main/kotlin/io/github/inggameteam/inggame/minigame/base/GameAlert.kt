@@ -17,11 +17,5 @@ interface GameAlert : Wrapper {
     val GAME_START_CANCELLED_DUE_TO_PLAYERLESS  : Alert
     val GAME_START_COUNT_DOWN                   : Alert
     val GAME_START                              : Alert
-    val testItem : ItemModel
-    val testInventory: InventoryModel
-    val testArrayList: ArrayList<Alert>
-    val testHashSet: HashSet<Alert>
-    val testHashMap: HashMap<String, Alert>
-    val testMultiGenericMap: HashMap<String, ArrayList<String>>
 
 }
