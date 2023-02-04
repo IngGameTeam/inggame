@@ -37,7 +37,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
         left(key)
         keyComponent.load(uncoveredKey, true)
         keyComponent.set(uncoveredKey, keyAssign, container)
-        keyComponent.addParents(uncoveredKey, uncoveredContainer)
+        key.addParents(container)
         getList(container).add(key)
     }
 

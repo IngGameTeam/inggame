@@ -16,15 +16,15 @@ interface Wrapper {
 
     val nullable get() = NullableWrapperImp(nameSpace, component)
 
-    fun addParents(value: Any) = component.addParents(nameSpace, value)
+    fun addParents(value: Wrapper) = component.addParents(nameSpace, uncoverDelegate(value))
 
     fun getParents() = component.getParents(nameSpace)
 
-    fun setParents(value: Collection<Any>) = component.setParents(nameSpace, value)
+    fun setParents(value: Collection<Wrapper>) = component.setParents(nameSpace, value.map(::uncoverDelegate))
 
-    fun removeParents(value: Any) = component.removeParents(nameSpace, value)
+    fun removeParents(value: Wrapper) = component.removeParents(nameSpace, uncoverDelegate(value))
 
-    fun hasParents(value: Any) = component.hasParents(nameSpace, value)
+    fun hasParents(value: Wrapper) = component.hasParents(nameSpace, uncoverDelegate(value))
 
     fun default(block: () -> Any) = NonNullWrapperImp(nameSpace, component).apply { defaultBlock = block }
 

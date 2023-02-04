@@ -40,7 +40,7 @@ interface ComponentService {
     }
 
 
-        fun findComponentService(nameSpace: Any): ComponentService {
+    fun findComponentService(nameSpace: Any): ComponentService {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
         if (ns !== null) return this
