@@ -39,8 +39,8 @@ class JoinHubOnJoinServer(
     }
 
     private fun joinHub(playerUuid: UUID) {
-        val game = gameInstanceService.get(server.hub, ::GameImp)
-        val player = gamePlayerService.get(playerUuid, ::GPlayer)
+        val game = gameInstanceService[server.hub, ::GameImp]
+        val player = gamePlayerService[playerUuid, ::GPlayer]
         gameHelper.joinGame(game, player, JoinType.PLAY)
     }
 
@@ -53,7 +53,7 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onQuit(event: PlayerQuitEvent) {
-        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
+        val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
         if (player.joinedGame === null) return
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
@@ -61,7 +61,7 @@ class JoinHubOnJoinServer(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.HIGH)
     fun onKick(event: PlayerKickEvent) {
-        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
+        val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
         if (player.joinedGame === null) return
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
