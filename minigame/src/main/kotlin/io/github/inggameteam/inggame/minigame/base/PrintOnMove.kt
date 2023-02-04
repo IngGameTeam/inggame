@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
+import kotlin.system.measureTimeMillis
 
 class PrintOnMove(
     private val gamePlayerService: GamePlayerService,
@@ -17,11 +18,13 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
-        val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-        if (isHandler(player)) {
-            player[::GameAlertImp].GAME_JOIN.send(player)
-            event.player.sendMessage("${randomUUID()}")
-        }
+        measureTimeMillis{
+            val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
+            if (isHandler(player)) {
+                player[::GameAlertImp].GAME_JOIN.send(player)
+                event.player.sendMessage("${randomUUID()}")
+            }
+        }.apply { println(this) }
     }
 
 }
