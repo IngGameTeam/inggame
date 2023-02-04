@@ -8,10 +8,6 @@ import java.util.concurrent.CopyOnWriteArraySet
 
 abstract class AbstractNameSpaceComponentService : ComponentService {
 
-    init {
-        println("$name=${this.javaClass.simpleName}")
-    }
-
     override val layerPriority: Int by lazy {
         var num = 0
         var parent: ComponentService = this

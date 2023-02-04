@@ -89,6 +89,7 @@ class ComponentServiceRegisterEvent(
                         cs.name
                     )
                         .apply { if (cs.isSavable) AddToSaveRegistry(this, get()) }
+                        .apply { println("$name=${javaClass.simpleName}") }
                 } bind ComponentService::class
             }
         }
