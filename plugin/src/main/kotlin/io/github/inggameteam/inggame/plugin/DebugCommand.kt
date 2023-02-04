@@ -27,8 +27,8 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val key = split[2]
                     measureTimeMillis {
                         repeat (2000) {
-//                            componentService[nameSpace, ::GPlayer].joinedGame
-                            componentService.find(nameSpace, key)
+                            componentService[nameSpace, ::GPlayer].joinedGame
+//                            componentService.find(nameSpace, key)
                         }
                     }.run(Any::toString).apply(source::sendMessage)
                 }
