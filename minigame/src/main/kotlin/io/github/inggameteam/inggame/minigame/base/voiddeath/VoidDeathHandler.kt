@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerMoveEvent
 
 class VoidDeathHandler(
-    private val playerInstanceService: PlayerInstanceService,
+    private val gameInstanceService: PlayerInstanceService,
     plugin: IngGamePlugin
 ) : Handler, HandleListener(plugin) {
 
@@ -17,7 +17,7 @@ class VoidDeathHandler(
     @EventHandler
     fun onVoidDeath(event: PlayerMoveEvent) {
         val bPlayer = event.player
-        val player = playerInstanceService[bPlayer.uniqueId, ::VoidDeathImp]
+        val player = gameInstanceService[bPlayer.uniqueId, ::VoidDeathImp]
         if (isNotHandler(player)) return
         if (bPlayer.location.y <= player.voidDeath) {
             bPlayer.die()
