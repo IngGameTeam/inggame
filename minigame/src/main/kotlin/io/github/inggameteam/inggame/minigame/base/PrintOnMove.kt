@@ -21,39 +21,12 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-        val key = randomUUID()
-        val map = mapOf<Any, Any>(
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to "randomUUID()",
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            randomUUID() to randomUUID(),
-            key to randomUUID(),
-        ).run(::ConcurrentHashMap)
         measureTimeMillis{
-            repeat (10000){
-                try {
-                    map[key] as UUID
-                } catch (_: Throwable) {
-
+            repeat (10000) {
+                if (isHandler(player)) {
+                    player[::GameAlertImp].GAME_JOIN.send(player)
+                    event.player.sendMessage("${randomUUID()}")
                 }
-//                if (isHandler(player)) {
-//                    player[::GameAlertImp].GAME_JOIN.send(player)
-//                    event.player.sendMessage("${randomUUID()}")
-//                }
             }
         }.apply { println(this) }
     }
