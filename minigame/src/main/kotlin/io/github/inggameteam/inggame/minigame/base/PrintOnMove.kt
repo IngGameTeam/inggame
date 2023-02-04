@@ -25,7 +25,7 @@ class PrintOnMove(
             repeat (10000) {
                 if (isHandler(player)) {
                     player[::GameAlertImp].GAME_JOIN.send(player)
-                    event.player.sendMessage("${randomUUID()}")
+//                    event.player.sendMessage("${randomUUID()}")
                 }
             }
         }.apply { println(this) }
