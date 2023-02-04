@@ -9,6 +9,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
+import java.lang.ClassCastException
 
 typealias EmptyElement = Unit
 
@@ -50,7 +51,7 @@ interface Selector<T : Any> : View, OpenView {
                 gui(gui)
                 list.onClick { _, _, pair, event ->
                     val t = try { pair.second as T } catch (_: Throwable) { return@onClick }
-                    select(t, event)
+                    try { select(t, event) } catch(_: ClassCastException) {}
                 }
             }!!.openInventory(player)
     }

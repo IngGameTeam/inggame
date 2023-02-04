@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.entity.FoodLevelChangeEvent
 
 class NoHunger(
-    val gamePlayerService: GamePlayerService,
+    private val gamePlayerService: GamePlayerService,
     plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
