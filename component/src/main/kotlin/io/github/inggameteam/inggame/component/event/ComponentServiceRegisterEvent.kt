@@ -1,27 +1,26 @@
 package io.github.inggameteam.inggame.component.event
 
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
-import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.utils.ClassModule
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
+import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.named
-import org.koin.core.scope.get
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.isSubclassOf
+
 
 class ComponentServiceRegisterEvent(
     private val root: ComponentServiceDSL = ComponentServiceDSL("null", ArrayList(), ArrayList(), isMulti = true)
-        .apply { "root" isMulti true csc {} }
+        .apply { "root" isMulti true csc {} },
 ) : Event() {
 
 
@@ -31,15 +30,18 @@ class ComponentServiceRegisterEvent(
         modules.addAll(module)
     }
 
-    fun registerClass(vararg classes: KClass<*>) {
-        classes.filterIsInstance<KClass<Any>>().forEach { clazz ->
-            if (clazz.isSubclassOf(Handler::class)) {
-                addModule(module {
-                    single { clazz.createInstance() }
-                })
-            }
+    fun registerClass(block: ClassModule.() -> Unit) {
+        val classModule = ClassModule().apply(block)
+        addModule(classModule.module.apply {
+            includes(module {
+                factory(named(randomUUID().fastToString())) {
+                    ClassRegistry(*classModule.classes.toTypedArray())
+                }
+            })
+        })
+    }
 
-        }
+    fun registerClass(vararg classes: KClass<*>) {
         addModule(module {
             factory(named(randomUUID().fastToString())) {
                 ClassRegistry(*classes)

@@ -17,9 +17,6 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
-import org.koin.core.component.inject
 import java.util.*
 
 @NoArgsConstructor
@@ -30,9 +27,8 @@ class JoinHubOnJoinServer(
     private val playerInstanceService: PlayerInstanceService,
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
-) : HandleListener(plugin), KoinComponent {
-
-    private val gameHelper: GameHelper = get()
+    private val gameHelper: GameHelper
+) : HandleListener(plugin) {
 
 
     @Suppress("unused")

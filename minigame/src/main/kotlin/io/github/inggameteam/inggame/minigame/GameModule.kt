@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEve
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.utils.HandleListener
+import io.github.inggameteam.inggame.utils.classOf
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
 import org.koin.core.module.dsl.singleOf
@@ -17,33 +18,25 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
-        println(Reflections("io.github.inggameteam.inggame.minigame.base").getSubTypesOf(Wrapper::class.java))
-
-        event.addModule(module(createdAtStart = true) {
-            singleOf(::JoinHubOnJoinServer)
-            singleOf(::GameHelper)
-            singleOf(::SectionalHelper)
-            singleOf(::SectionalHandler)
-            singleOf(::GameInstanceService)
-            singleOf(::SectorLoader)
-            singleOf(::HubLoader)
-            singleOf(::SpawnPlayerHandler)
-            singleOf(::SpawnOnJoin)
-        })
-        event.registerClass(
-            SpawnOnJoin::class,
-            GameHelper::class,
-            JoinHubOnJoinServer::class,
-            SectorLoader::class,
-            GameServer::class,
-            Game::class,
-            GameAlert::class,
-            GPlayer::class,
-            SectionalHandler::class,
-            Sectional::class,
-            SpawnPlayerHandler::class,
-            SpawnPlayer::class
-        )
+        event.registerClass {
+            classOf(::SpawnOnJoin)
+            classOf(::JoinHubOnJoinServer)
+            classOf(::GameHelper)
+            classOf(::SectionalHelper)
+            classOf(::SectionalHandler)
+            classOf(::GameInstanceService)
+            classOf(::SectorLoader)
+            classOf(::HubLoader)
+            classOf(::SpawnPlayerHandler)
+            classOf(::SpawnOnJoin)
+            classOf(::GameServer)
+            classOf(::GameImp)
+            classOf(::GameAlertImp)
+            classOf(::GPlayer)
+            classOf(::SectionalHandler)
+            classOf(::SectionalImp)
+            classOf(::SpawnPlayerImp)
+        }
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(newModule("game-instance", ::GameInstanceRepository))
         event.addModule(newModule("custom-game", ::CustomGameService))
