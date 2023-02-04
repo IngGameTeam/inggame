@@ -57,7 +57,6 @@ class ComponentServiceRegisterEvent(
 
     fun getNewModule() = getRegistry().let { registry ->
         registry.map { cs ->
-            println(cs)
             module {
                 includes(createFileRepo(cs.name, cs.name))
                 single(named(cs.name)) {
@@ -89,7 +88,6 @@ class ComponentServiceRegisterEvent(
                         cs.name
                     ))
                         .apply { if (cs.isSavable) AddToSaveRegistry(this, get()) }
-                        .apply { println("$name=${javaClass.simpleName}") }
                 } bind ComponentService::class
             }
         }
