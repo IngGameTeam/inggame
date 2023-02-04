@@ -8,7 +8,7 @@ import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.isSubclassOf
-import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
 
 class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
 
@@ -36,7 +36,10 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             .filter { it.isSubclassOf(Wrapper::class) }
         types.forEach { clazz ->
             val suffix = "\$delegate"
-            clazz.memberProperties
+            clazz.declaredMemberProperties
+                .filter {
+                    it.javaField?.type?.kotlin?.isSubclassOf(Wrapper::class)?.not()?: true
+                }
                 .map { Pair(
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
                     else it.name, it.returnType) }
