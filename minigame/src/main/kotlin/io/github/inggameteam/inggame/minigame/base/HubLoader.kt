@@ -13,15 +13,16 @@ import org.bukkit.event.EventPriority
 class HubLoader(
     private val gameServer: GameServer,
     private val gameInstanceService: GameInstanceService,
+    private val gameHelper: GameHelper,
     plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
-        gameServer.hub = gameInstanceService.get(randomUUID(), ::GameImp)
+        gameServer.hub = gameInstanceService[randomUUID(), ::GameImp]
             .apply {
-                gameInstanceService.create(this, gameServer::hub.name)
+                gameHelper.createGame(this, GameServer::hub.name)
                 gameState = GameState.STOP
             }
     }

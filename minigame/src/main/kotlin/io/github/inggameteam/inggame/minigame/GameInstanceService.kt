@@ -21,14 +21,3 @@ class GameInstanceService(
 ) : KoinComponent, HandleListener(plugin),
     LayeredComponentService by gameInstanceRepository,
     ContainerHelper<Game, GPlayer> by gameInstanceRepository.newContainerHelper(gamePlayerService)
-{
-
-    private val containerHelper = gameInstanceRepository.containerHelper
-
-    override fun create(container: Game, parent: Any): Game =
-        containerHelper.create(container, parent)
-            .also { plugin.server.pluginManager.callEvent(GameLoadEvent(container)) }
-
-
-
-}

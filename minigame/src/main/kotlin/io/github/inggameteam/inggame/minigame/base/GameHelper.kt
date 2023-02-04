@@ -16,6 +16,11 @@ class GameHelper(
     private val plugin: IngGamePlugin
 ) {
 
+    fun createGame(game: Game, parent: String) {
+        gameInstanceService.create(game, parent)
+        plugin.server.pluginManager.callEvent(GameLoadEvent(game))
+    }
+
     fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
         if (requestedGame == gameServer.hub) return true
         val gameAlert = (if (player.joinedGame !== null) player else requestedGame)[::GameAlertImp]
