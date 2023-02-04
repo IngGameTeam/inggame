@@ -1,9 +1,11 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame.base.sectional
 
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
-import io.github.inggameteam.inggame.minigame.GameState
+import io.github.inggameteam.inggame.minigame.base.game.GameState
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
+import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.event.GameFinishEvent
 import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
 import io.github.inggameteam.inggame.minigame.event.GameLeftEvent

@@ -4,7 +4,7 @@
 //import io.github.inggameteam.inggame.component.createResource
 //import io.github.inggameteam.inggame.component.delegate.NonNullDelegateImp
 //import io.github.inggameteam.inggame.minigame.createGameService
-//import io.github.inggameteam.inggame.minigame.base.GameServer
+//import io.github.inggameteam.inggame.minigame.base.game.GameServer
 //import io.github.inggameteam.inggame.mongodb.createMongoModule
 //import io.github.inggameteam.inggame.mongodb.createRepo
 //import io.github.inggameteam.inggame.utils.randomUUID

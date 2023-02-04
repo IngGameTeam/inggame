@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame;
+package io.github.inggameteam.inggame.minigame.base.game;
 
 enum class JoinType {
     PLAY, SPECTATE;

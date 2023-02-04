@@ -1,7 +1,7 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.minigame.GameState
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
 import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet

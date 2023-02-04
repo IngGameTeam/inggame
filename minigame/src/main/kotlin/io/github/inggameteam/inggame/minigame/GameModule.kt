@@ -6,6 +6,15 @@ import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.utils.HandleListener
 import io.github.inggameteam.inggame.component.classOf
+import io.github.inggameteam.inggame.minigame.base.game.*
+import io.github.inggameteam.inggame.minigame.base.hub.HubLoader
+import io.github.inggameteam.inggame.minigame.base.hub.JoinHubOnJoinServer
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
+import io.github.inggameteam.inggame.minigame.base.sectional.*
+import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnJoin
+import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
+import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
+import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerImp
 import org.bukkit.event.EventHandler
 import org.bukkit.plugin.Plugin
 

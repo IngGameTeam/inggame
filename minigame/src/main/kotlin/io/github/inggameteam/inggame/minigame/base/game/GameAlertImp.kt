@@ -1,9 +1,7 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.Alert
-import io.github.inggameteam.inggame.component.model.InventoryModel
-import io.github.inggameteam.inggame.component.model.ItemModel
 
 class GameAlertImp(wrapper: Wrapper) : Wrapper by wrapper, GameAlert {
     override val GAME_ALREADY_JOINED: Alert by nonNull

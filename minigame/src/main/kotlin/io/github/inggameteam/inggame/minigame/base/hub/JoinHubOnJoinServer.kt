@@ -1,11 +1,15 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame.base.hub
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GameInstanceService
 import io.github.inggameteam.inggame.minigame.GamePlayerService
-import io.github.inggameteam.inggame.minigame.JoinType
-import io.github.inggameteam.inggame.minigame.LeftType
+import io.github.inggameteam.inggame.minigame.base.game.JoinType
+import io.github.inggameteam.inggame.minigame.base.game.LeftType
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
+import io.github.inggameteam.inggame.minigame.base.game.GameHelper
+import io.github.inggameteam.inggame.minigame.base.game.GameImp
+import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.utils.NoArgsConstructor
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader

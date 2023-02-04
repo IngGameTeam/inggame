@@ -1,7 +1,7 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame.base.sectional
 
 import io.github.inggameteam.inggame.component.model.LocationModel
-import io.github.inggameteam.inggame.minigame.Sector
+import io.github.inggameteam.inggame.minigame.base.game.Game
 import org.bukkit.Location
 import org.bukkit.util.Vector
 

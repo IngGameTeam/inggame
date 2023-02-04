@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame
+package io.github.inggameteam.inggame.minigame.base.sectional
 
 import io.github.inggameteam.inggame.mongodb.Model
 import org.bson.codecs.pojo.annotations.BsonIgnore

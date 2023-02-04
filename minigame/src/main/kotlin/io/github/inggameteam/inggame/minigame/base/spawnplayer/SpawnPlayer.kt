@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.base
+package io.github.inggameteam.inggame.minigame.base.spawnplayer
 
 import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.model.LocationModel
