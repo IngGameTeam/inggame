@@ -21,7 +21,12 @@ class PrintOnMove(
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
         measureTimeMillis{
             repeat (100){
-                try { throw Throwable("") } catch (_: Throwable) {}
+                repeat ( 50){
+                    try {
+                        throw Throwable("")
+                    } catch (_: Throwable) {
+                    }
+                }
 //                if (isHandler(player)) {
 //                    player[::GameAlertImp].GAME_JOIN.send(player)
 //                event.player.sendMessage("${randomUUID()}")
