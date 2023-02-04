@@ -41,7 +41,6 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             clazz
                 .declaredMemberProperties
                 .map {
-                    println(it)
                     Pair(
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
                     else it.name, it.returnType) }

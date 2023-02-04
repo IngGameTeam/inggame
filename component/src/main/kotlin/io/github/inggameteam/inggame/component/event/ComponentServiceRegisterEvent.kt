@@ -55,7 +55,6 @@ class ComponentServiceRegisterEvent(
 
     fun getNewModule() = getRegistry().let { registry ->
         registry.map { cs ->
-            println(cs)
             module {
                 single(named(cs.name)) {
                     if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
