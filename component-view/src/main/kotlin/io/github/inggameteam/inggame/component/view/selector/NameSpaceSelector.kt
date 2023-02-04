@@ -46,7 +46,7 @@ data class NameSpaceSelector(
             Material.STONE,
             t.name.toString(),
             listOf(
-                "${ChatColor.GREEN}" + t.parents.joinToString("${ChatColor.GRAY}\n${ChatColor.GREEN}"),
+                "${ChatColor.GREEN}" + t.parents.joinToString("\n${ChatColor.GREEN}"),
                 t.elements.map { "${ChatColor.AQUA}${it.key}${ChatColor.GRAY}=${ChatColor.WHITE}${it.value}" }
                     .joinToString("\n")
             ).joinToString("\n")

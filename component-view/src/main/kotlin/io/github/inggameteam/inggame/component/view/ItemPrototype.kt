@@ -12,6 +12,6 @@ fun createItem(
 ) = ItemStack(type).apply {
     itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
         setDisplayName(name?.color)
-        if (lore !== null) this.lore = listOf(lore.color)
+        if (lore !== null) this.lore = lore.color.split("\n")
     }
 }
