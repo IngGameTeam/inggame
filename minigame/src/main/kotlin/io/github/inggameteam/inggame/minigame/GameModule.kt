@@ -70,7 +70,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.addModule(newModule("custom-game", ::CustomGameService))
         event.register {
             "game-player" isMask true cs "game-instance" isMask true cs "custom-game" isLayer true isSavable true cs "game-resource" isSavable true key "game-language" root "player-instance" csc {
-                "game-resource-korean" cs "default"
+                "game-resource-korean" isSavable true cs "default"
             } cs "default"
         }
         event.addModule(createSingleton(::GameServer, "server", "singleton"))
