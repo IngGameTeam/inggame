@@ -31,6 +31,10 @@ inline fun <reified R : Any> ClassModule.classOf(clazz: KClass<R>) {
     this.classes.add(clazz)
 }
 
+fun ClassModule.classOf(vararg clazz: KClass<*>) {
+    this.classes.addAll(clazz)
+}
+
 inline fun <reified R> ClassModule.classOf(
     crossinline constructor: () -> R,
     noinline options: DefinitionOptions<R>? = null,

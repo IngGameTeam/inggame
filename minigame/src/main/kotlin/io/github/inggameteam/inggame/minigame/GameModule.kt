@@ -32,6 +32,13 @@ class GameModule(plugin: Plugin) : HandleListener(plugin) {
             classOf(::SectionalHandler)
             classOf(::SectionalImp)
             classOf(::SpawnPlayerImp)
+            classOf(
+                Game::class,
+                GameAlert::class,
+                Sectional::class,
+                SpawnPlayer::class,
+
+            )
         }
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(newModule("game-instance", ::GameInstanceRepository))
