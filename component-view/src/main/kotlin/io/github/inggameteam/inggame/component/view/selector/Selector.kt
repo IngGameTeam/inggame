@@ -51,7 +51,7 @@ interface Selector<T : Any> : View, OpenView {
                 gui(gui)
                 list.onClick { _, _, pair, event ->
                     val t = try { pair.second as T } catch (_: Throwable) { return@onClick }
-                    try { select(t, event) } catch(_: ClassCastException) {}
+                    try { select(t, event) } catch (_: ClassCastException) {}
                 }
             }!!.openInventory(player)
     }
