@@ -19,10 +19,12 @@ class PrintOnMove(
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         measureTimeMillis{
-            val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-            if (isHandler(player)) {
-                player[::GameAlertImp].GAME_JOIN.send(player)
-                event.player.sendMessage("${randomUUID()}")
+            repeat (100){
+                val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
+                if (isHandler(player)) {
+                    player[::GameAlertImp].GAME_JOIN.send(player)
+//                event.player.sendMessage("${randomUUID()}")
+                }
             }
         }.apply { println(this) }
     }
