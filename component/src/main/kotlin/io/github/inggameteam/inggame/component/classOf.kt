@@ -22,7 +22,7 @@ inline fun <reified T> ClassModule.clazz(
 ): KoinDefinition<T>  {
     classes.add(T::class)
     if (!T::class.isSubclassOf(Wrapper::class)
-        && T::class.isSubclassOf(Model::class))
+        && !T::class.isSubclassOf(Model::class))
         return module.single { definition(it) }
     return module.factory(named(randomUUID().toString())) { throw AssertionError() }
 }
