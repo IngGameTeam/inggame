@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base
 
+import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.delegate.get
 import io.github.inggameteam.inggame.minigame.GamePlayerService
 import io.github.inggameteam.inggame.utils.HandleListener
@@ -11,7 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 class PrintOnMove(
     private val gamePlayerService: GamePlayerService,
     plugin: IngGamePlugin
-) : HandleListener(plugin) {
+) : HandleListener(plugin), Handler {
 
     @Suppress("unused")
     @EventHandler
