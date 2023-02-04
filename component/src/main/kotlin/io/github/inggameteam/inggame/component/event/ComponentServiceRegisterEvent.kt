@@ -31,7 +31,7 @@ class ComponentServiceRegisterEvent(
     }
 
     fun registerClass(block: ClassModule.() -> Unit) {
-        addModule(module {
+        addModule(module(createdAtStart = true) {
             val classModule = ClassModule(this).apply(block)
             factory(named(randomUUID().fastToString())) {
                 ClassRegistry(*classModule.classes.toTypedArray())

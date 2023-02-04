@@ -4,9 +4,7 @@ import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.*
-import org.koin.dsl.ModuleDeclaration
 import org.koin.dsl.binds
-import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 class ClassModule(
@@ -19,6 +17,10 @@ inline fun <reified T> ClassModule.clazz(
 ): KoinDefinition<T>  {
     classes.add(T::class)
     return module.singleOf(definition).apply { binds(arrayOf(T::class)) }
+}
+
+inline fun <reified R : Any> ClassModule.classOf(clazz: KClass<R>) {
+    this.classes.add(clazz)
 }
 
 inline fun <reified R> ClassModule.classOf(
