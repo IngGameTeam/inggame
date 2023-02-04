@@ -9,6 +9,7 @@ class ComponentServiceDSL(
     var key: String? = null,
     var isMulti: Boolean = false,
     var isSavable: Boolean = false,
+    var isMask: Boolean = false,
 ) {
 
     fun findComponentServiceDSL(name: String): ComponentServiceDSL {
@@ -22,6 +23,14 @@ class ComponentServiceDSL(
 
     infix fun String.isSavable(isSavable: Boolean): String = this.apply {
         findComponentServiceDSL(this).isSavable = isSavable
+    }
+
+    infix fun ComponentServiceDSL.isMask(isMask: Boolean): ComponentServiceDSL = this.apply {
+        this.isMask = isMask
+    }
+
+    infix fun String.isMask(isMask: Boolean): String = this.apply {
+        findComponentServiceDSL(this).isMask = isMask
     }
 
     infix fun ComponentServiceDSL.isLayer(isLayer: Boolean): ComponentServiceDSL = this.apply {

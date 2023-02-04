@@ -66,7 +66,13 @@ class ComponentServiceRegisterEvent(
                             cs.parents.map { get(named(it)) },
                             cs.key
                         )
-                    } else if (cs.isLayer) LayeredComponentServiceImp(
+                    } else if (cs.isMask) LayerMaskComponentService(
+                        get(named(cs.name)),
+                        get(),
+                        get(named(cs.parents.first())),
+                        cs.name
+                    )
+                    else if (cs.isLayer) LayeredComponentServiceImp(
                         get(named(cs.name)),
                         get(),
                         get(named(cs.parents.first())),

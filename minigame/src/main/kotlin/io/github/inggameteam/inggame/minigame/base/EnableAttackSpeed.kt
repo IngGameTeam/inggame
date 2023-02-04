@@ -1,18 +1,14 @@
 package io.github.inggameteam.inggame.minigame.base
 
 import io.github.inggameteam.inggame.component.HandleListener
-import io.github.inggameteam.inggame.component.Handler.Companion.isHandler
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
-import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
 import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.attribute.Attribute
 import org.bukkit.event.EventHandler
-import org.bukkit.event.player.PlayerJoinEvent
 
 class EnableAttackSpeed(
-    private val gamePlayerService: GamePlayerService,
     val plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
