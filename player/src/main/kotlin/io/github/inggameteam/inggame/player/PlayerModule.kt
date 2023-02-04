@@ -19,7 +19,7 @@ class PlayerModule(plugin: IngGamePlugin) : Listener(plugin) {
             single { PlayerLanguage(get(), get()) }
         })
         event.addModule(newModule("root", ::PlayerService))
-        event.register { "player-instance" isSavable true isLayer true cs "default" }
+        event.register { "player-instance" isSavable true isMask true cs "default" }
         event.addModule(newModule("player-instance", ::PlayerInstanceService))
     }
 
