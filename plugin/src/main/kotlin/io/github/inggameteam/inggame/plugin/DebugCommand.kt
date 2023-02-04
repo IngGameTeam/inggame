@@ -18,6 +18,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
     MCCommand(this as JavaPlugin) {
         command("ing") {
             then("get") {
+                tab { app.getAll<ComponentService>().map { it.name } }
                 execute {
                     val split = args[1].split(" ")
                     val componentService = app.get<ComponentService>(named(split[0]))
