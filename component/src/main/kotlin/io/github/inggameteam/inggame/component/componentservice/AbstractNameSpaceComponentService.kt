@@ -36,6 +36,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
         get(name).apply {
             val parents = CopyOnWriteArraySet(parents)
             parents.add(uncoverDelegate(value))
+            println(value)
             this.parents = sortParentsByPriority(parents)
         }
     }
