@@ -8,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArraySet
 
 class GPlayer(wrapper: Wrapper) : WrappedPlayer(wrapper), TagContainer {
 
-    var joinedGame: GameImp? by nullable
+    var joinedGame: GameImp by nonNull
     override var tags: CopyOnWriteArraySet<String> by default { CopyOnWriteArraySet<String>() }
 
 }

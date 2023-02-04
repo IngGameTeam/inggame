@@ -19,6 +19,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     override val schematicName: String by nonNull
     override val schematicLocations: HashMap<String, HashMap<String, LocationModel>> by nonNull
 
+    override var center: Vector by nonNull
     override var minPoint: Vector by nonNull
     override var maxPoint: Vector by nonNull
     override var isUnloaded = false
@@ -29,9 +30,11 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
         if (isAllocatedGame) {
             val vector = Vector(gameSector.x * gameWidth, 0, gameSector.y * gameWidth)
             val half = gameWidth / 2
+            center = vector.clone().add(Vector(0, gameHeight, 0))
             minPoint = vector.clone().add(Vector(-half, Int.MIN_VALUE, -half))
             maxPoint = vector.clone().add(Vector(half, Int.MAX_VALUE, half))
         } else {
+            center = Vector()
             minPoint = Vector()
             maxPoint = Vector()
         }

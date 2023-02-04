@@ -11,6 +11,7 @@ interface Sectional : Game {
     val isAllocatedGame: Boolean
     val schematicName: String
     val schematicLocations: HashMap<String, HashMap<String, LocationModel>>
+    val center: Vector
     val minPoint: Vector
     val maxPoint: Vector
     var isUnloaded: Boolean
