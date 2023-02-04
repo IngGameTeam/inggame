@@ -8,6 +8,7 @@ import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.isSubclassOf
+import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
 
 class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
@@ -39,7 +40,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             .forEach { clazz ->
             val suffix = "\$delegate"
             clazz
-                .declaredMemberProperties
+                .memberProperties
                 .map {
                     println(it)
                     Pair(
