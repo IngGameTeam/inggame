@@ -40,7 +40,9 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             val suffix = "\$delegate"
             clazz
                 .declaredMemberProperties
-                .map { Pair(
+                .map {
+                    println(it)
+                    Pair(
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
                     else it.name, it.returnType) }
                 .forEach {
