@@ -78,6 +78,14 @@ interface ComponentService {
     fun removeNameSpace(name: Any)
     fun addNameSpace(name: Any)
 
+    operator fun <T> get(nameSpace: Wrapper, block: (Wrapper) -> T): T {
+        val ns = uncoverDelegate(nameSpace)
+        return block(NonNullWrapperImp(ns, this))
+    }
 
+    operator fun <T> get(nameSpace: Any, block: (Wrapper) -> T): T {
+        val ns = uncoverDelegate(nameSpace)
+        return block(NonNullWrapperImp(ns, this))
+    }
 
 }

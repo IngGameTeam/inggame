@@ -36,6 +36,10 @@ interface Wrapper {
 
     fun set(key: Any, value: Any) = component.set(nameSpace, uncoverDelegate(key), uncoverDelegate(value))
 
+    operator fun <T> get(block: (Wrapper) -> T): T {
+        return block(NonNullWrapperImp(nameSpace, component))
+    }
+
 }
 
 abstract class BaseWrapper : Wrapper {
@@ -129,28 +133,7 @@ class NonNullWrapperImp(
 
 }
 
-operator fun <T> ComponentService.get(nameSpace: Wrapper, block: (Wrapper) -> T): T {
-    val ns = uncoverDelegate(nameSpace)
-    return block(NonNullWrapperImp(ns, this))
-}
-
-operator fun <T> ComponentService.get(nameSpace: Any, block: (Wrapper) -> T): T {
-    val ns = uncoverDelegate(nameSpace)
-    return block(NonNullWrapperImp(ns, this))
-}
-
-inline fun <reified T : Any> LayeredComponentService.getAll(noinline block: (Wrapper) -> T): List<T> {
-    return this.getAll().map(NameSpace::name).map { get(it, block) }
-}
-
-operator fun <T> Wrapper.get(block: (Wrapper) -> T): T {
-    return block(NonNullWrapperImp(nameSpace, component))
-}
-
-fun <T : Any> uncoverDelegate(any: T): Any {
-    return any
-
-}
+fun uncoverDelegate(any: Any): Any = any
 
 fun <T : Wrapper> uncoverDelegate(any: T): Any {
     return any.nameSpace

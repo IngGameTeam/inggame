@@ -1,10 +1,11 @@
 package io.github.inggameteam.inggame.component.componentservice
 
+import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFound
+import io.github.inggameteam.inggame.component.delegate.Wrapper
 import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
 import io.github.inggameteam.inggame.utils.fastForEach
-import kotlin.reflect.KClass
 
 interface LayeredComponentService : ComponentService, SaveComponentService {
 
@@ -22,6 +23,10 @@ interface LayeredComponentService : ComponentService, SaveComponentService {
                 } catch (_: Throwable) { } }
                 throw NameSpaceNotFound
             }
+    }
+
+    fun <T : Any> getAll(block: (Wrapper) -> T): List<T> {
+        return this.getAll().map(NameSpace::name).map { get(it, block) }
     }
 
 }
