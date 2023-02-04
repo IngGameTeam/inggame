@@ -17,9 +17,9 @@ class PrintOnMove(
     @Suppress("unused")
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
-        val player = gamePlayerService.get(event.player.uniqueId, ::GPlayer)
-        if (gamePlayerService.has(player, javaClass.simpleName)) {
-            gamePlayerService.get(player, ::GameAlertImp).GAME_JOIN.send(player)
+        val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
+        if (isHandler(player)) {
+            player[::GameAlertImp].GAME_JOIN.send(player)
             event.player.sendMessage("${randomUUID()}!!!")
         }
     }
