@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.voiddeath
 
 import io.github.inggameteam.inggame.component.Handler
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -10,6 +11,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 class VoidDeathHandler(
     private val gamePlayerService: GamePlayerService,
+    private val voidDeathHelper: VoidDeathHelper,
     plugin: IngGamePlugin
 ) : Handler, Listener(plugin) {
 
@@ -17,9 +19,7 @@ class VoidDeathHandler(
     @EventHandler
     fun onVoidDeath(event: PlayerMoveEvent) {
         val bPlayer = event.player
-        val player = gamePlayerService[bPlayer.uniqueId, ::VoidDeathImp]
-        if (isNotHandler(player)) return
-        if (bPlayer.location.y <= player.voidDeath) {
+        if (voidDeathHelper.testVoidDeath(gamePlayerService[bPlayer, ::GPlayer])) {
             bPlayer.die()
         }
     }

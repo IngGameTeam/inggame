@@ -16,6 +16,7 @@ import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeath
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHandler
+import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHelper
 import io.github.inggameteam.inggame.minigame.component.CustomGameService
 import io.github.inggameteam.inggame.minigame.component.GameInstanceRepository
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
@@ -45,6 +46,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::SectionalHandler)
             classOf(::VoidDeathHandler)
             classOf(::DeathHandler)
+            classOf(::VoidDeathHelper)
             classOf(
                 Game::class,
                 GameAlert::class,
