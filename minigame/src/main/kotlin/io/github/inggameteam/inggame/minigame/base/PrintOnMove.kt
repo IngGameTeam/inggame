@@ -44,7 +44,7 @@ class PrintOnMove(
             key to randomUUID(),
         ).run(::ConcurrentHashMap)
         measureTimeMillis{
-            repeat (100){
+            repeat (10000){
                 try {
                     map[key] as UUID
                 } catch (_: Throwable) {
