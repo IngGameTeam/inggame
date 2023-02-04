@@ -1,5 +1,7 @@
 package io.github.inggameteam.inggame.component
 
+import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.mongodb.Model
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition
@@ -19,7 +21,9 @@ inline fun <reified T> ClassModule.clazz(
     noinline definition: Definition<T>
 ): KoinDefinition<T>  {
     classes.add(T::class)
-    if (T::class.isSubclassOf(Handler::class)) return module.single { definition(it) }
+    if (!T::class.isSubclassOf(Wrapper::class)
+        && T::class.isSubclassOf(Model::class))
+        return module.single { definition(it) }
     return module.factory(named(randomUUID().toString())) { throw AssertionError() }
 }
 
