@@ -8,7 +8,7 @@ interface Handler {
     fun isHandler(wrapper: Wrapper): Boolean =
         wrapper.run {
             try {
-                component.find(nameSpace, this@Handler.javaClass.simpleName, Boolean::class)
+                component.find(nameSpace, this@Handler.javaClass.simpleName) == true
             }
             catch (_: Throwable) { false }
         }
