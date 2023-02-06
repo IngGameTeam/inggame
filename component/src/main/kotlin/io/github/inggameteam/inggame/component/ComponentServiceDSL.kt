@@ -33,6 +33,22 @@ class ComponentServiceDSL(
         findComponentServiceDSL(this).isMask = isMask
     }
 
+    fun cs(name: String,
+              isLayer: Boolean = false,
+              isMask: Boolean = false,
+              root: String? = null,
+              key: String? = null,
+              isSavable: Boolean = false,
+              isMulti: Boolean = false
+    ) = findComponentServiceDSL(name).apply {
+        this.isMask = isMask
+        this.root = root
+        this.key = key
+        this.isSavable = isSavable
+        this.isMulti = isMulti
+        this.isLayer = isLayer
+    }
+
     infix fun ComponentServiceDSL.isLayer(isLayer: Boolean): ComponentServiceDSL = this.apply {
         this.isLayer = isLayer
     }
