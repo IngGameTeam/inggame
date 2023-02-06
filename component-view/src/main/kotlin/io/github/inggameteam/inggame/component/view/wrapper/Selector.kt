@@ -1,6 +1,8 @@
 package io.github.inggameteam.inggame.component.view.wrapper
 
-interface Selector {
+import io.github.inggameteam.inggame.component.delegate.Wrapper
+
+interface Selector : Wrapper {
 
     val VIEW_CANNOT_EDIT: String
     val VIEW_CANCEL_EDIT: String
