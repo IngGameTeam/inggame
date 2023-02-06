@@ -76,7 +76,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
                 .cs("game-resource", isMulti = true, key = "game-language", root = "player-instance")
                 .apply {
                     cs("game-resource-korean", isSavable = true) cs "default"
-                }
+                } cs "default"
          }
         event.addModule(createSingleton(::GameServer, "server", "singleton"))
     }
