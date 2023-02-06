@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
+import io.github.inggameteam.inggame.minigame.base.gameserver.NoHunger
 import io.github.inggameteam.inggame.minigame.base.hub.HubLoader
 import io.github.inggameteam.inggame.minigame.base.hub.JoinHubOnJoinServer
 import io.github.inggameteam.inggame.minigame.base.locational.Locational
