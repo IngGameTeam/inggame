@@ -37,7 +37,7 @@ data class NameSpaceSelector(
         super<AddButton>.gui(gui)
         super<RemoveButton>.gui(gui)
         gui.apply {
-            val renameItem = createItem(Material.ORANGE_DYE, selector.VIEW_RENAME_BUTTON)
+            val renameItem = createItem(Material.ORANGE_DYE, "selector.VIEW_PARENT_BUTTON")
             slot(7, 5, renameItem) { event ->
                 renameButton(event.whoClicked as Player)
             }
