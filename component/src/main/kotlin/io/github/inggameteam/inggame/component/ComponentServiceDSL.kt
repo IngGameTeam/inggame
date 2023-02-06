@@ -40,7 +40,7 @@ class ComponentServiceDSL(
               key: String? = null,
               isSavable: Boolean = false,
               isMulti: Boolean = false
-    ) = apply {
+    ) = run {
         this.parents.add(name)
         findComponentServiceDSL(name).apply {
             this.isMask = isMask
