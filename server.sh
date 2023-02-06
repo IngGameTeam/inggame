@@ -33,4 +33,4 @@ GIT_URL=https://Bruce0203:$GH_TOKEN@github.com/IngGameTeam/inggame
 #  wget -O server.jar https://api.purpurmc.org/v2/purpur/$VERSION/latest/download
 wget -O server.jar https://ci.pufferfish.host/job/Pufferfish-1.19/lastBuild/artifact/build/libs/pufferfish-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
 #java -Xms12G -Xmx12G -jar server.jar
-java -Xms2G -Xmx2G -Xjit -XX:ReservedCodeCacheSize=2G -XX:CompileThreshold=1 -XX:TieredStopAtLevel=1 -jar --add-modules jdk.incubator.vector server.jar
+java -Xms2G -Xmx2G -XX:ReservedCodeCacheSize=2G -XX:CompileThreshold=1 -XX:TieredStopAtLevel=1 -jar -Xjit --add-modules jdk.incubator.vector server.jar
