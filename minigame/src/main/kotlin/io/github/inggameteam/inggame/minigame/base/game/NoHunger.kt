@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.base.gameserver
+package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer

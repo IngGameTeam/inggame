@@ -7,9 +7,9 @@ import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
-import io.github.inggameteam.inggame.minigame.base.gameserver.NoHunger
-import io.github.inggameteam.inggame.minigame.base.hub.HubLoader
-import io.github.inggameteam.inggame.minigame.base.hub.JoinHubOnJoinServer
+import io.github.inggameteam.inggame.minigame.base.game.NoHunger
+import io.github.inggameteam.inggame.minigame.base.gameserver.hub.HubLoader
+import io.github.inggameteam.inggame.minigame.base.gameserver.hub.JoinHubOnJoinServer
 import io.github.inggameteam.inggame.minigame.base.locational.Locational
 import io.github.inggameteam.inggame.minigame.base.locational.LocationalImp
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
@@ -25,10 +25,11 @@ import io.github.inggameteam.inggame.minigame.component.CustomGameService
 import io.github.inggameteam.inggame.minigame.component.GameInstanceRepository
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.minigame.listener.ArrowStuckPrevent
-import io.github.inggameteam.inggame.minigame.listener.DisableCollision
-import io.github.inggameteam.inggame.minigame.listener.HideJoinLeaveMessage
-import io.github.inggameteam.inggame.minigame.listener.NoUnderWaterFall
+import io.github.inggameteam.inggame.minigame.base.gameserver.ArrowStuckPrevent
+import io.github.inggameteam.inggame.minigame.base.gameserver.DisableCollision
+import io.github.inggameteam.inggame.minigame.base.gameserver.HideJoinLeaveMessage
+import io.github.inggameteam.inggame.minigame.base.gameserver.NoUnderWaterFall
+import io.github.inggameteam.inggame.minigame.base.gameserver.hub.QuitGameOnQuitServer
 import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
@@ -41,6 +42,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.registerClass {
             classOf(::SpawnOnJoin)
             classOf(::JoinHubOnJoinServer)
+            classOf(::QuitGameOnQuitServer)
             classOf(::GameHelper)
             classOf(::SectionalHelper)
             classOf(::SectionalHandler)

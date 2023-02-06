@@ -1,25 +1,28 @@
-package io.github.inggameteam.inggame.minigame.listener
+package io.github.inggameteam.inggame.minigame.base.gameserver
 
 import io.github.inggameteam.inggame.component.HandleListener
+import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
 class HideJoinLeaveMessage(
+    private val gameServer: GameServer,
     plugin: IngGamePlugin
-) : Listener(plugin) {
+) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
+        if (isNotHandler(gameServer)) return
         event.joinMessage = null
     }
 
     @Suppress("unused")
     @EventHandler
     fun onQuit(event: PlayerQuitEvent) {
+        if (isNotHandler(gameServer)) return
         event.quitMessage = null
     }
 

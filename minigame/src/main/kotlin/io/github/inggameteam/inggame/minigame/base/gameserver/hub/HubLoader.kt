@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.base.hub
+package io.github.inggameteam.inggame.minigame.base.gameserver.hub
 
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.base.game.GameHelper
