@@ -16,9 +16,10 @@ class NameSpaceForRenameSelector(
     override val elements: Collection<NameSpace> get() = componentService.getAll()
 
 
+    @Suppress("CAST_NEVER_SUCCEEDS")
     override fun select(t: NameSpace, event: InventoryClickEvent) {
         StringEditor(EditorViewImp(this,
-            {componentService.removeNameSpace(t); componentService.addNameSpace(NameSpace(it, t.parents, t.elements))},
+            {componentService.removeNameSpace(t); componentService.addNameSpace(NameSpace((it as NameSpace).name, t.parents, t.elements))},
             {t.name.toString()}), this)
             .open(player)
     }
