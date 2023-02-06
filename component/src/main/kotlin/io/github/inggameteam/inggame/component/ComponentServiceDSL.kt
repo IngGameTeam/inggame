@@ -42,12 +42,14 @@ class ComponentServiceDSL(
               isMulti: Boolean = false
     ) = apply {
         this.parents.add(name)
-        this.isMask = isMask
-        this.root = root
-        this.key = key
-        this.isSavable = isSavable
-        this.isMulti = isMulti
-        this.isLayer = isLayer
+        findComponentServiceDSL(name).apply {
+            this.isMask = isMask
+            this.root = root
+            this.key = key
+            this.isSavable = isSavable
+            this.isMulti = isMulti
+            this.isLayer = isLayer
+        }
     }
 
     infix fun ComponentServiceDSL.isLayer(isLayer: Boolean): ComponentServiceDSL = this.apply {
