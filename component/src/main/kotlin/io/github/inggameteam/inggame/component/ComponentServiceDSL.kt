@@ -40,7 +40,8 @@ class ComponentServiceDSL(
               key: String? = null,
               isSavable: Boolean = false,
               isMulti: Boolean = false
-    ) = findComponentServiceDSL(name).apply {
+    ) = apply {
+        this.parents.add(name)
         this.isMask = isMask
         this.root = root
         this.key = key
