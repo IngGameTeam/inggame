@@ -49,7 +49,7 @@ class ComponentServiceRegisterEvent(
 
     fun register(block: ComponentServiceDSL.() -> Unit) {
         root.apply {
-            "root" csc(block)
+            "root" isMulti true csc(block)
         }
     }
 
