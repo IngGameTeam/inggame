@@ -92,8 +92,6 @@ class GameHelper(
     fun start(game: Game, force: Boolean) {
         if (force) {
             game.gameState = GameState.PLAY
-            afterParticle(game)
-            beginGame(game)
             Bukkit.getPluginManager().callEvent(GameBeginEvent(game))
         } else if (game.gameState === GameState.WAIT) {
             val tick = game.startWaitingSecond
@@ -115,7 +113,7 @@ class GameHelper(
     fun stop(game: Game, force: Boolean, leftType: LeftType = LeftType.GAME_STOP) {
         if (game.gameState !== GameState.STOP) {
             game.gameState = GameState.STOP
-            finishGame(game)
+            plugin.server.pluginManager.callEvent(GameFinishEvent(game))
             ArrayList(game.gameJoined).forEach { gPlayer ->
                 leftGame(gPlayer, leftType)
             }
@@ -128,22 +126,5 @@ class GameHelper(
                     }; gameInstanceService.remove(game) }.delay(plugin, game.stopWaitingTick.toLong()))
         }
     }
-
-    private fun finishGame(game: Game) {
-        plugin.server.pluginManager.callEvent(GameFinishEvent(game))
-    }
-
-    fun beginGame(game: Game) {
-        game.gameJoined.forEach { it[::GameAlertImp].GAME_START.send(it, it[::GameImp].gameName)}
-    }
-
-
-
-    fun afterParticle(game: Game) {
-        game.gameJoined.hasTags(PTag.PLAY).forEach {
-            it.world.spawnParticle(Particle.END_ROD, it.eyeLocation.clone(), 20)
-        }
-    }
-
 
 }

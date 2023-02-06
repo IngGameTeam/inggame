@@ -5,7 +5,6 @@ import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
 import io.github.inggameteam.inggame.mongodb.createFileRepo
-import io.github.inggameteam.inggame.mongodb.createRepo
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
@@ -92,7 +91,7 @@ class ComponentServiceRegisterEvent(
                 } bind ComponentService::class
             }
         }
-    }.run { arrayListOf(*this.toTypedArray(), *modules.toTypedArray(),) }
+    }.run { arrayListOf(*this.toTypedArray(), *modules.toTypedArray()) }
 
     override fun getHandlers(): HandlerList { return HANDLERS }
     companion object {

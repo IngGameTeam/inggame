@@ -9,9 +9,12 @@ import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.hub.HubLoader
 import io.github.inggameteam.inggame.minigame.base.hub.JoinHubOnJoinServer
+import io.github.inggameteam.inggame.minigame.base.locational.Locational
+import io.github.inggameteam.inggame.minigame.base.locational.LocationalImp
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.sectional.*
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnJoin
+import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnStart
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
 import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeath
@@ -57,9 +60,15 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::DisableCollision)
             classOf(::EnableAttackSpeed)
             classOf(::NoUnderWaterFall)
+            classOf(::SpawnOnStart)
+            classOf(::AnnounceGameBegin)
+            classOf(::LocationalImp)
+            classOf(::SpawnOnStart)
+            classOf(::ParticleOnGameBegin)
             classOf(
                 Game::class,
                 GameAlert::class,
+                Locational::class,
                 Sectional::class,
                 SpawnPlayer::class,
                 VoidDeath::class,

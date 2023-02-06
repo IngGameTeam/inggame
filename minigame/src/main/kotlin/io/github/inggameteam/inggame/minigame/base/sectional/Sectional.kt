@@ -1,16 +1,15 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
-import io.github.inggameteam.inggame.component.model.LocationModel
 import io.github.inggameteam.inggame.minigame.base.game.Game
+import io.github.inggameteam.inggame.minigame.base.locational.Locational
 import org.bukkit.Location
 import org.bukkit.util.Vector
 
-interface Sectional : Game {
+interface Sectional : Game, Locational {
 
     var gameSector: Sector
     val isAllocatedGame: Boolean
     val schematicName: String
-    val schematicLocations: HashMap<String, HashMap<String, LocationModel>>
     val center: Vector
     val minPoint: Vector
     val maxPoint: Vector
@@ -18,7 +17,5 @@ interface Sectional : Game {
     val gameWidth: Int
     val gameHeight: Int
     fun isInSector(location: Location): Boolean
-    fun getLocation(key: String): Location
-    fun getLocationOrNull(key: String): Location?
 
 }

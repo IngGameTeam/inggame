@@ -12,7 +12,7 @@ import java.io.File
 import kotlin.concurrent.thread
 
 class SectionalHelper(
-    val gameInstanceService: GameInstanceService,
+    private val gameInstanceService: GameInstanceService,
     val plugin: IngGamePlugin
 ) {
 
@@ -70,7 +70,7 @@ class SectionalHelper(
         }
     }
 
-    fun getSchematicFile(name: String, dir: String) =
+    private fun getSchematicFile(name: String, dir: String) =
         File(plugin.dataFolder, "schematics" + File.separator + dir + File.separator + name + ".schem")
 
 

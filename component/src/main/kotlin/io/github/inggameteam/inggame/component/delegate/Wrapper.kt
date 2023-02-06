@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.delegate
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 interface Wrapper {
@@ -29,6 +30,10 @@ interface Wrapper {
     fun nullableDefault(block: () -> Any?) = NullableWrapperImp(nameSpace, component).apply { defaultBlock = block }
 
     fun get(key: Any): Any = component.find(nameSpace, key)
+
+    fun <T : Any> get(key: Any, clazz: KClass<T>) = component.find(nameSpace, key, clazz)
+
+    fun <T : Any> getOrNull(key: Any, clazz: KClass<T>) = try { get(key, clazz) } catch (_: Throwable) { null }
 
     fun get(wrapper: Wrapper): Any = component.find(nameSpace, uncoverDelegate(wrapper))
 
