@@ -57,7 +57,8 @@ class ComponentServiceRegisterEvent(
 
     fun getNewModule() = getRegistry().let { registry ->
         registry.map { cs ->
-            println(registry)
+            println(cs)
+            )
             module {
                 includes(createFileRepo(cs.name, cs.name))
                 single(named(cs.name)) {
