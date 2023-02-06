@@ -8,6 +8,7 @@ interface Selector {
     val VIEW_ADD_BUTTON: String
     val VIEW_REMOVE_BUTTON: String
     val VIEW_PARENT_BUTTON: String
+    val VIEW_RENAME_BUTTON: String
     val VIEW_TITLE: String
     val VIEW_PREV_PAGE: String
     val VIEW_NEXT_PAGE: String

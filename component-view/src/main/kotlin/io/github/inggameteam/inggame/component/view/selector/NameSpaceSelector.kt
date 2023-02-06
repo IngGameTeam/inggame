@@ -27,10 +27,21 @@ data class NameSpaceSelector(
         NameSpaceForRemoveSelector(this, this).open(player)
     }
 
+    private fun renameButton(player: Player) {
+        NameSpaceForRenameSelector(this, this)
+            .open(player)
+    }
+
     override fun gui(gui: GuiFrameDSL) {
         super<Selector>.gui(gui)
         super<AddButton>.gui(gui)
         super<RemoveButton>.gui(gui)
+        gui.apply {
+            val renameItem = createItem(Material.ORANGE_DYE, selector.VIEW_PARENT_BUTTON)
+            slot(7, 5, renameItem) { event ->
+                renameButton(event.whoClicked as Player)
+            }
+        }
     }
 
     override val elements: Collection<NameSpace> get() = componentService.getAll()
