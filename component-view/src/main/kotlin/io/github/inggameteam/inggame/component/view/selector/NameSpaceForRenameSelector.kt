@@ -19,6 +19,7 @@ class NameSpaceForRenameSelector(
     override fun select(t: NameSpace, event: InventoryClickEvent) {
         StringEditor(EditorViewImp(this,
             {
+                if (t.name == it) return@EditorViewImp
                 componentService.removeNameSpace(t)
                 componentService.addNameSpace(it)
                 componentService[it].apply {
