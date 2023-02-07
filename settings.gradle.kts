@@ -9,5 +9,5 @@ include(
     "command",
     "world",
     "party",
-    "component-view"
+    "component-view",
 )

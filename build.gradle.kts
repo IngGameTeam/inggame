@@ -52,7 +52,7 @@ allprojects {
         maven { url = uri("https://libraries.minecraft.net/") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
         maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
-
+        maven { url = uri("https://raw.githubusercontent.com/Bruce0203/library-mirror/spigot-1.19.3/") }
     }
 
     dependencies {
@@ -126,6 +126,8 @@ allprojects {
             events("passed", "skipped", "failed")
         }
     }
+
+
 
 }
 

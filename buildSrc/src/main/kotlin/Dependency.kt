@@ -4,7 +4,7 @@ object Dependency {
     }
 
     object PaperAPI {
-        const val Version = "1.19.2-R0.1-SNAPSHOT"
+        const val Version = "1.19.3-R0.1-SNAPSHOT"
     }
 
 

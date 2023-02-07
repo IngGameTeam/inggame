@@ -19,8 +19,8 @@ import kotlin.reflect.full.isSubclassOf
 
 class MongoCodec(
     codecs: Collection<Class<*>>,
-    val decodeFunctionAll: DecodeFunctionAll,
-    val encodeFunctionAll: EncodeFunctionAll
+    private val decodeFunctionAll: DecodeFunctionAll,
+    private val encodeFunctionAll: EncodeFunctionAll
 ) : KoinComponent {
 
     val codecRegistry = createCodec(codecs)
