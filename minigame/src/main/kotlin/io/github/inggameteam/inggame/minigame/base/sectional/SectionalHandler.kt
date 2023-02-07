@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
+import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
@@ -22,7 +23,7 @@ class SectionalHandler(
     private val plugin: IngGamePlugin,
     private val sectorLoader: SectorLoader,
     private val gameServer: GameServer,
-) : Listener(plugin), Handler {
+) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler
