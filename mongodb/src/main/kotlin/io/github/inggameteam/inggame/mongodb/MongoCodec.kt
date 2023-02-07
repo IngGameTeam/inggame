@@ -31,17 +31,18 @@ class MongoCodec(
                         document.toBsonDocument().asBsonReader(),
                         DecoderContext.builder().checkedDiscriminator(true).build()
                     )
+                    ?.run {
+                        var v: Any = document
+                        decodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
+                        return v
+                    }
                     ?: throw AssertionError("An error occurred while decoding Document")
             } catch (_: Throwable) {
                 return document.mapValues { decode(it.value) }
             }
         } else if (document is Collection<*>) {
             return document.map { decode(it) }
-        } else  {
-            var v: Any = document
-            decodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
-            return v
-        }
+        } else return document
     }
 
     fun encode(value: Any?): Any? {
