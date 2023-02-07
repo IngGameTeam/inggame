@@ -37,7 +37,7 @@ import org.bukkit.event.EventHandler
 class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
-//    @EventHandler
+    @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.registerClass {
             classOf(::SpawnOnJoin)
