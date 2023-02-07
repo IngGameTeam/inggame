@@ -52,7 +52,6 @@ class MongoCodec(
             val writer = BsonDocumentWriter(document)
             var v: Any = value
             encodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
-
             codecRegistry[v.javaClass].encode(writer, v, EncoderContext.builder().build())
             return fromBson(document)
         } else if (value is Collection<*>) {
