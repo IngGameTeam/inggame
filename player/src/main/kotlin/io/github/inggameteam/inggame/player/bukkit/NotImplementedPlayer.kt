@@ -776,6 +776,14 @@ class NotImplementedPlayer : Player {
         throw AssertionError("player is offline")
     }
 
+    override fun getEnchantmentSeed(): Int {
+        throw AssertionError("player is offline")
+    }
+
+    override fun setEnchantmentSeed(seed: Int) {
+        throw AssertionError("player is offline")
+    }
+
     override fun getOpenInventory(): InventoryView {
         throw AssertionError("player is offline")
     }
@@ -1264,7 +1272,15 @@ class NotImplementedPlayer : Player {
         throw AssertionError("player is offline")
     }
 
+    override fun playSound(entity: Entity, sound: String, volume: Float, pitch: Float) {
+        throw AssertionError("player is offline")
+    }
+
     override fun playSound(entity: Entity, sound: Sound, category: SoundCategory, volume: Float, pitch: Float) {
+        throw AssertionError("player is offline")
+    }
+
+    override fun playSound(entity: Entity, sound: String, category: SoundCategory, volume: Float, pitch: Float) {
         throw AssertionError("player is offline")
     }
 

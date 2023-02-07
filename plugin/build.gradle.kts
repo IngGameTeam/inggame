@@ -1,13 +1,15 @@
-dependencies {
-    listOf(
-        ":utils",
-        ":mongodb",
-        ":component",
-        ":component-view",
-        ":player",
-        ":minigame",
-        ":guiapi",
-        ":command",
-        ":world",
-    ).map(::project).forEach { api(it); testApi(it) }
+projectDependencies(
+    utils,
+    mongodb,
+    component,
+    component_view,
+    player,
+    minigame,
+    guiapi,
+    command,
+    world
+)
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveFileName.set("${rootProject.name}.jar")
 }

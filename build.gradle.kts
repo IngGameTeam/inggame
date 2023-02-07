@@ -27,10 +27,6 @@ allprojects {
 
     version = rootProject.version
 
-    tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
-        archiveFileName.set("${rootProject.name}.jar")
-    }
-
     application {
         mainClass.set("io.github.inggameteam.inggame.component.TestAppKt")
     }
@@ -78,7 +74,7 @@ allprojects {
         testApi("org.mongodb:mongodb-driver-sync:4.8.1")
 
 //        compileOnly("io.github.bruce0203:reflections:0.10.3.4")
-        testApi("io.github.bruce0203:reflections:0.10.3.4")
+//        testApi("io.github.bruce0203:reflections:0.10.3.4")
 
         compileOnly("org.projectlombok:lombok:1.18.24")
         annotationProcessor("org.projectlombok:lombok:1.18.24")
@@ -95,15 +91,7 @@ allprojects {
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
-        archiveFileName.set("${rootProject.name}.jar")
-
-        doLast {
-            copy {
-                val sep = File.separator
-                from("${buildDir.absolutePath}${sep}libs$sep${project.name}.jar")
-                into("${project.buildDir.absolutePath}${sep}dist")
-            }
-        }
+        archiveFileName.set("${project.name}.jar")
     }
 
     tasks {
