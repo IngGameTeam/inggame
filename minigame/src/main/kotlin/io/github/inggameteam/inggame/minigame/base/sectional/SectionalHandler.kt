@@ -50,8 +50,9 @@ class SectionalHandler(
     @Suppress("unused")
     @EventHandler
     fun outSectionCheck(event: PlayerMoveEvent) {
+        println("SectionCheck")
         val bPlayer = event.player
-        val player = gamePlayerService.get(bPlayer.uniqueId, ::GPlayer)
+        val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
         if (isHandler(player)) {
             val sectional = player[::SectionalImp]
             val to = event.to
