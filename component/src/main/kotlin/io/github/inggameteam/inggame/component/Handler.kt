@@ -16,11 +16,13 @@ interface Handler {
     fun isNotHandler(wrapper: Wrapper) = !isHandler(wrapper)
 
     companion object {
-        fun Wrapper.isHandler(handler: KClass<out Handler>) = component.find(
-            nameSpace,
-            handler.simpleName!!,
-            Boolean::class
-        )
+        fun Wrapper.isHandler(handler: KClass<out Handler>) = try {
+            component.find(
+                nameSpace,
+                handler.simpleName!!,
+                Boolean::class
+            )
+        } catch (_: Throwable) { false }
 
         fun Wrapper.isNotHandler(handler: KClass<out Handler>) = !isHandler(handler)
     }

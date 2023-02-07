@@ -9,9 +9,7 @@ import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
 class VoidDeathHelper {
 
     fun testVoidDeath(player: GPlayer): Boolean {
-        println("VoidDeathMove")
         if (player.isNotHandler(VoidDeathHandler::class)) return false
-        println("VoidDeathMoveEnd")
         val playerY = player.location.y
         val joinedGame = player.joinedGame[::SectionalImp]
         val voidDeath = player[::VoidDeathImp].voidDeath
