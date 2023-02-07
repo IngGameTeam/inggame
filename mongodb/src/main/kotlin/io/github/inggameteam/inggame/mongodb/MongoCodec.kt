@@ -17,7 +17,7 @@ import org.koin.core.component.KoinComponent
 class MongoCodec(codecs: Collection<Class<*>>) : KoinComponent {
 
     private val decodeFunctions: List<DecodeFunction> by lazy { getKoin().getAll() }
-    private val encodeFunctions: List<EncodeFunction> = by lazy { getKoin().getAll() }
+    private val encodeFunctions: List<EncodeFunction> by lazy { getKoin().getAll() }
     val codecRegistry = createCodec(codecs)
 
     fun decode(document: Any?): Any? {
