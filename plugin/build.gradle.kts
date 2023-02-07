@@ -1,4 +1,4 @@
-projectDependencies(includeJar = true,
+projectDependencies(
     utils,
     mongodb,
     component,
@@ -7,7 +7,8 @@ projectDependencies(includeJar = true,
     minigame,
     guiapi,
     command,
-    world
+    world,
+    includeJar = true,
 )
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {

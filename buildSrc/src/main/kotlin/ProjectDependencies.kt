@@ -21,7 +21,7 @@ val Project.updateman                                 by ProjectDependencies()
 val Project.utils                                     by ProjectDependencies()
 val Project.world                                     by ProjectDependencies()
 
-fun Project.projectDependencies(includeJar: Boolean = false, vararg project: ProjectDependency) {
+fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: Boolean = false) {
     dependencies {
         for (p in project) {
             add("compileOnly", p)
