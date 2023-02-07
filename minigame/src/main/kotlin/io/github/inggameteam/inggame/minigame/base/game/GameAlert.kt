@@ -15,5 +15,6 @@ interface GameAlert : Wrapper {
     val GAME_START_CANCELLED_DUE_TO_PLAYERLESS  : Alert
     val GAME_START_COUNT_DOWN                   : Alert
     val GAME_START                              : Alert
+    val NEED_PLAYER                             : Alert
 
 }

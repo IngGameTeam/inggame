@@ -68,6 +68,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::LocationalImp)
             classOf(::SpawnOnStart)
             classOf(::ParticleOnGameBegin)
+            classOf(::StartPlayersAmountAlert)
             classOf(
                 Game::class,
                 GameAlert::class,

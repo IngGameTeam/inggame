@@ -14,5 +14,6 @@ class GameAlertImp(wrapper: Wrapper) : Wrapper by wrapper, GameAlert {
     override val GAME_START_CANCELLED_DUE_TO_PLAYERLESS: Alert by nonNull
     override val GAME_START_COUNT_DOWN: Alert by nonNull
     override val GAME_START: Alert by nonNull
+    override val NEED_PLAYER: Alert by nonNull
 
 }
