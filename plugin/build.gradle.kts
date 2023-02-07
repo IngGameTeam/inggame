@@ -1,4 +1,4 @@
-projectDependencies(
+projectDependencies(includeJar = true,
     utils,
     mongodb,
     component,
