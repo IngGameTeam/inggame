@@ -35,7 +35,7 @@ class MongoCodec(
                         DecoderContext.builder().checkedDiscriminator(true).build()
                     )
                     ?.run {
-                        var v: Any = document
+                        var v: Any = this
                         decodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
                         v
                     }
