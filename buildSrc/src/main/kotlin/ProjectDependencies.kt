@@ -21,11 +21,15 @@ val Project.updateman                                 by ProjectDependencies()
 val Project.utils                                     by ProjectDependencies()
 val Project.world                                     by ProjectDependencies()
 
-fun Project.projectDependencies(vararg project: ProjectDependency) {
+fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: Boolean) {
     dependencies {
         for (p in project) {
             add("compileOnly", p)
             add("testCompileOnly", p)
+            if (includeJar) {
+                add("api", p)
+                add("testApi", p)
+            }
         }
     }
 }
