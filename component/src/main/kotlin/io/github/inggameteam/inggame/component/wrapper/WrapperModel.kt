@@ -8,9 +8,9 @@ import org.koin.ext.getFullName
 
 @Model
 class WrapperModel(
-    val componentService: String,
-    val nameSpace: String,
-    val wrapperClass: String
+    var componentService: String,
+    var nameSpace: String,
+    var wrapperClass: String
 ) {
 
     constructor(wrapper: Wrapper)
