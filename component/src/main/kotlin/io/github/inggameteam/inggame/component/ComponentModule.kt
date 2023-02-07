@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.model.*
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.WrapperCodec
 import io.github.inggameteam.inggame.component.wrapper.WrapperModel
 import io.github.inggameteam.inggame.mongodb.DecodeFunction
 import io.github.inggameteam.inggame.mongodb.EncodeFunction
@@ -23,6 +24,8 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
         })
         event.register { "singleton" cs "default" }
         event.registerClass(
+            WrapperModel::class,
+            WrapperCodec::class,
             Alert::class,
             ChatAlert::class,
             ActionBarAlert::class,
