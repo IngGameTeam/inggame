@@ -64,7 +64,7 @@ class MongoCodec(
         } else {
             var v: Any = value
             encodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
-            return v
+            return encode(v)
         }
     }
 
