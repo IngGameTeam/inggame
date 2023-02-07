@@ -37,7 +37,7 @@ class MongoCodec(
                     ?.run {
                         var v: Any = document
                         decodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
-                        return v
+                        v
                     }
                     ?: throw AssertionError("An error occurred while decoding Document")
             } catch (_: Throwable) {
