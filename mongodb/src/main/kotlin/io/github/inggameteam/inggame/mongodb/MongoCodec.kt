@@ -50,7 +50,10 @@ class MongoCodec(
         return if (value.javaClass.getAnnotation(Model::class.java) !== null) {
             val document = BsonDocument()
             val writer = BsonDocumentWriter(document)
-            codecRegistry[value.javaClass].encode(writer, value, EncoderContext.builder().build())
+            var v: Any = value
+            encodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
+
+            codecRegistry[v.javaClass].encode(writer, v, EncoderContext.builder().build())
             return fromBson(document)
         } else if (value is Collection<*>) {
             BsonArray(value.map {
@@ -58,11 +61,7 @@ class MongoCodec(
             }.toMutableList())
         } else if (value is Map<*, *>) {
             value.mapValues { encode(it.value) }
-        } else {
-            var v: Any = value
-            encodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
-            return v
-        }
+        } else return value
     }
 
 
