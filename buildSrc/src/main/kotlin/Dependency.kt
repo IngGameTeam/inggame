@@ -17,7 +17,7 @@ object Dependency {
     }
 
     object Ksp {
-        const val Version = "1.7.21-1.0.8"
+        const val Version = "1.8.10-1.0.9"
     }
 
 }

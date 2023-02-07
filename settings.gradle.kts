@@ -10,4 +10,6 @@ include(
     "world",
     "party",
     "component-view",
+    "plugman",
+    "updateman"
 )
