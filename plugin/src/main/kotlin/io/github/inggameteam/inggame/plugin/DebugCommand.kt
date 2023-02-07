@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.view.model.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.model.ViewImp
 import io.github.inggameteam.inggame.component.view.selector.NameSpaceSelector
+import io.github.inggameteam.inggame.plugman.util.PluginUtil
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -17,6 +18,10 @@ import kotlin.system.measureTimeMillis
 fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
     MCCommand(this as JavaPlugin) {
         command("ing") {
+            thenExecute("reload") {
+                if (!source.isOp) return@thenExecute
+                PluginUtil.reload(plugin)
+            }
             then("get") {
                 tab { app.getAll<ComponentService>().map { it.name } }
                 execute {

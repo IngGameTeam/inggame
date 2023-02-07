@@ -8,6 +8,7 @@ projectDependencies(
     guiapi,
     command,
     world,
+    plugman,
     includeJar = true,
 )
 
