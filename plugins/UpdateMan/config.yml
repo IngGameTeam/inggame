@@ -6,7 +6,7 @@ inggame:
   branch: "temp"
   watchdog: true
 updateman:
-  dir: "inggame"
+  dir: "updateman"
   url: "https://Bruce0203:${GH_TOKEN}@github.com/IngGameTeam/inggame"
   plugin: "Updateman"
   cmd: "./gradlew :updateman:shadowJar"
