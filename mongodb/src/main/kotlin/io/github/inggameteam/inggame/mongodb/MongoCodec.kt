@@ -77,14 +77,14 @@ class MongoCodec(
         val pojoCodecRegistry: CodecRegistry = CodecRegistries.fromProviders(
             *codecs.filter { it.kotlin.isSubclassOf(Codec::class) }.map {
                 object : CodecProvider {
-                    override fun <T : Any?> get(clazz: Class<T>?, registry: CodecRegistry?): Codec<T> {
+                    override fun <T : Any?> get(clazz: Class<T>?, registry: CodecRegistry?): Codec<T>? {
+                        if (clazz != it) return null
                         return it.newInstance() as Codec<T>
                     }
                 }
             }.toTypedArray(),
             PojoCodecProvider.builder().automatic(true)
                 .apply {
-
                     codecs.map { clazz ->
                         ClassModel.builder(clazz).enableDiscriminator(true).build() }
                         .forEach(this::register)
