@@ -127,7 +127,5 @@ allprojects {
         }
     }
 
-
 }
-
 
