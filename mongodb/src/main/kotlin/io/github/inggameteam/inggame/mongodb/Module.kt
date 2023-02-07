@@ -14,13 +14,16 @@ import kotlin.reflect.full.isSubclassOf
 
 data class EncodeFunction(val code: (Any) -> Any?)
 data class DecodeFunction(val code: (Any) -> Any?)
-
+data class DecodeFunctionAll(val list: List<DecodeFunction>)
+data class EncodeFunctionAll(val list: List<EncodeFunction>)
 class ClassRegistryAll(vararg clazz: KClass<*>) : ClassRegistry(*clazz)
 
-fun createModelRegistryAll() = module(createdAtStart = true) {
+fun createRegistryAll() = module(createdAtStart = true) {
+    single { EncodeFunctionAll(getAll()) }
+    single { DecodeFunctionAll(getAll()) }
     single {
-        ArrayList<KClass<*>>().apply { getAll<ClassRegistry>().map { it.classes }.forEach { addAll(it) } }
-            .run { ClassRegistryAll(*this.toTypedArray()) }
+        ClassRegistryAll(*getAll<ClassRegistry>()
+            .let { arrayListOf<KClass<*>>().apply { it.forEach { addAll(it.classes) } } }.toTypedArray())
     }
 }
 
@@ -33,7 +36,7 @@ fun createMongoModule(
         filter { it.java.getAnnotation(Model::class.java) !== null
                 || it.isSubclassOf(Codec::class)
         }.map { it.java }.apply(::addAll)
-    }) }
+    }, get(), get()) }
     single { DatabaseString(get<ConnectionString>().database
         ?: throw AssertionError("database is not specified in the url")) }
     singleOf(::createClient)

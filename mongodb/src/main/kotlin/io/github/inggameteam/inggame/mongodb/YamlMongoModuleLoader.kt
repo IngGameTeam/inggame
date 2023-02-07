@@ -6,7 +6,7 @@ import org.koin.dsl.module
 fun loadMongoModule(plugin: IngGamePlugin) = module {
     plugin.apply {
         listOfNotNull(
-            createModelRegistryAll(),
+            createRegistryAll(),
             createMongoModule(config.getString("url") ?: "unspecified"),
             *config.getConfigurationSection("repo")?.run {
                 getKeys(false).map { key -> createRepo(key, getString(key)!!) }.toTypedArray()

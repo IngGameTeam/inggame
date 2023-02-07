@@ -14,10 +14,12 @@ import org.bson.codecs.pojo.ClassModel
 import org.bson.codecs.pojo.PojoCodecProvider
 import org.koin.core.component.KoinComponent
 
-class MongoCodec(codecs: Collection<Class<*>>) : KoinComponent {
+class MongoCodec(
+    codecs: Collection<Class<*>>,
+    val decodeFunctionAll: DecodeFunctionAll,
+    val encodeFunctionAll: EncodeFunctionAll
+) : KoinComponent {
 
-    private val decodeFunctions: List<DecodeFunction> by lazy { getKoin().getAll() }
-    private val encodeFunctions: List<EncodeFunction> by lazy { getKoin().getAll() }
     val codecRegistry = createCodec(codecs)
 
     fun decode(document: Any?): Any? {
@@ -37,7 +39,7 @@ class MongoCodec(codecs: Collection<Class<*>>) : KoinComponent {
             return document.map { decode(it) }
         } else  {
             var v: Any = document
-            decodeFunctions.forEach { it.code.invoke(v)?.apply { v = this } }
+            decodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
             return v
         }
     }
@@ -57,7 +59,7 @@ class MongoCodec(codecs: Collection<Class<*>>) : KoinComponent {
             value.mapValues { encode(it.value) }
         } else {
             var v: Any = value
-            encodeFunctions.forEach { it.code.invoke(v)?.apply { v = this } }
+            encodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
             return v
         }
     }
