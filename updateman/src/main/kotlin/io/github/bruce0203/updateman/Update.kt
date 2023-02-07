@@ -29,6 +29,9 @@ class Update(
 ) {
 
     init {
+        if (plugin.semaphore[key] !== null) {
+            throw AssertionError("")
+        }
         thread {
 
             plugin.semaphore[key] = true
