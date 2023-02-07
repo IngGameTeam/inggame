@@ -22,7 +22,9 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
             factory {DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
             factory {EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
         })
-        event.register { "singleton" cs "default" }
+        event.register {
+            cs("singleton", isSavable = true) cs "default"
+        }
         event.registerClass(
             WrapperModel::class,
             WrapperCodec::class,
