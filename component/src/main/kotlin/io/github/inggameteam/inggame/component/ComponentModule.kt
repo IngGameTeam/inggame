@@ -25,7 +25,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
         event.addModule(module(createdAtStart = true) {
             factory { DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
             factory { EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
-            single {
+            factory {
                 val handler = get<ComponentService>(named("handler"))
                 val classes = get<ClassRegistryAll>()
                 classes.classes
