@@ -32,7 +32,7 @@ class ModelFieldSelector(
 
     @Suppress("DEPRECATION")
     private fun getOrNewInstance() =
-        try { println(model);  editorView.get()!! } catch (_: Throwable) { model.singleClass.newInstance().apply { set(this) } }
+        try { editorView.get()!! } catch (_: Throwable) { model.singleClass.newInstance().apply { set(this) } }
 
     private fun set(value: Any) {
         (editorView as EditorView<Any>).set.invoke(value)
