@@ -5,6 +5,13 @@ inggame:
   out: "plugin/build/libs/inggame.jar"
   branch: "temp"
   watchdog: true
+updateman:
+  dir: inggame
+  url: "https://Bruce0203:${GH_TOKEN}@github.com/IngGameTeam/inggame"
+  plugin: "Updateman"
+  cmd: "./gradlew :updateman:shadowJar"
+  out: "updateman/build/libs/updateman.jar"
+  branch: "temp"
 clean-inggame:
   url: "https://Bruce0203:${GH_TOKEN}@github.com/IngGameTeam/inggame"
   plugin: "inggame"
@@ -29,9 +36,3 @@ cronman-download:
   url: https://github.com/Bruce0203/cronman/releases/latest/download/cronman.jar
   plugin: cronman
   destiny: plugins/update/cronman.jar
-updateman:
-  url: "https://Bruce0203:${GH_TOKEN}@github.com/Bruce0203/Updateman"
-  plugin: "Updateman"
-  cmd: "./gradlew :clean && ./gradlew :shadowJar"
-  out: "build/libs/Updateman.jar"
-  branch: "main"
