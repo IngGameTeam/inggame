@@ -60,6 +60,7 @@ class SectionalHandler(
                 && !bPlayer.isOp && sectional.gameState !== GameState.WAIT
             ) event.isCancelled = true
         }
+        println("SectionCheckEnd")
     }
 
     @Suppress("unused")
