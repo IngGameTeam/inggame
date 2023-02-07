@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
-import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.utils.Model
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
 import org.bukkit.World

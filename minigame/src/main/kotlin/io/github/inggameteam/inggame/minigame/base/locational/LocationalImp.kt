@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.locational
 
-import io.github.inggameteam.inggame.component.delegate.SimpleWrapper
-import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.model.LocationModel
 
 class LocationalImp(wrapper: Wrapper) : Locational, SimpleWrapper(wrapper) {

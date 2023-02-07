@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component
 
-import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
+import io.github.inggameteam.inggame.utils.Model
 import io.github.inggameteam.inggame.utils.randomUUID
 import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition

@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
 import io.github.inggameteam.inggame.component.view.model.*
 import io.github.inggameteam.inggame.component.view.selector.Selector
-import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.utils.Model
 import org.bukkit.entity.Player
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet

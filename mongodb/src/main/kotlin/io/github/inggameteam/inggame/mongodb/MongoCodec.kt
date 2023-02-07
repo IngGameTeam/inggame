@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.MongoClientSettings
+import io.github.inggameteam.inggame.utils.Model
 import org.bson.BsonArray
 import org.bson.BsonDocument
 import org.bson.BsonDocumentWriter
@@ -11,9 +12,12 @@ import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import org.bson.codecs.pojo.ClassModel
 import org.bson.codecs.pojo.PojoCodecProvider
+import org.koin.core.component.KoinComponent
 
-class MongoCodec(codecs: Collection<Class<*>>) {
+class MongoCodec(codecs: Collection<Class<*>>) : KoinComponent {
 
+    private val decodeFunctions: List<DecodeFunction> = getKoin().getAll()
+    private val encodeFunctions: List<EncodeFunction> = getKoin().getAll()
     val codecRegistry = createCodec(codecs)
 
     fun decode(document: Any?): Any? {
@@ -31,8 +35,11 @@ class MongoCodec(codecs: Collection<Class<*>>) {
             }
         } else if (document is Collection<*>) {
             return document.map { decode(it) }
+        } else  {
+            var v: Any = document
+            decodeFunctions.forEach { it.code.invoke(v)?.apply { v = this } }
+            return v
         }
-        return document
     }
 
     fun encode(value: Any?): Any? {
@@ -48,7 +55,11 @@ class MongoCodec(codecs: Collection<Class<*>>) {
             }.toMutableList())
         } else if (value is Map<*, *>) {
             value.mapValues { encode(it.value) }
-        } else value
+        } else {
+            var v: Any = value
+            encodeFunctions.forEach { it.code.invoke(v)?.apply { v = this } }
+            return v
+        }
     }
 
 
@@ -59,7 +70,8 @@ class MongoCodec(codecs: Collection<Class<*>>) {
         val pojoCodecRegistry: CodecRegistry = CodecRegistries.fromProviders(
             PojoCodecProvider.builder().automatic(true)
                 .apply {
-                    codecs.map { ClassModel.builder(it).enableDiscriminator(true).build() }
+                    codecs.map { clazz ->
+                        ClassModel.builder(clazz).enableDiscriminator(true).build() }
                         .forEach(this::register)
                 }.build()
         )

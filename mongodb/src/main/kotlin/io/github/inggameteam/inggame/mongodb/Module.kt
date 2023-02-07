@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.ConnectionString
 import io.github.inggameteam.inggame.utils.ClassRegistry
+import io.github.inggameteam.inggame.utils.Model
 import org.bson.codecs.Codec
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -11,6 +12,8 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 
+data class EncodeFunction(val code: (Any) -> Any?)
+data class DecodeFunction(val code: (Any) -> Any?)
 
 class ClassRegistryAll(vararg clazz: KClass<*>) : ClassRegistry(*clazz)
 

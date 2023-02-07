@@ -1,10 +1,12 @@
 package io.github.inggameteam.inggame.utils
 
+import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 
+@Model
 class ITask {
     constructor()
     constructor(vararg tasks: BukkitTask) {
@@ -13,6 +15,7 @@ class ITask {
     constructor(vararg tasks: Int) {
         this.tasks.addAll(tasks.map { SingleTask(taskId = it) })
     }
+    @BsonIgnore
     val tasks = ArrayList<SingleTask>()
     fun cancel() {
         tasks.forEach {

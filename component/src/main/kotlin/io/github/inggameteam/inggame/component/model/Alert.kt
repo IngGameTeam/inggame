@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.utils.Model
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*

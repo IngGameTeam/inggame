@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.utils.Model
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World

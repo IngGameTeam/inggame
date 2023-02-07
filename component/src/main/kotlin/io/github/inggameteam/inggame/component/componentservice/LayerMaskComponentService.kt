@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpaceNotFound
-import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.mongodb.MongoRepo
 import io.github.inggameteam.inggame.utils.fastFirstOrNull

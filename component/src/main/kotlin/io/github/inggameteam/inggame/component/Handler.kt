@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component
 
-import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import kotlin.reflect.KClass
 
 interface Handler {

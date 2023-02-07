@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.view.wrapper
 
-import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 
 interface Selector : Wrapper {
 

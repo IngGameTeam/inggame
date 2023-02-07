@@ -10,7 +10,7 @@ import io.github.inggameteam.inggame.component.view.selector.ItemStackPropSelect
 import io.github.inggameteam.inggame.component.view.selector.ModelFieldSelector
 import io.github.inggameteam.inggame.component.view.selector.Selector
 import io.github.inggameteam.inggame.component.view.selector.SubTypeSelector
-import io.github.inggameteam.inggame.mongodb.Model
+import io.github.inggameteam.inggame.utils.Model
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType

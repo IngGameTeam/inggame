@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFound
-import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 

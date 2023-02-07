@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.plugin.test
 
-import io.github.inggameteam.inggame.component.delegate.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import org.reflections.Reflections
 
 @Test

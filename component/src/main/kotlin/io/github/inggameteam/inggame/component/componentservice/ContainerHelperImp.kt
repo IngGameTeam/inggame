@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.componentservice
 
-import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import java.util.concurrent.CopyOnWriteArraySet
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")

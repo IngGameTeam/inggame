@@ -3,9 +3,9 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
 import io.github.inggameteam.inggame.component.NameSpaceNotFound
-import io.github.inggameteam.inggame.component.delegate.NonNullWrapperImp
-import io.github.inggameteam.inggame.component.delegate.Wrapper
-import io.github.inggameteam.inggame.component.delegate.uncoverDelegate
+import io.github.inggameteam.inggame.component.wrapper.NonNullWrapperImp
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
+import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
 import io.github.inggameteam.inggame.utils.fastForEach
 import java.util.concurrent.CopyOnWriteArraySet
