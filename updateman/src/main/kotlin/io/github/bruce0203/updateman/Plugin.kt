@@ -2,6 +2,7 @@ package io.github.bruce0203.updateman
 
 import io.github.inggameteam.command.MCCommand
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitTask
 import java.io.File
@@ -28,6 +29,7 @@ class Plugin : JavaPlugin() {
                     }
                     then(key) {
                         execute {
+                            if (source is Player) return@execute
                             val section = config.getConfigurationSection(key)!!
                             if (section.getBoolean("pull")) {
                                 pull(
