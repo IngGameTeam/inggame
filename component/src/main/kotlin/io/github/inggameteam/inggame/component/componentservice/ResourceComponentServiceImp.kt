@@ -57,7 +57,7 @@ class ResourceComponentServiceImp(
     }
 
     override fun addNameSpace(name: Any) {
-        nameSpaceCache.add(newModel(name))
+        if (nameSpaceCache.none { it.name == name }) nameSpaceCache.add(newModel(name))
     }
 
     override fun getOrNull(name: Any) = getAll().firstOrNull { it.name == name }

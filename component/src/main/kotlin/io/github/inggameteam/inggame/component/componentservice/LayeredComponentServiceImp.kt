@@ -71,7 +71,7 @@ open class LayeredComponentServiceImp(
     }
 
     override fun addNameSpace(name: Any) {
-        objectList.add(newModel(name))
+        if (objectList.none { it.name == name }) objectList.add(newModel(name))
     }
 
 }
