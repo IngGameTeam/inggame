@@ -53,7 +53,7 @@ class MongoCodec(
         return if (value.javaClass.getAnnotation(Model::class.java) !== null) {
             val document = BsonDocument()
             val writer = BsonDocumentWriter(document)
-            codecRegistry[v.javaClass].encode(writer, v, EncoderContext.builder().build())
+            codecRegistry[value.javaClass].encode(writer, value, EncoderContext.builder().build())
             return fromBson(document)
         } else if (value is Collection<*>) {
             BsonArray(value.map {
