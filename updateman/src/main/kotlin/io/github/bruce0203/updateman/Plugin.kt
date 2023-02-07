@@ -45,7 +45,7 @@ class Plugin : JavaPlugin() {
                                     this@Plugin,
                                     section.getString("plugin")!!,
                                     section.getString("url")!!,
-                                    File(dataFolder, key),
+                                    File(dataFolder, section.getString("dir")?: key),
                                     section.getString("cmd")!!,
                                     section.getString("out")!!,
                                     section.getString("branch")!!,
