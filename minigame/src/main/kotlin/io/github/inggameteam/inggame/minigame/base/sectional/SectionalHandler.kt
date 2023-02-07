@@ -50,7 +50,6 @@ class SectionalHandler(
     @Suppress("unused")
     @EventHandler
     fun outSectionCheck(event: PlayerMoveEvent) {
-        println("SectionCheck")
         val bPlayer = event.player
         val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
         if (isHandler(player)) {
@@ -60,7 +59,6 @@ class SectionalHandler(
                 && !bPlayer.isOp && sectional.gameState !== GameState.WAIT
             ) event.isCancelled = true
         }
-        println("SectionCheckEnd")
     }
 
     @Suppress("unused")
