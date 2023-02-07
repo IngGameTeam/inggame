@@ -6,13 +6,16 @@ import org.bson.BsonArray
 import org.bson.BsonDocument
 import org.bson.BsonDocumentWriter
 import org.bson.Document
+import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
+import org.bson.codecs.configuration.CodecProvider
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import org.bson.codecs.pojo.ClassModel
 import org.bson.codecs.pojo.PojoCodecProvider
 import org.koin.core.component.KoinComponent
+import kotlin.reflect.full.isSubclassOf
 
 class MongoCodec(
     codecs: Collection<Class<*>>,
@@ -64,13 +67,22 @@ class MongoCodec(
     }
 
 
+    @Suppress("UNCHECKED_CAST", "DEPRECATION")
     private fun createCodec(codecs: Collection<Class<*>>): CodecRegistry {
         if (codecs.isEmpty()) {
             println("codecs Model is empty!")
         }
         val pojoCodecRegistry: CodecRegistry = CodecRegistries.fromProviders(
+            *codecs.filter { it.kotlin.isSubclassOf(Codec::class) }.map {
+                object : CodecProvider {
+                    override fun <T : Any?> get(clazz: Class<T>?, registry: CodecRegistry?): Codec<T> {
+                        return it.newInstance() as Codec<T>
+                    }
+                }
+            }.toTypedArray(),
             PojoCodecProvider.builder().automatic(true)
                 .apply {
+
                     codecs.map { clazz ->
                         ClassModel.builder(clazz).enableDiscriminator(true).build() }
                         .forEach(this::register)

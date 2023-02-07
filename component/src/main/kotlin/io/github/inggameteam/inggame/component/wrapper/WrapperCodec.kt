@@ -1,11 +1,13 @@
 package io.github.inggameteam.inggame.component.wrapper
 
+import io.github.inggameteam.inggame.utils.NoArgsConstructor
 import org.bson.BsonReader
 import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 
+@NoArgsConstructor
 class WrapperCodec : Codec<WrapperModel> {
     override fun encode(writer: BsonWriter?, value: WrapperModel?, encoderContext: EncoderContext?) {
         if (value != null && writer != null) {

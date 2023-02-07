@@ -19,8 +19,8 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
         event.addModule(module(createdAtStart = true) {
-//            factory {DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
-//            factory {EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
+            factory {DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
+            factory {EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
         })
         event.register { "singleton" cs "default" }
         event.registerClass(
