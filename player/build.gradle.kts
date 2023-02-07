@@ -1,6 +1,4 @@
-dependencies {
-    listOf(
-        ":utils",
-        ":component",
-    ).forEach { compileOnly(project(it)) }
-}
+projectDependencies(
+    utils,
+    component
+)
