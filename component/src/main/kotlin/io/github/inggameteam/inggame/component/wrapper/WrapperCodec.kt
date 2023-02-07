@@ -17,6 +17,7 @@ class WrapperCodec : Codec<WrapperModel> {
             writer.writeString(WrapperModel::componentService.name, value.componentService)
             writer.writeString(WrapperModel::nameSpace.name, value.nameSpace)
             writer.writeString(WrapperModel::wrapperClass.name, value.wrapperClass)
+            writer.writeEndDocument()
         }
     }
 
@@ -24,11 +25,14 @@ class WrapperCodec : Codec<WrapperModel> {
 
     override fun decode(reader: BsonReader?, decoderContext: DecoderContext?): WrapperModel {
         if (reader != null) {
-            return WrapperModel(
+            reader.readStartDocument()
+            val result = WrapperModel(
                 reader.readString(WrapperModel::componentService.name),
                 reader.readString(WrapperModel::nameSpace.name),
                 reader.readString(WrapperModel::wrapperClass.name)
             )
+            reader.readEndDocument()
+            return result
         }
         throw AssertionError("an error occurred while decoding WrapperModel")
     }
