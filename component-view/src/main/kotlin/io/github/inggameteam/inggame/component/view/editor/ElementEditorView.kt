@@ -6,7 +6,7 @@ import io.github.inggameteam.inggame.component.view.model.ModelView
 interface ElementEditorView<T : Any> : EditorView<T>, ModelView {
 
     override val get: () -> T? get() = {
-        try { componentService.find(nameSpace.name, element.first, Any::class) as T }
+        try { nameSpace.elements[element.first] as T }
         catch(_: Throwable) {
             try {
                 try {
