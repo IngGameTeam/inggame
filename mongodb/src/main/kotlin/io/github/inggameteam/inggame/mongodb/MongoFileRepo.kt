@@ -13,7 +13,7 @@ class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
                 if (!plugin.dataFolder.exists()) {
                     val msg = "cannot save cause plugin folder is not exists"
                     plugin.logger.warning(msg)
-                    throw AssertionError(msg)
+                    throw Throwable(msg)
                 }
                 parentFile.mkdir()
                 createNewFile()
