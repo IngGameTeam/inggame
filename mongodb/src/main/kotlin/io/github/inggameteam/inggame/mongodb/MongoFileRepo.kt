@@ -3,10 +3,15 @@ package io.github.inggameteam.inggame.mongodb
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bson.Document
 import java.io.File
-import java.lang.AssertionError
-import java.lang.Exception
 
 class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
+
+    internal class CannotSaveException(msg: String) : RuntimeException(msg) {
+        @Synchronized
+        override fun fillInStackTrace(): Throwable {
+            return this
+        }
+    }
 
     fun getFile(): File {
         return File(plugin.dataFolder, "$file.json")
@@ -14,7 +19,7 @@ class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
                 if (!plugin.dataFolder.exists()) {
                     val msg = "cannot save cause plugin folder is not exists"
                     plugin.logger.warning(msg)
-                    throw Exception(msg, null)
+                    throw CannotSaveException(msg)
                 }
                 parentFile.mkdir()
                 createNewFile()
