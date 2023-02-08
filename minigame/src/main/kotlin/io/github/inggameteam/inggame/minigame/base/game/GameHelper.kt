@@ -6,9 +6,7 @@ import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.event.*
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.delay
 import io.github.inggameteam.inggame.utils.hasTags
-import org.bukkit.Bukkit
 
 class GameHelper(
     private val gameInstanceService: GameInstanceService,
@@ -19,6 +17,11 @@ class GameHelper(
     fun createGame(game: Game, parent: String) {
         gameInstanceService.create(game, parent)
         plugin.server.pluginManager.callEvent(GameLoadEvent(game))
+    }
+
+    fun removeGame(game: Game) {
+        gameInstanceService.remove(game)
+        plugin.server.pluginManager.callEvent(GameUnloadEvent(game))
     }
 
     fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
@@ -46,7 +49,7 @@ class GameHelper(
             gameAlert.GAME_JOIN.send(player, game.gameName)
             if (joinType === JoinType.PLAY) player.addTag(PTag.PLAY)
             else gameAlert.GAME_START_SPECTATING.send(player, game.gameName)
-            Bukkit.getPluginManager().callEvent(GameJoinEvent(game, player))
+            plugin.server.pluginManager.callEvent(GameJoinEvent(game, player))
 
             if (!game.hasGameTask()
                 && game.gameState === GameState.WAIT
@@ -63,7 +66,7 @@ class GameHelper(
     fun leftGame(gPlayer: GPlayer, leftType: LeftType): Boolean {
         val game = gPlayer.joinedGame
         if (!requestLeft(game, gPlayer, leftType)) return false
-        Bukkit.getPluginManager().callEvent(GameLeftEvent(gPlayer, game, leftType))
+        plugin.server.pluginManager.callEvent(GameLeftEvent(gPlayer, game, leftType))
 
         val gameAlert = gPlayer[::GameAlertImp]
         if (leftType === LeftType.LEFT_SERVER) {
@@ -91,7 +94,7 @@ class GameHelper(
     fun start(game: Game, force: Boolean) {
         if (force) {
             game.gameState = GameState.PLAY
-            Bukkit.getPluginManager().callEvent(GameBeginEvent(game))
+            plugin.server.pluginManager.callEvent(GameBeginEvent(game))
         } else if (game.gameState === GameState.WAIT) {
             val tick = game.startWaitingSecond
             if (tick < 0) {
@@ -117,12 +120,14 @@ class GameHelper(
                 leftGame(gPlayer, leftType)
             }
             game.cancelGameTask()
-            Bukkit.getPluginManager().callEvent(GameUnloadEvent(game))
-            if (game.gameState === GameState.STOP)
-                game.addTask({
-                    if (gameInstanceService.has(game)) {
-                        game.cancelGameTask()
-                    }; gameInstanceService.remove(game) }.delay(plugin, game.stopWaitingTick.toLong()))
+            plugin.server.pluginManager.callEvent(GameUnloadEvent(game))
+//            if (game.gameState === GameState.STOP)
+//                game.addTask({
+//                    if (gameInstanceService.has(game)) {
+//                        game.cancelGameTask()
+//                    }
+//                    removeGame(game)
+//                }.delay(plugin, game.stopWaitingTick.toLong()))
         }
     }
 

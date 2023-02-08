@@ -5,12 +5,11 @@ import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.game.GameState
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.minigame.event.GameFinishEvent
-import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
-import io.github.inggameteam.inggame.minigame.event.GameLeftEvent
-import io.github.inggameteam.inggame.minigame.event.GameLoadEvent
+import io.github.inggameteam.inggame.minigame.event.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.delay
+import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
@@ -42,7 +41,6 @@ class SectionalHandler(
         if (game.isAllocatedGame && game.gameJoined.size == 0) {
             val sectional = game[::SectionalImp]
             sectionalHelper.clearEntitiesToUnload(sectional)
-            ;{ sectionalHelper.unloadSector(sectional); }.delay(plugin, 20)
         }
     }
 
@@ -77,6 +75,20 @@ class SectionalHandler(
             game.sector = sectorLoader.newAllocatable(gameServer.gameWorld)
             game.initPoints()
         }
+    }
+
+    @Suppress("unused")
+    @EventHandler(priority = EventPriority.LOWEST)
+    fun onUnloadGame(event: GameUnloadEvent) {
+        if (isNotHandler(event.game)) return
+        val game = event.game[::SectionalImp]
+        if (!game.unloadingSemaphore) return
+        event.isCancelled = true
+        ;{
+            game.unloadingSemaphore = true
+            sectionalHelper.unloadSector(game)
+            ;{ plugin.server.pluginManager.callEvent(GameUnloadEvent(game)) }.runNow(plugin)
+        }.async(plugin)
     }
 
 }

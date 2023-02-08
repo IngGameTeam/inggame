@@ -13,7 +13,7 @@ interface Sectional : Game, Locational {
     val center: Vector
     val minPoint: Vector
     val maxPoint: Vector
-    var isUnloaded: Boolean
+    var unloadingSemaphore: Boolean
     val width: Int
     val height: Int
     fun isInSector(location: Location): Boolean

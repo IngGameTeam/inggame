@@ -1,9 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
-import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.async
-import io.github.inggameteam.inggame.utils.runNow
 import io.github.inggameteam.inggame.world.paste
 import org.bukkit.Location
 import org.bukkit.World
@@ -12,7 +9,6 @@ import java.io.File
 import kotlin.concurrent.thread
 
 class SectionalHelper(
-    private val gameInstanceService: GameInstanceService,
     val plugin: IngGamePlugin
 ) {
 
@@ -36,8 +32,8 @@ class SectionalHelper(
     }
 
     fun unloadSector(sectional: Sectional) {
-        if (sectional.isUnloaded) return
-        sectional.isUnloaded = true
+        if (sectional.unloadingSemaphore) return
+        sectional.unloadingSemaphore = true
         unloadSector(sectional, sectional.sector.world, sectional.sector)
     }
 
@@ -47,16 +43,9 @@ class SectionalHelper(
         val z = sector.y * width
         val file = getSchematicFile("default", "default")
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
-        ;{
         paste(location, file)
 //            unloadChunk(location, getSchematicFile(schematicName, this.name))
         plugin.logger.info("${sectional.gameName} unloaded $sector (${System.currentTimeMillis() - before}ms)")
-        ;{
-        if (gameInstanceService.has(this))
-            sectional.cancelGameTask()
-        gameInstanceService.remove(this)
-    }.runNow(plugin)
-    }.async(plugin)
     }
 
     private fun loadSector(sectional: Sectional, world: World, sector: Sector, key: String): Unit = sectional.run {

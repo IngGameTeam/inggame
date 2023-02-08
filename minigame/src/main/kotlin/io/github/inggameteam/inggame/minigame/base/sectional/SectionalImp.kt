@@ -11,13 +11,14 @@ import org.bukkit.util.Vector
 class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
 
     override var sector: Sector by default { Sector(0, 0) }
-    override val isAllocatedGame: Boolean get() = !sector.equals(0, 0)
+    override val isAllocatedGame: Boolean
+        get() = !sector.equals(0, 0)
     override val schematicName: String by nonNull
     override val locations: HashMap<String, LocationModel> by nonNull
     override var center: Vector by nonNull
     override var minPoint: Vector by nonNull
     override var maxPoint: Vector by nonNull
-    override var isUnloaded = false
+    override var unloadingSemaphore = false
     override val width: Int by nonNull
     override val height: Int by nonNull
 

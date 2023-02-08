@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.utils
 
-import io.github.inggameteam.inggame.utils.event.IngGamePluginDisableEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
@@ -52,8 +51,6 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     override fun onDisable() {
 //        super.onDisable()
         allowTask = false
-        server.broadcastMessage("IngGamePlugin has been disabled")
-        server.pluginManager.callEvent(IngGamePluginDisableEvent(this))
         for (it in disableEvent) it()
         for (it in saveEvent) it()
     }
