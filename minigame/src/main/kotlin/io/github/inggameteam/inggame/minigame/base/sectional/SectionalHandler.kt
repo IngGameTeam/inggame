@@ -1,14 +1,17 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
 import io.github.inggameteam.inggame.component.HandleListener
+import io.github.inggameteam.inggame.component.Handler.Companion.isHandler
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.game.GameState
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
+import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.minigame.event.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.delay
+import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -16,11 +19,23 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 class SectionalHandler(
     private val sectionalHelper: SectionalHelper,
+    private val gameInstanceService: GameInstanceService,
     private val gamePlayerService: GamePlayerService,
     private val plugin: IngGamePlugin,
     private val sectorLoader: SectorLoader,
     private val gameServer: GameServer,
 ) : HandleListener(plugin) {
+
+    @Suppress("unused")
+    @EventHandler
+    fun onIngGamePluginDisable(event: IngGamePluginEnableEvent) {
+        plugin.addDisableEvent {
+            if (isHandler(gameServer))
+                gameInstanceService.getAll(::SectionalImp)
+                    .filter { it.isHandler(SectionalHandler::class) }
+                    .forEach { sectionalHelper.unloadSector(it) }
+        }
+    }
 
     @Suppress("unused")
     @EventHandler

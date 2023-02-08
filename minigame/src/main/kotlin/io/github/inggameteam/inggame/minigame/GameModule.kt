@@ -64,7 +64,6 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::SpawnOnStart)
             classOf(::ParticleOnGameBegin)
             classOf(::StartPlayersAmountAlert)
-            classOf(::ClearSectorOnDisableServer)
             classOf(::GameHandler)
             classOf(
                 Game::class,
