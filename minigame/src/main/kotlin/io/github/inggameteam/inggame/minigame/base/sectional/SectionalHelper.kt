@@ -18,11 +18,11 @@ class SectionalHelper(
 
     fun clearEntitiesToUnload(sectional: Sectional): Unit = sectional.run {
         val before = System.currentTimeMillis()
-        gameSector.world.getNearbyEntities(
-            Location(gameSector.world,
-                gameSector.x * gameWidth.toDouble(),
-                gameHeight.toDouble(),
-                gameSector.y * gameWidth.toDouble()
+        sector.world.getNearbyEntities(
+            Location(sector.world,
+                sector.x * width.toDouble(),
+                height.toDouble(),
+                sector.y * width.toDouble()
             ), 150.0, 150.0, 150.0).apply {
             println("clearEntities(nearBy):${System.currentTimeMillis() - before}ms")
         }.forEach {
@@ -32,21 +32,21 @@ class SectionalHelper(
     }
 
     fun loadSector(sectional: Sectional, key: String = sectional.schematicName) {
-        loadSector(sectional, sectional.gameSector.world, sectional.gameSector, key)
+        loadSector(sectional, sectional.sector.world, sectional.sector, key)
     }
 
     fun unloadSector(sectional: Sectional) {
         if (sectional.isUnloaded) return
         sectional.isUnloaded = true
-        unloadSector(sectional, sectional.gameSector.world, sectional.gameSector)
+        unloadSector(sectional, sectional.sector.world, sectional.sector)
     }
 
     private fun unloadSector(sectional: Sectional, world: World, sector: Sector): Unit = sectional.run {
         val before = System.currentTimeMillis()
-        val x = sector.x * gameWidth
-        val z = sector.y * gameWidth
+        val x = sector.x * width
+        val z = sector.y * width
         val file = getSchematicFile("default", "default")
-        val location = Location(world, x.toDouble(), gameHeight.toDouble(), z.toDouble())
+        val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         ;{
         paste(location, file)
 //            unloadChunk(location, getSchematicFile(schematicName, this.name))
@@ -60,10 +60,10 @@ class SectionalHelper(
     }
 
     private fun loadSector(sectional: Sectional, world: World, sector: Sector, key: String): Unit = sectional.run {
-        val x = gameWidth * sector.x
-        val z = gameWidth * sector.y
+        val x = width * sector.x
+        val z = width * sector.y
         val file = getSchematicFile(key, gameName)
-        val location = Location(world, x.toDouble(), gameHeight.toDouble(), z.toDouble())
+        val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         thread {
 //            FaweImpl(plugin).loadChunk(location, file)
             paste(location, file)

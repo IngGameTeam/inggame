@@ -7,15 +7,15 @@ import org.bukkit.util.Vector
 
 interface Sectional : Game, Locational {
 
-    var gameSector: Sector
+    var sector: Sector
     val isAllocatedGame: Boolean
     val schematicName: String
     val center: Vector
     val minPoint: Vector
     val maxPoint: Vector
     var isUnloaded: Boolean
-    val gameWidth: Int
-    val gameHeight: Int
+    val width: Int
+    val height: Int
     fun isInSector(location: Location): Boolean
 
 }
