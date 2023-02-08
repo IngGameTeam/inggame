@@ -11,6 +11,10 @@ class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
         override fun fillInStackTrace(): Throwable {
             return this
         }
+
+        override fun getStackTrace(): Array<StackTraceElement> {
+            return emptyArray()
+        }
     }
 
     fun getFile(): File {
