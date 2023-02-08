@@ -26,6 +26,7 @@ fun load(app: Koin, file: File) {
                             } catch (_: Throwable) {}
                         }  else {
                             val value = get(key)
+                            componentService.addNameSpace(nameSpace)
                             componentService.set(nameSpace, key, value)
                         }
                     }
