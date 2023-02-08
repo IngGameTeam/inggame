@@ -17,8 +17,8 @@ class ElementForAddSelector(
     override val elements: Collection<String> get() = app.get<PropertyRegistry>().getAllProp().filter {
         val name = it.name
         val clazz = it.clazz.simpleName!!
-        val notContainsName = nameSpace.elements.contains(name)
-        val notContainsClazz = nameSpace.elements.contains(clazz)
+        val notContainsName = !nameSpace.elements.contains(name)
+        val notContainsClazz = !nameSpace.elements.contains(clazz)
         notContainsName && name == nameSpace.name
                 || notContainsClazz && clazz == nameSpace.name.toString()
                 || notContainsName && nameSpace.parents.contains(name)
