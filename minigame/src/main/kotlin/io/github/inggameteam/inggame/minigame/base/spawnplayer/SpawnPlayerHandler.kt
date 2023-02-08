@@ -12,7 +12,7 @@ class SpawnPlayerHandler(plugin: IngGamePlugin) : Handler, Listener(plugin) {
     @EventHandler
     fun onGamePlayerSpawn(event: GPlayerSpawnEvent) {
         val player = event.player
-        val game = (player.joinedGame?: return)[::SpawnPlayerImp]
+        val game = player.joinedGame[::SpawnPlayerImp]
         if (isNotHandler(game)) return
         player.teleport(game.getLocation("spawn"))
     }

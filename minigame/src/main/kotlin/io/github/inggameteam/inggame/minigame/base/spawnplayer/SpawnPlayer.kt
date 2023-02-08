@@ -7,7 +7,5 @@ import org.bukkit.GameMode
 interface SpawnPlayer : Wrapper {
 
     val gameMode: GameMode
-    val spawn: LocationModel
-
 
 }
