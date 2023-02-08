@@ -13,6 +13,10 @@ class UnloadGameOnDisableServer(
     val plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
+    init {
+        plugin.server.broadcastMessage("GameDissablerInit")
+    }
+
     @Suppress("unused")
     @EventHandler
     fun onIngGamePluginDisable(event: IngGamePluginDisableEvent) {
