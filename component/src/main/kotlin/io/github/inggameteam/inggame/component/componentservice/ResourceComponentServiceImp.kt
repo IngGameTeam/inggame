@@ -65,7 +65,7 @@ class ResourceComponentServiceImp(
     override fun set(nameSpace: Any, key: Any, value: Any?) {
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getOrNull(nameSpace)
-            ?: NameSpace(name, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }
+            ?: NameSpace(nameSpace, CopyOnWriteArraySet(), ConcurrentHashMap()).apply { nameSpaceCache.add(this) }
         if (value === null) ns.elements.remove(key) else ns.elements[key] = value
     }
 
