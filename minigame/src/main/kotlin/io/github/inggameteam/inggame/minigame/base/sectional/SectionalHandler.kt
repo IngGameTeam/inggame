@@ -30,7 +30,6 @@ class SectionalHandler(
     @EventHandler
     fun onIngGamePluginDisable(event: IngGamePluginEnableEvent) {
         plugin.addDisableEvent {
-            if (isHandler(gameServer))
                 gameInstanceService.getAll(::SectionalImp)
                     .filter { it.isHandler(SectionalHandler::class) }
                     .forEach { sectionalHelper.unloadSector(it) }
