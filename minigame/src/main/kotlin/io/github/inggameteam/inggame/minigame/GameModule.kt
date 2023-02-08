@@ -7,13 +7,9 @@ import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
-import io.github.inggameteam.inggame.minigame.base.gameserver.ArrowStuckPrevent
-import io.github.inggameteam.inggame.minigame.base.gameserver.DisableCollision
-import io.github.inggameteam.inggame.minigame.base.gameserver.HideJoinLeaveMessage
-import io.github.inggameteam.inggame.minigame.base.gameserver.NoUnderWaterFall
+import io.github.inggameteam.inggame.minigame.base.gameserver.*
 import io.github.inggameteam.inggame.minigame.base.gameserver.hub.HubLoader
 import io.github.inggameteam.inggame.minigame.base.gameserver.hub.JoinHubOnJoinServer
-import io.github.inggameteam.inggame.minigame.base.gameserver.QuitGameOnQuitServer
 import io.github.inggameteam.inggame.minigame.base.locational.Locational
 import io.github.inggameteam.inggame.minigame.base.locational.LocationalImp
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
@@ -68,6 +64,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::SpawnOnStart)
             classOf(::ParticleOnGameBegin)
             classOf(::StartPlayersAmountAlert)
+            classOf(::UnloadGameOnDisableServer)
             classOf(
                 Game::class,
                 GameAlert::class,
