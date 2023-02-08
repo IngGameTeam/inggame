@@ -30,7 +30,7 @@ class Update(
 
     init {
         if (plugin.semaphore[key] !== null) {
-            throw AssertionError("")
+            throw AssertionError("request blocked due to already updating")
         }
         thread {
 
