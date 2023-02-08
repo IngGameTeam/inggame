@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
@@ -17,6 +19,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.noarg") version Dependency.Kotlin.Version
     id("com.google.devtools.ksp") version Dependency.Ksp.Version
     application
+    id("maven-publish")
 }
 
 allprojects {
@@ -121,6 +124,41 @@ allprojects {
     }
 
 
+    lateinit var sourcesArtifact: PublishArtifact
+
+
+    tasks {
+        artifacts {
+            sourcesArtifact = archives(jar)
+        }
+    }
+
+    apply(plugin = "maven-publish")
+
+    publishing {
+        val repo = System.getenv("GITHUB_REPOSITORY")
+        if (repo === null) return@publishing
+        repositories {
+            maven {
+                url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
+                credentials {
+
+                    username = System.getenv("SONATYPE_USERNAME") as? String
+                    password = System.getenv("SONATYPE_PASSWORD") as? String
+                }
+            }
+        }
+        publications {
+            register<MavenPublication>(project.name) {
+                val githubUserName = repo.substring(0, repo.indexOf("/"))
+                groupId = "io.github.${githubUserName.toLowerCaseAsciiOnly()}"
+                artifactId = project.name.toLowerCase()
+                version = System.getenv("GITHUB_BUILD_NUMBER")?: project.version.toString()
+                artifact(sourcesArtifact)
+            }
+        }
+
+    }
 
 }
 
