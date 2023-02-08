@@ -15,10 +15,12 @@ class ElementForAddSelector(
     override val parentSelector: Selector<*>? = null
 ) : NameSpaceView by nameSpaceView, Selector<String> {
     override val elements: Collection<String> get() = app.get<PropertyRegistry>().getAllProp().filter {
-        (it.name == nameSpace.name
-                || it.clazz.simpleName!! == nameSpace.name.toString()
-                || nameSpace.parents.contains(it.clazz.simpleName!!)
-        ) && !nameSpace.elements.contains(it.name) || !nameSpace.elements.contains(it.clazz.simpleName!!)
+        val name = it.name
+        val clazzName = it.clazz.simpleName!!
+        (name == nameSpace.name
+                || clazzName == nameSpace.name.toString()
+                || nameSpace.parents.contains(clazzName)
+        ) && !nameSpace.elements.contains(name) || !nameSpace.elements.contains(clazzName)
     }.map { it.name }
 
     override fun select(t: String, event: InventoryClickEvent) {
