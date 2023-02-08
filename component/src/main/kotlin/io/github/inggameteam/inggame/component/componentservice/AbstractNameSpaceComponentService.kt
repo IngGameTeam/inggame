@@ -23,7 +23,7 @@ abstract class AbstractNameSpaceComponentService : ComponentService {
     }
 
     override fun setParents(name: Any, value: Collection<Any>) {
-        (getOrNull(name)?: newModel(name)).apply {
+        get(name).apply {
             parents = sortParentsByPriority(CopyOnWriteArraySet(value.map { uncoverDelegate(it) }))
         }
     }
