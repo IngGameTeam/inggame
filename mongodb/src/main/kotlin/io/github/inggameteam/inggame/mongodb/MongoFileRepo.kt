@@ -4,17 +4,12 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bson.Document
 import java.io.File
 
-class MongoFileRepo(val file: String, val plugin: IngGamePlugin) : MongoRepo {
+class MongoFileRepo(private val file: String, val plugin: IngGamePlugin) : MongoRepo {
 
     internal class CannotSaveException(msg: String) : RuntimeException(msg) {
         @Synchronized
-        override fun fillInStackTrace(): Throwable {
-            return this
-        }
-
-        override fun getStackTrace(): Array<StackTraceElement> {
-            return emptyArray()
-        }
+        override fun fillInStackTrace() = this
+        override fun getStackTrace(): Array<StackTraceElement> = emptyArray()
     }
 
     fun getFile(): File {
