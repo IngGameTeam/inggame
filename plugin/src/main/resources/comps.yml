@@ -7,6 +7,7 @@ view-resource:
     parents: [ Selector ]
     VIEW_ADD_BUTTON: "&aAdd namespace"
     VIEW_REMOVE_BUTTON: "&cRemove namespace"
+    VIEW_RENAME_BUTTON: "&6Rename namespace"
     VIEW_TITLE: "select your namespace"
   ElementSelector:
     parents: [ Selector ]
