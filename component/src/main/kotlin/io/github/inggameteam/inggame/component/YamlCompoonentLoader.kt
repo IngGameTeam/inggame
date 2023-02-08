@@ -19,6 +19,7 @@ fun load(app: Koin, file: File) {
                     getKeys(false).forEach { key ->
                         if (key == "parents") {
                             try {
+                                componentService.addNameSpace(nameSpace)
                                 componentService.setParents(nameSpace, getStringList(key).map {
                                     try { it.fastUUID() } catch (_: Throwable) { it }
                                 })
