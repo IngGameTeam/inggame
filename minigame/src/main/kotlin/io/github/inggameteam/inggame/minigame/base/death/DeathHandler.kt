@@ -42,7 +42,7 @@ class DeathHandler(
             player.fireTicks = 0
             if (deathEvent.isCancelled) return
             val spawnEvent = GPlayerSpawnEvent(player)
-            Bukkit.getPluginManager().callEvent(spawnEvent)
+            plugin.server.pluginManager.callEvent(spawnEvent)
         }
 
     }
