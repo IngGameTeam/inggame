@@ -20,7 +20,7 @@ class ElementForAddSelector(
         (name == nameSpace.name
                 || clazzName == nameSpace.name.toString()
                 || nameSpace.parents.contains(clazzName)
-        ) && !nameSpace.elements.contains(name) || !nameSpace.elements.contains(clazzName)
+        ) && (!nameSpace.elements.contains(name) || !nameSpace.elements.contains(clazzName))
     }.map { it.name }
 
     override fun select(t: String, event: InventoryClickEvent) {
