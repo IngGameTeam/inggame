@@ -32,8 +32,6 @@ class SectionalHelper(
     }
 
     fun unloadSector(sectional: Sectional) {
-        if (sectional.unloadingSemaphore) return
-        sectional.unloadingSemaphore = true
         unloadSector(sectional, sectional.sector.world, sectional.sector)
     }
 
