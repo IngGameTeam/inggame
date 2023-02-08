@@ -13,7 +13,7 @@ import io.github.inggameteam.inggame.minigame.base.gameserver.HideJoinLeaveMessa
 import io.github.inggameteam.inggame.minigame.base.gameserver.NoUnderWaterFall
 import io.github.inggameteam.inggame.minigame.base.gameserver.hub.HubLoader
 import io.github.inggameteam.inggame.minigame.base.gameserver.hub.JoinHubOnJoinServer
-import io.github.inggameteam.inggame.minigame.base.gameserver.hub.QuitGameOnQuitServer
+import io.github.inggameteam.inggame.minigame.base.gameserver.QuitGameOnQuitServer
 import io.github.inggameteam.inggame.minigame.base.locational.Locational
 import io.github.inggameteam.inggame.minigame.base.locational.LocationalImp
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
