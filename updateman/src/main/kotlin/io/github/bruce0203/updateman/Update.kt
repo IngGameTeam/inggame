@@ -71,12 +71,15 @@ class Update(
                     val pl = Bukkit.getPluginManager().getPlugin(pluginName)
                     val path = if (pl !== null) File("plugins/update/${Paths.get(out).name}").toPath()
                     else File("plugins/${Paths.get(out).name}").toPath()
+                    path.parent.toFile().mkdir()
                     Files.copy(
                         File(dir, out).toPath(),
                         path,
                         StandardCopyOption.REPLACE_EXISTING
                     )
-                    if (pl == null) PluginUtil.load(pluginName)
+                    if (pl == null) {
+                        PluginUtil.load(pluginName)
+                    }
                     else {
                         PluginUtil.reload(pl)
                     }
