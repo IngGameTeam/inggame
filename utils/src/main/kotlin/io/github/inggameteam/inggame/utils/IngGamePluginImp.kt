@@ -52,8 +52,8 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     override fun onDisable() {
 //        super.onDisable()
         allowTask = false
+        server.broadcastMessage("IngGamePlugin has been disabled")
         server.pluginManager.callEvent(IngGamePluginDisableEvent(this))
-        println("HELLO")
         for (it in disableEvent) it()
         for (it in saveEvent) it()
     }
