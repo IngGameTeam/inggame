@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.utils.Model
 import io.github.inggameteam.inggame.utils.ColorUtil.color
+import io.github.inggameteam.inggame.utils.Model
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
 import org.bukkit.entity.Player

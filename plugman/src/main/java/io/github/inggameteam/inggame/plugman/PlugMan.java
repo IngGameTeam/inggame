@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.plugman;
 
 import io.github.inggameteam.inggame.plugman.util.BukkitCommandWrap;
 import io.github.inggameteam.inggame.plugman.util.BukkitCommandWrap_Useless;
-import lombok.Getter;
 
 public class PlugMan {
 

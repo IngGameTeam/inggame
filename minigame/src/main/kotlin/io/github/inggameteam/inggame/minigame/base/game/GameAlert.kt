@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.game
 
-import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.model.Alert
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 
 interface GameAlert : Wrapper {
 

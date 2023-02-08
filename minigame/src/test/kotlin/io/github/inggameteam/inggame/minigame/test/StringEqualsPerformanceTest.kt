@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.minigame.test
 
-import io.github.inggameteam.inggame.utils.fastForEach
 import java.util.*
 import kotlin.system.measureTimeMillis
 

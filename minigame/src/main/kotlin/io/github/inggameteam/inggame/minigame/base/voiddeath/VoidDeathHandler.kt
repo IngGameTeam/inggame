@@ -1,10 +1,8 @@
 package io.github.inggameteam.inggame.minigame.base.voiddeath
 
 import io.github.inggameteam.inggame.component.HandleListener
-import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.die
 import org.bukkit.event.EventHandler

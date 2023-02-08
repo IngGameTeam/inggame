@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
-import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.model.LocationModel
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
 import io.github.inggameteam.inggame.minigame.base.game.GameState

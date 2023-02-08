@@ -3,7 +3,6 @@ import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 import org.gradle.kotlin.dsl.provideDelegate
-import org.gradle.kotlin.dsl.support.delegates.ProjectDelegate
 import kotlin.reflect.KProperty
 
 

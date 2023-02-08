@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.spawnplayer
 
-import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.model.LocationModel
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.sectional.Sectional
 import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
 import org.bukkit.GameMode

@@ -4,8 +4,8 @@ import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEve
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.player.handler.PlayerLanguage
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
-import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.koin.dsl.module
 

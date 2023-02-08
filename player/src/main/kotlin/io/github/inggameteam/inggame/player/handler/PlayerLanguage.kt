@@ -1,8 +1,8 @@
 package io.github.inggameteam.inggame.player.handler
 
 import io.github.inggameteam.inggame.player.PlayerInstanceService
-import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerJoinEvent
 

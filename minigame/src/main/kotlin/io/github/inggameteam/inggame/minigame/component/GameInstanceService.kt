@@ -6,8 +6,8 @@ import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.player.PlayerService
-import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.Listener
 import org.koin.core.component.KoinComponent
 
 class GameInstanceService(

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
-
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"

@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.utils.Model
 import io.github.inggameteam.inggame.utils.ColorUtil.getColoredString
+import io.github.inggameteam.inggame.utils.Model
 import org.bson.codecs.pojo.annotations.BsonExtraElements
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit

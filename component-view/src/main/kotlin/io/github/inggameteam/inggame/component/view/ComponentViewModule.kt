@@ -3,8 +3,8 @@ package io.github.inggameteam.inggame.component.view
 import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
 import io.github.inggameteam.inggame.component.view.handler.ViewPlayerLoader
 import io.github.inggameteam.inggame.component.view.wrapper.Selector
-import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
