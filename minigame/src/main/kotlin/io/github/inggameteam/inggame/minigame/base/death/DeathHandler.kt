@@ -32,7 +32,7 @@ class DeathHandler(
         if (player.hasTag(PTag.DEAD)) {
             event.isCancelled = true
         }
-        if (event.finalDamage <= player.health) {
+        if (event.finalDamage >= player.health) {
             val deathEvent = GPlayerDeathEvent(player, player.killer)
             plugin.server.pluginManager.callEvent(deathEvent)
             event.isCancelled = true
