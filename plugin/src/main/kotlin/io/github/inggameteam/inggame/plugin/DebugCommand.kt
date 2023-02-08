@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.plugin
 
-import io.github.bruce0203.updateman.updateManCmd
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
@@ -19,7 +18,6 @@ import kotlin.system.measureTimeMillis
 fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
     MCCommand(this as JavaPlugin) {
         command("ing") {
-            updateManCmd("update", plugin)
             thenExecute("reload") {
                 if (!source.isOp) return@thenExecute
                 source.sendMessage("Reloading...")
