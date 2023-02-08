@@ -1,9 +1,9 @@
 # These first 6 aren't configurable
 issues: "https://github.com/IntellectualSites/FastAsyncWorldEdit/issues"
 wiki: "https://intellectualsites.github.io/fastasyncworldedit-documentation/"
-date: "Wed Jan 11 00:00:00 KST 2023"
+date: "Tue Mar 07 00:00:00 KST 2023"
 build: "https://ci.athion.net/job/FastAsyncWorldEdit/0"
-commit: "https://github.com/IntellectualSites/FastAsyncWorldEdit/commit/f29a6603"
+commit: "https://github.com/IntellectualSites/FastAsyncWorldEdit/commit/fe612cb7"
 platform: "Bukkit"
 # Set true to enable WorldEdit restrictions per region (e.g. PlotSquared or WorldGuard).
 # To be allowed to WorldEdit in a region, users need the appropriate
@@ -34,7 +34,7 @@ clipboard:
   #  - 1 = Fast compression
   #  - 2-17 = Slower compression
   #  - levels over 6 require ZSTD 1.4.8+ to be installed to the system
-  compression-level: 0
+  compression-level: 1
   # Number of days to keep history on disk before deleting it
   delete-after-days: 1
   # If a player's clipboard should be deleted upon logout
@@ -58,7 +58,7 @@ lighting:
 # Generic tick limiter (not necessarily WorldEdit related, but useful to stop abuse)
 tick-limiter:
   # Enable the limiter
-  enabled: false
+  enabled: true
   # The interval in ticks
   interval: 20
   # Max falling blocks per interval (per chunk)
