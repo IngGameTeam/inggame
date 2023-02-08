@@ -155,7 +155,7 @@ allprojects {
             register<MavenPublication>(project.name) {
 //                val githubUserName = repo.substring(0, repo.indexOf("/"))
                 groupId = "io.github.bruce0203"
-                artifactId = project.name.toLowerCase()
+                artifactId = rootProject.name + "-" + project.name.toLowerCase()
                 version = System.getenv("GITHUB_BUILD_NUMBER")?: project.version.toString()
                 artifact(sourcesArtifact)
             }
