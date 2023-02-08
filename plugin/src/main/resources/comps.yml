@@ -53,6 +53,9 @@ view-resource:
   NameSpaceForRemoveSelector:
     parents: [ Selector ]
     VIEW_TITLE: "remove your namespace"
+  NameSpaceForRenameSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "rename your namespace"
 game-resource:
   PrintOnMove:
     PrintOnMove: false
