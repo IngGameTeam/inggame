@@ -32,7 +32,6 @@ fun loadComponents() = module(createdAtStart = true) {
         getKoin().loadModules(csModules)
         val modules = event.modules
         getKoin().loadModules(modules)
-        
         ComponentLoader()
     } bind ComponentLoader::class
 }
