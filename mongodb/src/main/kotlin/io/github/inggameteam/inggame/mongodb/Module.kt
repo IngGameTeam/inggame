@@ -31,7 +31,7 @@ fun createMongoModule(
     url: String,
 ) = module {
     single { ConnectionString(url) }
-    single { MongoCodec() }
+    singleOf(::MongoCodec)
     single { DatabaseString(get<ConnectionString>().database
         ?: throw AssertionError("database is not specified in the url")) }
     singleOf(::createClient)
