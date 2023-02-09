@@ -30,6 +30,7 @@ class ComponentServiceDSL private constructor(
     companion object {
         fun newRoot() = ComponentServiceDSL("null", type = MULTI)
             .apply { cs("root", type = MULTI) csc {} }
+            .apply { cs("default") }
     }
 
     fun findComponentServiceDSL(name: String): ComponentServiceDSL {
