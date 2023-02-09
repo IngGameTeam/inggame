@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 
 interface Component : Wrapper {
 
-    val componentType: ComponentServiceDSL.ComponentServiceType
+    val componentType: ComponentServiceType
     val isSavable: Boolean
 
 }
