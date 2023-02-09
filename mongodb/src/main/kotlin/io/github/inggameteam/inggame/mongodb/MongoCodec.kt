@@ -20,7 +20,7 @@ import kotlin.reflect.full.isSubclassOf
 
 class MongoCodec : KoinComponent {
 
-    private lateinit var codecRegistry: CodecRegistry
+    lateinit var codecRegistry: CodecRegistry
     private lateinit var decodeFunctionAll: DecodeFunctionAll
     private lateinit var encodeFunctionAll: EncodeFunctionAll
 
