@@ -15,15 +15,29 @@ import org.bson.codecs.configuration.CodecRegistry
 import org.bson.codecs.pojo.ClassModel
 import org.bson.codecs.pojo.PojoCodecProvider
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import kotlin.reflect.full.isSubclassOf
 
-class MongoCodec(
-    codecs: Collection<Class<*>>,
-    private val decodeFunctionAll: DecodeFunctionAll,
-    private val encodeFunctionAll: EncodeFunctionAll
-) : KoinComponent {
+class MongoCodec : KoinComponent {
 
-    val codecRegistry = createCodec(codecs)
+    private lateinit var codecRegistry: CodecRegistry
+    private lateinit var decodeFunctionAll: DecodeFunctionAll
+    private lateinit var encodeFunctionAll: EncodeFunctionAll
+
+    init {
+        initProperty()
+    }
+
+    fun initProperty() {
+        decodeFunctionAll = get()
+        encodeFunctionAll = get()
+        codecRegistry = createCodec(ArrayList<Class<out Any>>().apply {
+            get<ClassRegistryAll>().classes.filter {
+                it.java.getAnnotation(Model::class.java) !== null
+                        || it.isSubclassOf(Codec::class)
+            }.map { it.java }.apply(::addAll)
+        })
+    }
 
     fun decode(document: Any?): Any? {
         if (document === null) return null
@@ -71,6 +85,7 @@ class MongoCodec(
 
     @Suppress("UNCHECKED_CAST", "DEPRECATION")
     private fun createCodec(codecs: Collection<Class<*>>): CodecRegistry {
+        initProperty()
         if (codecs.isEmpty()) {
             println("codecs Model is empty!")
         }

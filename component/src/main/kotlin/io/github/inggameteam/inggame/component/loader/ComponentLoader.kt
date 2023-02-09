@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.loader
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
+import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -11,7 +12,7 @@ class ComponentLoader
 fun loadComponents() = module(createdAtStart = true) {
     val component = "component"
     val dsl = ComponentServiceDSL.newRoot().apply {
-        cs(component)
+        cs(component, isSavable = true)
     }
     includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
     factory {
@@ -29,6 +30,7 @@ fun loadComponents() = module(createdAtStart = true) {
         val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
         val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
         getKoin().loadModules(modules)
+        getKoin().get<MongoCodec>().initProperty()
         getKoin().createEagerInstances()
         ComponentLoader()
     } bind ComponentLoader::class

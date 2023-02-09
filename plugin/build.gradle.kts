@@ -9,7 +9,6 @@ projectDependencies(
     command,
     world,
     plugman,
-    updateman,
     includeJar = true,
 )
 
