@@ -109,6 +109,7 @@ fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
     module {
         includes(createFileRepo(cs.name, cs.name))
         single(named(cs.name)) {
+            try { return@single get<ComponentService>(named(cs.name)) } catch (_:Throwable) { }
             (if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
             else if (cs.type == MULTI || cs.key !== null && cs.type !== LAYER) {
                 val root by lazy { get<ComponentService>(named(cs.root ?: "root is not exists")) }
