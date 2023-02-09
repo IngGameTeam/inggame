@@ -12,9 +12,9 @@ import org.koin.dsl.module
 class ComponentLoader
 fun loadComponents(plugin: IngGamePlugin): Module {
     val eventDsl = ComponentServiceDSL.newRoot()
-    val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
     val event = ComponentLoadEvent(eventDsl.cs("root"))
     plugin.server.pluginManager.callEvent(event)
+    val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
     val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
     return module {
         includes(modules)
