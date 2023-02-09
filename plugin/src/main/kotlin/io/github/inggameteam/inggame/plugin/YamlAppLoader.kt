@@ -13,7 +13,7 @@ fun loadApp(plugin: IngGamePlugin): Koin {
         koinApplication {
             modules(module { single { plugin } bind IngGamePlugin::class })
             listOfNotNull(
-                loadComponents(),
+                loadComponents(plugin),
                 loadMongoModule(plugin),
             ).apply { modules(this) }
         }.koin
