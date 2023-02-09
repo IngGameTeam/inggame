@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.player
 
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
+import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.player.handler.PlayerLanguage
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -19,7 +20,8 @@ class PlayerModule(plugin: IngGamePlugin) : Listener(plugin) {
             single { PlayerLanguage(get(), get()) }
         })
         event.addModule(newModule("root", ::PlayerService))
-//        event.register { "player-instance" isSavable true isMask true cs "default" }
+        event.componentServiceDSL
+            .cs("player-instance", type = ComponentServiceType.MASK, isSavable = true)
         event.addModule(newModule("player-instance", ::PlayerInstanceService))
     }
 
