@@ -6,19 +6,22 @@ import org.gradle.kotlin.dsl.provideDelegate
 import kotlin.reflect.KProperty
 
 
-val Project.command                                   by ProjectDependencies()
-val Project.component                                 by ProjectDependencies()
-val Project.component_view                            by ProjectDependencies()
-val Project.guiapi                                    by ProjectDependencies()
-val Project.minigame                                  by ProjectDependencies()
-val Project.mongodb                                   by ProjectDependencies()
-val Project.party                                     by ProjectDependencies()
-val Project.player                                    by ProjectDependencies()
-val Project.plugin                                    by ProjectDependencies()
-val Project.plugman                                   by ProjectDependencies()
-val Project.updateman                                 by ProjectDependencies()
-val Project.utils                                     by ProjectDependencies()
-val Project.world                                     by ProjectDependencies()
+private val projectDependencies = ProjectDependencies()
+
+val Project.command                                   by projectDependencies
+val Project.component                                 by projectDependencies
+val Project.component_view                            by projectDependencies
+val Project.guiapi                                    by projectDependencies
+val Project.minigame                                  by projectDependencies
+val Project.mongodb                                   by projectDependencies
+val Project.party                                     by projectDependencies
+val Project.player                                    by projectDependencies
+val Project.plugin                                    by projectDependencies
+val Project.plugman                                   by projectDependencies
+val Project.updateman                                 by projectDependencies
+val Project.utils                                     by projectDependencies
+val Project.world                                     by projectDependencies
+val Project.item                                      by projectDependencies
 
 fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: Boolean = false) {
     dependencies {
