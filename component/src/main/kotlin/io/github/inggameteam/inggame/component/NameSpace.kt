@@ -47,7 +47,7 @@ fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
     }
 }
 
-val NameSpaceNotFound get() = NameSpaceNotFoundException()
+val NameSpaceNotFound = NameSpaceNotFoundException()
 
 class NameSpaceNotFoundException : Throwable()
 

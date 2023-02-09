@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.loader.ComponentLoader
 import io.github.inggameteam.inggame.component.view.ComponentViewModule
+import io.github.inggameteam.inggame.component.view.handler.ViewPlayerLoader
 import io.github.inggameteam.inggame.minigame.GameModule
 import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.utils.ClassUtil
@@ -42,6 +43,7 @@ class Plugin : IngGamePluginImp {
         ComponentViewModule(this)
         app
         app.get<ComponentLoader>()
+        app.get<ViewPlayerLoader>()
 //        load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         app.getAll<ComponentService>().map(ComponentService::layerPriority)

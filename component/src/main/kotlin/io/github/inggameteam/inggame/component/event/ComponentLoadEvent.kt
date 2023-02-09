@@ -16,6 +16,7 @@ import kotlin.reflect.KClass
 
 
 class ComponentLoadEvent(val componentServiceDSL: ComponentServiceDSL) : Event() {
+
     val modules: ArrayList<Module> = ArrayList()
 
     fun addModule(vararg module: Module) {
