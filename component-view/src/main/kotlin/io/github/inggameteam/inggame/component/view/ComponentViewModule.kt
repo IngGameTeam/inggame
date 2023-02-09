@@ -4,6 +4,7 @@ import io.github.bruce0203.gui.GuiWindow
 import io.github.inggameteam.inggame.component.loader.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
+import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.component.view.handler.ViewPlayerLoader
 import io.github.inggameteam.inggame.component.view.wrapper.Selector
 import io.github.inggameteam.inggame.utils.IngGamePlugin
