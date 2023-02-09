@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.mongodb.ClassRegistryAll
 import io.github.inggameteam.inggame.utils.Model
+import org.bukkit.Bukkit
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
@@ -24,7 +25,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
     }
 
     init {
-        println("PropertyRegistry init")
+        Bukkit.broadcastMessage("PropertyRegistry init")
         val classes = classRegistryAll.classes
         classes
             .filter { it.isSubclassOf(Handler::class) }
