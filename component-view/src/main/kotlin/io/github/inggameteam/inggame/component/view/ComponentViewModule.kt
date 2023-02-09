@@ -21,7 +21,11 @@ class ComponentViewModule(val plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::EditorRegistry)
             classOf(Selector::class)
         }
-        event.addModule(module(createdAtStart = true) { single(createdAtStart = true) { ViewPlayerLoader(get(named("view-player")), get()) } })
+        event.addModule(module(createdAtStart = true) {
+            single {
+                ViewPlayerLoader(get(named("view-player")), get())
+            }
+        })
         event.componentServiceDSL
             .cs("view-player", type = ComponentServiceDSL.ComponentServiceType.MASK)
             .cs("view-resource", isSavable = true)
