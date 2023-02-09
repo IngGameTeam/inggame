@@ -29,8 +29,9 @@ fun loadComponents() = module(createdAtStart = true) {
         val event = ComponentLoadEvent(eventDsl)
         get<IngGamePlugin>().server.pluginManager.callEvent(event)
         val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
-        val modules = event.modules
-        getKoin().loadModules(listOf(*csModules.toTypedArray(), *modules.toTypedArray()))
+        val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
+        getKoin().loadModules(modules)
+            getKoin().createEagerInstances()
         ComponentLoader()
     } bind ComponentLoader::class
 }

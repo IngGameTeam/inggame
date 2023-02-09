@@ -23,7 +23,6 @@ class ComponentViewModule(val plugin: IngGamePlugin) : Listener(plugin) {
         }
         event.addModule(module(createdAtStart = true) {
             single {
-                println("ModuleDeclaration")
                 ViewPlayerLoader(get(named("view-player")), get())
             }
         })
