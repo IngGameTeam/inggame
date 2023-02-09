@@ -43,6 +43,7 @@ class Plugin : IngGamePluginImp {
         GameModule(this)
         app
         app.get<ComponentLoader>()
+        app.get<ViewPlayerLoader>()
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
