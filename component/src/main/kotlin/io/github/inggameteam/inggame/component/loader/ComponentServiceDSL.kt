@@ -16,6 +16,7 @@ class ComponentServiceDSL private constructor(
     var key: String? = null,
     var type: ComponentServiceType = RESOURCE,
     var isSavable: Boolean = false,
+    var loadedSemaphore: Boolean = false
 ) {
 
 
@@ -106,9 +107,10 @@ class ComponentServiceDSL private constructor(
 
 fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
     module {
+        if (cs.loadedSemaphore) return@module
         includes(createFileRepo(cs.name, cs.name))
+        cs.loadedSemaphore = true
         single(named(cs.name)) {
-            try { return@single get<ComponentService>(named(cs.name)) } catch (_:Throwable) { }
             (if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
             else if (cs.type == MULTI || cs.key !== null && cs.type !== LAYER) {
                 val root by lazy { get<ComponentService>(named(cs.root ?: "root is not exists")) }

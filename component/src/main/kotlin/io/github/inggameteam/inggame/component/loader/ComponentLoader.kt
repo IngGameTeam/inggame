@@ -29,7 +29,7 @@ fun loadComponents() = module(createdAtStart = true) {
         val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
         val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
         getKoin().loadModules(modules)
-            getKoin().createEagerInstances()
+        getKoin().createEagerInstances()
         ComponentLoader()
     } bind ComponentLoader::class
 }
