@@ -3,7 +3,10 @@ import java.util.concurrent.TimeUnit
 
 object ProjectVersion {
 
-    private fun String.runCommand(workingDir: File = File("./")): String {
+    val gitTag = runCommand("git describe --abbrev=0 --tags")
+    val gitCommitId = runCommand("git rev-parse --short=8 HEAD")
+
+    private fun runCommand(cmd: String, workingDir: File = File("./")): String = cmd.run {
         val parts = this.split("\\s".toRegex())
         val proc = ProcessBuilder(*parts.toTypedArray())
             .directory(workingDir)
@@ -14,9 +17,5 @@ object ProjectVersion {
         proc.waitFor(1, TimeUnit.MINUTES)
         return proc.inputStream.bufferedReader().readText().trim()
     }
-
-    val gitTag = "git describe --abbrev=0 --tags".runCommand()
-    val gitCommitId = "git rev-parse --short=8 HEAD".runCommand()
-
 
 }

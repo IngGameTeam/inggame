@@ -3,9 +3,9 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.view.model.ComponentServiceViewImp
-import io.github.inggameteam.inggame.component.view.model.ViewImp
-import io.github.inggameteam.inggame.component.view.selector.NameSpaceSelector
+import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
+import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
+import io.github.inggameteam.inggame.component.view.entity.ViewImp
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
