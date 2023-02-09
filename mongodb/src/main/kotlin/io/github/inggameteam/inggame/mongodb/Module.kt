@@ -19,9 +19,9 @@ data class EncodeFunctionAll(val list: List<EncodeFunction>)
 class ClassRegistryAll(vararg clazz: KClass<*>) : ClassRegistry(*clazz)
 
 fun createRegistryAll() = module(createdAtStart = true) {
-    factory { EncodeFunctionAll(getAll()) }
-    factory { DecodeFunctionAll(getAll()) }
-    factory {
+    single { EncodeFunctionAll(getAll()) }
+    single { DecodeFunctionAll(getAll()) }
+    single {
         ClassRegistryAll(*getAll<ClassRegistry>()
             .let { arrayListOf<KClass<*>>().apply { it.forEach { addAll(it.classes) } } }.toTypedArray())
     }
@@ -31,7 +31,12 @@ fun createMongoModule(
     url: String,
 ) = module {
     single { ConnectionString(url) }
-    singleOf(::MongoCodec)
+    single { MongoCodec(ArrayList<Class<out Any>>().apply {
+        get<ClassRegistryAll>().classes.
+        filter { it.java.getAnnotation(Model::class.java) !== null
+                || it.isSubclassOf(Codec::class)
+        }.map { it.java }.apply(::addAll)
+    }, get(), get()) }
     single { DatabaseString(get<ConnectionString>().database
         ?: throw AssertionError("database is not specified in the url")) }
     singleOf(::createClient)
