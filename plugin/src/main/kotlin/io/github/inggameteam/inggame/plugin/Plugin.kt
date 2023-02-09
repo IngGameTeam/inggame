@@ -38,12 +38,11 @@ class Plugin : IngGamePluginImp {
     override fun onEnable() {
         super.onEnable()
         ComponentModule(this)
-//        PlayerModule(this)
-//        GameModule(this)
+        PlayerModule(this)
+        GameModule(this)
         ComponentViewModule(this)
         app
         app.get<ComponentLoader>()
-        app.get<ViewPlayerLoader>()
         load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         app.getAll<ComponentService>().map(ComponentService::layerPriority)
