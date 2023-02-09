@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.component.view.controller
 
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.entity.NameSpaceView
-import org.bukkit.Color.RED
+import net.md_5.bungee.api.ChatColor.RED
 import org.bukkit.Material
 import org.bukkit.event.inventory.InventoryClickEvent
 

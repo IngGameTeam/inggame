@@ -5,7 +5,7 @@ import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.entity.ElementViewImp
 import io.github.inggameteam.inggame.component.view.entity.NameSpaceView
-import org.bukkit.Color.YELLOW
+import net.md_5.bungee.api.ChatColor.YELLOW
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
