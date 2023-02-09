@@ -34,7 +34,8 @@ fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: B
 }
 
 class ProjectDependencies {
-    operator fun getValue(thisRef: Project, property: KProperty<*>) =
+    operator fun getValue(thisRef: Project, property: KProperty<*>) = run {
         thisRef.dependencies.project(":${property.name.replace("_", "-")}")
+    }
 
 }
