@@ -19,6 +19,7 @@ import org.koin.core.component.get
 import kotlin.reflect.full.isSubclassOf
 
 class MongoCodec(
+    classes: ClassRegistryAll,
     decodeFunctionAll: DecodeFunctionAll,
     encodeFunctionAll: EncodeFunctionAll
 ): KoinComponent {
