@@ -25,7 +25,6 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
     }
 
     init {
-        Bukkit.broadcastMessage("PropertyRegistry init")
         val classes = classRegistryAll.classes
         classes
             .filter { it.isSubclassOf(Handler::class) }
