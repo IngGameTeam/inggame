@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.view
 
 import io.github.bruce0203.gui.GuiWindow
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
+import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.IngGamePluginLoadEvent
 import io.github.inggameteam.inggame.component.view.handler.ViewPlayerLoader
 import io.github.inggameteam.inggame.component.view.wrapper.Selector
@@ -16,7 +17,10 @@ class ComponentViewModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: IngGamePluginLoadEvent) {
-        event.registerClass(Selector::class)
+        event.registerClass {
+            classOf(::EditorRegistry)
+            classOf(Selector::class)
+        }
         event.addModule(module(createdAtStart = true) { single { ViewPlayerLoader(get(named("view-player")), get()) } })
         event.componentServiceDSL
             .cs("view-player", type = ComponentServiceDSL.ComponentServiceType.MASK)

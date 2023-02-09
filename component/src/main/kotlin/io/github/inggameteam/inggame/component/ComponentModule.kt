@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.event.IngGamePluginLoadEvent
+import io.github.inggameteam.inggame.component.loader.Component
 import io.github.inggameteam.inggame.component.model.*
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.wrapper.WrapperCodec
@@ -46,6 +47,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
 //                .cs("default")
 //        }
         event.registerClass(
+            Component::class,
             WrapperModel::class,
             WrapperCodec::class,
             Alert::class,

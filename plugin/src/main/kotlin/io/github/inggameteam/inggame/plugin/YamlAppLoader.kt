@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.loader.loadComponents
-import io.github.inggameteam.inggame.component.view.createEditorRegistry
 import io.github.inggameteam.inggame.mongodb.loadMongoModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.Koin
@@ -16,7 +15,6 @@ fun loadApp(plugin: IngGamePlugin): Koin {
             listOfNotNull(
                 loadComponents(),
                 loadMongoModule(plugin),
-                createEditorRegistry(),
             ).apply { modules(this) }
         }.koin
     }
