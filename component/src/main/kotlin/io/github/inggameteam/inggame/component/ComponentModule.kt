@@ -65,10 +65,9 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
             ItemModel::class,
         )
         event.addModule(
-            module(createdAtStart = true) {
+            module {
                 singleOf(::SubClassRegistry)
                 singleOf(::PropertyRegistry)
-
             })
     }
 }
