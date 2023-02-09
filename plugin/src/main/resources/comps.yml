@@ -56,19 +56,3 @@ view-resource:
   NameSpaceForRenameSelector:
     parents: [ Selector ]
     VIEW_TITLE: "rename your namespace"
-game-resource:
-  PrintOnMove:
-    PrintOnMove: false
-  Hub:
-    parents: [ PrintOnMove ]
-    gameName: "Hub"
-    startPlayersAmount: -1
-    startWaitingSecond: -1
-  hub.parents: [ Hub ]
-  GameAlert:
-    parents: [ PrintOnMove ]
-  Game:
-    startPlayersAmount: 2
-    playerLimitAmount: -1
-    startWaitingSecond: 4
-    stopWaitingTick: -1
