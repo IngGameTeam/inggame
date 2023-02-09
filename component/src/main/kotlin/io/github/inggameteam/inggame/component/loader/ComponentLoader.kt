@@ -25,7 +25,9 @@ fun loadComponents() = module(createdAtStart = true) {
                 isSavable = it.isSavable
             )
         }.map { it.createComponentModule() })
-        get<IngGamePlugin>().server.pluginManager.callEvent(IngGamePluginLoadEvent(dsl))
+        val eventDsl = ComponentServiceDSL.newRoot()
+        get<IngGamePlugin>().server.pluginManager.callEvent(IngGamePluginLoadEvent(eventDsl))
+        getKoin().loadModules(eventDsl.registry.map(ComponentServiceDSL::createComponentModule))
         ComponentLoader()
     } bind ComponentLoader::class
 }
