@@ -23,8 +23,8 @@ fun loadComponents() = module(createdAtStart = true) {
                 isSavable = it.isSavable
             )
         }.map { it.createComponentModule() })
-        val eventDsl = ComponentServiceDSL.newRoot().cs("root")
-        val event = ComponentLoadEvent(eventDsl)
+        val eventDsl = ComponentServiceDSL.newRoot()
+        val event = ComponentLoadEvent(eventDsl.cs("root"))
         get<IngGamePlugin>().server.pluginManager.callEvent(event)
         val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
         val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
