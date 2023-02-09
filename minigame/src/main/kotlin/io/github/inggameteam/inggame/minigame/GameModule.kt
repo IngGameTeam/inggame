@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.minigame
 
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.createSingleton
-import io.github.inggameteam.inggame.component.event.IngGamePluginLoadEvent
+import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
@@ -33,7 +33,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler
-    fun onRegisterComponentService(event: IngGamePluginLoadEvent) {
+    fun onRegisterComponentService(event: ComponentLoadEvent) {
         event.registerClass {
             classOf(::SpawnOnJoin)
             classOf(::JoinHubOnJoinServer)

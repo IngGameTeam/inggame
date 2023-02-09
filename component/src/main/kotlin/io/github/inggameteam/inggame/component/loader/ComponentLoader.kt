@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.component.loader
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.createComponentModule
-import io.github.inggameteam.inggame.component.event.IngGamePluginLoadEvent
+import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -26,8 +26,10 @@ fun loadComponents() = module(createdAtStart = true) {
             )
         }.map { it.createComponentModule() })
         val eventDsl = ComponentServiceDSL.newRoot()
-        get<IngGamePlugin>().server.pluginManager.callEvent(IngGamePluginLoadEvent(eventDsl))
+        val event = ComponentLoadEvent(eventDsl)
+        get<IngGamePlugin>().server.pluginManager.callEvent(event)
         getKoin().loadModules(eventDsl.registry.map(ComponentServiceDSL::createComponentModule))
+        getKoin().loadModules(event.modules)
         ComponentLoader()
     } bind ComponentLoader::class
 }

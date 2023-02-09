@@ -3,8 +3,6 @@ package io.github.inggameteam.inggame.component.event
 import io.github.inggameteam.inggame.component.ClassModule
 import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.*
-import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
-import io.github.inggameteam.inggame.mongodb.createFileRepo
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString
 import io.github.inggameteam.inggame.utils.randomUUID
@@ -17,8 +15,8 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 
-class IngGamePluginLoadEvent(val componentServiceDSL: ComponentServiceDSL) : Event() {
-    private val modules: ArrayList<Module> = ArrayList()
+class ComponentLoadEvent(val componentServiceDSL: ComponentServiceDSL) : Event() {
+    val modules: ArrayList<Module> = ArrayList()
 
     fun addModule(vararg module: Module) {
         modules.addAll(module)

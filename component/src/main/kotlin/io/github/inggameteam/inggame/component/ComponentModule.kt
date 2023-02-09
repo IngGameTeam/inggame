@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.event.IngGamePluginLoadEvent
+import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.loader.Component
 import io.github.inggameteam.inggame.component.model.*
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
@@ -22,7 +22,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler
-    fun onRegisterComponentService(event: IngGamePluginLoadEvent) {
+    fun onRegisterComponentService(event: ComponentLoadEvent) {
         event.addModule(module(createdAtStart = true) {
             factory { DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
             factory { EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
