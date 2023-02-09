@@ -1,9 +1,11 @@
 package io.github.inggameteam.inggame.minigame
 
+import io.github.inggameteam.inggame.component.loader.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
+import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.minigame.base.*
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
@@ -77,19 +79,17 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.addModule(newModule("game-player", ::GamePlayerService))
         event.addModule(newModule("game-instance", ::GameInstanceRepository))
         event.addModule(newModule("custom-game", ::CustomGameService))
-//        event.register {
-//            this
-//                .cs("game-player", isMask = true)
-//                .cs("game-instance", isMask = true)
-//                .cs("custom-game", isLayer = true, isSavable = true)
-//                .cs("game-resource", isMulti = true, key = "game-language", root = "player-instance")
-//                .apply {
-//                    this
-//                        .cs("game-template-korean", isSavable = true)
-//                        .cs("game-abstract-korean", isSavable = true)
-//                        .cs("handler")
-//                }
-//         }
+        event.componentServiceDSL
+                .cs("game-player", type = ComponentServiceType.MASK)
+                .cs("game-instance", type = ComponentServiceType.MASK)
+                .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)
+                .cs("game-resource", type = ComponentServiceType.MULTI, key = "game-language", root = "player-instance")
+                .apply {
+                    this
+                        .cs("game-template-korean", isSavable = true)
+                        .cs("game-abstract-korean", isSavable = true)
+                        .cs("handler")
+                }
         event.addModule(createSingleton(::GameServer, "server", "singleton"))
     }
 }

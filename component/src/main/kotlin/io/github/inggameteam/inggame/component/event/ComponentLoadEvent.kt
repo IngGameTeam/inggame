@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component.event
 
 import io.github.inggameteam.inggame.component.ClassModule
-import io.github.inggameteam.inggame.component.ComponentServiceDSL
+import io.github.inggameteam.inggame.component.loader.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.utils.ClassRegistry
 import io.github.inggameteam.inggame.utils.fastToString

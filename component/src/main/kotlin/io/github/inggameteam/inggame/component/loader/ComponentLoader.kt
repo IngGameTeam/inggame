@@ -1,8 +1,6 @@
 package io.github.inggameteam.inggame.component.loader
 
-import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.createComponentModule
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.qualifier.named

@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.component.loader
 
-import io.github.inggameteam.inggame.component.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 

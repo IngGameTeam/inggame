@@ -1,8 +1,8 @@
-package io.github.inggameteam.inggame.component
+package io.github.inggameteam.inggame.component.loader
 
-import io.github.inggameteam.inggame.component.ComponentServiceDSL.ComponentServiceType.*
 import io.github.inggameteam.inggame.component.componentservice.*
 import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.component.loader.ComponentServiceType.*
 import io.github.inggameteam.inggame.mongodb.createFileRepo
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
@@ -18,7 +18,6 @@ class ComponentServiceDSL private constructor(
     var isSavable: Boolean = false,
 ) {
 
-    enum class ComponentServiceType { LAYER, MULTI, MASK, RESOURCE }
 
     internal val parents: ArrayList<String> = if (name == "default") arrayListOf() else arrayListOf("default")
 
@@ -62,7 +61,7 @@ class ComponentServiceDSL private constructor(
         this.root = root
     }
 
-    infix fun String.root(root: String): ComponentServiceDSL  = findComponentServiceDSL(this).apply {
+    infix fun String.root(root: String): ComponentServiceDSL = findComponentServiceDSL(this).apply {
         this.root = root
     }
 
