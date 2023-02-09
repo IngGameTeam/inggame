@@ -1,3 +1,4 @@
 projectDependencies(
-    component
+    component,
+    utils
 )

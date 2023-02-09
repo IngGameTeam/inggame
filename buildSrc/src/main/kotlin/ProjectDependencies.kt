@@ -20,7 +20,7 @@ val Project.utils                                     by ProjectDependencies
 val Project.world                                     by ProjectDependencies
 val Project.item                                      by ProjectDependencies
 
-fun Project.ProjectDependencies(vararg project: ProjectDependency, includeJar: Boolean = false) {
+fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: Boolean = false) {
     dependencies {
         for (p in project) {
             add("compileOnly", p)

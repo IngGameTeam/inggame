@@ -62,7 +62,7 @@ class ComponentServiceRegisterEvent(
                 single(named(cs.name)) {
                     (if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
                     else if (cs.isMulti || cs.key !== null && !cs.isLayer) {
-                        val root by lazy { get<ComponentService>(named(cs.root ?: registry.first().name)) }
+                        val root by lazy { get<ComponentService>(named(cs.root ?: "root is not exists")) }
                         MultiParentsComponentService(
                             cs.name,
                             { root },
