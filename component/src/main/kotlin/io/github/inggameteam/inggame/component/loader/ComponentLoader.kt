@@ -12,7 +12,9 @@ import org.koin.dsl.module
 class ComponentLoader
 fun loadComponents() = module(createdAtStart = true) {
     val component = "component"
-    val dsl = ComponentServiceDSL.newRoot()
+    val dsl = ComponentServiceDSL.newRoot().apply {
+        cs(component)
+    }
     includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
     factory {
         val componentService = get<ComponentService>(named(component))
