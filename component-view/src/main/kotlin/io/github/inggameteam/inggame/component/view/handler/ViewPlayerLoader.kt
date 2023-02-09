@@ -7,3 +7,8 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 
 class ViewPlayerLoader(componentService: ComponentService, plugin: IngGamePlugin) :
     LayeredPlayerLoader(componentService as LayeredComponentService, plugin)
+{
+        init {
+            println("ViewPlayerLoader")
+        }
+    }
