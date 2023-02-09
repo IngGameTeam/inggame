@@ -38,9 +38,9 @@ class Plugin : IngGamePluginImp {
     override fun onEnable() {
         super.onEnable()
         ComponentModule(this)
+        ComponentViewModule(this)
         PlayerModule(this)
         GameModule(this)
-        ComponentViewModule(this)
         app
         app.get<ComponentLoader>()
         load(app, File(dataFolder, "comps.yml"))
