@@ -9,8 +9,4 @@ interface LayeredComponentService : ComponentService, SaveComponentService {
     fun unload(name: Any, save: Boolean)
     fun save(name: Any)
 
-    fun <T : Any> getAll(block: (Wrapper) -> T): List<T> {
-        return this.getAll().map(NameSpace::name).map { get(it, block) }
-    }
-
 }

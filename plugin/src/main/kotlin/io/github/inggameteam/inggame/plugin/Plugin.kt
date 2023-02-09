@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.loader.ComponentLoader
 import io.github.inggameteam.inggame.component.view.ComponentViewModule
 import io.github.inggameteam.inggame.minigame.GameModule
 import io.github.inggameteam.inggame.player.PlayerModule
@@ -35,11 +36,12 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
-        ComponentModule(this)
-        PlayerModule(this)
-        GameModule(this)
-        ComponentViewModule(this)
+//        ComponentModule(this)
+//        PlayerModule(this)
+//        GameModule(this)
+//        ComponentViewModule(this)
         app
+        app.get<ComponentLoader>()
 //        load(app, File(dataFolder, "comps.yml"))
         debugCommand(this, app)
         app.getAll<ComponentService>().map(ComponentService::layerPriority)

@@ -1,20 +1,40 @@
 package io.github.inggameteam.inggame.component
 
-class ComponentServiceDSL(
+import io.github.inggameteam.inggame.component.ComponentServiceDSL.ComponentServiceType.*
+import io.github.inggameteam.inggame.component.componentservice.*
+import io.github.inggameteam.inggame.component.helper.AddToSaveRegistry
+import io.github.inggameteam.inggame.mongodb.createFileRepo
+import org.koin.core.module.Module
+import org.koin.core.qualifier.named
+import org.koin.dsl.bind
+import org.koin.dsl.module
+
+class ComponentServiceDSL private constructor(
     val name: String,
-    val parents: ArrayList<String>,
-    val registry: ArrayList<ComponentServiceDSL>,
+    val registry: ArrayList<ComponentServiceDSL> = ArrayList(),
     var root: String? = null,
-    var isLayer: Boolean = false,
     var key: String? = null,
-    var isMulti: Boolean = false,
+    var type: ComponentServiceType = RESOURCE,
     var isSavable: Boolean = false,
-    var isMask: Boolean = false,
 ) {
+
+    enum class ComponentServiceType { LAYER, MULTI, MASK, RESOURCE }
+
+    internal val parents: ArrayList<String> = if (name == "default") arrayListOf() else arrayListOf("default")
+
+    private fun addParent(name: String) {
+        if (parents.contains("default")) parents.clear()
+        parents.add(name)
+    }
+
+    companion object {
+        fun newRoot() = ComponentServiceDSL("null", type = MULTI)
+            .apply { cs("root", type = MULTI) csc {} }
+    }
 
     fun findComponentServiceDSL(name: String): ComponentServiceDSL {
         return registry.firstOrNull { it.name == name }
-            ?: ComponentServiceDSL(name, ArrayList(), registry).apply(registry::add)
+            ?: ComponentServiceDSL(name, registry).apply(registry::add)
     }
 
     infix fun ComponentServiceDSL.isSavable(isSavable: Boolean): ComponentServiceDSL = this.apply {
@@ -25,37 +45,17 @@ class ComponentServiceDSL(
         findComponentServiceDSL(this).isSavable = isSavable
     }
 
-    infix fun ComponentServiceDSL.isMask(isMask: Boolean): ComponentServiceDSL = this.apply {
-        this.isMask = isMask
-    }
-
-    infix fun String.isMask(isMask: Boolean): String = this.apply {
-        findComponentServiceDSL(this).isMask = isMask
-    }
-
     fun cs(name: String,
-              isLayer: Boolean = false,
-              isMask: Boolean = false,
               root: String? = null,
               key: String? = null,
               isSavable: Boolean = false,
-              isMulti: Boolean = false
+           type: ComponentServiceType? = null
     ) = findComponentServiceDSL(name).apply {
-            this.isMask = isMask
+            type?.also { this.type = type }
             this.root = root
             this.key = key
             this.isSavable = isSavable
-            this.isMulti = isMulti
-            this.isLayer = isLayer
-    }.also { this.parents.add(name) }
-
-    infix fun ComponentServiceDSL.isLayer(isLayer: Boolean): ComponentServiceDSL = this.apply {
-        this.isLayer = isLayer
-    }
-
-    infix fun String.isLayer(isLayer: Boolean): String = this.apply {
-        findComponentServiceDSL(this).isLayer = isLayer
-    }
+    }.also { this.addParent(name) }
 
     infix fun ComponentServiceDSL.root(root: String): ComponentServiceDSL = this.apply {
         this.root = root
@@ -73,17 +73,9 @@ class ComponentServiceDSL(
         this.key = key
     }
 
-    infix fun ComponentServiceDSL.isMulti(isMulti: Boolean): ComponentServiceDSL = this.apply {
-        this.isMulti = isMulti
-    }
-
-    infix fun String.isMulti(isMulti: Boolean): String = this.apply {
-        findComponentServiceDSL(this).isMulti = isMulti
-    }
-
     infix fun String.csc(block: ComponentServiceDSL.() -> Unit): ComponentServiceDSL {
         val inst = findComponentServiceDSL(this)
-        this@ComponentServiceDSL.parents.add(this)
+        this@ComponentServiceDSL.addParent(this)
         inst.apply(block)
         return inst
     }
@@ -95,14 +87,14 @@ class ComponentServiceDSL(
 
     infix fun String.cs(parent: String): ComponentServiceDSL {
         val base = findComponentServiceDSL(this)
-        this@ComponentServiceDSL.parents.add(this)
+        this@ComponentServiceDSL.addParent(this)
         val oParent = findComponentServiceDSL(parent)
-        base.parents.add(parent)
+        base.addParent(parent)
         return oParent
     }
 
     infix fun ComponentServiceDSL.cs(parent: String): ComponentServiceDSL {
-        this.parents.add(parent)
+        this.addParent(parent)
         return findComponentServiceDSL(parent)
     }
 
@@ -110,4 +102,40 @@ class ComponentServiceDSL(
         return "Component{name=$name, parents$parents${if (key === null) "" else ", key=$key"}${if (root === null) "" else ", root=$root"}}"
     }
 
+}
+
+fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
+    module {
+        includes(createFileRepo(cs.name, cs.name))
+        single(named(cs.name)) {
+            (if (cs.parents.isEmpty()) EmptyComponentServiceImp(cs.name)
+            else if (cs.type == MULTI || cs.key !== null && cs.type !== LAYER) {
+                val root by lazy { get<ComponentService>(named(cs.root ?: "root is not exists")) }
+                MultiParentsComponentService(
+                    cs.name,
+                    { root },
+                    cs.parents.map { get(named(it)) },
+                    cs.key
+                )
+            } else if (cs.type == MASK) LayerMaskComponentService(
+                get(named(cs.name)),
+                get(),
+                get(named(cs.parents.first())),
+                cs.name
+            )
+            else if (cs.type == LAYER) LayeredComponentServiceImp(
+                get(named(cs.name)),
+                get(),
+                get(named(cs.parents.first())),
+                cs.name
+            )
+            else ResourceComponentServiceImp(
+                get(named(cs.name)),
+                get(),
+                get(named(cs.parents.first())),
+                cs.name
+            ))
+                .apply { if (cs.isSavable) AddToSaveRegistry(this, get()) }
+        } bind ComponentService::class
+    }
 }

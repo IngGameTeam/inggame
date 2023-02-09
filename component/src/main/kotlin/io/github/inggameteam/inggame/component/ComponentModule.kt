@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.component
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.component.event.ComponentServiceRegisterEvent
+import io.github.inggameteam.inggame.component.event.IngGamePluginLoadEvent
 import io.github.inggameteam.inggame.component.model.*
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.wrapper.WrapperCodec
@@ -21,7 +21,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler
-    fun onRegisterComponentService(event: ComponentServiceRegisterEvent) {
+    fun onRegisterComponentService(event: IngGamePluginLoadEvent) {
         event.addModule(module(createdAtStart = true) {
             factory { DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
             factory { EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
@@ -39,12 +39,12 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
                     }
             }
         })
-        event.register {
-            this
-                .cs("singleton", isSavable = true)
-                .cs("handler", isSavable = true)
-                .cs("default")
-        }
+//        event.register {
+//            this
+//                .cs("singleton", isSavable = true)
+//                .cs("handler", isSavable = true)
+//                .cs("default")
+//        }
         event.registerClass(
             WrapperModel::class,
             WrapperCodec::class,

@@ -75,6 +75,10 @@ interface ComponentService {
     fun getOrNull(name: Any): NameSpace?
     fun getAll(): List<NameSpace>
 
+    fun <T> getAll(block: (Wrapper) -> T): List<T> {
+        return getAll().map { get(it, block) }
+    }
+
     fun removeNameSpace(name: Any)
     fun addNameSpace(name: Any)
 

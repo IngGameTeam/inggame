@@ -8,10 +8,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-inline fun <reified T : Any> createHandler(def: KoinDefinition<T>) = module {
-    def bind T::class
-}
-
 inline fun <reified T : Any> createSingleton(crossinline block: (Wrapper) -> T, nameSpace: Any, component: String) = module {
     single {
         val componentService = get<ComponentService>(named(component))
