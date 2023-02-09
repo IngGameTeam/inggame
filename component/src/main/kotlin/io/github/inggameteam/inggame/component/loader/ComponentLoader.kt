@@ -13,9 +13,8 @@ class ComponentLoader
 fun loadComponents() = module(createdAtStart = true) {
     val component = "component"
     val dsl = ComponentServiceDSL.newRoot().apply {
-        cs(component)
+        cs(component).apply { includes(createComponentModule()) }
     }
-    includes(dsl.createComponentModule())
     factory {
         val componentService = get<ComponentService>(named(component))
         getKoin().loadModules(componentService.getAll(::ComponentImp).map {
