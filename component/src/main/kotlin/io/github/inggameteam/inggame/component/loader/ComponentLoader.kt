@@ -29,6 +29,7 @@ fun loadComponents() = module(createdAtStart = true) {
         val event = ComponentLoadEvent(eventDsl)
         get<IngGamePlugin>().server.pluginManager.callEvent(event)
         getKoin().loadModules(eventDsl.registry.map(ComponentServiceDSL::createComponentModule))
+        println(event.modules.size)
         getKoin().loadModules(event.modules)
         ComponentLoader()
     } bind ComponentLoader::class
