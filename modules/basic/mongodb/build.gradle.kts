@@ -1,0 +1,3 @@
+projectDependencies(
+    utils
+)

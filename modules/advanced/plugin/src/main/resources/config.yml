@@ -1,0 +1,15 @@
+#url: "mongodb+srv://Bruce0203:F8oP5Y8USXyUfmA5@cluster0.tnbppk8.mongodb.net/inggame?retryWrites=true&w=majority"
+
+file.singleton: singleton.json
+file.player-instance: player-instance.json
+file.game-instance: game-instance.json
+file.game-resource: game-resource.json
+file.view: view.json
+file.resource: resource.json
+file.game-player: game-player.json
+file.view-player: view-player.json
+file.korean: korean.json
+file.english: english.json
+file.view-resource: view-resource.json
+file.custom-game: custom-game.json
+file.game-resource-korean: game-resource.json

@@ -1,0 +1,58 @@
+view-resource:
+  Selector:
+    VIEW_PREV_PAGE: "&fPrev page"
+    VIEW_NEXT_PAGE: "&fNext page"
+    VIEW_BACK_PAGE: "&fBack page"
+  NameSpaceSelector:
+    parents: [ Selector ]
+    VIEW_ADD_BUTTON: "&aAdd namespace"
+    VIEW_REMOVE_BUTTON: "&cRemove namespace"
+    VIEW_RENAME_BUTTON: "&6Rename namespace"
+    VIEW_TITLE: "select your namespace"
+  ElementSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "select your element in namespace %s"
+    VIEW_ADD_BUTTON: "&aAdd element"
+    VIEW_REMOVE_BUTTON: "&cRemove element"
+    VIEW_PARENT_BUTTON: "&dEdit parents"
+  ElementForAddSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "choose element to add"
+  ElementForRemoveSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "choose element to remove"
+  ModelFieldSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "choose filed to edit"
+  SubTypeSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "choose sub types"
+  StringEditor:
+    VIEW_CANCEL_EDIT: "editing cancelled"
+    VIEW_CANNOT_EDIT: "cannot edit"
+  NumberEditor:
+    VIEW_CANNOT_EDIT: "You can enter only numbers"
+  EnumEditor:
+    parents: [ Selector ]
+    VIEW_TITLE: "choose your enum"
+  ItemStackEditor:
+    VIEW_CANCEL_EDIT: "editing cancelled"
+    VIEW_CANNOT_EDIT: "cannot edit"
+    VIEW_CLICK_ITEM_TO_EDIT: "set item with right click item"
+  ItemStackPropSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "edit your item"
+  CollectionSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "edit your list"
+    VIEW_ADD_BUTTON: "&aAdd element"
+    VIEW_REMOVE_BUTTON: "&cRemove element"
+  CollectionRemoveSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "remove your element"
+  NameSpaceForRemoveSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "remove your namespace"
+  NameSpaceForRenameSelector:
+    parents: [ Selector ]
+    VIEW_TITLE: "rename your namespace"

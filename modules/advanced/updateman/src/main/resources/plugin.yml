@@ -1,0 +1,14 @@
+name: UpdateMan
+version: $version
+main: Plugin
+api-version: 1.19
+libraries:
+  - io.github.brucefreedy:mccommand:1.0.3
+  - org.jetbrains.kotlin:kotlin-stdlib:1.8.0
+  - io.github.bruce0203:plugman:4
+commands:
+  updateman:
+    permission: updateman.admin
+permissions:
+  updateman.admin:
+    default: op
