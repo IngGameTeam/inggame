@@ -2,7 +2,7 @@ val excludes = listOf("buildSrc")
 
 fun recruit(dir: File) {
     dir.listFiles(File::isDirectory)
-        .forEach {
+        ?.forEach {
             recruit(it)
             if (File(it, "build.gradle.kts").exists() && !excludes.contains(it.name)) {
                 val name = it.name
