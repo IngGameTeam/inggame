@@ -20,9 +20,6 @@ run.sh
 !plugins/FastAsyncWorldEdit-Bukkit.jar
 !plugins/ViaVersion.jar
 !plugins/ViaBackwards.jar
-!plugins/updateman.jar
-!plugins/UpdateMan
-!plugins/UpdateMan/config.yml
 !plugins/cronman
 !plugins/cronman/config.yml
 !version.txt
