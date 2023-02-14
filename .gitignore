@@ -1,6 +1,8 @@
 **/**
 run.sh
 !update.sh
+!plugins/inggame/config.yml
+!plugins/inggame
 !customized_game_world/
 !customized_game_world/paper-world.yml
 !plugins/
