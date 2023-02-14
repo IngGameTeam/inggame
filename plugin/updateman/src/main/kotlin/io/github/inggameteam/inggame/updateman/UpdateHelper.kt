@@ -57,7 +57,9 @@ class UpdateHelper {
                 )
             }
             backupDir.deleteOnExit()
-        } catch (_: Throwable) {}
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
 
     }.runNow(plugin)
     }
