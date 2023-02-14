@@ -33,8 +33,9 @@ class UpdateHelper {
 
     fun deploy(settings: UpdateSettings): Unit = settings.run {
         ;{
-            destinyFile.parentFile.mkdir()
-            backupDir.mkdir()
+        destinyFile.parentFile.mkdir()
+        backupDir.mkdir()
+        try {
             Files.copy(
                 destinyFile.toPath(),
                 backupDir.toPath(),
@@ -56,7 +57,9 @@ class UpdateHelper {
                 )
             }
             backupDir.deleteOnExit()
-        }.runNow(plugin)
+        } catch (_: Throwable) {}
+
+    }.runNow(plugin)
     }
 
     fun runBuild(settings: UpdateSettings): Unit = settings.run {
