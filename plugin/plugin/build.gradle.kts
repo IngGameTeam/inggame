@@ -15,6 +15,10 @@ projectDependencies(
     includeJar = true,
 )
 
+tasks.withType<Jar> {
+    archiveFileName.set("${rootProject.name}.jar")
+}
+
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     archiveFileName.set("${rootProject.name}.jar")
 }
