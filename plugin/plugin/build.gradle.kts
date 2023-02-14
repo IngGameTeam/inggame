@@ -14,9 +14,6 @@ projectDependencies(
     updateman,
     includeJar = true,
 )
-dependencies {
-    implementation(project(mapOf("path" to ":minigame-view")))
-}
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     archiveFileName.set("${rootProject.name}.jar")
