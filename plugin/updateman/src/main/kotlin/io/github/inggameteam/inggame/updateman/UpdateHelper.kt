@@ -35,7 +35,7 @@ class UpdateHelper {
         ;{
         destinyFile.parentFile.mkdir()
         backupDir.mkdir()
-        println("asdf:$outputFileName")
+        println("debug:$outputFileName")
         try {
             Files.copy(
                 destinyFile.toPath(),
