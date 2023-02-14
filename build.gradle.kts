@@ -97,9 +97,6 @@ allprojects {
 
     }
 
-    tasks.compileKotlin {
-        if (dependsOn.contains(tasks.compileJava).not()) dependsOn(tasks.compileJava)
-    }
     tasks.withType<Jar> {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
@@ -109,7 +106,6 @@ allprojects {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
-        buildDir = rootProject.buildDir
         if (project != rootProject) distsDirectory.set(rootProject.distsDirectory)
     }
 
