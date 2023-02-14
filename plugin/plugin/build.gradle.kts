@@ -11,6 +11,7 @@ projectDependencies(
     world,
     plugman,
     item,
+    updateman,
     includeJar = true,
 )
 dependencies {

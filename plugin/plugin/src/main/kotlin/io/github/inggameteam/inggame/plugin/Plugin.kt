@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.item.ItemModule
 import io.github.inggameteam.inggame.minigame.GameModule
 import io.github.inggameteam.inggame.minigame.view.GameViewModule
 import io.github.inggameteam.inggame.player.PlayerModule
+import io.github.inggameteam.inggame.updateman.UpdateManModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
@@ -44,6 +45,7 @@ class Plugin : IngGamePluginImp {
         PlayerModule(this)
         GameModule(this)
         GameViewModule(this)
+        UpdateManModule(this)
         app
         app.get<ComponentLoader>()
         load(app, File(dataFolder, "comps.yml"))
