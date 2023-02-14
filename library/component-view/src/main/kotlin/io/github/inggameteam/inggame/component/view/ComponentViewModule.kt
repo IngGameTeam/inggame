@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.component.view
 
 import io.github.bruce0203.gui.GuiWindow
-import io.github.inggameteam.inggame.component.loader.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType

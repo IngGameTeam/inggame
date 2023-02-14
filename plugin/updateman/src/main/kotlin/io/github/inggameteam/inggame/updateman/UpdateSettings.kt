@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.updateman
 
 import org.bukkit.Bukkit
 import java.io.File
-import java.io.File.*
+import java.io.File.separator
 
 data class UpdateSettings(
     val pluginName: String,

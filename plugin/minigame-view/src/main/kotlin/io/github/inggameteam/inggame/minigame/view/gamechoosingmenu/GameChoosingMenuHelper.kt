@@ -17,6 +17,7 @@ class GameChoosingMenuHelper(
             .list(0, 0, 9, menu.lines, {menu.icons.entries.toList()}, {it.value.itemStack}) { list, gui ->
                 list.onClick { _, _, pair, event ->
                     val game = pair.second.key
+
                 }
 
             }

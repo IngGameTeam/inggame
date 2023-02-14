@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.component.loader
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
-import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
