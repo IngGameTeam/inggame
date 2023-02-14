@@ -1,5 +1,5 @@
 while :
 do
-  ./update.sh
-  ./server.sh
+  bash ./update.sh
+  bash ./server.sh
 done
