@@ -22,8 +22,7 @@ class UpdateManModule(plugin: IngGamePlugin) : Listener(plugin) {
             )
         }
         if (config.getBoolean("watchdog")) {
-            val updateHelper = UpdateHelper()
-            UpdateWatchDog(settings, updateHelper, plugin)
+            UpdateWatchDog(settings, UpdateHelper(), plugin)
         }
     }
 
