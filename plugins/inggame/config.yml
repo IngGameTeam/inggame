@@ -1,4 +1,4 @@
 gitUrl: "https://github.com/IngGameTeam/inggame"
 bashCmd: "./gradlew :plugin:shadowJar"
-output: "build/libs/inggame.jar"
+outputPath: "build/libs/inggame.jar"
 branchName: "develop"
