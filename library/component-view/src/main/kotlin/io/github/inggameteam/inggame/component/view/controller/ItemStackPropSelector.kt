@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.component.view.controller
 
+import de.tr7zw.nbtapi.NBTItem
 import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.model.ItemModel.Companion.toItemModel
@@ -44,7 +45,21 @@ class ItemStackPropSelector(
         }),
         GET_ITEM({ view, player ->
             player.inventory.addItem(view.getItem().itemStack)
-        })
+        }),
+        NBT_TAG({ view, player ->
+            MapEditor(EditorViewImp(view,
+                {
+                    val itemStack = view.getItem().itemStack
+                    val nbtItem = NBTItem(itemStack)
+                    it.forEach { (k, v) -> nbtItem.setObject(k, v) }
+                },
+                {
+                    val nbtItem = NBTItem(view.getItem().itemStack)
+                    nbtItem.keys.associateWith { nbtItem.getString(it) }
+                }
+            ), view)
+                .open(player)
+        }),
     }
 
     override val previousSelector: Selector<*>? get() = parentSelector

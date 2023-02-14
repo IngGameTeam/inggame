@@ -1,3 +1,4 @@
+@file:Suppress("deprecation")
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
@@ -62,6 +63,9 @@ allprojects {
 
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         testApi("com.eatthepath:fast-uuid:0.2.0")
+
+        compileOnly("io.github.bruce0203:nbt-api:4")
+        testCompileOnly("io.github.bruce0203:nbt-api:4")
 
         compileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
         testCompileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
@@ -144,8 +148,8 @@ allprojects {
                 url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
                 credentials {
 
-                    username = System.getenv("SONATYPE_USERNAME") as? String
-                    password = System.getenv("SONATYPE_PASSWORD") as? String
+                    username = System.getenv("SONATYPE_USERNAME")
+                    password = System.getenv("SONATYPE_PASSWORD")
                 }
             }
         }
