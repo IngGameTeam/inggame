@@ -3,8 +3,8 @@ import java.util.concurrent.TimeUnit
 
 object ProjectVersion {
 
-    val gitTag = runCommand("git describe --abbrev=0 --tags")
-    val gitCommitId = runCommand("git rev-parse --short=8 HEAD")
+    val gitTag get() = runCommand("git describe --abbrev=0 --tags")
+    val gitCommitId get() = runCommand("git rev-parse --short=8 HEAD")
 
     private fun runCommand(cmd: String, workingDir: File = File("./")): String = cmd.run {
         val parts = this.split("\\s".toRegex())
