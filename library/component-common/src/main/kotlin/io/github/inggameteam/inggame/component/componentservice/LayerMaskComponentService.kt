@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpaceNotFound
-import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.mongodb.MongoRepo
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
@@ -15,7 +14,6 @@ class LayerMaskComponentService(
 ) : LayeredComponentServiceImp(repo, codec, parentComponent, name) {
 
     override fun find(nameSpace: Any, key: Any): Any {
-        val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
             ?: run { throw NameSpaceNotFound }
         return ns.elements.getOrDefault(key, null)
