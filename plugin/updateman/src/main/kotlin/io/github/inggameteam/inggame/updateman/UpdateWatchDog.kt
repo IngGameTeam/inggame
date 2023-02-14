@@ -21,14 +21,12 @@ class UpdateWatchDog(
         function.runNow(plugin)
     }
 
-    private fun update() {
-        updateHelper.apply {
-            if (updateGit(settings)) {
-                plugin.logger.info("Updating...")
-                runBuild(settings)
-                plugin.logger.info("Update Done!")
-                deploy(settings)
-            }
+    private fun update(): Unit = updateHelper.run {
+        if (updateGit(settings)) {
+            plugin.logger.info("Updating...")
+            runBuild(settings)
+            plugin.logger.info("Update Done!")
+            deploy(settings)
         }
     }
 
