@@ -1,3 +1,5 @@
+rootProject.name = "inggame"
+
 val excludes = listOf("buildSrc")
 val buildFile = "build.gradle.kts"
 
