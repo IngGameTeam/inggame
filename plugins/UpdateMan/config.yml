@@ -3,20 +3,20 @@ inggame:
   plugin: "inggame"
   cmd: "./gradlew :plugin:shadowJar"
   out: "plugin/build/libs/inggame.jar"
-  branch: "temp"
+  branch: "develop"
   watchdog: true
 updateman:
   url: "https://Bruce0203:${GH_TOKEN}@github.com/IngGameTeam/inggame"
   plugin: "Updateman"
   cmd: "./gradlew :updateman:shadowJar"
   out: "updateman/build/libs/updateman.jar"
-  branch: "temp"
+  branch: "develop"
 clean-inggame:
   url: "https://Bruce0203:${GH_TOKEN}@github.com/IngGameTeam/inggame"
   plugin: "inggame"
   cmd: "./gradlew :clean && ./gradlew :plugin:shadowJar"
   out: "plugin/build/libs/inggame.jar"
-  branch: "temp"
+  branch: "develop"
 download-inggame:
   download: true
   url: https://github.com/IngGameTeam/inggame/releases/latest/download/angangang-plugin.jar
