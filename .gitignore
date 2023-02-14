@@ -1,6 +1,6 @@
 **/**
 run.sh
-update.sh
+!update.sh
 !customized_game_world/
 !customized_game_world/paper-world.yml
 !plugins/
