@@ -98,7 +98,7 @@ allprojects {
     }
 
     tasks.compileKotlin {
-        dependsOn(tasks.compileJava)
+        if (dependsOn.contains(tasks.compileJava).not()) dependsOn(tasks.compileJava)
     }
     tasks.withType<Jar> {
         dependsOn(tasks.processResources)
