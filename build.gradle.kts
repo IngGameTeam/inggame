@@ -94,7 +94,7 @@ allprojects {
 
     }
     tasks.withType<Jar> {
-        classifier = null
+//        classifier = null
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
     }
@@ -102,7 +102,7 @@ allprojects {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
-        classifier = null
+//        classifier = null
     }
 
     tasks {
