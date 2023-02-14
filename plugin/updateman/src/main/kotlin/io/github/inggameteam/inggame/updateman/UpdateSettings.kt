@@ -11,8 +11,10 @@ data class UpdateSettings(
     val outputPath: String,
     val bashCmd: String
 ) {
-    val backupFile get() = File(backupDir, outputFile.name)
-    val destinyFile get() = File("plugins", outputFile.name)
+
+    val outputFileName get() = outputFile.absoluteFile.name
+    val backupFile get() = File(backupDir, outputFileName)
+    val destinyFile get() = File("plugins", outputFileName)
     val outputFile get() = File(gitDir, outputPath)
     val pluginOrNull get() = Bukkit.getPluginManager().getPlugin(pluginName)
     val plugin get() = pluginOrNull!!
