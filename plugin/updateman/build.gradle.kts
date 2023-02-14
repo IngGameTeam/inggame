@@ -1,5 +1,5 @@
 dependencies {
-    compileOnly("org.eclipse.jgit:org.eclipse.jgit:6.4.0.202211300538-r")
+    compileOnly("io.github.bruce0203:jgit:5")
     compileOnly("commons-io:commons-io:2.6")
 }
 

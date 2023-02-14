@@ -11,6 +11,6 @@ libraries:
   - com.eatthepath:fast-uuid:0.2.0
   - io.insert-koin:koin-core-jvm:3.3.2
   - io.github.bruce0203:nbt-api:4
-  - rg.eclipse.jgit:org.eclipse.jgit:6.4.0.202211300538-r
+  - io.github.bruce0203:jgit:5
 commands:
   ing:
