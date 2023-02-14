@@ -2,3 +2,4 @@ gitUrl: "https://github.com/IngGameTeam/inggame"
 bashCmd: "./gradlew :plugin:shadowJar"
 outputPath: "build/dist/inggame.jar"
 branchName: "develop"
+watchdog: true
