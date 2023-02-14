@@ -97,11 +97,13 @@ allprojects {
 //        classifier = null
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
+        buildDir = rootProject.buildDir
     }
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
+        buildDir = rootProject.buildDir
 //        classifier = null
     }
 
