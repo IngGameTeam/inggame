@@ -1,4 +1,7 @@
 @file:Suppress("deprecation")
+
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.distsDirectory
+
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
@@ -93,16 +96,21 @@ allprojects {
 
 
     }
+
+    tasks.compileKotlin {
+        dependsOn(tasks.compileJava)
+    }
     tasks.withType<Jar> {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
-        buildDir = rootProject.buildDir
+        if (project != rootProject) distsDirectory.set(rootProject.distsDirectory)
     }
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         buildDir = rootProject.buildDir
+        if (project != rootProject) distsDirectory.set(rootProject.distsDirectory)
     }
 
     tasks {
