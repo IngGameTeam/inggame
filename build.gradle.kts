@@ -94,7 +94,6 @@ allprojects {
 
     }
     tasks.withType<Jar> {
-//        classifier = null
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         buildDir = rootProject.buildDir
@@ -104,7 +103,6 @@ allprojects {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         buildDir = rootProject.buildDir
-//        classifier = null
     }
 
     tasks {
