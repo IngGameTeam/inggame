@@ -3,7 +3,7 @@
   function plugin() {
       latest=$(curl -sL https://api.github.com/repos/$1/releases/latest | jq -r ".tag_name")
       cd plugins
-      wget -f -O $2.jar https://github.com/$1/releases/download/$latest/$2-$latest.jar
+      wget -f -O $2.jar https://github.com/$1/releases/download/$latest/$2-$latest.jar || true
       cd ..
   }
 
