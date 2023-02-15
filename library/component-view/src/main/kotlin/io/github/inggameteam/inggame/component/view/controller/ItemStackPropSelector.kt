@@ -69,7 +69,7 @@ class ItemStackPropSelector(
                         {
                             val itemStack = view.getItem().itemStack
                             val nbtItem = NBTItem(itemStack)
-                            it.forEach { (k, v) -> if (nbtItem.hasTag(k).not()) nbtItem.setString(k, v) }
+                            it.forEach { (k, v) -> nbtItem.setString(k, v) }
                             view.set(nbtItem.item.toItemModel())
                         },
                         {
