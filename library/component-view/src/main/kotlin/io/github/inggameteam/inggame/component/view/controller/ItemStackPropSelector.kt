@@ -2,13 +2,21 @@ package io.github.inggameteam.inggame.component.view.controller
 
 import de.tr7zw.nbtapi.NBTItem
 import io.github.bruce0203.gui.GuiFrameDSL
+import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.model.ItemModel.Companion.toItemModel
 import io.github.inggameteam.inggame.component.view.createItem
+import io.github.inggameteam.inggame.component.view.entity.*
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArraySet
+import kotlin.reflect.KTypeProjection
+import kotlin.reflect.KVariance
+import kotlin.reflect.full.createType
 
 class ItemStackPropSelector(
     private val editorView: EditorView<Any>,
@@ -48,17 +56,18 @@ class ItemStackPropSelector(
         }),
         NBT_TAG({ view, player ->
             try {
-                MapEditor(EditorViewImp(view,
-                    {
-                        val itemStack = view.getItem().itemStack
-                        val nbtItem = NBTItem(itemStack)
-                        it.forEach { (k, v) -> nbtItem.setObject(k, v) }
-                    },
-                    {
-                        val nbtItem = NBTItem(view.getItem().itemStack)
-                        nbtItem.keys.associateWith { nbtItem.getString(it) }
-                    }
-                ), view)
+                MapEditor(ModelEditorView(view.editorView as ModelView,
+                    EditorViewImp(view,
+                        {
+                            val itemStack = view.getItem().itemStack
+                            val nbtItem = NBTItem(itemStack)
+                            it.forEach { (k, v) -> nbtItem.setObject(k, v) }
+                        },
+                        {
+                            val nbtItem = NBTItem(view.getItem().itemStack)
+                            nbtItem.keys.associateWith { nbtItem.getString(it) }
+                        }
+                    )), view)
                     .open(player)
             }   catch (e: Throwable) {
                 e.printStackTrace()
