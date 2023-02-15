@@ -46,9 +46,9 @@ class UpdateHelper {
                 destinyFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
             )
-            PluginUtil.reload(plugin)
-            if (pluginOrNull === null) {
-                PluginUtil.unload(plugin)
+            try { PluginUtil.reload(plugin) }
+            catch (e: Throwable) {
+                e.printStackTrace()
                 destinyFile.deleteOnExit()
                 Files.copy(
                     backupFile.toPath(),
