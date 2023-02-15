@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.item.event.ItemUseEvent
 import io.github.inggameteam.inggame.item.wrapper.Item
 import io.github.inggameteam.inggame.item.wrapper.ItemImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -25,6 +26,7 @@ class UseItem(
     private val nbtItemKey get() = this::class.getFullName()
 
     private fun getItem(itemStack: ItemStack): Item? {
+        if (itemStack.type === Material.AIR) return null
         val name = NBTItem(itemStack).getString(nbtItemKey)
         if (name === null) return null
         return itemResource[name, ::ItemImp]
