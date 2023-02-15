@@ -23,7 +23,7 @@ class UseItem(
     val plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
-    private val nbtItemKey get() = this::class.getFullName()
+    private val nbtItemKey get() = this::class.simpleName
 
     private fun getItem(itemStack: ItemStack): Item? {
         if (itemStack.type === Material.AIR) return null
