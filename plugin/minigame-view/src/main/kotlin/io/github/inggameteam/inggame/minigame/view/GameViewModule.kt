@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.minigame.view
 
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
+import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenu
 import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenuHandler
 import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenuImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -14,8 +15,8 @@ class GameViewModule(plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onLoadComponent(event: ComponentLoadEvent) {
         event.registerClass {
-            classOf(::GameChoosingMenuImp)
-            classOf(GameChoosingMenuHandler::class)
+            classOf(::GameChoosingMenuHandler)
+            classOf(GameChoosingMenu::class)
         }
     }
 
