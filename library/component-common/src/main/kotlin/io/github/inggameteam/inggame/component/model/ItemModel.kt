@@ -48,6 +48,8 @@ class ItemModel(var itemString: String?) {
         itemStack = (itemStack.apply {
             val itemMeta = itemMeta?: Bukkit.getItemFactory().getItemMeta(type)!!
             itemMeta.setDisplayName(name)
+            this.itemMeta = itemMeta
+
         })
     }
 
@@ -56,6 +58,7 @@ class ItemModel(var itemString: String?) {
         itemStack = (itemStack.apply {
             val itemMeta = itemMeta?: Bukkit.getItemFactory().getItemMeta(type)!!
             itemMeta.lore = listOf(lore)
+            this.itemMeta = itemMeta
         })
     }
 
