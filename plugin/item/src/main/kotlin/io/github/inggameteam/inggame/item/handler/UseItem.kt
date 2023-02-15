@@ -36,12 +36,11 @@ class UseItem(
     private fun use(player: Player, itemStack: ItemStack, useType: ItemUseType) {
         measureTimeMillis {
             repeat (20) {
-                getItem(itemStack)
+                plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack)?: return, itemStack, useType))
             }
         }.apply {
             println(this)
         }
-        plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack)?: return, itemStack, useType))
     }
 
     @Suppress("unused")
