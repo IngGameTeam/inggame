@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.view
 
-import io.github.inggameteam.inggame.utils.ColorUtil.color
+import io.github.inggameteam.inggame.utils.ColorUtil.colored
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -11,7 +11,7 @@ fun createItem(
     lore: String? = null,
 ) = ItemStack(type).apply {
     itemMeta = Bukkit.getItemFactory().getItemMeta(type)!!.apply {
-        setDisplayName(name?.color)
-        if (lore !== null) this.lore = lore.color.split("\n")
+        setDisplayName(name?.colored)
+        if (lore !== null) this.lore = lore.colored.split("\n")
     }
 }

@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.utils.ColorUtil.color
+import io.github.inggameteam.inggame.utils.ColorUtil.colored
 import io.github.inggameteam.inggame.utils.Model
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
@@ -48,7 +48,7 @@ class ItemModel(var itemString: String?) {
     fun name(name: String) {
         itemStack = (itemStack.apply {
             val itemMeta = itemMeta?: Bukkit.getItemFactory().getItemMeta(type)!!
-            itemMeta.setDisplayName(name.color)
+            itemMeta.setDisplayName(name.colored)
             this.itemMeta = itemMeta
         })
     }
@@ -57,7 +57,7 @@ class ItemModel(var itemString: String?) {
     fun lore(lore: String) {
         itemStack = (itemStack.apply {
             val itemMeta = itemMeta?: Bukkit.getItemFactory().getItemMeta(type)!!
-            itemMeta.lore = listOf(lore.color)
+            itemMeta.lore = listOf(lore.colored)
             this.itemMeta = itemMeta
         })
     }

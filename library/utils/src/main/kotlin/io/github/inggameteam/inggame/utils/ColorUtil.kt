@@ -6,7 +6,7 @@ object ColorUtil {
     @JvmStatic
     fun String.color(): String = ChatColor.translateAlternateColorCodes('&', this)
     @JvmStatic
-    val String.color get(): String = ChatColor.translateAlternateColorCodes('&', this)
+    val String.colored get(): String = ChatColor.translateAlternateColorCodes('&', this)
 
 
     @JvmStatic
@@ -27,6 +27,6 @@ object ColorUtil {
         )
     }
 
-    fun Map<String, *>.getColoredString(key: String) = this[key].toString().color
+    fun Map<String, *>.getColoredString(key: String) = this[key].toString().colored
 
 }
