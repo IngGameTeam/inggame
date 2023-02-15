@@ -38,7 +38,7 @@ class UpdateHelper {
         try {
             Files.copy(
                 destinyFile.toPath(),
-                backupDir.toPath(),
+                backupFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING,
             )
             Files.copy(
