@@ -65,8 +65,8 @@ allprojects {
         compileOnly("com.eatthepath:fast-uuid:0.2.0")
         testApi("com.eatthepath:fast-uuid:0.2.0")
 
-        compileOnly("io.github.bruce0203:nbt-api:4")
-        testCompileOnly("io.github.bruce0203:nbt-api:4")
+        compileOnly("io.github.bruce0203:nbt-api:5")
+        testCompileOnly("io.github.bruce0203:nbt-api:5")
 
         compileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
         testCompileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
