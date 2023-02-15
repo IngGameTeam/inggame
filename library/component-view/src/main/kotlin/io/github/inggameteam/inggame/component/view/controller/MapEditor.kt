@@ -43,14 +43,11 @@ class MapEditor<T : Map<String, *>>(
 
     override fun open(player: Player) {
         CollectionSelector(ModelEditorView(
-            ModelViewImp(
-                ElementViewImp(NameSpaceViewImp(
-                    ComponentServiceViewImp(this, EmptyComponentServiceImp("Unit")),
-                    NameSpace("Unit", CopyOnWriteArraySet(), ConcurrentHashMap())), Pair(Unit, Unit)),
+            createEmptyModelView(view,
                 ArrayList::class.createType(listOf(
                     KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
                 ))
-        ), EditorViewImp(this,
+            ), EditorViewImp(this,
             { try { (it as ArrayList<Entry<*>>).run {
                 if (any { e -> e.key === null || e.value === null }) null else this
             }?.associate { e -> Pair(e.key, e.value) }?.toMap()?.run { HashMap(this) }?.run { set(this as T) } }

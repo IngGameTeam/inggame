@@ -56,7 +56,14 @@ class ItemStackPropSelector(
         }),
         NBT_TAG({ view, player ->
             try {
-                MapEditor(ModelEditorView(view.editorView as ModelView,
+                MapEditor(ModelEditorView(
+                    createEmptyModelView(view,
+                        KTypeProjection(KVariance.OUT,
+                            HashMap::class.createType(listOf(
+                                KTypeProjection(KVariance.OUT, String::class.createType())
+                            ))
+                        ).type!!,
+                    ),
                     EditorViewImp(view,
                         {
                             val itemStack = view.getItem().itemStack
