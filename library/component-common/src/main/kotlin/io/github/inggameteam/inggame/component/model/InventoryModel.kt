@@ -29,11 +29,13 @@ class InventoryModel(
     @BsonIgnore
     private lateinit var cachedInventory: Inventory
 
+    @BsonIgnore
     fun getInventory() = if (::cachedInventory.isInitialized) cachedInventory else {
         cachedInventory = newInventory()
         cachedInventory
     }
 
+    @BsonIgnore
     private fun setInventory(inventory: Inventory) {
         val contents = inventory.contents
             .map { it?.run { ItemModel(null).apply { itemStack = it } } }.run(::ArrayList)
@@ -44,6 +46,7 @@ class InventoryModel(
     }
 
 
+    @BsonIgnore
     private fun newInventory(): Inventory {
         val title = if (map.containsKey("title")) map.getColoredString("title") else null
         val type = map["type"]
