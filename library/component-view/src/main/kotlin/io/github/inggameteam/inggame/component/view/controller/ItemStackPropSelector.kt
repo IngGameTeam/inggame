@@ -65,7 +65,7 @@ class ItemStackPropSelector(
                         },
                         {
                             val nbtItem = NBTItem(view.getItem().itemStack)
-                            nbtItem.keys.associateWith { nbtItem.getString(it) }
+                            nbtItem.keys.associateWith { nbtItem.getString(it) }.run(::HashMap)
                         }
                     )), view)
                     .open(player)
