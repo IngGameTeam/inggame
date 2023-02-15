@@ -15,8 +15,10 @@ class InventoryModel(
     var _items: ArrayList<ItemModel?>?
 ) {
 
-    val map get() = _map?: run { HashMap<String, Any>().also { _map = it } }
-    private var items
+    var map
+        get() = _map?: run { HashMap<String, Any>().also { _map = it } }
+        set(value) { _map = value }
+    var items
         get() = _items?: run { ArrayList<ItemModel?>().also { _items = it } }
         set(value) { _items = value }
 
