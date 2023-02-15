@@ -13,10 +13,11 @@ class GameChoosingMenuHandler(
     @Suppress("unused")
     @EventHandler
     fun onUseItem(event: ItemUseEvent) {
-        println("itemUSe")
-        if (isNotHandler(event.item)) return
-        println("itemUSe2")
-        gameChoosingMenuHelper.open(event.item[::GameChoosingMenuImp], event.player)
+
+        val item = event.item[::GameChoosingMenuImp]
+        println(item.title)
+        if (isNotHandler(item)) return
+        gameChoosingMenuHelper.open(item[::GameChoosingMenuImp], event.player)
     }
 
 }
