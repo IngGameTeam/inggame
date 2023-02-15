@@ -47,18 +47,22 @@ class ItemStackPropSelector(
             player.inventory.addItem(view.getItem().itemStack)
         }),
         NBT_TAG({ view, player ->
-            MapEditor(EditorViewImp(view,
-                {
-                    val itemStack = view.getItem().itemStack
-                    val nbtItem = NBTItem(itemStack)
-                    it.forEach { (k, v) -> nbtItem.setObject(k, v) }
-                },
-                {
-                    val nbtItem = NBTItem(view.getItem().itemStack)
-                    nbtItem.keys.associateWith { nbtItem.getString(it) }
-                }
-            ), view)
-                .open(player)
+            try {
+                MapEditor(EditorViewImp(view,
+                    {
+                        val itemStack = view.getItem().itemStack
+                        val nbtItem = NBTItem(itemStack)
+                        it.forEach { (k, v) -> nbtItem.setObject(k, v) }
+                    },
+                    {
+                        val nbtItem = NBTItem(view.getItem().itemStack)
+                        nbtItem.keys.associateWith { nbtItem.getString(it) }
+                    }
+                ), view)
+                    .open(player)
+            }   catch (e: Throwable) {
+                e.printStackTrace()
+            }
         }),
     }
 
