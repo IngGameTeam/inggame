@@ -35,7 +35,9 @@ class UseItem(
 
     private fun use(player: Player, itemStack: ItemStack, useType: ItemUseType) {
         measureTimeMillis {
-            plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack)?: return, itemStack, useType))
+            repeat (20) {
+                plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack)?: return, itemStack, useType))
+            }
         }.apply {
             println(this)
         }
