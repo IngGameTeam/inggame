@@ -11,9 +11,14 @@ import org.bukkit.inventory.Inventory
 @Model
 class InventoryModel(
     @BsonExtraElements
-    var map: HashMap<String, Any>,
-    var items: ArrayList<ItemModel?>
+    var _map: HashMap<String, Any>?,
+    var _items: ArrayList<ItemModel?>?
 ) {
+
+    val map get() = _map?: run { HashMap<String, Any>().also { _map = it } }
+    private var items
+        get() = _items?: run { ArrayList<ItemModel?>().also { _items = it } }
+        set(value) { _items = value }
 
     constructor(inventory: Inventory) : this(HashMap(), ArrayList()) {
         setInventory(inventory)
@@ -27,7 +32,7 @@ class InventoryModel(
         cachedInventory
     }
 
-    fun setInventory(inventory: Inventory) {
+    private fun setInventory(inventory: Inventory) {
         val contents = inventory.contents
             .map { it?.run { ItemModel(null).apply { itemStack = it } } }.run(::ArrayList)
         if (inventory.type === InventoryType.CHEST) {
@@ -37,7 +42,7 @@ class InventoryModel(
     }
 
 
-    fun newInventory(): Inventory {
+    private fun newInventory(): Inventory {
         val title = if (map.containsKey("title")) map.getColoredString("title") else null
         val type = map["type"]
         val inven = if (type is Int) {
