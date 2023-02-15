@@ -14,7 +14,7 @@ class UpdateWatchDog(
         function = {
             thread {
                 update()
-                function.runNow(settings.plugin)
+                if (settings.plugin.isEnabled) function.runNow(settings.plugin)
             }
         }
         function.runNow(settings.plugin)
