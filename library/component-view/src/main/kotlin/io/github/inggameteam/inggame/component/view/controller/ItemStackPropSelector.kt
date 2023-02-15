@@ -60,7 +60,8 @@ class ItemStackPropSelector(
                     createEmptyModelView(view,
                         KTypeProjection(KVariance.OUT,
                             HashMap::class.createType(listOf(
-                                KTypeProjection(KVariance.OUT, String::class.createType())
+                                KTypeProjection(KVariance.OUT, String::class.createType()),
+                                KTypeProjection(KVariance.OUT, String::class.createType()),
                             ))
                         ).type!!,
                     ),
