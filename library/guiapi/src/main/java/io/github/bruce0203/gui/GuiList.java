@@ -68,7 +68,8 @@ public class GuiList<T> extends GuiRegion {
 
     @Override
     public void onClick(int x, int y, InventoryClickEvent event) {
-        onClick.invoke(x, y, display.get((x - this.x) + (y - this.y) * 9), event);
+        int ind = (x - this.x) + (y - this.y) * 9;
+        if (0 <= ind && display.size() > ind) onClick.invoke(x, y, display.get(ind), event);
         update();
     }
 
