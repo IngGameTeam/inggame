@@ -22,7 +22,7 @@ class UpdateManModule(plugin: IngGamePlugin) : Listener(plugin) {
             )
         }
         if (config.getBoolean("watchdog")) {
-            UpdateWatchDog(settings, UpdateHelper(), plugin)
+            UpdateWatchDog(settings, UpdateHelper())
         }
     }
 
