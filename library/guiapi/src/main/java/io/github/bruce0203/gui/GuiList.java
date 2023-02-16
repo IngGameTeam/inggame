@@ -36,7 +36,10 @@ public class GuiList<T> extends GuiRegion {
     public void update() {
         List<T> list = items.get();
         display = new ArrayList<>();
-        int size = list.size();
+        int slotSize = width * height;
+        int elemSize = list.size();
+        int correction = ((slotSize > elemSize) ? slotSize - elemSize : elemSize);
+        int size = elemSize + correction;
         if (size == 0) return;
         AtomicInteger index = new AtomicInteger(this.index);
         IntStream.range(y, y + height).forEach(y -> IntStream.range(x, x + width).forEach(x -> {
@@ -49,9 +52,12 @@ public class GuiList<T> extends GuiRegion {
                     ind = ind % size;
                 }
                 if (ind <= (x * y < size ? size : size + this.index)) {
-                    T context = list.get(ind % size);
-                    item = transform.apply(context);
-                    display.add(new Pair<>(item, context));
+                    var elementIndex = ind % size;
+                    if (list.size() > elementIndex) {
+                        T context = list.get(elementIndex);
+                        item = transform.apply(context);
+                        display.add(new Pair<>(item, context));
+                    }
                 }
                 guiWindow.getInventory().setItem(i, item);
         }));
