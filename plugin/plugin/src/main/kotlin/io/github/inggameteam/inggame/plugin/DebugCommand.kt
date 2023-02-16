@@ -22,7 +22,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 if (!source.isOp) return@thenExecute
                 source.sendMessage("Reloading...")
                 val ms = measureTimeMillis { PluginUtil.reload(plugin) }
-                source.sendMessage("Reload done in ${ms}ms")
+                source.sendMessage("Reloaded in ${ms}ms")
             }
             then("get") {
                 tab { app.getAll<ComponentService>().map { it.name } }
