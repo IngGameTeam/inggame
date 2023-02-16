@@ -14,7 +14,9 @@ class GameChoosingMenuHelper(
 
     fun open(menu: GameChoosingMenu, player: Player) {
         Gui.frame(plugin, menu.lines, menu.title)
-            .list(0, 0, 9, menu.lines, {menu.icons.entries.toList()}, {it.value.itemStack}) { list, gui ->
+            .list(0, 0, 9, menu.lines,
+                {menu.icons.entries.toList()},
+                {it.value.itemStack}) { list, gui ->
                 list.onClick { _, _, pair, event ->
                     val game = pair.second.key
 

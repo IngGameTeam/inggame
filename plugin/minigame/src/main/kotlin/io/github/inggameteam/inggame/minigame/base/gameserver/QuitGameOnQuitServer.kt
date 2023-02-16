@@ -2,7 +2,6 @@ package io.github.inggameteam.inggame.minigame.base.gameserver
 
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.game.GameHelper
-import io.github.inggameteam.inggame.minigame.base.game.GameServer
 import io.github.inggameteam.inggame.minigame.base.game.LeftType
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
