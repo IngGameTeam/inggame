@@ -5,7 +5,6 @@ import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenu
 import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenuHandler
 import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenuHelper
-import io.github.inggameteam.inggame.minigame.view.gamechoosingmenu.GameChoosingMenuImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler

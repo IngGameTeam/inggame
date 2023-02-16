@@ -2,18 +2,14 @@ package io.github.inggameteam.inggame.component.view.controller
 
 import de.tr7zw.nbtapi.NBTItem
 import io.github.bruce0203.gui.GuiFrameDSL
-import io.github.inggameteam.inggame.component.NameSpace
-import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.model.ItemModel.Companion.toItemModel
 import io.github.inggameteam.inggame.component.view.createItem
-import io.github.inggameteam.inggame.component.view.entity.*
+import io.github.inggameteam.inggame.component.view.entity.createEmptyModelView
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 import kotlin.reflect.full.createType

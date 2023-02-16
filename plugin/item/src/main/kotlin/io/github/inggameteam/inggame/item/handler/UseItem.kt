@@ -16,8 +16,6 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
-import org.koin.ext.getFullName
-import kotlin.system.measureTimeMillis
 
 class UseItem(
     private val itemResource: ItemResource,
@@ -34,13 +32,7 @@ class UseItem(
     }
 
     private fun use(player: Player, itemStack: ItemStack, useType: ItemUseType) {
-        measureTimeMillis {
-            repeat (20) {
-                plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack)?: return, itemStack, useType))
-            }
-        }.apply {
-            println(this)
-        }
+        plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack) ?: return, itemStack, useType))
     }
 
     @Suppress("unused")

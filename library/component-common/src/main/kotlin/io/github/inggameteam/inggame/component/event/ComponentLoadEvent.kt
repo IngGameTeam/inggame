@@ -32,6 +32,10 @@ class ComponentLoadEvent(val componentServiceDSL: ComponentServiceDSL) : Event()
         })
     }
 
+    fun registerClass(vararg classes: Class<*>) {
+        registerClass(*classes.map(Class<*>::kotlin).toTypedArray())
+    }
+
     fun registerClass(vararg classes: KClass<*>) {
         addModule(module {
             factory(named(randomUUID().fastToString())) {

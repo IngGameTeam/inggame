@@ -15,7 +15,7 @@ class GameChoosingMenuHandler(
     fun onUseItem(event: ItemUseEvent) {
         val item = event.item[::GameChoosingMenuImp]
         if (isNotHandler(item)) return
-//        gameChoosingMenuHelper.open(item[::GameChoosingMenuImp], event.player)
+        gameChoosingMenuHelper.open(item[::GameChoosingMenuImp], event.player)
     }
 
 }

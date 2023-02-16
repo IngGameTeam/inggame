@@ -8,6 +8,7 @@ import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.*
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 
@@ -28,6 +29,14 @@ inline fun <reified T> ClassModule.clazz(
 
 inline fun <reified R : Any> ClassModule.classOf(clazz: KClass<R>) {
     this.classes.add(clazz)
+}
+
+fun <T> ClassModule.classOf(block: (Scope) -> T) {
+    classOf { block(it) }
+}
+
+fun <T : Any> Scope.get(clazz: Class<T>): T {
+    return get(clazz.kotlin)
 }
 
 fun ClassModule.classOf(vararg clazz: KClass<*>) {
