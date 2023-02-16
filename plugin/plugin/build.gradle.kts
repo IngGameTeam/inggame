@@ -11,13 +11,14 @@ projectDependencies(
     world,
     plugman,
     item,
+    updateman,
     includeJar = true,
 )
-dependencies {
-    implementation(project(mapOf("path" to ":minigame-view")))
+
+tasks.withType<Jar> {
+    archiveFileName.set("${rootProject.name}.jar")
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     archiveFileName.set("${rootProject.name}.jar")
-    classifier = null
 }

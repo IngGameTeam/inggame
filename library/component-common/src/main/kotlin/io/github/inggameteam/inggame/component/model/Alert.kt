@@ -1,6 +1,6 @@
 package io.github.inggameteam.inggame.component.model
 
-import io.github.inggameteam.inggame.utils.ColorUtil.color
+import io.github.inggameteam.inggame.utils.ColorUtil.colored
 import io.github.inggameteam.inggame.utils.Model
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
@@ -36,7 +36,7 @@ class ChatAlert(
     var message: String?
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
-        val format = message?.color?.format(*args)
+        val format = message?.colored?.format(*args)
         if (reciver is Player) reciver.sendMessage(format)
         else println("$reciver: $format")
     }
@@ -48,7 +48,7 @@ class ChatAlert(
 @Model
 class ActionBarAlert(var message: String?) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
-        val format = message?.color?.format(*args)
+        val format = message?.colored?.format(*args)
         if (reciver is Player) reciver.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(format))
         else println("$reciver: $format")
     }
@@ -65,8 +65,8 @@ class TitleAlert(
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
         if (reciver is Player) reciver.sendTitle(
-            title?.color?.format(*args)?: "",
-            subTitle?.color?.format(*args)?: "",
+            title?.colored?.format(*args)?: "",
+            subTitle?.colored?.format(*args)?: "",
             fadeIn?: 0, stay?: 0, fadeOut?: 0,
         ) else println("$reciver: $title, $subTitle")
     }
@@ -106,8 +106,8 @@ class ActionComponent(
     @Suppress("DEPRECATION")
     fun append(vararg args: Any) =
         TextComponent(message?.format(*args)?: "").apply {
-            if (clickAction !== null) clickEvent = ClickEvent(clickAction, clickValue?.color?.format(*args))
-            if (hoverAction !== null) hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue?.color?.format(*args))))
+            if (clickAction !== null) clickEvent = ClickEvent(clickAction, clickValue?.colored?.format(*args))
+            if (hoverAction !== null) hoverEvent = HoverEvent(hoverAction, arrayOf(TextComponent(hoverValue?.colored?.format(*args))))
         }
     override fun toString() = "ActionComponent{$message, $clickAction, $clickValue, $hoverAction, $hoverValue}"
 

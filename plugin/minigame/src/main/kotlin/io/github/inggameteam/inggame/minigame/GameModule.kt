@@ -15,10 +15,7 @@ import io.github.inggameteam.inggame.minigame.base.locational.Locational
 import io.github.inggameteam.inggame.minigame.base.locational.LocationalImp
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.sectional.*
-import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnJoin
-import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnOnStart
-import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayer
-import io.github.inggameteam.inggame.minigame.base.spawnplayer.SpawnPlayerHandler
+import io.github.inggameteam.inggame.minigame.base.spawnplayer.*
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeath
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHandler
 import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHelper
@@ -42,7 +39,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::GameInstanceService)
             classOf(::SectorLoader)
             classOf(::HubLoader)
-            classOf(::SpawnPlayerHandler)
+            classOf(::SpawnPlayer)
             classOf(::SpawnOnJoin)
             classOf(::GameServer)
             classOf(::GPlayer)
@@ -63,12 +60,14 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::ParticleOnGameBegin)
             classOf(::StartPlayersAmountAlert)
             classOf(::GameHandler)
+            classOf(::SetGameModeOnSpawnHandler)
+            classOf(::KitOnSpawnHandler)
             classOf(
+                KitOnSpawn::class,
                 Game::class,
                 GameAlert::class,
                 Locational::class,
                 Sectional::class,
-                SpawnPlayer::class,
                 VoidDeath::class,
             )
         }

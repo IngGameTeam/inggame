@@ -1,6 +1,6 @@
 name: inggame
 version: $version
-main: Plugin
+main: io.github.inggameteam.inggame.plugin.Plugin
 authors: [ Bruce0203, chomade ]
 api-version: 1.19
 softdepend: [ FastAsyncWorldEdit ]
@@ -10,6 +10,7 @@ libraries:
   - org.mongodb:mongodb-driver-sync:4.8.1
   - com.eatthepath:fast-uuid:0.2.0
   - io.insert-koin:koin-core-jvm:3.3.2
-  - io.github.bruce0203:nbt-api:4
+  - io.github.bruce0203:nbt-api:6
+  - io.github.bruce0203:jgit:5
 commands:
   ing:

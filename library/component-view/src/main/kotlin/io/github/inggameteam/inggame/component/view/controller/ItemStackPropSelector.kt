@@ -1,13 +1,18 @@
 package io.github.inggameteam.inggame.component.view.controller
 
+import de.tr7zw.nbtapi.NBTItem
 import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.model.ItemModel.Companion.toItemModel
 import io.github.inggameteam.inggame.component.view.createItem
+import io.github.inggameteam.inggame.component.view.entity.createEmptyModelView
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
+import kotlin.reflect.KTypeProjection
+import kotlin.reflect.KVariance
+import kotlin.reflect.full.createType
 
 class ItemStackPropSelector(
     private val editorView: EditorView<Any>,
@@ -44,7 +49,35 @@ class ItemStackPropSelector(
         }),
         GET_ITEM({ view, player ->
             player.inventory.addItem(view.getItem().itemStack)
-        })
+        }),
+        NBT_TAG({ view, player ->
+            try {
+                MapEditor(ModelEditorView(
+                    createEmptyModelView(view,
+                        KTypeProjection(KVariance.OUT,
+                            HashMap::class.createType(listOf(
+                                KTypeProjection(KVariance.OUT, String::class.createType()),
+                                KTypeProjection(KVariance.OUT, String::class.createType()),
+                            ))
+                        ).type!!,
+                    ),
+                    EditorViewImp(view,
+                        {
+                            val itemStack = view.getItem().itemStack
+                            val nbtItem = NBTItem(itemStack)
+                            it.forEach { (k, v) -> nbtItem.setString(k, v) }
+                            view.set(nbtItem.item.toItemModel())
+                        },
+                        {
+                            val nbtItem = NBTItem(view.getItem().itemStack)
+                            nbtItem.keys.associateWith { nbtItem.getString(it) }.run(::HashMap)
+                        }
+                    )), view)
+                    .open(player)
+            }   catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }),
     }
 
     override val previousSelector: Selector<*>? get() = parentSelector

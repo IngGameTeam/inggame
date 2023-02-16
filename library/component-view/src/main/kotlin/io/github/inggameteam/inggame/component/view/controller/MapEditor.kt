@@ -1,12 +1,9 @@
 package io.github.inggameteam.inggame.component.view.controller
 
-import io.github.inggameteam.inggame.component.NameSpace
-import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
-import io.github.inggameteam.inggame.component.view.entity.*
+import io.github.inggameteam.inggame.component.view.entity.ModelView
+import io.github.inggameteam.inggame.component.view.entity.createEmptyModelView
 import io.github.inggameteam.inggame.utils.Model
 import org.bukkit.entity.Player
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 import kotlin.reflect.full.createType
@@ -43,14 +40,11 @@ class MapEditor<T : Map<String, *>>(
 
     override fun open(player: Player) {
         CollectionSelector(ModelEditorView(
-            ModelViewImp(
-                ElementViewImp(NameSpaceViewImp(
-                    ComponentServiceViewImp(this, EmptyComponentServiceImp("Unit")),
-                    NameSpace("Unit", CopyOnWriteArraySet(), ConcurrentHashMap())), Pair(Unit, Unit)),
+            createEmptyModelView(view,
                 ArrayList::class.createType(listOf(
                     KTypeProjection(KVariance.OUT, Entry::class.createType(listOf((view as ModelView).model.arguments[1]))),
                 ))
-        ), EditorViewImp(this,
+            ), EditorViewImp(this,
             { try { (it as ArrayList<Entry<*>>).run {
                 if (any { e -> e.key === null || e.value === null }) null else this
             }?.associate { e -> Pair(e.key, e.value) }?.toMap()?.run { HashMap(this) }?.run { set(this as T) } }

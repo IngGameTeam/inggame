@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.component.model
 
+import io.github.inggameteam.inggame.utils.ColorUtil.colored
 import io.github.inggameteam.inggame.utils.Model
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
@@ -45,12 +46,20 @@ class ItemModel(var itemString: String?) {
 
     @BsonIgnore
     fun name(name: String) {
-        itemStack = (itemStack.apply { itemMeta?.setDisplayName(name) })
+        itemStack = (itemStack.apply {
+            val itemMeta = itemMeta?: Bukkit.getItemFactory().getItemMeta(type)!!
+            itemMeta.setDisplayName(name.colored)
+            this.itemMeta = itemMeta
+        })
     }
 
     @BsonIgnore
     fun lore(lore: String) {
-        itemStack = (itemStack.apply { itemMeta?.lore = listOf(lore) })
+        itemStack = (itemStack.apply {
+            val itemMeta = itemMeta?: Bukkit.getItemFactory().getItemMeta(type)!!
+            itemMeta.lore = listOf(lore.colored)
+            this.itemMeta = itemMeta
+        })
     }
 
     override fun toString(): String {

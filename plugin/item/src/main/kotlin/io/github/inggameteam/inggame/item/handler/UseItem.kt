@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.item.event.ItemUseEvent
 import io.github.inggameteam.inggame.item.wrapper.Item
 import io.github.inggameteam.inggame.item.wrapper.ItemImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -15,23 +16,23 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
-import org.koin.ext.getFullName
 
 class UseItem(
     private val itemResource: ItemResource,
     val plugin: IngGamePlugin
 ) : HandleListener(plugin) {
 
-    private val nbtItemKey get() = this::class.getFullName()
+    private val nbtItemKey get() = this::class.simpleName
 
     private fun getItem(itemStack: ItemStack): Item? {
+        if (itemStack.type === Material.AIR) return null
         val name = NBTItem(itemStack).getString(nbtItemKey)
         if (name === null) return null
         return itemResource[name, ::ItemImp]
     }
 
     private fun use(player: Player, itemStack: ItemStack, useType: ItemUseType) {
-        plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack)?: return, itemStack, useType))
+        plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack) ?: return, itemStack, useType))
     }
 
     @Suppress("unused")
