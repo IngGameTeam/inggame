@@ -63,7 +63,7 @@ class InventoryModel(
     }
 
     override fun toString(): String {
-        return "InventoryModel"
+        return "A Inventory"
     }
 
 }
