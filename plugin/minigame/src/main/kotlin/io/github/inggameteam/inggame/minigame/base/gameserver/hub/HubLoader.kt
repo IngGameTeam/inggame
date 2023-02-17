@@ -23,9 +23,8 @@ class HubLoader(
     @EventHandler(priority = EventPriority.LOWEST)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         if (isNotHandler(gameServer)) return
-        gameServer.hub = gameInstanceService[randomUUID(), ::GameImp]
+        gameServer.hub = gameHelper.createGame(GameServer::hub.name)
             .apply {
-                gameHelper.createGame(this, GameServer::hub.name)
                 gameState = GameState.STOP
             }
     }

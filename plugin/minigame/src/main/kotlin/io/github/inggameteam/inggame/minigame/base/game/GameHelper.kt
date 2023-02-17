@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.minigame.event.*
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.hasTags
+import io.github.inggameteam.inggame.utils.randomUUID
 
 class GameHelper(
     private val gameInstanceService: GameInstanceService,
@@ -15,9 +16,10 @@ class GameHelper(
     private val plugin: IngGamePlugin
 ) {
 
-    fun createGame(game: Game, parent: String) {
+    fun createGame(parent: String, game: Game = gameInstanceService[randomUUID(), ::GameImp]): Game {
         gameInstanceService.create(game, parent)
         plugin.server.pluginManager.callEvent(GameLoadEvent(game))
+        return game
     }
 
     fun removeGame(game: Game) {
@@ -25,7 +27,21 @@ class GameHelper(
         plugin.server.pluginManager.callEvent(GameUnloadEvent(game))
     }
 
-    fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
+    fun requestJoin(joinType: JoinType, gameName: String, join: List<GPlayer>) {
+        val joinList = join.run(::ArrayList)
+        val event = GameRequestJoinEvent(joinList, joinType, gameName)
+        plugin.server.pluginManager.callEvent(event)
+        if (event.isCancelled) return
+        joinList
+            .filter { p -> p.joinedGame != gameServer.hub }
+            .forEach { p -> joinGame(gameServer.hub, p) }
+        val game = createGame(gameName)
+        joinList.forEach { p ->
+            joinGame(game, p)
+        }
+    }
+
+    private fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
         if (requestedGame == gameServer.hub) return true
         val gameAlert = player[::GameAlertImp]
         if (requestedGame.gameJoined.contains(player)) {
@@ -43,7 +59,7 @@ class GameHelper(
         return false
     }
 
-    fun joinGame(game: Game, player: GPlayer, joinType: JoinType): Boolean {
+    fun joinGame(game: Game, player: GPlayer, joinType: JoinType = JoinType.PLAY): Boolean {
         val gameAlert = player[::GameAlertImp]
         if (requestJoin(game, player, joinType, true)) {
             gameInstanceService.join(game, player)

@@ -10,6 +10,7 @@ import io.github.inggameteam.inggame.item.wrapper.ItemImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.Cancellable
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -31,8 +32,10 @@ class UseItem(
         return itemResource[name, ::ItemImp]
     }
 
-    private fun use(player: Player, itemStack: ItemStack, useType: ItemUseType) {
-        plugin.server.pluginManager.callEvent(ItemUseEvent(player, getItem(itemStack) ?: return, itemStack, useType))
+    private fun use(clickEvent: Cancellable, player: Player, itemStack: ItemStack, useType: ItemUseType) {
+        val itemEvent = ItemUseEvent(player, getItem(itemStack) ?: return, itemStack, useType)
+        plugin.server.pluginManager.callEvent(itemEvent)
+        if (itemEvent.isCancelled) clickEvent.isCancelled = true
     }
 
     @Suppress("unused")
@@ -40,7 +43,7 @@ class UseItem(
     fun onInteract(event: PlayerInteractEvent) {
         if (event.hasItem()) {
             val item = event.item?: return
-            use(event.player, item, ItemUseType.RIGHT_CLICK)
+            use(event, event.player, item, ItemUseType.RIGHT_CLICK)
         }
     }
 
@@ -49,14 +52,14 @@ class UseItem(
     fun onDamage(event: EntityDamageByEntityEvent) {
         val player = event.damager
         if (player !is Player) return
-        use(player, player.inventory.run { getItem(heldItemSlot) }?: return, ItemUseType.LEFT_CLICK)
+        use(event, player, player.inventory.run { getItem(heldItemSlot) }?: return, ItemUseType.LEFT_CLICK)
     }
 
     @Suppress("unused")
     @EventHandler
     fun onDrop(event: PlayerDropItemEvent) {
         val player = event.player
-        use(player, event.itemDrop.itemStack, ItemUseType.DROP)
+        use(event, player, event.itemDrop.itemStack, ItemUseType.DROP)
     }
 
     @Suppress("unused")
@@ -64,7 +67,7 @@ class UseItem(
     fun onClickInventory(event: InventoryClickEvent) {
         val player = event.whoClicked
         if (player !is Player) return
-        use(player, event.currentItem?: return, ItemUseType.INVENTORY_CLICK)
+        use(event, player, event.currentItem?: return, ItemUseType.INVENTORY_CLICK)
     }
 
 }
