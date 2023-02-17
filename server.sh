@@ -27,4 +27,4 @@ wget -O server.jar https://github.com/IPECTER/Fusion/releases/latest/download/Fu
 cd customized_game_world
 rm -fvr !"paper-world.yml"
 cd ..
-java -Xms1500M -Xmx1500M -Djava.compiler=jitc -XX:ReservedCodeCacheSize=2G -XX:InitialCodeCacheSize=2G -XX:CompileThreshold=1 -XX:TieredStopAtLevel=1 -jar --add-modules jdk.incubator.vector server.jar
+java -Xms4G -Xmx4G -Djava.compiler=jitc -XX:ReservedCodeCacheSize=2G -XX:InitialCodeCacheSize=2G -XX:CompileThreshold=1 -XX:TieredStopAtLevel=1 -jar --add-modules jdk.incubator.vector server.jar
