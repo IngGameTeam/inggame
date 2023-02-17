@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.item.event.ItemUseEvent
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 
 class GameChoosingMenuHandler(
@@ -18,7 +19,11 @@ class GameChoosingMenuHandler(
     fun onUseItem(event: ItemUseEvent) {
         val item = event.item[::GameChoosingMenuImp]
         if (isNotHandler(item)) return
-        gameChoosingMenuHelper.open(item[::GameChoosingMenuImp], gamePlayerService[event.player.uniqueId, ::GPlayer])
+        val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
+        gameChoosingMenuHelper.open(
+            item[::GameChoosingMenuImp],
+            player
+        )
     }
 
 }
