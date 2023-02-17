@@ -33,10 +33,11 @@ class ItemModel(var itemString: String?) {
     }
 
     private fun newItemStack(): ItemStack {
-        val itemStack = itemString
+        val itemStack: ItemStack = itemString
             ?.run { Base64.getDecoder().decode(this).run(::String) }
-            ?.replace("\\n", "\n")?.run { YamlConfiguration.loadConfiguration(reader()).getItemStack("_")
-            ?: throw AssertionError("error occurred while reading serializedItem") }?: ItemStack(Material.AIR)
+            ?.replace("\\n", "\n")
+            ?.run { YamlConfiguration.loadConfiguration(reader()).getItemStack("_") }
+            ?: ItemStack(Material.STONE)
         val itemMeta = itemStack.itemMeta?: Bukkit.getItemFactory().getItemMeta(itemStack.type)
         itemStack.itemMeta = itemMeta
         return itemStack
