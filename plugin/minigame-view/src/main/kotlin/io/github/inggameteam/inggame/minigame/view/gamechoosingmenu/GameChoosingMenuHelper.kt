@@ -16,16 +16,15 @@ class GameChoosingMenuHelper(
     val plugin: IngGamePlugin
 ) {
 
-    fun open(menu: GameChoosingMenu, player: Player) {
+    fun open(menu: GameChoosingMenu, player: GPlayer) {
         Gui.frame(plugin, menu.lines, menu.title)
             .list(0, 0, 9, menu.lines,
                 {menu.icons.entries.toList()},
                 {it.value.itemStack}) { list, gui ->
                 list.onClick { _, _, pair, event ->
                     val game = pair.second.key
-                    gameHelper.requestJoin(JoinType.PLAY, game, listOf(gameInstanceService[player.uniqueId, ::GPlayer]))
+                    gameHelper.requestJoin(JoinType.PLAY, game, listOf(player))
                 }
-
             }
             .openInventory(player)
     }
