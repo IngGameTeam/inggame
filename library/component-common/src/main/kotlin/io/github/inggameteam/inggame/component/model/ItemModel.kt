@@ -63,7 +63,7 @@ class ItemModel(var itemString: String?) {
     }
 
     override fun toString(): String {
-        return itemString?: "null"
+        return "ItemModel"
     }
 
     companion object {
