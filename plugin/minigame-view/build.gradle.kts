@@ -7,4 +7,5 @@ projectDependencies(
     item,
     guiapi,
     minigame,
+    player,
 )
