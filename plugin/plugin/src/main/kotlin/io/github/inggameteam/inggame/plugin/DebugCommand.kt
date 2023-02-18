@@ -42,14 +42,12 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 }
             }
             then("component") {
-                tab { app.getAll<ComponentService>()
-                    .filterNot {
-                        it is MultiParentsComponentService
-                                || it is EmptyComponentService
-                    }
-                    .map { it.name } }
-
+                fun getComponentServices() = app.getAll<ComponentService>()
+                    .filterNot { it is MultiParentsComponentService || it is EmptyComponentService }
+                    .map { it.name }
+                tab { getComponentServices() }
                 execute {
+                    if (!getComponentServices().contains(args[1])) return@execute
                     val componentService = app.get<ComponentService>(named(args[1]))
                     if (source !is Player) {
                         measureTimeMillis {
