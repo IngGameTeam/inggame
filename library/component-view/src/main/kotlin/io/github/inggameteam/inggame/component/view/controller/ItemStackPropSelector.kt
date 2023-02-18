@@ -39,7 +39,7 @@ class ItemStackPropSelector(
                 .open(player)
 
         }),
-        HIDE_FLAGS({ view, player ->
+        HIDE_FLAG({ view, player ->
             fun hideFlags(itemMeta: ItemMeta) {
                 itemMeta.addItemFlags(
                     ItemFlag.HIDE_ATTRIBUTES,
