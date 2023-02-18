@@ -55,7 +55,9 @@ class ItemStackPropSelector(
                     item.itemMeta = itemMeta
                     itemStack = item
                  }.apply(view::set); view.open(player)},
-                { view.getItem().itemStack.itemMeta!!.itemFlags.all { flags.contains(it) }.apply { println(this) } }
+                { val itemFlags = view.getItem().itemStack.itemMeta!!.itemFlags
+                    if (itemFlags.isEmpty()) false else itemFlags.all { flags.contains(it) }
+                }
             )).open(player)
         }),
         ITEM({ view, player ->
