@@ -47,7 +47,9 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     .map { it.name }
                 tab { getComponentServices() }
                 execute {
-                    if (!getComponentServices().contains(args[1])) return@execute
+                    if (!getComponentServices().contains(args[1])) {
+                        source.sendMessage("Component Not Found")
+                    }
                     val componentService = app.get<ComponentService>(named(args[1]))
                     if (source !is Player) {
                         measureTimeMillis {
