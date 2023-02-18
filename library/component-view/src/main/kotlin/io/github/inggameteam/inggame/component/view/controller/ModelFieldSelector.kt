@@ -12,6 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
+import kotlin.reflect.KVisibility
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 
@@ -28,6 +29,7 @@ class ModelFieldSelector(
     override val elements: Collection<Field>
         get() = model.singleClass.kotlin. declaredMemberProperties
             .filter { it.javaField?.getAnnotation(BsonIgnore::class.java) === null }
+            .filter { it.visibility == KVisibility.PUBLIC }
             .apply { getOrNewInstance() }
 
     @Suppress("DEPRECATION")

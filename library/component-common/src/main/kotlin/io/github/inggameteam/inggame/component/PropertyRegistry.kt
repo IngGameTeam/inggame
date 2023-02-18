@@ -42,7 +42,6 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             val suffix = "\$delegate"
             clazz
                 .declaredMemberProperties
-                .filter { it.visibility == KVisibility.PUBLIC }
                 .map {
                     Pair(
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
