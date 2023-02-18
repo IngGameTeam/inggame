@@ -20,10 +20,6 @@ class SectorLoader(
 
     fun newAllocatable(worldString: String): Sector {
         loadWorld(worldString)
-        println(
-            gameInstanceService.getAll(::SectionalImp)
-            .map { it.isHandler(SectionalHandler::class) }
-        )
         val list = gameInstanceService.getAll(::SectionalImp)
             .filter { it.isHandler(SectionalHandler::class) }
             .filter(SectionalImp::isAllocatedGame)
