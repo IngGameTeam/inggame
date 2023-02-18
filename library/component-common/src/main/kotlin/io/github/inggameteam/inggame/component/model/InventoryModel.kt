@@ -11,8 +11,8 @@ import org.bukkit.inventory.Inventory
 @Model
 class InventoryModel(
     @BsonExtraElements
-    var _map: HashMap<String, Any>?,
-    var _items: ArrayList<ItemModel?>?
+    private var _map: HashMap<String, Any>?,
+    private var _items: ArrayList<ItemModel?>?
 ) {
 
     var map
