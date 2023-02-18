@@ -21,13 +21,9 @@ class SectorLoader(
     fun newAllocatable(worldString: String): Sector {
         loadWorld(worldString)
         val list = gameInstanceService.getAll(::SectionalImp)
-            .apply { println(this.toList().size) }
             .filter { it.isHandler(SectionalHandler::class) }
-            .apply { println(this.toList().size) }
             .filter(SectionalImp::isAllocatedGame)
-            .apply { println(this.toList().size) }
             .map(SectionalImp::sector)
-            .apply { println(this.toList().size) }
             .filter { it.worldOrNull?.name == worldString }.toSet()
         val line = sqrt(list.size.toDouble()).toInt() + 1
         var x = 1
