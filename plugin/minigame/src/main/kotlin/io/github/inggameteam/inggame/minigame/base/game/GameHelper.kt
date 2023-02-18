@@ -63,7 +63,7 @@ class GameHelper(
         val gameAlert = player[::GameAlertImp]
         if (requestJoin(game, player, joinType, true)) {
             gameInstanceService.join(game, player)
-            game.gameJoined.forEach { p -> gameAlert.GAME_JOIN.send(p, p, p[::GameImp].gameName) }
+            game.gameJoined.forEach { p -> gameAlert.GAME_JOIN.send(p, player, p[::GameImp].gameName) }
             if (joinType === JoinType.PLAY) player.addTag(PTag.PLAY)
             else gameAlert.GAME_START_SPECTATING.send(player, game.gameName)
             plugin.server.pluginManager.callEvent(GameJoinEvent(game, player))
@@ -89,7 +89,7 @@ class GameHelper(
         if (leftType === LeftType.LEFT_SERVER) {
             gameAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(gPlayer, game.gameName)
         } else {
-            game.gameJoined.forEach { p -> gameAlert.GAME_LEFT.send(p, p, p[::GameImp].gameName) }
+            game.gameJoined.forEach { p -> gameAlert.GAME_LEFT.send(p, gPlayer, p[::GameImp].gameName) }
         }
         gPlayer.clearTags()
         gameInstanceService.left(gPlayer)
