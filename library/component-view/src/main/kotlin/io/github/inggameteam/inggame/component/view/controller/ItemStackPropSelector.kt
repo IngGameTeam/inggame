@@ -52,7 +52,7 @@ class ItemStackPropSelector(
                     if (it) itemMeta.addItemFlags(*flags)
                     else itemMeta.removeItemFlags(*flags)
                  }.apply(view::set); view.open(player)},
-                { view.getItem().itemStack.itemMeta?.itemFlags?.contains(ItemFlag.HIDE_ATTRIBUTES)}
+                { view.getItem().itemStack.itemMeta!!.itemFlags.all { flags.contains(it) } }
             )).open(player)
         }),
         ITEM({ view, player ->
