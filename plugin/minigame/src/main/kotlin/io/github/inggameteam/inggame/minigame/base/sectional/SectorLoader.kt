@@ -25,6 +25,7 @@ class SectorLoader(
             .filter { it.isHandler(SectionalHandler::class) }
             .filter(SectionalImp::isAllocatedGame)
             .map(SectionalImp::sector).filter { it.worldOrNull?.name == worldString }.toSet()
+        println(list.size)
         val line = sqrt(list.size.toDouble()).toInt() + 1
         var x = 1
         while (x <= line) {
