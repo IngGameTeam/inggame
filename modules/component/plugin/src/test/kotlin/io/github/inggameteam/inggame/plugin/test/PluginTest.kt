@@ -5,8 +5,6 @@ import be.seeseemelk.mockbukkit.ServerMock
 import io.github.inggameteam.inggame.plugin.Plugin
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import kotlin.reflect.full.createInstance
 
 lateinit var SERVER: ServerMock
 lateinit var PLUGIN: Plugin
