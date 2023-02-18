@@ -9,7 +9,9 @@ import io.github.inggameteam.inggame.component.view.entity.createEmptyModelView
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
 import kotlin.reflect.full.createType
@@ -27,7 +29,7 @@ class ItemStackPropSelector(
         DISPLAY_NAME({ view, player ->
             StringEditor(EditorViewImp(view,
                 { view.getItem().apply { name(it) }.apply(view::set); view.open(player)},
-                {view.getItem().itemStack.itemMeta?.displayName}))
+                {view.getItem().itemStack.itemMeta?.displayName?: ""}))
                 .open(player)
         }),
         LORE({ view, player ->
@@ -36,6 +38,20 @@ class ItemStackPropSelector(
                 { view.getItem().itemStack.itemMeta?.lore?.joinToString("\n") }))
                 .open(player)
 
+        }),
+        HIDE_FLAGS({ view, player ->
+            fun hideFlags(itemMeta: ItemMeta) {
+                itemMeta.addItemFlags(
+                    ItemFlag.HIDE_ATTRIBUTES,
+                    ItemFlag.HIDE_DYE,
+                    ItemFlag.HIDE_UNBREAKABLE,
+                    ItemFlag.HIDE_ENCHANTS
+                )
+            }
+            BooleanEditor(EditorViewImp(view,
+                { view.getItem().apply { hideFlags(this.itemStack.itemMeta!!) }.apply(view::set); view.open(player)},
+                { view.getItem().itemStack.itemMeta?.itemFlags?.contains(ItemFlag.HIDE_ATTRIBUTES)}
+            )).open(player)
         }),
         ITEM({ view, player ->
             try {
