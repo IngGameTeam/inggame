@@ -45,6 +45,7 @@ class JoinHubOnJoinServer(
     private fun joinHub(playerUuid: UUID) {
         val game = gameInstanceService[gameServer.hub, ::GameImp]
         val player = gamePlayerService[playerUuid, ::GPlayer]
+        gameInstanceService.join(game, player)
         gameHelper.joinGame(game, player, JoinType.PLAY)
     }
 

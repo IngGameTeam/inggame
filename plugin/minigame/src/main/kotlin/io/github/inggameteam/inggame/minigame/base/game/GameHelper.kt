@@ -60,6 +60,7 @@ class GameHelper(
     }
 
     fun joinGame(game: Game, player: GPlayer, joinType: JoinType = JoinType.PLAY): Boolean {
+        leftGame(player, LeftType.DUE_TO_MOVE_ANOTHER_GAME)
         val gameAlert = player[::GameAlertImp]
         if (requestJoin(game, player, joinType, true)) {
             gameInstanceService.join(game, player)
