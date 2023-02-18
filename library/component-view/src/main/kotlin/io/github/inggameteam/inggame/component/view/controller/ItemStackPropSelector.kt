@@ -48,9 +48,11 @@ class ItemStackPropSelector(
             )
             BooleanEditor(EditorViewImp(view,
                 { view.getItem().apply {
-                    val itemMeta = itemStack.itemMeta!!
+                    val item = itemStack
+                    val itemMeta = item.itemMeta!!
                     if (it) itemMeta.addItemFlags(*flags)
                     else itemMeta.removeItemFlags(*flags)
+                    itemStack = item
                  }.apply(view::set); view.open(player)},
                 { view.getItem().itemStack.itemMeta!!.itemFlags.all { flags.contains(it) } }
             )).open(player)
