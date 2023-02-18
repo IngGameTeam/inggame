@@ -52,6 +52,7 @@ class ItemStackPropSelector(
                     val itemMeta = item.itemMeta!!
                     if (it) itemMeta.addItemFlags(*flags)
                     else itemMeta.removeItemFlags(*flags)
+                    item.itemMeta = itemMeta
                     itemStack = item
                  }.apply(view::set); view.open(player)},
                 { view.getItem().itemStack.itemMeta!!.itemFlags.all { flags.contains(it) } }
