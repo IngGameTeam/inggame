@@ -22,8 +22,6 @@ class SectorLoader(
         loadWorld(worldString)
         val list = gameInstanceService.getAll(::SectionalImp)
             .apply { println(this.toList().size) }
-            .asSequence()
-            .apply { println(this.toList().size) }
             .filter { it.isHandler(SectionalHandler::class) }
             .apply { println(this.toList().size) }
             .filter(SectionalImp::isAllocatedGame)
