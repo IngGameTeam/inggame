@@ -35,6 +35,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
         val uncoveredContainer = uncoverDelegate(container)
         val uncoveredKey = uncoverDelegate(key)
         left(key)
+        keyComponent.unload(uncoveredKey, false)
         keyComponent.load(uncoveredKey, true)
         keyComponent.set(uncoveredKey, keyAssign, container)
         keyComponent.addParents(uncoveredKey, uncoveredContainer)
