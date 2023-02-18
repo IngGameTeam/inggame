@@ -22,6 +22,7 @@ plugins {
     id("maven-publish")
 }
 
+
 allprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.noarg")
     apply(plugin = "kotlin")
