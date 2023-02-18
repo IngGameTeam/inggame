@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.utils.Model
 import java.lang.reflect.Modifier
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
+import kotlin.reflect.KVisibility
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.isSubclassOf
@@ -41,7 +42,7 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
             val suffix = "\$delegate"
             clazz
                 .declaredMemberProperties
-                .filter { Modifier.isPublic(it.javaField!!.modifiers) }
+                .filter { it.visibility == KVisibility.PUBLIC }
                 .map {
                     Pair(
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
