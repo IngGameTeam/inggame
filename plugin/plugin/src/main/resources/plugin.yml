@@ -1,7 +1,7 @@
 name: inggame
 version: $version
 main: io.github.inggameteam.inggame.plugin.Plugin
-authors: [ Bruce0203, chomade ]
+authors: [ Bruce0203, chomade, Boxgames1 ]
 api-version: 1.19
 softdepend: [ FastAsyncWorldEdit ]
 libraries:

@@ -3,6 +3,9 @@ package io.github.inggameteam.inggame.plugin
 import io.github.inggameteam.command.MCCommand
 import io.github.inggameteam.command.player
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.componentservice.EmptyComponentService
+import io.github.inggameteam.inggame.component.componentservice.EmptyComponentServiceImp
+import io.github.inggameteam.inggame.component.componentservice.MultiParentsComponentService
 import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
 import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.entity.ViewImp
@@ -39,7 +42,12 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 }
             }
             then("component") {
-                tab { app.getAll<ComponentService>().map { it.name } }
+                tab { app.getAll<ComponentService>()
+                    .filterNot {
+                        it is MultiParentsComponentService
+                                || it is EmptyComponentService
+                    }
+                    .map { it.name } }
 
                 execute {
                     val componentService = app.get<ComponentService>(named(args[1]))
