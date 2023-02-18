@@ -13,8 +13,10 @@ class UpdateWatchDog(
         var function: () -> Unit = {}
         function = {
             thread {
-                update()
-                if (settings.plugin.isEnabled) function.runNow(settings.plugin)
+                if (settings.plugin.isEnabled) {
+                    update()
+                    function.runNow(settings.plugin)
+                }
             }
         }
         function.runNow(settings.plugin)
