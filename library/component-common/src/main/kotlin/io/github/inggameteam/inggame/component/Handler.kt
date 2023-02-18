@@ -16,8 +16,8 @@ interface Handler {
     fun isNotHandler(wrapper: Wrapper) = !isHandler(wrapper)
 
     companion object {
-        fun Wrapper.isHandler(handler: KClass<out Handler>) = try {
-            component.find(nameSpace, handler.simpleName!!) == true
+        fun Wrapper.isHandler(handler: KClass<*>) = try {
+            component.find(nameSpace, handler.java.simpleName) == true
         } catch (_: Throwable) { false }
 
         fun Wrapper.isNotHandler(handler: KClass<out Handler>) = !isHandler(handler)
