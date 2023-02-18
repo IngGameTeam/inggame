@@ -63,7 +63,9 @@ class GameHelper(
         val gameAlert = player[::GameAlertImp]
         if (requestJoin(game, player, joinType, true)) {
             gameInstanceService.join(game, player)
-            gameAlert.GAME_JOIN.send(player, player, game.gameName)
+            game.gameJoined.forEach { p ->
+                gameAlert.GAME_JOIN.send(p, p, p[::GameImp].gameName)
+            }
             if (joinType === JoinType.PLAY) player.addTag(PTag.PLAY)
             else gameAlert.GAME_START_SPECTATING.send(player, game.gameName)
             plugin.server.pluginManager.callEvent(GameJoinEvent(game, player))
