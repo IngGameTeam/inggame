@@ -40,16 +40,18 @@ class ItemStackPropSelector(
 
         }),
         HIDE_FLAG({ view, player ->
-            fun hideFlags(itemMeta: ItemMeta) {
-                itemMeta.addItemFlags(
-                    ItemFlag.HIDE_ATTRIBUTES,
-                    ItemFlag.HIDE_DYE,
-                    ItemFlag.HIDE_UNBREAKABLE,
-                    ItemFlag.HIDE_ENCHANTS
-                )
-            }
+            val flags = arrayOf(
+                ItemFlag.HIDE_ATTRIBUTES,
+                ItemFlag.HIDE_DYE,
+                ItemFlag.HIDE_UNBREAKABLE,
+                ItemFlag.HIDE_ENCHANTS
+            )
             BooleanEditor(EditorViewImp(view,
-                { view.getItem().apply { hideFlags(this.itemStack.itemMeta!!) }.apply(view::set); view.open(player)},
+                { view.getItem().apply {
+                    val itemMeta = itemStack.itemMeta!!
+                    if (it) itemMeta.addItemFlags(*flags)
+                    else itemMeta.removeItemFlags(*flags)
+                 }.apply(view::set); view.open(player)},
                 { view.getItem().itemStack.itemMeta?.itemFlags?.contains(ItemFlag.HIDE_ATTRIBUTES)}
             )).open(player)
         }),
