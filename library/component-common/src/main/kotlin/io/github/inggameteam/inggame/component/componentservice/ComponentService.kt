@@ -76,7 +76,7 @@ interface ComponentService {
     fun getAll(): List<NameSpace>
 
     fun <T> getAll(block: (Wrapper) -> T): List<T> {
-        return getAll().map { get(it, block) }
+        return getAll().map { get(it.name, block) }
     }
 
     fun removeNameSpace(name: Any)
