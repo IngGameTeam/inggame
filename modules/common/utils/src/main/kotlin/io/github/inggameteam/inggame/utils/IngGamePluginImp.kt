@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.utils
 
+import de.tr7zw.nbtapi.NBT
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
@@ -9,6 +10,8 @@ import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
 import java.util.*
 import java.util.UUID.randomUUID
+import java.util.logging.Level
+import java.util.logging.Logger
 
 open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
 
@@ -28,6 +31,7 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
 
     override fun onEnable() {
 //        super.onEnable()
+        Logger.getLogger("NBTAPI").level = Level.OFF
         Bukkit.getScheduler().cancelTasks(this)
         HandlerList.unregisterAll(this as Plugin)
         initializeGameFile()
