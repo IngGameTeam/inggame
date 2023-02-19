@@ -39,7 +39,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::GameInstanceService)
             classOf(::SectorLoader)
             classOf(::HubLoader)
-            classOf(::SpawnPlayer)
+            classOf(::TeleportOnSpawn)
             classOf(::SpawnOnJoin)
             classOf(::GameServer)
             classOf(::GPlayer)

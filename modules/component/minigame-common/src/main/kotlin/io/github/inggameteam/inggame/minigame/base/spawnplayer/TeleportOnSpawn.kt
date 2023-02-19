@@ -6,7 +6,7 @@ import io.github.inggameteam.inggame.minigame.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 
-class SpawnPlayer(plugin: IngGamePlugin) : HandleListener(plugin) {
+class TeleportOnSpawn(plugin: IngGamePlugin) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler
@@ -14,7 +14,7 @@ class SpawnPlayer(plugin: IngGamePlugin) : HandleListener(plugin) {
         val player = event.player
         val game = player.joinedGame[::SectionalImp]
         if (isNotHandler(game)) return
-        player.teleport(game.getLocation("spawn"))
+        player.teleport(game.getLocation(game.gameState.name))
     }
 
 }
