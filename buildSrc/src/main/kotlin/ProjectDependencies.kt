@@ -6,10 +6,10 @@ import org.gradle.kotlin.dsl.provideDelegate
 import kotlin.reflect.KProperty
 
 val Project.command                                   by ProjectDependencies
-val Project.component_common                                 by ProjectDependencies
+val Project.component_common                          by ProjectDependencies
 val Project.component_view                            by ProjectDependencies
 val Project.guiapi                                    by ProjectDependencies
-val Project.minigame                                  by ProjectDependencies
+val Project.minigame_common                           by ProjectDependencies
 val Project.minigame_view                             by ProjectDependencies
 val Project.mongodb                                   by ProjectDependencies
 val Project.party                                     by ProjectDependencies

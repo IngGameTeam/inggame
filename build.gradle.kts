@@ -22,6 +22,7 @@ plugins {
     id("maven-publish")
 }
 
+
 allprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.noarg")
     apply(plugin = "kotlin")
@@ -114,7 +115,9 @@ allprojects {
                 filesMatching("**/*.yml") {
                     expand(HashMap(rootProject.properties)
                         .apply { putAll(project.properties) }
-                        .apply { put("version", rootProject.version)})
+                        .apply { put("version", rootProject.version)}
+                        .apply { put("mainClass", "io.github.inggameteam.inggame.plugin.Plugin")}
+                    )
                 }
             }
         }
