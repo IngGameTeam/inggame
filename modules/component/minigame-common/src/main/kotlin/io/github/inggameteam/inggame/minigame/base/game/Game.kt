@@ -13,7 +13,6 @@ interface Game : Wrapper {
 
     val uuid: UUID
 
-    val gameID: String
     val gameName: String
     val gameInfo: String
     var startPlayersAmount      : Int
@@ -34,7 +33,6 @@ interface Game : Wrapper {
 class GameImp(wrapper: Wrapper) : Game, SimpleWrapper(wrapper) {
 
     override val uuid: UUID get() = nameSpace as UUID
-    override val gameID: String by nonNull
 
     override val gameName: String by nonNull
     override val gameInfo: String by nonNull

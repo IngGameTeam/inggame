@@ -49,7 +49,7 @@ class SectionalHelper(
     private fun loadSector(sectional: Sectional, world: World, sector: Sector, key: String): Unit = sectional.run {
         val x = width * sector.x
         val z = width * sector.y
-        val file = getSchematicFile(key, gameID)
+        val file = getSchematicFile(key, schematicName)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         thread {
 //            FaweImpl(plugin).loadChunk(location, file)
