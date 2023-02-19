@@ -19,8 +19,10 @@ class ElementForAddSelector(
         val clazzName = it.clazz.simpleName!!
         (name == nameSpace.name
                 || clazzName == nameSpace.name
+                || name == nameSpace.name
                 || clazzName == nameSpace.name.toString()
                 || nameSpace.parents.contains(clazzName)
+                || nameSpace.parents.contains(name)
         ) && (!nameSpace.elements.containsKey(name) || !nameSpace.elements.containsKey(clazzName))
     }.map { it.name }
 
