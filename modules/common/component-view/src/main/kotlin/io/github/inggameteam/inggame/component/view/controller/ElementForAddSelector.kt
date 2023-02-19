@@ -18,6 +18,7 @@ class ElementForAddSelector(
         val name = it.name
         val clazzName = it.clazz.simpleName!!
         (name == nameSpace.name
+                || clazzName == nameSpace.name
                 || clazzName == nameSpace.name.toString()
                 || nameSpace.parents.contains(clazzName)
         ) && (!nameSpace.elements.containsKey(name) && !nameSpace.elements.containsKey(clazzName))
