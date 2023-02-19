@@ -6,6 +6,8 @@ import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.minigame.base.*
+import io.github.inggameteam.inggame.minigame.base.competition.Competition
+import io.github.inggameteam.inggame.minigame.base.competition.SoloCompetitionHandler
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.gameserver.*
@@ -61,7 +63,9 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::GameHandler)
             classOf(::SetGameModeOnSpawnHandler)
             classOf(::KitOnSpawnHandler)
+            classOf(::SoloCompetitionHandler)
             classOf(
+                Competition::class,
                 KitOnSpawn::class,
                 Game::class,
                 GameAlert::class,

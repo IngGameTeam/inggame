@@ -4,7 +4,7 @@ import java.util.*
 import java.util.concurrent.CopyOnWriteArraySet
 
 interface TagContainer {
-    var tags: CopyOnWriteArraySet<String>
+    var tags: SafeSetWithToString<String>
 
     fun addTag(tag: Enum<*>) = addTag(tag.name)
 
@@ -21,7 +21,7 @@ interface TagContainer {
     fun hasTag(tag: String): Boolean = tags.contains(tag)
 
     fun clearTags() {
-        tags = CopyOnWriteArraySet()
+        tags = SafeSetWithToString()
     }
 
 }
