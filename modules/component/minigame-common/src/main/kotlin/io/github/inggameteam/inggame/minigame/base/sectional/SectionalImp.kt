@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
 import io.github.inggameteam.inggame.minigame.base.game.GameState
 import org.bukkit.util.Vector
+import javax.xml.stream.Location
 
 
 class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
@@ -37,18 +38,22 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     }
 
     override fun getLocation(name: String): org.bukkit.Location =
-        getLocationOrNull(name)?: throw AssertionError("$name location is not exists")
+        getLocationOrNull(name)
+            ?: LocationModel(sector.world.name, .0, .0, .0, 0f, 0f, true)
+                .run(::toRelative)
 
 
     override fun getLocationOrNull(name: String): org.bukkit.Location? =
-        locations["$schematicName/$name"]?.run {
-            toLocation(sector.world).apply {
-                if (!isRelative) return@apply
-                x += width * sector.x
-                y += height
-                z += width * sector.y
-            }
+        locations["$schematicName/$name"]?.run { toRelative(this) }
+
+    fun toRelative(location: LocationModel) = location.run {
+        toLocation(sector.world).apply {
+            if (!isRelative) return@apply
+            x += width * sector.x
+            y += height
+            z += width * sector.y
         }
+    }
 
 
     override fun isInSector(location: org.bukkit.Location): Boolean {
