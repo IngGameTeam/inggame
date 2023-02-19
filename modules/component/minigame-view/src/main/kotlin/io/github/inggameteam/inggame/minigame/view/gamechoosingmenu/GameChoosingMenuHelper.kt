@@ -10,8 +10,6 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 
 class GameChoosingMenuHelper(
     private val gameHelper: GameHelper,
-    private val gameInstanceService: GameInstanceService,
-    val gameResourceService: GameResourceService,
     val plugin: IngGamePlugin
 ) {
 
@@ -23,6 +21,7 @@ class GameChoosingMenuHelper(
                 list.onClick { _, _, pair, event ->
                     val game = pair.second.key
                     gameHelper.requestJoin(JoinType.PLAY, game, listOf(player))
+                    player.closeInventory()
                 }
             }
             .openInventory(player)
