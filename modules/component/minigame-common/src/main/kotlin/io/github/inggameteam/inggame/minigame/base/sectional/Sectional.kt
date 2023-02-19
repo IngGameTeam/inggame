@@ -9,7 +9,7 @@ interface Sectional : Game, Locational {
 
     var sector: Sector
     val isAllocatedGame: Boolean
-    val schematicName: String
+    val schematicName: HashMap<String, String>
     val center: Vector
     val minPoint: Vector
     val maxPoint: Vector
