@@ -30,7 +30,6 @@ class InventoryPropSelector(
                 { view.getInv().apply { setType(it) }.apply(view::set); view.open(player) },
                 { view.getInv().getType() }))
                 .open(player)
-
         }),
         SET_TO_MY_INVENTORY({ view, player ->
             view.set(player.openInventory.bottomInventory.toInventoryModel())

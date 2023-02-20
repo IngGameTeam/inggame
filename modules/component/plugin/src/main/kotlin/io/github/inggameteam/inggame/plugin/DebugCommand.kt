@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
 import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.entity.ViewImp
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
+import io.github.inggameteam.inggame.utils.Debug
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -55,6 +56,12 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                         }
                     }.run(Any::toString).apply(source::sendMessage)
                 }
+            }
+            thenExecute("debug") {
+                val newDebug = !Debug.isDebug
+                if (newDebug) source.sendMessage("Now, Debug mode is ON")
+                else source.sendMessage("Now, Debug mode is OFF")
+                Debug.isDebug = newDebug
             }
             then("component") {
                 fun getComponentServices() = app.getAll<ComponentService>()
