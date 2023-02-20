@@ -62,24 +62,6 @@ class SectionalHandler(
     @EventHandler
     fun outSectionCheck(event: PlayerMoveEvent) {
         val bPlayer = event.player
-        measureTimeMillis {
-            repeat(100) {
-                val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
-                if (isHandler(player)) {
-                    val sectional = player[::SectionalImp]
-                    sectional.schematicName
-                    sectional.schematicName
-                    sectional.schematicName
-                    sectional.schematicName
-                    sectional.schematicName
-                    sectional.schematicName
-                    sectional.schematicName
-                    sectional.schematicName
-                }
-            }
-        }.apply {
-            println(this)
-        }
         val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
         if (isHandler(player)) {
             val sectional = player[::SectionalImp]
