@@ -29,16 +29,24 @@ object IngGame {
     }
 
     private var appSemaphore = false
-    val appDelegate = lazy { loadApp(
-        Bukkit.getPluginManager().plugins.filterIsInstance<IngGamePlugin>().firstOrNull()
-            ?: throw AssertionError("an app loading error occurred due to IngGamePlugin is not loaded")
-    ) }
+    private var _app: Koin? = null
     val app: Koin
         get() = run {
             if (appSemaphore) throw AssertionError("an error occurred while get app while initializing app")
             appSemaphore = true
-            val result = appDelegate.getValue(this, IngGame::appDelegate)
+            _app = run { loadApp(
+                Bukkit.getPluginManager().plugins.filterIsInstance<IngGamePlugin>().firstOrNull()
+                    ?: throw AssertionError("an app loading error occurred due to IngGamePlugin is not loaded")
+            ) }
             appSemaphore = false
-            result
+            _app!!
         }
+
+    fun isLoaded() = _app !== null
+
+    fun closeApp() {
+        _app?.close()
+        _app = null
+    }
+
 }
