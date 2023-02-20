@@ -14,7 +14,7 @@ class TeleportOnSpawn(plugin: IngGamePlugin) : HandleListener(plugin) {
         val player = event.player
         val game = player.joinedGame[::SectionalImp]
         if (isNotHandler(game)) return
-        player.teleport(game.getLocation(game.gameState.name))
+        player.teleport(game.getLocationOrNull(game.gameState.name)?: return)
     }
 
 }
