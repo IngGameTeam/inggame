@@ -37,7 +37,7 @@ object IngGame {
         get() = run {
             if (appSemaphore) throw AssertionError("an error occurred while get app while initializing app")
             appSemaphore = true
-            val result = appDelegate.getValue(this, IngGame::app)
+            val result = appDelegate.getValue(this, IngGame::appDelegate)
             appSemaphore = false
             result
         }
