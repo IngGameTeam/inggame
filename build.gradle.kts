@@ -69,8 +69,8 @@ allprojects {
         compileOnly("io.github.bruce0203:nbt-api:6")
         testCompileOnly("io.github.bruce0203:nbt-api:6")
 
-        compileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
-        testCompileOnly("org.spigotmc:spigot-api:${Dependency.PaperAPI.Version}")
+        compileOnly("io.papermc.paper:paper-api:${Dependency.PaperAPI.Version}")
+        testCompileOnly("io.papermc.paper:paper-api:${Dependency.PaperAPI.Version}")
 
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib:${Dependency.Kotlin.Version}")
         testApi("org.jetbrains.kotlin:kotlin-stdlib:${Dependency.Kotlin.Version}")

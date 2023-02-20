@@ -14,14 +14,13 @@ import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
 import java.util.*
 import java.util.UUID.randomUUID
 import java.util.logging.Level
 import java.util.logging.Logger
 
-abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
+abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin() {
 
     override val console: UUID by lazy { randomUUID() }
     override var allowTask = false
@@ -34,10 +33,6 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     override fun addSaveEvent(action: () -> Unit) { saveEvent.add(action) }
 
     val ingGame by lazy { IngGame() }
-
-    constructor()
-    constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
-            : super(loader, description, dataFolder, file)
 
     override fun onEnable() {
 //        super.onEnable()
@@ -54,6 +49,7 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         UpdateManModule(this)
         PlayerModule(this)
         registerModule()
+        ingGame.app
     }
 
      fun initializeGameFile(force: Boolean = false) {
@@ -75,10 +71,10 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         for (it in saveEvent) it()
         if (ingGame.isLoaded()) {
             ingGame.closeApp()
-             Bukkit.getPluginManager().plugins.filter { it != this }.filterIsInstance<IngGamePlugin>().forEach {
-                try { ;{ PluginUtil.unload(it) }.runNow(it) }
-                catch (_: Throwable) {}
-            }
+//             Bukkit.getPluginManager().plugins.filter { it != this }.filterIsInstance<IngGamePlugin>().forEach {
+//                try { ;{ PluginUtil.unload(it) }.runNow(it) }
+//                catch (_: Throwable) {}
+//            }
         }
     }
 

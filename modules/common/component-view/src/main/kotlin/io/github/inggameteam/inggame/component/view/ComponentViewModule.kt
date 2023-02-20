@@ -27,7 +27,7 @@ class ComponentViewModule(val plugin: IngGamePlugin) : Listener(plugin) {
             }
         })
         event.componentServiceDSL
-            .cs("view-player", type = ComponentServiceType.MASK)
+            .cs("view-player", type = ComponentServiceType.MASKED)
             .cs("view-resource", isSavable = true)
         plugin.addDisableEvent {
             plugin.server.onlinePlayers.filter { it.openInventory.topInventory.holder is GuiWindow }
