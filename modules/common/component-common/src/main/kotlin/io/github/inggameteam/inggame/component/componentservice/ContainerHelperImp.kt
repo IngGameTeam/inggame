@@ -51,8 +51,9 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
 
     @Suppress("DEPRECATION")
     private fun getList(container: CONTAINER): MutableCollection<ELEMENT> {
-        return try { container.get(keyList.name) as MutableCollection<ELEMENT> }
-        catch (_: Throwable) {
+        val get = container.get(keyList.name)
+        return if (get is MutableCollection<*>) get as MutableCollection<ELEMENT>
+        else {
             val col = keyList.returnType.singleClass.newInstance() as MutableCollection<ELEMENT>
             col.apply { container.set(keyList.name, this) }
         }
