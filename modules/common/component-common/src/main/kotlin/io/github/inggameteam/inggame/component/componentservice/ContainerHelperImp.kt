@@ -44,7 +44,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     }
 
     override fun left(key: ELEMENT) {
-        val container = try { keyComponent.find(key, keyAssign) as CONTAINER } catch (_: Throwable) { return }
+        val container = try { keyComponent.find(key, keyAssign.name) as CONTAINER } catch (_: Throwable) { return }
         getList(container).remove(key)
         keyComponent.unload(key, false)
     }
@@ -54,7 +54,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
         return try { container.get(keyList.name) as MutableCollection<ELEMENT> }
         catch (_: Throwable) {
             val col = keyList.returnType.singleClass.newInstance() as MutableCollection<ELEMENT>
-            col.apply { container.set(keyList, this) }
+            col.apply { container.set(keyList.name, this) }
         }
     }
 
