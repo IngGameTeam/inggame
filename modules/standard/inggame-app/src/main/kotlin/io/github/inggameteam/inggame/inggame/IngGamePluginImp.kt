@@ -73,7 +73,7 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         for (it in disableEvent) it()
         for (it in saveEvent) it()
         if (IngGame.isLoaded()) {
-            IngGame.app.close()
+            IngGame.closeApp()
             Bukkit.getPluginManager().plugins.filter { it != this }.filterIsInstance<IngGamePlugin>().forEach {
                 try { ;{ PluginUtil.unload(it) }.runNow(it) }
                 catch (_: Throwable) {}
