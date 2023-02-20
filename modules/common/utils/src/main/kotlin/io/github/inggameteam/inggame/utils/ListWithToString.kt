@@ -19,6 +19,6 @@ open class SetWithToString<T>(list: List<T>) : HashSet<T>(list) {
     override fun toString() = noBraceToString()
 }
 
-open class SafeSetWithToString<T>(list: List<T>? = emptyList()) : CopyOnWriteArraySet<T>(list) {
+open class SafeSetWithToString<T>(list: Collection<T>? = emptyList()) : CopyOnWriteArraySet<T>(list) {
     override fun toString() = noBraceToString()
 }
