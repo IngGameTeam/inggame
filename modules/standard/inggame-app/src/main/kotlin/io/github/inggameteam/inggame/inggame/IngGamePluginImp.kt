@@ -1,10 +1,5 @@
 package io.github.inggameteam.inggame.inggame
 
-import io.github.inggameteam.inggame.component.ComponentModule
-import io.github.inggameteam.inggame.component.view.ComponentViewModule
-import io.github.inggameteam.inggame.item.ItemModule
-import io.github.inggameteam.inggame.player.PlayerModule
-import io.github.inggameteam.inggame.updateman.UpdateManModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
@@ -29,7 +24,7 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin() {
     private val saveEvent = ArrayList<() -> Unit>()
     override fun addSaveEvent(action: () -> Unit) { saveEvent.add(action) }
 
-    val ingGame by lazy { IngGame() }
+    val ingGame by lazy { IngGameMain() }
 
     override fun onEnable() {
 //        super.onEnable()
@@ -40,11 +35,6 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(this, this)
         allowTask = true
         console
-        ComponentModule(this)
-        ItemModule(this)
-        ComponentViewModule(this)
-        UpdateManModule(this)
-        PlayerModule(this)
         registerModule()
         ingGame.app
     }
