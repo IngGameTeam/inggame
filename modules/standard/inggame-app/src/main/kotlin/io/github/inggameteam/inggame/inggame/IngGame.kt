@@ -11,9 +11,6 @@ import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 
-var ingGameOrNull: IngGame? = IngGame()
-val ingGame get() = ingGameOrNull!!
-
 class IngGame {
 
     private fun loadApp(plugin: IngGamePlugin): Koin {

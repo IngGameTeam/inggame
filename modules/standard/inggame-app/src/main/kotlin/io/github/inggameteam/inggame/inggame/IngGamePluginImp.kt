@@ -33,6 +33,8 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
     private val saveEvent = ArrayList<() -> Unit>()
     override fun addSaveEvent(action: () -> Unit) { saveEvent.add(action) }
 
+    val ingGame by lazy { IngGame() }
+
     constructor()
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, dataFolder, file)
@@ -52,7 +54,6 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         UpdateManModule(this)
         PlayerModule(this)
         registerModule()
-        ingGame.app
     }
 
      fun initializeGameFile(force: Boolean = false) {
@@ -74,8 +75,7 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         for (it in saveEvent) it()
         if (ingGame.isLoaded()) {
             ingGame.closeApp()
-            ingGameOrNull = null
-            Bukkit.getPluginManager().plugins.filter { it != this }.filterIsInstance<IngGamePlugin>().forEach {
+             Bukkit.getPluginManager().plugins.filter { it != this }.filterIsInstance<IngGamePlugin>().forEach {
                 try { ;{ PluginUtil.unload(it) }.runNow(it) }
                 catch (_: Throwable) {}
             }
