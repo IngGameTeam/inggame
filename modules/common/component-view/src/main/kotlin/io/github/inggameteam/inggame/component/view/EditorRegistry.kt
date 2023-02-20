@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.component.view.controller.*
 import io.github.inggameteam.inggame.component.view.entity.ElementView
 import io.github.inggameteam.inggame.component.view.entity.ModelViewImp
 import io.github.inggameteam.inggame.utils.Model
+import io.github.inggameteam.inggame.utils.singleClass
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KType

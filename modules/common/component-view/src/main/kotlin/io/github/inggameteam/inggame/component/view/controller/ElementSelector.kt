@@ -7,7 +7,7 @@ import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.entity.ElementViewImp
 import io.github.inggameteam.inggame.component.view.entity.ModelViewImp
 import io.github.inggameteam.inggame.component.view.entity.NameSpaceView
-import io.github.inggameteam.inggame.component.view.singleClass
+import io.github.inggameteam.inggame.utils.singleClass
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player

@@ -16,7 +16,7 @@ class GameInstanceRepository(componentService: ComponentService)
     fun newContainerHelper(gamePlayerService: GamePlayerService) =
         ContainerHelperImp<Game, GPlayer>(
             this, gamePlayerService,
-            GPlayer::joinedGame.name, Game::gameJoined.name
+            GPlayer::joinedGame, Game::gameJoined
         ).also { containerHelper = it }
 
 }
