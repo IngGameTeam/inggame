@@ -5,7 +5,6 @@ import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.player.warpper.WrappedPlayer
 import io.github.inggameteam.inggame.utils.SafeSetWithToString
 import io.github.inggameteam.inggame.utils.TagContainer
-import java.util.concurrent.CopyOnWriteArraySet
 
 class GPlayer(wrapper: Wrapper) : WrappedPlayer(wrapper), TagContainer {
 

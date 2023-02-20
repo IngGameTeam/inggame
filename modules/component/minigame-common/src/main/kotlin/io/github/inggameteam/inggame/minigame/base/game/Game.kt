@@ -8,7 +8,6 @@ import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.SafeSetWithToString
 import org.bukkit.Bukkit
 import java.util.*
-import java.util.concurrent.CopyOnWriteArraySet
 
 interface Game : Wrapper {
 

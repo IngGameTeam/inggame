@@ -3,7 +3,6 @@ package io.github.inggameteam.inggame.component
 import io.github.inggameteam.inggame.mongodb.MongoCodec
 import io.github.inggameteam.inggame.utils.Debug
 import org.bson.Document
-import org.bukkit.Bukkit
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 

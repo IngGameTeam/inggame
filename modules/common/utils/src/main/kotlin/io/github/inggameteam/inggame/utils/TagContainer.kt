@@ -1,7 +1,6 @@
 package io.github.inggameteam.inggame.utils
 
 import java.util.*
-import java.util.concurrent.CopyOnWriteArraySet
 
 interface TagContainer {
     var tags: SafeSetWithToString<String>

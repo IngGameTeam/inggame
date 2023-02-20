@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.component.view.controller
 
-import org.bukkit.block.Chest
 import org.bukkit.block.Container
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

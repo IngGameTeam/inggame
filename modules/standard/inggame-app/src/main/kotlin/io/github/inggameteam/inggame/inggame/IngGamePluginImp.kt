@@ -4,15 +4,12 @@ import io.github.inggameteam.inggame.component.ComponentModule
 import io.github.inggameteam.inggame.component.view.ComponentViewModule
 import io.github.inggameteam.inggame.item.ItemModule
 import io.github.inggameteam.inggame.player.PlayerModule
-import io.github.inggameteam.inggame.plugman.util.PluginUtil
 import io.github.inggameteam.inggame.updateman.UpdateManModule
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
-import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.*

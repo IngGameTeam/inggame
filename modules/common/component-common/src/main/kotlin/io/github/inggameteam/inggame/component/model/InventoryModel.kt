@@ -7,7 +7,6 @@ import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.Bukkit
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
-import org.bukkit.inventory.ItemStack
 
 @Model
 class InventoryModel(
@@ -67,6 +66,7 @@ class InventoryModel(
         return map["type"]!!.toString()
     }
 
+    @Suppress("DEPRECATION")
     @BsonIgnore
     private fun newInventory(): Inventory {
         val title = if (map.containsKey("title")) map.getColoredString("title") else null

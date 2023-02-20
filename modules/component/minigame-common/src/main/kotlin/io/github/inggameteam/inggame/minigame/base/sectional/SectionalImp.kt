@@ -6,7 +6,6 @@ import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
 import io.github.inggameteam.inggame.minigame.base.game.GameState
 import org.bukkit.util.Vector
-import javax.xml.stream.Location
 
 
 class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
