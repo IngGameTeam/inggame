@@ -15,7 +15,8 @@ class LocationModel(
     var pitch: Float = 0f,
     var isRelative: Boolean
 ) {
-    override fun toString() = "$world($x, $y, $z, $yaw, $pitch)"
+//    override fun toString() = "$world($x, $y, $z, $yaw, $pitch)"
+    override fun toString() = "A Location"
 
     fun toLocation(world: World? = null) =
         Location(if (isRelative && world !== null) world else Bukkit.getWorld(this.world), x, y, z, yaw, pitch)

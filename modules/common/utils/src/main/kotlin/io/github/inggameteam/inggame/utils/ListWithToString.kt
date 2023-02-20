@@ -1,10 +1,24 @@
 package io.github.inggameteam.inggame.utils
 
-open class ListWithToString<T> : ArrayList<T> {
-    constructor() : super()
-    constructor(c: Collection<T>) : super(c)
+import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.CopyOnWriteArraySet
 
-    override fun toString() = if (isEmpty()) "empty" else joinToString(", ")
+fun Collection<*>.noBraceToString() = if (isEmpty()) "empty" else joinToString(", ")
+
+fun <T> List<T>.listWithToString() = ListWithToString(this)
+
+open class ListWithToString<T>(list: List<T>) : ArrayList<T>(list) {
+    override fun toString() = noBraceToString()
 }
 
-fun <T> Collection<T>.listWithToString() = ListWithToString(this)
+open class SafeListWithToString<T>(list: List<T>) : CopyOnWriteArrayList<T>(list) {
+    override fun toString() = noBraceToString()
+}
+
+open class SetWithToString<T>(list: List<T>) : HashSet<T>(list) {
+    override fun toString() = noBraceToString()
+}
+
+open class SafeSetWithToString<T>(list: Collection<T>? = emptyList()) : CopyOnWriteArraySet<T>(list) {
+    override fun toString() = noBraceToString()
+}

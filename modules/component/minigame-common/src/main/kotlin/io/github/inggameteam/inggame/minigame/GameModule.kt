@@ -6,6 +6,8 @@ import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.minigame.base.*
+import io.github.inggameteam.inggame.minigame.base.competition.Competition
+import io.github.inggameteam.inggame.minigame.base.competition.SoloCompetitionHandler
 import io.github.inggameteam.inggame.minigame.base.death.DeathHandler
 import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.gameserver.*
@@ -39,7 +41,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::GameInstanceService)
             classOf(::SectorLoader)
             classOf(::HubLoader)
-            classOf(::SpawnPlayer)
+            classOf(::TeleportOnSpawn)
             classOf(::SpawnOnJoin)
             classOf(::GameServer)
             classOf(::GPlayer)
@@ -56,13 +58,14 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::SpawnOnStart)
             classOf(::AnnounceGameBegin)
             classOf(::LocationalImp)
-            classOf(::SpawnOnStart)
             classOf(::ParticleOnGameBegin)
             classOf(::StartPlayersAmountAlert)
             classOf(::GameHandler)
             classOf(::SetGameModeOnSpawnHandler)
             classOf(::KitOnSpawnHandler)
+            classOf(::SoloCompetitionHandler)
             classOf(
+                Competition::class,
                 KitOnSpawn::class,
                 Game::class,
                 GameAlert::class,
@@ -77,8 +80,8 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.addModule(newModule("custom-game", ::CustomGameService))
         event.addModule(newModule("game-resource", ::GameResourceService))
         event.componentServiceDSL
-                .cs("game-player", type = ComponentServiceType.MASK)
-                .cs("game-instance", type = ComponentServiceType.MASK)
+                .cs("game-player", type = ComponentServiceType.MASKED)
+                .cs("game-instance", type = ComponentServiceType.MASKED)
                 .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)
                 .cs("game-resource", type = ComponentServiceType.MULTI, key = "game-language", root = "player-instance")
                 .apply {

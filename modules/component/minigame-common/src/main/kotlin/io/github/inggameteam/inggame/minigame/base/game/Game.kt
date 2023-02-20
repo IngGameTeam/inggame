@@ -5,9 +5,9 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.event.GameTaskCancelEvent
 import io.github.inggameteam.inggame.utils.ITask
+import io.github.inggameteam.inggame.utils.SafeSetWithToString
 import org.bukkit.Bukkit
 import java.util.*
-import java.util.concurrent.CopyOnWriteArraySet
 
 interface Game : Wrapper {
 
@@ -21,7 +21,7 @@ interface Game : Wrapper {
     var stopWaitingTick         : Int
 
     var gameState: GameState
-    var gameJoined: CopyOnWriteArraySet<GPlayer>
+    var gameJoined: SafeSetWithToString<GPlayer>
 
     fun addTask(task: ITask)
 
@@ -42,7 +42,7 @@ class GameImp(wrapper: Wrapper) : Game, SimpleWrapper(wrapper) {
     override var stopWaitingTick         : Int           by nonNull
 
     override var gameState: GameState by default { GameState.WAIT }
-    override var gameJoined: CopyOnWriteArraySet<GPlayer> by default { CopyOnWriteArraySet<GPlayer>() }
+    override var gameJoined: SafeSetWithToString<GPlayer> by default { SafeSetWithToString<GPlayer>() }
 
     private var gameTask: ITask? by nullable
     override fun cancelGameTask() {

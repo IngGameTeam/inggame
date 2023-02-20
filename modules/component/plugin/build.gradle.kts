@@ -12,6 +12,7 @@ projectDependencies(
     plugman,
     item,
     updateman,
+    inggame_app,
     includeJar = true,
 )
 

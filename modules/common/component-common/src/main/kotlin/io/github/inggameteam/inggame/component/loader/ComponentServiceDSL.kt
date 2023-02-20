@@ -120,7 +120,7 @@ fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
                     cs.parents.map { get(named(it)) },
                     cs.key
                 )
-            } else if (cs.type == MASK) LayerMaskComponentService(
+            } else if (cs.type == MASKED) LayerMaskComponentService(
                 get(named(cs.name)),
                 get(),
                 get(named(cs.parents.first())),

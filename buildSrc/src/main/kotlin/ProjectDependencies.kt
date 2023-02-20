@@ -20,6 +20,7 @@ val Project.updateman                                 by ProjectDependencies
 val Project.utils                                     by ProjectDependencies
 val Project.world                                     by ProjectDependencies
 val Project.item                                      by ProjectDependencies
+val Project.inggame_app                                   by ProjectDependencies
 
 fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: Boolean = false) {
     dependencies {

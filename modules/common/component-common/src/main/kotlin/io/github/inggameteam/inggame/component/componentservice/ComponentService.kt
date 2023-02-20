@@ -53,8 +53,7 @@ interface ComponentService {
     }
 
     fun has(nameSpace: Any, key: Any): Boolean =
-        try {
-            find(nameSpace, key); true } catch (_: Throwable) { false }
+        try { find(nameSpace, key); true } catch (_: Throwable) { false }
 
     fun set(nameSpace: Any, key: Any, value: Any?)
 

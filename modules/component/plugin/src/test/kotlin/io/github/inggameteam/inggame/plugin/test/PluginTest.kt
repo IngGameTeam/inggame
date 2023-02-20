@@ -5,6 +5,7 @@ import be.seeseemelk.mockbukkit.ServerMock
 import io.github.inggameteam.inggame.plugin.Plugin
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 
 lateinit var SERVER: ServerMock
 lateinit var PLUGIN: Plugin
@@ -23,6 +24,11 @@ object PluginTest {
     @JvmStatic
     fun tearDown() {
         MockBukkit.unmock()
+    }
+
+    @Test
+    fun test() {
+        SimpleTest().test()
     }
 
 }

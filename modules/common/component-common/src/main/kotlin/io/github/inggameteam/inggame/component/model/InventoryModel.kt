@@ -22,30 +22,51 @@ class InventoryModel(
         get() = _items?: run { ArrayList<ItemModel?>().also { _items = it } }
         set(value) { _items = value }
 
+    constructor() : this(Bukkit.createInventory(null, InventoryType.CHEST))
     constructor(inventory: Inventory) : this(HashMap(), ArrayList()) {
-        setInventory(inventory)
+        this.inventory = inventory
     }
 
     @BsonIgnore
     private lateinit var cachedInventory: Inventory
 
+    @get:BsonIgnore
+    @set:BsonIgnore
+    var inventory: Inventory
+        get() = if (::cachedInventory.isInitialized) cachedInventory else {
+            cachedInventory = newInventory()
+            cachedInventory
+        }
+        set(inventory) {
+            val contents = inventory.contents
+                .map { it?.run { ItemModel(null).apply { itemStack = it } } }.run(::ArrayList)
+            if (inventory.type === InventoryType.CHEST) {
+                map["type"] = inventory.maxStackSize
+            } else map["type"] = inventory.type.name
+            items = contents
+        }
+
     @BsonIgnore
-    fun getInventory() = if (::cachedInventory.isInitialized) cachedInventory else {
-        cachedInventory = newInventory()
-        cachedInventory
+    fun setTitle(title: String) {
+        map["title"] = title
     }
 
     @BsonIgnore
-    private fun setInventory(inventory: Inventory) {
-        val contents = inventory.contents
-            .map { it?.run { ItemModel(null).apply { itemStack = it } } }.run(::ArrayList)
-        if (inventory.type === InventoryType.CHEST) {
-            map["type"] = inventory.maxStackSize
-        } else map["type"] = inventory.type.name
-        items = contents
+    fun getTitle(): String {
+        return map["title"]!!.toString()
     }
 
+    @BsonIgnore
+    fun setType(type: String) {
+        map["type"] = type
+    }
 
+    @BsonIgnore
+    fun getType(): String {
+        return map["type"]!!.toString()
+    }
+
+    @Suppress("DEPRECATION")
     @BsonIgnore
     private fun newInventory(): Inventory {
         val title = if (map.containsKey("title")) map.getColoredString("title") else null
@@ -64,6 +85,10 @@ class InventoryModel(
 
     override fun toString(): String {
         return "A Inventory"
+    }
+
+    companion object {
+        fun Inventory.toInventoryModel(): InventoryModel = InventoryModel(this)
     }
 
 }

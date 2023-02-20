@@ -1,7 +1,11 @@
 package io.github.inggameteam.inggame.utils
 
 import java.io.File
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
 import java.util.jar.JarFile
+import kotlin.reflect.KType
+import kotlin.reflect.jvm.javaType
 
 
 object ClassUtil {
@@ -52,3 +56,16 @@ object ClassUtil {
         } ?: throw AssertionError("$name class not found")
 
 }
+
+val KType.singleClass: Class<*> get() = javaType.singleClass
+
+val Type.singleClass: Class<*>
+    get() {
+        val javaType = this
+        return if (javaType is Class<out Any>) {
+            javaType
+        } else if (javaType is ParameterizedType) {
+            javaType.rawType as Class<out Any>
+        } else throw AssertionError("cannot read class type ${javaType.typeName}")
+
+    }

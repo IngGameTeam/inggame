@@ -1,15 +1,16 @@
 package io.github.inggameteam.inggame.component.view.controller
 
+import org.bukkit.block.Container
 import org.bukkit.entity.Player
-import org.bukkit.event.*
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.HandlerList
+import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.inventory.ItemStack
 
-class ItemStackEditor(editorView: EditorView<Any>, override val previousSelector: Selector<*>?)
+class InventoryEditor(editorView: EditorView<Any>, override val previousSelector: Selector<*>?)
     : Editor, EditorView<Any> by editorView {
 
     override fun open(player: Player) {
@@ -28,37 +29,17 @@ class ItemStackEditor(editorView: EditorView<Any>, override val previousSelector
 
             @Suppress("unused")
             @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-            fun onClick(event: PlayerInteractEvent) {
-                onClick(event, event.player, event.item)
-            }
-
-            @Suppress("unused")
-            @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-            fun onClick(event: EntityDamageByEntityEvent) {
-                val p = event.entity
-                if (p !is Player) return
-                onClick(event, p, p.itemInUse)
-            }
-
-            @Suppress("unused")
-            @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-            fun onClick(event: InventoryClickEvent) {
-                val p = event.whoClicked as Player
-                if (event.clickedInventory != p.openInventory.topInventory)
-                onClick(event, p, event.currentItem)
-            }
-
-
-            fun onClick(event: Cancellable, eventPlayer: Player, item: ItemStack?) {
-                if (player != eventPlayer) return
-                if (item === null) {
+            fun onBlockClick(event: PlayerInteractEvent) {
+                if (event.player != player) return
+                val block = event.clickedBlock
+                if (block === null || block !is Container) {
                     player.sendMessage(editor.VIEW_CANCEL_EDIT)
                     event.isCancelled = true
                     HandlerList.unregisterAll(this)
                     return
                 }
                 try {
-                    set(item)
+                    set(block.inventory)
                 } catch (_: Throwable) {
                     player.sendMessage(editor.VIEW_CANCEL_EDIT)
                 }

@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
 import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.entity.ViewImp
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
+import io.github.inggameteam.inggame.utils.Debug
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastUUID
 import org.bukkit.entity.Player
@@ -26,6 +27,22 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 val ms = measureTimeMillis { PluginUtil.reload(plugin) }
                 source.sendMessage("Reloaded in ${ms}ms")
             }
+            then("replace") {
+                tab { app.getAll<ComponentService>().map { it.name } }
+                execute {
+                    val split = args[1].split(" ")
+                    val componentService = app.get<ComponentService>(named(split[0]))
+                    val replaceOld = split[1]
+                    val replaceNew = split[2]
+                    componentService.getAll().forEach { ns ->
+                        val parents = ns.parents
+                        if (parents.remove(replaceOld)) {
+                            parents.add(replaceNew)
+                        }
+                    }
+                    source.sendMessage("All $replaceOld in ${componentService.name}'s parents replaced to $replaceNew")
+                }
+            }
             then("get") {
                 tab { app.getAll<ComponentService>().map { it.name } }
                 execute {
@@ -35,10 +52,15 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val key = split[2]
                     measureTimeMillis {
                         repeat (2000) {
-                            source.sendMessage(componentService.find(nameSpace, key).toString())
                         }
                     }.run(Any::toString).apply(source::sendMessage)
                 }
+            }
+            thenExecute("debug") {
+                val newDebug = !Debug.isDebug
+                if (newDebug) source.sendMessage("Now, Debug mode is ON")
+                else source.sendMessage("Now, Debug mode is OFF")
+                Debug.isDebug = newDebug
             }
             then("component") {
                 fun getComponentServices() = app.getAll<ComponentService>()

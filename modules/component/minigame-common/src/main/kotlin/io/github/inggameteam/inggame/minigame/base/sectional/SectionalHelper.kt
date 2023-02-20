@@ -39,7 +39,7 @@ class SectionalHelper(
         val before = System.currentTimeMillis()
         val x = sector.x * width
         val z = sector.y * width
-        val file = getSchematicFile("default", "default")
+        val file = getSchematicFile("default")
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         paste(location, file)
 //            unloadChunk(location, getSchematicFile(schematicName, this.name))
@@ -49,7 +49,7 @@ class SectionalHelper(
     private fun loadSector(sectional: Sectional, world: World, sector: Sector, key: String): Unit = sectional.run {
         val x = width * sector.x
         val z = width * sector.y
-        val file = getSchematicFile(key, schematicName)
+        val file = getSchematicFile(key)
         val location = Location(world, x.toDouble(), height.toDouble(), z.toDouble())
         thread {
 //            FaweImpl(plugin).loadChunk(location, file)
@@ -57,8 +57,8 @@ class SectionalHelper(
         }
     }
 
-    private fun getSchematicFile(name: String, dir: String) =
-        File(plugin.dataFolder, "schematics" + File.separator + dir + File.separator + name + ".schem")
+    private fun getSchematicFile(name: String) =
+        File(plugin.dataFolder, "schematics" + File.separator + name + ".schem")
 
 
 

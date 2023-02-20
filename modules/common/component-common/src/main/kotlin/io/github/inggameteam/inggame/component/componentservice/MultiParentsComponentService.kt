@@ -41,8 +41,7 @@ class MultiParentsComponentService(
     }
 
     override fun <T : Any> find(nameSpace: Any, key: Any, clazz: KClass<T>): T {
-        if (parentKey == key)
-            throw Assert("an error occurred while perform get method parentKey and key is same")
+        if (parentKey == key) throw NameSpaceNotFound
         val nameSpace = uncoverDelegate(nameSpace)
         return findParent(nameSpace).firstSuccess({ it.find(nameSpace, key, clazz) }, NameSpaceNotFound)
     }
