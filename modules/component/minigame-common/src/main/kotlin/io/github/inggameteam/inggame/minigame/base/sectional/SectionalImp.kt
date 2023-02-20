@@ -46,7 +46,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     override fun getLocationOrNull(name: String): org.bukkit.Location? =
         locations["$schematicName/$name"]?.run { toRelative(this) }
 
-    fun toRelative(location: LocationModel) = location.run {
+    private fun toRelative(location: LocationModel) = location.run {
         toLocation(sector.world).apply {
             if (!isRelative) return@apply
             x += width * sector.x
