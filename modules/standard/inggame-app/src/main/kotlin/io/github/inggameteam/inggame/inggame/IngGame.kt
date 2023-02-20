@@ -21,7 +21,7 @@ object IngGame {
                     loadComponents(plugin),
                 ).apply { modules(this) }
             }.koin
-        }.also {
+        }.also { app ->
             app.get<ComponentLoader>()
             app.getAll<ComponentService>().map(ComponentService::layerPriority)
             Bukkit.getPluginManager().callEvent(IngGamePluginEnableEvent(plugin))
