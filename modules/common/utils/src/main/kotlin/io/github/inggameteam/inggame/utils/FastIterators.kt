@@ -22,6 +22,7 @@ inline fun <T> Array<T>.fastFirstOrNull(predicate: (T) -> Boolean): T? {
 }
 
 val firstNotFoundException = Throwable("collection predicate is not match any")
+
 inline fun <T> List<T>.fastFirst(predicate: (T) -> Boolean): T {
     fastForEach { if (predicate(it)) return it }
     throw firstNotFoundException
