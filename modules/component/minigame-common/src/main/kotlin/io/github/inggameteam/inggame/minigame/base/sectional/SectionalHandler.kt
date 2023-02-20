@@ -68,6 +68,13 @@ class SectionalHandler(
                 if (isHandler(player)) {
                     val sectional = player[::SectionalImp]
                     sectional.schematicName
+                    sectional.schematicName
+                    sectional.schematicName
+                    sectional.schematicName
+                    sectional.schematicName
+                    sectional.schematicName
+                    sectional.schematicName
+                    sectional.schematicName
                 }
             }
         }.apply {
