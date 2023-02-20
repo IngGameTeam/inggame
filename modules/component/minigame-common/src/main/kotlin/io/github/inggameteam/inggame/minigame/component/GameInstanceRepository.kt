@@ -9,14 +9,3 @@ import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 
 class GameInstanceRepository(componentService: ComponentService)
     : LayeredComponentService by componentService as LayeredComponentService
-{
-
-    lateinit var containerHelper: ContainerHelper<Game, GPlayer>
-
-    fun newContainerHelper(gamePlayerService: GamePlayerService) =
-        ContainerHelperImp<Game, GPlayer>(
-            this, gamePlayerService,
-            GPlayer::joinedGame, Game::gameJoined
-        ).also { containerHelper = it }
-
-}
