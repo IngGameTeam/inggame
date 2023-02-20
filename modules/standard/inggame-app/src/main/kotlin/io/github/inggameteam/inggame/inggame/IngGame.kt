@@ -34,7 +34,7 @@ object IngGame {
         get() = run {
             if (appSemaphore) throw AssertionError("an error occurred while get app while initializing app")
             appSemaphore = true
-            _app = run { loadApp(
+            if (_app === null)_app = run { loadApp(
                 Bukkit.getPluginManager().plugins.filterIsInstance<IngGamePlugin>().firstOrNull()
                     ?: throw AssertionError("an app loading error occurred due to IngGamePlugin is not loaded")
             ) }
