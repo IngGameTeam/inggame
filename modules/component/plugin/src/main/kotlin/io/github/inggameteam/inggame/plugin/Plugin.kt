@@ -10,6 +10,7 @@ import io.github.inggameteam.inggame.minigame.view.GameViewModule
 import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.updateman.UpdateManModule
 import io.github.inggameteam.inggame.utils.ClassUtil
+import io.github.inggameteam.inggame.utils.Debug
 import io.github.inggameteam.inggame.utils.IngGamePluginImp
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import org.bukkit.plugin.PluginDescriptionFile
@@ -39,6 +40,7 @@ class Plugin : IngGamePluginImp {
 
     override fun onEnable() {
         super.onEnable()
+        Debug.isDebug = config.getBoolean("debug")
         ComponentModule(this)
         ItemModule(this)
         ComponentViewModule(this)
