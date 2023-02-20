@@ -2,14 +2,15 @@ package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
-import java.util.concurrent.CopyOnWriteArraySet
+import io.github.inggameteam.inggame.utils.singleClass
+import kotlin.reflect.KProperty
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
 class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     private val componentService: LayeredComponentService,
     private val keyComponent: LayeredComponentService,
-    private val keyAssign: Any,
-    private val keyList: Any,
+    private val keyAssign: KProperty<*>,
+    private val keyList: KProperty<*>,
 ) : ContainerHelper<CONTAINER, ELEMENT> {
 
     override fun has(container: CONTAINER): Boolean {
@@ -37,7 +38,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
         left(key)
         keyComponent.unload(uncoveredKey, false)
         keyComponent.load(uncoveredKey, true)
-        keyComponent.set(uncoveredKey, keyAssign, container)
+        keyComponent.set(uncoveredKey, keyAssign.name, container)
         keyComponent.addParents(uncoveredKey, uncoveredContainer)
         getList(container).add(key)
     }
@@ -48,9 +49,13 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
         keyComponent.unload(key, false)
     }
 
-    private fun getList(container: CONTAINER): CopyOnWriteArraySet<ELEMENT> {
-        return try { container.get(keyList) as CopyOnWriteArraySet<ELEMENT> }
-        catch (_: Throwable) { CopyOnWriteArraySet<ELEMENT>().apply { container.set(keyList, this) } }
+    @Suppress("DEPRECATION")
+    private fun getList(container: CONTAINER): MutableCollection<ELEMENT> {
+        return try { container.get(keyList.name) as MutableCollection<ELEMENT> }
+        catch (_: Throwable) {
+            val col = keyList.returnType.singleClass.newInstance() as MutableCollection<ELEMENT>
+            col.apply { container.set(keyList, this) }
+        }
     }
 
 }

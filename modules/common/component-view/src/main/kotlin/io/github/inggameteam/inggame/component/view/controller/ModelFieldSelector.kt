@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.component.view.EditorRegistry
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.entity.ModelView
 import io.github.inggameteam.inggame.component.view.entity.ModelViewImp
-import io.github.inggameteam.inggame.component.view.singleClass
+import io.github.inggameteam.inggame.utils.singleClass
 import org.bson.codecs.pojo.annotations.BsonIgnore
 import org.bukkit.ChatColor
 import org.bukkit.Material
