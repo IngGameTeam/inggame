@@ -25,8 +25,7 @@ fun main() {
     val a = measureTimeMillis {
         repeat(times) {
             try {
-                list
-                    .fastForEach {  }
+                throw NameSpaceNotFoundException()
             } catch (_: Throwable) {
 
             }
@@ -36,8 +35,7 @@ fun main() {
     val b = measureTimeMillis {
         repeat(times) {
             try {
-                list
-                    .fastFirst { it == key }
+                throw exception
             } catch (_: Throwable) {
 
             }
