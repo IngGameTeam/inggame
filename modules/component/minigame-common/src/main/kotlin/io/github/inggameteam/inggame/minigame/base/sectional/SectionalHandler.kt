@@ -15,6 +15,7 @@ import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
+import kotlin.system.measureTimeMillis
 
 class SectionalHandler(
     private val sectionalHelper: SectionalHelper,
@@ -61,6 +62,15 @@ class SectionalHandler(
     @EventHandler
     fun outSectionCheck(event: PlayerMoveEvent) {
         val bPlayer = event.player
+        measureTimeMillis {
+            repeat(100) {
+                val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
+                if (isHandler(player)) {
+                    val sectional = player[::SectionalImp]
+                }
+            }        }.apply {
+            println(this)
+        }
         val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
         if (isHandler(player)) {
             val sectional = player[::SectionalImp]
