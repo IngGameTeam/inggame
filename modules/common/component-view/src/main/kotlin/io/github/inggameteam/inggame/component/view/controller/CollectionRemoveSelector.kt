@@ -17,6 +17,7 @@ class CollectionRemoveSelector<T: Any>(
     override fun select(t: T, event: InventoryClickEvent) {
 
         editorView.set.invoke((editorView.get.invoke() as MutableCollection<*>).apply { remove(t) } as T)
+        open(event.whoClicked as Player)
 //        parentSelector?.open(event.whoClicked as Player)
     }
 
