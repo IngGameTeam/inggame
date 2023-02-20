@@ -67,8 +67,10 @@ class SectionalHandler(
                 val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
                 if (isHandler(player)) {
                     val sectional = player[::SectionalImp]
+                    sectional.schematicName
                 }
-            }        }.apply {
+            }
+        }.apply {
             println(this)
         }
         val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
