@@ -47,18 +47,22 @@ class InventoryModel(
             items = contents
         }
 
+    @BsonIgnore
     fun setTitle(title: String) {
         map["title"] = title
     }
 
+    @BsonIgnore
     fun getTitle(): String {
         return map["title"]!!.toString()
     }
 
+    @BsonIgnore
     fun setType(type: String) {
         map["type"] = type
     }
 
+    @BsonIgnore
     fun getType(): String {
         return map["type"]!!.toString()
     }
