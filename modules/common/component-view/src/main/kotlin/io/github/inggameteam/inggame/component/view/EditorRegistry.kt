@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.view
 
 import io.github.inggameteam.inggame.component.NameSpaceNotFound
 import io.github.inggameteam.inggame.component.SubClassRegistry
+import io.github.inggameteam.inggame.component.model.InventoryModel
 import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.view.controller.*
 import io.github.inggameteam.inggame.component.view.entity.ElementView
@@ -62,6 +63,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
         String::class to code(::StringEditor),
         Boolean::class to code(::BooleanEditor),
         ItemModel::class to code(::ItemStackPropSelector),
+        InventoryModel::class to code(::InventoryPropSelector),
         MutableCollection::class to code(::CollectionSelector),
         Map::class to code(::MapEditor),
     )
