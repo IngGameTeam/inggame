@@ -1,6 +1,12 @@
-package io.github.inggameteam.inggame.utils
+package io.github.inggameteam.inggame.inggame
 
-import de.tr7zw.nbtapi.NBT
+import io.github.inggameteam.inggame.component.ComponentModule
+import io.github.inggameteam.inggame.component.view.ComponentViewModule
+import io.github.inggameteam.inggame.item.ItemModule
+import io.github.inggameteam.inggame.player.PlayerModule
+import io.github.inggameteam.inggame.updateman.UpdateManModule
+import io.github.inggameteam.inggame.utils.ClassUtil
+import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
@@ -13,7 +19,7 @@ import java.util.UUID.randomUUID
 import java.util.logging.Level
 import java.util.logging.Logger
 
-open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
+abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
 
     override val console: UUID by lazy { randomUUID() }
     override var allowTask = false
@@ -38,6 +44,13 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         Bukkit.getPluginManager().registerEvents(this, this)
         allowTask = true
         console
+        ComponentModule(this)
+        ItemModule(this)
+        ComponentViewModule(this)
+        UpdateManModule(this)
+        PlayerModule(this)
+        registerModule()
+        IngGame.app
     }
 
      fun initializeGameFile(force: Boolean = false) {
@@ -57,6 +70,9 @@ open class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         allowTask = false
         for (it in disableEvent) it()
         for (it in saveEvent) it()
+        if (IngGame.appDelegate.isInitialized()) {
+            IngGame.app.close()
+        }
     }
 
 }

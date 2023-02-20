@@ -8,14 +8,3 @@ import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 
-fun loadApp(plugin: IngGamePlugin): Koin {
-    return plugin.run {
-        koinApplication {
-            modules(module { single { plugin } bind IngGamePlugin::class })
-            listOfNotNull(
-                loadComponents(plugin),
-                loadMongoModule(plugin),
-            ).apply { modules(this) }
-        }.koin
-    }
-}

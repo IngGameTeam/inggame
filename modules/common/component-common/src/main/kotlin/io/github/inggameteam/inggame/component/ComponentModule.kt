@@ -10,6 +10,7 @@ import io.github.inggameteam.inggame.component.wrapper.WrapperModel
 import io.github.inggameteam.inggame.mongodb.ClassRegistryAll
 import io.github.inggameteam.inggame.mongodb.DecodeFunction
 import io.github.inggameteam.inggame.mongodb.EncodeFunction
+import io.github.inggameteam.inggame.mongodb.loadMongoModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
@@ -24,6 +25,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onRegisterComponentService(event: ComponentLoadEvent) {
         event.addModule(module(createdAtStart = true) {
+            includes(loadMongoModule(plugin))
             factory { DecodeFunction { if (it is WrapperModel) it.createWrapper(getKoin()) else null } }
             factory { EncodeFunction { if (it is Wrapper) WrapperModel(it) else null } }
             single {
