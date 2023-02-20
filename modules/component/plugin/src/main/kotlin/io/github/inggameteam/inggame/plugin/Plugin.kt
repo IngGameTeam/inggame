@@ -29,10 +29,14 @@ class Plugin : IngGamePluginImp {
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File)
             : super(loader, description, ClassUtil.getJarFile(Plugin::class.java).parentFile, file)
 
+    override fun onEnable() {
+        super.onEnable()
+        debugCommand(this, app)
+    }
+
     override fun registerModule() {
         GameModule(this)
         GameViewModule(this)
-        debugCommand(this, app)
     }
 
 }
