@@ -52,7 +52,7 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         UpdateManModule(this)
         PlayerModule(this)
         registerModule()
-        IngGame.app
+        ingGame.app
     }
 
      fun initializeGameFile(force: Boolean = false) {
@@ -72,8 +72,8 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin {
         allowTask = false
         for (it in disableEvent) it()
         for (it in saveEvent) it()
-        if (IngGame.isLoaded()) {
-            IngGame.closeApp()
+        if (ingGame.isLoaded()) {
+            ingGame.closeApp()
             Bukkit.getPluginManager().plugins.filter { it != this }.filterIsInstance<IngGamePlugin>().forEach {
                 try { ;{ PluginUtil.unload(it) }.runNow(it) }
                 catch (_: Throwable) {}

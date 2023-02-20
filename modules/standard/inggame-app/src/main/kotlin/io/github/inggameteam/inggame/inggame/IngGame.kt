@@ -11,7 +11,9 @@ import org.koin.dsl.bind
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 
-object IngGame {
+val ingGame = IngGame()
+
+class IngGame {
 
     private fun loadApp(plugin: IngGamePlugin): Koin {
         return plugin.run {
