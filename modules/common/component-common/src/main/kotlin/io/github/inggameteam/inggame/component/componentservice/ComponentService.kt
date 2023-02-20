@@ -19,7 +19,6 @@ interface ComponentService {
     val layerPriority: Int
 
     fun find(nameSpace: Any, key: Any): Any {
-        println("1")
         val nameSpace = uncoverDelegate(nameSpace)
         val ns = getAll().fastFirstOrNull { it.name == nameSpace }
             ?: run {
