@@ -43,7 +43,7 @@ class InventoryPropSelector(
                         ItemStackPropSelector(EditorViewImp(view,
                             { view.getInv().apply { items.set(pair.second.first, it as? ItemModel) }.apply(view::set) },
                                 { view.getInv().items[pair.second.first] }
-                        )
+                        ), view
                         ).open(player)
                     }
                 }
