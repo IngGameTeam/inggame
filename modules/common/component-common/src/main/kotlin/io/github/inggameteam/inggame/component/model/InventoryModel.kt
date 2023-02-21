@@ -30,6 +30,10 @@ class InventoryModel(
     @BsonIgnore
     private lateinit var cachedInventory: Inventory
 
+    fun reloadInventory() {
+        cachedInventory = newInventory()
+    }
+
     @get:BsonIgnore
     @set:BsonIgnore
     var inventory: Inventory
