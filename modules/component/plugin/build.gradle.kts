@@ -19,7 +19,7 @@ projectDependencies(
     inggame_app,
     includeJar = true,
 )
-
+tasks.forEach { it.outputs.cacheIf { true } }
 spigot {
     this.version = "${project.version}"
     main = "io.github.inggameteam.inggame.plugin.Plugin"
