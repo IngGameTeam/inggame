@@ -100,12 +100,14 @@ allprojects {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         if (project != rootProject) destinationDirectory.set(File(rootProject.buildDir, "dist"))
+        version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
     }
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         if (project != rootProject) destinationDirectory.set(File(rootProject.buildDir, "dist"))
+         version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
     }
 
     tasks {
