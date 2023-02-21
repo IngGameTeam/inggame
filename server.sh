@@ -24,7 +24,7 @@
 
 # Fusion
 #wget -O server.jar https://github.com/IPECTER/Fusion/releases/latest/download/Fusion-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
-cd customized_game_world
-rm -fvr !"paper-world.yml"
-cd ..
+rm -r customized_game_world
+git stash
+git stash drop
 java -Xms12G -Xmx12G -jar --add-modules jdk.incubator.vector server.jar
