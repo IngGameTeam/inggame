@@ -26,4 +26,4 @@ wget -O server.jar https://github.com/IPECTER/Fusion/releases/latest/download/Fu
 rm -r customized_game_world
 git stash
 git stash drop
-java -Xms12G -Xmx12G -jar --add-modules jdk.incubator.vector server.jar
+java -Xms10G -Xmx10G -jar --add-modules jdk.incubator.vector server.jar
