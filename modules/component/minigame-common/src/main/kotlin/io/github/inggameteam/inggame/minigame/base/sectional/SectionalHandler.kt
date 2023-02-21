@@ -64,16 +64,16 @@ class SectionalHandler(
     fun outSectionCheck(event: PlayerMoveEvent) {
         val bPlayer = event.player
         val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
-        measureTimeMillis {
-            repeat(1000) {
-                if (isHandler(player)) {
-                    val sectional = player[::SectionalImp]
-                    sectional.schematicName
-                }
-            }
-        }.apply {
-            Bukkit.broadcastMessage(this.toString())
-        }
+//        measureTimeMillis {
+//            repeat(1000) {
+//                if (isHandler(player)) {
+//                    val sectional = player[::SectionalImp]
+//                    sectional.schematicName
+//                }
+//            }
+//        }.apply {
+//            Bukkit.broadcastMessage(this.toString())
+//        }
         if (isHandler(player)) {
             val sectional = player[::SectionalImp]
             val to = event.to
