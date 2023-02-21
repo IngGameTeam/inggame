@@ -21,7 +21,6 @@ plugins {
     id("com.google.devtools.ksp") version Dependency.Ksp.Version
     application
     id("maven-publish")
-    id("kr.entree.spigradle") version "2.4.3"
 }
 
 

@@ -1,3 +1,7 @@
+plugins {
+    id("kr.entree.spigradle") version "2.4.3"
+}
+
 projectDependencies(
     utils,
     mongodb,
@@ -16,7 +20,6 @@ projectDependencies(
     includeJar = true,
 )
 
-apply(plugin = "kr.entree.spigradle")
 spigot {
     this.version = "${project.version}"
     main = "io.github.inggameteam.inggame.plugin.Plugin"
