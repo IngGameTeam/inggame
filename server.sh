@@ -1,4 +1,3 @@
-  cd inggame
   #sudo apt install -y jq
   function plugin() {
       latest=$(curl -sL https://api.github.com/repos/$1/releases/latest | jq -r ".tag_name")
