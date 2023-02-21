@@ -28,8 +28,8 @@ chunk-loading:
   target-player-chunk-send-rate: 100.0
 chunk-system:
   gen-parallelism: default
-  io-threads: -1
-  worker-threads: -1
+  io-threads: 4
+  worker-threads: 8
 collisions:
   enable-player-collisions: true
   send-full-pos-for-hard-colliding-entities: true
