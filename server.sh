@@ -15,15 +15,15 @@
 #  wget -O server.jar https://ci.codemc.io/job/etil2jz/job/Mirai-1.19/lastSuccessfulBuild/artifact/build/libs/mirai-paperclip-1.19.2-R0.1-SNAPSHOT-reobf.jar
 
 # Purpur
-#  VERSION=$(<version.txt)
-#  wget -O server.jar https://api.purpurmc.org/v2/purpur/$VERSION/latest/download
+  VERSION=$(<version.txt)
+  wget -O server.jar https://api.purpurmc.org/v2/purpur/$VERSION/latest/download
 
 # pufferfish
 # wget -O server.jar https://ci.pufferfish.host/job/Pufferfish-1.19/lastBuild/artifact/build/libs/pufferfish-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
 #java -Xms12G -Xmx12G -jar server.jar
 
 # Fusion
-wget -O server.jar https://github.com/IPECTER/Fusion/releases/latest/download/Fusion-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
+#wget -O server.jar https://github.com/IPECTER/Fusion/releases/latest/download/Fusion-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
 cd customized_game_world
 rm -fvr !"paper-world.yml"
 cd ..
