@@ -16,6 +16,7 @@ projectDependencies(
     includeJar = true,
 )
 
+apply(plugin = "kr.entree.spigradle")
 spigot {
     this.version = "${project.version}"
     main = "io.github.inggameteam.inggame.plugin.Plugin"

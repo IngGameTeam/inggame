@@ -30,7 +30,6 @@ allprojects {
     apply(plugin = "kotlin")
     apply(plugin = "org.gradle.application")
     apply(plugin = "com.github.johnrengelman.shadow")
-    apply(plugin = "kr.entree.spigradle")
 
     version = rootProject.version
 
