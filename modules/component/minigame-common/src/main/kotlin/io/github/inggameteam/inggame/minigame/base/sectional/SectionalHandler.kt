@@ -12,6 +12,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.runNow
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
@@ -71,7 +72,7 @@ class SectionalHandler(
                 }
             }
         }.apply {
-            println(this)
+            Bukkit.broadcastMessage(this.toString())
         }
         if (isHandler(player)) {
             val sectional = player[::SectionalImp]
