@@ -21,6 +21,7 @@ projectDependencies(
 )
 tasks.forEach { it.outputs.cacheIf { true } }
 spigot {
+    name = rootProject.name
     this.version = "${project.version}"
     main = "io.github.inggameteam.inggame.plugin.Plugin"
     apiVersion = "1.19"
