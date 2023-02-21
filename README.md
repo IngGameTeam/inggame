@@ -26,9 +26,6 @@ Inggame is able to run as a plugin supported framework
 | key       | Greeting       |
 
 ### example 
-`component.set(namespace, key, value)`
-`component.get(namespace, key)`
-
 ```kotlin
 fun setGreetingMessage() {
     resource.set("EventMessage", "Greeting", "Hello!")

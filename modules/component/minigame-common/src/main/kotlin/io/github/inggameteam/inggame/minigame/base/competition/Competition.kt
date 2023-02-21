@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
-import io.github.inggameteam.inggame.minigame.event.GPlayerDeathEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerDeathEvent
 
 interface Competition : Wrapper {
     val stopCheckPlayer: Int

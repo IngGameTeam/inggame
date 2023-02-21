@@ -1,10 +1,12 @@
-package io.github.inggameteam.inggame.minigame.event
+package io.github.inggameteam.inggame.minigame.base.game.event
 
 import io.github.inggameteam.inggame.minigame.base.game.Game
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class GameBeginEvent(val game: Game) : Event() {
+class GameTaskCancelEvent(
+    val game: Game
+) : Event() {
     override fun getHandlers(): HandlerList { return HANDLERS }
     companion object {
         @JvmStatic
@@ -12,5 +14,4 @@ class GameBeginEvent(val game: Game) : Event() {
         @JvmStatic
         fun getHandlerList(): HandlerList { return HANDLERS }
     }
-
 }

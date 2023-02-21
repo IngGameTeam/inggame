@@ -1,19 +1,14 @@
-package io.github.inggameteam.inggame.minigame.event
+package io.github.inggameteam.inggame.minigame.base.game.event
 
-import io.github.inggameteam.inggame.minigame.base.game.JoinType
-import io.github.inggameteam.inggame.minigame.base.player.GPlayer
+import io.github.inggameteam.inggame.minigame.base.game.Game
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class GameRequestJoinEvent(
-    val join: ArrayList<GPlayer>,
-    val joinType: JoinType,
-    val game: String,
-) : Event(), Cancellable {
+class GameUnloadEvent(val game: Game) : Event(), Cancellable {
+
     private var cancelled = false
     override fun isCancelled() = cancelled
-
     override fun setCancelled(cancel: Boolean) { cancelled = cancel }
 
     override fun getHandlers(): HandlerList { return HANDLERS }
@@ -23,5 +18,4 @@ class GameRequestJoinEvent(
         @JvmStatic
         fun getHandlerList(): HandlerList { return HANDLERS }
     }
-
 }

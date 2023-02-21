@@ -5,9 +5,9 @@ import io.github.inggameteam.inggame.minigame.base.game.*
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
-import io.github.inggameteam.inggame.minigame.event.GPlayerDeathEvent
-import io.github.inggameteam.inggame.minigame.event.GPlayerWinEvent
-import io.github.inggameteam.inggame.minigame.event.GameFinishEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerDeathEvent
+import io.github.inggameteam.inggame.minigame.base.competition.event.GPlayerWinEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GameFinishEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.hasNoTags
 import io.github.inggameteam.inggame.utils.hasTags

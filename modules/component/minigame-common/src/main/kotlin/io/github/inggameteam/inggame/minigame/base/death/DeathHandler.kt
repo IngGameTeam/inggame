@@ -5,8 +5,8 @@ import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.minigame.event.GPlayerDeathEvent
-import io.github.inggameteam.inggame.minigame.event.GPlayerSpawnEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerDeathEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player

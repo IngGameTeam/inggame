@@ -3,11 +3,11 @@ package io.github.inggameteam.inggame.minigame.base.sectional
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.component.Handler.Companion.isHandler
 import io.github.inggameteam.inggame.minigame.base.game.GameState
+import io.github.inggameteam.inggame.minigame.base.game.event.*
 import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.minigame.event.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
@@ -30,9 +30,9 @@ class SectionalHandler(
     @EventHandler
     fun onIngGamePluginDisable(event: IngGamePluginEnableEvent) {
         plugin.addDisableEvent {
-                gameInstanceService.getAll(::SectionalImp)
-                    .filter { it.isHandler(SectionalHandler::class) }
-                    .forEach { sectionalHelper.unloadSector(it) }
+            gameInstanceService.getAll(::SectionalImp)
+                .filter { it.isHandler(SectionalHandler::class) }
+                .forEach { sectionalHelper.unloadSector(it) }
         }
     }
 
@@ -62,9 +62,9 @@ class SectionalHandler(
     @EventHandler
     fun outSectionCheck(event: PlayerMoveEvent) {
         val bPlayer = event.player
+        val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
         measureTimeMillis {
             repeat(100) {
-                val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
                 if (isHandler(player)) {
                     val sectional = player[::SectionalImp]
                     sectional.schematicName
@@ -73,7 +73,6 @@ class SectionalHandler(
         }.apply {
             println(this)
         }
-        val player = gamePlayerService[bPlayer.uniqueId, ::GPlayer]
         if (isHandler(player)) {
             val sectional = player[::SectionalImp]
             val to = event.to
