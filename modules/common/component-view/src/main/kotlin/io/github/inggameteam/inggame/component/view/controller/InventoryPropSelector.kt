@@ -47,7 +47,7 @@ class InventoryPropSelector(
                         ).open(player)
                     }
                 }
-            }
+            }.openInventory(player)
         }),
         SET_TO_MY_INVENTORY({ view, player ->
             view.set(player.openInventory.bottomInventory.toInventoryModel())
