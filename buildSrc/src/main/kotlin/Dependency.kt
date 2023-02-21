@@ -1,4 +1,9 @@
 object Dependency {
+
+    object MongoDB {
+        const val Version = "4.8.1"
+    }
+
     object Kotlin {
         const val Version = "1.8.0"
     }

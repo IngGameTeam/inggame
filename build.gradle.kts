@@ -2,6 +2,7 @@
 
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+group = "io.github.inggameteam.inggame"
 version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
 
 buildscript {
@@ -20,6 +21,7 @@ plugins {
     id("com.google.devtools.ksp") version Dependency.Ksp.Version
     application
     id("maven-publish")
+    id("kr.entree.spigradle") version "2.4.3"
 }
 
 
@@ -28,6 +30,7 @@ allprojects {
     apply(plugin = "kotlin")
     apply(plugin = "org.gradle.application")
     apply(plugin = "com.github.johnrengelman.shadow")
+    apply(plugin = "kr.entree.spigradle")
 
     version = rootProject.version
 
@@ -77,8 +80,8 @@ allprojects {
         compileOnly("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
         testApi("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
 
-        compileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
-        testApi("org.mongodb:mongodb-driver-sync:4.8.1")
+        compileOnly("org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}")
+        testApi("org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}")
 
 //        compileOnly("io.github.bruce0203:reflections:0.10.3.4")
 //        testApi("io.github.bruce0203:reflections:0.10.3.4")
@@ -96,18 +99,39 @@ allprojects {
 
     }
 
+
+
     tasks.withType<Jar> {
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         if (project != rootProject) destinationDirectory.set(File(rootProject.buildDir, "dist"))
-        version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
     }
     tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         exclude("META-INF/**", "META-INF/MANIFEST.MF")
         dependsOn(tasks.processResources)
         archiveFileName.set("${project.name}.jar")
         if (project != rootProject) destinationDirectory.set(File(rootProject.buildDir, "dist"))
-         version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
+    }
+
+    spigot {
+        this.version = "${project.version}"
+        main = "io.github.inggameteam.inggame.plugin.Plugin"
+        apiVersion = "1.19"
+        authors("Bruce0203", "chomade", "Boxgames1")
+        softDepends = listOf("FastAsyncWorldEdit")
+        libraries = listOf(
+            "org.jetbrains.kotlin:kotlin-stdlib:${Dependency.Kotlin.Version}",
+            "org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}",
+            "org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}",
+            "com.eatthepath:fast-uuid:0.2.0",
+            "io.insert-koin:koin-core-jvm:${Dependency.Koin.Version}",
+            "io.github.bruce0203:nbt-api:6",
+            "io.github.bruce0203:jgit:5"
+        )
+        commands {
+            create("ing") {
+            }
+        }
     }
 
     tasks {
