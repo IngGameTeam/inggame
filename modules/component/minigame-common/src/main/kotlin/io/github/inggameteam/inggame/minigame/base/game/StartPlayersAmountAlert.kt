@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.player.PTag
-import io.github.inggameteam.inggame.minigame.event.GameJoinEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GameJoinEvent
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.delay

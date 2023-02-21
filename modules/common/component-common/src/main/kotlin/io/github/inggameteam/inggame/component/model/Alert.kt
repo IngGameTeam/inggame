@@ -36,7 +36,7 @@ class ChatAlert(
     var message: String?
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
-        val format = message?.colored?.format(*args)
+        val format = message?.colored?.format(*args)?: ""
         if (reciver is Player) reciver.sendMessage(format)
         else println("$reciver: $format")
     }

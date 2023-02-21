@@ -6,7 +6,7 @@ class SimpleTest {
 
     @Test
     fun test() {
-        println(SERVER.pluginManager.plugins.map { it.name })
+        println(PLUGIN.name)
     }
 
 }

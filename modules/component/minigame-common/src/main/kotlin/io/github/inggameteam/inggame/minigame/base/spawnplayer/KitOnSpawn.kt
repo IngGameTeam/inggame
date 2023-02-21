@@ -5,7 +5,7 @@ import io.github.inggameteam.inggame.component.model.InventoryModel
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
-import io.github.inggameteam.inggame.minigame.event.GPlayerSpawnEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 

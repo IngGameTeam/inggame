@@ -2,7 +2,7 @@ package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.player.PTag
-import io.github.inggameteam.inggame.minigame.event.GameBeginEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GameBeginEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.hasTags
 import org.bukkit.Particle

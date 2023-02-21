@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.HandleListener
-import io.github.inggameteam.inggame.minigame.event.GameUnloadEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GameUnloadEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 

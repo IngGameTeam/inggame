@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.minigame.event
+package io.github.inggameteam.inggame.minigame.base.game.event
 
 import io.github.inggameteam.inggame.minigame.base.game.Game
 import org.bukkit.event.Event

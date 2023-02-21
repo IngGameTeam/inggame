@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.minigame.base.game
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.minigame.event.GPlayerSpawnEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler

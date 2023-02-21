@@ -2,6 +2,7 @@
 
 typealias ShadowJar = com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+group = "io.github.inggameteam.inggame"
 version = "${ProjectVersion.gitTag}-${ProjectVersion.gitCommitId}"
 
 buildscript {
@@ -77,8 +78,8 @@ allprojects {
         compileOnly("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
         testApi("org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}")
 
-        compileOnly("org.mongodb:mongodb-driver-sync:4.8.1")
-        testApi("org.mongodb:mongodb-driver-sync:4.8.1")
+        compileOnly("org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}")
+        testApi("org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}")
 
 //        compileOnly("io.github.bruce0203:reflections:0.10.3.4")
 //        testApi("io.github.bruce0203:reflections:0.10.3.4")
@@ -95,6 +96,8 @@ allprojects {
 
 
     }
+
+
 
     tasks.withType<Jar> {
         dependsOn(tasks.processResources)

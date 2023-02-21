@@ -1,16 +1,15 @@
-package io.github.inggameteam.inggame.minigame.event
+package io.github.inggameteam.inggame.minigame.base.game.event
 
-import io.github.inggameteam.inggame.minigame.base.game.Game
-import io.github.inggameteam.inggame.minigame.base.game.LeftType
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
+import org.bukkit.entity.Player
+import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class GameLeftEvent(
+class GPlayerDeathEvent(
     val player: GPlayer,
-    val left: Game,
-    val leftType: LeftType,
-) : Event() {
+    val killer: Player? = player.killer,
+    ) : Event(), Cancellable {
     override fun getHandlers(): HandlerList { return HANDLERS }
     companion object {
         @JvmStatic
@@ -18,4 +17,8 @@ class GameLeftEvent(
         @JvmStatic
         fun getHandlerList(): HandlerList { return HANDLERS }
     }
+    var cancel = false
+    override fun isCancelled() = cancel
+    override fun setCancelled(cancel: Boolean) { this.cancel = cancel }
+
 }
