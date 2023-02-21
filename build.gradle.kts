@@ -113,27 +113,6 @@ allprojects {
         if (project != rootProject) destinationDirectory.set(File(rootProject.buildDir, "dist"))
     }
 
-    spigot {
-        this.version = "${project.version}"
-        main = "io.github.inggameteam.inggame.plugin.Plugin"
-        apiVersion = "1.19"
-        authors("Bruce0203", "chomade", "Boxgames1")
-        softDepends = listOf("FastAsyncWorldEdit")
-        libraries = listOf(
-            "org.jetbrains.kotlin:kotlin-stdlib:${Dependency.Kotlin.Version}",
-            "org.jetbrains.kotlin:kotlin-reflect:${Dependency.Kotlin.Version}",
-            "org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}",
-            "com.eatthepath:fast-uuid:0.2.0",
-            "io.insert-koin:koin-core-jvm:${Dependency.Koin.Version}",
-            "io.github.bruce0203:nbt-api:6",
-            "io.github.bruce0203:jgit:5"
-        )
-        commands {
-            create("ing") {
-            }
-        }
-    }
-
     tasks {
         processResources {
             exclude("META-INF/**")
