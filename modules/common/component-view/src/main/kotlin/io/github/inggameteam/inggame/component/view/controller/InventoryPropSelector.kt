@@ -39,10 +39,10 @@ class InventoryPropSelector(
                     {it.second?.itemStack?: ItemStack(org.bukkit.Material.AIR) }
                 ) { list, gui ->
                     list.onClick { _, _, pair, event ->
-                        if (pair.first?.type === org.bukkit.Material.AIR) return@onClick
+                        val isNew = pair.first?.type === org.bukkit.Material.AIR
                         ItemStackPropSelector(EditorViewImp(view,
-                            { view.getInv().apply { items.set(pair.second.first, it as? ItemModel); reloadInventory() }.apply(view::set) },
-                                { view.getInv().items[pair.second.first] }
+                            { view.getInv().apply { items[pair.second.first] = it as? ItemModel; reloadInventory() }.apply(view::set) },
+                                { if (isNew) ItemModel(null) else view.getInv().items[pair.second.first] }
                         ), view
                         ).open(player)
                     }
