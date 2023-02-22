@@ -7,4 +7,5 @@ projectDependencies(
     utils,
     command,
     plugman,
+    component_common,
 )
