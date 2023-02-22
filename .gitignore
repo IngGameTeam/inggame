@@ -29,3 +29,5 @@ run.sh
 !.github
 !.github/workflows
 !.github/workflows/main.yml
+!botapp
+!botapp/bot.js
