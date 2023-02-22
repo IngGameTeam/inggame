@@ -16,3 +16,6 @@ var createBot = function() {
 }
 
 
+createBot("test1")
+createBot("test2")
+createBot("test3")
