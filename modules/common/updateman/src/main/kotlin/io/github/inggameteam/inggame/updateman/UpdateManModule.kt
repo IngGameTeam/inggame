@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.updateman
 
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
+import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
@@ -19,6 +20,7 @@ class UpdateManModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.componentServiceDSL.apply {
             cs("update", isSavable = true).cs("handler")
         }
+        event.addModule(newModule("update", ::UpdateRepo))
     }
 
 }
