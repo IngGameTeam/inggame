@@ -16,6 +16,9 @@ class UpdateManModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::UpdateWatchDogHelper)
             classOf(UpdateSettings::class)
         }
+        event.componentServiceDSL.apply {
+            cs("update", isSavable = true).cs("handler")
+        }
     }
 
 }

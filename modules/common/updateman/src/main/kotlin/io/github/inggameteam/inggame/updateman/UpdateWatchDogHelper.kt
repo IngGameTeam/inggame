@@ -1,19 +1,16 @@
 package io.github.inggameteam.inggame.updateman
 
-import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.event.EventHandler
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
-import org.koin.core.qualifier.named
 import kotlin.concurrent.thread
 
 class UpdateWatchDogHelper(
     private val updateHelper: UpdateHelper,
-) : KoinComponent {
+    private val updateRepo: UpdateRepo,
+) {
 
-    private val settings get() = get<ComponentService>(named("component"))["update", ::UpdateSettingsImp]
+    private val settings get() = updateRepo["update", ::UpdateSettingsImp]
 
     private fun assertStartWatchDog() = try {
         settings.apply {
