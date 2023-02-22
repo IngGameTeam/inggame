@@ -1,10 +1,10 @@
 const mineflayer = require('mineflayer')
 
 
-var createBot = function() {
+var createBot = function(name) {
     let bot = mineflayer.createBot({
         host: 'localhost',
-        username: 'test_bot',
+        username: name,
         port: 25555,
     })
     bot.on('chat', (username, message) => {
