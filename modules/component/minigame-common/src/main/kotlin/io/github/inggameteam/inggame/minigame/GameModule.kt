@@ -80,16 +80,16 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.addModule(newModule("custom-game", ::CustomGameService))
         event.addModule(newModule("game-resource", ::GameResourceService))
         event.componentServiceDSL
-                .cs("game-player", type = ComponentServiceType.MASKED)
-                .cs("game-instance", type = ComponentServiceType.MASKED)
-                .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)
-                .cs("game-resource", type = ComponentServiceType.MULTI, key = "game-language", root = "player-instance")
-                .apply {
-                    this
-                        .cs("game-template-korean", isSavable = true)
-                        .cs("game-abstract-korean", isSavable = true)
-                        .cs("handler")
-                }
+            .cs("game-player", type = ComponentServiceType.MASKED)
+            .cs("game-instance", type = ComponentServiceType.MASKED)
+            .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)
+            .cs("game-resource", type = ComponentServiceType.MULTI, key = "game-language", root = "player-instance")
+            .apply {
+                this
+                    .cs("game-template-korean", isSavable = true)
+                    .cs("game-abstract-korean", isSavable = true)
+                    .cs("handler")
+            }
         event.addModule(createSingleton(::GameServer, "server", "singleton"))
     }
 }

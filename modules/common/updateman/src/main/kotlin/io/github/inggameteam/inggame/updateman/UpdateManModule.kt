@@ -15,8 +15,8 @@ class UpdateManModule(plugin: IngGamePlugin) : Listener(plugin) {
     fun onUpdateMan(event: ComponentLoadEvent) {
         event.registerClass {
             classOf(::UpdateHelper)
-            classOf(::UpdateWatchDogHelper)
-            classOf(UpdateSettings::class)
+            classOf(::UpdateWatchDog)
+            classOf(UpdateSettingsWrapper::class)
         }
         event.componentServiceDSL.apply {
             cs("update", type = ComponentServiceType.RESOURCE, isSavable = true).cs("handler")

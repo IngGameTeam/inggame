@@ -6,12 +6,15 @@ import org.bukkit.Bukkit
 import java.io.File
 import java.io.File.separator
 
-interface UpdateSettings : Wrapper {
+interface UpdateSettingsWrapper : Wrapper {
     val pluginName: String
     val gitUrl: String
     val branchName: String
     val outputPath: String
     val bashCmd: String
+}
+
+interface UpdateSettings : UpdateSettingsWrapper{
 
     val outputFileName: String get() = outputFile.absoluteFile.name
     val backupFile get() = File(backupDir, outputFileName)
