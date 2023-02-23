@@ -35,6 +35,7 @@ fun createMongoModule(
         get<ClassRegistryAll>().classes.
         filter { it.java.getAnnotation(Model::class.java) !== null
                 || it.isSubclassOf(Codec::class)
+                || it.isSubclassOf(Enum::class)
         }.map { it.java }.apply(::addAll)
     }, get(), get()) }
     single { DatabaseString(get<ConnectionString>().database
