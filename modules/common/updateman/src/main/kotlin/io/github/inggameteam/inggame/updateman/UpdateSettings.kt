@@ -14,7 +14,7 @@ interface UpdateSettingsWrapper : Wrapper {
     val bashCmd: String
 }
 
-interface UpdateSettings : UpdateSettingsWrapper{
+interface UpdateSettings : UpdateSettingsWrapper {
 
     val outputFileName: String get() = outputFile.absoluteFile.name
     val backupFile get() = File(backupDir, outputFileName)
