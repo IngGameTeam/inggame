@@ -36,6 +36,7 @@ class UpdateHelper {
         destinyFile.parentFile.mkdir()
         backupDir.mkdir()
         try {
+            PluginUtil.unload(plugin)
             Files.copy(
                 destinyFile.toPath(),
                 backupFile.toPath(),
@@ -46,7 +47,7 @@ class UpdateHelper {
                 destinyFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
             )
-            try { PluginUtil.reload(plugin) }
+            try { PluginUtil.load(plugin.name) }
             catch (e: Throwable) {
                 e.printStackTrace()
                 destinyFile.deleteOnExit()
