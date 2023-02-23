@@ -65,6 +65,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::KitOnSpawnHandler)
             classOf(::SoloCompetitionHandler)
             classOf(
+                SetGameModeOnSpawn::class,
                 Competition::class,
                 KitOnSpawn::class,
                 Game::class,

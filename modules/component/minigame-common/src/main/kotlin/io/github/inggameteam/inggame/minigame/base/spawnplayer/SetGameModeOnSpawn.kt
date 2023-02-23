@@ -10,7 +10,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 
-interface SetGameModeOnSpawn {
+interface SetGameModeOnSpawn : Wrapper {
     val gameModeOnSpawn: GameMode
 }
 
