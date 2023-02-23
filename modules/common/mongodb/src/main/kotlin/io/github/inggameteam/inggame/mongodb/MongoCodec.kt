@@ -69,7 +69,7 @@ class MongoCodec(
             value.mapValues { encode(it.value) }
         } else if (value is Enum<*>) {
             return Document().apply {
-                set("_id", value.javaClass.canonicalName)
+                set("_t", value.javaClass.canonicalName)
                 set("name", value.name)
             }
         } else {
