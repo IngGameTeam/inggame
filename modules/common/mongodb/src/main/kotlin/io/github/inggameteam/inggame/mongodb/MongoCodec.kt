@@ -71,6 +71,7 @@ class MongoCodec(
 
     @Suppress("UNCHECKED_CAST", "DEPRECATION")
     private fun createCodec(codecs: Collection<Class<*>>): CodecRegistry {
+        println(codecs)
         if (codecs.isEmpty()) {
             println("codecs Model is empty!")
         }
