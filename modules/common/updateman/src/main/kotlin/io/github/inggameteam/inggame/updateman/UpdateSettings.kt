@@ -18,7 +18,7 @@ interface UpdateSettings : UpdateSettingsWrapper {
 
     val outputFileName: String get() = outputFile.absoluteFile.name
     val backupFile get() = File(backupDir, outputFileName)
-    val destinyFile get() = File("plugins${separator}update", outputFileName)
+    val destinyFile get() = File("plugins", outputFileName)
     val outputFile get() = File(gitDir, outputPath)
     val pluginOrNull get() = Bukkit.getPluginManager().getPlugin(pluginName)
     val plugin get() = pluginOrNull!!
