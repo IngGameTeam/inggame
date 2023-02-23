@@ -24,6 +24,7 @@ import io.github.inggameteam.inggame.minigame.base.voiddeath.VoidDeathHelper
 import io.github.inggameteam.inggame.minigame.component.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
+import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 
 class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
@@ -65,6 +66,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::KitOnSpawnHandler)
             classOf(::SoloCompetitionHandler)
             classOf(
+                GameMode::class,
                 SetGameModeOnSpawn::class,
                 Competition::class,
                 KitOnSpawn::class,
