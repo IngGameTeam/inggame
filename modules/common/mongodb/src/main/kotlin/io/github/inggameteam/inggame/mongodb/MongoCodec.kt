@@ -29,7 +29,13 @@ class MongoCodec(
         if (document === null) return null
         if (document is Document) {
             try {
-                return codecRegistry[Class.forName(document.getString("_t"))]
+                val clazz = Class.forName(document.getString("_t"))
+                if (clazz.isEnum) {
+                    val name = document.getString("name")
+                    return clazz.enumConstants.map { it as Enum<*> }.firstOrNull { it.name == name }
+                        ?: throw AssertionError("an error occurred while decoding enum")
+                }
+                return codecRegistry[clazz]
                     .decode(
                         document.toBsonDocument().asBsonReader(),
                         DecoderContext.builder().checkedDiscriminator(true).build()
@@ -61,6 +67,11 @@ class MongoCodec(
             }.toMutableList())
         } else if (value is Map<*, *>) {
             value.mapValues { encode(it.value) }
+        } else if (value is Enum<*>) {
+            return Document().apply {
+                set("_id", value.javaClass.canonicalName)
+                set("name", value.name)
+            }
         } else {
             var v: Any = value
             encodeFunctionAll.list.forEach { it.code.invoke(v)?.apply { v = this } }
@@ -71,7 +82,6 @@ class MongoCodec(
 
     @Suppress("UNCHECKED_CAST", "DEPRECATION")
     private fun createCodec(codecs: Collection<Class<*>>): CodecRegistry {
-        println(codecs)
         if (codecs.isEmpty()) {
             println("codecs Model is empty!")
         }
