@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.componentservice.MultiParentsComp
 import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
 import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.entity.ViewImp
+import io.github.inggameteam.inggame.plugman.PlugMan
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
 import io.github.inggameteam.inggame.utils.Debug
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -55,6 +56,13 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                         parents.remove(replaceOld)
                     }
                     source.sendMessage("All $replaceOld in ${componentService.name}'s parents replaced to $replaceNew")
+                }
+            }
+            then("unload") {
+                execute {
+                    source.sendMessage("Unloading...")
+                    PluginUtil.unload(this@run)
+                    source.sendMessage("Unload done!")
                 }
             }
             then("get") {
