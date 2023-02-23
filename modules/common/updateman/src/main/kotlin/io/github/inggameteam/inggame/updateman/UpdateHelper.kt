@@ -36,8 +36,6 @@ class UpdateHelper {
         oldPluginFile.parentFile.mkdir()
         backupDir.mkdir()
         try {
-            val name = plugin.name
-            PluginUtil.unload(plugin)
             Files.copy(
                 oldPluginFile.toPath(),
                 backupFile.toPath(),
@@ -48,7 +46,7 @@ class UpdateHelper {
                 newPluginFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
             )
-            try { PluginUtil.load(name) }
+            try { PluginUtil.reload(plugin) }
             catch (e: Throwable) {
                 e.printStackTrace()
                 oldPluginFile.deleteOnExit()
