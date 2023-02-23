@@ -33,27 +33,27 @@ class UpdateHelper {
 
     fun deploy(settings: UpdateSettings): Unit = settings.run {
         ;{
-        destinyFile.parentFile.mkdir()
+        oldPluginFile.parentFile.mkdir()
         backupDir.mkdir()
         try {
             PluginUtil.unload(plugin)
             Files.copy(
-                destinyFile.toPath(),
+                oldPluginFile.toPath(),
                 backupFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING,
             )
             Files.copy(
                 outputFile.toPath(),
-                destinyFile.toPath(),
+                newPluginFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
             )
             try { PluginUtil.load(plugin.name) }
             catch (e: Throwable) {
                 e.printStackTrace()
-                destinyFile.deleteOnExit()
+                oldPluginFile.deleteOnExit()
                 Files.copy(
                     backupFile.toPath(),
-                    destinyFile.toPath(),
+                    oldPluginFile.toPath(),
                     StandardCopyOption.REPLACE_EXISTING
                 )
             }
