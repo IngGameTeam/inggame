@@ -3,8 +3,8 @@ package io.github.inggameteam.inggame.minigame.base.competition
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.Game
-import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerDeathEvent
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 
 interface Competition : Wrapper {
     val stopCheckPlayer: Int

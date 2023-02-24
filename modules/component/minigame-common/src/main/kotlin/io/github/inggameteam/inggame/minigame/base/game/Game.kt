@@ -2,8 +2,8 @@ package io.github.inggameteam.inggame.minigame.base.game
 
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
-import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.game.event.GameTaskCancelEvent
+import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.SafeSetWithToString
 import org.bukkit.Bukkit
