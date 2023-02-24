@@ -105,6 +105,7 @@ class SectionalHandler(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOWEST)
     fun onUnloadGame(event: GameUnloadEvent) {
+        println("GameUnloadEvent")
         if (isNotHandler(event.game)) return
         val game = event.game[::SectionalImp]
         event.isCancelled = true
