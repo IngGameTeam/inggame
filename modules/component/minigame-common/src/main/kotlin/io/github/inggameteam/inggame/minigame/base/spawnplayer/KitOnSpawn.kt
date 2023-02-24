@@ -27,7 +27,8 @@ class KitOnSpawnHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
         val player = event.player
         if (isNotHandler(player)) return
         val state = player[::GameImp].gameState.name
-        player.inventory.contents = player[::KitOnSpawnImp].kitOnSpawn[state]!!.inventory.contents
+        val kit = player[::KitOnSpawnImp].kitOnSpawn[state]?: return
+        player.inventory.contents = kit.inventory.contents
     }
 
 }

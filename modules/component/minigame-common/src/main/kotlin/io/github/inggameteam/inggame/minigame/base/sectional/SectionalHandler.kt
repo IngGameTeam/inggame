@@ -12,11 +12,9 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.runNow
-import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
-import kotlin.system.measureTimeMillis
 
 class SectionalHandler(
     private val sectionalHelper: SectionalHelper,
@@ -107,11 +105,11 @@ class SectionalHandler(
     fun onUnloadGame(event: GameUnloadEvent) {
         if (isNotHandler(event.game)) return
         val game = event.game[::SectionalImp]
-        if (!game.unloadingSemaphore) return
         event.isCancelled = true
+        if (!game.unloadingSemaphore) return
+        game.unloadingSemaphore = true
         if (!plugin.allowTask) return
         ;{
-            game.unloadingSemaphore = true
             sectionalHelper.unloadSector(game)
             ;{ plugin.server.pluginManager.callEvent(GameUnloadEvent(game)) }.runNow(plugin)
         }.async(plugin)

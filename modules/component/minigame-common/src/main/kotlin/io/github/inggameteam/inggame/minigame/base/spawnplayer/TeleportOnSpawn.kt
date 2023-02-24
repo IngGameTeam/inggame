@@ -1,8 +1,8 @@
 package io.github.inggameteam.inggame.minigame.base.spawnplayer
 
 import io.github.inggameteam.inggame.component.HandleListener
-import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
 import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
+import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 

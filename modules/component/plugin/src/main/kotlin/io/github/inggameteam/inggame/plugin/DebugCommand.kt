@@ -43,6 +43,27 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     source.sendMessage("All $replaceOld in ${componentService.name}'s parents replaced to $replaceNew")
                 }
             }
+            then("remove") {
+                tab { app.getAll<ComponentService>().map { it.name } }
+                execute {
+                    val split = args[1].split(" ")
+                    val componentService = app.get<ComponentService>(named(split[0]))
+                    val replaceOld = split[1]
+                    val replaceNew = split[2]
+                    componentService.getAll().forEach { ns ->
+                        val parents = ns.parents
+                        parents.remove(replaceOld)
+                    }
+                    source.sendMessage("All $replaceOld in ${componentService.name}'s parents replaced to $replaceNew")
+                }
+            }
+            then("unload") {
+                execute {
+                    source.sendMessage("Unloading...")
+                    PluginUtil.unload(this@run)
+                    source.sendMessage("Unload done!")
+                }
+            }
             then("get") {
                 tab { app.getAll<ComponentService>().map { it.name } }
                 execute {
@@ -52,6 +73,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     val key = split[2]
                     measureTimeMillis {
                         repeat (2000) {
+                            componentService.find(nameSpace, key)
                         }
                     }.run(Any::toString).apply(source::sendMessage)
                 }

@@ -38,6 +38,12 @@ spigot {
     )
     commands {
         create("ing") {
+            permission = "inggame.admin"
+        }
+    }
+    permissions {
+        create("inggame.admin") {
+            defaults = "op"
         }
     }
 }

@@ -23,8 +23,8 @@ class GameHelper(
     }
 
     fun removeGame(game: Game) {
-        gameInstanceService.remove(game)
         plugin.server.pluginManager.callEvent(GameUnloadEvent(game))
+        gameInstanceService.remove(game)
     }
 
     fun requestJoin(joinType: JoinType, gameName: String, join: List<GPlayer>) {
@@ -101,7 +101,7 @@ class GameHelper(
             game.cancelGameTask()
         }
         if (leftType.isJoinHub) {
-            gameInstanceService.join(gameServer.hub, gPlayer)
+            joinGame(gameServer.hub, gPlayer)
         }
         if (game.gameState != GameState.STOP && joinedSize <= if (game.gameState === GameState.PLAY) 1 else 0) {
             stop(game, false)

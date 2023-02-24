@@ -1,13 +1,13 @@
 package io.github.inggameteam.inggame.minigame.base.competition
 
 import io.github.inggameteam.inggame.component.HandleListener
+import io.github.inggameteam.inggame.minigame.base.competition.event.GPlayerWinEvent
 import io.github.inggameteam.inggame.minigame.base.game.*
+import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerDeathEvent
+import io.github.inggameteam.inggame.minigame.base.game.event.GameFinishEvent
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
-import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerDeathEvent
-import io.github.inggameteam.inggame.minigame.base.competition.event.GPlayerWinEvent
-import io.github.inggameteam.inggame.minigame.base.game.event.GameFinishEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.hasNoTags
 import io.github.inggameteam.inggame.utils.hasTags
@@ -30,7 +30,7 @@ class SoloCompetitionHandler(
     override fun handleDeath(event: GPlayerDeathEvent) {
         val player = event.player
         if (isNotHandler(player)) return
-        val game = player[::GameImp]
+        val game = player.joinedGame
         if (game.gameState === GameState.WAIT) return
         val sendDeathMessage = game.gameState !== GameState.PLAY
         player.apply {
