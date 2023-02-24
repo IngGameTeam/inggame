@@ -14,7 +14,7 @@ class GameHandler(
     @Suppress("unused")
     @EventHandler
     fun onUnloadGame(event: GameUnloadEvent) {
-        println("GameUnloadHandler")
+        if (event.isCancelled) return
         if (isNotHandler(event.game)) return
         ;{
             gameHelper.removeGame(event.game)
