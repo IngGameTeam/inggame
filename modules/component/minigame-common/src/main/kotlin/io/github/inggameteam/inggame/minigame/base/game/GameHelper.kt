@@ -131,8 +131,6 @@ class GameHelper(
     }
 
     fun stop(game: Game, force: Boolean, leftType: LeftType = LeftType.GAME_STOP) {
-        println(game.gameState)
-
         if (game.gameState !== GameState.STOP) {
             game.gameState = GameState.STOP
             plugin.server.pluginManager.callEvent(GameFinishEvent(game))

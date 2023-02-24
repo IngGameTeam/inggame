@@ -30,7 +30,7 @@ class SoloCompetitionHandler(
     override fun handleDeath(event: GPlayerDeathEvent) {
         val player = event.player
         if (isNotHandler(player)) return
-        val game = player[::GameImp]
+        val game = player.joinedGame
         if (game.gameState === GameState.WAIT) return
         val sendDeathMessage = game.gameState !== GameState.PLAY
         player.apply {
