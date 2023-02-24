@@ -107,10 +107,10 @@ class SectionalHandler(
     fun onUnloadGame(event: GameUnloadEvent) {
         if (isNotHandler(event.game)) return
         val game = event.game[::SectionalImp]
-        if (!game.unloadingSemaphore) return
         event.isCancelled = true
-        if (!plugin.allowTask) return
+        if (!game.unloadingSemaphore) return
         game.unloadingSemaphore = true
+        if (!plugin.allowTask) return
         ;{
             sectionalHelper.unloadSector(game)
             ;{ plugin.server.pluginManager.callEvent(GameUnloadEvent(game)) }.runNow(plugin)
