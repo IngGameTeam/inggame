@@ -52,7 +52,6 @@ class SoloCompetitionHandler(
     fun onFinishGame(event: GameFinishEvent) {
         val game = event.game
         if (isNotHandler(game)) return
-        println(game.gameState)
         calcWinner(game)
     }
 
