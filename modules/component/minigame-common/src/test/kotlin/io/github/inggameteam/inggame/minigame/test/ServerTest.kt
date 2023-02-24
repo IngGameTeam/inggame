@@ -5,8 +5,8 @@
 //import io.github.inggameteam.inggame.component.delegate.NonNullDelegateImp
 //import io.github.inggameteam.inggame.minigame.createGameService
 //import GameServer
-//import io.github.inggameteam.inggame.mongodb.createMongoModule
-//import io.github.inggameteam.inggame.mongodb.createRepo
+//import createMongoModule
+//import createRepo
 //import io.github.inggameteam.inggame.utils.randomUUID
 //import org.koin.core.Koin
 //import org.koin.core.qualifier.named
