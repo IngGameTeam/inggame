@@ -12,11 +12,9 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.runNow
-import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerMoveEvent
-import kotlin.system.measureTimeMillis
 
 class SectionalHandler(
     private val sectionalHelper: SectionalHelper,
