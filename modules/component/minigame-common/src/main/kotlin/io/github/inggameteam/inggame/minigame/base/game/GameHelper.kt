@@ -23,8 +23,8 @@ class GameHelper(
     }
 
     fun removeGame(game: Game) {
-        gameInstanceService.remove(game)
         plugin.server.pluginManager.callEvent(GameUnloadEvent(game))
+        gameInstanceService.remove(game)
     }
 
     fun requestJoin(joinType: JoinType, gameName: String, join: List<GPlayer>) {
