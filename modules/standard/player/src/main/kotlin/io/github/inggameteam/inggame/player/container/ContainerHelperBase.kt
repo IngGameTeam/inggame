@@ -59,9 +59,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
 
     fun leftGame(element: ELEMENT, leftType: LeftType): Boolean {
         val container = element.joinedContainer
-        println("leftGame1")
         if (!requestLeft(container, element, leftType)) return false
-        println("leftGame2")
         left(element, container, leftType)
         val containerAlert = element[::ContainerAlertImp]
         if (leftType === LeftType.LEFT_SERVER) {
@@ -71,6 +69,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         }
         element.clearTags()
         containerHelper.left(element)
+        println("leftGame1")
         val joinedSize = container.containerJoined.filter { it.isPlaying }.size
         if (leftType.isJoinHub) {
             joinContainer(hub(), element)
