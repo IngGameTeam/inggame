@@ -1,40 +1,55 @@
 package io.github.inggameteam.inggame.party.handler
 
-import io.github.inggameteam.inggame.party.PartyService
+import io.github.inggameteam.inggame.party.component.PartyInstanceService
+import io.github.inggameteam.inggame.party.component.PartyRequestInstanceRepo
+import io.github.inggameteam.inggame.party.event.PartyUpdateEvent
+import io.github.inggameteam.inggame.party.wrapper.Party
+import io.github.inggameteam.inggame.party.wrapper.PartyAlertImp
+import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
+import io.github.inggameteam.inggame.party.wrapper.PartyRequestImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.fastForEach
+import org.bukkit.Bukkit
 
 class PartyHelper(
     val plugin: IngGamePlugin,
-    val partyService: PartyService
+    val partyInstanceService: PartyInstanceService,
+    val partyRequestInstanceRepo: PartyRequestInstanceRepo
 ) {
 
-//    fun disband(party: Party, player: WrappedPlayer) {
+    fun create(party: Party) {
+        partyInstanceService.create(party, "party")
+    }
+
+    fun remove(party: Party) {
+        partyInstanceService.remove(party)
+    }
+
+//    fun disband(party: Party, player: PartyPlayer) {
 //        if (party.leader == player) {
-//            val partyAlert = player[::PartyAlertImp]
-//            party.partyJoined.forEach { partyAlert.PARTY_DISBANDED.send(it, party) }
-//            partyService.remove(party)
-//
-//            plugin.partyRequestRegister.removeIf { it.party == this }
-//            updateParty()
+//            party.partyJoined.fastForEach { player[::PartyAlertImp].PARTY_DISBANDED.send(it, party) }
+//            remove(party)
+//            partyRequestInstanceRepo.removeIf { it.partyRequestedParty == party }
+//            Bukkit.getPluginManager().callEvent(PartyUpdateEvent(party))
 //        } else {
-//            comp.send(PARTY_DISBAND_IS_LEADER_ONLY, player)
+//            player[::PartyAlertImp].PARTY_DISBAND_IS_LEADER_ONLY.send(player)
 //        }
 //    }
 //
-//    fun Party.left(player: GPlayer) {
-//        if (leader == player) {
-//            disband(player)
+//    fun left(party: Party, player: PartyPlayer) {
+//        if (party.leader == player) {
+//            disband(party, player)
 //        } else {
-//            partyJoined.remove(player)
-//            plugin.partyRequestRegister.removeRequest(player)
-//            comp.send(LEFT_PARTY, partyJoined, player, this)
+//            partyInstanceService.left(player)
+//            partyRequestInstanceRepo.removeIf { it.partyRequestReciver == player || it.partyRequestSender == player}
+//            party.partyJoined.fastForEach { it[::PartyAlertImp].LEFT_PARTY.send(it, player, party) }
 //        }
 //    }
 //
-//    fun Party.join(player: GPlayer) {
-//        if (partyJoined.contains(player)) return
+//    fun join(party: Party, player: PartyPlayer) {
+//        if (party.partyJoined.contains(player)) return
 //
-//        if (plugin.partyRegister.joinedParty(player)) {
+//        if (player.joinedParty) {
 //            plugin.partyRegister.getJoined(player)?.left(player)
 //        }
 //        partyJoined.add(player)
@@ -182,7 +197,7 @@ class PartyHelper(
 //    fun PartyRegister.help(dispatcher: GPlayer) {
 //        comp.send(PARTY_HELP, dispatcher)
 //    }
-//
+
 
 
 

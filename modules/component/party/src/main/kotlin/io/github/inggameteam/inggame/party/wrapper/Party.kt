@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.party.wrapper
 
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
-import io.github.inggameteam.inggame.player.warpper.WrappedPlayer
+import io.github.inggameteam.inggame.player.wrapper.WrappedPlayer
 import java.util.*
 
 class Party(wrapper: Wrapper) : Wrapper by wrapper {
