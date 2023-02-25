@@ -38,6 +38,8 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         return false
     }
 
+    open fun join(container: CONTAINER, element: ELEMENT, joinType: JoinType) = Unit
+
     fun joinContainer(container: CONTAINER, element: ELEMENT, joinType: JoinType = JoinType.PLAY): Boolean {
         leftGame(element, LeftType.DUE_TO_MOVE_ANOTHER)
         val containerAlert = element[::ContainerAlertImp]
@@ -46,6 +48,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
             container.containerJoined.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
+            join(container, element, joinType)
             return true
         }
         return false

@@ -45,7 +45,12 @@ class GameHelper(
         }
     }
 
+    override fun join(container: Game, element: GPlayer, joinType: JoinType) {
+        Bukkit.getPluginManager().callEvent(GameJoinEvent(container, element))
+    }
+
     override fun left(element: GPlayer, container: Game, leftType: LeftType) {
+        Bukkit.getPluginManager().callEvent(GameLeftEvent(element, container, leftType))
         val joinedSize = container.containerJoined.filter { it.isPlaying }.size
         if (container.containerState === ContainerState.WAIT
             && joinedSize < container.startPlayersAmount && container.hasGameTask()) {
