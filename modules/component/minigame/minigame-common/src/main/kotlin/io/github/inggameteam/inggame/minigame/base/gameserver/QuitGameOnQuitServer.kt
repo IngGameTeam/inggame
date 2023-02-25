@@ -22,6 +22,7 @@ class QuitGameOnQuitServer(
     fun onQuit(event: PlayerQuitEvent) {
         if (isNotHandler(gameServer)) return
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
+        println("gameHelper.leftGame")
         gameHelper.leftGame(player, LeftType.LEFT_SERVER)
     }
 

@@ -51,8 +51,9 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         return false
     }
 
-    private fun requestLeft(container: CONTAINER, element: ELEMENT, leftType: LeftType)
-    = container.containerJoined.contains(element)
+    private fun requestLeft(container: CONTAINER, element: ELEMENT, leftType: LeftType): Boolean {
+        return container.containerJoined.contains(element)
+    }
 
     open fun left(element: ELEMENT, container: CONTAINER, leftType: LeftType) = Unit
 
