@@ -2,9 +2,9 @@ package io.github.inggameteam.inggame.minigame.view.gamechoosingmenu
 
 import io.github.bruce0203.gui.Gui
 import io.github.inggameteam.inggame.minigame.base.game.GameHelper
-import io.github.inggameteam.inggame.utils.JoinType
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.JoinType
 
 class GameChoosingMenuHelper(
     private val gameHelper: GameHelper,

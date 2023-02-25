@@ -1,7 +1,9 @@
 package io.github.inggameteam.inggame.player.container
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
-import io.github.inggameteam.inggame.utils.*
+import io.github.inggameteam.inggame.utils.ContainerState
+import io.github.inggameteam.inggame.utils.JoinType
+import io.github.inggameteam.inggame.utils.LeftType
 
 abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : ContainerElement<CONTAINER>>(
     private val containerComponent: ComponentService,

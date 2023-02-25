@@ -2,10 +2,10 @@ package io.github.inggameteam.inggame.minigame.base.gameserver
 
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.game.GameHelper
-import io.github.inggameteam.inggame.utils.LeftType
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.LeftType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerKickEvent
