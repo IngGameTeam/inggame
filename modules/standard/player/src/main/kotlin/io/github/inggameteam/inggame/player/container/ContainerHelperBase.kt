@@ -69,7 +69,6 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         }
         element.clearTags()
         containerHelper.left(element)
-        println("leftGame1")
         val joinedSize = container.containerJoined.filter { it.isPlaying }.size
         if (leftType.isJoinHub) {
             joinContainer(hub(), element)
