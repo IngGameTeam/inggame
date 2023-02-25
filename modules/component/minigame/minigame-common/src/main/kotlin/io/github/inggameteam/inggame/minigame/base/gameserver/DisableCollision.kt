@@ -14,7 +14,6 @@ class DisableCollision(
     @EventHandler
     fun onBoatCollision(event: VehicleEntityCollisionEvent) {
         if (isNotHandler(gameServer)) return
-        event.isCollisionCancelled = true
         event.isCancelled = true
     }
 
