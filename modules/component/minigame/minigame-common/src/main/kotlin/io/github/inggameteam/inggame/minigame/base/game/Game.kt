@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.event.GameTaskCancelEvent
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.player.container.Container
+import io.github.inggameteam.inggame.player.container.ContainerImp
 import io.github.inggameteam.inggame.utils.ContainerState
 import io.github.inggameteam.inggame.utils.ITask
 import io.github.inggameteam.inggame.utils.SafeSetWithToString
@@ -26,19 +27,13 @@ interface Game : Wrapper, Container<GPlayer> {
 
 }
 
-class GameImp(wrapper: Wrapper) : Game, SimpleWrapper(wrapper) {
+class GameImp(wrapper: Wrapper) : Game, ContainerImp<GPlayer>(wrapper) {
 
     override val uuid: UUID get() = nameSpace as UUID
 
-    override val containerName: String by nonNull
     override val gameInfo: String by nonNull
-    override var startPlayersAmount      : Int           by nonNull
-    override val playerLimitAmount       : Int           by nonNull
     override val startWaitingSecond      : Int           by nonNull
     override var stopWaitingTick         : Int           by nonNull
-
-    override var containerState: ContainerState by default { ContainerState.WAIT }
-    override var containerJoined: SafeSetWithToString<GPlayer> by default { SafeSetWithToString<GPlayer>() }
 
     private var gameTask: ITask? by nullable
     override fun cancelGameTask() {

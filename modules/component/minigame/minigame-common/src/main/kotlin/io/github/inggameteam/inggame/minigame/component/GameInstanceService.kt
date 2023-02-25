@@ -11,7 +11,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.koin.core.component.KoinComponent
 
-class   GameInstanceService(
+class GameInstanceService(
     private val server: GameServer,
     private val gamePlayerService: GamePlayerService,
     gameInstanceRepository: GameInstanceRepository,
