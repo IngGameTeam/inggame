@@ -17,7 +17,7 @@ interface Container<ELEMENT : Wrapper> : Wrapper {
 class ContainerImp<ELEMENT : ContainerElement<*>>(wrapper: Wrapper) : Container<ELEMENT>, SimpleWrapper(wrapper) {
     override val containerName: String by nonNull
     override var containerState: ContainerState by nonNull
-    override val containerJoined: CopyOnWriteArraySet<ELEMENT> by nonNull
+    override val containerJoined: MutableCollection<ELEMENT> by nonNull
     override val playerLimitAmount: Int by nonNull
     override val startPlayersAmount: Int by nonNull
 }
