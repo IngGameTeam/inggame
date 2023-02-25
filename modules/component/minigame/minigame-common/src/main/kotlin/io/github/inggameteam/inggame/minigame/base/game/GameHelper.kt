@@ -47,6 +47,11 @@ class GameHelper(
 
     override fun join(container: Game, element: GPlayer, joinType: JoinType) {
         Bukkit.getPluginManager().callEvent(GameJoinEvent(container, element))
+        if (!container.hasGameTask()
+            && container.containerState === ContainerState.WAIT
+            && 0 < container.startPlayersAmount
+            && container.containerJoined.hasTags(PTag.PLAY).size >= container.startPlayersAmount
+        ) start(container, false)
     }
 
     override fun left(element: GPlayer, container: Game, leftType: LeftType) {
@@ -58,24 +63,6 @@ class GameHelper(
             container.cancelGameTask()
         }
 
-    }
-
-    private fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
-        if (requestedGame == gameServer.hub) return true
-        val alert = player[::ContainerAlertImp]
-        if (requestedGame.containerJoined.contains(player)) {
-            if (sendMessage) alert.GAME_ALREADY_JOINED.send(player, requestedGame.containerName)
-        } else if (requestedGame.containerState !== ContainerState.WAIT && joinType === JoinType.PLAY) {
-            if (sendMessage) alert.GAME_CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.containerName)
-        } else if (requestedGame.playerLimitAmount > 0
-            && requestedGame.containerJoined.hasTags(PTag.PLAY).size >= requestedGame.playerLimitAmount
-            && joinType === JoinType.PLAY
-        ) {
-            if (sendMessage) alert.GAME_CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.containerName)
-        } else {
-            return true
-        }
-        return false
     }
 
     fun start(game: Game, force: Boolean) {
