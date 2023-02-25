@@ -16,6 +16,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
     }
 
     open fun removeContainer(container: CONTAINER) {
+        println("removeContainer!")
         containerHelper.remove(container)
     }
 
