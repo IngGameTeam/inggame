@@ -16,7 +16,6 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
     }
 
     open fun removeContainer(container: CONTAINER) {
-        println("removeContainer!")
         containerHelper.remove(container)
     }
 
@@ -72,12 +71,13 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
             container.containerJoined.forEach { p -> containerAlert.GAME_LEFT.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
         }
         element.clearTags()
-        containerHelper.left(element)
         val joinedSize = container.containerJoined.filter { it.isPlaying }.size
         if (leftType.isJoinHub) {
             joinContainer(hub(), element)
+        } else {
+            containerHelper.left(element)
         }
-        if (container.containerState != ContainerState.STOP && joinedSize <= if (container.containerState === ContainerState.PLAY) 1 else 0) {
+        if (container.containerState !== ContainerState.STOP && joinedSize <= if (container.containerState === ContainerState.PLAY) 1 else 0) {
             stop(container, false)
         }
         return true
