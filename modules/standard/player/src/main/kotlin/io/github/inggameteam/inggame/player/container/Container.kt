@@ -9,7 +9,7 @@ interface Container<ELEMENT : Wrapper> : Wrapper {
 
     val containerName: String
     var containerState: ContainerState
-    val containerJoined: CopyOnWriteArraySet<ELEMENT>
+    val containerJoined: MutableCollection<ELEMENT>
     val playerLimitAmount: Int
     val startPlayersAmount: Int
 }
