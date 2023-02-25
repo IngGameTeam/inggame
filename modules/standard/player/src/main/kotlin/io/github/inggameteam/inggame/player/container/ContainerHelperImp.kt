@@ -47,7 +47,8 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     override fun left(key: ELEMENT) {
         val container = try { keyComponent.find(key, keyAssign.name) as CONTAINER } catch (_: Throwable) { return }
         getList(container).remove(key)
-        keyComponent.unload(key, false)
+        val uncoveredKey = uncoverDelegate(key)
+        keyComponent.unload(uncoveredKey, false)
     }
 
     @Suppress("DEPRECATION")
