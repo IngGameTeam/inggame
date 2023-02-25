@@ -22,6 +22,6 @@ class   GameInstanceService(
     LayeredComponentService by gameInstanceRepository,
     ContainerHelper<Game, GPlayer> by ContainerHelperImp(
         gameInstanceRepository, gamePlayerService,
-        GPlayer::joinedGame, Game::containerJoined
+        GPlayer::joinedContainer, Game::containerJoined
     )
 

@@ -37,7 +37,7 @@ class GameHelper(
         plugin.server.pluginManager.callEvent(event)
         if (event.isCancelled) return
         joinList
-            .filter { p -> p.joinedGame != gameServer.hub }
+            .filter { p -> p.joinedContainer != gameServer.hub }
             .forEach { p -> joinContainer(gameServer.hub, p) }
         val game = createContainer(gameName)
         joinList.forEach { p ->

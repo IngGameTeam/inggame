@@ -9,7 +9,6 @@ import io.github.inggameteam.inggame.utils.TagContainer
 
 class GPlayer(wrapper: Wrapper) : WrappedPlayerImp(wrapper), TagContainer, ContainerElement<Game> {
 
-    var joinedGame: Game by nonNull
     override var isPlaying: Boolean by nonNull
     override var joinedContainer: Game by nonNull
     override var tags: SafeSetWithToString<String> by default { SafeSetWithToString<String>() }
