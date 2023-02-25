@@ -1,8 +1,12 @@
 package io.github.inggameteam.inggame.player
 
+import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
+import io.github.inggameteam.inggame.player.container.Container
+import io.github.inggameteam.inggame.player.container.ContainerAlert
+import io.github.inggameteam.inggame.player.container.ContainerElement
 import io.github.inggameteam.inggame.player.handler.PlayerLanguage
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -19,6 +23,11 @@ class PlayerModule(plugin: IngGamePlugin) : Listener(plugin) {
             single { PlayerLoader(get(), get()) }
             single { PlayerLanguage(get(), get()) }
         })
+        event.registerClass {
+            classOf(ContainerAlert::class)
+            classOf(Container::class)
+            classOf(ContainerElement::class)
+        }
         event.addModule(newModule("root", ::PlayerService))
         event.componentServiceDSL
             .cs("player-instance", type = ComponentServiceType.MASKED, isSavable = true)

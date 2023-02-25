@@ -12,8 +12,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
 ) {
 
     open fun createContainer(parent: String, container: CONTAINER): CONTAINER {
-        containerHelper.create(container, parent)
-        return container
+        return containerHelper.create(container, parent)
     }
 
     open fun removeContainer(container: CONTAINER) {
