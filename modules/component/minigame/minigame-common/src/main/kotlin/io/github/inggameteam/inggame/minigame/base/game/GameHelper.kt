@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
+import io.github.inggameteam.inggame.player.container.ContainerAlertImp
 import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import org.bukkit.Bukkit
@@ -56,16 +57,16 @@ class GameHelper(
 
     private fun requestJoin(requestedGame: Game, player: GPlayer, joinType: JoinType, sendMessage: Boolean): Boolean {
         if (requestedGame == gameServer.hub) return true
-        val gameAlert = player[::GameAlertImp]
+        val alert = player[::ContainerAlertImp]
         if (requestedGame.containerJoined.contains(player)) {
-            if (sendMessage) gameAlert.GAME_ALREADY_JOINED.send(player, requestedGame.containerName)
+            if (sendMessage) alert.GAME_ALREADY_JOINED.send(player, requestedGame.containerName)
         } else if (requestedGame.containerState !== ContainerState.WAIT && joinType === JoinType.PLAY) {
-            if (sendMessage) gameAlert.GAME_CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.containerName)
+            if (sendMessage) alert.GAME_CANNOT_JOIN_DUE_TO_STARTED.send(player, requestedGame.containerName)
         } else if (requestedGame.playerLimitAmount > 0
             && requestedGame.containerJoined.hasTags(PTag.PLAY).size >= requestedGame.playerLimitAmount
             && joinType === JoinType.PLAY
         ) {
-            if (sendMessage) gameAlert.GAME_CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.containerName)
+            if (sendMessage) alert.GAME_CANNOT_JOIN_PLAYER_LIMITED.send(player, requestedGame.containerName)
         } else {
             return true
         }

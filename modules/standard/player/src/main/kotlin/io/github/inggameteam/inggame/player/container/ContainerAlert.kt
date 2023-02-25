@@ -12,7 +12,6 @@ interface ContainerAlert : Wrapper {
     val GAME_START_SPECTATING: Alert
     val GAME_LEFT_GAME_DUE_TO_SERVER_LEFT: Alert
     val GAME_LEFT: Alert
-    val GAME_START_CANCELLED_DUE_TO_PLAYERLESS: Alert
 }
 
 class ContainerAlertImp(wrapper: Wrapper) : ContainerAlert, SimpleWrapper(wrapper) {
@@ -23,6 +22,5 @@ class ContainerAlertImp(wrapper: Wrapper) : ContainerAlert, SimpleWrapper(wrappe
     override val GAME_START_SPECTATING: Alert by nonNull
     override val GAME_LEFT_GAME_DUE_TO_SERVER_LEFT: Alert by nonNull
     override val GAME_LEFT: Alert by nonNull
-    override val GAME_START_CANCELLED_DUE_TO_PLAYERLESS: Alert by nonNull
 
 }
