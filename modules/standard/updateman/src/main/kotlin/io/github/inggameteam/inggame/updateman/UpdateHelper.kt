@@ -46,6 +46,7 @@ class UpdateHelper {
                 newPluginFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
             )
+            val name = plugin.name
             try { PluginUtil.reload(plugin) }
             catch (e: Throwable) {
                 e.printStackTrace()
@@ -55,6 +56,7 @@ class UpdateHelper {
                     oldPluginFile.toPath(),
                     StandardCopyOption.REPLACE_EXISTING
                 )
+                PluginUtil.load(name)
             }
             backupDir.deleteOnExit()
         } catch (e: Throwable) {
