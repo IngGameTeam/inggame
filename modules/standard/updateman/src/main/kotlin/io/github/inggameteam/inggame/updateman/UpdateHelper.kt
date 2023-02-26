@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.updateman
 
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
 import io.github.inggameteam.inggame.utils.runNow
+import org.bukkit.Bukkit
 import org.eclipse.jgit.api.Git
 import java.io.BufferedReader
 import java.io.File
@@ -46,21 +47,15 @@ class UpdateHelper {
                 newPluginFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
             )
-            val name = plugin.name
             try {
                 PluginUtil.reload(plugin)
                 println("Reload Done")
             }
             catch (e: Throwable) {
-                println("Fail to load plugin, reloading backup-file...")
                 e.printStackTrace()
-                oldPluginFile.deleteOnExit()
-                Files.copy(
-                    backupFile.toPath(),
-                    oldPluginFile.toPath(),
-                    StandardCopyOption.REPLACE_EXISTING
-                )
-                PluginUtil.load(name)
+                println("Fail to load plugin, reloading backup-file...")
+            } finally {
+                requestRevertBackup(settings)
             }
             backupDir.deleteOnExit()
         } catch (e: Throwable) {
@@ -68,6 +63,21 @@ class UpdateHelper {
         }
 
     }.runNow(plugin)
+    }
+
+    private fun assertRevertBackup(settings: UpdateSettings): Boolean = settings.run {
+        return Bukkit.getPluginManager().getPlugin(pluginName) === null
+    }
+
+    private fun requestRevertBackup(settings: UpdateSettings): Unit = settings.run {
+        if (!assertRevertBackup(settings)) return@run
+        oldPluginFile.deleteOnExit()
+        Files.copy(
+            backupFile.toPath(),
+            oldPluginFile.toPath(),
+            StandardCopyOption.REPLACE_EXISTING
+        )
+        PluginUtil.load(pluginName)
     }
 
     fun runBuild(settings: UpdateSettings): Unit = settings.run {
