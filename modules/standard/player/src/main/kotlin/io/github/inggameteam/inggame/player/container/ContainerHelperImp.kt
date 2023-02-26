@@ -10,8 +10,8 @@ import kotlin.reflect.KProperty
 class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     private val componentService: LayeredComponentService,
     private val keyComponent: LayeredComponentService,
-    private val keyAssign: KProperty<*>,
-    private val keyList: KProperty<*>,
+    private val keyAssign: KProperty<*> = ContainerElement<CONTAINER>::joinedContainer,
+    private val keyList: KProperty<*> = Container<ELEMENT>::containerJoined,
 ) : ContainerHelper<CONTAINER, ELEMENT> {
 
     override fun has(container: CONTAINER): Boolean {

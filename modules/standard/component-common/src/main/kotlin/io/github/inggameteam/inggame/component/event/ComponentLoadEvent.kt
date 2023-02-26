@@ -14,8 +14,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import kotlin.reflect.KClass
 
-
-class ComponentLoadEvent(val componentServiceDSL: ComponentServiceDSL) : Event() {
+class ComponentLoadEvent(val componentServiceRegistry: ComponentServiceDSL) : Event() {
 
     val modules: ArrayList<Module> = ArrayList()
 

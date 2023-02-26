@@ -29,7 +29,7 @@ class PlayerModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(ContainerElement::class)
         }
         event.addModule(newModule("root", ::PlayerService))
-        event.componentServiceDSL
+        event.componentServiceRegistry
             .cs("player-instance", type = ComponentServiceType.MASKED, isSavable = true)
         event.addModule(newModule("player-instance", ::PlayerInstanceService))
     }

@@ -20,8 +20,5 @@ class GameInstanceService(
     val plugin: IngGamePlugin,
 ) : KoinComponent, Listener(plugin),
     LayeredComponentService by gameInstanceRepository,
-    ContainerHelper<Game, GPlayer> by ContainerHelperImp(
-        gameInstanceRepository, gamePlayerService,
-        GPlayer::joinedContainer, Game::containerJoined
-    )
+    ContainerHelper<Game, GPlayer> by ContainerHelperImp(gameInstanceRepository, gamePlayerService)
 

@@ -80,7 +80,7 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
         event.addModule(newModule("custom-game", ::CustomGameService))
         event.addModule(newModule("custom-game", ::CustomGameService))
         event.addModule(newModule("game-resource", ::GameResourceService))
-        event.componentServiceDSL
+        event.componentServiceRegistry
             .cs("game-player", type = ComponentServiceType.MASKED)
             .cs("game-instance", type = ComponentServiceType.MASKED)
             .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)

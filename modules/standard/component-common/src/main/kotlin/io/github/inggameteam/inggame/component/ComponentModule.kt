@@ -42,7 +42,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
                     }
             }
         })
-        event.componentServiceDSL
+        event.componentServiceRegistry
             .cs("singleton", isSavable = true)
             .cs("handler", isSavable = true)
 //        event.register {

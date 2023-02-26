@@ -21,7 +21,7 @@ class ItemModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::UseItem)
         }
         event.addModule(newModule("item-resource", ::ItemResource))
-        event.componentServiceDSL.apply {
+        event.componentServiceRegistry.apply {
             this
                 .cs("item-player", type = ComponentServiceType.LAYER)
                 .cs("item-resource",

@@ -8,8 +8,3 @@ interface ContainerElement<CONTAINER: Wrapper> : WrappedPlayer {
     var isPlaying: Boolean
     var joinedContainer: CONTAINER
 }
-
-class ContainerElementImp(wrapper: Wrapper) : ContainerElement<Container<ContainerElement<*>>>, WrappedPlayerImp(wrapper) {
-    override var isPlaying: Boolean by nonNull
-    override var joinedContainer: Container<ContainerElement<*>> by nonNull
-}
