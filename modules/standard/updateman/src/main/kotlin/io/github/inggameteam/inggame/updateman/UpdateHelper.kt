@@ -47,7 +47,10 @@ class UpdateHelper {
                 StandardCopyOption.REPLACE_EXISTING
             )
             val name = plugin.name
-            try { PluginUtil.reload(plugin) }
+            try {
+                PluginUtil.reload(plugin)
+                println("Reload Done")
+            }
             catch (e: Throwable) {
                 println("Fail to load plugin, reloading backup-file...")
                 e.printStackTrace()
