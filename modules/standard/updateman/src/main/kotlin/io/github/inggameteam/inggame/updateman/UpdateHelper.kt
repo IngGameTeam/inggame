@@ -65,7 +65,9 @@ class UpdateHelper {
     }
 
     private fun assertRevertBackup(settings: UpdateSettings): Boolean = settings.run {
-        return Bukkit.getPluginManager().getPlugin(pluginName)?.isEnabled?.not()?: true
+        return Bukkit.getPluginManager().getPlugin(pluginName)?.apply {
+            println(this.isEnabled)
+        }?.isEnabled?.not()?: true
     }
 
     private fun requestRevertBackup(settings: UpdateSettings): Unit = settings.run {
