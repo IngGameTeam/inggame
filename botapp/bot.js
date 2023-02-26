@@ -19,7 +19,7 @@ var createBot = function(name) {
 let amount = 50
 for(let i = 0; i < amount; i++) {
     setTimeout(function() {
-        createBot("test" + between(100000, 999999) + i);
+        createBot("test" + between(100000, 999999) + "_" + i);
     }, 50 * i);
 }
 
