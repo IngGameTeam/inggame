@@ -18,5 +18,5 @@ var createBot = function(name) {
 
 for(let i = 0; i < 100; i++) {
     createBot("test" + i)
-    time.sleep(50)
+    yield sleep(2000);
 }
