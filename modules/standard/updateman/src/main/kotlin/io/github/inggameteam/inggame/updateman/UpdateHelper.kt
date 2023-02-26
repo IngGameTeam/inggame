@@ -69,6 +69,7 @@ class UpdateHelper {
     }
 
     private fun requestRevertBackup(settings: UpdateSettings): Unit = settings.run {
+        println(assertRevertBackup(settings))
         if (!assertRevertBackup(settings)) return@run
         oldPluginFile.deleteOnExit()
         Files.copy(
