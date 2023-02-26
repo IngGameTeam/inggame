@@ -16,6 +16,6 @@ var createBot = function(name) {
 }
 
 
-createBot("test1")
-createBot("test2")
-createBot("test3")
+for(let i = 0; i < 50; i++) {
+    createBot("test" + i)
+}
