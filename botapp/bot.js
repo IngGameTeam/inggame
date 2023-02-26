@@ -17,6 +17,6 @@ var createBot = function(name) {
 
 
 for(let i = 0; i < 100; i++) {
-    createBot("test" + i)
-    yield sleep(2000);
+    createBot("test" + i);
+await new Promise(resolve => setTimeout(resolve, 50));
 }
