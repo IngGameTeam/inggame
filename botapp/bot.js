@@ -16,7 +16,7 @@ var createBot = function(name) {
 }
 
 
-for(let i = 0; i < 200; i++) {
+for(let i = 0; i < 100; i++) {
     createBot("test" + i)
     sleep(50)
 }
