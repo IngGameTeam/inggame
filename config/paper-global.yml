@@ -31,7 +31,7 @@ chunk-system:
   io-threads: 4
   worker-threads: 8
 collisions:
-  enable-player-collisions: true
+  enable-player-collisions: false
   send-full-pos-for-hard-colliding-entities: true
 commands:
   fix-target-selector-tag-completion: true
