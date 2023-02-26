@@ -2,14 +2,85 @@ package io.github.inggameteam.inggame.party.handler
 
 import io.github.inggameteam.inggame.party.component.PartyInstanceService
 import io.github.inggameteam.inggame.party.component.PartyRequestInstanceRepo
+import io.github.inggameteam.inggame.party.event.JoinPartyEvent
+import io.github.inggameteam.inggame.party.event.PartyDisbandEvent
+import io.github.inggameteam.inggame.party.event.PartyLeftEvent
 import io.github.inggameteam.inggame.party.wrapper.Party
+import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
+import io.github.inggameteam.inggame.party.wrapper.PartyServer
+import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import io.github.inggameteam.inggame.utils.JoinType
+import io.github.inggameteam.inggame.utils.LeftType
+import io.github.inggameteam.inggame.utils.randomUUID
+import org.bukkit.Bukkit
 
 class PartyHelper(
     val plugin: IngGamePlugin,
-    val partyInstanceService: PartyInstanceService,
-    val partyRequestInstanceRepo: PartyRequestInstanceRepo
-) {
+    private val partyInstanceService: PartyInstanceService,
+    val partyRequestInstanceRepo: PartyRequestInstanceRepo,
+    private val partyServer: PartyServer
+) : ContainerHelperBase<Party, PartyPlayer>(partyInstanceService, partyInstanceService, {partyServer.defaultParty}) {
+
+    fun createContainer(parent: String): Party {
+        return super.createContainer(parent, partyInstanceService[randomUUID(), ::Party])
+    }
+
+    override fun removeContainer(container: Party) {
+        Bukkit.getPluginManager().callEvent(PartyDisbandEvent(container))
+        super.removeContainer(container)
+    }
+
+    override fun join(container: Party, element: PartyPlayer, joinType: JoinType) {
+        Bukkit.getPluginManager().callEvent(JoinPartyEvent(element, container))
+    }
+
+    override fun left(element: PartyPlayer, container: Party, leftType: LeftType) {
+        Bukkit.getPluginManager().callEvent(PartyLeftEvent(element, container))
+    }
+
+    fun rename(element: PartyPlayer, newName: String) {
+
+    }
+
+    fun visible(element: PartyPlayer, newVisible: Boolean = !element.joinedContainer.isPartyOpened) {
+
+    }
+
+    fun kick(dispatcher: PartyPlayer, kickPlayer: PartyPlayer) {
+
+    }
+
+    fun ban(dispatcher: PartyPlayer, banPlayer: PartyPlayer) {
+
+    }
+
+    fun unban(dispatcher: PartyPlayer, banPlayer: PartyPlayer) {
+
+    }
+
+    fun listMembers(dispatcher: PartyPlayer) {
+
+    }
+
+//    fun disband(party: Party, player: PartyPlayer) {
+//    fun left(party: Party, player: PartyPlayer) {
+//    fun join(party: Party, player: PartyPlayer) {
+//    fun PartyRegister.createParty(dispatcher: GPlayer) {
+
+
+//    fun Party.rename(dispatcher: GPlayer, newName: String) {
+//    fun Party.visible(dispatcher: GPlayer, newVisible: Boolean = !isPartyOpened) = if (leader eq dispatcher) {
+//    fun Party.visible(dispatcher: GPlayer, newVisible: Boolean = !isPartyOpened) = if (leader eq dispatcher) {
+//    fun Party.kick(dispatcher: GPlayer, kickPlayer: GPlayer) {
+//    fun Party.ban(dispatcher: GPlayer, banPlayer: GPlayer) {
+//    fun Party.ban(dispatcher: GPlayer, banPlayer: GPlayer) {
+//    fun Party.unban(dispatcher: GPlayer, unbanPlayer: GPlayer) {
+//    fun PartyRequestRegister.acceptInvitation(dispatcher: GPlayer, inviteCode: Int) {
+//    fun PartyRequestRegister.invitePlayer(sender: GPlayer, receiver: GPlayer) {
+//    fun Party.listMembers(dispatcher: GPlayer) {
+
+
 
     fun create(party: Party) {
         partyInstanceService.create(party, "party")

@@ -26,7 +26,7 @@ class ComponentViewModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 ViewPlayerLoader(get(named("view-player")), get())
             }
         })
-        event.componentServiceDSL
+        event.componentServiceRegistry
             .cs("view-player", type = ComponentServiceType.MASKED)
             .cs("view-resource", isSavable = true)
         plugin.addDisableEvent {
