@@ -19,6 +19,12 @@ var createBot = function(name) {
 let amount = 50
 for(let i = 0; i < amount; i++) {
     setTimeout(function() {
-        createBot("test" + i);
+        createBot("test" + between(100000, 999999) + i);
     }, 50 * i);
+}
+
+function between(min, max) {
+  return Math.floor(
+    ~~(Math.random() * (max - min) + min)
+  )
 }
