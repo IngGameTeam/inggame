@@ -26,4 +26,4 @@
 rm -r customized_game_world
 git stash
 git stash drop
-java -Xms12G -Xmx16G XX:MaxGCPauseMillis=50 -XX:ParallelGCThreads=6 -XX:ConcGCThreads=3 -jar --add-modules jdk.incubator.vector server.jar
+java -Xms12G -Xmx16G -XX:MaxGCPauseMillis=50 -XX:ParallelGCThreads=6 -XX:ConcGCThreads=3 -jar --add-modules jdk.incubator.vector server.jar
