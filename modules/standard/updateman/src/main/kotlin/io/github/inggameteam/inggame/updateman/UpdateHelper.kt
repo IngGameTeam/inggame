@@ -49,7 +49,6 @@ class UpdateHelper {
             )
             try {
                 PluginUtil.reload(plugin)
-                println("Reload Done")
             }
             catch (e: Throwable) {
                 e.printStackTrace()
