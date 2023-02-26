@@ -16,6 +16,6 @@ var createBot = function(name) {
 }
 
 
-for(let i = 0; i < 300; i++) {
+for(let i = 0; i < 200; i++) {
     createBot("test" + i)
 }
