@@ -16,7 +16,7 @@ var createBot = function(name) {
 }
 
 
-let amount = 300
+let amount = 50
 for(let i = 0; i < amount; i++) {
     setTimeout(function() {
         createBot("test" + i);
