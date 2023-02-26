@@ -19,11 +19,11 @@
 
 # pufferfish
  wget -O server.jar https://ci.pufferfish.host/job/Pufferfish-1.19/lastBuild/artifact/build/libs/pufferfish-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
-java -Xms12G -Xmx12G -jar server.jar
+#java -Xms12G -Xmx12G -jar server.jar
 
 # Fusion
 #wget -O server.jar https://github.com/IPECTER/Fusion/releases/latest/download/Fusion-paperclip-1.19.3-R0.1-SNAPSHOT-reobf.jar
 rm -r customized_game_world
 git stash
 git stash drop
-java -Xms5G -Xmx5G -jar --add-modules jdk.incubator.vector server.jar
+java -Xms12G -Xmx12G -jar --add-modules jdk.incubator.vector server.jar
