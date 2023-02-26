@@ -64,7 +64,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     source.sendMessage("Unload done!")
                 }
             }
-            then("get") {
+            then("performance-test") {
                 tab { app.getAll<ComponentService>().map { it.name } }
                 execute {
                     val split = args[1].split(" ")
@@ -76,6 +76,16 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                             componentService.find(nameSpace, key)
                         }
                     }.run(Any::toString).apply(source::sendMessage)
+                }
+            }
+            then("get") {
+                tab { app.getAll<ComponentService>().map { it.name } }
+                execute {
+                    val split = args[1].split(" ")
+                    val componentService = app.get<ComponentService>(named(split[0]))
+                    val nameSpace = split[1].run { try { fastUUID() } catch (_: Throwable) { this } }
+                    val key = split[2]
+                    source.sendMessage(componentService.find(nameSpace, key).toString())
                 }
             }
             thenExecute("debug") {

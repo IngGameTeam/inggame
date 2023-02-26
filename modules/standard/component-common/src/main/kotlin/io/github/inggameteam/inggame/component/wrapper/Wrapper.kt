@@ -29,13 +29,13 @@ interface Wrapper {
     @Deprecated("deprecated", replaceWith = ReplaceWith("default { TODO() }"))
     fun nullableDefault(block: () -> Any?) = NullableWrapperImp(nameSpace, component).apply { defaultBlock = block }
 
-    fun get(key: Any): Any = component.find(nameSpace, key)
+    fun <T> getValue(key: Any): Any = component.find(nameSpace, key)
 
     fun <T : Any> get(key: Any, clazz: KClass<T>) = component.find(nameSpace, key, clazz)
 
     fun <T : Any> getOrNull(key: Any, clazz: KClass<T>) = try { get(key, clazz) } catch (_: Throwable) { null }
 
-    fun get(wrapper: Wrapper): Any = component.find(nameSpace, uncoverDelegate(wrapper))
+//    fun get(wrapper: Wrapper): Any = component.find(nameSpace, uncoverDelegate(wrapper))
 
     fun set(key: Any, value: Any) = component.set(nameSpace, uncoverDelegate(key), uncoverDelegate(value))
 
