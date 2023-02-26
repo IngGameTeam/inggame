@@ -20,4 +20,4 @@ for(let i = 0; i < 100; i++) {
     setTimeout(function() {
         createBot("test" + i);
     }, 50 * i);
-Sh}
+}
