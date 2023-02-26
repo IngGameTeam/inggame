@@ -8,3 +8,4 @@ interface ContainerElement<CONTAINER: Wrapper> : WrappedPlayer {
     var isPlaying: Boolean
     var joinedContainer: CONTAINER
 }
+
