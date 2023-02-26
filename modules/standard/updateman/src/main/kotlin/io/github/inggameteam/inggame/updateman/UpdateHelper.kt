@@ -52,7 +52,6 @@ class UpdateHelper {
             }
             catch (e: Throwable) {
                 e.printStackTrace()
-                println("Fail to load plugin, reloading backup-file...")
             } finally {
                 requestRevertBackup(settings)
             }
@@ -71,6 +70,7 @@ class UpdateHelper {
     private fun requestRevertBackup(settings: UpdateSettings): Unit = settings.run {
         println(pluginOrNull)
         if (!assertRevertBackup(settings)) return@run
+        println("Fail to load plugin, reloading backup-file...")
         oldPluginFile.deleteOnExit()
         Files.copy(
             backupFile.toPath(),

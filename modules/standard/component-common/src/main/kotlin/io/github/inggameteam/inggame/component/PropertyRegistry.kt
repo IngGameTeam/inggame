@@ -44,7 +44,6 @@ class PropertyRegistry(classRegistryAll: ClassRegistryAll) {
                     if (it.name.endsWith(suffix)) it.name.substring(0, it.name.length - suffix.length)
                     else it.name, it.returnType) }
                 .forEach {
-                    throw java.lang.AssertionError("failure on purpose")
                     if (propMap.any { p -> p.name == it.first && !(p.clazz.isSubclassOf(clazz) || clazz.isSubclassOf(p.clazz)) }) {
                         throw AssertionError("${it.first} duplicated between ${getProp(it.first)} and ${it.second}")
                     }
