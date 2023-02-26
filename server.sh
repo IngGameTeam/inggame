@@ -26,4 +26,4 @@
 rm -r customized_game_world
 git stash
 git stash drop
-java -Xms10G -Xmx10G -jar --add-modules jdk.incubator.vector server.jar
+java -Xms5G -Xmx5G -jar --add-modules jdk.incubator.vector server.jar
