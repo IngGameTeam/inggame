@@ -49,6 +49,7 @@ class UpdateHelper {
             val name = plugin.name
             try { PluginUtil.reload(plugin) }
             catch (e: Throwable) {
+                println("Fail to load plugin, reloading backup-file...")
                 e.printStackTrace()
                 oldPluginFile.deleteOnExit()
                 Files.copy(
