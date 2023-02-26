@@ -6,38 +6,7 @@
 
 Inggame is able to run as a plugin supported framework
 
+## Design Goals
+- **동적 리셉션**: 모든 엔티티가 거대한 데이터 구조의 래퍼(wrapper)이기 때문에, 엔티티의 프로퍼티에 리스코프 치환 원칙을 적용함.
+- **단일 모델**: 모든 데이터 객체 모델을 런타임에서 커스텀 POJO Json 형식 직렬화를 통해 로드하고 저장할 수 있음.
 
-## layer-based data structure
-
-| type     | description                                                                             | is repository |
-|----------|-----------------------------------------------------------------------------------------|---------------|
-| Layered  | Can be used to cache, load/unload                                                       | yes           |
-| Resource | Load all from repository at start                                                       | yes           |
-| Masked   | Can only reads current layer component, not it's parents                                | yes           |
-| Multi    | Link other component from listed components. component will be selected by given key    | yes           |
-
-## Read & Write interface
-
-### arguments
-| name      | description    |
-|-----------|----------------|
-| component | ServerResource |
-| namespace | EventMessage   |
-| key       | Greeting       |
-
-### example 
-```kotlin
-fun setGreetingMessage() {
-    resource.set("EventMessage", "Greeting", "Hello!")
-}
-fun greeting(player: Player) {
-    player.sendMessage(resource.get("EventMessage", "Greeting"))
-}        
-
-```
-
-```mermaid
-flowchart TD
-game-player --> game-instance --> game-resource
-
-```
