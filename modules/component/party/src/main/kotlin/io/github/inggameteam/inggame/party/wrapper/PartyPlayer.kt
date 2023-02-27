@@ -9,7 +9,7 @@ interface PartyPlayer : Wrapper, WrappedPlayer, ContainerElement<Party> {
 }
 
 class PartyPlayerImp(wrapper: Wrapper) : PartyPlayer, ContainerElement<Party>, WrappedPlayerImp(wrapper) {
-    override var joinedContainer: Party by nonNull
+    override var joined: Party by nonNull
     override var isPlaying: Boolean
         get() = true
         set(value) {}

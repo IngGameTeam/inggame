@@ -15,7 +15,7 @@ class GPlayer(wrapper: Wrapper) : WrappedPlayerImp(wrapper), TagContainer, Conta
             if (value) addTag(PTag.PLAY)
             else removeTag(PTag.PLAY)
         }
-    override var joinedContainer: Game by nonNull
+    override var joined: Game by nonNull
     override var tags: SafeSetWithToString<String> by default { SafeSetWithToString<String>() }
 
 }

@@ -18,10 +18,10 @@ class StartPlayersAmountAlert(val plugin: IngGamePlugin) : HandleListener(plugin
         {
             if (game.containerState === ContainerState.WAIT
                 && game.hasGameTask()
-                && game.containerJoined.hasTags(PTag.PLAY).size < game.startPlayersAmount
+                && game.joinedPlayers.hasTags(PTag.PLAY).size < game.startPlayersAmount
                 && game.startPlayersAmount > 1
             ) {
-                game.containerJoined.forEach {
+                game.joinedPlayers.forEach {
                     it[::GameAlertImp].NEED_PLAYER.send(it, it[::GameImp].containerName, game.startPlayersAmount)
                 }
             }

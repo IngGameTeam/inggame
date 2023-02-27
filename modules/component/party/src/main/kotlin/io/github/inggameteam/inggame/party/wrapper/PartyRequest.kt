@@ -5,16 +5,18 @@ import io.github.inggameteam.inggame.player.wrapper.WrappedPlayer
 
 interface PartyRequest {
 
-    val partyRequestSender: WrappedPlayer
-    val partyRequestReciver: WrappedPlayer
-    val partyRequestedParty: Party
-    val partyRequestCode: Int
+    var partyRequestSender: WrappedPlayer
+    var partyRequestReciver: WrappedPlayer
+    var partyRequestedParty: Party
+    var partyRequestCode: Int
+    var isInitialized: Boolean
 
 }
 
 class PartyRequestImp(wrapper: Wrapper) : Wrapper by wrapper, PartyRequest {
-    override val partyRequestSender: WrappedPlayer by nonNull
-    override val partyRequestReciver: WrappedPlayer by nonNull
-    override val partyRequestedParty: Party by nonNull
-    override val partyRequestCode: Int by nonNull
+    override var partyRequestSender: WrappedPlayer by nonNull
+    override var partyRequestReciver: WrappedPlayer by nonNull
+    override var partyRequestedParty: Party by nonNull
+    override var partyRequestCode: Int by nonNull
+    override var isInitialized: Boolean by nonNull
 }

@@ -15,7 +15,7 @@ class SpawnOnStart(val plugin: IngGamePlugin) : Handler, Listener(plugin) {
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onJoinGame(event: GameBeginEvent) {
         if (isNotHandler(event.game)) return
-        event.game.containerJoined.toTypedArray().fastForEach {
+        event.game.joinedPlayers.toTypedArray().fastForEach {
             plugin.server.pluginManager.callEvent(GPlayerSpawnEvent(it))
         }
     }
