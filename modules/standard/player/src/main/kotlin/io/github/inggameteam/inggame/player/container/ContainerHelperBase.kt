@@ -61,7 +61,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
     open fun left(element: ELEMENT, container: CONTAINER, leftType: LeftType) = Unit
 
     fun leftGame(element: ELEMENT, leftType: LeftType): Boolean {
-        if (element.component.getOrNull(ContainerElement<*>::joinedContainer.name) === null) return false
+        if (element.component.has(element.nameSpace, ContainerElement<*>::joinedContainer.name).not()) return false
         val container = element.joinedContainer
         if (!requestLeft(container, element, leftType)) return false
         left(element, container, leftType)
