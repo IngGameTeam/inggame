@@ -105,8 +105,8 @@ class SectionalHandler(
     fun onUnloadGame(event: GameUnloadEvent) {
         if (isNotHandler(event.game)) return
         val game = event.game[::SectionalImp]
-        event.isCancelled = true
         if (!game.unloadingSemaphore) return
+        event.isCancelled = true
         game.unloadingSemaphore = true
         if (!plugin.allowTask) return
         ;{
