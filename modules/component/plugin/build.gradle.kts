@@ -17,7 +17,7 @@ projectDependencies(
     item,
     updateman,
     inggame_app,
-    party,
+    party_common,
     includeJar = true,
 )
 tasks.forEach { it.outputs.cacheIf { true } }

@@ -12,7 +12,8 @@ val Project.guiapi                                    by ProjectDependencies
 val Project.minigame_common                           by ProjectDependencies
 val Project.minigame_view                             by ProjectDependencies
 val Project.mongodb                                   by ProjectDependencies
-val Project.party                                     by ProjectDependencies
+val Project.party_common                              by ProjectDependencies
+val Project.party_view                                by ProjectDependencies
 val Project.player                                    by ProjectDependencies
 val Project.plugin                                    by ProjectDependencies
 val Project.plugman                                   by ProjectDependencies
@@ -20,7 +21,7 @@ val Project.updateman                                 by ProjectDependencies
 val Project.utils                                     by ProjectDependencies
 val Project.world                                     by ProjectDependencies
 val Project.item                                      by ProjectDependencies
-val Project.inggame_app                                   by ProjectDependencies
+val Project.inggame_app                               by ProjectDependencies
 
 fun Project.projectDependencies(vararg project: ProjectDependency, includeJar: Boolean = false) {
     dependencies {

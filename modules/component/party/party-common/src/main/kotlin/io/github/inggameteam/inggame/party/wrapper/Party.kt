@@ -1,9 +1,7 @@
 package io.github.inggameteam.inggame.party.wrapper
 
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
-import io.github.inggameteam.inggame.player.container.Container
 import io.github.inggameteam.inggame.player.container.ContainerImp
-import io.github.inggameteam.inggame.player.wrapper.WrappedPlayer
 import io.github.inggameteam.inggame.utils.SafeListWithToString
 import java.util.*
 
