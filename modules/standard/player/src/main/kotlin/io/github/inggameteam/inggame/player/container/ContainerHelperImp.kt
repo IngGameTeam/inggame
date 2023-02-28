@@ -29,6 +29,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
 
     override fun remove(container: CONTAINER) {
         val uncoveredContainer = uncoverDelegate(container)
+        if (container.component.getOrNull(uncoveredContainer) === null) return
         getList(container).forEach(::left)
         componentService.unload(uncoveredContainer, false)
     }
