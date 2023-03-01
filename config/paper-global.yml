@@ -18,11 +18,11 @@ async-chunks:
 chunk-loading:
   autoconfig-send-distance: true
   enable-frustum-priority: false
-  global-max-chunk-load-rate: -1.0
-  global-max-chunk-send-rate: -1.0
-  global-max-concurrent-loads: -1.0
-  max-concurrent-sends: -1
-  min-load-radius: -1
+  global-max-chunk-load-rate: 2147483647
+  global-max-chunk-send-rate: 2147483647
+  global-max-concurrent-loads: 2147483647
+  max-concurrent-sends: 2147483647
+  min-load-radius: 2
   player-max-chunk-load-rate: 2147483647
   player-max-concurrent-loads: 2147483647
   target-player-chunk-send-rate: 2147483647
