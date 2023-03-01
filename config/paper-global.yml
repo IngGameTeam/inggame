@@ -14,21 +14,21 @@
 
 _version: 28
 async-chunks:
-  threads: 16
+  threads: 8
 chunk-loading:
   autoconfig-send-distance: true
   enable-frustum-priority: false
   global-max-chunk-load-rate: -1.0
   global-max-chunk-send-rate: -1.0
   global-max-concurrent-loads: -1.0
-  max-concurrent-sends: 2
-  min-load-radius: 2
+  max-concurrent-sends: -1
+  min-load-radius: -1
   player-max-chunk-load-rate: -1.0
-  player-max-concurrent-loads: 20.0
-  target-player-chunk-send-rate: 100.0
+  player-max-concurrent-loads: -1.0
+  target-player-chunk-send-rate: -1.0
 chunk-system:
   gen-parallelism: default
-  io-threads: 4
+  io-threads: 8
   worker-threads: 8
 collisions:
   enable-player-collisions: false
