@@ -8,10 +8,10 @@ import io.github.inggameteam.inggame.utils.fastForEach
 
 class PartyRequestHelper(
     val plugin: IngGamePlugin,
-    val partyHelper: PartyHelper,
-    val partyPlayerService: PartyPlayerService,
-    val partyRequestInstanceRepo: PartyRequestInstanceRepo,
-    val partyServer: PartyServer,
+    private val partyHelper: PartyHelper,
+    private val partyPlayerService: PartyPlayerService,
+    private val partyRequestInstanceRepo: PartyRequestInstanceRepo,
+    private val partyServer: PartyServer,
 ) {
 
     fun acceptInvitation(dispatcher: PartyPlayer, inviteCode: Int) {

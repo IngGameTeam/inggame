@@ -89,7 +89,7 @@ class GameHelper(
         if (container.containerState !== ContainerState.STOP) {
             container.containerState = ContainerState.STOP
             Bukkit.getPluginManager().callEvent(GameFinishEvent(container))
-            container.joinedPlayers.toList().forEach { p -> leftGame(p, leftType) }
+            container.joinedPlayers.toList().forEach { p -> leftContainer(p, leftType) }
             container.cancelGameTask()
             Bukkit.getPluginManager().callEvent(GameUnloadEvent(container))
         }

@@ -1,15 +1,13 @@
 package io.github.inggameteam.inggame.party.handler
 
 import io.github.inggameteam.inggame.party.component.PartyInstanceService
+import io.github.inggameteam.inggame.party.component.PartyPlayerService
 import io.github.inggameteam.inggame.party.component.PartyRequestInstanceRepo
 import io.github.inggameteam.inggame.party.event.JoinPartyEvent
 import io.github.inggameteam.inggame.party.event.PartyDisbandEvent
 import io.github.inggameteam.inggame.party.event.PartyLeftEvent
 import io.github.inggameteam.inggame.party.event.PartyUpdateEvent
-import io.github.inggameteam.inggame.party.wrapper.Party
-import io.github.inggameteam.inggame.party.wrapper.PartyAlertImp
-import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
-import io.github.inggameteam.inggame.party.wrapper.PartyServer
+import io.github.inggameteam.inggame.party.wrapper.*
 import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color
@@ -17,6 +15,7 @@ import org.bukkit.Bukkit
 
 class PartyHelper(
     val plugin: IngGamePlugin,
+    val partyPlayerService: PartyPlayerService,
     private val partyInstanceService: PartyInstanceService,
     private val partyRequestInstanceRepo: PartyRequestInstanceRepo,
     private val partyServer: PartyServer
@@ -37,6 +36,11 @@ class PartyHelper(
 
     override fun onLeft(element: PartyPlayer, container: Party, leftType: LeftType) {
         Bukkit.getPluginManager().callEvent(PartyLeftEvent(element, container))
+    }
+
+    fun createParty(dispatcher: PartyPlayer) {
+        leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
+        joinContainer(createContainer(), dispatcher)
     }
 
     fun renameParty(dispatcher: PartyPlayer, newName: String): Unit = dispatcher.joined.run {
@@ -67,6 +71,12 @@ class PartyHelper(
         } else {
             dispatcher[::PartyAlertImp].PARTY_VISIBLE_IS_LEADER_ONLY.send(dispatcher)
         }
+    }
+
+    fun assertPlayer(dispatcher: PartyPlayer, name: String, block: (PartyPlayer) -> Unit) {
+        val player = Bukkit.getPlayer(name)?.run { partyPlayerService[uniqueId, ::PartyPlayerImp] }
+        if (player !== null) block(player)
+        else dispatcher[::PartyAlertImp].PLAYER_NOT_FOUND.send(dispatcher, name)
     }
 
     fun promote(dispatcher: PartyPlayer, newLeader: PartyPlayer): Unit = dispatcher.joined.run {

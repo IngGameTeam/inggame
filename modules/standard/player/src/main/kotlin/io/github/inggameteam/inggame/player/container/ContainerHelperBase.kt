@@ -41,7 +41,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
     open fun onJoin(container: CONTAINER, element: ELEMENT, joinType: JoinType) = Unit
 
     fun joinContainer(container: CONTAINER, element: ELEMENT, joinType: JoinType = JoinType.PLAY): Boolean {
-        leftGame(element, LeftType.DUE_TO_MOVE_ANOTHER)
+        leftContainer(element, LeftType.DUE_TO_MOVE_ANOTHER)
         val containerAlert = element[::ContainerAlertImp]
         if (requestJoin(container, element, joinType, true)) {
             containerHelper.join(container, element)
@@ -60,7 +60,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
 
     open fun onLeft(element: ELEMENT, container: CONTAINER, leftType: LeftType) = Unit
 
-    fun leftGame(element: ELEMENT, leftType: LeftType): Boolean {
+    fun leftContainer(element: ELEMENT, leftType: LeftType): Boolean {
         if (element.component.has(element.nameSpace, ContainerElement<*>::joined.name).not()) return false
         val container = element.joined
         if (!requestLeft(container, element, leftType)) return false

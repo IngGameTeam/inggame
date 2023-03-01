@@ -7,3 +7,4 @@ projectDependencies(
     minigame_common,
     party_common
 )
+

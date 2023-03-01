@@ -18,6 +18,7 @@ projectDependencies(
     updateman,
     inggame_app,
     party_common,
+    party_view,
     includeJar = true,
 )
 tasks.forEach { it.outputs.cacheIf { true } }
@@ -40,6 +41,9 @@ spigot {
     commands {
         create("ing") {
             permission = "inggame.admin"
+        }
+        create("party") {
+            aliases("p")
         }
     }
     permissions {
