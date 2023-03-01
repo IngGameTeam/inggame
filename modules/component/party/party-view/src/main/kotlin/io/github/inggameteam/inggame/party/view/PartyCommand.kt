@@ -28,7 +28,7 @@ class PartyCommand(
 
     private fun partyCommand(plugin: IngGamePlugin): Unit = partyHelper.run {
         MCCommand(plugin as JavaPlugin) {
-            command("party, p") {
+            command("party") {
                 execute { assertPlayer(dispatcher, args[0]) { partyRequestHelper.invitePlayer(dispatcher, it) } }
                 thenExecute("all") { partyRequestHelper.inviteAll(dispatcher) }
                 thenExecute("create") { createParty(dispatcher) }
