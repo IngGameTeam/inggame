@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin
 
 typealias Root = RootCommandNode<CommandSender>
 
-open class MCCommand(plugin: JavaPlugin, init: Root.() -> Unit)
+open class MCCommand(val plugin: JavaPlugin, init: Root.() -> Unit)
     : CommandDispatcher<CommandSender>(init), CommandExecutor, TabCompleter{
 
     init {
@@ -29,18 +29,25 @@ open class MCCommand(plugin: JavaPlugin, init: Root.() -> Unit)
         if (args.isEmpty()) label else "$label ${args.joinToString(" ")}"
 
 
+    @Suppress("NAME_SHADOWING")
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
+        val prefix = "${plugin.name}:"
+        val label = label.run { if (startsWith(prefix)) substring(prefix.length) else this }
         execute(fullCommand(label, args), sender)
         return true
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun onTabComplete(
         sender: CommandSender,
         command: Command,
         alias: String,
         args: Array<out String>,
-    ): MutableList<String> =
-        tab(fullCommand(alias, args), sender).toMutableList()
+    ): MutableList<String> {
+        val prefix = "${plugin.name.lowercase()}:"
+        val alias = alias.run { if (startsWith(prefix)) substring(prefix.length) else this }
+        return tab(fullCommand(alias, args), sender).toMutableList()
+    }
 
 
 }

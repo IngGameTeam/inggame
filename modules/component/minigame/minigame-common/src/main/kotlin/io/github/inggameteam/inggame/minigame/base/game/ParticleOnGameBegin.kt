@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler
 class ParticleOnGameBegin(plugin: IngGamePlugin) : HandleListener(plugin) {
 
     private fun afterParticle(game: Game) {
-        game.containerJoined.hasTags(PTag.PLAY).forEach {
+        game.joinedPlayers.hasTags(PTag.PLAY).forEach {
             it.world.spawnParticle(Particle.END_ROD, it.eyeLocation.clone(), 20)
         }
     }

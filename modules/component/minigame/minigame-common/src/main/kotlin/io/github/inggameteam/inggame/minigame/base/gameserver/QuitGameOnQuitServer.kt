@@ -22,7 +22,7 @@ class QuitGameOnQuitServer(
     fun onQuit(event: PlayerQuitEvent) {
         if (isNotHandler(gameServer)) return
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-        gameHelper.leftGame(player, LeftType.LEFT_SERVER)
+        gameHelper.leftContainer(player, LeftType.LEFT_SERVER)
     }
 
     @Suppress("unused")
@@ -30,7 +30,7 @@ class QuitGameOnQuitServer(
     fun onKick(event: PlayerKickEvent) {
         if (isNotHandler(gameServer)) return
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
-        gameHelper.leftGame(player, LeftType.LEFT_SERVER)
+        gameHelper.leftContainer(player, LeftType.LEFT_SERVER)
     }
 
 }

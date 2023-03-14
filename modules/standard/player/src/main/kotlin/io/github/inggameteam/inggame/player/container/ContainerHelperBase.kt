@@ -23,12 +23,12 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         if (requestedContainer == hub()) return true
         val containerAlert = element[::ContainerAlertImp]
 
-        if (requestedContainer.containerJoined.contains(element)) {
+        if (requestedContainer.joinedPlayers.contains(element)) {
             if (sendMessage) containerAlert.GAME_ALREADY_JOINED.send(element, requestedContainer.containerName)
         } else if (requestedContainer.containerState !== ContainerState.WAIT && joinType === JoinType.PLAY) {
             if (sendMessage) containerAlert.GAME_CANNOT_JOIN_DUE_TO_STARTED.send(element, requestedContainer.containerName)
         } else if (requestedContainer.playerLimitAmount > 0
-            && requestedContainer.containerJoined.filter { it.isPlaying }.size >= requestedContainer.playerLimitAmount
+            && requestedContainer.joinedPlayers.filter { it.isPlaying }.size >= requestedContainer.playerLimitAmount
             && joinType === JoinType.PLAY
         ) {
             if (sendMessage) containerAlert.GAME_CANNOT_JOIN_PLAYER_LIMITED.send(element, requestedContainer.containerName)
@@ -38,40 +38,41 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         return false
     }
 
-    open fun join(container: CONTAINER, element: ELEMENT, joinType: JoinType) = Unit
+    open fun onJoin(container: CONTAINER, element: ELEMENT, joinType: JoinType) = Unit
 
     fun joinContainer(container: CONTAINER, element: ELEMENT, joinType: JoinType = JoinType.PLAY): Boolean {
-        leftGame(element, LeftType.DUE_TO_MOVE_ANOTHER)
+        leftContainer(element, LeftType.DUE_TO_MOVE_ANOTHER)
         val containerAlert = element[::ContainerAlertImp]
         if (requestJoin(container, element, joinType, true)) {
             containerHelper.join(container, element)
-            container.containerJoined.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
+            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
-            join(container, element, joinType)
+            onJoin(container, element, joinType)
             return true
         }
         return false
     }
 
     private fun requestLeft(container: CONTAINER, element: ELEMENT, leftType: LeftType): Boolean {
-        return container.containerJoined.contains(element)
+        return container.joinedPlayers.contains(element)
     }
 
-    open fun left(element: ELEMENT, container: CONTAINER, leftType: LeftType) = Unit
+    open fun onLeft(element: ELEMENT, container: CONTAINER, leftType: LeftType) = Unit
 
-    fun leftGame(element: ELEMENT, leftType: LeftType): Boolean {
-        val container = element.joinedContainer
+    fun leftContainer(element: ELEMENT, leftType: LeftType): Boolean {
+        if (element.component.has(element.nameSpace, ContainerElement<*>::joined.name).not()) return false
+        val container = element.joined
         if (!requestLeft(container, element, leftType)) return false
-        left(element, container, leftType)
+        onLeft(element, container, leftType)
         val containerAlert = element[::ContainerAlertImp]
         if (leftType === LeftType.LEFT_SERVER) {
             containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
         } else {
-            container.containerJoined.forEach { p -> containerAlert.GAME_LEFT.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
+            container.joinedPlayers.forEach { p -> containerAlert.GAME_LEFT.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
         }
         element.clearTags()
-        val joinedSize = container.containerJoined.filter { it.isPlaying }.size
+        val joinedSize = container.joinedPlayers.filter { it.isPlaying }.size
         if (leftType.isJoinHub) {
             joinContainer(hub(), element)
         } else {

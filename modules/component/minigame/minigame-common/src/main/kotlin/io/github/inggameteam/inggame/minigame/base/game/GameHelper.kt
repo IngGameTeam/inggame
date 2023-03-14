@@ -5,7 +5,6 @@ import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
-import io.github.inggameteam.inggame.player.container.ContainerAlertImp
 import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import org.bukkit.Bukkit
@@ -37,7 +36,7 @@ class GameHelper(
         plugin.server.pluginManager.callEvent(event)
         if (event.isCancelled) return
         joinList
-            .filter { p -> p.joinedContainer != gameServer.hub }
+            .filter { p -> p.joined != gameServer.hub }
             .forEach { p -> joinContainer(gameServer.hub, p) }
         val game = createContainer(gameName)
         joinList.forEach { p ->
@@ -45,21 +44,21 @@ class GameHelper(
         }
     }
 
-    override fun join(container: Game, element: GPlayer, joinType: JoinType) {
+    override fun onJoin(container: Game, element: GPlayer, joinType: JoinType) {
         Bukkit.getPluginManager().callEvent(GameJoinEvent(container, element))
         if (!container.hasGameTask()
             && container.containerState === ContainerState.WAIT
             && 0 < container.startPlayersAmount
-            && container.containerJoined.hasTags(PTag.PLAY).size >= container.startPlayersAmount
+            && container.joinedPlayers.hasTags(PTag.PLAY).size >= container.startPlayersAmount
         ) start(container, false)
     }
 
-    override fun left(element: GPlayer, container: Game, leftType: LeftType) {
+    override fun onLeft(element: GPlayer, container: Game, leftType: LeftType) {
         Bukkit.getPluginManager().callEvent(GameLeftEvent(element, container, leftType))
-        val joinedSize = container.containerJoined.filter { it.isPlaying }.size
+        val joinedSize = container.joinedPlayers.filter { it.isPlaying }.size
         if (container.containerState === ContainerState.WAIT
             && joinedSize < container.startPlayersAmount && container.hasGameTask()) {
-            container.containerJoined.forEach { it[::GameAlertImp].GAME_START_CANCELLED_DUE_TO_PLAYERLESS.send(it) }
+            container.joinedPlayers.forEach { it[::GameAlertImp].GAME_START_CANCELLED_DUE_TO_PLAYERLESS.send(it) }
             container.cancelGameTask()
         }
 
@@ -76,7 +75,7 @@ class GameHelper(
             } else {
                 val list = ArrayList<() -> Unit>()
                 for (i in tick downTo  1) list.add {
-                    game.containerJoined.forEach {
+                    game.joinedPlayers.forEach {
                         it[::GameAlertImp].GAME_START_COUNT_DOWN.send(it, it[::GameImp].containerName, i, it[::GameImp].gameInfo)
                     }
                 }
@@ -90,7 +89,7 @@ class GameHelper(
         if (container.containerState !== ContainerState.STOP) {
             container.containerState = ContainerState.STOP
             Bukkit.getPluginManager().callEvent(GameFinishEvent(container))
-            container.containerJoined.toList().forEach { p -> leftGame(p, leftType) }
+            container.joinedPlayers.toList().forEach { p -> leftContainer(p, leftType) }
             container.cancelGameTask()
             Bukkit.getPluginManager().callEvent(GameUnloadEvent(container))
         }

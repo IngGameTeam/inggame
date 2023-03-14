@@ -12,7 +12,7 @@ class AnnounceGameBegin(plugin: IngGamePlugin) : HandleListener(plugin) {
     fun onBeginGame(event: GameBeginEvent) {
         val game = event.game
         if (isNotHandler(game)) return
-        game.containerJoined.forEach { it[::GameAlertImp].GAME_START.send(it, it[::GameImp].containerName)}
+        game.joinedPlayers.forEach { it[::GameAlertImp].GAME_START.send(it, it[::GameImp].containerName)}
     }
 
 }

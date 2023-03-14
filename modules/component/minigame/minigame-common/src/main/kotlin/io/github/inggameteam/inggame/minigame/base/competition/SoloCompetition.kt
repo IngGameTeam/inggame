@@ -23,7 +23,7 @@ class SoloCompetitionHandler(
 ) : HandleListener(plugin), CompetitionHandler {
 
     override fun sendDeathMessage(player: GPlayer, killer: GPlayer?) {
-        player[::GameImp].containerJoined.forEach { p -> p[::GameAlertImp].PLAYER_DEATH_TO_VOID.send(p, player) }
+        player[::GameImp].joinedPlayers.forEach { p -> p[::GameAlertImp].PLAYER_DEATH_TO_VOID.send(p, player) }
     }
 
     @Suppress("unused")
@@ -31,7 +31,7 @@ class SoloCompetitionHandler(
     override fun handleDeath(event: GPlayerDeathEvent) {
         val player = event.player
         if (isNotHandler(player)) return
-        val game = player.joinedContainer
+        val game = player.joined
         if (game.containerState === ContainerState.WAIT) return
         val sendDeathMessage = game.containerState !== ContainerState.PLAY
         player.apply {
@@ -59,7 +59,7 @@ class SoloCompetitionHandler(
 
     override fun requestStop(game: Game) = game.run {
         if (containerState !== ContainerState.PLAY) return
-        val playPlayers = containerJoined.hasTags(PTag.PLAY)
+        val playPlayers = joinedPlayers.hasTags(PTag.PLAY)
         if (
             playPlayers.hasNoTags(PTag.DEAD).size == 0
             || playPlayers.size <= this[::CompetitionImp].stopCheckPlayer
@@ -69,18 +69,18 @@ class SoloCompetitionHandler(
     }
 
     override fun calcWinner(game: Game) = game.run {
-        val winners = containerJoined.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
-        val dieToReady = containerJoined.hasTags(PTag.DEAD, PTag.PLAY)
+        val winners = joinedPlayers.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
+        val dieToReady = joinedPlayers.hasTags(PTag.DEAD, PTag.PLAY)
         if (winners.isEmpty() && dieToReady.size == 1)
-            containerJoined.forEach { p -> p[::GameAlertImp].GAME_DRAW_HAS_WINNER.send(p, dieToReady,
+            joinedPlayers.forEach { p -> p[::GameAlertImp].GAME_DRAW_HAS_WINNER.send(p, dieToReady,
                 containerName
             ) }
         else if (winners.isEmpty()) {
-            containerJoined.forEach { p -> p[::GameAlertImp].GAME_DRAW_NO_WINNER.send(p, dieToReady,
+            joinedPlayers.forEach { p -> p[::GameAlertImp].GAME_DRAW_NO_WINNER.send(p, dieToReady,
                 containerName
             ) }
         } else {
-            containerJoined.forEach { p -> p[::GameAlertImp].SINGLE_WINNER.send(p, dieToReady, containerName) }
+            joinedPlayers.forEach { p -> p[::GameAlertImp].SINGLE_WINNER.send(p, dieToReady, containerName) }
         }
 //        winners.forEach{ Context.rewardPoint(it.player, rewardPoint)}
         Bukkit.getPluginManager().callEvent(GPlayerWinEvent(this, winners))

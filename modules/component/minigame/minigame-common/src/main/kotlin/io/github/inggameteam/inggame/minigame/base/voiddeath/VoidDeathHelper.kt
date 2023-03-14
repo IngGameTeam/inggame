@@ -11,7 +11,7 @@ class VoidDeathHelper {
     fun testVoidDeath(player: GPlayer): Boolean {
         if (player.isNotHandler(VoidDeathHandler::class)) return false
         val playerY = player.location.y
-        val joinedGame = player.joinedContainer[::SectionalImp]
+        val joinedGame = player.joined[::SectionalImp]
         val voidDeath = player[::VoidDeathImp].voidDeath
         return if (player.isHandler(SectionalHandler::class)) {
             playerY <= joinedGame.center.y + voidDeath

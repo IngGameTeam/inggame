@@ -40,7 +40,7 @@ class SectionalHandler(
     fun onJoinGame(event: GameJoinEvent) {
         val game = event.game[::SectionalImp]
         if (isNotHandler(game)) return
-        if (game.isAllocatedGame && game.containerJoined.size == 1) {
+        if (game.isAllocatedGame && game.joinedPlayers.size == 1) {
             val sectional = game[::SectionalImp]
             sectionalHelper.loadSector(sectional)
         }
@@ -51,7 +51,7 @@ class SectionalHandler(
     fun onLeftGame(event: GameLeftEvent) {
         val game = event.left[::SectionalImp]
         if (isNotHandler(game)) return
-        if (game.isAllocatedGame && game.containerJoined.size == 0) {
+        if (game.isAllocatedGame && game.joinedPlayers.size == 0) {
             val sectional = game[::SectionalImp]
             sectionalHelper.clearEntitiesToUnload(sectional)
         }
@@ -105,8 +105,8 @@ class SectionalHandler(
     fun onUnloadGame(event: GameUnloadEvent) {
         if (isNotHandler(event.game)) return
         val game = event.game[::SectionalImp]
-        event.isCancelled = true
         if (!game.unloadingSemaphore) return
+        event.isCancelled = true
         game.unloadingSemaphore = true
         if (!plugin.allowTask) return
         ;{
