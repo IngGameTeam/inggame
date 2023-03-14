@@ -23,6 +23,7 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(PartyAlert::class)
             classOf(PartyPlayer::class)
             classOf(PartyRequest::class)
+            classOf(PartyServer::class)
             classOf(::PartyHelper)
             classOf(::PartyInstanceService)
             classOf(::PartyRequestHelper)
