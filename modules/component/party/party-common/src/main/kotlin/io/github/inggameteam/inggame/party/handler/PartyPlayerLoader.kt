@@ -28,7 +28,7 @@ class PartyPlayerLoader(
 ) : Listener(plugin) {
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     fun onEnable(event: IngGamePluginEnableEvent) {
         playerService.getAll(::PartyPlayerImp).forEach { join(it) }
     }
