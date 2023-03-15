@@ -39,7 +39,7 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
             this
                 .cs("party-player", type = ComponentServiceType.MASKED)
                 .cs("party-instance", type = ComponentServiceType.LAYER)
-                .cs("party-resource", type = ComponentServiceType.MULTI).csc {
+                .cs("party-resource", type = ComponentServiceType.MULTI, root = "player-instance", key = "party-language").csc {
                     cs("party-template-korean", isSavable = true, type = ComponentServiceType.RESOURCE).cs("handler")
                 }
                 .cs("handler")
