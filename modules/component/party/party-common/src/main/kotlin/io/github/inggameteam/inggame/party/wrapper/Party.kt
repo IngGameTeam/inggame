@@ -14,7 +14,7 @@ class Party(wrapper: Wrapper) : ContainerImp<PartyPlayer>(wrapper) {
         get() = renamedPartyName?: defaultName.format(leader)
         set(value) { renamedPartyName = value }
     var leader: PartyPlayer by nonNull
-    val defaultName: String by nonNull
+    val defaultName: String by default { "%s's party" }
     fun resetName() {
         renamedPartyName = null
     }

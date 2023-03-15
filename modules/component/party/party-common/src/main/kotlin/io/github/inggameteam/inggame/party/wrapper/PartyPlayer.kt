@@ -8,7 +8,7 @@ import io.github.inggameteam.inggame.player.wrapper.WrappedPlayerImp
 interface PartyPlayer : Wrapper, WrappedPlayer, ContainerElement<Party> {
 }
 
-class PartyPlayerImp(wrapper: Wrapper) : PartyPlayer, ContainerElement<Party>, WrappedPlayerImp(wrapper) {
+class PartyPlayerImp(wrapper: Wrapper) : PartyPlayer, WrappedPlayerImp(wrapper) {
     override var joined: Party by nonNull
     override var isPlaying: Boolean
         get() = true
