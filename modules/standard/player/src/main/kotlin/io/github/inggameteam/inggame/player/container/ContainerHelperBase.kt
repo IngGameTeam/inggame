@@ -69,7 +69,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         if (leftType === LeftType.LEFT_SERVER) {
             containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
         } else {
-            container.joinedPlayers.forEach { p -> containerAlert.GAME_LEFT.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
+            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_LEFT.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
         }
         element.clearTags()
         val joinedSize = container.joinedPlayers.filter { it.isPlaying }.size
