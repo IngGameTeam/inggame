@@ -40,11 +40,11 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
                 .cs("party-player", type = ComponentServiceType.MASKED)
                 .cs("party-instance", type = ComponentServiceType.LAYER)
                 .cs("party-resource", type = ComponentServiceType.MULTI).csc {
-                    cs("party-template-korean", type = ComponentServiceType.RESOURCE).cs("handler")
+                    cs("party-template-korean", isSavable = true, type = ComponentServiceType.RESOURCE).cs("handler")
                 }
                 .cs("handler")
             this
-                .cs("party-request-instance", isSavable = true, type = ComponentServiceType.LAYER)
+                .cs("party-request-instance", type = ComponentServiceType.LAYER)
                 .cs("party-resource")
         }
     }
