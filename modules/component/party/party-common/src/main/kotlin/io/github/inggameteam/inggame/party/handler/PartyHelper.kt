@@ -15,7 +15,7 @@ import org.bukkit.Bukkit
 
 class PartyHelper(
     val plugin: IngGamePlugin,
-    val partyPlayerService: PartyPlayerService,
+    private val partyPlayerService: PartyPlayerService,
     private val partyInstanceService: PartyInstanceService,
     private val partyRequestInstanceRepo: PartyRequestInstanceRepo,
     private val partyServer: PartyServer
