@@ -44,7 +44,7 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
                 }
                 .cs("handler")
             this
-                .cs("party-request-instance", type = ComponentServiceType.LAYER)
+                .cs("party-request-instance", isSavable = true, type = ComponentServiceType.LAYER)
                 .cs("party-resource")
         }
     }
