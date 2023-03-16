@@ -45,7 +45,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         val containerAlert = element[::ContainerAlertImp]
         if (requestJoin(container, element, joinType, true)) {
             containerHelper.join(container, element)
-            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
+            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p.joined.containerName) }
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
             onJoin(container, element, joinType)
@@ -69,7 +69,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         if (leftType === LeftType.LEFT_SERVER) {
             containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
         } else {
-            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_LEFT.send(p, element, p[{ContainerImp<ELEMENT>(it)}].containerName) }
+            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_LEFT.send(p, element, p.joined.containerName) }
         }
         element.clearTags()
         val joinedSize = container.joinedPlayers.filter { it.isPlaying }.size
