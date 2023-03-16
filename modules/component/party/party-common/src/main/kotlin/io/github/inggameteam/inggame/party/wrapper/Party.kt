@@ -6,6 +6,7 @@ import io.github.inggameteam.inggame.utils.SafeListWithToString
 import java.util.*
 
 class Party(wrapper: Wrapper) : ContainerImp<PartyPlayer>(wrapper) {
+    override val containerName: String get() = name
     var isPartyOpened: Boolean by default { true }
     private var renamedPartyName: String? by nullable
     val partyBanList: SafeListWithToString<UUID> by default { SafeListWithToString<UUID>() }
