@@ -30,6 +30,7 @@ class PartyPlayerLoader(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onEnable(event: IngGamePluginEnableEvent) {
+        println(playerService.getAll())
         playerService.getAll().map { it.name as UUID }.forEach { join(it) }
     }
 
