@@ -25,7 +25,7 @@ class PartyImp(wrapper: Wrapper) : Party, ContainerImp<PartyPlayer>(wrapper) {
     override var name: String
         get() = renamedPartyName?: defaultName.format(leader)
         set(value) { renamedPartyName = value }
-    override var leader: PartyPlayer by nonNull
+    override var leader: PartyPlayer by default { joinedPlayers.first() }
     override val defaultName: String by nonNull
     override fun resetName() { renamedPartyName = null }
     override fun toString() = name
