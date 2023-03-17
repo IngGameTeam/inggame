@@ -22,7 +22,7 @@ class PartyHelper(
 ) : ContainerHelperBase<Party, PartyPlayer>(partyInstanceService, partyInstanceService, {partyServer.defaultParty}) {
 
     fun createContainer(parent: String = "party"): Party {
-        return super.createContainer(parent, partyInstanceService[randomUUID(), ::Party])
+        return super.createContainer(parent, partyInstanceService[randomUUID(), ::PartyImp])
     }
 
     override fun removeContainer(container: Party) {

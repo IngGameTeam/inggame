@@ -1,24 +1,33 @@
 package io.github.inggameteam.inggame.party.wrapper
 
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
+import io.github.inggameteam.inggame.player.container.Container
 import io.github.inggameteam.inggame.player.container.ContainerImp
 import io.github.inggameteam.inggame.utils.SafeListWithToString
 import java.util.*
 
-class Party(wrapper: Wrapper) : ContainerImp<PartyPlayer>(wrapper) {
-    override val containerName: String get() = name
-    var isPartyOpened: Boolean by default { true }
-    private var renamedPartyName: String? by nullable
-    val partyBanList: SafeListWithToString<UUID> by default { SafeListWithToString<UUID>() }
-    val renamed: Boolean get() = renamedPartyName !== null
+interface Party : Wrapper, Container<PartyPlayer> {
+    var isPartyOpened: Boolean
+    val defaultName: String
+    val partyBanList: SafeListWithToString<UUID>
+    val renamed: Boolean
     var name: String
+    var leader: PartyPlayer
+    fun resetName()
+}
+
+class PartyImp(wrapper: Wrapper) : Party, ContainerImp<PartyPlayer>(wrapper) {
+    override val containerName: String get() = name
+    override var isPartyOpened: Boolean by default { true }
+    private var renamedPartyName: String? by nullable
+    override val partyBanList: SafeListWithToString<UUID> by default { SafeListWithToString<UUID>() }
+    override val renamed: Boolean get() = renamedPartyName !== null
+    override var name: String
         get() = renamedPartyName?: defaultName.format(leader)
         set(value) { renamedPartyName = value }
-    var leader: PartyPlayer by nonNull
-    val defaultName: String by nonNull
-    fun resetName() {
-        renamedPartyName = null
-    }
+    override var leader: PartyPlayer by nonNull
+    override val defaultName: String by nonNull
+    override fun resetName() { renamedPartyName = null }
     override fun toString() = name
 }
 
