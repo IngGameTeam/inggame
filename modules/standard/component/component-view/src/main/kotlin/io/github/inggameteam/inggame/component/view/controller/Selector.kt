@@ -15,6 +15,7 @@ typealias EmptyElement = Unit
 interface Selector<T : Any> : View, OpenView {
 
     val elements: Collection<T>
+    var searchKey: String?
 
     val parentSelector: Selector<*>?
 
@@ -45,6 +46,10 @@ interface Selector<T : Any> : View, OpenView {
                         val backItem = createItem(Material.STRING, selector.VIEW_BACK_PAGE)
                         slot(4, 5, backItem) { event -> parentSelector?.open(event.whoClicked as Player) }
                     }
+
+                }
+//                val searchItem = createItem(Material.COMPASS, selector.VIEW_PREV_PAGE)
+                gui.slot(4, 5) { event ->
 
                 }
                 gui(gui)
