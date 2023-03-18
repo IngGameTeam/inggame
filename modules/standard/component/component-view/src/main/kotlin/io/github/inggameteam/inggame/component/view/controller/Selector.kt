@@ -61,7 +61,7 @@ interface Selector<T : Any> : View, OpenView {
                         StringEditor(
                             EditorViewImp(ViewImp(app, plugin, player),
                                 { searchKey = it.ifEmpty { null }; open(player) },
-                                { searchKey ?: "" })
+                                { searchKey ?: "" }), this
                         )
                             .open(player)
                     } else {
