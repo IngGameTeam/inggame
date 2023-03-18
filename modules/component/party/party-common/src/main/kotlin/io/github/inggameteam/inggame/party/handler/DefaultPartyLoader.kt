@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 
 class DefaultPartyLoader(
-    val partyServer: PartyServer,
-    val partyHelper: PartyHelper,
+    private val partyServer: PartyServer,
+    private val partyHelper: PartyHelper,
     plugin: IngGamePlugin
 ) : Listener(plugin) {
 
