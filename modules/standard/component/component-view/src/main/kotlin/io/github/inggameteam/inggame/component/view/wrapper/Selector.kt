@@ -13,6 +13,7 @@ interface Selector : Wrapper {
     val VIEW_RENAME_BUTTON: String
     val VIEW_TITLE: String
     val VIEW_SEARCH_BUTTON: String
+    val VIEW_CLEAR_SEARCH_BUTTON: String
     val VIEW_PREV_PAGE: String
     val VIEW_NEXT_PAGE: String
     val VIEW_BACK_PAGE: String
