@@ -5,6 +5,8 @@ import io.github.bruce0203.gui.GuiFrameDSL
 import io.github.inggameteam.inggame.component.view.OpenView
 import io.github.inggameteam.inggame.component.view.createItem
 import io.github.inggameteam.inggame.component.view.entity.View
+import io.github.inggameteam.inggame.component.view.entity.ViewImp
+import io.github.inggameteam.inggame.component.view.entity.createEmptyModelView
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -15,6 +17,8 @@ typealias EmptyElement = Unit
 interface Selector<T : Any> : View, OpenView {
 
     val elements: Collection<T>
+
+    var searchKey: String?
 
     val parentSelector: Selector<*>?
 
@@ -47,9 +51,14 @@ interface Selector<T : Any> : View, OpenView {
                     }
 
                 }
-                val searchItem = createItem(Material.COMPASS, selector.VIEW_SEARCH_BUTTON)
-                gui.slot(3, 5, searchItem) { event ->
-                    
+                val searchItem = createItem(Material.COMPASS,
+                    if (searchKey === null) selector.VIEW_SEARCH_BUTTON else selector.VIEW_CLEAR_SEARCH_BUTTON
+                )
+                gui.slot(2, 5, searchItem) { event ->
+                    StringEditor(EditorViewImp(ViewImp(app, plugin, player),
+                        { searchKey = it.ifEmpty { null }; open(player) },
+                        { searchKey?: "" }))
+                        .open(player)
                 }
                 gui(gui)
                 list.onClick { _, _, pair, event ->

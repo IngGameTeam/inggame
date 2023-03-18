@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 data class NameSpaceSelector(
     val nameSpaceView: ComponentServiceView,
     override val parentSelector: Selector<*>? = null
-) : ComponentServiceView by nameSpaceView, Selector<NameSpace>, AddButton<NameSpace>, RemoveButton<NameSpace> {
+) : ComponentServiceView by nameSpaceView, Selector<NameSpace>, SelectorImp<NameSpace>(), AddButton<NameSpace>, RemoveButton<NameSpace> {
     override fun addButton(player: Player) {
         StringEditor(EditorViewImp(this,
             { componentService.addNameSpace(it) }, {""}), this)

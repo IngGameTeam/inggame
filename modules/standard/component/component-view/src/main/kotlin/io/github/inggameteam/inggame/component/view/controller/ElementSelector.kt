@@ -16,7 +16,7 @@ import kotlin.reflect.full.createType
 
 typealias Element = Pair<Any, Any>
 class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector: Selector<*>? = null)
-    : NameSpaceView by nameSpaceView, Selector<Element>, AddButton<Element>, RemoveButton<Element> {
+    : NameSpaceView by nameSpaceView, Selector<Element>, SelectorImp<Element>(), AddButton<Element>, RemoveButton<Element> {
 
     @Deprecated("ornamental", ReplaceWith("stringGenericList"))
     val stringGenericList: ArrayList<String>

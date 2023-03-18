@@ -15,7 +15,7 @@ class SubTypeSelector(
     private val editorView: EditorView<*>,
     private val modelView: ModelView,
     override val parentSelector: Selector<*>? = null
-) : ModelView by modelView, Selector<Model>, Editor {
+) : ModelView by modelView, SelectorImp<Model>(), Editor {
     override val previousSelector: Selector<*>? get() = parentSelector
 
     override val elements: Collection<Model> get() =

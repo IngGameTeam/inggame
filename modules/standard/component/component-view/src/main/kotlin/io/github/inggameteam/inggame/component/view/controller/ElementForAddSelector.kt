@@ -13,7 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class ElementForAddSelector(
     nameSpaceView: NameSpaceView,
     override val parentSelector: Selector<*>? = null
-) : NameSpaceView by nameSpaceView, Selector<String> {
+) : NameSpaceView by nameSpaceView, SelectorImp<String>() {
     override val elements: Collection<String> get() = app.get<PropertyRegistry>().getAllProp().filter {
         val name = it.name
         val clazzName = it.clazz.simpleName!!

@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class NameSpaceForRemoveSelector(
     nameSpaceView: ComponentServiceView,
     override val parentSelector: Selector<*>? = null
-) : ComponentServiceView by nameSpaceView, Selector<NameSpace> {
+) : ComponentServiceView by nameSpaceView, Selector<NameSpace>, SelectorImp<NameSpace>() {
     override val elements: Collection<NameSpace> get() = componentService.getAll()
 
 

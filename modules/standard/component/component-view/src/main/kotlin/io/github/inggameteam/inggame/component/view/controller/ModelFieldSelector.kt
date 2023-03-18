@@ -22,7 +22,7 @@ class ModelFieldSelector(
     private val editorView: EditorView<*>,
     private val modelView: ModelView,
     override val parentSelector: Selector<*>? = null
-) : ModelView by modelView, Selector<Field>, Editor {
+) : ModelView by modelView, Selector<Field>, SelectorImp<Field>(), Editor {
 
     override val previousSelector: Selector<*>? get() = parentSelector
 

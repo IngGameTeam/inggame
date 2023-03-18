@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class ElementForRemoveSelector(
     nameSpaceView: NameSpaceView,
     override val parentSelector: Selector<*>? = null
-) : NameSpaceView by nameSpaceView, Selector<String> {
+) : NameSpaceView by nameSpaceView, SelectorImp<String>() {
     override val elements: Collection<String> get() = nameSpace.elements.keys.map { it.toString() }
 
 

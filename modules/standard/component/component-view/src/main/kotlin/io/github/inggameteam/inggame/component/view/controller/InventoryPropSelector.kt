@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 class InventoryPropSelector(
     private val editorView: EditorView<Any>,
     override val parentSelector: Selector<*>? = null
-) : Selector<Any>, Editor, EditorView<Any> by editorView {
+) : Selector<Any>, SelectorImp<Any>(), Editor, EditorView<Any> by editorView {
 
     private fun getInv(): InventoryModel = ((get() as? InventoryModel)?: InventoryModel())
 

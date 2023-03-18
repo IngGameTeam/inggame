@@ -18,7 +18,7 @@ import kotlin.reflect.full.createType
 class ItemStackPropSelector(
     private val editorView: EditorView<Any>,
     override val parentSelector: Selector<*>? = null
-) : Selector<Any>, Editor, EditorView<Any> by editorView {
+) : Selector<Any>, SelectorImp<Any>(), Editor, EditorView<Any> by editorView {
 
     private fun getItem(): ItemModel = ((get() as? ItemModel)?: ItemModel(null))
 
@@ -111,7 +111,7 @@ class ItemStackPropSelector(
     }
 
     override fun gui(gui: GuiFrameDSL) {
-        super.gui(gui)
+        super<Selector>.gui(gui)
         gui.slot(4, 2, getItem().itemStack) {
             val itemStack = getItem().itemStack
             if (itemStack.type !== Material.AIR) {

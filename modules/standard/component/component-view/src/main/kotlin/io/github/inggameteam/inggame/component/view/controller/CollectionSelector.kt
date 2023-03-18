@@ -16,7 +16,7 @@ import kotlin.reflect.KType
 class CollectionSelector<T : Any>(
     private val editorView: EditorView<T>,
     override val parentSelector: Selector<*>? = null
-): Selector<T>, Editor, EditorView<T> by editorView, AddButton<T>, RemoveButton<T> {
+): Selector<T>, SelectorImp<T>(), Editor, EditorView<T> by editorView, AddButton<T>, RemoveButton<T> {
     override val previousSelector: Selector<*>? get() = parentSelector
     override val elements: Collection<T> get() = list as MutableCollection<T>
 

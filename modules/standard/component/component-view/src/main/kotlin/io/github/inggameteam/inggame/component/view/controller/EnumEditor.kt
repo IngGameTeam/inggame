@@ -12,7 +12,7 @@ class EnumEditor(
     private val modelView: ModelView,
     editorView: EditorView<*>,
     override val parentSelector: Selector<*>?
-) : Selector<Enum<*>>, Editor, EditorView<Enum<*>> by editorView as EditorView<Enum<*>> {
+) : Selector<Enum<*>>, SelectorImp<Enum<*>>(), Editor, EditorView<Enum<*>> by editorView as EditorView<Enum<*>> {
     override val previousSelector: Selector<*>? get() = parentSelector
 
     override val elements: Collection<Enum<*>> get() = modelView.model.singleClass.enumConstants.map { it as Enum<*> }

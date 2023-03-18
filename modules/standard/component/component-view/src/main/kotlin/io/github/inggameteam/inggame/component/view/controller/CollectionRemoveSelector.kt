@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 class CollectionRemoveSelector<T: Any>(
     private val editorView: EditorView<T>,
     override val parentSelector: Selector<*>? = null
-) : Selector<T>, EditorView<T> by editorView, Editor {
+) : SelectorImp<T>(), EditorView<T> by editorView, Editor {
     override val previousSelector: Selector<*>? get() = parentSelector
     override val elements: Collection<T> = (editorView.get() as? MutableCollection<T>)?: emptyList()
 
