@@ -15,7 +15,7 @@ typealias EmptyElement = Unit
 interface Selector<T : Any> : View, OpenView {
 
     val elements: Collection<T>
-    var searchKey: String?
+//    var searchKey: String?
 
     val parentSelector: Selector<*>?
 
