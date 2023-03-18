@@ -34,8 +34,10 @@ interface Selector<T : Any> : View, OpenView {
 
     @Suppress("UNCHECKED_CAST")
     override fun open(player: Player) {
+        val filteredElements = if (searchKey === null) elements
+        else elements.filter { it.toString().contains(searchKey!!) }
         Gui.frame(plugin, 6, selector.VIEW_TITLE)
-            .list(0, 0, 9, 5, { elements.withBlank() },
+            .list(0, 0, 9, 5, { filteredElements.withBlank() },
                 { ns -> try { if (ns is EmptyElement) throw AssertionError(); transform(ns as T)} catch (_: Throwable) {
                     ItemStack(Material.AIR)
                 } }
@@ -55,10 +57,17 @@ interface Selector<T : Any> : View, OpenView {
                     if (searchKey === null) selector.VIEW_SEARCH_BUTTON else selector.VIEW_CLEAR_SEARCH_BUTTON
                 )
                 gui.slot(2, 5, searchItem) { event ->
-                    StringEditor(EditorViewImp(ViewImp(app, plugin, player),
-                        { searchKey = it.ifEmpty { null }; open(player) },
-                        { searchKey?: "" }))
-                        .open(player)
+                    if (searchKey === null) {
+                        StringEditor(
+                            EditorViewImp(ViewImp(app, plugin, player),
+                                { searchKey = it.ifEmpty { null }; open(player) },
+                                { searchKey ?: "" })
+                        )
+                            .open(player)
+                    } else {
+                        searchKey = null
+                        open(player)
+                    }
                 }
                 gui(gui)
                 list.onClick { _, _, pair, event ->
