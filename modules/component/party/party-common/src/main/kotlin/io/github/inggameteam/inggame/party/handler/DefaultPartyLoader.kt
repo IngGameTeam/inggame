@@ -17,7 +17,7 @@ class DefaultPartyLoader(
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOWEST)
     fun onEnable(event: IngGamePluginEnableEvent) {
-        partyServer.defaultParty = partyHelper.createContainer().apply {
+        partyServer.defaultParty = partyHelper.createContainer("defaultParty").apply {
             name = nameSpace.toString()
         }
     }
