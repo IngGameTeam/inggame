@@ -11,6 +11,7 @@ class SelectorImp(wrapper: Wrapper) : Wrapper by wrapper, Selector {
     override val VIEW_PARENT_BUTTON: String by nonNull
     override val VIEW_RENAME_BUTTON: String by nonNull
     override val VIEW_TITLE: String by nonNull
+    override val VIEW_SEARCH_BUTTON: String by nonNull
     override val VIEW_PREV_PAGE: String by nonNull
     override val VIEW_NEXT_PAGE: String by nonNull
     override val VIEW_BACK_PAGE: String by nonNull
