@@ -42,7 +42,7 @@ interface PartyAlert : Wrapper {
     val SENT_PARTY_REQUEST: Alert
     val SENT_PARTY_REQUEST_RECEIVE_ALL: Alert
     val PLAYER_NOT_FOUND: Alert
-
+    val PARTY_CREATED: Alert
 }
 
 class PartyAlertImp(wrapper: Wrapper) : Wrapper by wrapper, PartyAlert {
@@ -83,4 +83,5 @@ class PartyAlertImp(wrapper: Wrapper) : Wrapper by wrapper, PartyAlert {
     override val SENT_PARTY_REQUEST: Alert by nonNull
     override val SENT_PARTY_REQUEST_RECEIVE_ALL: Alert by nonNull
     override val PLAYER_NOT_FOUND: Alert by nonNull
+    override val PARTY_CREATED: Alert by nonNull
 }
