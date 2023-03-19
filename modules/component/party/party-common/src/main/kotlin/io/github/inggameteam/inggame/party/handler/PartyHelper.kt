@@ -40,8 +40,8 @@ class PartyHelper(
 
     fun createParty(dispatcher: PartyPlayer) {
         leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
-        dispatcher[::PartyAlertImp].PARTY_CREATED.send(dispatcher)
         joinContainer(createContainer(), dispatcher)
+        dispatcher[::PartyAlertImp].PARTY_CREATED.send(dispatcher)
     }
 
     fun renameParty(dispatcher: PartyPlayer, newName: String): Unit = dispatcher.joined.run {
