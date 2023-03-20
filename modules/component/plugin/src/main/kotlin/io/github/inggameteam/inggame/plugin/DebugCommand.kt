@@ -88,6 +88,10 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                     source.sendMessage(componentService.find(nameSpace, key).toString())
                 }
             }
+            thenExecute("measure-time") {
+                val time = measureTimeMillis{ player.performCommand(args[0]) }
+                player.sendMessage("${time}ms")
+            }
             thenExecute("debug") {
                 val newDebug = !Debug.isDebug
                 if (newDebug) source.sendMessage("Now, Debug mode is ON")

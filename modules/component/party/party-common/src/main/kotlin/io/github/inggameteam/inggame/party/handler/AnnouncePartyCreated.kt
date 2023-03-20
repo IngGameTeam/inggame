@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler
 
 class AnnouncePartyCreated(plugin: IngGamePlugin) : HandleListener(plugin) {
 
-    @Suppress
+    @Suppress("unused")
     @EventHandler
     fun onPartyCreated(event: CreatePartyEvent) {
         val player = event.player
