@@ -13,10 +13,8 @@ class AnnouncePartyCreated(plugin: IngGamePlugin) : HandleListener(plugin) {
     @EventHandler
     fun onPartyCreated(event: CreatePartyEvent) {
         val player = event.player
-        println(measureTimeMillis {
-            if (isNotHandler(player)) return
-        })
-        player[::PartyAlertImp].PARTY_CREATED.send(player)
+        if (isNotHandler(player)) return
+        println(measureTimeMillis { player[::PartyAlertImp].PARTY_CREATED.send(player) })
     }
 
 }
