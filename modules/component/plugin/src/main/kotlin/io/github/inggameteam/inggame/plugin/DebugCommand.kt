@@ -89,7 +89,7 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 }
             }
             thenExecute("measure-time") {
-                val time = measureTimeMillis{ player.performCommand(args[0]) }
+                val time = measureTimeMillis{ player.performCommand(args[1]) }
                 player.sendMessage("${time}ms")
             }
             thenExecute("debug") {
