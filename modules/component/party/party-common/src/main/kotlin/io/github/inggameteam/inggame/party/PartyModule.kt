@@ -6,10 +6,7 @@ import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.party.component.*
-import io.github.inggameteam.inggame.party.handler.DefaultPartyLoader
-import io.github.inggameteam.inggame.party.handler.PartyHelper
-import io.github.inggameteam.inggame.party.handler.PartyPlayerLoader
-import io.github.inggameteam.inggame.party.handler.PartyRequestHelper
+import io.github.inggameteam.inggame.party.handler.*
 import io.github.inggameteam.inggame.party.wrapper.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
@@ -31,6 +28,8 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
             classOf(::PartyRequestHelper)
             classOf(::PartyPlayerLoader)
             classOf(::DefaultPartyLoader)
+            classOf(::AnnouncePartyCreated)
+            classOf(::PartyCreationHandler)
         }
         event.addModule(createSingleton<PartyServer>(::PartyServerImp, "server", "singleton"))
         event.addModule(newModule("party-player", ::PartyPlayerService))

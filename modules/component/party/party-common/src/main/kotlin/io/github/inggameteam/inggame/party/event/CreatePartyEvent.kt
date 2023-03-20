@@ -1,11 +1,12 @@
 package io.github.inggameteam.inggame.party.event
 
+import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
 import io.github.inggameteam.inggame.player.wrapper.WrappedPlayer
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
 class CreatePartyEvent(
-    val player: WrappedPlayer
+    val player: PartyPlayer
     ) : Event() {
     override fun getHandlers(): HandlerList { return HANDLERS }
     companion object {
