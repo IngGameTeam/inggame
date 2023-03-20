@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.party.event.CreatePartyEvent
 import io.github.inggameteam.inggame.party.wrapper.PartyAlertImp
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
+import kotlin.system.measureTimeMillis
 
 class AnnouncePartyCreated(plugin: IngGamePlugin) : HandleListener(plugin) {
 
@@ -12,7 +13,9 @@ class AnnouncePartyCreated(plugin: IngGamePlugin) : HandleListener(plugin) {
     @EventHandler
     fun onPartyCreated(event: CreatePartyEvent) {
         val player = event.player
-        if (isNotHandler(player)) return
+        println(measureTimeMillis {
+            if (isNotHandler(player)) return
+        })
         player[::PartyAlertImp].PARTY_CREATED.send(player)
     }
 
