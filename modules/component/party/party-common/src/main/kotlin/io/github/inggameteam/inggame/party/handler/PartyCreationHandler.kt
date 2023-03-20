@@ -7,13 +7,14 @@ import io.github.inggameteam.inggame.party.wrapper.Party
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
+import kotlin.system.measureTimeMillis
 
 class PartyCreationHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
 
     @Suppress("unused")
     @EventHandler
     fun onJoinPartyThenCreateParty(event: JoinPartyEvent) {
-        if (isNotHandler(event.joined)) return
+        println(measureTimeMillis{ if (isNotHandler(event.joined)) return })
         if (event.joined.joinedPlayers.size == 1) {
             Bukkit.getPluginManager().callEvent(CreatePartyEvent(event.player))
         }
