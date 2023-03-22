@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.utils.singleClass
 import kotlin.reflect.KProperty
+import kotlin.system.measureTimeMillis
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
 class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
@@ -28,10 +29,12 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     }
 
     override fun remove(container: CONTAINER) {
-        val uncoveredContainer = uncoverDelegate(container)
-        if (container.component.getOrNull(uncoveredContainer) === null) return
-        getList(container).forEach(::left)
-        componentService.unload(uncoveredContainer, false)
+        measureTimeMillis{
+            val uncoveredContainer = uncoverDelegate(container)
+            if (container.component.getOrNull(uncoveredContainer) === null) return
+            getList(container).forEach(::left)
+            componentService.unload(uncoveredContainer, false)
+        }
     }
 
     override fun join(container: CONTAINER, key: ELEMENT) {

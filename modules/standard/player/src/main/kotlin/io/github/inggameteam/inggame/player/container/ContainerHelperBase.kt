@@ -70,7 +70,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
     open fun onLeft(element: ELEMENT, container: CONTAINER, leftType: LeftType) = Unit
 
     fun leftContainer(element: ELEMENT, leftType: LeftType): Boolean {
-        println(measureTimeMillis{ if (element.component.has(element.nameSpace, ContainerElement<*>::joined.name).not()) return false })
+        if (element.component.has(element.nameSpace, ContainerElement<*>::joined.name).not()) return false
         val container = element.joined
         if (!requestLeft(container, element, leftType)) return false
         onLeft(element, container, leftType)
