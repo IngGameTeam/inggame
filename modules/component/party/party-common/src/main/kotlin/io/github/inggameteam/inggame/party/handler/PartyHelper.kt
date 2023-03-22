@@ -12,6 +12,7 @@ import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import org.bukkit.Bukkit
+import kotlin.system.measureTimeMillis
 
 class PartyHelper(
     val plugin: IngGamePlugin,
@@ -22,7 +23,9 @@ class PartyHelper(
 ) : ContainerHelperBase<Party, PartyPlayer>(partyInstanceService, partyInstanceService, {partyServer.defaultParty}) {
 
     fun createContainer(parent: String = "party"): Party {
-        return super.createContainer(parent, partyInstanceService[randomUUID(), ::PartyImp])
+        var lazy: Party
+        println(measureTimeMillis { lazy = super.createContainer(parent, partyInstanceService[randomUUID(), ::PartyImp]) })
+        return lazy
     }
 
     override fun removeContainer(container: Party) {
