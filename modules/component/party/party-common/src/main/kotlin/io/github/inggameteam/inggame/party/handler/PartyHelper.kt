@@ -40,8 +40,8 @@ class PartyHelper(
     }
 
     fun createParty(dispatcher: PartyPlayer) {
-        println(measureTimeMillis {
             leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
+        println(measureTimeMillis {
             joinContainer(createContainer(), dispatcher)
         })
     }
