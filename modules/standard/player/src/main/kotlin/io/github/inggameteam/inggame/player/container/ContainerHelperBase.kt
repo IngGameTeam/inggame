@@ -53,6 +53,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
                     element
                     container.containerName
                 }
+                println(container.nameSpace)
             })
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
