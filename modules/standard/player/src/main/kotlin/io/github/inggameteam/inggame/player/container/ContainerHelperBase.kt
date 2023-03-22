@@ -48,7 +48,11 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
             containerHelper.join(container, element)
             println(measureTimeMillis{
                 container.joinedPlayers.forEach { p ->
-                    p[::ContainerAlertImp].GAME_JOIN
+                    p[::ContainerAlertImp].GAME_JOIN.send(
+                        p,
+                        element,
+                        p.joined.containerName
+                    )
                 }
             })
             if (joinType === JoinType.PLAY) element.isPlaying = true
