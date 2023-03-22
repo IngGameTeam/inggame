@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.utils.Model
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.*
 import org.bukkit.entity.Player
+import kotlin.system.measureTimeMillis
 
 interface AlertReciver
 
@@ -36,9 +37,11 @@ class ChatAlert(
     var message: String?
 ) : Alert {
     override fun send(reciver: AlertReciver, vararg args: Any) {
-        val format = message?.colored?.format(*args)?: ""
-        if (reciver is Player) reciver.sendMessage(format)
-        else println("$reciver: $format")
+        println(measureTimeMillis{
+            val format = message?.colored?.format(*args) ?: ""
+            if (reciver is Player) reciver.sendMessage(format)
+            else println("$reciver: $format")
+        })
     }
 
     override fun toString() = "ChatAlert{$message}"
