@@ -54,7 +54,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
                     container.containerName
                 }
 
-                repeat(100){ println(container.containerName) }
+               println(measureTimeMillis { repeat(100) { println(container.containerName) } })
             })
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
