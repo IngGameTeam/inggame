@@ -77,14 +77,14 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         val containerAlert = element[::ContainerAlertImp]
         println(measureTimeMillis{
             if (leftType === LeftType.LEFT_SERVER) {
-                containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
+//                containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
             } else {
                 container.joinedPlayers.forEach { p ->
-                    p[::ContainerAlertImp].GAME_LEFT.send(
-                        p,
-                        element,
-                        p.joined.containerName
-                    )
+//                    p[::ContainerAlertImp].GAME_LEFT.send(
+//                        p,
+//                        element,
+//                        p.joined.containerName
+//                    )
                 }
             }
             element.clearTags()
