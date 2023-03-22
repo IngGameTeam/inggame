@@ -41,9 +41,7 @@ class PartyHelper(
 
     fun createParty(dispatcher: PartyPlayer) {
             leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
-        println(measureTimeMillis {
             joinContainer(createContainer(), dispatcher)
-        })
     }
 
     fun renameParty(dispatcher: PartyPlayer, newName: String): Unit = dispatcher.joined.run {
