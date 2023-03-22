@@ -48,11 +48,11 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
             containerHelper.join(container, element)
             println(measureTimeMillis{
                 container.joinedPlayers.forEach { p ->
-                    p[::ContainerAlertImp].GAME_JOIN.send(p, element, container.containerName)
+                    p[::ContainerAlertImp].GAME_JOIN.send(p, element)
                 }
             })
             if (joinType === JoinType.PLAY) element.isPlaying = true
-            else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
+            else containerAlert.GAME_START_SPECTATING.send(element)
             onJoin(container, element, joinType)
             return true
         }
@@ -74,7 +74,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         if (leftType === LeftType.LEFT_SERVER) {
             containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
         } else {
-            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_LEFT.send(p, element, container.containerName) }
+            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_LEFT.send(p, element) }
         }
         element.clearTags()
         val joinedSize = container.joinedPlayers.filter { it.isPlaying }.size
