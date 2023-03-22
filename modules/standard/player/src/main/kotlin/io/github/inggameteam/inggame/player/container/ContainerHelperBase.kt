@@ -51,6 +51,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
                     p[::ContainerAlertImp].GAME_JOIN
                     p
                     element
+                    container.containerName
                 }
             })
             if (joinType === JoinType.PLAY) element.isPlaying = true
