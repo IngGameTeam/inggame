@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.utils.ContainerState
 import io.github.inggameteam.inggame.utils.JoinType
 import io.github.inggameteam.inggame.utils.LeftType
+import kotlin.system.measureTimeMillis
 
 abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : ContainerElement<CONTAINER>>(
     private val containerComponent: ComponentService,
@@ -44,7 +45,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         leftContainer(element, LeftType.DUE_TO_MOVE_ANOTHER)
         val containerAlert = element[::ContainerAlertImp]
         if (requestJoin(container, element, joinType, true)) {
-            containerHelper.join(container, element)
+            println(measureTimeMillis { containerHelper.join(container, element) })
             container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p.joined.containerName) }
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
