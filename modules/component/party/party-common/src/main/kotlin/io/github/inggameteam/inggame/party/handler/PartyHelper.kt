@@ -12,6 +12,7 @@ import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import org.bukkit.Bukkit
+import kotlin.system.measureTimeMillis
 
 class PartyHelper(
     val plugin: IngGamePlugin,
@@ -39,8 +40,10 @@ class PartyHelper(
     }
 
     fun createParty(dispatcher: PartyPlayer) {
-        leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
-        joinContainer(createContainer(), dispatcher)
+        println(measureTimeMillis {
+            leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
+            joinContainer(createContainer(), dispatcher)
+        })
     }
 
     fun renameParty(dispatcher: PartyPlayer, newName: String): Unit = dispatcher.joined.run {
