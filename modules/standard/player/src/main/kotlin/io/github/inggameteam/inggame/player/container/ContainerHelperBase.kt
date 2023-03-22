@@ -75,20 +75,12 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         if (!requestLeft(container, element, leftType)) return false
         onLeft(element, container, leftType)
         val containerAlert = element[::ContainerAlertImp]
-        println(measureTimeMillis{
-            if (leftType === LeftType.LEFT_SERVER) {
-//                containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
-            } else {
-                container.joinedPlayers.forEach { p ->
-//                    p[::ContainerAlertImp].GAME_LEFT.send(
-//                        p,
-//                        element,
-//                        p.joined.containerName
-//                    )
-                }
-            }
-            element.clearTags()
-        })
+        if (leftType === LeftType.LEFT_SERVER) {
+            containerAlert.GAME_LEFT_GAME_DUE_TO_SERVER_LEFT.send(element, container.containerName)
+        } else {
+            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_LEFT.send(p, element, p.joined.containerName) }
+        }
+        element.clearTags()
         val joinedSize = container.joinedPlayers.filter { it.isPlaying }.size
         if (leftType.isJoinHub) {
             joinContainer(hub(), element)
