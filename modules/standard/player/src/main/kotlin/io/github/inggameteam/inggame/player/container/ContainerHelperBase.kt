@@ -45,8 +45,16 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         leftContainer(element, LeftType.DUE_TO_MOVE_ANOTHER)
         val containerAlert = element[::ContainerAlertImp]
         if (requestJoin(container, element, joinType, true)) {
-            println(measureTimeMillis { containerHelper.join(container, element) })
-            container.joinedPlayers.forEach { p -> p[::ContainerAlertImp].GAME_JOIN.send(p, element, p.joined.containerName) }
+            containerHelper.join(container, element)
+            println(measureTimeMillis{
+                container.joinedPlayers.forEach { p ->
+                    p[::ContainerAlertImp].GAME_JOIN.send(
+                        p,
+                        element,
+                        p.joined.containerName
+                    )
+                }
+            })
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
             onJoin(container, element, joinType)
