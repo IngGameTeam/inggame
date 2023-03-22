@@ -29,12 +29,12 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
     }
 
     override fun remove(container: CONTAINER) {
-        measureTimeMillis{
+        println(measureTimeMillis{
             val uncoveredContainer = uncoverDelegate(container)
             if (container.component.getOrNull(uncoveredContainer) === null) return
             getList(container).forEach(::left)
             componentService.unload(uncoveredContainer, false)
-        }
+        })
     }
 
     override fun join(container: CONTAINER, key: ELEMENT) {
