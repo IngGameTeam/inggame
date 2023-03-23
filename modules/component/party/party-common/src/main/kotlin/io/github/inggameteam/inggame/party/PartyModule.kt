@@ -15,12 +15,12 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 
-class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
+class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
-        event.registerClass(*Finder.find { cls ->
+        event.registerClass(*Finder.find(plugin.javaClass) { cls ->
             cls.isAssignableFrom(Wrapper::class.java)
                     || cls.isAssignableFrom(Handler::class.java)
                     || cls.isAssignableFrom(Listener::class.java)
