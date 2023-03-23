@@ -1,13 +1,16 @@
 package io.github.inggameteam.inggame.party
 
+import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.createSingleton
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
+import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.party.component.*
 import io.github.inggameteam.inggame.party.handler.*
 import io.github.inggameteam.inggame.party.wrapper.*
+import io.github.inggameteam.inggame.utils.ClassFinder
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
@@ -17,6 +20,11 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
+        event.registerClass(*ClassFinder.find { cls ->
+            cls.isAssignableFrom(Wrapper::class.java)
+                    || cls.isAssignableFrom(Handler::class.java)
+                    || cls.isAssignableFrom(Listener::class.java)
+        }.toTypedArray())
         event.registerClass {
             classOf(PartyAlert::class)
             classOf(PartyPlayer::class)

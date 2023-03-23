@@ -94,6 +94,8 @@ allprojects {
         testImplementation("io.insert-koin:koin-test-junit4:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit5:${Dependency.Koin.Version}")
 
+        implementation("org.burningwave:core:12.62.6")
+        testImplementation("org.burningwave:core:12.62.6")
 
     }
 

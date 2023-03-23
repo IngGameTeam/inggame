@@ -3,7 +3,7 @@ package io.github.inggameteam.inggame.party.wrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.player.wrapper.WrappedPlayer
 
-interface PartyRequest {
+interface PartyRequest : Wrapper {
 
     var partyRequestSender: WrappedPlayer
     var partyRequestReciver: WrappedPlayer
