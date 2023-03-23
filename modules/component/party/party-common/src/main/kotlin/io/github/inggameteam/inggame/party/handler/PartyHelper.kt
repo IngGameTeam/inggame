@@ -12,7 +12,6 @@ import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import org.bukkit.Bukkit
-import kotlin.system.measureTimeMillis
 
 class PartyHelper(
     val plugin: IngGamePlugin,
@@ -46,16 +45,16 @@ class PartyHelper(
 
     fun renameParty(dispatcher: PartyPlayer, newName: String): Unit = dispatcher.joined.run {
         if (leader == dispatcher) {
-            val beforeName = name
+            val beforeName = partyName
             if (newName.isEmpty()) {
                 resetName()
             } else if (newName.length > 20) {
                 dispatcher[::PartyAlertImp].OVER_PARTY_NAME_LENGTH.send(dispatcher)
                 return
             } else {
-                name = newName.color()
+                partyName = newName.color()
             }
-            dispatcher[::PartyAlertImp].PARTY_RENAMED.send(dispatcher, beforeName, name)
+            dispatcher[::PartyAlertImp].PARTY_RENAMED.send(dispatcher, beforeName, partyName)
             Bukkit.getPluginManager().callEvent(PartyUpdateEvent(this))
         } else dispatcher[::PartyAlertImp].PARTY_RENAME_IS_LEADER_ONLY.send(dispatcher)
     }
