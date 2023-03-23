@@ -48,10 +48,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
             containerHelper.join(container, element)
             println(measureTimeMillis{
                 container.joinedPlayers.forEach { p ->
-                    p[::ContainerAlertImp].GAME_JOIN
-                    p
-                    element
-                    container.containerName
+                    p[::ContainerAlertImp].GAME_JOIN.send(p, element, container.containerName)
                 }
 
                println(measureTimeMillis { repeat(100) { println(container.containerName) } })
