@@ -10,7 +10,7 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.party.component.*
 import io.github.inggameteam.inggame.party.handler.*
 import io.github.inggameteam.inggame.party.wrapper.*
-import io.github.inggameteam.inggame.utils.ClassFinder
+import io.github.inggameteam.inggame.utils.Finder
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
@@ -20,7 +20,7 @@ class PartyModule(plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
-        event.registerClass(*ClassFinder.find { cls ->
+        event.registerClass(*Finder.find { cls ->
             cls.isAssignableFrom(Wrapper::class.java)
                     || cls.isAssignableFrom(Handler::class.java)
                     || cls.isAssignableFrom(Listener::class.java)
