@@ -15,6 +15,7 @@ class ElementForRemoveSelector(
 
     override fun select(t: String, event: InventoryClickEvent) {
         componentService.set(nameSpace.name, t, null)
+        parentSelector?.open(player)
     }
 
     override fun transform(t: String) = createItem(Material.DIRT, "${RED}$t")
