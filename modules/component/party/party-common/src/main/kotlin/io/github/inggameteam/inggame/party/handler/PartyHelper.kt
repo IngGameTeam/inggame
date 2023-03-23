@@ -52,7 +52,7 @@ class PartyHelper(
                 dispatcher[::PartyAlertImp].OVER_PARTY_NAME_LENGTH.send(dispatcher)
                 return
             } else {
-                partyName = newName.color()
+                partyNameOrNull = newName.color()
             }
             dispatcher[::PartyAlertImp].PARTY_RENAMED.send(dispatcher, beforeName, partyName)
             Bukkit.getPluginManager().callEvent(PartyUpdateEvent(this))
@@ -87,8 +87,9 @@ class PartyHelper(
                 joinedPlayers.filter { it != newLeader }.fastForEach { p ->
                     p[::PartyAlertImp].PARTY_PROMOTED.send(p, newLeader, this)
                 }
+                val isPartyNameOrigin = partyName == defaultName
                 leader = newLeader
-                if (!renamed) resetName()
+                if (!isPartyNameOrigin) resetName()
                 Bukkit.getPluginManager().callEvent(PartyUpdateEvent(this))
             } else dispatcher[::PartyAlertImp].PLAYER_NOT_EXIST_IN_PARTY.send(dispatcher)
         } else dispatcher[::PartyAlertImp].PARTY_PROMOTE_IS_LEADER_ONLY.send(dispatcher)

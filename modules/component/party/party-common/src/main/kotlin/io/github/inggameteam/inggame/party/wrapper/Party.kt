@@ -10,24 +10,22 @@ interface Party : Wrapper, Container<PartyPlayer> {
     var isPartyOpened: Boolean
     val defaultName: String
     val partyBanList: SafeListWithToString<UUID>
-    val renamed: Boolean
+    var partyNameOrNull: String?
     var partyName: String
+        get() = partyNameOrNull!!
+        set(value) { partyNameOrNull = value }
     var leader: PartyPlayer
     fun resetName()
 }
 
 class PartyImp(wrapper: Wrapper) : Party, ContainerImp<PartyPlayer>(wrapper) {
-    override val containerName: String get() = partyName
+    override val containerName: String get() = partyNameOrNull!!
     override var isPartyOpened: Boolean by default { true }
-    private var renamedPartyName: String? by nullable
     override val partyBanList: SafeListWithToString<UUID> by default { SafeListWithToString<UUID>() }
-    override val renamed: Boolean get() = renamedPartyName !== null
-    override var partyName: String
-        get() = renamedPartyName?: defaultName.format(leader)
-        set(value) { renamedPartyName = value }
+    override var partyNameOrNull: String? by nullableDefault { defaultName }
     override var leader: PartyPlayer by default { joinedPlayers.first() }
-    override val defaultName: String by nonNull
-    override fun resetName() { renamedPartyName = null }
-    override fun toString() = partyName
+    override val defaultName: String get() = get(::defaultName.name, String::class).format(leader)
+    override fun resetName() { partyNameOrNull = null }
+    override fun toString() = partyNameOrNull!!
 }
 
