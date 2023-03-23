@@ -26,9 +26,6 @@ interface Wrapper {
 
     fun default(block: () -> Any) = NonNullWrapperImp(nameSpace, component).apply { defaultBlock = block }
 
-    fun nullableDefault(block: () -> Any) = NullableWrapperImp(nameSpace, component).apply { defaultBlock = block }
-
-    @Deprecated("deprecated", replaceWith = ReplaceWith("default { TODO() }"))
     fun nullableDefault(block: () -> Any?) = NullableWrapperImp(nameSpace, component).apply { defaultBlock = block }
 
     fun getValue(key: Any): Any = component.find(nameSpace, key)

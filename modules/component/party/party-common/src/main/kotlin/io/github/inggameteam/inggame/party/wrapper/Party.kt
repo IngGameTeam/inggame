@@ -24,7 +24,7 @@ class PartyImp(wrapper: Wrapper) : Party, ContainerImp<PartyPlayer>(wrapper) {
     override val partyBanList: SafeListWithToString<UUID> by default { SafeListWithToString<UUID>() }
     override var partyNameOrNull: String? by nullableDefault { defaultName }
     override var leader: PartyPlayer by default { joinedPlayers.first() }
-    override val defaultName: String get() = get(::defaultName.name, String::class).format(leader)
+    override val defaultName: String get() = getValue(::defaultName.name).toString().format(leader)
     override fun resetName() { partyNameOrNull = null }
     override fun toString() = partyNameOrNull!!
 }
