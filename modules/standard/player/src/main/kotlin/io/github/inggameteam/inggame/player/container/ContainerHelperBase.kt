@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.utils.ContainerState
 import io.github.inggameteam.inggame.utils.JoinType
 import io.github.inggameteam.inggame.utils.LeftType
+import io.github.inggameteam.inggame.utils.randomUUID
 import kotlin.system.measureTimeMillis
 
 abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : ContainerElement<CONTAINER>>(
