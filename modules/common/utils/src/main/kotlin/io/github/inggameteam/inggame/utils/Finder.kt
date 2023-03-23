@@ -13,6 +13,11 @@ object Finder {
         val pathHelper = componentSupplier.pathHelper
         val classHunter = componentSupplier.classHunter
         println(ClassUtil.getJarFile(plugin).path)
+        println(ClassUtil.getJarFile(plugin).path)
+        println(ClassUtil.getJarFile(plugin).path)
+        println(ClassUtil.getJarFile(plugin).path)
+        println(ClassUtil.getJarFile(plugin).path)
+        println(ClassUtil.getJarFile(plugin).path)
         val searchConfig = SearchConfig.forPaths(
             ClassUtil.getJarFile(plugin).path
         ).by(
