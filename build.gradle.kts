@@ -96,6 +96,8 @@ allprojects {
 
         compileOnly("org.burningwave:core:12.62.6")
         testCompileOnly("org.burningwave:core:12.62.6")
+        compileOnly("org.burningwave:reflection:3.5.4")
+        testCompileOnly("org.burningwave:reflection:3.5.4")
 
     }
 
