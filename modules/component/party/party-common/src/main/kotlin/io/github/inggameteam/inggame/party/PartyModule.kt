@@ -27,11 +27,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
                 .apply { println(this) }
                 .map { it.load() }
-                .filter { cls ->
-                    cls.kotlin.isSubclassOf(Wrapper::class)
-                            || cls.kotlin.isSubclassOf(Handler::class)
-                            || cls.kotlin.isSubclassOf(Listener::class)
-                }.toTypedArray())
+                .toTypedArray())
         event.registerClass {
 
 //            classOf(PartyAlert::class)
@@ -39,9 +35,9 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
 //            classOf(PartyRequest::class)
 //            classOf(PartyServer::class)
 //            classOf(Party::class)
-            classOf(::PartyHelper)
-            classOf(::PartyInstanceService)
-            classOf(::PartyRequestHelper)
+//            classOf(::PartyHelper)
+//            classOf(::PartyInstanceService)
+//            classOf(::PartyRequestHelper)
 //            classOf(::PartyPlayerLoader)
 //            classOf(::DefaultPartyLoader)
 //            classOf(::AnnouncePartyCreated)
