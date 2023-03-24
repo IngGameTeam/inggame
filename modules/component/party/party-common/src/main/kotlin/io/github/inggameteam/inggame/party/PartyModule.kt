@@ -52,18 +52,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 }.toTypedArray())
         event.addModule(clazzModule.module)
         event.registerClass {
- //            classOf(PartyAlert::class)
-//            classOf(PartyPlayer::class)
-//            classOf(PartyRequest::class)
-//            classOf(PartyServer::class)
-//            classOf(Party::class)
-            classOf(::PartyHelper)
             classOf(::PartyInstanceService)
-            classOf(::PartyRequestHelper)
-//            classOf(::PartyPlayerLoader)
-//            classOf(::DefaultPartyLoader)
-//            classOf(::AnnouncePartyCreated)
-//            classOf(::PartyCreationHandler)
         }
         event.addModule(createSingleton<PartyServer>(::PartyServerImp, "server", "singleton"))
         event.addModule(newModule("party-player", ::PartyPlayerService))
