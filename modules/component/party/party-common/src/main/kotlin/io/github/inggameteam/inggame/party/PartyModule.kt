@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.koin.core.module.dsl.new
+import org.koin.core.module.dsl.withOptions
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 import org.koin.core.scope.get
@@ -46,7 +47,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                                 .map { it.type.toString() }
                                 .map { this.get<Any>(Class.forName(it).kotlin, null, null) }
                                 .toTypedArray())
-                        }
+                        }.withOptions { this.secondaryTypes = listOf(cls) }
                         null
                     }
                 }.toTypedArray())
