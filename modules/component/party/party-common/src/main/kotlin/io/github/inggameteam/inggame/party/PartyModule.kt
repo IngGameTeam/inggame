@@ -21,16 +21,16 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
         val loader = javaClass.classLoader
-        event.registerClass(
-            *ClassPath.from(loader).topLevelClasses
-                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
-                .apply { println(this) }
-                .map { it.load() }
-                .filter { cls ->
-                    cls.isAssignableFrom(Wrapper::class.java)
-                            || cls.isAssignableFrom(Handler::class.java)
-                            || cls.isAssignableFrom(Listener::class.java)
-                }.toTypedArray())
+//        event.registerClass(
+//            *ClassPath.from(loader).topLevelClasses
+//                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
+//                .apply { println(this) }
+//                .map { it.load() }
+//                .filter { cls ->
+//                    cls.isAssignableFrom(Wrapper::class.java)
+//                            || cls.isAssignableFrom(Handler::class.java)
+//                            || cls.isAssignableFrom(Listener::class.java)
+//                }.toTypedArray())
         event.registerClass {
             classOf(PartyAlert::class)
             classOf(PartyPlayer::class)
