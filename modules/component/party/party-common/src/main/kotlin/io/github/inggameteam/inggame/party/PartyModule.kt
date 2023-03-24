@@ -23,7 +23,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
         val loader = javaClass.classLoader
         event.registerClass(
             *ClassPath.from(loader).topLevelClasses
-                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame") }
+                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
                 .apply { println(this) }
                 .map { it.load() }
                 .filter { cls ->
