@@ -20,7 +20,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
-        val loader = Thread.currentThread().contextClassLoader
+        val loader = javaClass.classLoader
 //        event.registerClass(
             ClassPath.from(loader).topLevelClasses
                 .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame") }
