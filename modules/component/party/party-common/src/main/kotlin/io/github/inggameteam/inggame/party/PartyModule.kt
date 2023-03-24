@@ -1,9 +1,7 @@
 package io.github.inggameteam.inggame.party
 
 import com.google.common.reflect.ClassPath
-import io.github.inggameteam.inggame.component.Handler
-import io.github.inggameteam.inggame.component.classOf
-import io.github.inggameteam.inggame.component.createSingleton
+import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
@@ -14,6 +12,12 @@ import io.github.inggameteam.inggame.party.wrapper.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
+import org.koin.core.module.dsl.new
+import org.koin.core.qualifier.named
+import org.koin.dsl.bind
+import org.koin.dsl.module
+import org.koin.ext.getFullName
+import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.isSubclassOf
 
 class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
@@ -22,13 +26,22 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
         val loader = javaClass.classLoader
+        val clazzModule = ClassModule(module(createdAtStart = true) {})
         event.registerClass(
             *ClassPath.from(loader).topLevelClasses
                 .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
                 .apply { println(this) }
                 .map { it.load() }
-                .toTypedArray())
+                .mapNotNull { cls ->
+                    if (cls.kotlin.isSubclassOf(Wrapper::class)
+                        || cls.kotlin.isSubclassOf(Handler::class)
+                        || cls.kotlin.isSubclassOf(Listener::class)) cls else {
+                        clazzModule.module.single(named(cls.kotlin.getFullName())) { cls.kotlin.createInstance() }
+                        null
+                    }
+                }.toTypedArray())
         event.registerClass {
+
 //            classOf(PartyAlert::class)
 //            classOf(PartyPlayer::class)
 //            classOf(PartyRequest::class)
