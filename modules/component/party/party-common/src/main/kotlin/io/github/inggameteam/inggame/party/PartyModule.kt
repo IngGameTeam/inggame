@@ -14,8 +14,10 @@ import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.koin.core.module.dsl.new
 import org.koin.core.qualifier.named
+import org.koin.core.scope.get
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import org.koin.dsl.single
 import org.koin.ext.getFullName
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.isSubclassOf
@@ -35,9 +37,11 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 .map { it.load().kotlin }
                 .mapNotNull { cls ->
                     if (cls.isSubclassOf(Wrapper::class)) cls else {
-                        println(cls.primaryConstructor?.parameters?.firstOrNull()?.type?.toString())
                         clazzModule.module.single(named(cls.getFullName())) {
-                            println(cls.primaryConstructor?.typeParameters?.first()?.name)
+                            val constructor = cls.primaryConstructor?: return@single cls.createInstance()
+                            constructor.call(*constructor.parameters
+                                .map { it.type.toString() }
+                                .map { this.get<Any>(named(it)) }.toTypedArray())
                         }
                         null
                     }
