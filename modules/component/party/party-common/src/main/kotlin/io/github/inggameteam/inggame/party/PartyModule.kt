@@ -47,8 +47,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                     }
                 }.toTypedArray())
         event.registerClass {
-
-//            classOf(PartyAlert::class)
+ //            classOf(PartyAlert::class)
 //            classOf(PartyPlayer::class)
 //            classOf(PartyRequest::class)
 //            classOf(PartyServer::class)
