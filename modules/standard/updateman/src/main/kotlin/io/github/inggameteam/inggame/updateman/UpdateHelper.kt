@@ -35,6 +35,7 @@ class UpdateHelper {
     fun deploy(settings: UpdateSettings): Unit = settings.run {
         ;{
         oldPluginFile.parentFile.mkdir()
+        backupDir.deleteOnExit()
         backupDir.mkdir()
         try {
             Files.copy(
@@ -55,7 +56,6 @@ class UpdateHelper {
             } finally {
                 requestRevertBackup(settings)
             }
-            backupDir.deleteOnExit()
         } catch (e: Throwable) {
             e.printStackTrace()
         }
