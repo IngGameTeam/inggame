@@ -32,6 +32,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                             || cls.isAssignableFrom(Listener::class.java)
                 }.toTypedArray())
         event.registerClass {
+
 //            classOf(PartyAlert::class)
 //            classOf(PartyPlayer::class)
 //            classOf(PartyRequest::class)
