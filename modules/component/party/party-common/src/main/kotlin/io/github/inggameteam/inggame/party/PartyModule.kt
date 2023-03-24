@@ -24,6 +24,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
         event.registerClass(
             *ClassPath.from(loader).topLevelClasses
                 .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
+                .apply { println(this) }
                 .map { it.load() }
                 .filter { cls ->
                     cls.isAssignableFrom(Wrapper::class.java)
