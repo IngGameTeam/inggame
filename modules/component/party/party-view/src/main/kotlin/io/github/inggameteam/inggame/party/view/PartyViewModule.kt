@@ -12,7 +12,7 @@ class PartyViewModule(plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onEnable(event: ComponentLoadEvent) {
         event.registerClass {
-//            classOf(::PartyCommand)
+            classOf(::PartyCommand)
         }
     }
 
