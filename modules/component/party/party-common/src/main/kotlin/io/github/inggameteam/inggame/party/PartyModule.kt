@@ -21,30 +21,30 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
         val loader = javaClass.classLoader
-//        event.registerClass(
-//            *ClassPath.from(loader).topLevelClasses
-//                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
-//                .apply { println(this) }
-//                .map { it.load() }
-//                .filter { cls ->
-//                    cls.isAssignableFrom(Wrapper::class.java)
-//                            || cls.isAssignableFrom(Handler::class.java)
-//                            || cls.isAssignableFrom(Listener::class.java)
-//                }.toTypedArray())
-        event.registerClass {
-            classOf(PartyAlert::class)
-            classOf(PartyPlayer::class)
-            classOf(PartyRequest::class)
-            classOf(PartyServer::class)
-            classOf(Party::class)
-            classOf(::PartyHelper)
-            classOf(::PartyInstanceService)
-            classOf(::PartyRequestHelper)
-            classOf(::PartyPlayerLoader)
-            classOf(::DefaultPartyLoader)
-            classOf(::AnnouncePartyCreated)
-            classOf(::PartyCreationHandler)
-        }
+        event.registerClass(
+            *ClassPath.from(loader).topLevelClasses
+                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
+                .apply { println(this) }
+                .map { it.load() }
+                .filter { cls ->
+                    cls.isAssignableFrom(Wrapper::class.java)
+                            || cls.isAssignableFrom(Handler::class.java)
+                            || cls.isAssignableFrom(Listener::class.java)
+                }.toTypedArray())
+//        event.registerClass {
+//            classOf(PartyAlert::class)
+//            classOf(PartyPlayer::class)
+//            classOf(PartyRequest::class)
+//            classOf(PartyServer::class)
+//            classOf(Party::class)
+//            classOf(::PartyHelper)
+//            classOf(::PartyInstanceService)
+//            classOf(::PartyRequestHelper)
+//            classOf(::PartyPlayerLoader)
+//            classOf(::DefaultPartyLoader)
+//            classOf(::AnnouncePartyCreated)
+//            classOf(::PartyCreationHandler)
+//        }
         event.addModule(createSingleton<PartyServer>(::PartyServerImp, "server", "singleton"))
         event.addModule(newModule("party-player", ::PartyPlayerService))
         event.addModule(newModule("party-instance", ::PartyInstanceRepo))
