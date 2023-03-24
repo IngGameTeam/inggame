@@ -35,7 +35,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 .map { it.load().kotlin }
                 .mapNotNull { cls ->
                     if (cls.isSubclassOf(Wrapper::class)) cls else {
-                        println(cls.primaryConstructor?.parameters?.firstOrNull()?.name)
+                        println(cls.primaryConstructor?.parameters?.firstOrNull()?.type?.classifier?.toString())
                         clazzModule.module.single(named(cls.getFullName())) {
                             println(cls.primaryConstructor?.typeParameters?.first()?.name)
                         }
