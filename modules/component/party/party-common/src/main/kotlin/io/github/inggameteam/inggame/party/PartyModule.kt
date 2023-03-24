@@ -14,6 +14,7 @@ import io.github.inggameteam.inggame.party.wrapper.*
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
+import kotlin.reflect.full.isSubclassOf
 
 class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
 
@@ -27,9 +28,9 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 .apply { println(this) }
                 .map { it.load() }
                 .filter { cls ->
-                    cls.isAssignableFrom(Wrapper::class.java)
-                            || cls.isAssignableFrom(Handler::class.java)
-                            || cls.isAssignableFrom(Listener::class.java)
+                    cls.kotlin.isSubclassOf(Wrapper::class)
+                            || cls.kotlin.isSubclassOf(Handler::class)
+                            || cls.kotlin.isSubclassOf(Listener::class)
                 }.toTypedArray())
         event.registerClass {
 
