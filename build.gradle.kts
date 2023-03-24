@@ -94,10 +94,8 @@ allprojects {
         testImplementation("io.insert-koin:koin-test-junit4:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit5:${Dependency.Koin.Version}")
 
-        compileOnly("org.burningwave:core:12.62.6")
-        testCompileOnly("org.burningwave:core:12.62.6")
-        compileOnly("org.burningwave:reflection:3.5.4")
-        testCompileOnly("org.burningwave:reflection:3.5.4")
+        compileOnly("com.google.guava:guava:31.1-jre")
+        testCompileOnly("com.google.guava:guava:31.1-jre")
 
     }
 

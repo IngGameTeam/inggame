@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.party
 
+import com.google.common.reflect.ClassPath
 import io.github.inggameteam.inggame.component.Handler
 import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.createSingleton
@@ -10,7 +11,6 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.party.component.*
 import io.github.inggameteam.inggame.party.handler.*
 import io.github.inggameteam.inggame.party.wrapper.*
-import io.github.inggameteam.inggame.utils.Finder
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
@@ -20,11 +20,16 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
-        event.registerClass(*Finder.find(plugin.javaClass) { cls ->
-            cls.isAssignableFrom(Wrapper::class.java)
-                    || cls.isAssignableFrom(Handler::class.java)
-                    || cls.isAssignableFrom(Listener::class.java)
-        }.toTypedArray())
+        val loader = Thread.currentThread().contextClassLoader
+        event.registerClass(
+            *ClassPath.from(loader).topLevelClasses
+                .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
+                .map { it.load() }
+                .filter { cls ->
+                    cls.isAssignableFrom(Wrapper::class.java)
+                            || cls.isAssignableFrom(Handler::class.java)
+                            || cls.isAssignableFrom(Listener::class.java)
+                }.toTypedArray())
         event.registerClass {
             classOf(PartyAlert::class)
             classOf(PartyPlayer::class)
