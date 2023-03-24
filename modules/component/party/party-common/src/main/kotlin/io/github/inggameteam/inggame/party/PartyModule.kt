@@ -40,7 +40,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
 //            classOf(Party::class)
             classOf(::PartyHelper)
             classOf(::PartyInstanceService)
-//            classOf(::PartyRequestHelper)
+            classOf(::PartyRequestHelper)
 //            classOf(::PartyPlayerLoader)
 //            classOf(::DefaultPartyLoader)
 //            classOf(::AnnouncePartyCreated)
