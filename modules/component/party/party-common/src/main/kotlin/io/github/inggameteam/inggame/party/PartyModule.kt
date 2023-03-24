@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.party.component.*
 import io.github.inggameteam.inggame.party.handler.*
 import io.github.inggameteam.inggame.party.wrapper.*
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
@@ -38,11 +39,13 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 .map { it.load().kotlin }
                 .mapNotNull { cls ->
                     if (cls.isSubclassOf(Wrapper::class)) cls else {
-                        clazzModule.module.single(named(cls.getFullName())) {
+                        if (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null)
+                            clazzModule.module.single(named(cls.getFullName())) {
                             val constructor = cls.primaryConstructor?: return@single cls.createInstance()
                             constructor.call(*constructor.parameters
                                 .map { it.type.toString() }
-                                .map { this.get<Any>(Class.forName(it).kotlin, null, null) }.toTypedArray())
+                                .map { this.get<Any>(Class.forName(it).kotlin, null, null) }
+                                .toTypedArray())
                         }
                         null
                     }

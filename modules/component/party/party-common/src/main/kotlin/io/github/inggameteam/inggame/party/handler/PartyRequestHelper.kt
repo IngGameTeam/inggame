@@ -3,9 +3,11 @@ package io.github.inggameteam.inggame.party.handler
 import io.github.inggameteam.inggame.party.component.PartyPlayerService
 import io.github.inggameteam.inggame.party.component.PartyRequestInstanceRepo
 import io.github.inggameteam.inggame.party.wrapper.*
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.fastForEach
 
+@Helper
 class PartyRequestHelper(
     val plugin: IngGamePlugin,
     private val partyHelper: PartyHelper,

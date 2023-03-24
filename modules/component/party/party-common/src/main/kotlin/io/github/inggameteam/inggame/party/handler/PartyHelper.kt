@@ -11,8 +11,10 @@ import io.github.inggameteam.inggame.party.wrapper.*
 import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color
+import lombok.experimental.Helper
 import org.bukkit.Bukkit
 
+@Helper
 class PartyHelper(
     val plugin: IngGamePlugin,
     private val partyPlayerService: PartyPlayerService,
