@@ -13,6 +13,7 @@ import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import org.bukkit.event.EventHandler
 import org.koin.core.module.dsl.new
+import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 import org.koin.core.scope.get
 import org.koin.dsl.bind
@@ -41,7 +42,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                             val constructor = cls.primaryConstructor?: return@single cls.createInstance()
                             constructor.call(*constructor.parameters
                                 .map { it.type.toString() }
-                                .map { this.get<Any>(named(it)) }.toTypedArray())
+                                .map { this.get<Any>(Class.forName(it).kotlin, null, null) }.toTypedArray())
                         }
                         null
                     }
