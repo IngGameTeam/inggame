@@ -41,7 +41,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                 .mapNotNull { cls ->
                     if (cls.isSubclassOf(Wrapper::class)) cls else {
                         if (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null)
-                            clazzModule.module.single(named(cls.getFullName())) {
+                            clazzModule.module.single {
                             val constructor = cls.primaryConstructor?: return@single cls.createInstance()
                             constructor.call(*constructor.parameters
                                 .map { it.type.toString() }
