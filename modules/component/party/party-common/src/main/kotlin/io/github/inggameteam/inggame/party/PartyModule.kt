@@ -19,6 +19,7 @@ import org.koin.dsl.module
 import org.koin.ext.getFullName
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.isSubclassOf
+import kotlin.reflect.full.primaryConstructor
 
 class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
 
@@ -31,12 +32,12 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
             *ClassPath.from(loader).topLevelClasses
                 .filter { cls -> cls.name.startsWith("io.github.inggameteam.inggame.party") }
                 .apply { println(this) }
-                .map { it.load() }
+                .map { it.load().kotlin }
                 .mapNotNull { cls ->
-                    if (cls.kotlin.isSubclassOf(Wrapper::class)
-                        || cls.kotlin.isSubclassOf(Handler::class)
-                        || cls.kotlin.isSubclassOf(Listener::class)) cls else {
-                        clazzModule.module.single(named(cls.kotlin.getFullName())) { cls.kotlin.createInstance() }
+                    if (cls.isSubclassOf(Wrapper::class)) cls else {
+                        clazzModule.module.single(named(cls.getFullName())) {
+                            println(cls.primaryConstructor?.typeParameters?.first()?.name)
+                        }
                         null
                     }
                 }.toTypedArray())
