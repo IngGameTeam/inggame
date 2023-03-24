@@ -31,20 +31,20 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
                             || cls.isAssignableFrom(Handler::class.java)
                             || cls.isAssignableFrom(Listener::class.java)
                 }.toTypedArray())
-//        event.registerClass {
+        event.registerClass {
 //            classOf(PartyAlert::class)
 //            classOf(PartyPlayer::class)
 //            classOf(PartyRequest::class)
 //            classOf(PartyServer::class)
 //            classOf(Party::class)
-//            classOf(::PartyHelper)
-//            classOf(::PartyInstanceService)
+            classOf(::PartyHelper)
+            classOf(::PartyInstanceService)
 //            classOf(::PartyRequestHelper)
 //            classOf(::PartyPlayerLoader)
 //            classOf(::DefaultPartyLoader)
 //            classOf(::AnnouncePartyCreated)
 //            classOf(::PartyCreationHandler)
-//        }
+        }
         event.addModule(createSingleton<PartyServer>(::PartyServerImp, "server", "singleton"))
         event.addModule(newModule("party-player", ::PartyPlayerService))
         event.addModule(newModule("party-instance", ::PartyInstanceRepo))
