@@ -87,6 +87,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     ?.value?.module(LAYER, "–instance", multi?: resource?: "handler")
                                 cls.java.getAnnotation(Masked::class.java)
                                     ?.value?.module(MASKED, "-player", instance?: multi?: resource?: "handler")
+                                println(cls.simpleName)
                             }
                             null
                         }

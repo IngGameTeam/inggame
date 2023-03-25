@@ -36,8 +36,8 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(this, this)
         allowTask = true
         console
-        ComponentServiceBean(this)
         registerModule()
+        ComponentServiceBean(this)
         ingGame.app
     }
 
