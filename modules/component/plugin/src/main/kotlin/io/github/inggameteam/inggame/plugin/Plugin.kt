@@ -16,10 +16,10 @@ class Plugin : IngGamePluginImp() {
     }
 
     override fun registerModule() {
-        GameModule(this)
-        GameViewModule(this)
-        PartyModule(this)
-        PartyViewModule(this)
+//        GameModule(this)
+//        GameViewModule(this)
+//        PartyModule(this)
+//        PartyViewModule(this)
     }
 
 }
