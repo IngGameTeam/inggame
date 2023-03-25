@@ -45,53 +45,59 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                 .apply { println(this) }
                 .mapNotNull { try { it.load().kotlin } catch (_: Throwable) { null } }
                 .mapNotNull { cls ->
-                    if (cls.isSubclassOf(Wrapper::class)) cls else {
-                        if (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null) {
-                            clazzModule.module.single {
-                                val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
-                                constructor.call(*constructor.parameters
-                                    .map { it.type.toString() }
-                                    .map { this.get<Any>(Class.forName(it).kotlin, null, null) }
-                                    .toTypedArray())
-                            }.withOptions { this.secondaryTypes = listOf(cls) }
-                            null
-                        } else {
-                            val singleton = cls.java.getAnnotation(Singleton::class.java)?.value
-                            if (singleton !== null) {
+                    try {
+                        if (cls.isSubclassOf(Wrapper::class)) cls else {
+                            if (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null) {
                                 clazzModule.module.single {
-                                    val componentService = get<ComponentService>(named("singleton"))
-                                    componentService.addNameSpace(singleton)
-                                    cls.primaryConstructor?.call(SimpleWrapper(singleton, componentService))
-                                }
+                                    val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
+                                    constructor.call(*constructor.parameters
+                                        .map { it.type.toString() }
+                                        .map { this.get<Any>(Class.forName(it).kotlin, null, null) }
+                                        .toTypedArray())
+                                }.withOptions { this.secondaryTypes = listOf(cls) }
+                                null
                             } else {
-                                fun String.module(type: ComponentServiceType, suffix: String, parent: String? = null): String {
-                                    val name = this@module + suffix
-                                    event.componentServiceRegistry.apply {
-                                        (parent?.run { cs(this) }?: this).apply {
-                                            if (type === MULTI) {
-                                                cs(name, type = type, root = "player-instance", key = name)
-                                            } else cs(name, type=type)
-                                        }
-                                    }
+                                val singleton = cls.java.getAnnotation(Singleton::class.java)?.value
+                                if (singleton !== null) {
                                     clazzModule.module.single {
-                                        cls.primaryConstructor?.call(get<ComponentService>(named(name)))
+                                        val componentService = get<ComponentService>(named("singleton"))
+                                        componentService.addNameSpace(singleton)
+                                        cls.primaryConstructor?.call(SimpleWrapper(singleton, componentService))
                                     }
-                                    return name
-                                }
+                                } else {
+                                    fun String.module(
+                                        type: ComponentServiceType,
+                                        suffix: String,
+                                        parent: String? = null
+                                    ): String {
+                                        val name = this@module + suffix
+                                        event.componentServiceRegistry.apply {
+                                            (parent?.run { cs(this) } ?: this).apply {
+                                                if (type === MULTI) {
+                                                    cs(name, type = type, root = "player-instance", key = name)
+                                                } else cs(name, type = type)
+                                            }
+                                        }
+                                        clazzModule.module.single {
+                                            cls.primaryConstructor?.call(get<ComponentService>(named(name)))
+                                        }
+                                        return name
+                                    }
 
-                                val multi = cls.java.getAnnotation(Multi::class.java)
-                                    ?.value?.module(MULTI, "–resource", "handler")
-                                val resource = cls.java.getAnnotation(Resource::class.java)
-                                    ?.value?.module(RESOURCE , "–resource", "handler")
-                                val instance = cls.java.getAnnotation(Layered::class.java)
-                                    ?.value?.module(LAYER, "–instance", multi?: resource?: "handler")
-                                cls.java.getAnnotation(Masked::class.java)
-                                    ?.value?.module(MASKED, "-player", instance?: multi?: resource?: "handler")
-                                println(cls.simpleName)
+                                    val multi = cls.java.getAnnotation(Multi::class.java)
+                                        ?.value?.module(MULTI, "–resource", "handler")
+                                    val resource = cls.java.getAnnotation(Resource::class.java)
+                                        ?.value?.module(RESOURCE, "–resource", "handler")
+                                    val instance = cls.java.getAnnotation(Layered::class.java)
+                                        ?.value?.module(LAYER, "–instance", multi ?: resource ?: "handler")
+                                    cls.java.getAnnotation(Masked::class.java)
+                                        ?.value?.module(MASKED, "-player", instance ?: multi ?: resource ?: "handler")
+                                    println(cls.simpleName)
+                                }
+                                null
                             }
-                            null
                         }
-                    }
+                    } catch (_: Throwable) { null }
                 }
     .toTypedArray())
     event.addModule(clazzModule.module)
