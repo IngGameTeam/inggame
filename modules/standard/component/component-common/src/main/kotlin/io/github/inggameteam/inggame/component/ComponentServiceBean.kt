@@ -43,7 +43,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
         event.registerClass(
             *ClassPath.from(loader).topLevelClasses
                 .apply { println(this) }
-                .mapNotNull { try { it.load().kotlin } catch (_: Throwable) { null } }
+                .mapNotNull { try { it.load().takeIf { cls -> cls.classLoader == loader }?.kotlin } catch (_: Throwable) { null } }
                 .mapNotNull { cls ->
                     try {
                         if (cls.isSubclassOf(Wrapper::class)) cls else {
