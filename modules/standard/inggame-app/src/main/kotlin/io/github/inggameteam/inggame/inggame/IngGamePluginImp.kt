@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.inggame
 
+import io.github.inggameteam.inggame.component.ComponentServiceBean
 import io.github.inggameteam.inggame.utils.ClassUtil
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
@@ -35,6 +36,7 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(this, this)
         allowTask = true
         console
+        ComponentServiceBean(this)
         registerModule()
         ingGame.app
     }
