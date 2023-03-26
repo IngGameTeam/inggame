@@ -49,7 +49,17 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                 .mapNotNull { try { it.load().takeIf { cls -> cls.classLoader == loader }?.kotlin } catch (_: Throwable) { null } }
                 .mapNotNull { cls ->
                     try {
-                        if (cls.isSubclassOf(Wrapper::class)) cls else {
+                        if (cls.isSubclassOf(Wrapper::class)) {
+                            val singleton = cls.java.getAnnotation(Singleton::class.java)?.value
+                            if (singleton !== null) {
+                                clazzModule.module.single {
+                                    val componentService = get<ComponentService>(named("singleton"))
+                                    componentService.addNameSpace(singleton)
+                                    cls.primaryConstructor?.call(SimpleWrapper(singleton, componentService))
+                                }.withOptions { this.secondaryTypes = listOf(cls) }
+                            }
+                            cls
+                        } else {
                             if (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null) {
                                 clazzModule.module.single {
                                     val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
@@ -60,14 +70,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 }.withOptions { this.secondaryTypes = listOf(cls) }
                                 null
                             } else {
-                                val singleton = cls.java.getAnnotation(Singleton::class.java)?.value
-                                if (singleton !== null) {
-                                    clazzModule.module.single {
-                                        val componentService = get<ComponentService>(named("singleton"))
-                                        componentService.addNameSpace(singleton)
-                                        cls.primaryConstructor?.call(SimpleWrapper(singleton, componentService))
-                                    }.withOptions { this.secondaryTypes = listOf(cls) }
-                                } else {
                                     fun String.module(
                                         type: ComponentServiceType,
                                         suffix: String,
@@ -104,7 +106,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         ?.value?.module(MASKED, "-player", "-instance")
                                 }
                                 null
-                            }
                         }
                     } catch (_: Throwable) { null }
                 }
