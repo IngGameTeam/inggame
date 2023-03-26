@@ -93,7 +93,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                             println("-".repeat(10))
                                                             return if (registeredParent !== null && registeredParent.type !== type) {
                                                                 val isRemoved = registry.removeIf { it.name == parentName }
-                                                                println("$name=$isRemoved")
+                                                                println("$parentName=$isRemoved")
                                                                 cs(parentName, type = type)
                                                             } else if (registeredParent === null) {
                                                                 cs(parentName, type = LINKED)
