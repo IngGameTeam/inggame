@@ -88,9 +88,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                         fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
                                                             val parentName = this@module + parent
                                                             val registeredParent = registry.firstOrNull { it.name == parentName }
-                                                            println("-".repeat(10))
-                                                            println(registry.joinToString("\n"))
-                                                            println("-".repeat(10))
                                                             return if (registeredParent !== null && registeredParent.type !== type) {
                                                                 val isRemoved = registry.removeIf { it.name == parentName }
                                                                 println("$parentName=$isRemoved")
@@ -107,6 +104,9 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                         }
                                                     }
                                         }
+                                        println("-".repeat(10))
+                                        println(event.componentServiceRegistry.registry.joinToString("\n"))
+                                        println("-".repeat(10))
                                         clazzModule.module.single {
                                             cls.primaryConstructor?.call(get<ComponentService>(named(name)))
                                         }.withOptions { this.secondaryTypes = listOf(cls) }
