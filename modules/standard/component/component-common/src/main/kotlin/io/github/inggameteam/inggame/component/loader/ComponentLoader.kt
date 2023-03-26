@@ -23,7 +23,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
             cs(component, isSavable = true)
         }
 //        includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
-//        factory {
+        factory {
 //            val componentService = get<ComponentService>(named(component))
 //            getKoin().loadModules(componentService.getAll(::ComponentImp).map {
 //                dsl.cs(
@@ -33,7 +33,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
 //                )
 //            }.map { it.createComponentModule() })
 //            getKoin().createEagerInstances()
-//            ComponentLoader()
-//        } bind ComponentLoader::class
+            ComponentLoader()
+        } bind ComponentLoader::class
     }
 }
