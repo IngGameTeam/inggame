@@ -12,7 +12,6 @@ import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.fastForEach
-import jdk.javadoc.internal.doclets.toolkit.util.DocPath.parent
 import org.bukkit.event.EventHandler
 import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.named
