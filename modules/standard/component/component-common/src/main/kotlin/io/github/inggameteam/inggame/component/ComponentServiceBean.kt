@@ -90,8 +90,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                             println(registeredParent?.type)
                                                             return if (registeredParent !== null && registeredParent.type === LINKED) {
                                                                 println("remove-registredParent")
-                                                                registry.remove(registeredParent)
-                                                                registry.first().parents.remove(registeredParent.name)
+                                                                registry.removeIf { it.name == parentName }
                                                                 cs(parentName, type = type)
                                                             } else if (registeredParent === null) {
                                                                 cs(parentName, type = LINKED)
