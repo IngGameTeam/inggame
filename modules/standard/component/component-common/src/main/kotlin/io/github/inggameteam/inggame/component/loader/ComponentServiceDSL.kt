@@ -100,7 +100,7 @@ class ComponentServiceDSL private constructor(
     }
 
     override fun toString(): String {
-        return "Component{name=$name, parents$parents${if (key === null) "" else ", key=$key"}${if (root === null) "" else ", root=$root"}}"
+        return "Component{type=$type, name=$name, parents$parents${if (key === null) "" else ", key=$key"}${if (root === null) "" else ", root=$root"}}"
     }
 
 }
