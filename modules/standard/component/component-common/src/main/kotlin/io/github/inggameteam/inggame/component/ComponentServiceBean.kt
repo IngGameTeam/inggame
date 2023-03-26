@@ -88,6 +88,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     val parentName = this@module + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
+                                                            println(it.type)
                                                             registry.first().parents.removeIf { cs -> cs == parentName }
                                                             this@appendLinked.parents.remove("handler")
                                                             this@appendLinked.parents.add(parentName)
