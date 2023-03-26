@@ -88,6 +88,10 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                 fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
                                                     val parentName = this@module + parent
                                                     return registry.firstOrNull { it.name == parentName }
+                                                        ?.also {
+                                                            registry.first().parents.removeIf { it == parentName }
+                                                            this.parents.add(parentName)
+                                                        }
                                                         ?: cs(parentName, type = LINKED)
                                                 }
                                                 if (parent.isNotEmpty()) {
