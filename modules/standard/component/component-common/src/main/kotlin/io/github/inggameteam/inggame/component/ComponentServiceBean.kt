@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.component
 import com.google.common.reflect.ClassPath
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
+import io.github.inggameteam.inggame.component.loader.ComponentServiceDSL
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType.*
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
@@ -10,6 +11,8 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
+import io.github.inggameteam.inggame.utils.fastForEach
+import jdk.javadoc.internal.doclets.toolkit.util.DocPath.parent
 import org.bukkit.event.EventHandler
 import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.named
@@ -46,7 +49,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
         val clazzModule = ClassModule(module(createdAtStart = true) {})
         event.registerClass(
             *ClassPath.from(loader).topLevelClasses
-                .apply { println(this) }
                 .mapNotNull { try { it.load().takeIf { cls -> cls.classLoader == loader }?.kotlin } catch (_: Throwable) { null } }
                 .mapNotNull { cls ->
                     try {
@@ -75,7 +77,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     fun String.module(
                                         type: ComponentServiceType,
                                         suffix: String,
-                                        parent: String? = null
+                                        vararg parent: String
                                     ): String {
                                         val name = this@module + suffix
                                         event.componentServiceRegistry.apply {
@@ -83,8 +85,15 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     cs(name, type = type, root = "player-instance", key = name)
                                                 } else cs(name, type = type))
                                                     .apply {
-                                                        if (parent !== null) {
-                                                            cs(this@module + parent)
+                                                        fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
+                                                            val parentName = this@module + parent
+                                                            val isExists = registry.any { it.name == parentName }
+                                                            return if (isExists) cs(parentName, type = type)
+                                                            else cs(parentName, type = LINKED)
+                                                        }
+                                                        if (parent.isNotEmpty()) {
+                                                            var lastCS = this
+                                                            parent.fastForEach { lastCS = lastCS.appendLinked(it) }
                                                         } else {
                                                             cs("handler")
                                                         }
@@ -103,9 +112,9 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     cls.java.getAnnotation(Custom::class.java)
                                         ?.value?.module(LAYER, "–custom", "-resource")
                                     cls.java.getAnnotation(Layered::class.java)
-                                        ?.value?.module(LAYER, "–instance", "-custom")
+                                        ?.value?.module(LAYER, "–instance", "-custom", "-resource")
                                     cls.java.getAnnotation(Masked::class.java)
-                                        ?.value?.module(MASKED, "-player", "-instance")
+                                        ?.value?.module(MASKED, "-player", "-instance", "-custom", "-resource")
                                 }
                                 null
                         }
