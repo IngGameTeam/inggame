@@ -87,14 +87,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                 parents.removeIf { it == "handler" }
                                                 fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
                                                     val parentName = this@module + parent
-                                                    val registeredParent = registry.firstOrNull { it.name == parentName }
-                                                    return if (registeredParent !== null && registeredParent.type !== type) {
-                                                        val isRemoved = registry.removeIf { it.name == parentName }
-                                                        println("$parentName=$isRemoved")
-                                                        cs(parentName, type = type)
-                                                    } else if (registeredParent === null) {
-                                                        cs(parentName, type = LINKED)
-                                                    } else registeredParent
+                                                    return cs(parentName, type = LINKED)
                                                 }
                                                 if (parent.isNotEmpty()) {
                                                     var lastCS = this
