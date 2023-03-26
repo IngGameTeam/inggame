@@ -66,7 +66,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         val componentService = get<ComponentService>(named("singleton"))
                                         componentService.addNameSpace(singleton)
                                         cls.primaryConstructor?.call(SimpleWrapper(singleton, componentService))
-                                    }
+                                    }.withOptions { this.secondaryTypes = listOf(cls) }
                                 } else {
                                     fun String.module(
                                         type: ComponentServiceType,
@@ -88,7 +88,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         }
                                         clazzModule.module.single {
                                             cls.primaryConstructor?.call(get<ComponentService>(named(name)))
-                                        }
+                                        }.withOptions { this.secondaryTypes = listOf(cls) }
                                         return name
                                     }
 
