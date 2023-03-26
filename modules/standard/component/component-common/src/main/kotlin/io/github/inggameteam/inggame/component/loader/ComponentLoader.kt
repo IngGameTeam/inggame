@@ -22,7 +22,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         val dsl = ComponentServiceDSL.newRoot().apply {
             cs(component, isSavable = true)
         }
-        includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
+//        includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
             val componentService = get<ComponentService>(named(component))
             getKoin().loadModules(componentService.getAll(::ComponentImp).map {
