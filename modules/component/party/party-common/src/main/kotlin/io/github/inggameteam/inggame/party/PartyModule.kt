@@ -32,7 +32,7 @@ class PartyModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @EventHandler
     fun onLoad(event: ComponentLoadEvent) {
         event.registerClass {
-            classOf(::PartyInstanceService)
+//            classOf(::PartyInstanceService)
         }
 //        event.addModule(createSingleton<PartyServer>(::PartyServerImp, "server", "singleton"))
 //        event.addModule(newModule("party-player", ::PartyPlayerService))

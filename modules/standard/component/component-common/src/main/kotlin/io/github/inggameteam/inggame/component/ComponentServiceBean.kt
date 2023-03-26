@@ -22,6 +22,9 @@ import kotlin.reflect.full.primaryConstructor
 annotation class Resource(val value: String)
 
 @Retention(AnnotationRetention.RUNTIME)
+annotation class Custom(val value: String)
+
+@Retention(AnnotationRetention.RUNTIME)
 annotation class Layered(val value: String)
 
 @Retention(AnnotationRetention.RUNTIME)
@@ -91,9 +94,10 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         ?.value?.module(RESOURCE, "–resource", "handler")
                                     val instance = cls.java.getAnnotation(Layered::class.java)
                                         ?.value?.module(LAYER, "–instance", multi ?: resource ?: "handler")
+                                    val custom = cls.java.getAnnotation(Custom::class.java)
+                                        ?.value?.module(LAYER, "–custom", instance ?: multi ?: resource ?: "handler")
                                     cls.java.getAnnotation(Masked::class.java)
-                                        ?.value?.module(MASKED, "-player", instance ?: multi ?: resource ?: "handler")
-                                    println(cls.simpleName)
+                                        ?.value?.module(MASKED, "-player", custom ?: instance ?: multi ?: resource ?: "handler")
                                 }
                                 null
                             }
