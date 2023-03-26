@@ -83,20 +83,20 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                 (if (type === MULTI) {
                                                     cs(name, type = type, root = "player-instance", key = name)
                                                 } else cs(name, type = type))
-                                                    .apply {
-                                                        fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
-                                                            val parentName = this@module + parent
-                                                            val isExists = registry.any { it.name == parentName }
-                                                            return if (isExists) cs(parentName, type = type)
-                                                            else cs(parentName, type = LINKED)
-                                                        }
-                                                        if (parent.isNotEmpty()) {
-                                                            var lastCS = this
-                                                            parent.fastForEach { lastCS = lastCS.appendLinked(it) }
-                                                        } else {
-                                                            cs("handler")
-                                                        }
-                                                    }
+//                                                    .apply {
+//                                                        fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
+//                                                            val parentName = this@module + parent
+//                                                            val isExists = registry.any { it.name == parentName }
+//                                                            return if (isExists) cs(parentName, type = type)
+//                                                            else cs(parentName, type = LINKED)
+//                                                        }
+//                                                        if (parent.isNotEmpty()) {
+//                                                            var lastCS = this
+//                                                            parent.fastForEach { lastCS = lastCS.appendLinked(it) }
+//                                                        } else {
+//                                                            cs("handler")
+//                                                        }
+//                                                    }
                                         }
                                         clazzModule.module.single {
                                             cls.primaryConstructor?.call(get<ComponentService>(named(name)))
