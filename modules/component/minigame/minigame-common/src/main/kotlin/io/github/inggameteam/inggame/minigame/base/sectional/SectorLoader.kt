@@ -2,10 +2,12 @@ package io.github.inggameteam.inggame.minigame.base.sectional
 
 import io.github.inggameteam.inggame.component.Handler.Companion.isHandler
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.world.WorldGenerator
 import kotlin.math.sqrt
 
+@Helper
 class SectorLoader(
     private val gameInstanceService: GameInstanceService,
     private val plugin: IngGamePlugin

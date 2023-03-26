@@ -17,6 +17,7 @@ import org.koin.dsl.module
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.primaryConstructor
+import kotlin.reflect.full.superclasses
 
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Resource(val value: String)
@@ -56,11 +57,12 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     val componentService = get<ComponentService>(named("singleton"))
                                     componentService.addNameSpace(singleton)
                                     cls.primaryConstructor?.call(SimpleWrapper(singleton, componentService))
-                                }.withOptions { this.secondaryTypes = listOf(cls) }
+                                }.withOptions { this.secondaryTypes = listOf(cls,
+                                    *cls.superclasses.filter { it.isSubclassOf(Wrapper::class) }.toTypedArray()) }
                             }
                             cls
                         } else {
-                            if (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null) {
+                            if (cls.java.isInterface && (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null)) {
                                 clazzModule.module.single {
                                     val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
                                     constructor.call(*constructor.parameters
