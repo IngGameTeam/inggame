@@ -80,7 +80,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 ): String {
                                     val name = this@module + suffix
                                     event.componentServiceRegistry.apply {
-                                        registry.removeIf { it.type === LINKED && it.name == name }
+                                        registry.removeIf { it.name == name }
                                         (if (type === MULTI) {
                                             cs(name, type = type, root = "player-instance", key = name)
                                         } else cs(name, type = type))
