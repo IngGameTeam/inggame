@@ -73,63 +73,64 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 }.withOptions { this.secondaryTypes = listOf(cls) }
                                 null
                             } else {
-                                    fun String.module(
-                                        type: ComponentServiceType,
-                                        suffix: String,
-                                        vararg parent: String
-                                    ): String {
-                                        val name = this@module + suffix
-                                        event.componentServiceRegistry.apply {
-                                                (if (type === MULTI) {
-                                                    cs(name, type = type, root = "player-instance", key = name)
-                                                } else cs(name, type = type))
-                                                    .apply {
-                                                        parents.removeIf { it == "handler" }
-                                                        fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
-                                                            val parentName = this@module + parent
-                                                            val registeredParent = registry.firstOrNull { it.name == parentName }
-                                                            return if (registeredParent !== null && registeredParent.type !== type) {
-                                                                val isRemoved = registry.removeIf { it.name == parentName }
-                                                                println("$parentName=$isRemoved")
-                                                                cs(parentName, type = type)
-                                                            } else if (registeredParent === null) {
-                                                                cs(parentName, type = LINKED)
-                                                            } else registeredParent
-                                                        }
-                                                        if (parent.isNotEmpty()) {
-                                                            var lastCS = this
-                                                            parent.fastForEach { lastCS = lastCS.appendLinked(it) }
-                                                        } else {
-                                                            cs("handler")
-                                                        }
-                                                    }
-                                        }
-                                        println("-".repeat(10))
-                                        println(event.componentServiceRegistry.registry.joinToString("\n"))
-                                        println("-".repeat(10))
-                                        clazzModule.module.single {
-                                            cls.primaryConstructor?.call(get<ComponentService>(named(name)))
-                                        }.withOptions { this.secondaryTypes = listOf(cls) }
-                                        return name
+                                fun String.module(
+                                    type: ComponentServiceType,
+                                    suffix: String,
+                                    vararg parent: String
+                                ): String {
+                                    val name = this@module + suffix
+                                    event.componentServiceRegistry.apply {
+                                        (if (type === MULTI) {
+                                            cs(name, type = type, root = "player-instance", key = name)
+                                        } else cs(name, type = type))
+                                            .apply {
+                                                parents.removeIf { it == "handler" }
+                                                fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
+                                                    val parentName = this@module + parent
+                                                    val registeredParent = registry.firstOrNull { it.name == parentName }
+                                                    return if (registeredParent !== null && registeredParent.type !== type) {
+                                                        val isRemoved = registry.removeIf { it.name == parentName }
+                                                        println("$parentName=$isRemoved")
+                                                        cs(parentName, type = type)
+                                                    } else if (registeredParent === null) {
+                                                        cs(parentName, type = LINKED)
+                                                    } else registeredParent
+                                                }
+                                                if (parent.isNotEmpty()) {
+                                                    var lastCS = this
+                                                    parent.fastForEach { lastCS = lastCS.appendLinked(it) }
+                                                } else {
+                                                    cs("handler")
+                                                }
+                                            }
                                     }
-
-                                    cls.java.getAnnotation(Multi::class.java)
-                                        ?.value?.module(MULTI, "–resource")
-                                    cls.java.getAnnotation(Resource::class.java)
-                                        ?.value?.module(RESOURCE, "–resource")
-                                    cls.java.getAnnotation(Custom::class.java)
-                                        ?.value?.module(LAYER, "–custom", "-resource")
-                                    cls.java.getAnnotation(Layered::class.java)
-                                        ?.value?.module(LAYER, "–instance", "-custom", "-resource")
-                                    cls.java.getAnnotation(Masked::class.java)
-                                        ?.value?.module(MASKED, "-player", "-instance", "-custom", "-resource")
+                                    println("-".repeat(10))
+                                    println(event.componentServiceRegistry.registry.joinToString("\n"))
+                                    println("-".repeat(10))
+                                    clazzModule.module.single {
+                                        cls.primaryConstructor?.call(get<ComponentService>(named(name)))
+                                    }.withOptions { this.secondaryTypes = listOf(cls) }
+                                    return name
                                 }
-                                null
+
+
+                                cls.java.getAnnotation(Resource::class.java)
+                                    ?.value?.module(RESOURCE, "–resource")
+                                cls.java.getAnnotation(Multi::class.java)
+                                    ?.value?.module(MULTI, "–multi", "-resource")
+                                cls.java.getAnnotation(Custom::class.java)
+                                    ?.value?.module(LAYER, "–custom", "-multi", "-resource")
+                                cls.java.getAnnotation(Layered::class.java)
+                                    ?.value?.module(LAYER, "–instance", "-custom", "-multi", "-resource")
+                                cls.java.getAnnotation(Masked::class.java)
+                                    ?.value?.module(MASKED, "-player", "-instance", "-custom", "-multi", "-resource")
+                            }
+                            null
                         }
                     } catch (_: Throwable) { null }
                 }
-    .toTypedArray())
-    event.addModule(clazzModule.module)
-}
+                .toTypedArray())
+        event.addModule(clazzModule.module)
+    }
 
 }
