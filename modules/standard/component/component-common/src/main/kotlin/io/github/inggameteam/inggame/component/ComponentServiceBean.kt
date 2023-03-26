@@ -79,7 +79,11 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     cs(name, type = type, root = "player-instance", key = name)
                                                 } else cs(name, type = type))
                                                     .apply {
-                                                        (parent?.run { cs(this) })
+                                                        if (parent !== null) {
+                                                            cs(this@module + parent)
+                                                        } else {
+                                                            cs("handler")
+                                                        }
                                                     }
                                         }
                                         clazzModule.module.single {
@@ -88,16 +92,16 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         return name
                                     }
 
-                                    val multi = cls.java.getAnnotation(Multi::class.java)
-                                        ?.value?.module(MULTI, "–resource", "handler")
-                                    val resource = cls.java.getAnnotation(Resource::class.java)
-                                        ?.value?.module(RESOURCE, "–resource", "handler")
-                                    val instance = cls.java.getAnnotation(Layered::class.java)
-                                        ?.value?.module(LAYER, "–instance", multi ?: resource ?: "handler")
-                                    val custom = cls.java.getAnnotation(Custom::class.java)
-                                        ?.value?.module(LAYER, "–custom", instance ?: multi ?: resource ?: "handler")
+                                    cls.java.getAnnotation(Multi::class.java)
+                                        ?.value?.module(MULTI, "–resource")
+                                    cls.java.getAnnotation(Resource::class.java)
+                                        ?.value?.module(RESOURCE, "–resource")
+                                    cls.java.getAnnotation(Custom::class.java)
+                                        ?.value?.module(LAYER, "–custom", "-resource")
+                                    cls.java.getAnnotation(Layered::class.java)
+                                        ?.value?.module(LAYER, "–instance", "-custom")
                                     cls.java.getAnnotation(Masked::class.java)
-                                        ?.value?.module(MASKED, "-player", custom ?: instance ?: multi ?: resource ?: "handler")
+                                        ?.value?.module(MASKED, "-player", "-instance")
                                 }
                                 null
                             }
