@@ -5,7 +5,7 @@ import io.github.inggameteam.inggame.party.wrapper.Party
 import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
 import io.github.inggameteam.inggame.player.container.ContainerHelper
 import io.github.inggameteam.inggame.player.container.ContainerHelperImp
-import lombok.experimental.Helper
+import io.github.inggameteam.inggame.utils.Helper
 
 @Helper
 class PartyInstanceService(partyInstanceRepo: PartyInstanceRepo, partyPlayerService: PartyPlayerService)
