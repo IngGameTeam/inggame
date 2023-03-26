@@ -80,6 +80,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 ): String {
                                     val name = this@module + suffix
                                     event.componentServiceRegistry.apply {
+                                        registry.removeIf { it.type === LINKED && it.name == name }
                                         (if (type === MULTI) {
                                             cs(name, type = type, root = "player-instance", key = name)
                                         } else cs(name, type = type))
@@ -88,9 +89,11 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     val parentName = this@module + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
+                                                            this@appendLinked.parents.remove("handler")
                                                             this@appendLinked.parents.add(parentName)
                                                         }
-                                                        ?: this@appendLinked.cs(parentName, type = LINKED).apply { cs("handler") }
+                                                        ?: this@appendLinked.cs(parentName, type = LINKED)
+                                                            .apply { cs("handler") }
                                                 }
                                                 if (parent.isNotEmpty()) {
                                                     var lastCS = this
