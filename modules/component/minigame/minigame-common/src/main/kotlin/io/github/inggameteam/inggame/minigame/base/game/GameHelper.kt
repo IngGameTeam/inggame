@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import org.bukkit.Bukkit
 
+@Helper
 class GameHelper(
     private val gameInstanceService: GameInstanceService,
     val gameServer: GameServer,
