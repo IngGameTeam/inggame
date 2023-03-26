@@ -80,7 +80,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 ): String {
                                     val name = this@module + suffix
                                     event.componentServiceRegistry.apply {
-                                        registry.removeIf { it.name == name }
                                         (if (type === MULTI) {
                                             cs(name, type = type, root = "player-instance", key = name)
                                         } else cs(name, type = type))
@@ -95,12 +94,8 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                         ?: this@appendLinked.cs(parentName, type = LINKED)
                                                             .apply { cs("handler") }
                                                 }
-                                                if (parent.isNotEmpty()) {
                                                     var lastCS = this
                                                     parent.fastForEach { lastCS = lastCS.appendLinked(it) }
-                                                } else {
-                                                    cs("handler")
-                                                }
                                             }
                                     }
                                     clazzModule.module.single {
