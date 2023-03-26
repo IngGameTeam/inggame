@@ -31,66 +31,66 @@ class GameModule(plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentLoadEvent) {
-        event.registerClass {
-            classOf(::SpawnOnJoin)
-            classOf(::JoinHubOnJoinServer)
-            classOf(::QuitGameOnQuitServer)
-            classOf(::GameHelper)
-            classOf(::SectionalHelper)
-            classOf(::SectionalHandler)
-            classOf(::GameInstanceService)
-            classOf(::SectorLoader)
-            classOf(::HubLoader)
-            classOf(::TeleportOnSpawn)
-            classOf(::SpawnOnJoin)
-            classOf(::GameServer)
-            classOf(::GPlayer)
-            classOf(::SectionalHandler)
-            classOf(::VoidDeathHandler)
-            classOf(::DeathHandler)
-            classOf(::VoidDeathHelper)
-            classOf(::NoHunger)
-            classOf(::HideJoinLeaveMessage)
-            classOf(::ArrowStuckPrevent)
-            classOf(::DisableCollision)
-            classOf(::EnableAttackSpeed)
-            classOf(::NoUnderWaterFall)
-            classOf(::SpawnOnStart)
-            classOf(::AnnounceGameBegin)
-            classOf(::LocationalImp)
-            classOf(::ParticleOnGameBegin)
-            classOf(::StartPlayersAmountAlert)
-            classOf(::GameHandler)
-            classOf(::SetGameModeOnSpawnHandler)
-            classOf(::KitOnSpawnHandler)
-            classOf(::SoloCompetitionHandler)
-            classOf(
-                SetGameModeOnSpawn::class,
-                Competition::class,
-                KitOnSpawn::class,
-                Game::class,
-                GameAlert::class,
-                Locational::class,
-                Sectional::class,
-                VoidDeath::class,
-            )
-        }
-        event.addModule(newModule("game-player", ::GamePlayerService))
-        event.addModule(newModule("game-instance", ::GameInstanceRepository))
-        event.addModule(newModule("custom-game", ::CustomGameService))
-        event.addModule(newModule("custom-game", ::CustomGameService))
-        event.addModule(newModule("game-resource", ::GameResourceService))
-        event.componentServiceRegistry
-            .cs("game-player", type = ComponentServiceType.MASKED)
-            .cs("game-instance", type = ComponentServiceType.MASKED)
-            .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)
-            .cs("game-resource", type = ComponentServiceType.MULTI, key = "game-language", root = "player-instance")
-            .apply {
-                this
-                    .cs("game-template-korean", isSavable = true)
-                    .cs("game-abstract-korean", isSavable = true)
-                    .cs("handler")
-            }
-        event.addModule(createSingleton(::GameServer, "server", "singleton"))
+//        event.registerClass {
+//            classOf(::SpawnOnJoin)
+//            classOf(::JoinHubOnJoinServer)
+//            classOf(::QuitGameOnQuitServer)
+//            classOf(::GameHelper)
+//            classOf(::SectionalHelper)
+//            classOf(::SectionalHandler)
+//            classOf(::GameInstanceService)
+//            classOf(::SectorLoader)
+//            classOf(::HubLoader)
+//            classOf(::TeleportOnSpawn)
+//            classOf(::SpawnOnJoin)
+//            classOf(::GameServer)
+//            classOf(::GPlayer)
+//            classOf(::SectionalHandler)
+//            classOf(::VoidDeathHandler)
+//            classOf(::DeathHandler)
+//            classOf(::VoidDeathHelper)
+//            classOf(::NoHunger)
+//            classOf(::HideJoinLeaveMessage)
+//            classOf(::ArrowStuckPrevent)
+//            classOf(::DisableCollision)
+//            classOf(::EnableAttackSpeed)
+//            classOf(::NoUnderWaterFall)
+//            classOf(::SpawnOnStart)
+//            classOf(::AnnounceGameBegin)
+//            classOf(::LocationalImp)
+//            classOf(::ParticleOnGameBegin)
+//            classOf(::StartPlayersAmountAlert)
+//            classOf(::GameHandler)
+//            classOf(::SetGameModeOnSpawnHandler)
+//            classOf(::KitOnSpawnHandler)
+//            classOf(::SoloCompetitionHandler)
+//            classOf(
+//                SetGameModeOnSpawn::class,
+//                Competition::class,
+//                KitOnSpawn::class,
+//                Game::class,
+//                GameAlert::class,
+//                Locational::class,
+//                Sectional::class,
+//                VoidDeath::class,
+//            )
+//        }
+//        event.addModule(newModule("game-player", ::GamePlayerService))
+//        event.addModule(newModule("game-instance", ::GameInstanceRepository))
+//        event.addModule(newModule("custom-game", ::CustomGameService))
+//        event.addModule(newModule("custom-game", ::CustomGameService))
+//        event.addModule(newModule("game-resource", ::GameResourceService))
+//        event.componentServiceRegistry
+//            .cs("game-player", type = ComponentServiceType.MASKED)
+//            .cs("game-instance", type = ComponentServiceType.MASKED)
+//            .cs("custom-game", type = ComponentServiceType.LAYER, isSavable = true)
+//            .cs("game-resource", type = ComponentServiceType.MULTI, key = "game-language", root = "player-instance")
+//            .apply {
+//                this
+//                    .cs("game-template-korean", isSavable = true)
+//                    .cs("game-abstract-korean", isSavable = true)
+//                    .cs("handler")
+//            }
+//        event.addModule(createSingleton(::GameServer, "server", "singleton"))
     }
 }
