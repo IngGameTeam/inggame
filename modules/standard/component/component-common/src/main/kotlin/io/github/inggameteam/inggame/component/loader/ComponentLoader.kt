@@ -14,7 +14,6 @@ fun loadComponents(plugin: IngGamePlugin): Module {
     val event = ComponentLoadEvent(eventDsl.cs("root"))
     plugin.server.pluginManager.callEvent(event)
     val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
-    println(eventDsl.registry.joinToString("\n"))
     val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
     return module {
         includes(modules)
@@ -22,17 +21,17 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         val dsl = ComponentServiceDSL.newRoot().apply {
             cs(component, isSavable = true)
         }
-//        includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
+        includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
-//            val componentService = get<ComponentService>(named(component))
-//            getKoin().loadModules(componentService.getAll(::ComponentImp).map {
-//                dsl.cs(
-//                    name = it.nameSpace.toString(),
-//                    type = it.componentType,
-//                    isSavable = it.isSavable
-//                )
-//            }.map { it.createComponentModule() })
-//            getKoin().createEagerInstances()
+            val componentService = get<ComponentService>(named(component))
+            getKoin().loadModules(componentService.getAll(::ComponentImp).map {
+                dsl.cs(
+                    name = it.nameSpace.toString(),
+                    type = it.componentType,
+                    isSavable = it.isSavable
+                )
+            }.map { it.createComponentModule() })
+            getKoin().createEagerInstances()
             ComponentLoader()
         } bind ComponentLoader::class
     }
