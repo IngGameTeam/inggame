@@ -92,7 +92,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                                 cs(parentName, type = type)
                                                             } else if (registeredParent === null) {
                                                                 cs(parentName, type = LINKED)
-                                                            } else this
+                                                            } else registeredParent
                                                         }
                                                         if (parent.isNotEmpty()) {
                                                             var lastCS = this
