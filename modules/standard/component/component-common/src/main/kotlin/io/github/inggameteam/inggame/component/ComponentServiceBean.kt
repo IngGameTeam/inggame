@@ -90,8 +90,9 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                             return if (registeredParent !== null && registeredParent.type === LINKED) {
                                                                 registry.remove(registeredParent)
                                                                 cs(parentName, type = type)
-                                                            }
-                                                            else cs(parentName, type = LINKED)
+                                                            } else if (registeredParent === null) {
+                                                                cs(parentName, type = LINKED)
+                                                            } else this
                                                         }
                                                         if (parent.isNotEmpty()) {
                                                             var lastCS = this
