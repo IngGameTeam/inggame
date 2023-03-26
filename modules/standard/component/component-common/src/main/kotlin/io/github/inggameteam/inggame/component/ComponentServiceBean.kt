@@ -103,9 +103,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                 }
                                             }
                                     }
-                                    println("-".repeat(10))
-                                    println(event.componentServiceRegistry.registry.joinToString("\n"))
-                                    println("-".repeat(10))
                                     clazzModule.module.single {
                                         cls.primaryConstructor?.call(get<ComponentService>(named(name)))
                                     }.withOptions { this.secondaryTypes = listOf(cls) }
@@ -129,6 +126,10 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                     } catch (_: Throwable) { null }
                 }
                 .toTypedArray())
+        println("-".repeat(10))
+        println(event.componentServiceRegistry.registry.joinToString("\n"))
+        println("-".repeat(10))
+
         event.addModule(clazzModule.module)
     }
 
