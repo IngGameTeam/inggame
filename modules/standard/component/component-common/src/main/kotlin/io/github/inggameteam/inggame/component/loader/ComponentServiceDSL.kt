@@ -19,9 +19,7 @@ class ComponentServiceDSL private constructor(
     var loadedSemaphore: Boolean = false
 ) {
 
-init {
-    println(name)
-}
+
     internal val parents: ArrayList<String> = if (name == "default") arrayListOf() else arrayListOf("default")
 
     private fun addParent(name: String) {
