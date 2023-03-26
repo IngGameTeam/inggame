@@ -91,7 +91,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                             println("-".repeat(10))
                                                             println(registry.joinToString("\n"))
                                                             println("-".repeat(10))
-                                                            return if (registeredParent !== null && registeredParent.type === LINKED) {
+                                                            return if (registeredParent !== null && registeredParent.type !== type) {
                                                                 registry.removeIf { it.name == parentName }
                                                                 cs(parentName, type = type)
                                                             } else if (registeredParent === null) {
