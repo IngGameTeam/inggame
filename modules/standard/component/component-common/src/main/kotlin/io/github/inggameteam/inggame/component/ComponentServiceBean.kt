@@ -86,7 +86,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         } else cs(name, type = type))
                                             .apply {
                                                 fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
-                                                    println("${this.name}=${type.name}")
+                                                    println("${this.name}=${type.name} (link)")
                                                     val parentName = this@module + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
@@ -96,8 +96,9 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                         ?: this@appendLinked.cs(parentName, type = LINKED)
                                                             .apply { cs("handler") }
                                                 }
-                                                    var lastCS = this
-                                                    parent.fastForEach { lastCS = lastCS.appendLinked(it) }
+
+                                                var lastCS = this
+                                                parent.fastForEach { lastCS = lastCS.appendLinked(it) }
                                             }
                                     }
                                     clazzModule.module.single {
