@@ -62,7 +62,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                             }
                             cls
                         } else {
-                            if (cls.java.isInterface && (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null)) {
+                            if (cls.java.isInterface.not() && (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null)) {
                                 clazzModule.module.single {
                                     val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
                                     constructor.call(*constructor.parameters
