@@ -19,10 +19,9 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         val dsl = eventDsl.registry.first().apply {
             cs(component, isSavable = true)
         }
-        includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
             val componentService = get<ComponentService>(named(component))
-            getKoin().loadModules(componentService.getAll(::ComponentImp).mapNotNull {
+            componentService.getAll(::ComponentImp).mapNotNull {
                 try {
                     dsl.cs(
                         name = it.nameSpace.toString(),
@@ -35,7 +34,8 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         }
                     }
                 } catch (_: Throwable) { null }
-            }.map { it.createComponentModule() })
+            }
+            getKoin().loadModules(dsl.registry.map(ComponentServiceDSL::createComponentModule))
             println("-".repeat(10))
             println(event.componentServiceRegistry.registry.joinToString("\n"))
             println("-".repeat(10))
