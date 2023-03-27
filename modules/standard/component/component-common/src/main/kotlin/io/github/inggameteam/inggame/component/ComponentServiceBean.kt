@@ -88,7 +88,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                 fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
                                                     println("${this.name} (link)")
                                                     val parentName = this@module + parent
-                                                    return registry.firstOrNull { it.name == parentName }
+                                                    return registry.firstOrNull { it.type !== LINKED && it.name == parentName }
                                                         ?.also {
                                                             this@appendLinked.parents.remove("handler")
                                                             this@appendLinked.parents.add(parentName)
