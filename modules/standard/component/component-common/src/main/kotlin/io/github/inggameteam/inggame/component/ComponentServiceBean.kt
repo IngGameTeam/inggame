@@ -80,7 +80,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 ): String {
                                     val name = this + suffix
                                     event.componentServiceRegistry.apply {
-                                        println(registry.map { it.name })
+                                        println(registry.map { it.name }.toHashSet())
                                         println("$name=$type")
                                         (if (type === MULTI) {
                                             cs(name, type = type, root = "player-instance", key = name)
