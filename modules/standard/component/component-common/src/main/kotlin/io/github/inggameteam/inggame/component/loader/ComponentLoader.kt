@@ -24,12 +24,14 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
             val componentService = get<ComponentService>(named(component))
-            getKoin().loadModules(componentService.getAll(::ComponentImp).map {
-                dsl.cs(
-                    name = it.nameSpace.toString(),
-                    type = it.componentType,
-                    isSavable = it.isSavable
-                )
+            getKoin().loadModules(componentService.getAll(::ComponentImp).mapNotNull {
+                try {
+                    dsl.cs(
+                        name = it.nameSpace.toString(),
+                        type = it.componentType,
+                        isSavable = it.isSavable
+                    )
+                } catch (_: Throwable) { null }
             }.map { it.createComponentModule() })
             getKoin().createEagerInstances()
             ComponentLoader()
