@@ -127,6 +127,8 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
         println("-".repeat(10))
         println(event.componentServiceRegistry.registry.joinToString("\n"))
         println("-".repeat(10))
+        println(event.componentServiceRegistry.registry.filter { it.name == "game-multi" })
+        println("-".repeat(10))
 
         event.addModule(clazzModule.module)
     }
