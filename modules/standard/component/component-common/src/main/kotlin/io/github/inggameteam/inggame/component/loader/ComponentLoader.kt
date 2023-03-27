@@ -16,7 +16,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
 //    val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
 //    val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
     return module {
-//        includes(modules)
+        includes(event.modules)
         val component = "component"
         val dsl = eventDsl.registry.first().apply {
             cs(component, isSavable = true)
