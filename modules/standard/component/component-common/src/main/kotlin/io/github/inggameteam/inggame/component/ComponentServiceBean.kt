@@ -81,7 +81,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     val name = this@module + suffix
                                     event.componentServiceRegistry.apply {
                                         println("$name=$type")
-                                        registry.removeIf { it.name == name }
                                         (if (type === MULTI) {
                                             cs(name, type = type, root = "player-instance", key = name)
                                         } else cs(name, type = type))
