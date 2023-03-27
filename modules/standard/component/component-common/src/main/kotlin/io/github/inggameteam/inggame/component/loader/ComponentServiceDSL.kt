@@ -8,6 +8,7 @@ import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import java.util.concurrent.CopyOnWriteArrayList
 
 class ComponentServiceDSL private constructor(
     val name: String,
@@ -117,7 +118,7 @@ fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
                 MultiParentsComponentService(
                     cs.name,
                     { root },
-                    cs.parents.map { get(named(it)) },
+                    cs.parents.map { get<ComponentService>(named(it)) }.run(::CopyOnWriteArrayList),
                     cs.key
                 )
             } else if (cs.type == MASKED) LayerMaskComponentService(
