@@ -19,7 +19,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         includes(modules)
         val component = "component"
         val dsl = ComponentServiceDSL.newRoot().apply {
-            cs(component, isSavable = true)
+            cs(component, isSavable = true).cs("handler")
         }
         includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
