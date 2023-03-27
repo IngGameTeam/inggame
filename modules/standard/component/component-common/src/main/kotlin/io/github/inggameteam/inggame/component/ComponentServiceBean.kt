@@ -78,7 +78,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     suffix: String,
                                     vararg parent: String
                                 ): String {
-                                    val name = this@module + suffix
+                                    val name = this + suffix
                                     event.componentServiceRegistry.apply {
                                         println("$name=$type")
                                         (if (type === MULTI) {
@@ -129,6 +129,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
         println("-".repeat(10))
         println(event.componentServiceRegistry.registry.filter { it.name == "game-multi" })
         println("-".repeat(10))
+        println("${("a" + "b") == "a" + "b"}")
 
         event.addModule(clazzModule.module)
     }
