@@ -6,5 +6,6 @@ interface Component : Wrapper {
 
     val componentType: ComponentServiceType
     val isSavable: Boolean
+    val parents: HashSet<String>
 
 }

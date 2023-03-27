@@ -71,7 +71,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         .map { this.get<Any>(Class.forName(it).kotlin, null, null) }
                                         .toTypedArray())
                                 }.withOptions { this.secondaryTypes = listOf(cls) }
-                                null
                             } else {
                                 fun String.module(
                                     type: ComponentServiceType,
