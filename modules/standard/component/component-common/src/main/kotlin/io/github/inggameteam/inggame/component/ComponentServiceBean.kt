@@ -68,7 +68,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
                                     constructor.call(*constructor.parameters
                                         .map { it.type.toString() }
-                                        .map { println(it); this.get<Any>(Class.forName(it).kotlin, null, null) }
+                                        .map { this.get<Any>(Class.forName(it).kotlin, null, null) }
                                         .toTypedArray())
                                 }.withOptions { this.secondaryTypes = listOf(cls) }
                                 null
