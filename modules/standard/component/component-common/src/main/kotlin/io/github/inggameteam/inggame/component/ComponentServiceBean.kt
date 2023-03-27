@@ -92,6 +92,7 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
                                                             this@appendLinked.parents.remove("handler")
+                                                            this@appendLinked.parents.remove(parentName)
                                                             this@appendLinked.parents.add(parentName)
                                                         }
                                                         ?: this@appendLinked.cs(parentName, type = LINKED)
