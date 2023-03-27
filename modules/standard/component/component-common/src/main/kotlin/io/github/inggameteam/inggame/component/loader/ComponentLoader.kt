@@ -13,8 +13,6 @@ fun loadComponents(plugin: IngGamePlugin): Module {
     val eventDsl = ComponentServiceDSL.newRoot()
     val event = ComponentLoadEvent(eventDsl.cs("root"))
     plugin.server.pluginManager.callEvent(event)
-//    val csModules = eventDsl.registry.map(ComponentServiceDSL::createComponentModule)
-//    val modules = listOf(*csModules.toTypedArray(), *event.modules.toTypedArray())
     return module {
         includes(event.modules)
         val component = "component"
@@ -38,6 +36,12 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                     }
                 } catch (_: Throwable) { null }
             }.map { it.createComponentModule() })
+            println("-".repeat(10))
+            println(event.componentServiceRegistry.registry.joinToString("\n"))
+            println("-".repeat(10))
+            println(event.componentServiceRegistry.registry.filter { it.name == "game-multi" })
+            println("-".repeat(10))
+
             getKoin().createEagerInstances()
             ComponentLoader()
         } bind ComponentLoader::class
