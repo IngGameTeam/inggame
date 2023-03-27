@@ -6,13 +6,14 @@ import io.github.inggameteam.inggame.component.NameSpaceNotFound
 import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.utils.fastFirstOrNull
 import io.github.inggameteam.inggame.utils.fastForEach
+import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.reflect.KClass
 
 @Suppress("NAME_SHADOWING")
 class MultiParentsComponentService(
     override val name: String,
     private val rootComponent: () -> ComponentService?,
-    private var components: List<ComponentService>,
+    var components: CopyOnWriteArrayList<ComponentService>,
     private val parentKey: Any?
 ) : ComponentService, AbstractNameSpaceComponentService() {
 
@@ -20,7 +21,7 @@ class MultiParentsComponentService(
         if (components.isEmpty()) {
             throw Assert("an error occurred while create multi parents component service that empty components collection")
         }
-        components = components.sortedWith { o1, o2 -> o1.layerPriority.compareTo(o2.layerPriority) }
+        components = components.sortedWith { o1, o2 -> o1.layerPriority.compareTo(o2.layerPriority) }.run(::CopyOnWriteArrayList)
     }
 
     override val parentComponent get() = components.first()

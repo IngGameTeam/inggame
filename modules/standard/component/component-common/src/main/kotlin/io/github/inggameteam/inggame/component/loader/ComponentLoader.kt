@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.component.loader
 
 import io.github.inggameteam.inggame.component.componentservice.ComponentService
+import io.github.inggameteam.inggame.component.componentservice.MultiParentsComponentService
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.koin.core.module.Module
@@ -23,6 +24,13 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         factory {
             val componentService = get<ComponentService>(named(component))
             getKoin().loadModules(componentService.getAll(::ComponentImp).mapNotNull {
+                try {
+                    val existingCS = get<ComponentService>(named(it.nameSpace.toString()))
+                    if (existingCS is MultiParentsComponentService) {
+                        existingCS.components.addAll(it.parentsList.map { p -> get(named(p)) })
+                    }
+                }
+                catch (_: Throwable) { }
                 try {
                     dsl.cs(
                         name = it.nameSpace.toString(),
