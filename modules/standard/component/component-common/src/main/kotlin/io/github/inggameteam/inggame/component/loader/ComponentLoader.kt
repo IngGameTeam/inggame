@@ -39,6 +39,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                     ).apply {
                         if (it.parentsList.isNotEmpty()) {
                             parents.removeAll(listOf("handler", "default"))
+                            parents.add("handler")
                             parents.addAll(it.parentsList)
                         }
                     }
