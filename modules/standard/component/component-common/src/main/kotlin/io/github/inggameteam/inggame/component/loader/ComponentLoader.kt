@@ -18,15 +18,10 @@ fun loadComponents(plugin: IngGamePlugin): Module {
     return module {
         includes(modules)
         val component = "component"
-        val dsl = ComponentServiceDSL.newRoot().apply {
+        val dsl = eventDsl.registry.first().apply {
             cs(component, isSavable = true)
         }
         includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
-        println("-".repeat(10))
-        println(dsl.registry.joinToString("\n"))
-        println("-".repeat(10))
-        println(dsl.registry.filter { it.name == "game-multi" })
-        println("-".repeat(10))
         factory {
             val componentService = get<ComponentService>(named(component))
             getKoin().loadModules(componentService.getAll(::ComponentImp).mapNotNull {
