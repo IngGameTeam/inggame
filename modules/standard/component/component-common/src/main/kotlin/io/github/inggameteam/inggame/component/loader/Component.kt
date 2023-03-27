@@ -6,6 +6,6 @@ interface Component : Wrapper {
 
     val componentType: ComponentServiceType
     val isSavable: Boolean
-    val parents: ArrayList<String>
+    val parentsList: ArrayList<String>
 
 }
