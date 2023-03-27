@@ -97,7 +97,10 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                             this@appendLinked.parents.add(parentName)
                                                         }
                                                         ?: this@appendLinked.cs(parentName, type = LINKED)
-                                                            .apply { println(parents); if (parents.contains("default") ) cs("handler") }
+                                                            .apply {
+                                                                this@appendLinked.parents.remove("handler")
+                                                                cs("handler")
+                                                            }
                                                 }
 
                                                 var lastCS = this
