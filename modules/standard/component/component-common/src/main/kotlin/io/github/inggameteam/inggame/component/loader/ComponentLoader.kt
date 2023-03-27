@@ -30,7 +30,12 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         name = it.nameSpace.toString(),
                         type = it.componentType,
                         isSavable = it.isSavable
-                    ).apply { parents.addAll(it.parents) }
+                    ).apply {
+                        if (it.parents.isNotEmpty()) {
+                            parents.removeAll(listOf("handler", "default"))
+                            parents.addAll(it.parents)
+                        }
+                    }
                 } catch (_: Throwable) { null }
             }.map { it.createComponentModule() })
             getKoin().createEagerInstances()
