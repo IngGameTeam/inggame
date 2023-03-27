@@ -91,7 +91,6 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     val parentName = this@module + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
-                                                            println("exists")
                                                             this@appendLinked.parents.remove("handler")
                                                             this@appendLinked.parents.add(parentName)
                                                         }
@@ -110,16 +109,21 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 }
 
 
+                                val resource = "-resource"
                                 cls.java.getAnnotation(Resource::class.java)
-                                    ?.value?.module(RESOURCE, "–resource")
+                                    ?.value?.module(RESOURCE, resource)
+                                val multi = "-multi"
                                 cls.java.getAnnotation(Multi::class.java)
-                                    ?.value?.module(MULTI, "–multi", "-resource")
+                                    ?.value?.module(MULTI, multi, resource)
+                                val custom = "-custom"
                                 cls.java.getAnnotation(Custom::class.java)
-                                    ?.value?.module(LAYER, "–custom", "-multi", "-resource")
+                                    ?.value?.module(LAYER, custom, multi, resource)
+                                val instance = "-instance"
                                 cls.java.getAnnotation(Layered::class.java)
-                                    ?.value?.module(LAYER, "–instance", "-custom", "-multi", "-resource")
+                                    ?.value?.module(LAYER, instance, custom, multi, resource)
+                                val player = "-player"
                                 cls.java.getAnnotation(Masked::class.java)
-                                    ?.value?.module(MASKED, "-player", "-instance", "-custom", "-multi", "-resource")
+                                    ?.value?.module(MASKED, player, instance, custom, multi, resource)
                             }
                             null
                         }
