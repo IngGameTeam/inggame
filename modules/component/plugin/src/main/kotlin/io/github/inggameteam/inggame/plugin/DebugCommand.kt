@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.componentservice.MultiParentsComp
 import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
 import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.entity.ViewImp
+import io.github.inggameteam.inggame.inggame.IngGamePluginImp
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
 import io.github.inggameteam.inggame.utils.Debug
 import io.github.inggameteam.inggame.utils.IngGamePlugin
@@ -26,6 +27,12 @@ fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
                 source.sendMessage("Reloading...")
                 val ms = measureTimeMillis { PluginUtil.reload(plugin) }
                 source.sendMessage("Reloaded in ${ms}ms")
+            }
+            thenExecute("save") {
+                if (!source.isOp) return@thenExecute
+                source.sendMessage("Saving...")
+                val ms = measureTimeMillis { (plugin as IngGamePluginImp).save() }
+                source.sendMessage("Saved in ${ms}ms")
             }
             then("replace") {
                 tab { app.getAll<ComponentService>().map { it.name } }

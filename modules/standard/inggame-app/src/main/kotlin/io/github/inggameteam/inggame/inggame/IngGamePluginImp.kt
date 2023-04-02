@@ -67,4 +67,8 @@ abstract class IngGamePluginImp : IngGamePlugin, JavaPlugin() {
         }
     }
 
+    fun save() {
+        for (it in saveEvent) it()
+    }
+
 }
