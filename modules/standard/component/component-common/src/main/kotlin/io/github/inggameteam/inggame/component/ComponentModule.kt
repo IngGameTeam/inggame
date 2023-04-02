@@ -52,19 +52,7 @@ class ComponentModule(val plugin: IngGamePlugin) : Listener(plugin) {
 //                .cs("default")
 //        }
         event.registerClass(
-            Component::class,
-            WrapperModel::class,
             WrapperCodec::class,
-            Alert::class,
-            ChatAlert::class,
-            ActionBarAlert::class,
-            EmptyAlert::class,
-            TitleAlert::class,
-            BaseComponentAlert::class,
-            ActionComponent::class,
-            LocationModel::class,
-            InventoryModel::class,
-            ItemModel::class,
         )
         event.addModule(
             module(createdAtStart = true) {
