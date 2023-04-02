@@ -16,9 +16,9 @@ import java.util.function.Consumer
 
 class UpdateHelper {
 
-    fun updateGit(settings: UpdateSettings): Boolean = settings.run {
+    fun updateGit(settings: UpdateSettings): Boolean = settings.runCatching {
         if (File(gitDir, ".git").exists()) {
-            Git.open(File(gitDir, ".git"))
+            return@runCatching Git.open(File(gitDir, ".git"))
                 .pull().call().fetchResult.trackingRefUpdates.isNotEmpty()
         } else {
             gitDir.mkdir()
@@ -30,7 +30,7 @@ class UpdateHelper {
                 .call()
             true
         }
-    }
+    }.run { getOrDefault(false) }
 
     fun deploy(settings: UpdateSettings): Unit = settings.run {
         ;{
