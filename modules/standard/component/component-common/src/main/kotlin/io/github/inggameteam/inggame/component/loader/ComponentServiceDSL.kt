@@ -135,7 +135,7 @@ fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
                 cs.name
             )
             else if (cs.type == LINKED) LinkedComponentService(
-                get(named(cs.parents.first()))
+                get(named(cs.parents.first())), cs.name
             )
             else ResourceComponentServiceImp(
                 get(named(cs.name)),
