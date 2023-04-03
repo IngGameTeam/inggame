@@ -8,7 +8,7 @@ interface PartyServer : Wrapper {
     var defaultParty: Party
 }
 
-@Singleton("server")
+@Singleton("server", save = true)
 class PartyServerImp(wrapper: Wrapper) : PartyServer, SimpleWrapper(wrapper) {
     override var defaultParty: Party by nonNull
 }

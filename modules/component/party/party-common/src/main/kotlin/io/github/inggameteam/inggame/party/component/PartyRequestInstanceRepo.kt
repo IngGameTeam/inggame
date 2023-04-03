@@ -8,7 +8,7 @@ import io.github.inggameteam.inggame.party.wrapper.PartyRequest
 import io.github.inggameteam.inggame.party.wrapper.PartyRequestImp
 import io.github.inggameteam.inggame.utils.randomUUID
 
-@Layered("party-request")
+@Layered("party-request", save = false)
 class PartyRequestInstanceRepo(componentService: ComponentService)
     : LayeredComponentService by componentService as LayeredComponentService
 {

@@ -22,22 +22,22 @@ import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.full.superclasses
 
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Resource(val value: String)
+annotation class Resource(val value: String, val save: Boolean = true)
 
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Custom(val value: String)
+annotation class Custom(val value: String, val save: Boolean = true)
 
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Layered(val value: String)
+annotation class Layered(val value: String, val save: Boolean = true)
 
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Masked(val value: String)
+annotation class Masked(val value: String, val save: Boolean = true)
 
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Multi(val value: String)
+annotation class Multi(val value: String, val save: Boolean = true)
 
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Singleton(val value: String)
+annotation class Singleton(val value: String, val save: Boolean = true)
 
 class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
 
@@ -72,22 +72,22 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                         .toTypedArray())
                                 }.withOptions { this.secondaryTypes = listOf(cls) }
                             } else {
-                                fun String.module(
+                                fun Pair<String, Boolean>.module(
                                     type: ComponentServiceType,
                                     suffix: String,
                                     vararg parent: String
-                                ): String {
+                                ): String = first.run {
                                     val name = this + suffix
                                     event.componentServiceRegistry.apply {
                                         println(registry.map { it.name }.toHashSet())
                                         println("$name=$type")
                                         (if (type === MULTI) {
-                                            cs(name, type = type, root = "player-instance", key = name)
-                                        } else cs(name, type = type))
+                                            cs(name, type = type, root = "player-instance", key = name, isSavable = this@module.second)
+                                        } else cs(name, type = type, isSavable = this@module.second))
                                             .apply {
                                                 fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
                                                     println("${this.name} (link)")
-                                                    val parentName = this@module + parent
+                                                    val parentName = this@run + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
                                                             this@appendLinked.parents.remove("handler")
@@ -115,19 +115,19 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
 
                                 val resource = "-resource"
                                 cls.java.getAnnotation(Resource::class.java)
-                                    ?.value?.module(RESOURCE, resource)
+                                    ?.run { value to save }?.module(RESOURCE, resource)
                                 val multi = "-multi"
                                 cls.java.getAnnotation(Multi::class.java)
-                                    ?.value?.module(MULTI, multi, resource)
+                                    ?.run { value to save }?.module(MULTI, multi, resource)
                                 val custom = "-custom"
                                 cls.java.getAnnotation(Custom::class.java)
-                                    ?.value?.module(LAYER, custom, multi, resource)
+                                    ?.run { value to save }?.module(LAYER, custom, multi, resource)
                                 val instance = "-instance"
                                 cls.java.getAnnotation(Layered::class.java)
-                                    ?.value?.module(LAYER, instance, custom, multi, resource)
+                                    ?.run { value to save }?.module(LAYER, instance, custom, multi, resource)
                                 val player = "-player"
                                 cls.java.getAnnotation(Masked::class.java)
-                                    ?.value?.module(MASKED, player, instance, custom, multi, resource)
+                                    ?.run { value to save }?.module(MASKED, player, instance, custom, multi, resource)
                             }
                             null
                         }
