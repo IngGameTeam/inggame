@@ -68,7 +68,9 @@ class MongoCodec(
             return fromBson(document)
         } else if (value is Collection<*>) {
             BsonArray(value.map {
-                (encode(it) as? Document)?.run(::toBson)
+                val encode = encode(it)
+                if (encode is Document) encode.run(::toBson)
+                else if (encode is BsonValue) encode else null
             }.toMutableList())
         } else if (value is Map<*, *>) {
             value.mapValues { encode(it.value) }
