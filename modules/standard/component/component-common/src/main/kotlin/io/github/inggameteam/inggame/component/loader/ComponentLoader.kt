@@ -34,8 +34,8 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                     val componentParentList = try { it.componentParentList } catch (_: Throwable) { emptyList() }
                     dsl.cs(
                         name = it.nameSpace.toString(),
-                        type = it.componentType,
-                        isSavable = it.isSavable
+                        type = try { it.componentType } catch (_: Throwable) { ComponentServiceType.RESOURCE },
+                        isSavable = try { it.isSavable } catch(_: Throwable) { true }
                     ).apply {
                         if (componentParentList.isNotEmpty()) {
                             parents.removeAll(listOf("handler", "default"))
