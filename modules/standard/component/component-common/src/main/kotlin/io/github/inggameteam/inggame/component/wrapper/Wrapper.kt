@@ -117,6 +117,7 @@ class NonNullWrapperImp(
         try {
             val result = try {
                 component.find(nameSpace, property.name)
+                println("prop=${property.name}, type=${this.javaClass.simpleName}")
             } catch (e: Throwable) {
                 val defaultValue = defaultBlock?.invoke()?.apply {
                     setValue(thisRef, property, this) }
