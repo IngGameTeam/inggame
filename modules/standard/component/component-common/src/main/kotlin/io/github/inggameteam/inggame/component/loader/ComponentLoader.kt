@@ -23,10 +23,8 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         }
         includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
-            Bukkit.broadcastMessage("ComponentLaoder!")
             val componentService = get<ComponentService>(named(component))
             val componentsList = componentService.getAll(::ComponentImp)
-            Bukkit.broadcastMessage(componentsList.map { it.nameSpace}.toString())
             getKoin().loadModules(componentsList.mapNotNull {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
                     null
@@ -45,8 +43,6 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                             parents.remove("default")
                             parents.add("handler")
                         }
-                        Bukkit.broadcastMessage(componentParentList.toString())
-                        Bukkit.broadcastMessage(parents.toString())
                     }
                 } catch(e: Throwable) { null }
             }.map { it.createComponentModule() })
