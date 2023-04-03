@@ -31,14 +31,15 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
                     null
                 else try {
+                    val componentParentList = try { it.componentParentList } catch (_: Throwable) { emptyList() }
                     dsl.cs(
                         name = it.nameSpace.toString(),
                         type = it.componentType,
                         isSavable = it.isSavable
                     ).apply {
-                        if (it.componentParentList.isNotEmpty()) {
+                        if (componentParentList.isNotEmpty()) {
                             parents.removeAll(listOf("handler", "default"))
-                            parents.addAll(it.componentParentList)
+                            parents.addAll(componentParentList)
                             Bukkit.broadcastMessage(parents.toString())
                         }
                     }
