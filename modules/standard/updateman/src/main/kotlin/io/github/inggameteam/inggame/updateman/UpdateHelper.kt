@@ -69,7 +69,6 @@ class UpdateHelper {
     }
 
     private fun requestRevertBackup(settings: UpdateSettings): Unit = settings.run {
-        println(pluginOrNull)
         if (!assertRevertBackup(settings)) return@run
         Bukkit.getLogger().warning("Fail to load plugin, reloading backup-file...")
         oldPluginFile.deleteOnExit()

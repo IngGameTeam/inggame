@@ -48,8 +48,6 @@ fun loadComponents(plugin: IngGamePlugin): Module {
             println("-".repeat(10))
             println(event.componentServiceRegistry.registry.joinToString("\n"))
             println("-".repeat(10))
-            println(event.componentServiceRegistry.registry.filter { it.name == "game-multi" })
-            println("-".repeat(10))
 
             getKoin().createEagerInstances()
             ComponentLoader()

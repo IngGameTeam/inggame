@@ -79,14 +79,11 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                 ): String = first.run {
                                     val name = this + suffix
                                     event.componentServiceRegistry.apply {
-                                        println(registry.map { it.name }.toHashSet())
-                                        println("$name=$type")
                                         (if (type === MULTI) {
                                             cs(name, type = type, root = "player-instance", key = name, isSavable = this@module.second)
                                         } else cs(name, type = type, isSavable = this@module.second))
                                             .apply {
                                                 fun ComponentServiceDSL.appendLinked(parent: String): ComponentServiceDSL {
-                                                    println("${this.name} (link)")
                                                     val parentName = this@run + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
