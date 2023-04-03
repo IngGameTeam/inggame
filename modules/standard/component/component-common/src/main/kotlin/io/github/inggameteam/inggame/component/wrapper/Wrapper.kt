@@ -122,7 +122,7 @@ class NonNullWrapperImp(
                 if (defaultValue === null) throw e
                 defaultValue
             }
-            println(result.javaClass.simpleName)
+            println("prop=${property.name}, type=${result.javaClass.simpleName}")
             return result as R
         } catch (e: Throwable) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
