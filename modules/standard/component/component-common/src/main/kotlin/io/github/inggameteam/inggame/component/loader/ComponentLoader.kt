@@ -23,14 +23,8 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
             val componentService = get<ComponentService>(named(component))
-            getKoin().loadModules(componentService.getAll(::ComponentImp).mapNotNull {
-                try {
-                    val existingCS = get<ComponentService>(named(it.nameSpace.toString()))
-                    if (existingCS is MultiParentsComponentService) {
-                        existingCS.components.addAll(it.componentParentList.map { p -> get(named(p)) })
-                    }
-                }
-                catch (_: Throwable) { }
+            val componentsList = componentService.getAll(::ComponentImp)
+            getKoin().loadModules(componentsList.mapNotNull {
                 try {
                     dsl.cs(
                         name = it.nameSpace.toString(),
@@ -45,6 +39,15 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                     }
                 } catch (_: Throwable) { null }
             }.map { it.createComponentModule() })
+            componentsList.forEach {
+                try {
+                    val existingCS = get<ComponentService>(named(it.nameSpace.toString()))
+                    if (existingCS is MultiParentsComponentService) {
+                        existingCS.components.addAll(it.componentParentList.map { p -> get(named(p)) })
+                    }
+                }
+                catch (_: Throwable) { }
+            }
             println("-".repeat(10))
             println(event.componentServiceRegistry.registry.joinToString("\n"))
             println("-".repeat(10))
