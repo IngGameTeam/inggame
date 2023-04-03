@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.component.model.ItemModel
 import io.github.inggameteam.inggame.component.view.controller.*
 import io.github.inggameteam.inggame.component.view.entity.ElementView
 import io.github.inggameteam.inggame.component.view.entity.ModelViewImp
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.Model
 import io.github.inggameteam.inggame.utils.singleClass
 import kotlin.reflect.KClass
@@ -15,6 +16,7 @@ import kotlin.reflect.KType
 import kotlin.reflect.full.isSubclassOf
 
 
+@Helper
 class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
 
 

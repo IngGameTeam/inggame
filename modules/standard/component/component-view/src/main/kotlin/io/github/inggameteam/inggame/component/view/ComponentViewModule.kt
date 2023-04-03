@@ -17,18 +17,6 @@ class ComponentViewModule(val plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onRegisterComponentService(event: ComponentLoadEvent) {
-        event.registerClass {
-            classOf(::EditorRegistry)
-            classOf(Selector::class)
-        }
-        event.addModule(module(createdAtStart = true) {
-            single {
-                ViewPlayerLoader(get(named("view-player")), get())
-            }
-        })
-        event.componentServiceRegistry
-            .cs("view-player", type = ComponentServiceType.MASKED)
-            .cs("view-resource", isSavable = true)
         plugin.addDisableEvent {
             plugin.server.onlinePlayers.filter { it.openInventory.topInventory.holder is GuiWindow }
                 .forEach { it.closeInventory() }
