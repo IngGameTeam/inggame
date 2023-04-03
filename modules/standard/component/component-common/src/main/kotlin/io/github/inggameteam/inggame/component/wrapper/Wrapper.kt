@@ -87,8 +87,14 @@ class NullableWrapperImp(
                 if (defaultValue === null) return null
                 defaultValue
             }
-            return result as R
-        } catch (e: Throwable) {
+            return try {
+                result as R
+            } catch(e: ClassCastException) {
+                if (result is ArrayList<*>)
+                    R::class.java.getConstructor(Collection::class.java).newInstance(result)
+                        .apply { setValue(thisRef, property, this) }
+                else throw e
+            }        } catch (e: Throwable) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }
@@ -113,7 +119,7 @@ class NonNullWrapperImp(
 
     var defaultBlock: (() -> Any)? = null
 
-    inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R {
+    inline operator fun <T : Any, reified R : Any> getValue(thisRef: T, property: KProperty<*>): R {
         try {
             val result = try {
                 component.find(nameSpace, property.name)
@@ -127,7 +133,9 @@ class NonNullWrapperImp(
             return try {
                 result as R
             } catch(e: ClassCastException) {
-                if (result is ArrayList<*>) R::class.java.getConstructor(Collection::class.java).newInstance(result)
+                if (result is ArrayList<*>)
+                    R::class.java.getConstructor(Collection::class.java).newInstance(result)
+                        .apply { setValue(thisRef, property, this) }
                 else throw e
             }
         } catch (e: Throwable) {
