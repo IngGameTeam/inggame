@@ -139,7 +139,6 @@ class NonNullWrapperImp(
                 else throw e
             }
         } catch (e: Throwable) {
-            e.printStackTrace()
             throw AssertionError("'${component.name}' component '$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }
