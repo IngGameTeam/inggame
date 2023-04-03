@@ -38,7 +38,8 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         isSavable = try { it.isSavable } catch(_: Throwable) { true }
                     ).apply {
                         if (componentParentList.isNotEmpty()) {
-                            parents.removeAll(listOf("handler", "default"))
+                            parents.remove("default")
+                            parents.remove("handler")
                             parents.addAll(componentParentList)
                         } else {
                             parents.add("handler")
