@@ -14,7 +14,7 @@ projectDependencies(
     command,
     world,
     plugman,
-//    item,
+    item,
     updateman,
     inggame_app,
 //    party_common,
