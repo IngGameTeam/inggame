@@ -117,13 +117,13 @@ class NonNullWrapperImp(
         try {
             val result = try {
                 component.find(nameSpace, property.name)
-                println("prop=${property.name}, type=${this.javaClass.simpleName}")
             } catch (e: Throwable) {
                 val defaultValue = defaultBlock?.invoke()?.apply {
                     setValue(thisRef, property, this) }
                 if (defaultValue === null) throw e
                 defaultValue
             }
+            println("prop=${property.name}, type=${this.javaClass.simpleName}")
             return result as R
         } catch (e: Throwable) {
             throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
