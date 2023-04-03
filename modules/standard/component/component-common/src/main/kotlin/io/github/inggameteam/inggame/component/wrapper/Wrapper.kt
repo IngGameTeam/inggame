@@ -115,7 +115,6 @@ class NonNullWrapperImp(
 
     inline operator fun <T : Any, reified R> getValue(thisRef: T, property: KProperty<*>): R {
         try {
-            println("prop=${property.name}, type=${this.javaClass.simpleName}")
             val result = try {
                 component.find(nameSpace, property.name)
             } catch (e: Throwable) {
