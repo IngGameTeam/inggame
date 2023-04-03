@@ -22,7 +22,7 @@ class GameHelper(
 
     override fun createContainer(parent: String, container: Game): Game {
         return super.createContainer(parent, container).also {
-            Bukkit.getPluginManager().callEvent(GameLoadEvent(container))
+            Bukkit.getPluginManager().callEvent(GameLoadEvent(it))
         }
     }
 
