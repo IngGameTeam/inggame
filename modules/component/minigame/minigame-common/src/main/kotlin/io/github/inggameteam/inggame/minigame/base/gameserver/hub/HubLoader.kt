@@ -18,7 +18,7 @@ class HubLoader(
 ) : HandleListener(plugin) {
 
     @Suppress("unused")
-    @EventHandler(priority = EventPriority.LOW )
+    @EventHandler(priority = EventPriority.LOWEST)
     fun onIngGamePluginEnable(event: IngGamePluginEnableEvent) {
         if (isNotHandler(gameServer)) return
         gameServer.hub = gameHelper.createContainer(GameServer::hub.name)
