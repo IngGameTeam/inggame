@@ -8,10 +8,7 @@ import io.github.inggameteam.inggame.component.loader.ComponentServiceType
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType.*
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
-import io.github.inggameteam.inggame.utils.Helper
-import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.Listener
-import io.github.inggameteam.inggame.utils.fastForEach
+import io.github.inggameteam.inggame.utils.*
 import org.bukkit.event.EventHandler
 import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.named
@@ -62,7 +59,8 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                     *cls.superclasses.filter { it.isSubclassOf(Wrapper::class) }.toTypedArray()) }
                             }
                             cls
-                        } else {
+                        } else if (cls.java.getAnnotation(Model::class.java) !== null) cls
+                        else {
                             if (cls.java.isInterface.not() && (cls.isSubclassOf(Handler::class) || cls.java.getAnnotation(Helper::class.java) !== null)) {
                                 clazzModule.module.single {
                                     val constructor = cls.primaryConstructor ?: return@single cls.createInstance()
