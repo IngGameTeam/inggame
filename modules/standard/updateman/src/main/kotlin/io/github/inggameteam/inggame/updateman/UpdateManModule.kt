@@ -13,11 +13,6 @@ class UpdateManModule(plugin: IngGamePlugin) : Listener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onUpdateMan(event: ComponentLoadEvent) {
-        event.registerClass {
-            classOf(::UpdateHelper)
-            classOf(::UpdateWatchDog)
-            classOf(UpdateSettingsWrapper::class)
-        }
         event.componentServiceRegistry.apply {
             cs("update", type = ComponentServiceType.RESOURCE, isSavable = true).cs("handler")
         }

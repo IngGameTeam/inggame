@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.updateman
 
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.Bukkit
 import org.eclipse.jgit.api.Git
@@ -14,6 +15,7 @@ import java.util.*
 import java.util.concurrent.Executors
 import java.util.function.Consumer
 
+@Helper
 class UpdateHelper {
 
     fun updateGit(settings: UpdateSettings): Boolean = settings.runCatching {
