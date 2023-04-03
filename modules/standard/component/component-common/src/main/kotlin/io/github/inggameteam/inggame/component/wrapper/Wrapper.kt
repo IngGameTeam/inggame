@@ -134,7 +134,6 @@ class NonNullWrapperImp(
         component.set(nameSpace, property.name, value)
     }
 
-
 }
 
 fun uncoverDelegate(any: Any): Any = any
