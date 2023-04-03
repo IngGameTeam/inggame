@@ -26,14 +26,14 @@ class LinkedComponentService(
     }
 
     override fun getAll(): List<NameSpace> {
-        return parentComponent.getAll()
+        return emptyList()
     }
 
     override fun removeNameSpace(name: Any) {
-        parentComponent.removeNameSpace(name)
+        //nothing
     }
 
     override fun addNameSpace(name: Any) {
-        parentComponent.addNameSpace(name)
+        //nothing
     }
 }
