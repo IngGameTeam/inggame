@@ -17,7 +17,7 @@ interface View {
     val player: Player
 
     fun getSelector(name: String): Selector {
-        return (app.get<ComponentService>(named("view-player")) as LayeredComponentService)
+        return (app.get<ComponentService>(named("view-player")))
             .apply { setParents(player.uniqueId, emptyList()) }
             .apply { addParents(player.uniqueId, name) }
             .get(player.uniqueId, ::SelectorImp)
