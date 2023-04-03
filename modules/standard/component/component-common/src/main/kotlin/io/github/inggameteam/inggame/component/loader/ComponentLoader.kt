@@ -29,7 +29,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
             Bukkit.broadcastMessage(componentsList.map { it.nameSpace}.toString())
             getKoin().loadModules(componentsList.mapNotNull {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
-                    null
+                    null.apply { Bukkit.broadcastMessage("already existing component") }
                 else try {
                     dsl.cs(
                         name = it.nameSpace.toString(),
