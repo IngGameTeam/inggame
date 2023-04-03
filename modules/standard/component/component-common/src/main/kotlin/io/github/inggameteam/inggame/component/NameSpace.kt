@@ -48,7 +48,7 @@ fun encodeNameSpace(ns: NameSpace, codec: MongoCodec): Document {
     }
 }
 
-val SINGLETON_NAMESPACE_NOT_FOUND get() = NameSpaceNotFoundException()
+val SINGLETON_NAMESPACE_NOT_FOUND = NameSpaceNotFoundException()
 val NameSpaceNotFound: NameSpaceNotFoundException get() = if(Debug.isDebug) NameSpaceNotFoundException() else SINGLETON_NAMESPACE_NOT_FOUND
 
 class NameSpaceNotFoundException : Throwable()
