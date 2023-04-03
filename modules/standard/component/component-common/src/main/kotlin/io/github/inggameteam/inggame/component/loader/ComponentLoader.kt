@@ -25,7 +25,9 @@ fun loadComponents(plugin: IngGamePlugin): Module {
             val componentService = get<ComponentService>(named(component))
             val componentsList = componentService.getAll(::ComponentImp)
             getKoin().loadModules(componentsList.mapNotNull {
-                try {
+                if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
+                    null
+                else try {
                     dsl.cs(
                         name = it.nameSpace.toString(),
                         type = it.componentType,
