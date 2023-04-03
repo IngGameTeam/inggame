@@ -5,7 +5,9 @@ import io.github.inggameteam.inggame.component.Handler.Companion.isNotHandler
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.sectional.SectionalHandler
 import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
+import io.github.inggameteam.inggame.utils.Helper
 
+@Helper
 class VoidDeathHelper {
 
     fun testVoidDeath(player: GPlayer): Boolean {

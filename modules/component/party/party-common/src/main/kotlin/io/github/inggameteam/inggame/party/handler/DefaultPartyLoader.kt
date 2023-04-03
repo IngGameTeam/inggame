@@ -8,17 +8,18 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 
 class DefaultPartyLoader(
-    val partyServer: PartyServer,
-    val partyHelper: PartyHelper,
+    private val partyServer: PartyServer,
+    private val partyHelper: PartyHelper,
     plugin: IngGamePlugin
 ) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOWEST)
     fun onEnable(event: IngGamePluginEnableEvent) {
-//        partyServer.defaultParty = partyHelper.createContainer()
+        partyServer.defaultParty = partyHelper.createContainer("defaultParty").apply {
+            partyNameOrNull = nameSpace.toString()
+        }
     }
-
 
 
 }

@@ -8,12 +8,4 @@ import org.bukkit.event.EventHandler
 
 class PartyViewModule(plugin: IngGamePlugin) : Listener(plugin) {
 
-    @Suppress("unused")
-    @EventHandler
-    fun onEnable(event: ComponentLoadEvent) {
-        event.registerClass {
-            classOf(::PartyCommand)
-        }
-    }
-
 }

@@ -1,12 +1,14 @@
 package io.github.inggameteam.inggame.updateman
 
 import io.github.inggameteam.inggame.component.HandleListener
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.event.EventHandler
 import kotlin.concurrent.thread
 
+@Helper
 class UpdateWatchDog(
     private val updateHelper: UpdateHelper,
     private val updateRepo: UpdateRepo,

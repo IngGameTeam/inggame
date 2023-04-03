@@ -13,16 +13,17 @@ import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color
 import org.bukkit.Bukkit
 
+@Helper
 class PartyHelper(
     val plugin: IngGamePlugin,
-    val partyPlayerService: PartyPlayerService,
+    private val partyPlayerService: PartyPlayerService,
     private val partyInstanceService: PartyInstanceService,
     private val partyRequestInstanceRepo: PartyRequestInstanceRepo,
     private val partyServer: PartyServer
 ) : ContainerHelperBase<Party, PartyPlayer>(partyInstanceService, partyInstanceService, {partyServer.defaultParty}) {
 
     fun createContainer(parent: String = "party"): Party {
-        return super.createContainer(parent, partyInstanceService[randomUUID(), ::Party])
+        return super.createContainer(parent, partyInstanceService[randomUUID(), ::PartyImp])
     }
 
     override fun removeContainer(container: Party) {
@@ -39,22 +40,22 @@ class PartyHelper(
     }
 
     fun createParty(dispatcher: PartyPlayer) {
-        leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
-        joinContainer(createContainer(), dispatcher)
+            leftContainer(dispatcher, LeftType.DUE_TO_MOVE_ANOTHER)
+            joinContainer(createContainer(), dispatcher)
     }
 
     fun renameParty(dispatcher: PartyPlayer, newName: String): Unit = dispatcher.joined.run {
         if (leader == dispatcher) {
-            val beforeName = name
+            val beforeName = partyName
             if (newName.isEmpty()) {
                 resetName()
             } else if (newName.length > 20) {
                 dispatcher[::PartyAlertImp].OVER_PARTY_NAME_LENGTH.send(dispatcher)
                 return
             } else {
-                name = newName.color()
+                partyNameOrNull = newName.color()
             }
-            dispatcher[::PartyAlertImp].PARTY_RENAMED.send(dispatcher, beforeName, name)
+            dispatcher[::PartyAlertImp].PARTY_RENAMED.send(dispatcher, beforeName, partyName)
             Bukkit.getPluginManager().callEvent(PartyUpdateEvent(this))
         } else dispatcher[::PartyAlertImp].PARTY_RENAME_IS_LEADER_ONLY.send(dispatcher)
     }
@@ -87,8 +88,9 @@ class PartyHelper(
                 joinedPlayers.filter { it != newLeader }.fastForEach { p ->
                     p[::PartyAlertImp].PARTY_PROMOTED.send(p, newLeader, this)
                 }
+                val isPartyNameOrigin = partyName == defaultName
                 leader = newLeader
-                if (!renamed) resetName()
+                if (!isPartyNameOrigin) resetName()
                 Bukkit.getPluginManager().callEvent(PartyUpdateEvent(this))
             } else dispatcher[::PartyAlertImp].PLAYER_NOT_EXIST_IN_PARTY.send(dispatcher)
         } else dispatcher[::PartyAlertImp].PARTY_PROMOTE_IS_LEADER_ONLY.send(dispatcher)

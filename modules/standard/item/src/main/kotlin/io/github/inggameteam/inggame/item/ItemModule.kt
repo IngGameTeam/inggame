@@ -13,21 +13,4 @@ import org.bukkit.event.EventHandler
 
 class ItemModule(plugin: IngGamePlugin) : Listener(plugin) {
 
-    @Suppress("unused")
-    @EventHandler
-    fun onEnable(event: ComponentLoadEvent) {
-        event.registerClass {
-            classOf(Item::class)
-            classOf(::UseItem)
-        }
-        event.addModule(newModule("item-resource", ::ItemResource))
-        event.componentServiceRegistry.apply {
-            this
-                .cs("item-player", type = ComponentServiceType.LAYER)
-                .cs("item-resource",
-                    type = ComponentServiceType.MULTI, key = "item-language", root = "player-instance"
-                ) csc { cs("item-template-korean", isSavable = true).cs("handler") }
-        }
-
-    }
 }

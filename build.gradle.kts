@@ -81,9 +81,6 @@ allprojects {
         compileOnly("org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}")
         testApi("org.mongodb:mongodb-driver-sync:${Dependency.MongoDB.Version}")
 
-//        compileOnly("io.github.bruce0203:reflections:0.10.3.4")
-//        testApi("io.github.bruce0203:reflections:0.10.3.4")
-
         compileOnly("org.projectlombok:lombok:1.18.24")
         annotationProcessor("org.projectlombok:lombok:1.18.24")
         testCompileOnly("org.projectlombok:lombok:1.18.24")
@@ -94,6 +91,8 @@ allprojects {
         testImplementation("io.insert-koin:koin-test-junit4:${Dependency.Koin.Version}")
         testImplementation("io.insert-koin:koin-test-junit5:${Dependency.Koin.Version}")
 
+        compileOnly("com.google.guava:guava:31.1-jre")
+        testCompileOnly("com.google.guava:guava:31.1-jre")
 
     }
 

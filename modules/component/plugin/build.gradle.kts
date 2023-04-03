@@ -36,7 +36,10 @@ spigot {
         "com.eatthepath:fast-uuid:0.2.0",
         "io.insert-koin:koin-core-jvm:${Dependency.Koin.Version}",
         "io.github.bruce0203:nbt-api:6",
-        "io.github.bruce0203:jgit:5"
+        "io.github.bruce0203:jgit:5",
+        "org.burningwave:core:12.62.6",
+        "org.burningwave:reflection:3.5.4",
+        "com.google.guava:guava:31.1-jre"
     )
     commands {
         create("ing") {

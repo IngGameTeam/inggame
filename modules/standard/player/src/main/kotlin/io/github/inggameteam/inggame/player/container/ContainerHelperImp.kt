@@ -5,6 +5,7 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.utils.singleClass
 import kotlin.reflect.KProperty
+import kotlin.system.measureTimeMillis
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
 class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
@@ -54,7 +55,7 @@ class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
 
     @Suppress("DEPRECATION")
     private fun getList(container: CONTAINER): MutableCollection<ELEMENT> {
-        val get = try { container.getValue<Any>(keyList.name) } catch (_: Throwable) { null }
+        val get = try { container.getValue(keyList.name) } catch (_: Throwable) { null }
         return if (get is MutableCollection<*>) get as MutableCollection<ELEMENT>
         else {
             val col = keyList.returnType.singleClass.newInstance() as MutableCollection<ELEMENT>

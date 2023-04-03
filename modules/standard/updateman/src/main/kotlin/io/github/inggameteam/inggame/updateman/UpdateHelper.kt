@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.updateman
 
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.runNow
 import org.bukkit.Bukkit
 import org.eclipse.jgit.api.Git
@@ -14,11 +15,12 @@ import java.util.*
 import java.util.concurrent.Executors
 import java.util.function.Consumer
 
+@Helper
 class UpdateHelper {
 
-    fun updateGit(settings: UpdateSettings): Boolean = settings.run {
+    fun updateGit(settings: UpdateSettings): Boolean = settings.runCatching {
         if (File(gitDir, ".git").exists()) {
-            Git.open(File(gitDir, ".git"))
+            return@runCatching Git.open(File(gitDir, ".git"))
                 .pull().call().fetchResult.trackingRefUpdates.isNotEmpty()
         } else {
             gitDir.mkdir()
@@ -30,7 +32,7 @@ class UpdateHelper {
                 .call()
             true
         }
-    }
+    }.run { getOrDefault(false) }
 
     fun deploy(settings: UpdateSettings): Unit = settings.run {
         ;{
@@ -55,7 +57,6 @@ class UpdateHelper {
             } finally {
                 requestRevertBackup(settings)
             }
-            backupDir.deleteOnExit()
         } catch (e: Throwable) {
             e.printStackTrace()
         }
@@ -68,9 +69,8 @@ class UpdateHelper {
     }
 
     private fun requestRevertBackup(settings: UpdateSettings): Unit = settings.run {
-        println(pluginOrNull)
         if (!assertRevertBackup(settings)) return@run
-        println("Fail to load plugin, reloading backup-file...")
+        Bukkit.getLogger().warning("Fail to load plugin, reloading backup-file...")
         oldPluginFile.deleteOnExit()
         Files.copy(
             backupFile.toPath(),

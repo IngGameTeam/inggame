@@ -11,14 +11,4 @@ import org.bukkit.event.EventHandler
 
 class GameViewModule(plugin: IngGamePlugin) : Listener(plugin) {
 
-    @Suppress("unused")
-    @EventHandler
-    fun onLoadComponent(event: ComponentLoadEvent) {
-        event.registerClass {
-            classOf(::GameChoosingMenuHandler)
-            classOf(::GameChoosingMenuHelper)
-            classOf(GameChoosingMenu::class)
-        }
-    }
-
 }

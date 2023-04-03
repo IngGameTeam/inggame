@@ -2,10 +2,7 @@ package io.github.inggameteam.inggame.mongodb
 
 import com.mongodb.MongoClientSettings
 import io.github.inggameteam.inggame.utils.Model
-import org.bson.BsonArray
-import org.bson.BsonDocument
-import org.bson.BsonDocumentWriter
-import org.bson.Document
+import org.bson.*
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
@@ -56,14 +53,24 @@ class MongoCodec(
 
     fun encode(value: Any?): Any? {
         if (value === null) return null
-        return if (value.javaClass.getAnnotation(Model::class.java) !== null) {
+        return if (value is String) return BsonString(value)
+        else if (value is Int) return BsonInt32(value)
+        else if (value is Long) return BsonInt64(value)
+        else if (value is Double || value is Float) return BsonDouble(value as Double)
+        else if (value is Char) return BsonString(value.toString())
+        else if (value is Boolean) return BsonBoolean(value)
+        else if (value is Short) return BsonInt32(value.toInt())
+        else if (value is Byte) return BsonInt32(value.toInt())
+        else if (value.javaClass.getAnnotation(Model::class.java) !== null) {
             val document = BsonDocument()
             val writer = BsonDocumentWriter(document)
             codecRegistry[value.javaClass].encode(writer, value, EncoderContext.builder().build())
             return fromBson(document)
         } else if (value is Collection<*>) {
             BsonArray(value.map {
-                (encode(it) as? Document)?.run(::toBson)
+                val encode = encode(it)
+                if (encode is Document) encode.run(::toBson)
+                else if (encode is BsonValue) encode else null
             }.toMutableList())
         } else if (value is Map<*, *>) {
             value.mapValues { encode(it.value) }

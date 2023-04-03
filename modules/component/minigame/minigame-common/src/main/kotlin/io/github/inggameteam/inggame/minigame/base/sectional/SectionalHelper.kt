@@ -1,5 +1,6 @@
 package io.github.inggameteam.inggame.minigame.base.sectional
 
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.world.paste
 import org.bukkit.Location
@@ -8,6 +9,7 @@ import org.bukkit.entity.EntityType
 import java.io.File
 import kotlin.concurrent.thread
 
+@Helper
 class SectionalHelper(
     val plugin: IngGamePlugin
 ) {

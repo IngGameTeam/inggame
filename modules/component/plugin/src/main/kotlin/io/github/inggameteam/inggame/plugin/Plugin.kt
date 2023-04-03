@@ -2,10 +2,6 @@ package io.github.inggameteam.inggame.plugin
 
 import io.github.inggameteam.inggame.component.*
 import io.github.inggameteam.inggame.inggame.IngGamePluginImp
-import io.github.inggameteam.inggame.minigame.GameModule
-import io.github.inggameteam.inggame.minigame.view.GameViewModule
-import io.github.inggameteam.inggame.party.PartyModule
-import io.github.inggameteam.inggame.party.view.PartyViewModule
 
 @Suppress("unused")
 class Plugin : IngGamePluginImp() {
@@ -16,10 +12,10 @@ class Plugin : IngGamePluginImp() {
     }
 
     override fun registerModule() {
-        GameModule(this)
-        GameViewModule(this)
-        PartyModule(this)
-        PartyViewModule(this)
+//        GameModule(this)
+//        GameViewModule(this)
+//        PartyModule(this)
+//        PartyViewModule(this)
     }
 
 }

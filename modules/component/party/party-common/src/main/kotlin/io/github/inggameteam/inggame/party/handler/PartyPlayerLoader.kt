@@ -5,7 +5,7 @@ import io.github.inggameteam.inggame.party.component.PartyPlayerService
 import io.github.inggameteam.inggame.party.wrapper.PartyPlayer
 import io.github.inggameteam.inggame.party.wrapper.PartyPlayerImp
 import io.github.inggameteam.inggame.party.wrapper.PartyServer
-import io.github.inggameteam.inggame.player.PlayerService
+import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
@@ -23,14 +23,14 @@ class PartyPlayerLoader(
     private val partyServer: PartyServer,
     @Suppress("unused")
     private val playerLoader: PlayerLoader,
-    private val playerService: PlayerService,
+    private val playerInstanceService: PlayerInstanceService,
     plugin: IngGamePlugin
 ) : Listener(plugin) {
 
     @Suppress("unused")
     @EventHandler(priority = EventPriority.LOW)
     fun onEnable(event: IngGamePluginEnableEvent) {
-        playerService.getAll(::PartyPlayerImp).forEach { join(it) }
+        playerInstanceService.getAll().map { it.name as UUID }.forEach { join(it) }
     }
 
     @Suppress("unused")

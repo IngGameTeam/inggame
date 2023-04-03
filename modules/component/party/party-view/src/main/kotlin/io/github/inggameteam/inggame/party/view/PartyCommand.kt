@@ -7,6 +7,7 @@ import io.github.inggameteam.inggame.party.component.PartyPlayerService
 import io.github.inggameteam.inggame.party.handler.PartyHelper
 import io.github.inggameteam.inggame.party.handler.PartyRequestHelper
 import io.github.inggameteam.inggame.party.wrapper.PartyPlayerImp
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
@@ -17,6 +18,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.EnchantmentStorageMeta
 import org.bukkit.plugin.java.JavaPlugin
 
+@Helper
 class PartyCommand(
     val partyPlayerService: PartyPlayerService,
     val partyHelper: PartyHelper,
