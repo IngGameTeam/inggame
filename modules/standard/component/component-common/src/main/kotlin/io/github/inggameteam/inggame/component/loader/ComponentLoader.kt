@@ -48,7 +48,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         Bukkit.broadcastMessage(componentParentList.toString())
                         Bukkit.broadcastMessage(parents.toString())
                     }
-                } catch(e: Throwable) { e.printStackTrace(); null }
+                } catch(e: Throwable) { null }
             }.map { it.createComponentModule() })
             componentsList.forEach {
                 try {
