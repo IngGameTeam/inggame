@@ -27,7 +27,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                 try {
                     val existingCS = get<ComponentService>(named(it.nameSpace.toString()))
                     if (existingCS is MultiParentsComponentService) {
-                        existingCS.components.addAll(it.parentsList.map { p -> get(named(p)) })
+                        existingCS.components.addAll(it.componentParentList.map { p -> get(named(p)) })
                     }
                 }
                 catch (_: Throwable) { }
@@ -37,10 +37,10 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         type = it.componentType,
                         isSavable = it.isSavable
                     ).apply {
-                        if (it.parentsList.isNotEmpty()) {
+                        if (it.componentParentList.isNotEmpty()) {
                             parents.removeAll(listOf("handler", "default"))
                             parents.add("handler")
-                            parents.addAll(it.parentsList)
+                            parents.addAll(it.componentParentList)
                         }
                     }
                 } catch (_: Throwable) { null }

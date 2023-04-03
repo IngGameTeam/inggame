@@ -7,6 +7,6 @@ interface Component : Wrapper {
 
     val componentType: ComponentServiceType
     val isSavable: Boolean
-    val parentsList: SafeSetWithToString<String>
+    val componentParentList: SafeSetWithToString<String>
 
 }
