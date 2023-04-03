@@ -47,7 +47,7 @@ class EditorRegistry(private val subClassRegistry: SubClassRegistry) {
             try {
                 subClassRegistry.getSubs(clazz.kotlin)
                 return SubTypeSelector(editorView, modelView, selector)
-            } catch (_: Throwable) { }
+            } catch (e: Throwable) { e.printStackTrace() }
             return ModelFieldSelector(editorView, modelView, selector)
         }
         throw AssertionError("$type Editor Not Found")
