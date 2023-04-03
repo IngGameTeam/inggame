@@ -47,6 +47,9 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
         val containerAlert = element[::ContainerAlertImp]
         if (requestJoin(container, element, joinType, true)) {
             containerHelper.join(container, element)
+            container.joinedPlayers.forEach { p ->
+                p[::ContainerAlertImp].GAME_JOIN.send(p, element, container.containerName)
+            }
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
             onJoin(container, element, joinType)
