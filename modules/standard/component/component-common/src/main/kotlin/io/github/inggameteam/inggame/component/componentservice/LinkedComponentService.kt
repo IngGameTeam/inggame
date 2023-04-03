@@ -1,14 +1,13 @@
 package io.github.inggameteam.inggame.component.componentservice
 
 import io.github.inggameteam.inggame.component.NameSpace
+import io.github.inggameteam.inggame.component.NameSpaceNotFound
 import kotlin.reflect.KClass
 
 class LinkedComponentService(
-    override val parentComponent: ComponentService
-
+    override val parentComponent: ComponentService,
+    override val name: String
 ) : ComponentService, AbstractNameSpaceComponentService() {
-
-    override val name: String get() = parentComponent.name
 
     override fun <T : Any> find(nameSpace: Any, key: Any, clazz: KClass<T>): T {
         return parentComponent.find(nameSpace, key, clazz)
