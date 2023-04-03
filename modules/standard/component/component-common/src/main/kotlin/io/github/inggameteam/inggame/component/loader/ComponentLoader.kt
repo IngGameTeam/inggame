@@ -24,7 +24,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         factory {
             val componentService = get<ComponentService>(named(component))
             val componentsList = componentService.getAll(::ComponentImp)
-            println(componentService)
+            println(componentsList)
             getKoin().loadModules(componentsList.mapNotNull {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
                     null
