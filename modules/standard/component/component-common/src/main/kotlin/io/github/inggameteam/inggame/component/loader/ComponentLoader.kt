@@ -51,7 +51,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         existingCS.components.addAll(it.componentParentList.map { p -> get(named(p)) })
                     }
                 }
-                catch (_: Throwable) { }
+                catch (e: Throwable) { e.printStackTrace() }
             }
             println("-".repeat(10))
             println(event.componentServiceRegistry.registry.joinToString("\n"))
