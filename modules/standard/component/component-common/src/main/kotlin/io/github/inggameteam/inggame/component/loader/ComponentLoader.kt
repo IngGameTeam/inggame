@@ -55,16 +55,10 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                     val existingCS = get<ComponentService>(named(it.nameSpace.toString()))
                     if (existingCS is MultiParentsComponentService) {
                         existingCS.components.addAll(0, it.componentParentList.map { p -> get(named(p)) })
-                        println("${existingCS.components.map { it.name }}")
                     }
                 }
-                catch (e: Throwable) {
-                    e.printStackTrace()
-                }
+                catch (_: Throwable) { }
             }
-            println("-".repeat(10))
-            println(event.componentServiceRegistry.registry.joinToString("\n"))
-            println("-".repeat(10))
 
             getKoin().createEagerInstances()
             ComponentLoader
