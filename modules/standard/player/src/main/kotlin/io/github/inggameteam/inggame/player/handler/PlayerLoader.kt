@@ -1,6 +1,7 @@
 package io.github.inggameteam.inggame.player.handler
 
 import io.github.inggameteam.inggame.player.PlayerInstanceService
+import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -11,6 +12,7 @@ import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 
+@Helper
 class PlayerLoader(private val playerInstanceService: PlayerInstanceService, private val plugin: IngGamePlugin) : Listener {
 
     init {
