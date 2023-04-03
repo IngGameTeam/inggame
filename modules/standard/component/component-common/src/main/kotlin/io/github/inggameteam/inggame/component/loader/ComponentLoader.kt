@@ -24,6 +24,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         factory {
             val componentService = get<ComponentService>(named(component))
             val componentsList = componentService.getAll(::ComponentImp)
+            println(componentService)
             getKoin().loadModules(componentsList.mapNotNull {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
                     null
@@ -33,7 +34,6 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         type = it.componentType,
                         isSavable = it.isSavable
                     ).apply {
-                        println(it.componentParentList)
                         if (it.componentParentList.isNotEmpty()) {
                             parents.removeAll(listOf("handler", "default"))
                             parents.add("handler")
