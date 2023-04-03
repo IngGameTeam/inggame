@@ -52,7 +52,7 @@ abstract class ContainerHelperBase<CONTAINER : Container<ELEMENT>, ELEMENT : Con
                     p[::ContainerAlertImp].GAME_JOIN.send(p, element, container.containerName)
                 }
 
-               println(measureTimeMillis { repeat(100) { println(container.containerName) } })
+               println(measureTimeMillis { repeat(100) { container.containerName } })
             })
             if (joinType === JoinType.PLAY) element.isPlaying = true
             else containerAlert.GAME_START_SPECTATING.send(element, container.containerName)
