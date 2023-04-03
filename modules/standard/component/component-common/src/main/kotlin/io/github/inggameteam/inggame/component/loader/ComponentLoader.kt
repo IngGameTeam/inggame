@@ -4,6 +4,7 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.componentservice.MultiParentsComponentService
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Bukkit
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
@@ -22,9 +23,10 @@ fun loadComponents(plugin: IngGamePlugin): Module {
         }
         includes(dsl.registry.map(ComponentServiceDSL::createComponentModule))
         factory {
+            Bukkit.broadcastMessage("ComponentLaoder!")
             val componentService = get<ComponentService>(named(component))
             val componentsList = componentService.getAll(::ComponentImp)
-            println(componentsList)
+            Bukkit.broadcastMessage(componentsList.map { it.nameSpace}.toString())
             getKoin().loadModules(componentsList.mapNotNull {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
                     null
