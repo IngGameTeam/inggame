@@ -8,8 +8,8 @@ projectDependencies(
     component_common,
     component_view,
     player,
-//    minigame_common,
-//    minigame_view,
+    minigame_common,
+    minigame_view,
     guiapi,
     command,
     world,
@@ -17,8 +17,8 @@ projectDependencies(
     item,
     updateman,
     inggame_app,
-//    party_common,
-//    party_view,
+    party_common,
+    party_view,
     includeJar = true,
 )
 tasks.forEach { it.outputs.cacheIf { true } }
