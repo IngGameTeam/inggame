@@ -107,7 +107,7 @@ class ComponentServiceDSL private constructor(
 }
 
 fun ComponentServiceDSL.createComponentModule(): Module = this.let { cs ->
-    module {
+    module(createdAtStart = true) {
         if (cs.loadedSemaphore) return@module
         includes(createFileRepo(cs.name, cs.name))
         cs.loadedSemaphore = true

@@ -10,7 +10,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-class ComponentLoader
+object ComponentLoader
 fun loadComponents(plugin: IngGamePlugin): Module {
     val eventDsl = ComponentServiceDSL.newRoot()
     val event = ComponentLoadEvent(eventDsl.cs("root"))
@@ -58,7 +58,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
             println("-".repeat(10))
 
             getKoin().createEagerInstances()
-            ComponentLoader()
+            ComponentLoader
         } bind ComponentLoader::class
     }
 }
