@@ -39,6 +39,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         if (it.componentParentList.isNotEmpty()) {
                             parents.removeAll(listOf("handler", "default"))
                             parents.addAll(it.componentParentList)
+                            Bukkit.broadcastMessage(parents.toString())
                         }
                     }
                 } catch (_: Throwable) { null }
