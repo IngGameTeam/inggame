@@ -10,8 +10,3 @@ import org.bukkit.Bukkit
 @Helper
 class ViewPlayerLoader(viewHelper: ViewPlayer, plugin: IngGamePlugin) :
     LayeredPlayerLoader(viewHelper as LayeredComponentService, plugin)
-{
-        init {
-            Bukkit.broadcastMessage("ViewPlayerLoader")
-        }
-    }
