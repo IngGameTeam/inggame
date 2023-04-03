@@ -42,7 +42,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                             Bukkit.broadcastMessage(parents.toString())
                         }
                     }
-                } catch (_: Throwable) { null }
+                } catch(e: Throwable) { e.printStackTrace(); null }
             }.map { it.createComponentModule() })
             componentsList.forEach {
                 try {
@@ -51,7 +51,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                         existingCS.components.addAll(it.componentParentList.map { p -> get(named(p)) })
                     }
                 }
-                catch (e: Throwable) { e.printStackTrace() }
+                catch (_: Throwable) {  }
             }
             println("-".repeat(10))
             println(event.componentServiceRegistry.registry.joinToString("\n"))
