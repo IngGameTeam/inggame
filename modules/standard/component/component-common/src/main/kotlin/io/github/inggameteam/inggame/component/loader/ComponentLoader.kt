@@ -31,7 +31,7 @@ fun loadComponents(plugin: IngGamePlugin): Module {
                 if (runCatching { get<ComponentService>(named(it.nameSpace.toString())) }.isSuccess)
                     null
                 else try {
-                    val componentParentList = try { it.componentParentList } catch (e: Throwable) { e.printStackTrace(); emptyList() }
+                    val componentParentList = try { it.componentParentList } catch (e: Throwable) { emptyList() }
                     dsl.cs(
                         name = it.nameSpace.toString(),
                         type = try { it.componentType } catch (_: Throwable) { ComponentServiceType.RESOURCE },

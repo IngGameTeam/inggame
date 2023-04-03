@@ -127,7 +127,7 @@ class NonNullWrapperImp(
             return try {
                 result as R
             } catch(e: ClassCastException) {
-                if (result is ArrayList<*>) R::class.java.getConstructor(List::class.java).newInstance(result)
+                if (result is ArrayList<*>) R::class.java.getConstructor(Collection::class.java).newInstance(result)
                 else throw e
             }
         } catch (e: Throwable) {
