@@ -95,7 +95,7 @@ class NullableWrapperImp(
                         .apply { setValue(thisRef, property, this) }
                 else throw e
             }        } catch (e: Throwable) {
-            throw AssertionError("'$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
+            throw AssertionError("'${component.name}' component '$nameSpace' name space '${property.name}' key '${thisRef.javaClass.simpleName}' ref not exist")
         }
     }
 
