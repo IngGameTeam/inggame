@@ -9,10 +9,7 @@ import io.github.inggameteam.inggame.component.view.controller.NameSpaceSelector
 import io.github.inggameteam.inggame.component.view.entity.ComponentServiceViewImp
 import io.github.inggameteam.inggame.component.view.entity.ViewImp
 import io.github.inggameteam.inggame.plugman.util.PluginUtil
-import io.github.inggameteam.inggame.utils.Debug
-import io.github.inggameteam.inggame.utils.Helper
-import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.fastUUID
+import io.github.inggameteam.inggame.utils.*
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.Koin
@@ -21,7 +18,9 @@ import kotlin.system.measureTimeMillis
 
 @Helper
 class IngGameCommand(plugin: IngGamePlugin) {
-    init { debugCommand(plugin, (plugin as IngGamePluginImp).ingGame.app) }
+    init {
+        { debugCommand(plugin, (plugin as IngGamePluginImp).ingGame.app) }.runNow(plugin)
+    }
     private fun debugCommand(plugin: IngGamePlugin, app: Koin) = plugin.run {
         MCCommand(this as JavaPlugin) {
             command("ing") {
