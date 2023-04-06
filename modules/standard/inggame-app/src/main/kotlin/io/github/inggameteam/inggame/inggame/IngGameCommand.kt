@@ -87,7 +87,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                         }
                         val key = split[2]
                         measureTimeMillis {
-                            repeat(2000) {
+                            repeat(3000) {
                                 componentService.find(nameSpace, key)
                             }
                         }.run(Any::toString).apply(source::sendMessage)
