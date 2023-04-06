@@ -3,7 +3,6 @@ package io.github.inggameteam.inggame.party.handler
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.party.event.CreatePartyEvent
 import io.github.inggameteam.inggame.party.event.JoinPartyEvent
-import io.github.inggameteam.inggame.party.wrapper.Party
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler

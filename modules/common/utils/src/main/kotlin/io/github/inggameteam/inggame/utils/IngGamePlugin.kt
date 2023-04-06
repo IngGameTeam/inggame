@@ -10,5 +10,5 @@ interface IngGamePlugin : Plugin, Listener {
     val isMockTest: Boolean
     fun addDisableEvent(action: () -> Unit)
     fun addSaveEvent(action: () -> Unit)
-    fun registerModule()
+    fun registerModule() = Unit
 }

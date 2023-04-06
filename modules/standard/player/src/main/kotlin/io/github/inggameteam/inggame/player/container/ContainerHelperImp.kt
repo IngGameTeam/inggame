@@ -5,7 +5,6 @@ import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.component.wrapper.uncoverDelegate
 import io.github.inggameteam.inggame.utils.singleClass
 import kotlin.reflect.KProperty
-import kotlin.system.measureTimeMillis
 
 @Suppress("UNCHECKED_CAST", "NAME_SHADOWING")
 class ContainerHelperImp<CONTAINER : Wrapper, ELEMENT : Wrapper>(
