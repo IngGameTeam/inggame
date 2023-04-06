@@ -21,7 +21,9 @@ class SoloCompetitionHandler(
     private val gameHelper: GameHelper,
     plugin: IngGamePlugin
 ) : HandleListener(plugin), CompetitionHandler {
-
+init {
+    Bukkit.broadcastMessage(javaClass.simpleName)
+}
     override fun sendDeathMessage(player: GPlayer, killer: GPlayer?) {
         player[::GameImp].joinedPlayers.forEach { p -> p[::GameAlertImp].PLAYER_DEATH_TO_VOID.send(p, player) }
     }
