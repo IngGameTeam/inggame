@@ -14,7 +14,6 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
     override val isAllocatedGame: Boolean
         get() = !sector.equals(0, 0)
     override val schematicName: String by nonNull
-    override val locations: HashMap<String, LocationModel> by nonNull
     override var center: Vector by nonNull
     override var minPoint: Vector by nonNull
     override var maxPoint: Vector by nonNull
@@ -36,16 +35,7 @@ class SectionalImp(wrapper: Wrapper) : Game by GameImp(wrapper), Sectional {
         }
     }
 
-    override fun getLocation(name: String): org.bukkit.Location =
-        getLocationOrNull(name)
-            ?: LocationModel(sector.world.name, .0, .0, .0, 0f, 0f, true)
-                .run(::toRelative)
-
-
-    override fun getLocationOrNull(name: String): org.bukkit.Location? =
-        locations["$schematicName/$name"]?.run { toRelative(this) }
-
-    private fun toRelative(location: LocationModel) = location.run {
+    fun toRelative(location: LocationModel) = location.run {
         toLocation(sector.world).apply {
             if (!isRelative) return@apply
             x += width * sector.x
