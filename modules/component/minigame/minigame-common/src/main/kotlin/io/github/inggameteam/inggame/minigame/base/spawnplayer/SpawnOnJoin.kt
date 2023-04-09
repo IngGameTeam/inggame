@@ -9,6 +9,7 @@ import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 
+@Deprecated("not referenced")
 class SpawnOnJoin(val plugin: IngGamePlugin) : Handler, Listener(plugin) {
 
     @Suppress("unused")
@@ -16,7 +17,6 @@ class SpawnOnJoin(val plugin: IngGamePlugin) : Handler, Listener(plugin) {
     fun onJoinGame(event: GameJoinEvent) {
         if (isNotHandler(event.game)) return
         plugin.server.pluginManager.callEvent(GPlayerSpawnEvent(event.player))
-        Bukkit.broadcastMessage("SpawnOnJoin")
     }
 
 }
