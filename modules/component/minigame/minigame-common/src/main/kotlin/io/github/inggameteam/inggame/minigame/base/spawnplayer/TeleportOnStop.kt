@@ -4,7 +4,6 @@ import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.component.model.LocationModel
 import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
-import io.github.inggameteam.inggame.minigame.base.game.GameImp
 import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
 import io.github.inggameteam.inggame.utils.ContainerState
@@ -16,7 +15,7 @@ interface TeleportOnStop : Wrapper {
     val teleportOnStop: LocationModel?
 }
 
-class TeleportOnStopImp(wrapper: Wrapper) : SimpleWrapper(wrapper), TeleportOnStop{
+class TeleportOnStopImp(wrapper: Wrapper) : SimpleWrapper(wrapper), TeleportOnStop {
     override val teleportOnStop: LocationModel? by nullable
 }
 
@@ -32,7 +31,7 @@ class TeleportOnStopHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
         Bukkit.broadcastMessage("TeleportOnStop.2")
         if (game.containerState !== ContainerState.STOP) return
         Bukkit.broadcastMessage("TeleportOnStop.3")
-        val location = game[::TeleportOnSpawnImp].teleportOnSpawn
+        val location = game[::TeleportOnStopImp].teleportOnStop
             ?.run { game.toRelative(this) }
             ?: return
         Bukkit.broadcastMessage("TeleportOnStop.4")
