@@ -13,7 +13,7 @@ class LocationModel(
     var z: Double = 0.0,
     var yaw: Float = 0f,
     var pitch: Float = 0f,
-    var isRelative: Boolean
+    var isRelative: Boolean = true
 ) {
 //    override fun toString() = "$world($x, $y, $z, $yaw, $pitch)"
     override fun toString() = "A Location"
