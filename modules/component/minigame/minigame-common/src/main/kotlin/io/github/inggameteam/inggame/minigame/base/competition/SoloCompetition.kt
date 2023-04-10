@@ -8,7 +8,7 @@ import io.github.inggameteam.inggame.minigame.base.game.event.GameFinishEvent
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
-import io.github.inggameteam.inggame.utils.ContainerState
+import io.github.inggameteam.inggame.player.ContainerState
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.hasNoTags
 import io.github.inggameteam.inggame.utils.hasTags

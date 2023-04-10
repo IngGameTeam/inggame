@@ -5,7 +5,7 @@ import io.github.inggameteam.inggame.minigame.base.game.GameHelper
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.JoinType
+import io.github.inggameteam.inggame.player.JoinType
 
 @Helper
 class GameChoosingMenuHelper(

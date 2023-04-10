@@ -5,6 +5,9 @@ import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.base.player.PTag
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
+import io.github.inggameteam.inggame.player.ContainerState
+import io.github.inggameteam.inggame.player.JoinType
+import io.github.inggameteam.inggame.player.LeftType
 import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import org.bukkit.Bukkit

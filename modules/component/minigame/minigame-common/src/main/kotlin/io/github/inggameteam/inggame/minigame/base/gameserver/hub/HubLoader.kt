@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.game.GameHelper
 import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
-import io.github.inggameteam.inggame.utils.ContainerState
+import io.github.inggameteam.inggame.player.ContainerState
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import org.bukkit.event.EventHandler

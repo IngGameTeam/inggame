@@ -7,7 +7,7 @@ import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
 import io.github.inggameteam.inggame.minigame.component.GameInstanceService
 import io.github.inggameteam.inggame.minigame.component.GamePlayerService
-import io.github.inggameteam.inggame.utils.ContainerState
+import io.github.inggameteam.inggame.player.ContainerState
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.async
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent

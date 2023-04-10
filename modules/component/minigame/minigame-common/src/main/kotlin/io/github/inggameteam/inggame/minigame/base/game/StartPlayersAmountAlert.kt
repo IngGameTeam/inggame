@@ -3,6 +3,7 @@ package io.github.inggameteam.inggame.minigame.base.game
 import io.github.inggameteam.inggame.component.HandleListener
 import io.github.inggameteam.inggame.minigame.base.game.event.GameJoinEvent
 import io.github.inggameteam.inggame.minigame.base.player.PTag
+import io.github.inggameteam.inggame.player.ContainerState
 import io.github.inggameteam.inggame.utils.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

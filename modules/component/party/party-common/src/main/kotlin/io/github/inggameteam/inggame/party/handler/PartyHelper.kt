@@ -8,6 +8,8 @@ import io.github.inggameteam.inggame.party.event.PartyDisbandEvent
 import io.github.inggameteam.inggame.party.event.PartyLeftEvent
 import io.github.inggameteam.inggame.party.event.PartyUpdateEvent
 import io.github.inggameteam.inggame.party.wrapper.*
+import io.github.inggameteam.inggame.player.JoinType
+import io.github.inggameteam.inggame.player.LeftType
 import io.github.inggameteam.inggame.player.container.ContainerHelperBase
 import io.github.inggameteam.inggame.utils.*
 import io.github.inggameteam.inggame.utils.ColorUtil.color

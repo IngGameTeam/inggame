@@ -4,7 +4,7 @@ import io.github.inggameteam.inggame.component.model.LocationModel
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
-import io.github.inggameteam.inggame.utils.ContainerState
+import io.github.inggameteam.inggame.player.ContainerState
 import org.bukkit.util.Vector
 
 

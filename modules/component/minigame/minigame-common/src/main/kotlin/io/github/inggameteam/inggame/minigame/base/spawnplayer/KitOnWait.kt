@@ -6,7 +6,7 @@ import io.github.inggameteam.inggame.component.wrapper.SimpleWrapper
 import io.github.inggameteam.inggame.component.wrapper.Wrapper
 import io.github.inggameteam.inggame.minigame.base.game.GameImp
 import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
-import io.github.inggameteam.inggame.utils.ContainerState
+import io.github.inggameteam.inggame.player.ContainerState
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import org.bukkit.event.EventHandler
 

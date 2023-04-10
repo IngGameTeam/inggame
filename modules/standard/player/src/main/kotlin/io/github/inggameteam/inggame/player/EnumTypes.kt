@@ -1,4 +1,4 @@
-package io.github.inggameteam.inggame.utils
+package io.github.inggameteam.inggame.player
 
 enum class JoinType {
     PLAY, SPECTATE;
