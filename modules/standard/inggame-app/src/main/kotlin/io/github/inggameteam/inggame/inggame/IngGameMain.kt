@@ -5,8 +5,6 @@ import io.github.inggameteam.inggame.component.componentservice.ComponentService
 import io.github.inggameteam.inggame.component.loader.ComponentLoader
 import io.github.inggameteam.inggame.component.loader.loadComponents
 import io.github.inggameteam.inggame.component.view.ComponentViewModule
-import io.github.inggameteam.inggame.item.ItemModule
-import io.github.inggameteam.inggame.player.PlayerModule
 import io.github.inggameteam.inggame.updateman.UpdateManModule
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
@@ -21,10 +19,8 @@ class IngGameMain {
     private fun loadApp(plugin: IngGamePlugin): Koin {
         return plugin.run {
             ComponentModule(this)
-            ItemModule(this)
             ComponentViewModule(this)
             UpdateManModule(this)
-            PlayerModule(this)
             koinApplication {
                 modules(module { single { plugin } bind IngGamePlugin::class })
                 listOfNotNull(

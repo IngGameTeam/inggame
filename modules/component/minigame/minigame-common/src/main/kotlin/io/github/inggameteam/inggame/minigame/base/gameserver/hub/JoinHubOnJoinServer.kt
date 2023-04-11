@@ -10,7 +10,7 @@ import io.github.inggameteam.inggame.minigame.component.GamePlayerService
 import io.github.inggameteam.inggame.player.PlayerInstanceService
 import io.github.inggameteam.inggame.player.handler.PlayerLoader
 import io.github.inggameteam.inggame.utils.IngGamePlugin
-import io.github.inggameteam.inggame.utils.JoinType
+import io.github.inggameteam.inggame.player.JoinType
 import io.github.inggameteam.inggame.utils.event.IngGamePluginEnableEvent
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.minigame.component
 
-import io.github.inggameteam.inggame.component.Layered
 import io.github.inggameteam.inggame.component.componentservice.LayeredComponentService
 import io.github.inggameteam.inggame.minigame.base.game.Game
 import io.github.inggameteam.inggame.minigame.base.gameserver.GameServer

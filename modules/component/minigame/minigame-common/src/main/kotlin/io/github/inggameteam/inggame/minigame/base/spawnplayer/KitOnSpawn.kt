@@ -11,12 +11,12 @@ import org.bukkit.event.EventHandler
 
 interface KitOnSpawn : Wrapper {
 
-    val kitOnSpawn: HashMap<String, InventoryModel>
+    val kitOnSpawn: InventoryModel
 
 }
 
 class KitOnSpawnImp(wrapper: Wrapper) : SimpleWrapper(wrapper), KitOnSpawn {
-    override val kitOnSpawn: HashMap<String, InventoryModel> by nonNull
+    override val kitOnSpawn: InventoryModel by nonNull
 }
 
 class KitOnSpawnHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
@@ -26,8 +26,7 @@ class KitOnSpawnHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
     fun onSpawn(event: GPlayerSpawnEvent) {
         val player = event.player
         if (isNotHandler(player)) return
-        val state = player[::GameImp].containerState.name
-        val kit = player[::KitOnSpawnImp].kitOnSpawn[state]?: return
+        val kit = player[::KitOnSpawnImp].kitOnSpawn
         player.inventory.contents = kit.inventory.contents
     }
 

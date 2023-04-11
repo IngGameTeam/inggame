@@ -1,7 +1,7 @@
 package io.github.inggameteam.inggame.minigame.base.game.event
 
 import io.github.inggameteam.inggame.minigame.base.player.GPlayer
-import io.github.inggameteam.inggame.utils.JoinType
+import io.github.inggameteam.inggame.player.JoinType
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList

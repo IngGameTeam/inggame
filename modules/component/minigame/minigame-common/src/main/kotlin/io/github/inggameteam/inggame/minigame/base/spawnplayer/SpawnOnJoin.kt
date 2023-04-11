@@ -5,9 +5,11 @@ import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.minigame.base.game.event.GameJoinEvent
 import io.github.inggameteam.inggame.utils.IngGamePlugin
 import io.github.inggameteam.inggame.utils.Listener
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 
+@Deprecated("not referenced")
 class SpawnOnJoin(val plugin: IngGamePlugin) : Handler, Listener(plugin) {
 
     @Suppress("unused")

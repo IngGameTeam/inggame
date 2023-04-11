@@ -1,4 +1,5 @@
 projectDependencies(
+    command,
     utils,
     component_common,
     item,

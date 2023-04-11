@@ -1,6 +1,5 @@
 package io.github.inggameteam.inggame.updateman
 
-import io.github.inggameteam.inggame.component.classOf
 import io.github.inggameteam.inggame.component.event.ComponentLoadEvent
 import io.github.inggameteam.inggame.component.event.newModule
 import io.github.inggameteam.inggame.component.loader.ComponentServiceType
