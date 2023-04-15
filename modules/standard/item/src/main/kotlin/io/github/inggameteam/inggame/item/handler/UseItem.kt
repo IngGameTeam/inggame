@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.item.wrapper.Item
 import io.github.inggameteam.inggame.item.wrapper.ItemImp
 import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
@@ -34,6 +35,7 @@ class UseItem(
     }
 
     private fun use(clickEvent: Cancellable, player: Player, itemStack: ItemStack, useType: ItemUseType) {
+        Bukkit.broadcastMessage("ItemUsed!")
         val itemEvent = ItemUseEvent(player, getItem(itemStack) ?: return, itemStack, useType)
         plugin.server.pluginManager.callEvent(itemEvent)
         if (itemEvent.isCancelled) clickEvent.isCancelled = true

@@ -10,7 +10,7 @@ import io.github.inggameteam.inggame.player.JoinType
 @Helper
 class GameChoosingMenuHelper(
     private val gameHelper: GameHelper,
-    val plugin: IngGamePlugin
+    private val plugin: IngGamePlugin
 ) {
 
     fun open(menu: GameChoosingMenu, player: GPlayer) {
