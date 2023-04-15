@@ -24,17 +24,13 @@ class TeleportOnStopHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
     @Suppress("unused")
     @EventHandler
     fun onGamePlayerSpawn(event: GPlayerSpawnEvent) {
-        Bukkit.broadcastMessage("TeleportOnStop.1")
         val player = event.player
         val game = player.joined[::SectionalImp]
         if (isNotHandler(game)) return
-        Bukkit.broadcastMessage("TeleportOnStop.2")
         if (game.containerState !== ContainerState.STOP) return
-        Bukkit.broadcastMessage("TeleportOnStop.3")
         val location = game[::TeleportOnStopImp].teleportOnStop
             ?.run { game.toRelative(this) }
             ?: return
-        Bukkit.broadcastMessage("TeleportOnStop.4")
         player.teleport(location)
     }
 
