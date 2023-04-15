@@ -36,9 +36,17 @@ class IngGameCommand(plugin: IngGamePlugin) {
                     val ms = measureTimeMillis { (plugin as IngGamePluginImp).save() }
                     source.sendMessage("Saved in ${ms}ms")
                 }
+                then("what-type") {
+                    tab { app.getAll<ComponentService>().map { it.name } }
+                    execute {
+                        if (!source.isOp) return@execute
+                        source.sendMessage(app.get<ComponentService>(named(args[0])).javaClass.simpleName)
+                    }
+                }
                 then("replace") {
                     tab { app.getAll<ComponentService>().map { it.name } }
                     execute {
+                        if (!source.isOp) return@execute
                         val split = args[1].split(" ")
                         val componentService = app.get<ComponentService>(named(split[0]))
                         val replaceOld = split[1]
@@ -55,6 +63,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                 then("remove") {
                     tab { app.getAll<ComponentService>().map { it.name } }
                     execute {
+                        if (!source.isOp) return@execute
                         val split = args[1].split(" ")
                         val componentService = app.get<ComponentService>(named(split[0]))
                         val replaceOld = split[1]
@@ -68,6 +77,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                 }
                 then("unload") {
                     execute {
+                        if (!source.isOp) return@execute
                         source.sendMessage("Unloading...")
                         PluginUtil.unload(this@run)
                         source.sendMessage("Unload done!")
@@ -76,6 +86,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                 then("performance-test") {
                     tab { app.getAll<ComponentService>().map { it.name } }
                     execute {
+                        if (!source.isOp) return@execute
                         val split = args[1].split(" ")
                         val componentService = app.get<ComponentService>(named(split[0]))
                         val nameSpace = split[1].run {
@@ -96,6 +107,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                 then("get") {
                     tab { app.getAll<ComponentService>().map { it.name } }
                     execute {
+                        if (!source.isOp) return@execute
                         val split = args[1].split(" ")
                         val componentService = app.get<ComponentService>(named(split[0]))
                         val nameSpace = split[1].run {
@@ -110,10 +122,12 @@ class IngGameCommand(plugin: IngGamePlugin) {
                     }
                 }
                 thenExecute("measure-time") {
+                    if (!source.isOp) return@thenExecute
                     val time = measureTimeMillis { player.performCommand(args[1]) }
                     player.sendMessage("${time}ms")
                 }
                 thenExecute("debug") {
+                    if (!source.isOp) return@thenExecute
                     val newDebug = !Debug.isDebug
                     if (newDebug) source.sendMessage("Now, Debug mode is ON")
                     else source.sendMessage("Now, Debug mode is OFF")
@@ -125,6 +139,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                         .map { it.name }
                     tab { getComponentServices() }
                     execute {
+                        if (!source.isOp) return@execute
                         if (!getComponentServices().contains(args[1])) {
                             source.sendMessage("Component Not Found")
                             return@execute
