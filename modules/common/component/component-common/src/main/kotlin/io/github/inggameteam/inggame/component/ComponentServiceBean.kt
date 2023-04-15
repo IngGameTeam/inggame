@@ -86,10 +86,11 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                     val parentName = this@run + parent
                                                     return registry.firstOrNull { it.name == parentName }
                                                         ?.also {
-                                                            this@appendLinked.parents.remove("handler")
-                                                            this@appendLinked.parents.remove("default")
-                                                            this@appendLinked.parents.remove(parentName)
-                                                            this@appendLinked.parents.add(parentName)
+                                                            this@appendLinked.parents.apply {
+                                                                removeAll(listOf("handler", "default"))
+                                                                remove(parentName)
+                                                                add(parentName)
+                                                            }
                                                         }
                                                         ?: this@appendLinked.cs(parentName, type = LINKED)
                                                             .apply {
@@ -99,7 +100,8 @@ class ComponentServiceBean(val plugin: IngGamePlugin) : Listener(plugin) {
                                                 }
 
                                                 var lastCS = this
-                                                parent.fastForEach { lastCS = lastCS.appendLinked(it) }
+                                                if (parent.isEmpty()) cs("handler")
+                                                else parent.fastForEach { lastCS = lastCS.appendLinked(it) }
                                             }
                                     }
                                     clazzModule.module.single {
