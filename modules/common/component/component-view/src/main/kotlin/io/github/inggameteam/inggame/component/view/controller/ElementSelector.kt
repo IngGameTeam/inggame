@@ -60,7 +60,7 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
         val prop = app.get<PropertyRegistry>().getProp(t.first.toString())
         val type = if (prop.type.singleClass.isInterface)
             try { componentService.find(nameSpace.name, t.first.toString(), Any::class)::class.createType() }
-            catch(e: Exception) { Bukkit.broadcastMessage("not found"); prop.type }
+            catch(e: Exception) { e.printStackTrace(); prop.type }
         else prop.type
         app.get<EditorRegistry>().getEditor(type, ElementViewImp(this, t), this)
             .open(event.whoClicked as Player)
