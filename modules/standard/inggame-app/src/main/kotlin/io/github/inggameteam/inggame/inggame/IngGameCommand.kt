@@ -40,7 +40,7 @@ class IngGameCommand(plugin: IngGamePlugin) {
                     tab { app.getAll<ComponentService>().map { it.name } }
                     execute {
                         if (!source.isOp) return@execute
-                        source.sendMessage(app.get<ComponentService>(named(args[0])).javaClass.simpleName)
+                        source.sendMessage(app.get<ComponentService>(named(args[1])).javaClass.simpleName)
                     }
                 }
                 then("replace") {
