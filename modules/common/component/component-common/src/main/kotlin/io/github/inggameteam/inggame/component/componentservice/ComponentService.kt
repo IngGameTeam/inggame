@@ -47,7 +47,8 @@ interface ComponentService {
     }
 
     fun sortParentsByPriority(parents: CopyOnWriteArraySet<Any>): CopyOnWriteArraySet<Any> {
-        return parents.map { Pair(it, findComponentService(it)) }
+        return parents
+            .mapNotNull { try { Pair(it, findComponentService(it)) } catch (_: Throwable) { null } }
             .sortedWith { o1, o2 -> o1.second.layerPriority.compareTo(o2.second.layerPriority) }
             .map { it.first }.run(::CopyOnWriteArraySet)
     }
