@@ -36,11 +36,17 @@ class IngGameCommand(plugin: IngGamePlugin) {
                     val ms = measureTimeMillis { (plugin as IngGamePluginImp).save() }
                     source.sendMessage("Saved in ${ms}ms")
                 }
-                then("what-type") {
+                then("info") {
                     tab { app.getAll<ComponentService>().map { it.name } }
                     execute {
                         if (!source.isOp) return@execute
-                        source.sendMessage(app.get<ComponentService>(named(args[1])).javaClass.simpleName)
+                        val csResult = app.get<ComponentService>(named(args[1]))
+                        source.sendMessage("""
+                            ${"-".repeat(30)}
+                            name=${csResult.name}(${csResult.javaClass.simpleName})
+                            parents=${csResult.parentComponent.name}
+                            ${"-".repeat(30)}
+                        """.trimIndent())
                     }
                 }
                 then("replace") {
