@@ -35,7 +35,6 @@ class UseItem(
     }
 
     private fun use(clickEvent: Cancellable, player: Player, itemStack: ItemStack, useType: ItemUseType) {
-        Bukkit.broadcastMessage("ItemUsed!")
         val itemEvent = ItemUseEvent(player, getItem(itemStack) ?: return, itemStack, useType)
         plugin.server.pluginManager.callEvent(itemEvent)
         if (itemEvent.isCancelled) clickEvent.isCancelled = true
