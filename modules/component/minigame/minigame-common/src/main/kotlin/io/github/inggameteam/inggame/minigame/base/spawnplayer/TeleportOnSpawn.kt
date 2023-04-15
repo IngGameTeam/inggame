@@ -27,15 +27,11 @@ class TeleportOnSpawnHandler(plugin: IngGamePlugin) : HandleListener(plugin) {
     fun onGamePlayerSpawn(event: GPlayerSpawnEvent) {
         val player = event.player
         val game = player.joined[::SectionalImp]
-        Bukkit.broadcastMessage("TeleportOnSpawn.1")
         if (isNotHandler(game)) return
-        Bukkit.broadcastMessage("TeleportOnSpawn.2")
         if (game.containerState !== ContainerState.PLAY) return
-        Bukkit.broadcastMessage("TeleportOnSpawn.3")
         val location = game[::TeleportOnSpawnImp].teleportOnSpawn
             ?.run { game.toRelative(this) }
             ?: return
-        Bukkit.broadcastMessage("TeleportOnSpawn.4")
         player.teleport(location)
     }
 
