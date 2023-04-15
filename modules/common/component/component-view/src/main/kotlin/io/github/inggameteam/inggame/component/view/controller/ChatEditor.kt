@@ -2,6 +2,7 @@ package io.github.inggameteam.inggame.component.view.controller
 
 import io.github.inggameteam.inggame.component.model.ActionComponent
 import io.github.inggameteam.inggame.component.model.AlertReceivingPlayer
+import io.github.inggameteam.inggame.utils.ColorUtil.color
 import io.github.inggameteam.inggame.utils.runNow
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.entity.Player
@@ -47,7 +48,7 @@ interface ChatEditor : Editor {
                         return@block
                     }
                     try {
-                        set(message)
+                        set(message.color())
                     } catch (_: Throwable) {
                         player.sendMessage(editor.VIEW_CANNOT_EDIT)
                         previousSelector?.open(player)
