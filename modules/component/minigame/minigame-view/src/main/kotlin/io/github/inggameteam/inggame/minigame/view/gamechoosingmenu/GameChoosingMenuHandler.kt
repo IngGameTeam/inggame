@@ -19,7 +19,7 @@ class GameChoosingMenuHandler(
     fun onUseItem(event: ItemUseEvent) {
         val item = event.item[::GameChoosingMenuImp]
         Bukkit.broadcastMessage("ItemUsed.1")
-        Bukkit.broadcastMessage(item.nameSpace.toString())
+        Bukkit.broadcastMessage(item.component.name .toString())
         if (isNotHandler(item)) return
         Bukkit.broadcastMessage("ItemUsed.2")
         val player = gamePlayerService[event.player.uniqueId, ::GPlayer]
