@@ -72,13 +72,9 @@ class SoloCompetitionHandler(
         val winners = joinedPlayers.hasNoTags(PTag.DEAD).hasTags(PTag.PLAY)
         val dieToReady = joinedPlayers.hasTags(PTag.DEAD, PTag.PLAY)
         if (winners.isEmpty() && dieToReady.size == 1)
-            joinedPlayers.forEach { p -> p[::GameAlertImp].GAME_DRAW_HAS_WINNER.send(p, dieToReady,
-                containerName
-            ) }
+            joinedPlayers.forEach { p -> p[::GameAlertImp].GAME_DRAW_HAS_WINNER.send(p, dieToReady, containerName) }
         else if (winners.isEmpty()) {
-            joinedPlayers.forEach { p -> p[::GameAlertImp].GAME_DRAW_NO_WINNER.send(p, dieToReady,
-                containerName
-            ) }
+            joinedPlayers.forEach { p -> p[::GameAlertImp].GAME_DRAW_NO_WINNER.send(p, containerName) }
         } else {
             joinedPlayers.forEach { p -> p[::GameAlertImp].SINGLE_WINNER.send(p, dieToReady, containerName) }
         }

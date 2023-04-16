@@ -9,6 +9,7 @@ import io.github.inggameteam.inggame.item.wrapper.Item
 import io.github.inggameteam.inggame.item.wrapper.ItemImp
 import io.github.inggameteam.inggame.utils.Helper
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
@@ -19,7 +20,6 @@ import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 
-@Helper
 class UseItem(
     private val itemResource: ItemResource,
     val plugin: IngGamePlugin

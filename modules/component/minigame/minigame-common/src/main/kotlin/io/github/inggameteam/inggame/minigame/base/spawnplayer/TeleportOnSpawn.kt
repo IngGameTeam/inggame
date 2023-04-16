@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.minigame.base.game.event.GPlayerSpawnEvent
 import io.github.inggameteam.inggame.minigame.base.sectional.SectionalImp
 import io.github.inggameteam.inggame.player.ContainerState
 import io.github.inggameteam.inggame.utils.IngGamePlugin
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 
 interface TeleportOnSpawn : Wrapper {

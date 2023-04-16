@@ -8,6 +8,7 @@ import io.github.inggameteam.inggame.component.view.entity.ElementViewImp
 import io.github.inggameteam.inggame.component.view.entity.ModelViewImp
 import io.github.inggameteam.inggame.component.view.entity.NameSpaceView
 import io.github.inggameteam.inggame.utils.singleClass
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -58,7 +59,8 @@ class ElementSelector(nameSpaceView: NameSpaceView, override val parentSelector:
     override fun select(t: Pair<Any, Any>, event: InventoryClickEvent) {
         val prop = app.get<PropertyRegistry>().getProp(t.first.toString())
         val type = if (prop.type.singleClass.isInterface)
-            try { componentService.find(nameSpace.name, t.first.toString(), Any::class)::class.createType() } catch(e: Exception) { prop.type }
+            try { componentService.find(nameSpace.name, t.first.toString(), Any::class)::class.createType() }
+            catch(e: Exception) { prop.type }
         else prop.type
         app.get<EditorRegistry>().getEditor(type, ElementViewImp(this, t), this)
             .open(event.whoClicked as Player)
