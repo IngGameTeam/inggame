@@ -59,6 +59,7 @@ class BuildBattle(plugin: GamePlugin) : Game, CompetitionImpl(plugin),
         Material.CHEST_MINECART,
         Material.COMMAND_BLOCK_MINECART,
         Material.HOPPER_MINECART,
+        Material.CHORUS_FRUIT
     )
     val doneTime get() = comp.doubleOrNull("done-time")?: (20.0 * 100.0)
     val voteTime get() = comp.doubleOrNull("vote-time")?: 100.0
