@@ -6,9 +6,9 @@
       cd ..
   }
 
-#  plugin IntellectualSites/FastAsyncWorldEdit FastAsyncWorldEdit-Bukkit
-#  plugin ViaVersion/ViaVersion ViaVersion
-#  plugin ViaVersion/ViaBackwards ViaBackwards
+  plugin IntellectualSites/FastAsyncWorldEdit FastAsyncWorldEdit-Bukkit
+  plugin ViaVersion/ViaVersion ViaVersion
+  plugin ViaVersion/ViaBackwards ViaBackwards
 
 # Mirai
 #  wget -O server.jar https://ci.codemc.io/job/etil2jz/job/Mirai-1.19/lastSuccessfulBuild/artifact/build/libs/mirai-paperclip-1.19.2-R0.1-SNAPSHOT-reobf.jar
