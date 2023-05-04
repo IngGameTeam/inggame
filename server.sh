@@ -26,4 +26,4 @@
 rm -r customized_game_world
 git stash
 git stash drop
-java -Xms12G -Xmx12G -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -jar --add-modules jdk.incubator.vector server.jar
+java -Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -jar --add-modules jdk.incubator.vector server.jar
