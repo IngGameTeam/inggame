@@ -98,18 +98,18 @@ class GameRegister(
     }
 
     fun newAllocatable(world: World): Sector {
-        val list = filter(Game::isAllocated).map(Game::point).filter { it.worldOrNull == world }.toSet()
-        val line = sqrt(newSector.toDouble()).toInt() + 1
-        var x = 1
-        while (x <= line) {
-            var z = 1
-            while (z <= line) {
-                if (!list.any { it.equals(x, z) }) return Sector(x, z, world)
-                z++
-            }
-            x++
-        }
-        return Sector(1, 1, world)
+//        val list = filter(Game::isAllocated).map(Game::point).filter { it.worldOrNull == world }.toSet()
+//        val line = sqrt(newSector.toDouble()).toInt() + 1
+//        var x = 1
+//        while (x <= line) {
+//            var z = 1
+//            while (z <= line) {
+//                if (!list.any { it.equals(x, z) }) return Sector(x, z, world)
+//                z++
+//            }
+//            x++
+//        }
+        return Sector(1, newSector, world)
     }
 
 
