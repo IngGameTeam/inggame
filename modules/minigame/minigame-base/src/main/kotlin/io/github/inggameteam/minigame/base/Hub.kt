@@ -9,6 +9,8 @@ import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
 import kotlin.concurrent.thread
 
+var once = false
+
 open class Hub(plugin: GamePlugin) : SectionalImpl(plugin), FireTicksOffOnSpawn {
 
 
@@ -22,6 +24,8 @@ open class Hub(plugin: GamePlugin) : SectionalImpl(plugin), FireTicksOffOnSpawn 
     override fun requestJoin(gPlayer: GPlayer, joinType: JoinType, sendMessage: Boolean) = true
     override fun unloadSector() = Unit
     override fun loadSector(key: String) {
+        if (once) return
+        once = true
         val height = plugin.gameRegister.sectorHeight
         val width = plugin.gameRegister.sectorWidth
         val x = width * point.x
