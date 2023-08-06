@@ -131,7 +131,7 @@ class Plugin : GamePluginImpl(
         AdvancedHandyGun(this)
         NoCraftInteract(this)
 
-        RestServer(this)
+//        RestServer(this)
 
 //        worldName.forEach { worldName ->
 //            Chunky(Location(Bukkit.getWorld(worldName),
