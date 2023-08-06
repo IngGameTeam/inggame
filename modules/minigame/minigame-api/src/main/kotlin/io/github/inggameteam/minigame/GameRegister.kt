@@ -27,8 +27,6 @@ class GameRegister(
     private val sectorFactory = AtomicInteger()
     private val newSector get() = sectorFactory.getAndAdd(1)
 
-
-
     init {
         Bukkit.getPluginManager().registerEvents(this, plugin)
     }
@@ -101,7 +99,7 @@ class GameRegister(
 
     fun newAllocatable(world: World): Sector {
         val list = filter(Game::isAllocated).map(Game::point).filter { it.worldOrNull == world }.toSet()
-        val line = sqrt(list.size.toDouble()).toInt() + 1
+        val line = sqrt(newSector.toDouble()).toInt() + 1
         var x = 1
         while (x <= line) {
             var z = 1
