@@ -112,7 +112,7 @@ class Plugin : GamePluginImpl(
         HideJoinLeaveMessage(this)
         ArrowStuckPreventHandler(this)
         DisableCollision(this)
-        AutoUpdater(this)
+//        AutoUpdater(this)
         RewardVote(this, user, votes)
         NoUnderWaterFall(this)
         AttackSpeed(this)
