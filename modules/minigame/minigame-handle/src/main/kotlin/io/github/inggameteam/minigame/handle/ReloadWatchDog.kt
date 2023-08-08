@@ -15,7 +15,7 @@ class ReloadWatchDog(plugin: IngGamePlugin) {
                 {
                     try {
                         //PluginUtil.reload(plugin)
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mg reload")
+//                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mg reload")
                     } catch(_: ClassNotFoundException) {
                         //PlugManX does not exist
                     }
