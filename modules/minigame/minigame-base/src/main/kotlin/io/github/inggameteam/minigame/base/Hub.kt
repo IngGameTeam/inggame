@@ -11,7 +11,7 @@ var once = false
 open class Hub(plugin: GamePlugin) : SectionalImpl(plugin), FireTicksOffOnSpawn {
 
     override val point: Sector
-        get() = Sector(0, 0, world)
+        get() = Sector(1, 1, world)
 
     override fun stop(force: Boolean, leftType: LeftType) = Unit
     override var gameState
