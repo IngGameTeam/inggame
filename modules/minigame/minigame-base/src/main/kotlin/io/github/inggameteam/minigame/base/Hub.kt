@@ -1,9 +1,6 @@
 package io.github.inggameteam.minigame.base
 
-import io.github.inggameteam.minigame.GamePlugin
-import io.github.inggameteam.minigame.GameState
-import io.github.inggameteam.minigame.JoinType
-import io.github.inggameteam.minigame.LeftType
+import io.github.inggameteam.minigame.*
 import io.github.inggameteam.player.GPlayer
 import io.github.inggameteam.world.FaweImpl
 import org.bukkit.Location
@@ -13,6 +10,8 @@ var once = false
 
 open class Hub(plugin: GamePlugin) : SectionalImpl(plugin), FireTicksOffOnSpawn {
 
+    override val point: Sector
+        get() = Sector(0, 0, world)
 
     override fun stop(force: Boolean, leftType: LeftType) = Unit
     override var gameState
