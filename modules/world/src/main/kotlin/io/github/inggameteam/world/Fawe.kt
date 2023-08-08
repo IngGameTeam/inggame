@@ -3,6 +3,7 @@ package io.github.inggameteam.world
 import com.fastasyncworldedit.core.FaweAPI
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
+import io.papermc.lib.PaperLib
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.plugin.Plugin
