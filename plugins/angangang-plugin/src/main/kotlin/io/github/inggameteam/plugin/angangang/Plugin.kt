@@ -106,7 +106,7 @@ class Plugin : GamePluginImpl(
         RewardWinnerThePoint(this, user)
         MinigameCommand(this)
         ModeratePointAmountCommand(this, user)
-//        ReloadWatchDog(this)
+        ReloadWatchDog(this)
         NoHunger(this, worldName)
         HandleDeath(this)
         HideJoinLeaveMessage(this)
