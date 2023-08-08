@@ -75,7 +75,7 @@ allprojects {
         compileOnly("io.javalin:javalin:5.1.3")
 //        compileOnly(group = "org.popcraft", name = "chunky-common", version = "1.3.38")
         compileOnly("org.xerial:sqlite-jdbc:3.30.1")
-
+        implementation("io.papermc:paperlib:1.0.7")
     }
 
 }
